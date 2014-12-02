@@ -1,0 +1,19 @@
+#! /bin/bash
+
+BUILDROOT=`pwd`
+
+export GOPATH=$BUILDROOT/gopath
+export GOBIN=$GOPATH/bin
+
+REPO_PATH=$BUILDROOT/earthquake
+
+go get -u code.google.com/p/goprotobuf/protoc-gen-go
+go get github.com/sevlyar/go-daemon
+
+EQUTILS_PATH=$BUILDROOT/earthquake/equtils
+protoc --go_out=$EQUTILS_PATH -I$EQUTILS_PATH $EQUTILS_PATH/*.proto
+protoc --go_out=$EQUTILS_PATH -I$BUILDROOT/inspector $BUILDROOT/inspector/*.proto
+
+pushd earthquake
+go build
+popd

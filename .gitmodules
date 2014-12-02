@@ -1,0 +1,8 @@
+[submodule "inspector/c/llvm/clang.git"]
+	path = inspector/c/llvm/clang.git
+	url = https://github.com/llvm-mirror/clang.git
+	branch = release_35
+[submodule "inspector/c/llvm/llvm.git"]
+	path = inspector/c/llvm/llvm.git
+	url = https://github.com/llvm-mirror/llvm.git
+	branch = release_35

@@ -1,0 +1,14 @@
+.PHONY: echoserv
+echoserv: echoserv.o helper.o
+	cp ../../embed/eq_embed.so .
+	gcc -o echoserv echoserv.o helper.o ./eq_embed.so -Wall
+
+echoserv.o: echoserv.c helper.h
+	gcc -o echoserv.o echoserv.c -c -ansi -pedantic -Wall
+
+helper.o: helper.c helper.h
+	gcc -o helper.o helper.c -c -ansi -pedantic -Wall
+
+.PHONY: inspect
+inspect:
+	../../llvm/ninja_build/bin/eq_c_inspector -p . -inspection-list-path=`pwd`/echo_inspection.json echoserv.c
