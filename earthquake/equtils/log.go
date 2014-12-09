@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"os"
 	"runtime"
-	"sync"
 	"time"
 )
 
@@ -34,7 +33,6 @@ const (
 var (
 	use_stdout = false
 	dst_file   *os.File
-	logMutex   *sync.Mutex
 )
 
 func Log(format string, v ...interface{}) {
@@ -43,20 +41,14 @@ func Log(format string, v ...interface{}) {
 	_, file, line, _ := runtime.Caller(1)
 	timestr := time.Now().String()
 
-	logMutex.Lock()
-
 	if dst_file != nil {
 		fmt.Fprintf(dst_file, "%s %s(%d): %s\n", timestr, file, line, formatted)
 	} else {
 		fmt.Printf("%s %s(%d): %s\n", timestr, file, line, formatted)
 	}
-
-	logMutex.Unlock()
 }
 
 func InitLog(path string) {
-	logMutex = &sync.Mutex{}
-
 	if path == "" {
 		return
 	}
