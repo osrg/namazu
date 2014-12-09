@@ -32,7 +32,7 @@ message I2GMsgReq_Event {
 };
 
 message I2GMsgReq_Initiation {
-  required string nodeId = 1;
+  required string processId = 1;
 };
 
 message I2GMsgReq {
@@ -41,7 +41,7 @@ message I2GMsgReq {
     INITIATION = 2;
   };
 
-  required string node_id = 1;
+  required string process_id = 1;
   required Type type = 2;
 
   required int32 pid = 3;

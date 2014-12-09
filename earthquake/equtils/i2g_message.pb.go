@@ -164,7 +164,7 @@ func (m *I2GMsgReq_Event) GetFuncCall() *I2GMsgReq_Event_FuncCall {
 }
 
 type I2GMsgReq_Initiation struct {
-	NodeId           *string `protobuf:"bytes,1,req,name=nodeId" json:"nodeId,omitempty"`
+	ProcessId        *string `protobuf:"bytes,1,req,name=processId" json:"processId,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
 
@@ -172,15 +172,15 @@ func (m *I2GMsgReq_Initiation) Reset()         { *m = I2GMsgReq_Initiation{} }
 func (m *I2GMsgReq_Initiation) String() string { return proto.CompactTextString(m) }
 func (*I2GMsgReq_Initiation) ProtoMessage()    {}
 
-func (m *I2GMsgReq_Initiation) GetNodeId() string {
-	if m != nil && m.NodeId != nil {
-		return *m.NodeId
+func (m *I2GMsgReq_Initiation) GetProcessId() string {
+	if m != nil && m.ProcessId != nil {
+		return *m.ProcessId
 	}
 	return ""
 }
 
 type I2GMsgReq struct {
-	NodeId           *string               `protobuf:"bytes,1,req,name=node_id" json:"node_id,omitempty"`
+	ProcessId        *string               `protobuf:"bytes,1,req,name=process_id" json:"process_id,omitempty"`
 	Type             *I2GMsgReq_Type       `protobuf:"varint,2,req,name=type,enum=equtils.I2GMsgReq_Type" json:"type,omitempty"`
 	Pid              *int32                `protobuf:"varint,3,req,name=pid" json:"pid,omitempty"`
 	Tid              *int32                `protobuf:"varint,4,req,name=tid" json:"tid,omitempty"`
@@ -195,9 +195,9 @@ func (m *I2GMsgReq) Reset()         { *m = I2GMsgReq{} }
 func (m *I2GMsgReq) String() string { return proto.CompactTextString(m) }
 func (*I2GMsgReq) ProtoMessage()    {}
 
-func (m *I2GMsgReq) GetNodeId() string {
-	if m != nil && m.NodeId != nil {
-		return *m.NodeId
+func (m *I2GMsgReq) GetProcessId() string {
+	if m != nil && m.ProcessId != nil {
+		return *m.ProcessId
 	}
 	return ""
 }

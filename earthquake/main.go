@@ -34,7 +34,7 @@ type guestAgentFlags struct {
 	Debug         bool
 	Daemonize     bool
 	LogFilePath   string
-	NodeID        string
+	MachineID     string
 	ListenTCPPort int
 }
 
@@ -66,7 +66,7 @@ func init() {
 	guestAgentFlagset.BoolVar(&_guestAgentFlags.Debug, "debug", false, "Debug mode")
 	guestAgentFlagset.BoolVar(&_guestAgentFlags.Daemonize, "daemonize", true, "Daemonize")
 	guestAgentFlagset.StringVar(&_guestAgentFlags.LogFilePath, "log-file-path", "/var/log/earthquake.log", "Path of log file")
-	guestAgentFlagset.StringVar(&_guestAgentFlags.NodeID, "node-id", "", "ID of this node")
+	guestAgentFlagset.StringVar(&_guestAgentFlags.MachineID, "machine-id", "", "ID of this machine")
 	guestAgentFlagset.IntVar(&_guestAgentFlags.ListenTCPPort, "listen-tcp-port", 10000, "TCP Port to listen on")
 }
 

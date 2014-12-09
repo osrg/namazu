@@ -32,12 +32,12 @@ type executionGlobalFlags struct {
 	// there's no guest agents and VMs
 }
 
-type NodeState int
+type ProcessState int
 
 const (
-	NODE_STATE_CONNECTED NodeState = 1 // before initiation, FIXME: it is not suitable for non direct mode
-	NODE_STATE_READY     NodeState = 2 // initiation completed
-	NODE_STATE_DEAD      NodeState = 3 // dead, connection closed
+	PROCESS_STATE_CONNECTED ProcessState = 1 // before initiation, FIXME: it is not suitable for non direct mode
+	PROCESS_STATE_READY     ProcessState = 2 // initiation completed
+	PROCESS_STATE_DEAD      ProcessState = 3 // dead, connection closed
 )
 
 type machine struct {
@@ -53,10 +53,10 @@ type machine struct {
 	eventReqRecv chan *I2GMsgReq
 	eventRspSend chan *I2GMsgRsp
 
-	nodes []*node
+	processes []*process
 }
 
-type node struct {
+type process struct {
 	exe *execution
 
 	id  string
@@ -65,7 +65,7 @@ type node struct {
 	machineID string // only for non direct mode
 
 	conn  net.Conn
-	state NodeState
+	state ProcessState
 
 	startExecution chan interface{}
 	endExecution   chan interface{}
@@ -79,7 +79,7 @@ type node struct {
 }
 
 type executionUnitState struct {
-	nodeId string
+	processId string
 
 	eventType  string
 	eventParam interface{}
@@ -101,7 +101,7 @@ type execution struct {
 	globalFlags executionGlobalFlags
 
 	machines []*machine
-	nodes    []*node
+	processes    []*process
 	sequence executionSequence
 
 	initiationCompletion chan int
@@ -150,41 +150,41 @@ func parseExecutionFile(path string) *execution {
 		}
 	}
 
-	nodes := root["nodes"].([]interface{})
+	processes := root["processes"].([]interface{})
 
-	for _, _node := range nodes {
-		id := _node.(map[string]interface{})["id"].(string)
+	for _, _process := range processes {
+		id := _process.(map[string]interface{})["id"].(string)
 
-		for _, existNode := range exe.nodes {
-			if id == existNode.id {
-				Panic("Node ID: %s is duplicated", id)
+		for _, existProcess := range exe.processes {
+			if id == existProcess.id {
+				Panic("Process ID: %s is duplicated", id)
 			}
 		}
 
-		newNode := node{
+		newProcess := process{
 			id: id,
 		}
 
 		if exe.globalFlags.direct == 0 {
-			newNode.machineID = _node.(map[string]interface{})["machineID"].(string)
+			newProcess.machineID = _process.(map[string]interface{})["machineID"].(string)
 
 			appended := false
 			for _, m := range exe.machines {
-				if m.id != newNode.machineID {
+				if m.id != newProcess.machineID {
 					continue
 				}
 
-				m.nodes = append(m.nodes, &newNode)
+				m.processes = append(m.processes, &newProcess)
 				appended = true
 				break
 			}
 
 			if !appended {
-				Log("invalid machine ID: %s of node: %s", newNode.machineID, newNode.id)
+				Log("invalid machine ID: %s of process: %s", newProcess.machineID, newProcess.id)
 			}
 		}
 
-		exe.nodes = append(exe.nodes, &newNode)
+		exe.processes = append(exe.processes, &newProcess)
 	}
 
 	sequence := root["executionSequence"].([]interface{})
@@ -197,11 +197,11 @@ func parseExecutionFile(path string) *execution {
 
 		for _, _state := range states {
 			state := _state.(map[string]interface{})
-			nodeId := state["nodeId"].(string)
+			processId := state["processId"].(string)
 
 			for _, s := range newUnitStates {
-				if s.nodeId == nodeId {
-					Panic("Node ID: %s is duplicated in single executionUnitState", nodeId)
+				if s.processId == processId {
+					Panic("Process ID: %s is duplicated in single executionUnitState", processId)
 				}
 			}
 
@@ -210,7 +210,7 @@ func parseExecutionFile(path string) *execution {
 			param := event["eventParam"].(interface{})
 
 			newUnitState := executionUnitState{
-				nodeId:     nodeId,
+				processId:     processId,
 				eventType:  typ,
 				eventParam: param,
 			}
@@ -235,18 +235,18 @@ func parseExecutionFile(path string) *execution {
 	return exe
 }
 
-func handleNode(n *node) {
+func handleProcess(n *process) {
 	if n.exe.globalFlags.direct == 1 {
 		req := <-n.eventReqRecv
 
 		if *req.Type != I2GMsgReq_INITIATION {
-			Log("invalid message during initiation (node index: %d)", n.idx)
+			Log("invalid message during initiation (process index: %d)", n.idx)
 			os.Exit(1)
 		}
 
 		initiationReq := req.Initiation
-		Log("Node %s is initiating...", *initiationReq.NodeId)
-		n.id = *initiationReq.NodeId
+		Log("Process %s is initiating...", *initiationReq.ProcessId)
+		n.id = *initiationReq.ProcessId
 
 		result := I2GMsgRsp_ACK
 		req_msg_id := *req.MsgId
@@ -257,12 +257,12 @@ func handleNode(n *node) {
 
 		n.eventRspSend <- rsp
 
-		Log("initiation of node %s succeed (handler part)", n.id)
+		Log("initiation of process %s succeed (handler part)", n.id)
 		exe.initiationCompletion <- n.idx
 	}
 
 	<-n.startExecution
-	Log("start execution of node %s", n.id)
+	Log("start execution of process %s", n.id)
 
 	recvCh := make(chan bool)
 
@@ -281,11 +281,11 @@ func handleNode(n *node) {
 		select {
 		case <-recvCh:
 			if *req.Type != I2GMsgReq_EVENT {
-				Log("invalid message from node %s, type: %d", n.id, *req.Type)
+				Log("invalid message from process %s, type: %d", n.id, *req.Type)
 				os.Exit(1)
 			}
 
-			Log("event message received from node %s", n.id)
+			Log("event message received from process %s", n.id)
 			var gaMsgId int32
 			if n.exe.globalFlags.direct == 0 {
 				gaMsgId = *req.GaMsgId
@@ -310,9 +310,9 @@ func handleNode(n *node) {
 			}
 
 			n.eventRspSend <- rsp
-			Log("replied to the event message from node %s", n.id)
+			Log("replied to the event message from process %s", n.id)
 		case <-n.endExecution:
-			Log("goroutine of node: %s received end message from main goroutine", n.id)
+			Log("goroutine of process: %s received end message from main goroutine", n.id)
 
 			result := I2GMsgRsp_END
 			rsp := &I2GMsgRsp{
@@ -321,10 +321,10 @@ func handleNode(n *node) {
 
 			n.eventRspSend <- rsp
 
-			Log("sent end message to node: %s", n.id)
+			Log("sent end message to process: %s", n.id)
 			n.endCompletion <- true
 
-			Log("inspection end (node: %s)", n.id)
+			Log("inspection end (process: %s)", n.id)
 			return
 		}
 
@@ -356,29 +356,29 @@ func doAction(action executionUnitAction) {
 }
 
 func runExecution() {
-	for _, n := range exe.nodes {
-		Log("starting execution of node %s", n.id)
+	for _, n := range exe.processes {
+		Log("starting execution of process %s", n.id)
 		n.startExecution <- true
 	}
-	Log("all nodes started")
+	Log("all processes started")
 
 	for uNumber, u := range exe.sequence {
 		Log("starting unit %d", uNumber)
 
-		pendingNodes := make([]*node, 0)
+		pendingProcesses := make([]*process, 0)
 
 		states := u.states
 		nrWaitingStates := len(states)
 		Log("nrWaitingStates: %d", nrWaitingStates)
 		for nrWaitingStates != 0 {
 			nIdx := <-exe.eventArrive
-			n := exe.nodes[nIdx]
+			n := exe.processes[nIdx]
 
 			found := false
 
 			state := (*executionUnitState)(nil)
 			for _, s := range states {
-				if s.nodeId != n.id {
+				if s.processId != n.id {
 					continue
 				}
 
@@ -398,13 +398,13 @@ func runExecution() {
 				continue
 			}
 
-			pendingNodes = append(pendingNodes, n)
+			pendingProcesses = append(pendingProcesses, n)
 			nrWaitingStates--
 		}
 
 		doAction(u.action)
 
-		for _, n := range pendingNodes {
+		for _, n := range pendingProcesses {
 			n.gotoNext <- true
 		}
 
@@ -412,18 +412,18 @@ func runExecution() {
 	}
 
 	Log("sending end notification to goroutines")
-	for _, n := range exe.nodes {
+	for _, n := range exe.processes {
 		n.endExecution <- true
 	}
 
 	Log("gathering end completion notification from goroutines")
 	nrEnded := int32(0)
 	fin := make(chan interface{})
-	for _, n := range exe.nodes {
+	for _, n := range exe.processes {
 		go func() {
 			<-n.endCompletion
 			atomic.AddInt32(&nrEnded, 1)
-			if int(nrEnded) == len(exe.nodes) {
+			if int(nrEnded) == len(exe.processes) {
 				fin <- true
 			}
 		}()
@@ -504,11 +504,11 @@ func waitMachines() {
 	Log("all machines initiated")
 }
 
-func waitNodesDirect(exe *execution) {
-	nodes := exe.nodes
+func waitProcessesDirect(exe *execution) {
+	processes := exe.processes
 
-	for nrAccepted := 0; nrAccepted < len(nodes); nrAccepted++ {
-		n := nodes[nrAccepted]
+	for nrAccepted := 0; nrAccepted < len(processes); nrAccepted++ {
+		n := processes[nrAccepted]
 
 		conn, aerr := exe.directListen.Accept()
 		if aerr != nil {
@@ -520,7 +520,7 @@ func waitNodesDirect(exe *execution) {
 		n.conn = conn
 
 		n.idx = nrAccepted
-		n.state = NODE_STATE_CONNECTED
+		n.state = PROCESS_STATE_CONNECTED
 		n.startExecution = make(chan interface{})
 		n.endExecution = make(chan interface{})
 		n.endCompletion = make(chan interface{})
@@ -537,11 +537,11 @@ func waitNodesDirect(exe *execution) {
 
 				rerr := RecvMsg(n.conn, req)
 				if rerr != nil {
-					Log("failed to recieve request (node index: %d): %s", n.idx, rerr)
+					Log("failed to recieve request (process index: %d): %s", n.idx, rerr)
 					return // TODO: error handling
 				}
 
-				Log("received message from node idx :%d", n.idx)
+				Log("received message from process idx :%d", n.idx)
 				n.eventReqRecv <- req
 			}
 		}()
@@ -551,21 +551,21 @@ func waitNodesDirect(exe *execution) {
 				rsp := <-n.eventRspSend
 				serr := SendMsg(n.conn, rsp)
 				if serr != nil {
-					Log("failed to send response (node index: %d): %s", n.idx, serr)
+					Log("failed to send response (process index: %d): %s", n.idx, serr)
 					return // TODO: error handling
 				}
 			}
 		}()
 
-		go handleNode(n)
+		go handleProcess(n)
 	}
 
-	Log("all nodes are accepted, waiting initiation...")
+	Log("all processes are accepted, waiting initiation...")
 
-	for nrInitiated := 0; nrInitiated < len(nodes); nrInitiated++ {
+	for nrInitiated := 0; nrInitiated < len(processes); nrInitiated++ {
 		initiatedIdx := <-exe.initiationCompletion
-		nodes[initiatedIdx].state = NODE_STATE_READY
-		Log("initiation of node: %s succeed", nodes[initiatedIdx].id)
+		processes[initiatedIdx].state = PROCESS_STATE_READY
+		Log("initiation of process: %s succeed", processes[initiatedIdx].id)
 	}
 }
 
@@ -585,17 +585,17 @@ func runMachineProxy(exe *execution) {
 				Log("received message from machine: %s", m.id)
 
 				sent := false
-				for _, node := range m.nodes {
-					if node.id != *req.NodeId {
+				for _, process := range m.processes {
+					if process.id != *req.ProcessId {
 						continue
 					}
 
-					if node.state == NODE_STATE_CONNECTED {
-						Log("before initiation (%s), sending to machine proxy", node.id)
+					if process.state == PROCESS_STATE_CONNECTED {
+						Log("before initiation (%s), sending to machine proxy", process.id)
 						m.eventReqRecv <- req
 					} else {
-						Log("sending message to %s", node.id)
-						node.eventReqRecv <- req
+						Log("sending message to %s", process.id)
+						process.eventReqRecv <- req
 					}
 
 					sent = true
@@ -603,7 +603,7 @@ func runMachineProxy(exe *execution) {
 				}
 
 				if !sent {
-					Log("invalid destination node: %s from machine: %s", *req.NodeId, m.id)
+					Log("invalid destination process: %s from machine: %s", *req.ProcessId, m.id)
 					os.Exit(1)
 				}
 			}
@@ -622,37 +622,37 @@ func runMachineProxy(exe *execution) {
 	}
 }
 
-func waitNodesNoDirect(exe *execution) {
+func waitProcessesNoDirect(exe *execution) {
 	for i := 0; i < len(exe.machines); i++ {
 		m := exe.machines[i]
 
-		for _, n := range m.nodes {
-			// it must be initialized before returning of waitNodesNoDirect()
+		for _, n := range m.processes {
+			// it must be initialized before returning of waitProcessesNoDirect()
 			n.startExecution = make(chan interface{})
 		}
 
 		go func() {
-			for nrInitiated := 0; nrInitiated < len(m.nodes); nrInitiated++ {
+			for nrInitiated := 0; nrInitiated < len(m.processes); nrInitiated++ {
 				req := <-m.eventReqRecv
 
 				found := false
-				node := (*node)(nil)
-				for idx, n := range exe.nodes {
-					if n.id != *req.NodeId {
+				process := (*process)(nil)
+				for idx, n := range exe.processes {
+					if n.id != *req.ProcessId {
 						continue
 					}
 
 					found = true
-					node = exe.nodes[idx]
+					process = exe.processes[idx]
 				}
 
 				if !found {
-					Log("invalid node is joining to execution: %s", *req.NodeId)
+					Log("invalid process is joining to execution: %s", *req.ProcessId)
 					os.Exit(1)
 				}
 
-				switch node.state {
-				case NODE_STATE_CONNECTED:
+				switch process.state {
+				case PROCESS_STATE_CONNECTED:
 					// do initiation here
 
 					result := I2GMsgRsp_ACK
@@ -665,37 +665,37 @@ func waitNodesNoDirect(exe *execution) {
 
 					m.eventRspSend <- rsp
 
-					node.state = NODE_STATE_READY
-					node.endExecution = make(chan interface{})
-					node.endCompletion = make(chan interface{})
-					node.eventReqToMain = make(chan *I2GMsgReq_Event)
-					node.gotoNext = make(chan interface{})
-					node.eventReqRecv = make(chan *I2GMsgReq)
-					node.eventRspSend = make(chan *I2GMsgRsp)
-					node.exe = exe
+					process.state = PROCESS_STATE_READY
+					process.endExecution = make(chan interface{})
+					process.endCompletion = make(chan interface{})
+					process.eventReqToMain = make(chan *I2GMsgReq_Event)
+					process.gotoNext = make(chan interface{})
+					process.eventReqRecv = make(chan *I2GMsgReq)
+					process.eventRspSend = make(chan *I2GMsgRsp)
+					process.exe = exe
 
 					go func() {
 						for {
-							rsp := <-node.eventRspSend
+							rsp := <-process.eventRspSend
 							Log("forwarding message to machine")
 							m.eventRspSend <- rsp
 						}
 					}()
 
-					go handleNode(node)
+					go handleProcess(process)
 
-					m.nodes = append(m.nodes, node)
-				case NODE_STATE_READY:
+					m.processes = append(m.processes, process)
+				case PROCESS_STATE_READY:
 					Log("guestagent or inspector is buggy")
 					os.Exit(1)
 
-				case NODE_STATE_DEAD:
+				case PROCESS_STATE_DEAD:
 					// is this correct?
 					Log("guestagent or inspector is buggy")
 					os.Exit(1)
 
 				default:
-					Log("invalid state of node: %d", node.state)
+					Log("invalid state of process: %d", process.state)
 					os.Exit(1)
 				}
 			}
@@ -718,12 +718,12 @@ func launchOrchestrator(flags orchestratorFlags) {
 		Log("run in non direct mode (with VMs)")
 		waitMachines()
 
-		for i, n := range exe.nodes {
+		for i, n := range exe.processes {
 			n.idx = i
-			n.state = NODE_STATE_CONNECTED // FIXME: rename
+			n.state = PROCESS_STATE_CONNECTED // FIXME: rename
 		}
 
-		waitNodesNoDirect(exe)
+		waitProcessesNoDirect(exe)
 		runMachineProxy(exe)
 	} else {
 		Log("run in direct mode (no VMs)")
@@ -736,7 +736,7 @@ func launchOrchestrator(flags orchestratorFlags) {
 		}
 
 		exe.directListen = ln
-		waitNodesDirect(exe)
+		waitProcessesDirect(exe)
 	}
 
 	Log("start execution")

@@ -124,8 +124,8 @@ func doProxy(arrive chan int, p *proc) {
 }
 
 func launchGuestAgent(flags guestAgentFlags) {
-	if flags.NodeID == "" {
-		fmt.Printf("specify node ID\n")
+	if flags.MachineID == "" {
+		fmt.Printf("specify machine ID\n")
 		os.Exit(1)
 	}
 
@@ -156,7 +156,7 @@ func launchGuestAgent(flags guestAgentFlags) {
 	Log("initialized virtio channel")
 
 	initiation := &G2OMsgReq_Initiation{
-		Id: proto.String(flags.NodeID),
+		Id: proto.String(flags.MachineID),
 	}
 
 	op := G2OMsgReq_INITIATION
