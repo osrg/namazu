@@ -70,9 +70,9 @@ static inline void atomic_inc(atomic_t *v)
 #define EQ_DISABLE "EQ_DISABLE"
 
 #define EQ_MODE_DIRECT "EQ_MODE_DIRECT"
-#define EQ_ENV_NODE_ID "EQ_ENV_NODE_ID"
+#define EQ_ENV_PROCESS_ID "EQ_ENV_PROCESS_ID"
 
-static char *_env_nodeId;
+static char *_env_processId;
 
 static bool direct_mode;	// if it is true, inspector bypasses guest agent
 static int ga_fd;		// fd connected to guest agent
@@ -307,8 +307,8 @@ static void send_event_to_orchestrator(I2GMsgReq_Event *ev)
 
   I2GMsgReq req;
 
-  string *env_nodeId = new string(_env_nodeId);
-  req.set_allocated_node_id(env_nodeId);
+  string *env_processId = new string(_env_processId);
+  req.set_allocated_process_id(env_processId);
   req.set_type(I2GMsgReq_Type_EVENT);
   req.set_pid(pid);
   req.set_tid(tid);
@@ -492,15 +492,15 @@ static void initiation(void)
   pid = getpid();
   tid = gettid();
 
-  string *env_nodeId = new string(_env_nodeId);
+  string *env_processId = new string(_env_processId);
 
   I2GMsgReq_Initiation *initiation = new I2GMsgReq_Initiation;
-  initiation->set_allocated_nodeid(env_nodeId);
+  initiation->set_allocated_processid(env_processId);
 
   I2GMsgReq req;
 
-  string *env_nodeId2 = new string(_env_nodeId); // FIXME: oops...
-  req.set_allocated_node_id(env_nodeId2);
+  string *env_processId2 = new string(_env_processId); // FIXME: oops...
+  req.set_allocated_process_id(env_processId2);
   req.set_pid(pid);
   req.set_tid(tid);
   req.set_type(I2GMsgReq_Type_INITIATION);
@@ -530,9 +530,9 @@ __attribute__((constructor)) void init_earthquake_inspection(void)
     return;
   }
 
-  _env_nodeId = getenv(EQ_ENV_NODE_ID);
-  if (!_env_nodeId) {
-    eqi_err("Node ID is required, set environmental variable %s\n", EQ_ENV_NODE_ID);
+  _env_processId = getenv(EQ_ENV_PROCESS_ID);
+  if (!_env_processId) {
+    eqi_err("Process ID is required, set environmental variable %s\n", EQ_ENV_PROCESS_ID);
     exit(1);
   }
 

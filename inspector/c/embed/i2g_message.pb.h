@@ -350,28 +350,28 @@ class I2GMsgReq_Initiation : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required string nodeId = 1;
-  inline bool has_nodeid() const;
-  inline void clear_nodeid();
-  static const int kNodeIdFieldNumber = 1;
-  inline const ::std::string& nodeid() const;
-  inline void set_nodeid(const ::std::string& value);
-  inline void set_nodeid(const char* value);
-  inline void set_nodeid(const char* value, size_t size);
-  inline ::std::string* mutable_nodeid();
-  inline ::std::string* release_nodeid();
-  inline void set_allocated_nodeid(::std::string* nodeid);
+  // required string processId = 1;
+  inline bool has_processid() const;
+  inline void clear_processid();
+  static const int kProcessIdFieldNumber = 1;
+  inline const ::std::string& processid() const;
+  inline void set_processid(const ::std::string& value);
+  inline void set_processid(const char* value);
+  inline void set_processid(const char* value, size_t size);
+  inline ::std::string* mutable_processid();
+  inline ::std::string* release_processid();
+  inline void set_allocated_processid(::std::string* processid);
 
   // @@protoc_insertion_point(class_scope:equtils.I2GMsgReq_Initiation)
  private:
-  inline void set_has_nodeid();
-  inline void clear_has_nodeid();
+  inline void set_has_processid();
+  inline void clear_has_processid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::std::string* nodeid_;
+  ::std::string* processid_;
   friend void  protobuf_AddDesc_i2g_5fmessage_2eproto();
   friend void protobuf_AssignDesc_i2g_5fmessage_2eproto();
   friend void protobuf_ShutdownFile_i2g_5fmessage_2eproto();
@@ -458,17 +458,17 @@ class I2GMsgReq : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required string node_id = 1;
-  inline bool has_node_id() const;
-  inline void clear_node_id();
-  static const int kNodeIdFieldNumber = 1;
-  inline const ::std::string& node_id() const;
-  inline void set_node_id(const ::std::string& value);
-  inline void set_node_id(const char* value);
-  inline void set_node_id(const char* value, size_t size);
-  inline ::std::string* mutable_node_id();
-  inline ::std::string* release_node_id();
-  inline void set_allocated_node_id(::std::string* node_id);
+  // required string process_id = 1;
+  inline bool has_process_id() const;
+  inline void clear_process_id();
+  static const int kProcessIdFieldNumber = 1;
+  inline const ::std::string& process_id() const;
+  inline void set_process_id(const ::std::string& value);
+  inline void set_process_id(const char* value);
+  inline void set_process_id(const char* value, size_t size);
+  inline ::std::string* mutable_process_id();
+  inline ::std::string* release_process_id();
+  inline void set_allocated_process_id(::std::string* process_id);
 
   // required .equtils.I2GMsgReq.Type type = 2;
   inline bool has_type() const;
@@ -525,8 +525,8 @@ class I2GMsgReq : public ::google::protobuf::Message {
 
   // @@protoc_insertion_point(class_scope:equtils.I2GMsgReq)
  private:
-  inline void set_has_node_id();
-  inline void clear_has_node_id();
+  inline void set_has_process_id();
+  inline void clear_has_process_id();
   inline void set_has_type();
   inline void clear_has_type();
   inline void set_has_pid();
@@ -546,7 +546,7 @@ class I2GMsgReq : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::std::string* node_id_;
+  ::std::string* process_id_;
   int type_;
   ::google::protobuf::int32 pid_;
   ::google::protobuf::int32 tid_;
@@ -842,160 +842,160 @@ inline void I2GMsgReq_Event::set_allocated_funccall(::equtils::I2GMsgReq_Event_F
 
 // I2GMsgReq_Initiation
 
-// required string nodeId = 1;
-inline bool I2GMsgReq_Initiation::has_nodeid() const {
+// required string processId = 1;
+inline bool I2GMsgReq_Initiation::has_processid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void I2GMsgReq_Initiation::set_has_nodeid() {
+inline void I2GMsgReq_Initiation::set_has_processid() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void I2GMsgReq_Initiation::clear_has_nodeid() {
+inline void I2GMsgReq_Initiation::clear_has_processid() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void I2GMsgReq_Initiation::clear_nodeid() {
-  if (nodeid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    nodeid_->clear();
+inline void I2GMsgReq_Initiation::clear_processid() {
+  if (processid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    processid_->clear();
   }
-  clear_has_nodeid();
+  clear_has_processid();
 }
-inline const ::std::string& I2GMsgReq_Initiation::nodeid() const {
-  // @@protoc_insertion_point(field_get:equtils.I2GMsgReq_Initiation.nodeId)
-  return *nodeid_;
+inline const ::std::string& I2GMsgReq_Initiation::processid() const {
+  // @@protoc_insertion_point(field_get:equtils.I2GMsgReq_Initiation.processId)
+  return *processid_;
 }
-inline void I2GMsgReq_Initiation::set_nodeid(const ::std::string& value) {
-  set_has_nodeid();
-  if (nodeid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    nodeid_ = new ::std::string;
+inline void I2GMsgReq_Initiation::set_processid(const ::std::string& value) {
+  set_has_processid();
+  if (processid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    processid_ = new ::std::string;
   }
-  nodeid_->assign(value);
-  // @@protoc_insertion_point(field_set:equtils.I2GMsgReq_Initiation.nodeId)
+  processid_->assign(value);
+  // @@protoc_insertion_point(field_set:equtils.I2GMsgReq_Initiation.processId)
 }
-inline void I2GMsgReq_Initiation::set_nodeid(const char* value) {
-  set_has_nodeid();
-  if (nodeid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    nodeid_ = new ::std::string;
+inline void I2GMsgReq_Initiation::set_processid(const char* value) {
+  set_has_processid();
+  if (processid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    processid_ = new ::std::string;
   }
-  nodeid_->assign(value);
-  // @@protoc_insertion_point(field_set_char:equtils.I2GMsgReq_Initiation.nodeId)
+  processid_->assign(value);
+  // @@protoc_insertion_point(field_set_char:equtils.I2GMsgReq_Initiation.processId)
 }
-inline void I2GMsgReq_Initiation::set_nodeid(const char* value, size_t size) {
-  set_has_nodeid();
-  if (nodeid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    nodeid_ = new ::std::string;
+inline void I2GMsgReq_Initiation::set_processid(const char* value, size_t size) {
+  set_has_processid();
+  if (processid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    processid_ = new ::std::string;
   }
-  nodeid_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:equtils.I2GMsgReq_Initiation.nodeId)
+  processid_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:equtils.I2GMsgReq_Initiation.processId)
 }
-inline ::std::string* I2GMsgReq_Initiation::mutable_nodeid() {
-  set_has_nodeid();
-  if (nodeid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    nodeid_ = new ::std::string;
+inline ::std::string* I2GMsgReq_Initiation::mutable_processid() {
+  set_has_processid();
+  if (processid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    processid_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:equtils.I2GMsgReq_Initiation.nodeId)
-  return nodeid_;
+  // @@protoc_insertion_point(field_mutable:equtils.I2GMsgReq_Initiation.processId)
+  return processid_;
 }
-inline ::std::string* I2GMsgReq_Initiation::release_nodeid() {
-  clear_has_nodeid();
-  if (nodeid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+inline ::std::string* I2GMsgReq_Initiation::release_processid() {
+  clear_has_processid();
+  if (processid_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     return NULL;
   } else {
-    ::std::string* temp = nodeid_;
-    nodeid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    ::std::string* temp = processid_;
+    processid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
     return temp;
   }
 }
-inline void I2GMsgReq_Initiation::set_allocated_nodeid(::std::string* nodeid) {
-  if (nodeid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete nodeid_;
+inline void I2GMsgReq_Initiation::set_allocated_processid(::std::string* processid) {
+  if (processid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete processid_;
   }
-  if (nodeid) {
-    set_has_nodeid();
-    nodeid_ = nodeid;
+  if (processid) {
+    set_has_processid();
+    processid_ = processid;
   } else {
-    clear_has_nodeid();
-    nodeid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    clear_has_processid();
+    processid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:equtils.I2GMsgReq_Initiation.nodeId)
+  // @@protoc_insertion_point(field_set_allocated:equtils.I2GMsgReq_Initiation.processId)
 }
 
 // -------------------------------------------------------------------
 
 // I2GMsgReq
 
-// required string node_id = 1;
-inline bool I2GMsgReq::has_node_id() const {
+// required string process_id = 1;
+inline bool I2GMsgReq::has_process_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void I2GMsgReq::set_has_node_id() {
+inline void I2GMsgReq::set_has_process_id() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void I2GMsgReq::clear_has_node_id() {
+inline void I2GMsgReq::clear_has_process_id() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void I2GMsgReq::clear_node_id() {
-  if (node_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    node_id_->clear();
+inline void I2GMsgReq::clear_process_id() {
+  if (process_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    process_id_->clear();
   }
-  clear_has_node_id();
+  clear_has_process_id();
 }
-inline const ::std::string& I2GMsgReq::node_id() const {
-  // @@protoc_insertion_point(field_get:equtils.I2GMsgReq.node_id)
-  return *node_id_;
+inline const ::std::string& I2GMsgReq::process_id() const {
+  // @@protoc_insertion_point(field_get:equtils.I2GMsgReq.process_id)
+  return *process_id_;
 }
-inline void I2GMsgReq::set_node_id(const ::std::string& value) {
-  set_has_node_id();
-  if (node_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    node_id_ = new ::std::string;
+inline void I2GMsgReq::set_process_id(const ::std::string& value) {
+  set_has_process_id();
+  if (process_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    process_id_ = new ::std::string;
   }
-  node_id_->assign(value);
-  // @@protoc_insertion_point(field_set:equtils.I2GMsgReq.node_id)
+  process_id_->assign(value);
+  // @@protoc_insertion_point(field_set:equtils.I2GMsgReq.process_id)
 }
-inline void I2GMsgReq::set_node_id(const char* value) {
-  set_has_node_id();
-  if (node_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    node_id_ = new ::std::string;
+inline void I2GMsgReq::set_process_id(const char* value) {
+  set_has_process_id();
+  if (process_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    process_id_ = new ::std::string;
   }
-  node_id_->assign(value);
-  // @@protoc_insertion_point(field_set_char:equtils.I2GMsgReq.node_id)
+  process_id_->assign(value);
+  // @@protoc_insertion_point(field_set_char:equtils.I2GMsgReq.process_id)
 }
-inline void I2GMsgReq::set_node_id(const char* value, size_t size) {
-  set_has_node_id();
-  if (node_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    node_id_ = new ::std::string;
+inline void I2GMsgReq::set_process_id(const char* value, size_t size) {
+  set_has_process_id();
+  if (process_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    process_id_ = new ::std::string;
   }
-  node_id_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:equtils.I2GMsgReq.node_id)
+  process_id_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:equtils.I2GMsgReq.process_id)
 }
-inline ::std::string* I2GMsgReq::mutable_node_id() {
-  set_has_node_id();
-  if (node_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    node_id_ = new ::std::string;
+inline ::std::string* I2GMsgReq::mutable_process_id() {
+  set_has_process_id();
+  if (process_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    process_id_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:equtils.I2GMsgReq.node_id)
-  return node_id_;
+  // @@protoc_insertion_point(field_mutable:equtils.I2GMsgReq.process_id)
+  return process_id_;
 }
-inline ::std::string* I2GMsgReq::release_node_id() {
-  clear_has_node_id();
-  if (node_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+inline ::std::string* I2GMsgReq::release_process_id() {
+  clear_has_process_id();
+  if (process_id_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     return NULL;
   } else {
-    ::std::string* temp = node_id_;
-    node_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    ::std::string* temp = process_id_;
+    process_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
     return temp;
   }
 }
-inline void I2GMsgReq::set_allocated_node_id(::std::string* node_id) {
-  if (node_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete node_id_;
+inline void I2GMsgReq::set_allocated_process_id(::std::string* process_id) {
+  if (process_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete process_id_;
   }
-  if (node_id) {
-    set_has_node_id();
-    node_id_ = node_id;
+  if (process_id) {
+    set_has_process_id();
+    process_id_ = process_id;
   } else {
-    clear_has_node_id();
-    node_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    clear_has_process_id();
+    process_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:equtils.I2GMsgReq.node_id)
+  // @@protoc_insertion_point(field_set_allocated:equtils.I2GMsgReq.process_id)
 }
 
 // required .equtils.I2GMsgReq.Type type = 2;

@@ -82,7 +82,7 @@ void protobuf_AssignDesc_i2g_5fmessage_2eproto() {
   I2GMsgReq_Event_Type_descriptor_ = I2GMsgReq_Event_descriptor_->enum_type(0);
   I2GMsgReq_Initiation_descriptor_ = file->message_type(2);
   static const int I2GMsgReq_Initiation_offsets_[1] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(I2GMsgReq_Initiation, nodeid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(I2GMsgReq_Initiation, processid_),
   };
   I2GMsgReq_Initiation_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -97,7 +97,7 @@ void protobuf_AssignDesc_i2g_5fmessage_2eproto() {
       sizeof(I2GMsgReq_Initiation));
   I2GMsgReq_descriptor_ = file->message_type(3);
   static const int I2GMsgReq_offsets_[8] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(I2GMsgReq, node_id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(I2GMsgReq, process_id_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(I2GMsgReq, type_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(I2GMsgReq, pid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(I2GMsgReq, tid_),
@@ -187,17 +187,18 @@ void protobuf_AddDesc_i2g_5fmessage_2eproto() {
     "gReq_Event\022+\n\004type\030\001 \002(\0162\035.equtils.I2GMs"
     "gReq_Event.Type\0223\n\010FuncCall\030\002 \001(\0132!.equt"
     "ils.I2GMsgReq_Event_FuncCall\"\025\n\004Type\022\r\n\t"
-    "FUNC_CALL\020\001\"&\n\024I2GMsgReq_Initiation\022\016\n\006n"
-    "odeId\030\001 \002(\t\"\377\001\n\tI2GMsgReq\022\017\n\007node_id\030\001 \002"
-    "(\t\022%\n\004type\030\002 \002(\0162\027.equtils.I2GMsgReq.Typ"
-    "e\022\013\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 "
-    "\002(\005\022\021\n\tga_msg_id\030\006 \001(\005\022\'\n\005Event\030\007 \001(\0132\030."
-    "equtils.I2GMsgReq_Event\0221\n\nInitiation\030\010 "
-    "\001(\0132\035.equtils.I2GMsgReq_Initiation\"!\n\004Ty"
-    "pe\022\t\n\005EVENT\020\001\022\016\n\nINITIATION\020\002\"}\n\tI2GMsgR"
-    "sp\022&\n\003res\030\001 \002(\0162\031.equtils.I2GMsgRsp.Resu"
-    "lt\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003 \001(\005\"%\n"
-    "\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002\022\007\n\003END\020\003", 636);
+    "FUNC_CALL\020\001\")\n\024I2GMsgReq_Initiation\022\021\n\tp"
+    "rocessId\030\001 \002(\t\"\202\002\n\tI2GMsgReq\022\022\n\nprocess_"
+    "id\030\001 \002(\t\022%\n\004type\030\002 \002(\0162\027.equtils.I2GMsgR"
+    "eq.Type\022\013\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg"
+    "_id\030\005 \002(\005\022\021\n\tga_msg_id\030\006 \001(\005\022\'\n\005Event\030\007 "
+    "\001(\0132\030.equtils.I2GMsgReq_Event\0221\n\nInitiat"
+    "ion\030\010 \001(\0132\035.equtils.I2GMsgReq_Initiation"
+    "\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\nINITIATION\020\002\"}\n\tI"
+    "2GMsgRsp\022&\n\003res\030\001 \002(\0162\031.equtils.I2GMsgRs"
+    "p.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003 "
+    "\001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002\022\007\n\003END"
+    "\020\003", 642);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "i2g_message.proto", &protobuf_RegisterTypes);
   I2GMsgReq_Event_FuncCall::default_instance_ = new I2GMsgReq_Event_FuncCall();
@@ -764,7 +765,7 @@ void I2GMsgReq_Event::Swap(I2GMsgReq_Event* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int I2GMsgReq_Initiation::kNodeIdFieldNumber;
+const int I2GMsgReq_Initiation::kProcessIdFieldNumber;
 #endif  // !_MSC_VER
 
 I2GMsgReq_Initiation::I2GMsgReq_Initiation()
@@ -786,7 +787,7 @@ I2GMsgReq_Initiation::I2GMsgReq_Initiation(const I2GMsgReq_Initiation& from)
 void I2GMsgReq_Initiation::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  nodeid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  processid_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -796,8 +797,8 @@ I2GMsgReq_Initiation::~I2GMsgReq_Initiation() {
 }
 
 void I2GMsgReq_Initiation::SharedDtor() {
-  if (nodeid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete nodeid_;
+  if (processid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete processid_;
   }
   if (this != default_instance_) {
   }
@@ -825,9 +826,9 @@ I2GMsgReq_Initiation* I2GMsgReq_Initiation::New() const {
 }
 
 void I2GMsgReq_Initiation::Clear() {
-  if (has_nodeid()) {
-    if (nodeid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-      nodeid_->clear();
+  if (has_processid()) {
+    if (processid_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+      processid_->clear();
     }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -844,15 +845,15 @@ bool I2GMsgReq_Initiation::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string nodeId = 1;
+      // required string processId = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_nodeid()));
+                input, this->mutable_processid()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->nodeid().data(), this->nodeid().length(),
+            this->processid().data(), this->processid().length(),
             ::google::protobuf::internal::WireFormat::PARSE,
-            "nodeid");
+            "processid");
         } else {
           goto handle_unusual;
         }
@@ -885,14 +886,14 @@ failure:
 void I2GMsgReq_Initiation::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:equtils.I2GMsgReq_Initiation)
-  // required string nodeId = 1;
-  if (has_nodeid()) {
+  // required string processId = 1;
+  if (has_processid()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->nodeid().data(), this->nodeid().length(),
+      this->processid().data(), this->processid().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "nodeid");
+      "processid");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->nodeid(), output);
+      1, this->processid(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -905,15 +906,15 @@ void I2GMsgReq_Initiation::SerializeWithCachedSizes(
 ::google::protobuf::uint8* I2GMsgReq_Initiation::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:equtils.I2GMsgReq_Initiation)
-  // required string nodeId = 1;
-  if (has_nodeid()) {
+  // required string processId = 1;
+  if (has_processid()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->nodeid().data(), this->nodeid().length(),
+      this->processid().data(), this->processid().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "nodeid");
+      "processid");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->nodeid(), target);
+        1, this->processid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -928,11 +929,11 @@ int I2GMsgReq_Initiation::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string nodeId = 1;
-    if (has_nodeid()) {
+    // required string processId = 1;
+    if (has_processid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->nodeid());
+          this->processid());
     }
 
   }
@@ -962,8 +963,8 @@ void I2GMsgReq_Initiation::MergeFrom(const ::google::protobuf::Message& from) {
 void I2GMsgReq_Initiation::MergeFrom(const I2GMsgReq_Initiation& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_nodeid()) {
-      set_nodeid(from.nodeid());
+    if (from.has_processid()) {
+      set_processid(from.processid());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -989,7 +990,7 @@ bool I2GMsgReq_Initiation::IsInitialized() const {
 
 void I2GMsgReq_Initiation::Swap(I2GMsgReq_Initiation* other) {
   if (other != this) {
-    std::swap(nodeid_, other->nodeid_);
+    std::swap(processid_, other->processid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -1029,7 +1030,7 @@ const I2GMsgReq_Type I2GMsgReq::Type_MAX;
 const int I2GMsgReq::Type_ARRAYSIZE;
 #endif  // _MSC_VER
 #ifndef _MSC_VER
-const int I2GMsgReq::kNodeIdFieldNumber;
+const int I2GMsgReq::kProcessIdFieldNumber;
 const int I2GMsgReq::kTypeFieldNumber;
 const int I2GMsgReq::kPidFieldNumber;
 const int I2GMsgReq::kTidFieldNumber;
@@ -1060,7 +1061,7 @@ I2GMsgReq::I2GMsgReq(const I2GMsgReq& from)
 void I2GMsgReq::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  node_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  process_id_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   type_ = 1;
   pid_ = 0;
   tid_ = 0;
@@ -1077,8 +1078,8 @@ I2GMsgReq::~I2GMsgReq() {
 }
 
 void I2GMsgReq::SharedDtor() {
-  if (node_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-    delete node_id_;
+  if (process_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete process_id_;
   }
   if (this != default_instance_) {
     delete event_;
@@ -1120,9 +1121,9 @@ void I2GMsgReq::Clear() {
 
   if (_has_bits_[0 / 32] & 255) {
     ZR_(pid_, msg_id_);
-    if (has_node_id()) {
-      if (node_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
-        node_id_->clear();
+    if (has_process_id()) {
+      if (process_id_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        process_id_->clear();
       }
     }
     type_ = 1;
@@ -1152,15 +1153,15 @@ bool I2GMsgReq::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string node_id = 1;
+      // required string process_id = 1;
       case 1: {
         if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_node_id()));
+                input, this->mutable_process_id()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-            this->node_id().data(), this->node_id().length(),
+            this->process_id().data(), this->process_id().length(),
             ::google::protobuf::internal::WireFormat::PARSE,
-            "node_id");
+            "process_id");
         } else {
           goto handle_unusual;
         }
@@ -1299,14 +1300,14 @@ failure:
 void I2GMsgReq::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:equtils.I2GMsgReq)
-  // required string node_id = 1;
-  if (has_node_id()) {
+  // required string process_id = 1;
+  if (has_process_id()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->node_id().data(), this->node_id().length(),
+      this->process_id().data(), this->process_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "node_id");
+      "process_id");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->node_id(), output);
+      1, this->process_id(), output);
   }
 
   // required .equtils.I2GMsgReq.Type type = 2;
@@ -1357,15 +1358,15 @@ void I2GMsgReq::SerializeWithCachedSizes(
 ::google::protobuf::uint8* I2GMsgReq::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:equtils.I2GMsgReq)
-  // required string node_id = 1;
-  if (has_node_id()) {
+  // required string process_id = 1;
+  if (has_process_id()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
-      this->node_id().data(), this->node_id().length(),
+      this->process_id().data(), this->process_id().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
-      "node_id");
+      "process_id");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->node_id(), target);
+        1, this->process_id(), target);
   }
 
   // required .equtils.I2GMsgReq.Type type = 2;
@@ -1420,11 +1421,11 @@ int I2GMsgReq::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string node_id = 1;
-    if (has_node_id()) {
+    // required string process_id = 1;
+    if (has_process_id()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->node_id());
+          this->process_id());
     }
 
     // required .equtils.I2GMsgReq.Type type = 2;
@@ -1502,8 +1503,8 @@ void I2GMsgReq::MergeFrom(const ::google::protobuf::Message& from) {
 void I2GMsgReq::MergeFrom(const I2GMsgReq& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_node_id()) {
-      set_node_id(from.node_id());
+    if (from.has_process_id()) {
+      set_process_id(from.process_id());
     }
     if (from.has_type()) {
       set_type(from.type());
@@ -1556,7 +1557,7 @@ bool I2GMsgReq::IsInitialized() const {
 
 void I2GMsgReq::Swap(I2GMsgReq* other) {
   if (other != this) {
-    std::swap(node_id_, other->node_id_);
+    std::swap(process_id_, other->process_id_);
     std::swap(type_, other->type_);
     std::swap(pid_, other->pid_);
     std::swap(tid_, other->tid_);
