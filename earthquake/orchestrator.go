@@ -27,8 +27,8 @@ import (
 )
 
 type executionGlobalFlags struct {
-	direct int
-	// if direct is 1, inspected applications talk with orchestrator directly
+	direct bool
+	// if direct is true, inspected applications talk with orchestrator directly
 	// there's no guest agents and VMs
 }
 
@@ -129,9 +129,9 @@ func parseExecutionFile(path string) *execution {
 	}
 
 	globalFlags := root["globalFlags"].(map[string]interface{})
-	exe.globalFlags.direct = int(globalFlags["direct"].(float64))
+	exe.globalFlags.direct = int(globalFlags["direct"].(float64)) == 1
 
-	if exe.globalFlags.direct == 0 {
+	if !exe.globalFlags.direct {
 		machines := root["machines"].([]interface{})
 		for _, _machine := range machines {
 			id := _machine.(map[string]interface{})["id"].(string)
@@ -165,7 +165,7 @@ func parseExecutionFile(path string) *execution {
 			id: id,
 		}
 
-		if exe.globalFlags.direct == 0 {
+		if !exe.globalFlags.direct {
 			newProcess.machineID = _process.(map[string]interface{})["machineID"].(string)
 
 			appended := false
@@ -236,7 +236,7 @@ func parseExecutionFile(path string) *execution {
 }
 
 func handleProcess(n *process) {
-	if n.exe.globalFlags.direct == 1 {
+	if n.exe.globalFlags.direct {
 		req := <-n.eventReqRecv
 
 		if *req.Type != I2GMsgReq_INITIATION {
@@ -287,7 +287,7 @@ func handleProcess(n *process) {
 
 			Log("event message received from process %s", n.id)
 			var gaMsgId int32
-			if n.exe.globalFlags.direct == 0 {
+			if !n.exe.globalFlags.direct {
 				gaMsgId = *req.GaMsgId
 				Log("guest agent message id: %d", gaMsgId)
 			}
@@ -305,7 +305,7 @@ func handleProcess(n *process) {
 				Res:   &result,
 				MsgId: &req_msg_id,
 			}
-			if n.exe.globalFlags.direct == 0 {
+			if !n.exe.globalFlags.direct {
 				rsp.GaMsgId = &gaMsgId
 			}
 
@@ -714,7 +714,7 @@ func launchOrchestrator(flags orchestratorFlags) {
 	exe.eventArrive = make(chan int)
 	Log("globalFlags.direct: %d", exe.globalFlags.direct)
 
-	if exe.globalFlags.direct == 0 {
+	if !exe.globalFlags.direct {
 		Log("run in non direct mode (with VMs)")
 		waitMachines()
 
