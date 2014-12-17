@@ -4,5 +4,5 @@
 	branch = earthquake
 [submodule "inspector/c/llvm/llvm.git"]
 	path = inspector/c/llvm/llvm.git
-	url = https://github.com/llvm-mirror/llvm.git
-	branch = release_35
+	url = https://github.com/osrg/llvm.git
+	branch = earthquake
