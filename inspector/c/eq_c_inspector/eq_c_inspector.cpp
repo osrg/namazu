@@ -76,10 +76,13 @@ public:
       if (!is_matched_func_call(name))
 	return;
 
-      string insert_code = "eq_event_func_call(\"" + name + "\"), ";
+      string insert_code = "(eq_event_func_call(\"" + name + "\"), ";
 
-      Replacement Rep(*(Result.SourceManager), call->getLocStart(), 0, insert_code);
-      Replace->insert(Rep);
+      Replacement Head(*(Result.SourceManager), call->getLocStart(), 0, insert_code);
+      Replace->insert(Head);
+
+      Replacement Tail(*(Result.SourceManager), call->getLocEnd(), 0, ")");
+      Replace->insert(Tail);
     }
   }
 
