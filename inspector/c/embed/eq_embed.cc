@@ -567,3 +567,8 @@ __attribute__((constructor)) void init_earthquake_inspection(void)
 }
 
 } // extern "C"
+
+__attribute__((destructor)) void exit_earthquake_inspection(void)
+{
+  eqi_info("destructor called, process %s is exiting\n", _env_processId);
+}
