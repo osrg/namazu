@@ -331,7 +331,9 @@ static void send_event_to_orchestrator(I2GMsgReq_Event *ev)
     exit(1);
   }
 
+  eqi_info("reading xevent...\n");
   eventfd_xread(ti->efd);
+  eqi_info("read xevent...\n");
   eqi_info("sending event to orchestrator finished\n");
 }
 
@@ -439,6 +441,8 @@ static int send_msg(I2GMsgReq *req)
   if (ret < 0) {
     return -1;
   }
+
+  return 0;
 }
 
 static int recv_msg(I2GMsgRsp *rsp)
