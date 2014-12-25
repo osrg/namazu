@@ -26,6 +26,7 @@ type orchestratorFlags struct {
 	ExecutionFilePath string
 	LogFilePath       string
 	ListenTCPPort     int
+	Daemonize         bool
 }
 
 type guestAgentFlags struct {
@@ -60,6 +61,7 @@ func init() {
 	orchestratorFlagset.StringVar(&_orchestratorFlags.ExecutionFilePath, "execution-file-path", "", "Path of execution file")
 	orchestratorFlagset.StringVar(&_orchestratorFlags.LogFilePath, "log-file-path", "", "Path of log file")
 	orchestratorFlagset.IntVar(&_orchestratorFlags.ListenTCPPort, "listen-tcp-port", 10000, "TCP Port to listen on")
+	orchestratorFlagset.BoolVar(&_orchestratorFlags.Daemonize, "daemonize", false, "Daemonize")
 
 	guestAgentFlagset.StringVar(&_guestAgentFlags.VirtIOPathIn, "virtio-path-in", "", "Path of VirtIO channel (input side)")
 	guestAgentFlagset.StringVar(&_guestAgentFlags.VirtIOPathOut, "virtio-path-out", "", "Path of VirtIO channel (output side)")

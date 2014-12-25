@@ -21,6 +21,7 @@ import (
 	. "./equtils"
 	"encoding/json"
 	"fmt"
+	"github.com/sevlyar/go-daemon"
 	"net"
 	"os"
 	"sync/atomic"
@@ -100,9 +101,9 @@ type executionSequence []executionUnit
 type execution struct {
 	globalFlags executionGlobalFlags
 
-	machines []*machine
-	processes    []*process
-	sequence executionSequence
+	machines  []*machine
+	processes []*process
+	sequence  executionSequence
 
 	initiationCompletion chan int
 	eventArrive          chan int
@@ -210,7 +211,7 @@ func parseExecutionFile(path string) *execution {
 			param := event["eventParam"].(interface{})
 
 			newUnitState := executionUnitState{
-				processId:     processId,
+				processId:  processId,
 				eventType:  typ,
 				eventParam: param,
 			}
@@ -705,7 +706,22 @@ func waitProcessesNoDirect(exe *execution) {
 }
 
 func launchOrchestrator(flags orchestratorFlags) {
-	InitLog(flags.LogFilePath)
+	if flags.Daemonize && flags.LogFilePath == "" {
+		InitLog("/var/log/earthquake-orchestrator.log")
+	} else {
+		InitLog(flags.LogFilePath)
+	}
+
+	if flags.Daemonize {
+		context := new(daemon.Context)
+		child, _ := context.Reborn()
+
+		if child != nil {
+			return
+		} else {
+			defer context.Release()
+		}
+	}
 
 	Log("initializing orchestrator")
 
