@@ -353,9 +353,6 @@ func matchStateAndEvent(state *executionUnitState, ev *I2GMsgReq_Event) bool {
 	return false
 }
 
-func doAction(action executionUnitAction) {
-}
-
 func runExecution() {
 	for _, n := range exe.processes {
 		Log("starting execution of process %s", n.id)
