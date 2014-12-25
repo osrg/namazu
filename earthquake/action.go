@@ -17,6 +17,7 @@ package main
 
 import (
 	. "./equtils"
+	"os"
 	"os/exec"
 )
 
@@ -26,8 +27,13 @@ func actionExecCommand(rawParam interface{}) {
 	cmd := exec.Command(strCmd)
 	err := cmd.Run()
 	if err != nil {
-		Log("command %s caused error: %s", cmd, err)
+		Log("command %s caused error: %s", strCmd, err)
 	}
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	Log("command %s executed successfully", strCmd)
 }
 
 func doAction(action executionUnitAction) {
@@ -36,6 +42,7 @@ func doAction(action executionUnitAction) {
 		Log("nop action")
 	case "execCommand":
 		Log("execCommand action")
+		actionExecCommand(action.param)
 	default:
 		Panic("unknown action: %s", action.actionType)
 	}
