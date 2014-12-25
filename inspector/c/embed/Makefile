@@ -10,4 +10,4 @@ eq_embed.so: $(SRC) $(HDR)
 	gcc -shared -o eq_embed.so eq_embed.o i2g_message.o -lprotobuf -lstdc++ -lpthread
 
 install: eq_embed.so
-	cp eq_embed.so /usr/local/lib
+	cp eq_embed.so /usr/local/lib/libeq_embed.so
