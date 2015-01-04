@@ -356,13 +356,6 @@ void eq_event_func_call(const char *name)
   send_event_to_orchestrator(ev);
 }
 
-int eq_dep;
-
-void eq_nop(void)
-{
-  // just for making dependency
-}
-
 static ssize_t _read(int fd, void *buf, size_t len)
 {
   ssize_t nr;
