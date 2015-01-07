@@ -7,7 +7,7 @@
 
     "executionSequence" : [
         { "states": [
-          { "processId": "dog-snapshot", "event": {"eventType": "funcCall", "eventParam": {"name": "dog_exec_req"} } }
+          { "processId": "tester", "event": {"eventType": "funcCall", "eventParam": {"name": "testMethod"} } }
         ],
           "action": { "type": "nop", "param" : {} }
         }

@@ -17,11 +17,19 @@ package org.osrg.earthquake;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
+import sun.awt.windows.ThemeReader;
 import sun.util.logging.resources.logging_fr;
 
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.*;
 import java.net.*;
 
@@ -36,6 +44,8 @@ public class Inspector {
     private Socket GASock;
     private DataOutputStream GAOutstream;
     private DataInputStream GAInstream;
+
+    private Map<Integer, SynchronousQueue<Object>> waitingMap;
 
     private int SendReq(I2GMessage.I2GMsgReq req) {
         byte[] serialized = req.toByteArray();
@@ -137,6 +147,39 @@ public class Inspector {
             GATCPPort = Integer.parseInt(_GATCPPort);
             LOGGER.info("given TCP port of guest agent: " + GATCPPort);
         }
+
+        waitingMap = new HashMap<Integer, SynchronousQueue<Object>>();
+    }
+
+    private class ReaderThread implements Runnable {
+        public void run() {
+            LOGGER.info("reader thread starts");
+
+            while (true) {
+                LOGGER.fine("reader thread loop");
+
+                I2GMessage.I2GMsgRsp rsp = RecvRsp();
+                if (rsp.getRes() == I2GMessage.I2GMsgRsp.Result.END) {
+                    LOGGER.info("inspection end");
+                    Disabled = true;
+                    break;
+                }
+
+                if (rsp.getRes() != I2GMessage.I2GMsgRsp.Result.ACK) {
+                    LOGGER.severe("invalid response: " + rsp.getRes());
+                    System.exit(1);
+                }
+
+                int msgID = rsp.getMsgId();
+                LOGGER.info("recieved response, message ID: " + Integer.toString(msgID));
+                synchronized (waitingMap) {
+                    SynchronousQueue<Object> q = waitingMap.get(msgID);
+                    Object token = new Object();
+                    q.offer(token);
+                    waitingMap.remove(q);
+                }
+            }
+        }
     }
 
     public void Initiation() {
@@ -172,5 +215,58 @@ public class Inspector {
         }
 
         LOGGER.info("initiation succeed");
+
+        Thread reader = new Thread(new ReaderThread());
+        reader.start();
+    }
+
+    private int MsgID = 1;
+    private synchronized int nextMsgID() {
+        int ret;
+        ret = MsgID;
+        MsgID++;
+        return ret;
+    }
+
+    private void sendEvent(I2GMessage.I2GMsgReq_Event ev) {
+        int msgID = nextMsgID();
+        I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
+        I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
+                                            .setTid((int)Thread.currentThread().getId())
+                                            .setType(I2GMessage.I2GMsgReq.Type.EVENT)
+                                            .setMsgId(msgID)
+                                            .setProcessId(ProcessID)
+                                            .setEvent(ev).build();
+
+        SendReq(req);
+
+        SynchronousQueue<Object> q = new SynchronousQueue<Object>();
+        synchronized (waitingMap) {
+            waitingMap.put(msgID, q);
+        }
+
+        try {
+            q.take();
+        } catch (InterruptedException e) {
+            LOGGER.severe("interrupted: " + e);
+            System.exit(1); // TODO: handling
+        }
+    }
+
+    public void EventFuncCall(String funcName) {
+        if (Disabled) {
+            LOGGER.fine("already disabled");
+            return;
+        }
+        LOGGER.finest("EventFuncCall: " + funcName);
+        I2GMessage.I2GMsgReq_Event_FuncCall.Builder evFunBuilder = I2GMessage.I2GMsgReq_Event_FuncCall.newBuilder();
+        I2GMessage.I2GMsgReq_Event_FuncCall evFun = evFunBuilder.setName(funcName).build();
+
+        I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
+        I2GMessage.I2GMsgReq_Event ev = evBuilder
+                .setType(I2GMessage.I2GMsgReq_Event.Type.FUNC_CALL)
+                .setFuncCall(evFun).build();
+
+        sendEvent(ev);
     }
 }

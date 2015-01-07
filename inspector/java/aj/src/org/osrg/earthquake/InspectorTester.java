@@ -19,5 +19,9 @@ public class InspectorTester {
     public static void main(String args[]) {
         Inspector i = new Inspector();
         i.Initiation();
+
+        System.out.println("sending funcCall event (testMethod)");
+        i.EventFuncCall("testMethod");
+        System.out.println("sent funcCall event (testMethod)");
     }
 }
