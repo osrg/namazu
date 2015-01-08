@@ -8,6 +8,11 @@ public class HelloClient
 {
     static Hello helloImpl;
 
+    private static String callSayHello()
+    {
+	return helloImpl.sayHello();
+    }
+
     public static void main(String args[])
     {
 	try{
@@ -26,7 +31,7 @@ public class HelloClient
 	    helloImpl = HelloHelper.narrow(ncRef.resolve_str(name));
 
 	    System.out.println("Obtained a handle on server object: " + helloImpl);
-	    System.out.println(helloImpl.sayHello());
+	    System.out.println(callSayHello());
 	    helloImpl.shutdown();
 
         } catch (Exception e) {
