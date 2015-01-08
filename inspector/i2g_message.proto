@@ -15,6 +15,8 @@
 
 package equtils;
 
+option java_package = "org.osrg.earthquake";
+
 // I2G: Inspector to Guestagent
 
 message I2GMsgReq_Event_FuncCall {
