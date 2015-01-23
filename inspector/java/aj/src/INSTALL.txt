@@ -1,0 +1,3 @@
+
+How to install:
+$ mvn install:install-file -Dfile=./earthquake-inspector.jar -DgroupId=org.osrg -DartifactId=earthquake -Dversion=0.0.1 -Dpackaging=jar
