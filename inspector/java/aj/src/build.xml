@@ -19,7 +19,7 @@
     </target>
 
     <target name="jar_eq_ji" depends="eq_ji_compile">
-        <jar jarfile="./earthquake-inspector.jar" basedir="./classes/org/osrg/earthquake/" />
+        <jar jarfile="./earthquake-inspector.jar" basedir="./classes/" manifest="manifest.mf"/>
     </target>
 </project>
 
