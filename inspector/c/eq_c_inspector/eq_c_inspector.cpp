@@ -49,11 +49,22 @@ static cl::opt<string>
 InspectionListPath("inspection-list-path",
 		   cl::desc("Path of inspection list"), cl::cat(EqInspectorCategory));
 
-static vector<string> match_func_calls;
+class funcCall {
+public:
+  funcCall(string name, bool before, bool after) {
+    this->name = name;
+    this->before = before;
+    this->after = after;
+  }
+  string name;
+  bool before, after;
+};
+
+static vector<class funcCall *> match_func_calls;
 
 static bool is_matched_func_call(string name) {
   for (auto f: match_func_calls) {
-    if (f == name) {
+    if (f->name == name) {
       return true;
     }
   }
@@ -164,8 +175,37 @@ static void PrepareInspectionList(string path) {
   for (auto val : root) {
     if (val["type"] == "funcCall") {
       Json::Value param = val["param"];
+      if (!param.isMember("name")) {
+	outs() << "inspection list file is broken, name field is missing\n";
+	exit(1);
+      }
       Json::Value name = param["name"];
-      match_func_calls.push_back(name.asString());
+      if (!name.isString()) {
+	outs() << "inspection list file is broken, name field is not typed as string\n";
+	exit(1);
+      }
+
+      bool before = false;
+      if (param.isMember("before")) {
+	Json::Value _before = param["before"];
+	if (!_before.isBool()) {
+	  outs() << "inspection list file is broken, before field is not typed as bool\n";
+	  exit(1);
+	}
+	before = _before.asBool();
+      }
+
+      bool after = false;
+      if (param.isMember("after")) {
+	Json::Value _after = param["after"];
+	if (!_after.isBool()) {
+	  outs() << "inspection list file is broken, after field is not typed as bool\n";
+	  exit(1);
+	}
+	after = _after.asBool();
+      }
+
+      match_func_calls.push_back(new funcCall(name.asString(), before, after));
     } else {
       outs() << "unknown event to inspect: " << val["type"].asString() << "\n";
       exit(1);
