@@ -1,7 +1,7 @@
 .PHONY: echoserv
 echoserv: echoserv.o helper.o
 	cp ../../embed/eq_embed.so .
-	gcc -o echoserv echoserv.o helper.o ./eq_embed.so -Wall
+	gcc -o echoserv echoserv.o helper.o -leq_embed -Wall
 
 echoserv.o: echoserv.c helper.h
 	gcc -o echoserv.o echoserv.c -c -ansi -pedantic -Wall

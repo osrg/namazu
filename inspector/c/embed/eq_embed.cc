@@ -37,21 +37,13 @@
 #include <syslog.h>
 
 #include "i2g_message.pb.h"
+#include "utils.h"
 
 #include <vector>
 
 extern "C" {
 
 using namespace std;
-
-#define eqi_err(fmt, args...) \
-  syslog(LOG_ERR, "%s(%d): " fmt, __func__, __LINE__, ##args)
-
-#define eqi_debug(fmt, args...) \
-  syslog(LOG_DEBUG, "%s(%d): " fmt, __func__, __LINE__, ##args)
-
-#define eqi_info(fmt, args...) \
-  syslog(LOG_INFO, "%s(%d): " fmt, __func__, __LINE__, ##args)
 
 struct _atomic_t {
   int val;
@@ -78,114 +70,7 @@ static bool direct_mode;	// if it is true, inspector bypasses guest agent
 static int ga_fd;		// fd connected to guest agent
 static pthread_t reader_pth;
 
-static int set_nodelay(int fd)
-{
-  int ret, opt;
-
-  opt = 1;
-  ret = setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &opt, sizeof(opt));
-  return ret;
-}
-
-static int connect_to(const char *name, int port)
-{
-  char buf[64];
-  char hbuf[NI_MAXHOST], sbuf[NI_MAXSERV];
-  int fd, ret;
-  struct addrinfo hints, *res, *res0;
-  struct linger linger_opt = {1, 0};
-
-  memset(&hints, 0, sizeof(hints));
-  snprintf(buf, sizeof(buf), "%d", port);
-
-  hints.ai_socktype = SOCK_STREAM;
-
-  ret = getaddrinfo(name, buf, &hints, &res0);
-  if (ret) {
-    eqi_err("failed to get address info: %m");
-    return -1;
-  }
-
-  for (res = res0; res; res = res->ai_next) {
-    ret = getnameinfo(res->ai_addr, res->ai_addrlen,
-		      hbuf, sizeof(hbuf), sbuf, sizeof(sbuf),
-		      NI_NUMERICHOST | NI_NUMERICSERV);
-    if (ret)
-      continue;
-
-    fd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
-    if (fd < 0)
-      continue;
-
-    ret = setsockopt(fd, SOL_SOCKET, SO_LINGER, &linger_opt,
-		     sizeof(linger_opt));
-    if (ret) {
-      eqi_err("failed to set SO_LINGER: %m");
-      close(fd);
-      continue;
-    }
-
-  reconnect:
-    ret = connect(fd, res->ai_addr, res->ai_addrlen);
-    if (ret) {
-      if (errno == EINTR)
-	goto reconnect;
-      eqi_err("failed to connect to %s:%d: %m", name, port);
-      close(fd);
-      continue;
-    }
-
-    ret = set_nodelay(fd);
-    if (ret) {
-      eqi_err("%m");
-      close(fd);
-      break;
-    } else
-      goto success;
-  }
-  fd = -1;
-
- success:
-  freeaddrinfo(res0);
-  eqi_debug("%d, %s:%d", fd, name, port);
-
-  return fd;
-}
-
 using namespace equtils;
-
-int eventfd_xread(int efd)
-{
-  int ret;
-  eventfd_t value = 0;
-
-  do {
-    ret = eventfd_read(efd, &value);
-  } while (ret < 0 && errno == EINTR);
-
-  if (ret == 0)
-    ret = value;
-  else if (errno != EAGAIN) {
-    eqi_err("eventfd_read() failed, %m");
-    exit(1);
-  }
-
-  return ret;
-}
-
-void eventfd_xwrite(int efd, int value)
-{
-  int ret;
-
-  do {
-    ret = eventfd_write(efd, (eventfd_t)value);
-  } while (ret < 0 && (errno == EINTR || errno == EAGAIN));
-
-  if (ret < 0) {
-    eqi_err("eventfd_write() failed, %m");
-    exit(1);
-  }
-}
 
 struct waiting_thread_info {
   pid_t tid;
@@ -270,11 +155,6 @@ static void *reader_thread(void *arg)
   }
 }
 
-static pid_t gettid(void)
-{
-  return syscall(SYS_gettid);
-}
-
 static struct waiting_thread_info *get_per_thread_info(void)
 {
   static __thread struct waiting_thread_info *info;
@@ -354,68 +234,6 @@ void eq_event_func_call(const char *name)
   ev->set_allocated_funccall(ev_funccall);
 
   send_event_to_orchestrator(ev);
-}
-
-static ssize_t _read(int fd, void *buf, size_t len)
-{
-  ssize_t nr;
-  while (true) {
-    nr = read(fd, buf, len);
-    if (nr < 0 && (errno == EAGAIN || errno == EINTR))
-      continue;
-    return nr;
-  }
-}
-
-static ssize_t _write(int fd, const void *buf, size_t len)
-{
-  ssize_t nr;
-  while (true) {
-    nr = write(fd, buf, len);
-    if (nr < 0 && (errno == EAGAIN || errno == EINTR))
-      continue;
-    return nr;
-  }
-}
-
-static ssize_t xread(int fd, void *buf, size_t count)
-{
-  char *p = (char *)buf;
-  ssize_t total = 0;
-
-  while (count > 0) {
-    ssize_t loaded = _read(fd, p, count);
-    if (loaded < 0)
-      return -1;
-    if (loaded == 0)
-      return total;
-    count -= loaded;
-    p += loaded;
-    total += loaded;
-  }
-
-  return total;
-}
-
-static ssize_t xwrite(int fd, const void *buf, size_t count)
-{
-  const char *p = (char *)buf;
-  ssize_t total = 0;
-
-  while (count > 0) {
-    ssize_t written = write(fd, p, count);
-    if (written < 0)
-      return -1;
-    if (!written) {
-      errno = ENOSPC;
-      return -1;
-    }
-    count -= written;
-    p += written;
-    total += written;
-  }
-
-  return total;
 }
 
 static int send_msg(I2GMsgReq *req)
