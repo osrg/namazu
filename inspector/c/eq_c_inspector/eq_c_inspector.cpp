@@ -66,7 +66,6 @@ public:
   CallExprHandler(Replacements *Replace) : Replace(Replace) {}
 
   virtual void run(const MatchFinder::MatchResult &Result) {
-    // The matched 'if' statement was bound to 'ifStmt'.
     if (const CallExpr *call = Result.Nodes.getNodeAs<clang::CallExpr>("callExpr")) {
       const Decl *calleeDecl = call->getCalleeDecl();
       const FunctionDecl *funcDecl = calleeDecl->getAsFunction();
@@ -91,11 +90,22 @@ private:
 };
 
 static void InsertHeader(string path) {
-  string header =
+  string header_double_check =
     "/* below code is inserted by earthquake inspector */\n"
-    "#ifndef __EQ_INSPECTION_INSERTED__\n"
+    "#ifdef __EQ_INSPECTION_INSERTED__\n"
+    "#error \"more than two inspection\"\n"
+    "#else\n"
     "#define __EQ_INSPECTION_INSERTED__\n"
+    "#endif\n"
+    "/* inserted code end */\n";
+
+  string header_event_funcs =
+    "/* below code is inserted by earthquake inspector */\n"
     "extern void eq_event_func_call(const char *);\n"
+    "/* inserted code end */\n";
+
+  string footer_make_dep =
+    "/* below code is inserted by earthquake inspector */\n"
     "\n"
     "/* below eq_dep and __eq_nop() are stuff just for making dependency*/\n"
     "extern int eq_dep;\n"
@@ -103,7 +113,6 @@ static void InsertHeader(string path) {
     "{\n"
     "        eq_dep++;\n"
     "}\n"
-    "#endif\n"
     "/* inserted code end */\n"
     ;
 
@@ -124,8 +133,10 @@ static void InsertHeader(string path) {
   srcStream.open(path);
   srcStream.seekp(0, ios::beg);
 
-  srcStream << header;
+  srcStream << header_double_check;
+  srcStream << header_event_funcs;
   srcStream << src;
+  srcStream << footer_make_dep;
   srcStream.close();
 }
 
