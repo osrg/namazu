@@ -162,6 +162,37 @@ static void InsertWrappedProtoTypes(ofstream &os)
   }
 }
 
+static void InsertWrappedFunctions(ofstream &os)
+{
+  for (auto f: match_func_calls) {
+    os << f->retType << " ";
+    os << "__eq_wrapped_" << f->name << "(";
+
+    int i = 0;
+    for (auto p: f->params) {
+      if (i) {
+	os << ",";
+      }
+      os << p << " param" << i;
+      i++;
+    }
+    os << ") {\n";
+
+    os << "\teq_event_func_call(\"" << f->name << "\");\n";
+    os << "\treturn " << f->name << "(";
+    i = 0;
+    for (auto p: f->params) {
+      if (i) {
+	os << ",";
+      }
+      os << " param" << i;
+      i++;
+    }
+    os << ");\n";
+    os << "}\n";
+  }
+}
+
 static void InsertHeader(string path) {
   string header_double_check =
     "/* below code is inserted by earthquake inspector */\n"
@@ -210,6 +241,7 @@ static void InsertHeader(string path) {
   srcStream << header_event_funcs;
   InsertWrappedProtoTypes(srcStream);
   srcStream << *src;
+  InsertWrappedFunctions(srcStream);
   srcStream << footer_make_dep;
   srcStream.close();
 }
