@@ -11,4 +11,4 @@ helper.o: helper.c helper.h
 
 .PHONY: inspect
 inspect:
-	../../llvm/ninja_build/bin/eq_c_inspector -p . -inspection-list-path=`pwd`/echo_inspection.json echoserv.c
+	../../llvm/ninja_build/bin/eq_c_inspector -inspection-list-path=`pwd`/echo_inspection.json echoserv.c --
