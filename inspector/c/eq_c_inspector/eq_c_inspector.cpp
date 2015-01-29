@@ -56,20 +56,37 @@ public:
     this->before = before;
     this->after = after;
   }
+
   string name;
   bool before, after;
+
+  string retType;
+  std::vector<string> params;
+
+  void setRetType(string);
+  void addParam(string);
 };
+
+void funcCall::setRetType(string type)
+{
+  retType = type;
+}
+
+void funcCall::addParam(string type)
+{
+  params.push_back(type);
+}
 
 static vector<class funcCall *> match_func_calls;
 
-static bool is_matched_func_call(string name) {
+static class funcCall *is_matched_func_call(string name) {
   for (auto f: match_func_calls) {
-    if (f->name == name) {
-      return true;
+    if (!f->name.compare(name)) {
+      return f;
     }
   }
 
-  return false;
+  return NULL;
 }
 
 class CallExprHandler : public MatchFinder::MatchCallback {
@@ -86,19 +103,64 @@ public:
       if (!is_matched_func_call(name))
 	return;
 
-      string insert_code = "(eq_event_func_call(\"" + name + "\"), ";
+      // example, a case of inspecting function func()
+      // before: func()
+      // after: __eq_wrapped_func()
+      string insert_code = "__eq_wrapped_";
 
       Replacement Head(*(Result.SourceManager), call->getLocStart(), 0, insert_code);
       Replace->insert(Head);
-
-      Replacement Tail(*(Result.SourceManager), call->getLocEnd(), 0, ")");
-      Replace->insert(Tail);
     }
   }
 
 private:
   Replacements *Replace;
 };
+
+class FunctionDeclHandler : public MatchFinder::MatchCallback {
+public:
+  FunctionDeclHandler(Replacements *Replace) : Replace(Replace) {}
+
+  virtual void run(const MatchFinder::MatchResult &Result) {
+    if (const FunctionDecl *decl = Result.Nodes.getNodeAs<clang::FunctionDecl>("functionDecl")) {
+      DeclarationNameInfo nameInfo = decl->getNameInfo();
+
+      class funcCall *f;
+      if (!(f = is_matched_func_call(nameInfo.getName().getAsString())))
+	return;
+
+      for (auto parmVar: decl->params()) {
+	f->addParam(parmVar->getOriginalType().getAsString());
+      }
+      f->setRetType(decl->getReturnType().getAsString());
+    }
+  }
+
+private:
+  Replacements *Replace;
+};
+
+static void InsertWrappedProtoTypes(ofstream &os)
+{
+  // FIXME: deathly adhoc...
+  // TODO: detecting types of wrapped functions and insert correct header
+  os << "#include <sys/types.h>\n";
+
+  for (auto f: match_func_calls) {
+    os << f->retType << " ";
+    os << "__eq_wrapped_" << f->name << "(";
+
+    int i = 0;
+    for (auto p: f->params) {
+      if (i) {
+	os << ",";
+      }
+      os << p << " param" << i;
+      i++;
+    }
+    os << ");\n";
+  }
+}
 
 static void InsertHeader(string path) {
   string header_double_check =
@@ -137,7 +199,7 @@ static void InsertHeader(string path) {
   char *buf = new char[length];
   isrcStream.read(buf, length);
   isrcStream.close();
-  string src = buf;
+  string *src = new string(buf, length);
   delete[] buf;
 
   ofstream srcStream;
@@ -146,7 +208,8 @@ static void InsertHeader(string path) {
 
   srcStream << header_double_check;
   srcStream << header_event_funcs;
-  srcStream << src;
+  InsertWrappedProtoTypes(srcStream);
+  srcStream << *src;
   srcStream << footer_make_dep;
   srcStream.close();
 }
@@ -223,17 +286,15 @@ int main(int argc, const char **argv) {
 
   PrepareInspectionList(InspectionListPath);
 
-  for (auto path : op.getSourcePathList()) {
-    InsertHeader(path);
-  }
-
   RefactoringTool Tool(op.getCompilations(), op.getSourcePathList());
 
   // Set up AST matcher callbacks.
   CallExprHandler HandlerForCallExpr(&Tool.getReplacements());
+  FunctionDeclHandler HandlerForFunctionDecl(&Tool.getReplacements());
 
   MatchFinder Finder;
   Finder.addMatcher(callExpr().bind("callExpr"), &HandlerForCallExpr);
+  Finder.addMatcher(functionDecl().bind("functionDecl"), &HandlerForFunctionDecl);
 
   // Run the tool and collect a list of replacements. We could call runAndSave,
   // which would destructively overwrite the files with their new contents.
@@ -248,6 +309,10 @@ int main(int argc, const char **argv) {
     for (auto &r : Tool.getReplacements()) {
       outs() << r.toString() << "\n";
     }
+  }
+
+  for (auto path : op.getSourcePathList()) {
+    InsertHeader(path);
   }
 
   return 0;
