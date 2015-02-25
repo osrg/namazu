@@ -39,12 +39,19 @@ func Log(format string, v ...interface{}) {
 	formatted := fmt.Sprintf(format, v...)
 
 	_, file, line, _ := runtime.Caller(1)
-	timestr := time.Now().String()
+	head := len(file) - 20
+	prefix := "..."
+	if head < 0 {
+		head = 0
+		prefix = ""
+	}
+	file = file[head:len(file)]
+	timestr := time.Now().Local().Format(time.UnixDate)
 
 	if dst_file != nil {
-		fmt.Fprintf(dst_file, "%s %s(%d): %s\n", timestr, file, line, formatted)
+		fmt.Fprintf(dst_file, "%s %s%s(%d): %s\n", timestr, prefix, file, line, formatted)
 	} else {
-		fmt.Printf("%s %s(%d): %s\n", timestr, file, line, formatted)
+		fmt.Printf("%s %s%s(%d): %s\n", timestr, prefix, file, line, formatted)
 	}
 }
 
