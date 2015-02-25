@@ -18,4 +18,8 @@
 // is required because if it isn't done, the constructor
 // (init_earthquake_inspection()) isn't called.
 
+extern "C" {
+
 int eq_dep;
+
+} // extern "C"

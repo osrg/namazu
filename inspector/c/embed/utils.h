@@ -33,6 +33,8 @@
 #include <sys/eventfd.h>
 #include <syslog.h>
 
+extern "C" {
+
 #define eqi_err(fmt, args...) \
   syslog(LOG_ERR, "%s(%d): " fmt, __func__, __LINE__, ##args)
 
@@ -52,5 +54,7 @@ int eventfd_xread(int efd);
 
 ssize_t xread(int fd, void *buf, size_t count);
 ssize_t xwrite(int fd, const void *buf, size_t count);
+
+}      /* extern "C" */
 
 #endif	/* EQ_EMBED_UTILS_H */
