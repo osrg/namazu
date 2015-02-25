@@ -723,6 +723,11 @@ func launchOrchestrator(flags orchestratorFlags) {
 	Log("initializing orchestrator")
 
 	exe = parseExecutionFile(flags.ExecutionFilePath)
+	if exe == nil {
+		Log("invalid execution file")
+		return
+	}
+
 	exe.initiationCompletion = make(chan int)
 	exe.eventArrive = make(chan int)
 	Log("globalFlags.direct: %d", exe.globalFlags.direct)
