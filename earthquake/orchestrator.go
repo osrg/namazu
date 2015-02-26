@@ -48,6 +48,9 @@ type machine struct {
 	virtIOInPath  string
 	virtIOOutPath string
 
+	QMPTCPPort int
+	QMPConn    net.Conn
+
 	virtIOIn  net.Conn // unix domain socket
 	virtIOOut net.Conn // unix domain socket
 
@@ -138,12 +141,16 @@ func parseExecutionFile(path string) *execution {
 			id := _machine.(map[string]interface{})["id"].(string)
 			virtIOInPath := _machine.(map[string]interface{})["virtIOIn"].(string)
 			virtIOOutPath := _machine.(map[string]interface{})["virtIOOut"].(string)
+			QMPTCPPort := int(_machine.(map[string]interface{})["QMPTCPPort"].(float64))
 
 			newMachine := &machine{
 				id:            id,
 				virtIOInPath:  virtIOInPath,
 				virtIOOutPath: virtIOOutPath,
+				QMPTCPPort:    QMPTCPPort,
 			}
+
+			initiateQMP(newMachine)
 
 			exe.machines = append(exe.machines, newMachine)
 
