@@ -124,6 +124,7 @@ public class Inspector {
         String _Disabled = System.getenv("EQ_DISABLE");
         if (_Disabled != null) {
             LOGGER.info("inspection is disabled");
+	    Disabled = true;
             return;
         }
 
