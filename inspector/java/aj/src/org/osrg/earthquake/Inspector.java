@@ -183,6 +183,10 @@ public class Inspector {
     }
 
     public void Initiation() {
+        if (Disabled) {
+            return;
+        }
+
         try {
             GASock = new Socket("localhost", GATCPPort);
 
