@@ -27,6 +27,9 @@ type orchestratorFlags struct {
 	LogFilePath       string
 	ListenTCPPort     int
 	Daemonize         bool
+
+	SearchMode    bool
+	SearchModeDir string
 }
 
 type guestAgentFlags struct {
@@ -62,6 +65,8 @@ func init() {
 	orchestratorFlagset.StringVar(&_orchestratorFlags.LogFilePath, "log-file-path", "", "Path of log file")
 	orchestratorFlagset.IntVar(&_orchestratorFlags.ListenTCPPort, "listen-tcp-port", 10000, "TCP Port to listen on")
 	orchestratorFlagset.BoolVar(&_orchestratorFlags.Daemonize, "daemonize", false, "Daemonize")
+	orchestratorFlagset.BoolVar(&_orchestratorFlags.SearchMode, "search-mode", false, "Run search mode")
+	orchestratorFlagset.StringVar(&_orchestratorFlags.SearchModeDir, "search-mode-directory", "", "Directory which has config and pas traces of search mode testing")
 
 	guestAgentFlagset.StringVar(&_guestAgentFlags.VirtIOPathIn, "virtio-path-in", "", "Path of VirtIO channel (input side)")
 	guestAgentFlagset.StringVar(&_guestAgentFlags.VirtIOPathOut, "virtio-path-out", "", "Path of VirtIO channel (output side)")

@@ -709,26 +709,11 @@ func waitProcessesNoDirect(exe *execution) {
 
 }
 
-func launchOrchestrator(flags orchestratorFlags) {
-	if flags.Daemonize && flags.LogFilePath == "" {
-		InitLog("/var/log/earthquake-orchestrator.log")
-	} else {
-		InitLog(flags.LogFilePath)
-	}
+func searchMode(flags orchestratorFlags) {
+	Log("not implemented yet")
+}
 
-	if flags.Daemonize {
-		context := new(daemon.Context)
-		child, _ := context.Reborn()
-
-		if child != nil {
-			return
-		} else {
-			defer context.Release()
-		}
-	}
-
-	Log("initializing orchestrator")
-
+func simulationMode(flags orchestratorFlags) {
 	exe = parseExecutionFile(flags.ExecutionFilePath)
 	if exe == nil {
 		Log("invalid execution file")
@@ -769,4 +754,33 @@ func launchOrchestrator(flags orchestratorFlags) {
 	runExecution()
 
 	Log("execution end")
+}
+
+func launchOrchestrator(flags orchestratorFlags) {
+	if flags.Daemonize && flags.LogFilePath == "" {
+		InitLog("/var/log/earthquake-orchestrator.log")
+	} else {
+		InitLog(flags.LogFilePath)
+	}
+
+	if flags.Daemonize {
+		context := new(daemon.Context)
+		child, _ := context.Reborn()
+
+		if child != nil {
+			return
+		} else {
+			defer context.Release()
+		}
+	}
+
+	Log("initializing orchestrator")
+
+	if flags.SearchMode {
+		Log("search mode, directory: %s", flags.SearchModeDir)
+		searchMode(flags)
+	} else {
+		Log("simulation mode")
+		simulationMode(flags)
+	}
 }
