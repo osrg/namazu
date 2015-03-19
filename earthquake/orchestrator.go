@@ -120,7 +120,7 @@ type execution struct {
 
 var exe *execution
 
-func parseExecutionFile(path string) *execution {
+func parseExecutionFile(path string, simulation bool) *execution {
 	jsonBuf, err := WholeRead(path)
 	if err != nil {
 		Log("reading execution file: %s failed (%s)", path, err)
@@ -197,6 +197,11 @@ func parseExecutionFile(path string) *execution {
 		}
 
 		exe.processes = append(exe.processes, &newProcess)
+	}
+
+	if !simulation {
+		// search mode doesn't require executionSequence
+		return exe
 	}
 
 	sequence := root["executionSequence"].([]interface{})
@@ -337,8 +342,8 @@ func handleProcess(n *process) {
 
 			if n.exe.globalFlags.direct {
 				Log("waiting for completion of recv/send routines (process: %s)", n.id)
-				<- n.directRecvEndCompletion
-				<- n.directSendEndCompletion
+				<-n.directRecvEndCompletion
+				<-n.directSendEndCompletion
 				Log("completed recv/send routines (process: %s)", n.id)
 			}
 
@@ -737,43 +742,57 @@ func waitProcessesNoDirect(exe *execution) {
 
 }
 
-func searchMode(flags orchestratorFlags) {
-	Log("not implemented yet")
+func singleSearch(exe *execution, dir string) {
+	for _, n := range exe.processes {
+		Log("starting execution of process %s", n.id)
+		n.startExecution <- true
+	}
+	Log("all processes started")
+
+	for {
+		nIdx := <-exe.eventArrive
+		n := exe.processes[nIdx]
+		eventReq := <-n.eventReqToMain
+
+		// TODO: search policy interface
+		// TODO: store sequence
+
+		Log("process %s: %v", n.id, eventReq)
+		n.gotoNext <- true
+	}
+
+	Log("gathering end completion notification from goroutines")
+	nrEnded := int32(0)
+	fin := make(chan interface{})
+	for _, n := range exe.processes {
+		go func() {
+			<-n.endCompletion
+			atomic.AddInt32(&nrEnded, 1)
+			if int(nrEnded) == len(exe.processes) {
+				fin <- true
+			}
+		}()
+	}
+	<-fin
 }
 
-func simulationMode(flags orchestratorFlags) {
-	exe = parseExecutionFile(flags.ExecutionFilePath)
-	if exe == nil {
-		Log("invalid execution file")
-		return
+func searchMode(flags orchestratorFlags, exe *execution, dir string) {
+	for {
+		Log("start execution loop body")
+		if !exe.globalFlags.direct {
+			waitProcessesNoDirect(exe)
+			runMachineProxy(exe)
+		} else {
+			waitProcessesDirect(exe)
+		}
+		singleSearch(exe, dir)
+		Log("end execution loop body")
 	}
 
-	exe.initiationCompletion = make(chan int)
-	exe.eventArrive = make(chan int)
-	Log("globalFlags.direct: %d", exe.globalFlags.direct)
+	Log("should not reach here!")
+}
 
-	if !exe.globalFlags.direct {
-		Log("run in non direct mode (with VMs)")
-		waitMachines()
-
-		for i, n := range exe.processes {
-			n.idx = i
-			n.state = PROCESS_STATE_CONNECTED // FIXME: rename
-		}
-
-	} else {
-		Log("run in direct mode (no VMs)")
-
-		sport := fmt.Sprintf(":%d", flags.ListenTCPPort)
-		ln, lerr := net.Listen("tcp", sport)
-		if lerr != nil {
-			Log("failed to listen on port %d: %s", flags.ListenTCPPort, lerr)
-			os.Exit(1)
-		}
-
-		exe.directListen = ln
-	}
-
+func simulationMode(flags orchestratorFlags, exe *execution) {
 	for {
 		Log("start execution loop body")
 		if !exe.globalFlags.direct {
@@ -809,11 +828,43 @@ func launchOrchestrator(flags orchestratorFlags) {
 
 	Log("initializing orchestrator")
 
+	exe = parseExecutionFile(flags.ExecutionFilePath, !flags.SearchMode)
+	if exe == nil {
+		Log("invalid execution file")
+		return
+	}
+
+	exe.initiationCompletion = make(chan int)
+	exe.eventArrive = make(chan int)
+	Log("globalFlags.direct: %d", exe.globalFlags.direct)
+
+	if !exe.globalFlags.direct {
+		Log("run in non direct mode (with VMs)")
+		waitMachines()
+
+		for i, n := range exe.processes {
+			n.idx = i
+			n.state = PROCESS_STATE_CONNECTED // FIXME: rename
+		}
+
+	} else {
+		Log("run in direct mode (no VMs)")
+
+		sport := fmt.Sprintf(":%d", flags.ListenTCPPort)
+		ln, lerr := net.Listen("tcp", sport)
+		if lerr != nil {
+			Log("failed to listen on port %d: %s", flags.ListenTCPPort, lerr)
+			os.Exit(1)
+		}
+
+		exe.directListen = ln
+	}
+
 	if flags.SearchMode {
 		Log("search mode, directory: %s", flags.SearchModeDir)
-		searchMode(flags)
+		searchMode(flags, exe, flags.SearchModeDir)
 	} else {
 		Log("simulation mode")
-		simulationMode(flags)
+		simulationMode(flags, exe)
 	}
 }
