@@ -22,6 +22,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/sevlyar/go-daemon"
+	"io"
 	"net"
 	"os"
 	"sync/atomic"
@@ -80,6 +81,9 @@ type process struct {
 
 	eventReqRecv chan *I2GMsgReq
 	eventRspSend chan *I2GMsgRsp
+
+	directRecvEndCompletion chan interface{} // only used in direct mode (FIXME)
+	directSendEndCompletion chan interface{}
 }
 
 type executionUnitState struct {
@@ -330,6 +334,14 @@ func handleProcess(n *process) {
 			n.eventRspSend <- rsp
 
 			Log("sent end message to process: %s", n.id)
+
+			if n.exe.globalFlags.direct {
+				Log("waiting for completion of recv/send routines (process: %s)", n.id)
+				<- n.directRecvEndCompletion
+				<- n.directSendEndCompletion
+				Log("completed recv/send routines (process: %s)", n.id)
+			}
+
 			n.endCompletion <- true
 
 			Log("inspection end (process: %s)", n.id)
@@ -515,6 +527,7 @@ func waitProcessesDirect(exe *execution) {
 	for nrAccepted := 0; nrAccepted < len(processes); nrAccepted++ {
 		n := processes[nrAccepted]
 
+		Log("accepting connection")
 		conn, aerr := exe.directListen.Accept()
 		if aerr != nil {
 			Log("failed to accept on %v: %s", exe.directListen, aerr)
@@ -536,14 +549,24 @@ func waitProcessesDirect(exe *execution) {
 		n.eventReqRecv = make(chan *I2GMsgReq)
 		n.eventRspSend = make(chan *I2GMsgRsp)
 
+		n.directRecvEndCompletion = make(chan interface{})
+		n.directSendEndCompletion = make(chan interface{})
+
 		go func() {
 			for {
 				req := &I2GMsgReq{}
 
 				rerr := RecvMsg(n.conn, req)
 				if rerr != nil {
-					Log("failed to recieve request (process index: %d): %s", n.idx, rerr)
-					return // TODO: error handling
+					if rerr == io.EOF {
+						Log("received EOF from process idx :%d", n.idx)
+						Log("recv routine end (process index :%d)", n.idx)
+						n.directRecvEndCompletion <- true
+						return
+					} else {
+						Log("failed to recieve request (process index: %d): %s", n.idx, rerr)
+						return // TODO: error handling
+					}
 				}
 
 				Log("received message from process idx :%d", n.idx)
@@ -558,6 +581,11 @@ func waitProcessesDirect(exe *execution) {
 				if serr != nil {
 					Log("failed to send response (process index: %d): %s", n.idx, serr)
 					return // TODO: error handling
+				}
+				if *rsp.Res == I2GMsgRsp_END {
+					Log("send routine end (process index :%d)", n.idx)
+					n.directSendEndCompletion <- true
+					return
 				}
 			}
 		}()
@@ -748,8 +776,6 @@ func launchOrchestrator(flags orchestratorFlags) {
 			n.state = PROCESS_STATE_CONNECTED // FIXME: rename
 		}
 
-		waitProcessesNoDirect(exe)
-		runMachineProxy(exe)
 	} else {
 		Log("run in direct mode (no VMs)")
 
@@ -761,12 +787,19 @@ func launchOrchestrator(flags orchestratorFlags) {
 		}
 
 		exe.directListen = ln
-		waitProcessesDirect(exe)
 	}
 
-	Log("start execution")
+	for {
+		Log("start execution loop body")
+		if !exe.globalFlags.direct {
+			waitProcessesNoDirect(exe)
+			runMachineProxy(exe)
+		} else {
+			waitProcessesDirect(exe)
+		}
+		runExecution()
+		Log("end execution loop body")
+	}
 
-	runExecution()
-
-	Log("execution end")
+	Log("should not reach here!")
 }
