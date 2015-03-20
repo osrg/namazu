@@ -753,6 +753,63 @@ func waitProcessesNoDirect(exe *execution) {
 
 }
 
+type Event struct {
+	ProcId string
+
+	EventType  string
+	EventParam string
+}
+
+type SingleTrace struct {
+	EventSequence []Event
+}
+
+func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
+	newTraceId := info.NrCollectedTraces
+	info.NrCollectedTraces++
+
+	infoFile, err := os.OpenFile(dir + "/" + SearchModeInfoPath, os.O_WRONLY, 0666)
+	if err != nil {
+		Log("failed to open file: %s", err)
+		os.Exit(1)
+	}
+
+	var infoBuf bytes.Buffer
+	enc := gob.NewEncoder(&infoBuf)
+	eerr := enc.Encode(info)
+	if eerr != nil {
+		Log("encode failed: %s", eerr)
+		os.Exit(1)
+	}
+
+	_, werr := infoFile.Write(infoBuf.Bytes())
+	if werr != nil {
+		Log("updating info file failed: %s", werr)
+		os.Exit(1)
+	}
+
+	var traceBuf bytes.Buffer
+	enc = gob.NewEncoder(&traceBuf)
+	eerr = enc.Encode(&trace)
+	if eerr != nil {
+		Log("encoding trace failed: %s", eerr)
+		os.Exit(1)
+	}
+
+	tracePath := fmt.Sprintf("%s/%08x", dir, newTraceId)
+	Log("new trace path: %s", tracePath)
+	traceFile, oerr := os.Create(tracePath)
+	if oerr != nil {
+		Log("fialed to create a file for new trace: %s", oerr)
+	}
+
+	_, werr = traceFile.Write(traceBuf.Bytes())
+	if werr != nil {
+		Log("writing new trace to file failed: %s", werr)
+		os.Exit(1)
+	}
+}
+
 func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 	for _, n := range exe.processes {
 		Log("starting execution of process %s", n.id)
@@ -760,17 +817,32 @@ func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 	}
 	Log("all processes started")
 
+	eventSeq := make([]Event, 0)
+
 	for {
 		nIdx := <-exe.eventArrive
 		n := exe.processes[nIdx]
 		eventReq := <-n.eventReqToMain
 
 		// TODO: search policy interface
+		e := Event{
+			n.id,
+
+			"FuncCall",
+			*eventReq.FuncCall.Name,
+		}
+		eventSeq = append(eventSeq, e)
+
 		// TODO: store sequence
 
 		Log("process %s: %v", n.id, eventReq)
 		n.gotoNext <- true
 	}
+
+	newTrace := SingleTrace{
+		eventSeq,
+	}
+	recordNewTrace(dir, info, newTrace)
 
 	Log("gathering end completion notification from goroutines")
 	nrEnded := int32(0)
