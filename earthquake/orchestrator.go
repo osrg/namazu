@@ -753,7 +753,7 @@ func waitProcessesNoDirect(exe *execution) {
 
 }
 
-func singleSearch(exe *execution, dir string) {
+func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 	for _, n := range exe.processes {
 		Log("starting execution of process %s", n.id)
 		n.startExecution <- true
@@ -787,7 +787,42 @@ func singleSearch(exe *execution, dir string) {
 	<-fin
 }
 
+func readSearchModeDir(dir string) *SearchModeInfo {
+	file, err := os.Open(dir + "/" + SearchModeInfoPath)
+	if err != nil {
+		Log("failed to open search mode info: %s", err)
+		os.Exit(1)
+	}
+
+	fi, serr := file.Stat()
+	if serr != nil {
+		Log("failed to stat: %s", err)
+		os.Exit(1)
+	}
+
+	buf := make([]byte, fi.Size())
+	_, rerr := file.Read(buf)
+	if rerr != nil {
+		Log("failed to read: %s", rerr)
+		os.Exit(1)
+	}
+
+	byteBuf := bytes.NewBuffer(buf)
+	dec := gob.NewDecoder(byteBuf)
+	var ret SearchModeInfo
+	derr := dec.Decode(&ret)
+	if derr != nil {
+		Log("decode error; %s", derr)
+		os.Exit(1)
+	}
+
+	Log("a number of collected traces: %d", ret.NrCollectedTraces)
+	return &ret
+}
+
 func searchMode(flags orchestratorFlags, exe *execution, dir string) {
+	info := readSearchModeDir(dir)
+
 	for {
 		Log("start execution loop body")
 		if !exe.globalFlags.direct {
@@ -796,7 +831,7 @@ func searchMode(flags orchestratorFlags, exe *execution, dir string) {
 		} else {
 			waitProcessesDirect(exe)
 		}
-		singleSearch(exe, dir)
+		singleSearch(exe, dir, info)
 		Log("end execution loop body")
 	}
 
