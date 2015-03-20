@@ -19,10 +19,13 @@ import (
 	// "code.google.com/p/goprotobuf/proto"
 	// "encoding/binary"
 	. "./equtils"
+	"bytes"
+	"encoding/gob"
 	"encoding/json"
 	"fmt"
 	"github.com/sevlyar/go-daemon"
 	"io"
+	"io/ioutil"
 	"net"
 	"os"
 	"sync/atomic"
@@ -116,6 +119,14 @@ type execution struct {
 	eventArrive          chan int
 
 	directListen net.Listener // only used in direct mode
+}
+
+const (
+	SearchModeInfoPath = "SearchModeInfo"
+)
+
+type SearchModeInfo struct {
+	NrCollectedTraces int
 }
 
 var exe *execution
@@ -808,7 +819,59 @@ func simulationMode(flags orchestratorFlags, exe *execution) {
 	Log("should not reach here!")
 }
 
+func initSearchModeDir(dir string) {
+	// should be called without daemonize
+
+	var infoBuf bytes.Buffer
+	enc := gob.NewEncoder(&infoBuf)
+
+	des, err := ioutil.ReadDir(dir)
+	if err != nil {
+		fmt.Printf("failed to read directory %s: %s\n", dir, err)
+		return
+	}
+
+	if len(des) != 0 {
+		fmt.Printf("directory %s is not empty\n", dir)
+		return
+	}
+
+	info := SearchModeInfo{
+		0,
+	}
+
+	err = enc.Encode(&info)
+	if err != nil {
+		fmt.Printf("failed to encode search mode information: %s\n", err)
+		return
+	}
+
+	file, oerr := os.Create(dir + "/" + SearchModeInfoPath)
+	if oerr != nil {
+		fmt.Printf("failed to open file for search mode info: %s\n", oerr)
+		return
+	}
+
+	_, werr := file.Write(infoBuf.Bytes())
+	if werr != nil {
+		fmt.Printf("failed to write search mode info: %s\n", werr)
+		return
+	}
+}
+
 func launchOrchestrator(flags orchestratorFlags) {
+	if flags.InitSearchModeDir {
+		if flags.SearchModeDir == "" {
+			fmt.Printf("specify a directory path for search mode")
+			return
+		}
+
+		fmt.Printf("initializing search mode directory: %s", flags.SearchModeDir)
+		initSearchModeDir(flags.SearchModeDir)
+
+		return
+	}
+
 	if flags.Daemonize && flags.LogFilePath == "" {
 		InitLog("/var/log/earthquake-orchestrator.log")
 	} else {
