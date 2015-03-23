@@ -384,6 +384,10 @@ __attribute__((constructor)) void init_earthquake_inspection(void)
 __attribute__((destructor)) void exit_earthquake_inspection(void)
 {
   eqi_info("destructor called, process %s is exiting\n", _env_processId);
+
+  I2GMsgReq_Event *ev = new I2GMsgReq_Event;
+  ev->set_type(I2GMsgReq_Event_Type_EXIT);
+  send_event_to_orchestrator(ev);
 }
 
 } // extern "C"

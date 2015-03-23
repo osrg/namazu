@@ -28,13 +28,16 @@ type I2GMsgReq_Event_Type int32
 
 const (
 	I2GMsgReq_Event_FUNC_CALL I2GMsgReq_Event_Type = 1
+	I2GMsgReq_Event_EXIT      I2GMsgReq_Event_Type = 2
 )
 
 var I2GMsgReq_Event_Type_name = map[int32]string{
 	1: "FUNC_CALL",
+	2: "EXIT",
 }
 var I2GMsgReq_Event_Type_value = map[string]int32{
 	"FUNC_CALL": 1,
+	"EXIT":      2,
 }
 
 func (x I2GMsgReq_Event_Type) Enum() *I2GMsgReq_Event_Type {

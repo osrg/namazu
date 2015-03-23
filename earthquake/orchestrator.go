@@ -76,7 +76,7 @@ type process struct {
 	state ProcessState
 
 	startExecution chan interface{}
-	endExecution   chan interface{}
+	endExecution   chan bool
 	endCompletion  chan interface{}
 
 	eventReqToMain chan *I2GMsgReq_Event
@@ -325,39 +325,45 @@ func handleProcess(n *process) {
 			}()
 
 			exe.eventArrive <- n.idx
-			<-n.gotoNext
+			if *req.Event.Type != I2GMsgReq_Event_EXIT {
+				<-n.gotoNext
 
-			result := I2GMsgRsp_ACK
-			req_msg_id := *req.MsgId
-			rsp := &I2GMsgRsp{
-				Res:   &result,
-				MsgId: &req_msg_id,
-			}
-			if !n.exe.globalFlags.direct {
-				rsp.GaMsgId = &gaMsgId
-			}
+				result := I2GMsgRsp_ACK
+				req_msg_id := *req.MsgId
+				rsp := &I2GMsgRsp{
+					Res:   &result,
+					MsgId: &req_msg_id,
+				}
+				if !n.exe.globalFlags.direct {
+					rsp.GaMsgId = &gaMsgId
+				}
 
-			n.eventRspSend <- rsp
-			Log("replied to the event message from process %s", n.id)
-		case <-n.endExecution:
+				n.eventRspSend <- rsp
+				Log("replied to the event message from process %s", n.id)
+			}
+		case needToNotifyEnd := <-n.endExecution:
 			Log("goroutine of process: %s received end message from main goroutine", n.id)
+			Log("needToNotifyEnd: %s", needToNotifyEnd)
 
-			result := I2GMsgRsp_END
-			rsp := &I2GMsgRsp{
-				Res: &result,
+			if needToNotifyEnd {
+				result := I2GMsgRsp_END
+				rsp := &I2GMsgRsp{
+					Res: &result,
+				}
+
+				n.eventRspSend <- rsp
+
+				Log("sent end message to process: %s", n.id)
+
+				if n.exe.globalFlags.direct {
+					Log("waiting for completion of recv/send routines (process: %s)", n.id)
+					<-n.directRecvEndCompletion
+					<-n.directSendEndCompletion
+					Log("completed recv/send routines (process: %s)", n.id)
+				}
 			}
 
-			n.eventRspSend <- rsp
-
-			Log("sent end message to process: %s", n.id)
-
-			if n.exe.globalFlags.direct {
-				Log("waiting for completion of recv/send routines (process: %s)", n.id)
-				<-n.directRecvEndCompletion
-				<-n.directSendEndCompletion
-				Log("completed recv/send routines (process: %s)", n.id)
-			}
-
+			Log("sending endCompletion")
 			n.endCompletion <- true
 
 			Log("inspection end (process: %s)", n.id)
@@ -556,7 +562,7 @@ func waitProcessesDirect(exe *execution) {
 		n.idx = nrAccepted
 		n.state = PROCESS_STATE_CONNECTED
 		n.startExecution = make(chan interface{})
-		n.endExecution = make(chan interface{})
+		n.endExecution = make(chan bool)
 		n.endCompletion = make(chan interface{})
 		n.eventReqToMain = make(chan *I2GMsgReq_Event)
 		n.gotoNext = make(chan interface{})
@@ -581,6 +587,7 @@ func waitProcessesDirect(exe *execution) {
 						return
 					} else {
 						Log("failed to recieve request (process index: %d): %s", n.idx, rerr)
+						n.directRecvEndCompletion <- true
 						return // TODO: error handling
 					}
 				}
@@ -596,6 +603,7 @@ func waitProcessesDirect(exe *execution) {
 				serr := SendMsg(n.conn, rsp)
 				if serr != nil {
 					Log("failed to send response (process index: %d): %s", n.idx, serr)
+					n.directSendEndCompletion <- true
 					return // TODO: error handling
 				}
 				if *rsp.Res == I2GMsgRsp_END {
@@ -715,7 +723,7 @@ func waitProcessesNoDirect(exe *execution) {
 					m.eventRspSend <- rsp
 
 					process.state = PROCESS_STATE_READY
-					process.endExecution = make(chan interface{})
+					process.endExecution = make(chan bool)
 					process.endCompletion = make(chan interface{})
 					process.eventReqToMain = make(chan *I2GMsgReq_Event)
 					process.gotoNext = make(chan interface{})
@@ -768,7 +776,7 @@ func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
 	newTraceId := info.NrCollectedTraces
 	info.NrCollectedTraces++
 
-	infoFile, err := os.OpenFile(dir + "/" + SearchModeInfoPath, os.O_WRONLY, 0666)
+	infoFile, err := os.OpenFile(dir+"/"+SearchModeInfoPath, os.O_WRONLY, 0666)
 	if err != nil {
 		Log("failed to open file: %s", err)
 		os.Exit(1)
@@ -819,10 +827,18 @@ func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 
 	eventSeq := make([]Event, 0)
 
-	for {
+	nrLivingProcesses := len(exe.processes)
+	for nrLivingProcesses != 0 {
 		nIdx := <-exe.eventArrive
 		n := exe.processes[nIdx]
 		eventReq := <-n.eventReqToMain
+
+		if *eventReq.Type == I2GMsgReq_Event_EXIT {
+			nrLivingProcesses--
+			Log("process %s is exiting, remaining living pocesses: %d", n.id, nrLivingProcesses)
+			n.endExecution <- false
+			continue
+		}
 
 		// TODO: search policy interface
 		e := Event{
@@ -832,8 +848,6 @@ func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 			*eventReq.FuncCall.Name,
 		}
 		eventSeq = append(eventSeq, e)
-
-		// TODO: store sequence
 
 		Log("process %s: %v", n.id, eventReq)
 		n.gotoNext <- true
@@ -847,16 +861,22 @@ func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 	Log("gathering end completion notification from goroutines")
 	nrEnded := int32(0)
 	fin := make(chan interface{})
+
 	for _, n := range exe.processes {
-		go func() {
+		go func(n *process) {
+			Log("reading endCompletion from %s (%v)", n.id, n.endCompletion)
 			<-n.endCompletion
+			Log("endCompletion from %s", n.id)
+
 			atomic.AddInt32(&nrEnded, 1)
 			if int(nrEnded) == len(exe.processes) {
 				fin <- true
 			}
-		}()
+		}(n)
 	}
+
 	<-fin
+	Log("gathering end completion notification completed")
 }
 
 func readSearchModeDir(dir string) *SearchModeInfo {
@@ -895,19 +915,16 @@ func readSearchModeDir(dir string) *SearchModeInfo {
 func searchMode(flags orchestratorFlags, exe *execution, dir string) {
 	info := readSearchModeDir(dir)
 
-	for {
-		Log("start execution loop body")
-		if !exe.globalFlags.direct {
-			waitProcessesNoDirect(exe)
-			runMachineProxy(exe)
-		} else {
-			waitProcessesDirect(exe)
-		}
-		singleSearch(exe, dir, info)
-		Log("end execution loop body")
+	Log("start execution loop body")
+	if !exe.globalFlags.direct {
+		waitProcessesNoDirect(exe)
+		runMachineProxy(exe)
+	} else {
+		waitProcessesDirect(exe)
 	}
+	singleSearch(exe, dir, info)
+	Log("end execution loop body")
 
-	Log("should not reach here!")
 }
 
 func simulationMode(flags orchestratorFlags, exe *execution) {

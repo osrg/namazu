@@ -26,6 +26,7 @@ message I2GMsgReq_Event_FuncCall {
 message I2GMsgReq_Event {
   enum Type {
     FUNC_CALL = 1;
+    EXIT = 2;
   };
 
   required Type type = 1;

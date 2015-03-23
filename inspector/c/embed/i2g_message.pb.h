@@ -41,11 +41,12 @@ class I2GMsgReq;
 class I2GMsgRsp;
 
 enum I2GMsgReq_Event_Type {
-  I2GMsgReq_Event_Type_FUNC_CALL = 1
+  I2GMsgReq_Event_Type_FUNC_CALL = 1,
+  I2GMsgReq_Event_Type_EXIT = 2
 };
 bool I2GMsgReq_Event_Type_IsValid(int value);
 const I2GMsgReq_Event_Type I2GMsgReq_Event_Type_Type_MIN = I2GMsgReq_Event_Type_FUNC_CALL;
-const I2GMsgReq_Event_Type I2GMsgReq_Event_Type_Type_MAX = I2GMsgReq_Event_Type_FUNC_CALL;
+const I2GMsgReq_Event_Type I2GMsgReq_Event_Type_Type_MAX = I2GMsgReq_Event_Type_EXIT;
 const int I2GMsgReq_Event_Type_Type_ARRAYSIZE = I2GMsgReq_Event_Type_Type_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* I2GMsgReq_Event_Type_descriptor();
@@ -236,6 +237,7 @@ class I2GMsgReq_Event : public ::google::protobuf::Message {
 
   typedef I2GMsgReq_Event_Type Type;
   static const Type FUNC_CALL = I2GMsgReq_Event_Type_FUNC_CALL;
+  static const Type EXIT = I2GMsgReq_Event_Type_EXIT;
   static inline bool Type_IsValid(int value) {
     return I2GMsgReq_Event_Type_IsValid(value);
   }

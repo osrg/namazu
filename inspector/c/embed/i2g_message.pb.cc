@@ -183,22 +183,22 @@ void protobuf_AddDesc_i2g_5fmessage_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\021i2g_message.proto\022\007equtils\"(\n\030I2GMsgRe"
-    "q_Event_FuncCall\022\014\n\004name\030\001 \002(\t\"\212\001\n\017I2GMs"
+    "q_Event_FuncCall\022\014\n\004name\030\001 \002(\t\"\224\001\n\017I2GMs"
     "gReq_Event\022+\n\004type\030\001 \002(\0162\035.equtils.I2GMs"
     "gReq_Event.Type\0223\n\010FuncCall\030\002 \001(\0132!.equt"
-    "ils.I2GMsgReq_Event_FuncCall\"\025\n\004Type\022\r\n\t"
-    "FUNC_CALL\020\001\")\n\024I2GMsgReq_Initiation\022\021\n\tp"
-    "rocessId\030\001 \002(\t\"\202\002\n\tI2GMsgReq\022\022\n\nprocess_"
-    "id\030\001 \002(\t\022%\n\004type\030\002 \002(\0162\027.equtils.I2GMsgR"
-    "eq.Type\022\013\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg"
-    "_id\030\005 \002(\005\022\021\n\tga_msg_id\030\006 \001(\005\022\'\n\005Event\030\007 "
-    "\001(\0132\030.equtils.I2GMsgReq_Event\0221\n\nInitiat"
-    "ion\030\010 \001(\0132\035.equtils.I2GMsgReq_Initiation"
-    "\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\nINITIATION\020\002\"}\n\tI"
-    "2GMsgRsp\022&\n\003res\030\001 \002(\0162\031.equtils.I2GMsgRs"
-    "p.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003 "
-    "\001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002\022\007\n\003END"
-    "\020\003B\025\n\023org.osrg.earthquake", 665);
+    "ils.I2GMsgReq_Event_FuncCall\"\037\n\004Type\022\r\n\t"
+    "FUNC_CALL\020\001\022\010\n\004EXIT\020\002\")\n\024I2GMsgReq_Initi"
+    "ation\022\021\n\tprocessId\030\001 \002(\t\"\202\002\n\tI2GMsgReq\022\022"
+    "\n\nprocess_id\030\001 \002(\t\022%\n\004type\030\002 \002(\0162\027.equti"
+    "ls.I2GMsgReq.Type\022\013\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 "
+    "\002(\005\022\016\n\006msg_id\030\005 \002(\005\022\021\n\tga_msg_id\030\006 \001(\005\022\'"
+    "\n\005Event\030\007 \001(\0132\030.equtils.I2GMsgReq_Event\022"
+    "1\n\nInitiation\030\010 \001(\0132\035.equtils.I2GMsgReq_"
+    "Initiation\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\nINITIAT"
+    "ION\020\002\"}\n\tI2GMsgRsp\022&\n\003res\030\001 \002(\0162\031.equtil"
+    "s.I2GMsgRsp.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga"
+    "_msg_id\030\003 \001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERRO"
+    "R\020\002\022\007\n\003END\020\003B\025\n\023org.osrg.earthquake", 675);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "i2g_message.proto", &protobuf_RegisterTypes);
   I2GMsgReq_Event_FuncCall::default_instance_ = new I2GMsgReq_Event_FuncCall();
@@ -474,6 +474,7 @@ const ::google::protobuf::EnumDescriptor* I2GMsgReq_Event_Type_descriptor() {
 bool I2GMsgReq_Event_Type_IsValid(int value) {
   switch(value) {
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -482,6 +483,7 @@ bool I2GMsgReq_Event_Type_IsValid(int value) {
 
 #ifndef _MSC_VER
 const I2GMsgReq_Event_Type I2GMsgReq_Event::FUNC_CALL;
+const I2GMsgReq_Event_Type I2GMsgReq_Event::EXIT;
 const I2GMsgReq_Event_Type I2GMsgReq_Event::Type_MIN;
 const I2GMsgReq_Event_Type I2GMsgReq_Event::Type_MAX;
 const int I2GMsgReq_Event::Type_ARRAYSIZE;
