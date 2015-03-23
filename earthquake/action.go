@@ -24,7 +24,7 @@ import (
 func actionExecCommand(rawParam interface{}) {
 	param := rawParam.(map[string]interface{})
 	strCmd := param["command"].(string)
-	cmd := exec.Command(strCmd)
+	cmd := exec.Command("sh", "-c", strCmd)
 	err := cmd.Run()
 	if err != nil {
 		Log("command %s caused error: %s", strCmd, err)
