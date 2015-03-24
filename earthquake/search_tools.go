@@ -19,6 +19,7 @@ import (
 	"encoding/gob"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
 )
 
@@ -26,13 +27,22 @@ type dumpTraceFlags struct {
 	TracePath string
 }
 
+type calcDuplicationFlags struct {
+	TraceDir string
+}
+
 var (
 	dumpTraceFlagset = flag.NewFlagSet("dump-trace", flag.ExitOnError)
 	_dumpTraceFlags  = dumpTraceFlags{}
+
+	calcDuplicationFlagset = flag.NewFlagSet("calc-duplication", flag.ExitOnError)
+	_calcDuplicationFlags  = calcDuplicationFlags{}
 )
 
 func init() {
 	dumpTraceFlagset.StringVar(&_dumpTraceFlags.TracePath, "trace-path", "", "path of trace data file")
+
+	calcDuplicationFlagset.StringVar(&_calcDuplicationFlags.TraceDir, "trace-dir", "", "path of trace data directory")
 }
 
 func dumpTrace(args []string) {
@@ -62,10 +72,49 @@ func dumpTrace(args []string) {
 	}
 }
 
+func calcDuplication(args []string) {
+	calcDuplicationFlagset.Parse(args)
+
+	traceDir := _calcDuplicationFlags.TraceDir
+	if traceDir == "" {
+		fmt.Printf("specify directory path of trace data\n")
+		os.Exit(1)
+	}
+
+	des, err := ioutil.ReadDir(traceDir)
+	if err != nil {
+		fmt.Printf("failed to read directory(%s): %s\n", traceDir, err)
+		os.Exit(1)
+	}
+
+	if len(des) == 0 {
+		fmt.Printf("directory %s is empty\n", traceDir)
+		os.Exit(1)
+	}
+
+	infoFile, oerr := os.Open(traceDir + "/" + SearchModeInfoPath)
+	if oerr != nil {
+		fmt.Printf("failed to read info file of search mode: %s\n", oerr)
+		os.Exit(1)
+	}
+
+	infoDec := gob.NewDecoder(infoFile)
+	var info SearchModeInfo
+	derr := infoDec.Decode(&info)
+	if derr != nil {
+		fmt.Printf("failed to decode info file: %s\n", derr)
+		os.Exit(1)
+	}
+
+	fmt.Printf("a number of collected traces: %d\n", info.NrCollectedTraces)
+}
+
 func runSearchTools(name string, args []string) {
 	switch name {
 	case "dump-trace":
 		dumpTrace(args)
+	case "calc-duplication":
+		calcDuplication(args)
 	default:
 		fmt.Printf("unknown subcommand: %s\n", name)
 		os.Exit(1)
