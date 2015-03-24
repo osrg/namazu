@@ -16,6 +16,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"flag"
 	"fmt"
 	"os"
@@ -40,6 +41,24 @@ func dumpTrace(args []string) {
 	if _dumpTraceFlags.TracePath == "" {
 		fmt.Printf("specify path of trace data file\n")
 		os.Exit(1)
+	}
+
+	file, err := os.Open(_dumpTraceFlags.TracePath)
+	if err != nil {
+		fmt.Printf("failed to open trace data file(%s): %s\n", _dumpTraceFlags.TracePath, err)
+		os.Exit(1)
+	}
+
+	dec := gob.NewDecoder(file)
+	var trace SingleTrace
+	derr := dec.Decode(&trace)
+	if derr != nil {
+		fmt.Printf("failed to decode trace file(%s): %s\n", _dumpTraceFlags.TracePath, err)
+		os.Exit(1)
+	}
+
+	for i, ev := range trace.EventSequence {
+		fmt.Printf("%d: %s, %s(%s)\n", i, ev.ProcId, ev.EventType, ev.EventParam)
 	}
 }
 
