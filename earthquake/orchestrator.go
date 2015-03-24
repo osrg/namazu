@@ -320,9 +320,9 @@ func handleProcess(n *process) {
 				Log("guest agent message id: %d", gaMsgId)
 			}
 
-			go func() {
-				n.eventReqToMain <- req.Event
-			}()
+			go func(r *I2GMsgReq) {
+				n.eventReqToMain <- r.Event
+			}(req)
 
 			exe.eventArrive <- n.idx
 			if *req.Event.Type != I2GMsgReq_Event_EXIT {
@@ -459,13 +459,13 @@ func runExecution() {
 	nrEnded := int32(0)
 	fin := make(chan interface{})
 	for _, n := range exe.processes {
-		go func() {
-			<-n.endCompletion
+		go func(p *process) {
+			<-p.endCompletion
 			atomic.AddInt32(&nrEnded, 1)
 			if int(nrEnded) == len(exe.processes) {
 				fin <- true
 			}
-		}()
+		}(n)
 	}
 	<-fin
 }
@@ -574,7 +574,7 @@ func waitProcessesDirect(exe *execution) {
 		n.directRecvEndCompletion = make(chan interface{})
 		n.directSendEndCompletion = make(chan interface{})
 
-		go func() {
+		go func(n *process) {
 			for {
 				req := &I2GMsgReq{}
 
@@ -595,9 +595,9 @@ func waitProcessesDirect(exe *execution) {
 				Log("received message from process idx :%d", n.idx)
 				n.eventReqRecv <- req
 			}
-		}()
+		}(n)
 
-		go func() {
+		go func(n *process) {
 			for {
 				rsp := <-n.eventRspSend
 				serr := SendMsg(n.conn, rsp)
@@ -612,7 +612,7 @@ func waitProcessesDirect(exe *execution) {
 					return
 				}
 			}
-		}()
+		}(n)
 
 		go handleProcess(n)
 	}
@@ -630,7 +630,7 @@ func runMachineProxy(exe *execution) {
 	for _, m := range exe.machines {
 		Log("launching proxy goroutines for machine %s", m.id)
 
-		go func() {
+		go func(m *machine) {
 			for {
 				req := &I2GMsgReq{}
 
@@ -664,9 +664,9 @@ func runMachineProxy(exe *execution) {
 					os.Exit(1)
 				}
 			}
-		}()
+		}(m)
 
-		go func() {
+		go func(m *machine) {
 			for {
 				rsp := <-m.eventRspSend
 				// Log("replying to machine %s, result: %d, GA message ID: %d", m.id, *rsp.Res, *rsp.GaMsgId)
@@ -675,7 +675,7 @@ func runMachineProxy(exe *execution) {
 					Log("failed to send response (machine ID: %s): %s", m.id, serr)
 				}
 			}
-		}()
+		}(m)
 	}
 }
 
@@ -688,7 +688,7 @@ func waitProcessesNoDirect(exe *execution) {
 			n.startExecution = make(chan interface{})
 		}
 
-		go func() {
+		go func(m *machine) {
 			for nrInitiated := 0; nrInitiated < len(m.processes); nrInitiated++ {
 				req := <-m.eventReqRecv
 
@@ -756,7 +756,7 @@ func waitProcessesNoDirect(exe *execution) {
 					os.Exit(1)
 				}
 			}
-		}()
+		}(m)
 	}
 
 }
