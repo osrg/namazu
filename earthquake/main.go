@@ -48,6 +48,7 @@ var (
 	globalFlags   = struct {
 		LaunchOrchestrator bool
 		LaunchGuestAgent   bool
+		SearchTools        string
 	}{}
 
 	orchestratorFlagset = flag.NewFlagSet("orchestrator", flag.ExitOnError)
@@ -60,6 +61,7 @@ var (
 func init() {
 	globalFlagset.BoolVar(&globalFlags.LaunchOrchestrator, "launch-orchestrator", false, "Launch orchestrator")
 	globalFlagset.BoolVar(&globalFlags.LaunchGuestAgent, "launch-guestagent", false, "Launch guestagent")
+	globalFlagset.StringVar(&globalFlags.SearchTools, "search-tools", "", "Tools related to search mode")
 
 	orchestratorFlagset.BoolVar(&_orchestratorFlags.Debug, "debug", false, "Debug mode")
 	orchestratorFlagset.StringVar(&_orchestratorFlags.ExecutionFilePath, "execution-file-path", "", "Path of execution file")
@@ -88,6 +90,11 @@ func main() {
 	globalArgs := []string{os.Args[1]}
 
 	globalFlagset.Parse(globalArgs)
+
+	if globalFlags.SearchTools != "" {
+		runSearchTools(globalFlags.SearchTools, os.Args[2:])
+		return
+	}
 
 	if globalFlags.LaunchOrchestrator && globalFlags.LaunchGuestAgent {
 		fmt.Printf("don't specify both of orchestrator and guestagent for launching\n")
