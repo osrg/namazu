@@ -45,6 +45,12 @@ func init() {
 	calcDuplicationFlagset.StringVar(&_calcDuplicationFlags.TraceDir, "trace-dir", "", "path of trace data directory")
 }
 
+func doDumpTrace(trace *SingleTrace) {
+	for i, ev := range trace.EventSequence {
+		fmt.Printf("%d: %s, %s(%s)\n", i, ev.ProcId, ev.EventType, ev.EventParam)
+	}
+}
+
 func dumpTrace(args []string) {
 	dumpTraceFlagset.Parse(args)
 
@@ -67,9 +73,37 @@ func dumpTrace(args []string) {
 		os.Exit(1)
 	}
 
-	for i, ev := range trace.EventSequence {
-		fmt.Printf("%d: %s, %s(%s)\n", i, ev.ProcId, ev.EventType, ev.EventParam)
+	doDumpTrace(&trace)
+}
+
+func areEventsEqual(a, b *Event) bool {
+	if a.ProcId != b.ProcId {
+		return false
 	}
+
+	if a.EventType != b.EventType {
+		return false
+	}
+
+	if a.EventParam != b.EventParam {
+		return false
+	}
+
+	return true
+}
+
+func areTracesEqual(a, b *SingleTrace) bool {
+	if len(a.EventSequence) != len(b.EventSequence) {
+		return false
+	}
+
+	for i := 0; i < len(a.EventSequence); i++ {
+		if !areEventsEqual(&a.EventSequence[i], &b.EventSequence[i]) {
+			return false
+		}
+	}
+
+	return true
 }
 
 func calcDuplication(args []string) {
@@ -107,6 +141,50 @@ func calcDuplication(args []string) {
 	}
 
 	fmt.Printf("a number of collected traces: %d\n", info.NrCollectedTraces)
+
+	traces := make([]*SingleTrace, info.NrCollectedTraces)
+	for i := 0; i < info.NrCollectedTraces; i++ {
+		path := fmt.Sprintf("%s/%08x", traceDir, i)
+		traceFile, toerr := os.Open(path)
+		if toerr != nil {
+			fmt.Printf("failed to open trace file(%s): %s\n", traceFile, toerr)
+			os.Exit(1)
+		}
+
+		tDec := gob.NewDecoder(traceFile)
+		var newTrace SingleTrace
+		derr = tDec.Decode(&newTrace)
+		if derr != nil {
+			fmt.Printf("decoding file(%s) failed: %s\n", path, derr)
+			os.Exit(1)
+		}
+
+		traces[i] = &newTrace
+	}
+
+	equalRelation := make([][]int, info.NrCollectedTraces)
+	for i := 0; i < info.NrCollectedTraces; i++ {
+		equalRelation[i] = make([]int, 0)
+	}
+
+	for i := 0; i < info.NrCollectedTraces; i++ {
+		for j := 0; j < i; j++ {
+			if areTracesEqual(traces[i], traces[j]) {
+				equalRelation[i] = append(equalRelation[i], j)
+			}
+		}
+	}
+
+	nrUniqueTraces := 0
+	for i := 0; i < info.NrCollectedTraces; i++ {
+		// fmt.Printf("%d: %d\n",i , len(equalRelation[i]))
+		if len(equalRelation[i]) == 0 {
+			nrUniqueTraces++
+		}
+	}
+
+	fmt.Printf("a number of unique traces: %d\n", nrUniqueTraces)
+	fmt.Printf("a number of entire traces: %d\n", info.NrCollectedTraces)
 }
 
 func runSearchTools(name string, args []string) {
