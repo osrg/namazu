@@ -17,6 +17,7 @@ package main
 
 import (
 	"encoding/gob"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -94,19 +95,43 @@ func isStateFound(s *state) bool {
 	return false
 }
 
+func areOrderedEventsEqual(a, b orderedEvents) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	for i, ae := range a {
+		if !areEventsEqual(ae, b[i]) {
+			return false
+		}
+	}
+
+	return true
+}
+
 func incTransition(src, dst *state) {
 	for _, t := range src.trans {
-		if t.destination == dst {
+		if areOrderedEventsEqual(t.destination.events, dst.events) {
 			t.count++
 			return
 		}
 	}
 
 	newTrans := transition{
-		dst, 0,
+		dst, 1,
 	}
 
 	src.trans = append(src.trans, &newTrans)
+}
+
+func indexLookup(s *state) int {
+	for i, _s := range foundStates {
+		if _s == s {
+			return i
+		}
+	}
+
+	return -1
 }
 
 func visualize(args []string) {
@@ -143,6 +168,14 @@ func visualize(args []string) {
 		os.Exit(1)
 	}
 
+	initEvents := make([]*Event, 0)
+	initTrans := make([]*transition, 0)
+	initState := state{
+		initEvents,
+		initTrans,
+	}
+	foundStates = append(foundStates, &initState)
+
 	for i := 0; i < info.NrCollectedTraces; i++ {
 		path := fmt.Sprintf("%s/%08x", traceDir, i)
 		traceFile, toerr := os.Open(path)
@@ -159,8 +192,7 @@ func visualize(args []string) {
 			os.Exit(1)
 		}
 
-		var prevState *state
-		prevState = nil
+		prevState := &initState
 		for i, _ := range newTrace.EventSequence {
 			if i == 0 {
 				// skip empty trace
@@ -169,24 +201,63 @@ func visualize(args []string) {
 
 			t := newTrace.EventSequence[0:i]
 			s := singleTraceToState(t)
+
+			incTransition(prevState, s)
+
 			if isStateFound(s) {
+				prevState = s
 				continue
 			}
 
 			foundStates = append(foundStates, s)
 
-			if prevState == nil {
-				prevState = s
-				continue
-			}
-
-			incTransition(prevState, s)
 			prevState = s
 		}
 	}
 
-	for _, s := range foundStates {
-		fmt.Printf("%v\n", s)
+	fmt.Printf("{\n")
+
+	// output nodes first
+	fmt.Printf("\"nodes\":[\n")
+	for i, s := range foundStates {
+		fmt.Printf("{\"name\": \"%p\", \"group\": %d}", s, i)
+		if i != len(foundStates)-1 {
+			fmt.Printf(",\n")
+		}
 	}
+	fmt.Printf("],\n")
+
+	// output links
+	fmt.Printf("\"links\":\n")
+
+	type linkUnit struct {
+		Source int `json:"source"`
+		Target int `json:"target"`
+		Value  int `json:"value"`
+	}
+	links := make([]*linkUnit, 0)
+
+	for i, src := range foundStates {
+		if len(src.trans) == 0 {
+			continue
+		}
+
+		for _, t := range src.trans {
+			newLink := linkUnit{
+				i, indexLookup(t.destination), t.count,
+			}
+
+			links = append(links, &newLink)
+		}
+	}
+
+	encoded, jerr := json.Marshal(links)
+	if jerr != nil {
+		fmt.Printf("encoding error: %s\n", jerr)
+		os.Exit(1)
+	}
+	fmt.Printf(string(encoded))
+
+	fmt.Printf("}\n")
 
 }
