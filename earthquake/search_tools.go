@@ -29,18 +29,27 @@ type calcDuplicationFlags struct {
 	TraceDir string
 }
 
+type visualizeFlags struct {
+	TraceDir string
+}
+
 var (
 	dumpTraceFlagset = flag.NewFlagSet("dump-trace", flag.ExitOnError)
 	_dumpTraceFlags  = dumpTraceFlags{}
 
 	calcDuplicationFlagset = flag.NewFlagSet("calc-duplication", flag.ExitOnError)
 	_calcDuplicationFlags  = calcDuplicationFlags{}
+
+	visualizeFlagset = flag.NewFlagSet("visualize", flag.ExitOnError)
+	_visualizeFlags  = visualizeFlags{}
 )
 
 func init() {
 	dumpTraceFlagset.StringVar(&_dumpTraceFlags.TracePath, "trace-path", "", "path of trace data file")
 
 	calcDuplicationFlagset.StringVar(&_calcDuplicationFlags.TraceDir, "trace-dir", "", "path of trace data directory")
+
+	visualizeFlagset.StringVar(&_visualizeFlags.TraceDir, "trace-dir", "", "path of trace data directory")
 }
 
 func runSearchTools(name string, args []string) {
@@ -49,6 +58,8 @@ func runSearchTools(name string, args []string) {
 		dumpTrace(args)
 	case "calc-duplication":
 		calcDuplication(args)
+	case "visualize":
+		visualize(args)
 	default:
 		fmt.Printf("unknown subcommand: %s\n", name)
 		os.Exit(1)
