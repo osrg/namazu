@@ -880,6 +880,20 @@ func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 }
 
 func readSearchModeDir(dir string) *SearchModeInfo {
+	_, serr := os.Stat(dir + "/" + SearchModeInfoPath)
+	if os.IsNotExist(serr) {
+		_, cerr := os.Create(dir + "/" + SearchModeInfoPath)
+		if cerr != nil {
+			Log("failed to create SearchModeInfo file")
+			os.Exit(1)
+		}
+
+		Log("using fresh directory")
+		return &SearchModeInfo{
+			0,
+		}
+	}
+
 	file, err := os.Open(dir + "/" + SearchModeInfoPath)
 	if err != nil {
 		Log("failed to open search mode info: %s", err)
