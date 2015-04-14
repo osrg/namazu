@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Built-By: mitake
-Bundle-ManifestVersion: 2
-Bundle-Name: earthquake java inspector
-Bundle-SymbolicName: org.osrg.earthquake
-Bundle-Vendor: NTT
-Bundle-Version: 0.0.1
-Export-Package: org.osrg.earthquake;version="0.0.1"
-
