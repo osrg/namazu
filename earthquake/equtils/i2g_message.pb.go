@@ -10,6 +10,7 @@ It is generated from these files:
 
 It has these top-level messages:
 	I2GMsgReq_Event_FuncCall
+	I2GMsgReq_Event_Exit
 	I2GMsgReq_Event
 	I2GMsgReq_Initiation
 	I2GMsgReq
@@ -142,9 +143,26 @@ func (m *I2GMsgReq_Event_FuncCall) GetName() string {
 	return ""
 }
 
+type I2GMsgReq_Event_Exit struct {
+	ExitCode         *int32 `protobuf:"varint,1,req,name=exitCode" json:"exitCode,omitempty"`
+	XXX_unrecognized []byte `json:"-"`
+}
+
+func (m *I2GMsgReq_Event_Exit) Reset()         { *m = I2GMsgReq_Event_Exit{} }
+func (m *I2GMsgReq_Event_Exit) String() string { return proto.CompactTextString(m) }
+func (*I2GMsgReq_Event_Exit) ProtoMessage()    {}
+
+func (m *I2GMsgReq_Event_Exit) GetExitCode() int32 {
+	if m != nil && m.ExitCode != nil {
+		return *m.ExitCode
+	}
+	return 0
+}
+
 type I2GMsgReq_Event struct {
 	Type             *I2GMsgReq_Event_Type     `protobuf:"varint,1,req,name=type,enum=equtils.I2GMsgReq_Event_Type" json:"type,omitempty"`
 	FuncCall         *I2GMsgReq_Event_FuncCall `protobuf:"bytes,2,opt" json:"FuncCall,omitempty"`
+	Exit             *I2GMsgReq_Event_Exit     `protobuf:"bytes,3,opt" json:"Exit,omitempty"`
 	XXX_unrecognized []byte                    `json:"-"`
 }
 
@@ -162,6 +180,13 @@ func (m *I2GMsgReq_Event) GetType() I2GMsgReq_Event_Type {
 func (m *I2GMsgReq_Event) GetFuncCall() *I2GMsgReq_Event_FuncCall {
 	if m != nil {
 		return m.FuncCall
+	}
+	return nil
+}
+
+func (m *I2GMsgReq_Event) GetExit() *I2GMsgReq_Event_Exit {
+	if m != nil {
+		return m.Exit
 	}
 	return nil
 }

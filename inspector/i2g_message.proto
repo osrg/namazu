@@ -23,6 +23,10 @@ message I2GMsgReq_Event_FuncCall {
   required string name = 1;
 };
 
+message I2GMsgReq_Event_Exit {
+  required int32 exitCode = 1;
+};
+
 message I2GMsgReq_Event {
   enum Type {
     FUNC_CALL = 1;
@@ -32,6 +36,7 @@ message I2GMsgReq_Event {
   required Type type = 1;
 
   optional I2GMsgReq_Event_FuncCall FuncCall = 2;
+  optional I2GMsgReq_Event_Exit Exit = 3;
 };
 
 message I2GMsgReq_Initiation {

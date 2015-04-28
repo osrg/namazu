@@ -156,6 +156,16 @@ public class Inspector {
 	private boolean running = true;
 
 	public void kill() {
+        I2GMessage.I2GMsgReq_Event_Exit.Builder evExitBuilder = I2GMessage.I2GMsgReq_Event_Exit.newBuilder();
+        I2GMessage.I2GMsgReq_Event_Exit evExit = evExitBuilder.setExitCode(0).build(); // TODO: exit code
+
+        I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
+        I2GMessage.I2GMsgReq_Event ev = evBuilder
+                .setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
+                .setExit(evExit).build();
+
+        sendEvent(ev, false);
+
 	    running = false;
 	    try {
 		GAInstream.close();
@@ -251,7 +261,7 @@ public class Inspector {
         return ret;
     }
 
-    private void sendEvent(I2GMessage.I2GMsgReq_Event ev) {
+    private void sendEvent(I2GMessage.I2GMsgReq_Event ev, boolean needRsp) {
         int msgID = nextMsgID();
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
@@ -266,6 +276,10 @@ public class Inspector {
         SynchronousQueue<Object> q = new SynchronousQueue<Object>();
         synchronized (waitingMap) {
             waitingMap.put(msgID, q);
+        }
+
+        if (!needRsp) {
+            return;
         }
 
         try {
@@ -290,7 +304,7 @@ public class Inspector {
                 .setType(I2GMessage.I2GMsgReq_Event.Type.FUNC_CALL)
                 .setFuncCall(evFun).build();
 
-        sendEvent(ev);
+        sendEvent(ev, true);
     }
 
     public void StopInspection() {
