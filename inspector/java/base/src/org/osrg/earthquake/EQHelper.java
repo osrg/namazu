@@ -15,7 +15,7 @@ public class EQHelper extends Helper
     }
 
     public static void activated() {
-	// inspector.Initiation();
+	inspector.Initiation();
 	// System.out.println("BTM: initiation to orchestrator completed");
     }
 
@@ -24,7 +24,11 @@ public class EQHelper extends Helper
     }
 
     public void eventFuncCall(String name) {
-	// inspector.EventFuncCall(name);
+	inspector.EventFuncCall(name);
+    }
+
+    public void stopInspection() {
+	inspector.StopInspection();
     }
 }
 

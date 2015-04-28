@@ -152,36 +152,54 @@ public class Inspector {
         waitingMap = new HashMap<Integer, SynchronousQueue<Object>>();
     }
 
-    private class ReaderThread implements Runnable {
+    private class ReaderThread extends Thread {
+	private boolean running = true;
+
+	public void kill() {
+	    running = false;
+	    try {
+		GAInstream.close();
+	    } catch (IOException e) {
+		LOGGER.severe("closing GAInstream failed: " + e);
+	    }
+	}
+
         public void run() {
             LOGGER.info("reader thread starts");
 
-            while (true) {
-                LOGGER.fine("reader thread loop");
+	    while (running) {
+		LOGGER.fine("reader thread loop");
 
-                I2GMessage.I2GMsgRsp rsp = RecvRsp();
-                if (rsp.getRes() == I2GMessage.I2GMsgRsp.Result.END) {
-                    LOGGER.info("inspection end");
-                    Disabled = true;
-                    break;
-                }
+		I2GMessage.I2GMsgRsp rsp = RecvRsp();
+		if (rsp == null) {
+		    // TODO: need to determine orchestrator is broken or kill() is called
+		    break;
+		}
 
-                if (rsp.getRes() != I2GMessage.I2GMsgRsp.Result.ACK) {
-                    LOGGER.severe("invalid response: " + rsp.getRes());
-                    System.exit(1);
-                }
+		if (rsp.getRes() == I2GMessage.I2GMsgRsp.Result.END) {
+		    LOGGER.info("inspection end");
+		    Disabled = true;
+		    break;
+		}
 
-                int msgID = rsp.getMsgId();
-                LOGGER.info("recieved response, message ID: " + Integer.toString(msgID));
-                synchronized (waitingMap) {
-                    SynchronousQueue<Object> q = waitingMap.get(msgID);
-                    Object token = new Object();
-                    q.offer(token);
-                    waitingMap.remove(q);
-                }
-            }
-        }
+		if (rsp.getRes() != I2GMessage.I2GMsgRsp.Result.ACK) {
+		    LOGGER.severe("invalid response: " + rsp.getRes());
+		    System.exit(1);
+		}
+
+		int msgID = rsp.getMsgId();
+		LOGGER.info("recieved response, message ID: " + Integer.toString(msgID));
+		synchronized (waitingMap) {
+		    SynchronousQueue<Object> q = waitingMap.get(msgID);
+		    Object token = new Object();
+		    q.offer(token);
+		    waitingMap.remove(q);
+		}
+	    }
+	}
     }
+
+    private ReaderThread reader;
 
     public void Initiation() {
         if (Disabled) {
@@ -221,7 +239,7 @@ public class Inspector {
 
         LOGGER.info("initiation succeed");
 
-        Thread reader = new Thread(new ReaderThread());
+        reader = new ReaderThread();
         reader.start();
     }
 
@@ -273,5 +291,9 @@ public class Inspector {
                 .setFuncCall(evFun).build();
 
         sendEvent(ev);
+    }
+
+    public void StopInspection() {
+	reader.kill();
     }
 }
