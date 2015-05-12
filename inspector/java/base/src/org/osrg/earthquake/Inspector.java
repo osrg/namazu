@@ -152,8 +152,8 @@ public class Inspector {
         waitingMap = new HashMap<Integer, SynchronousQueue<Object>>();
     }
 
+    private boolean running = true;
     private class ReaderThread extends Thread {
-	private boolean running = true;
 
 	public void kill() {
         I2GMessage.I2GMsgReq_Event_Exit.Builder evExitBuilder = I2GMessage.I2GMsgReq_Event_Exit.newBuilder();
@@ -164,9 +164,9 @@ public class Inspector {
                 .setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
                 .setExit(evExit).build();
 
+        running = false;
         sendEvent(ev, false);
 
-	    running = false;
 	    try {
 		GAInstream.close();
 	    } catch (IOException e) {
@@ -183,7 +183,10 @@ public class Inspector {
 		I2GMessage.I2GMsgRsp rsp = RecvRsp();
 		if (rsp == null) {
 		    // TODO: need to determine orchestrator is broken or kill() is called
-		    break;
+            if (!running) {
+                LOGGER.info("exiting reader thread");
+		        return;
+            }
 		}
 
 		if (rsp.getRes() == I2GMessage.I2GMsgRsp.Result.END) {
@@ -295,6 +298,12 @@ public class Inspector {
             LOGGER.fine("already disabled");
             return;
         }
+
+        if (!running) {
+            LOGGER.fine("killed");
+            return;
+        }
+
         LOGGER.finest("EventFuncCall: " + funcName);
         I2GMessage.I2GMsgReq_Event_FuncCall.Builder evFunBuilder = I2GMessage.I2GMsgReq_Event_FuncCall.newBuilder();
         I2GMessage.I2GMsgReq_Event_FuncCall evFun = evFunBuilder.setName(funcName).build();
