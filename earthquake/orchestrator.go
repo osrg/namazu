@@ -545,8 +545,10 @@ func waitMachines() {
 
 func waitProcessesDirect(exe *execution) {
 	processes := exe.processes
+	nrProcs := len(processes)
 
-	for nrAccepted := 0; nrAccepted < len(processes); nrAccepted++ {
+	Log("a number of processes to accept: %d", nrProcs)
+	for nrAccepted := 0; nrAccepted < nrProcs; nrAccepted++ {
 		n := processes[nrAccepted]
 
 		Log("accepting connection")
@@ -619,7 +621,7 @@ func waitProcessesDirect(exe *execution) {
 
 	Log("all processes are accepted, waiting initiation...")
 
-	for nrInitiated := 0; nrInitiated < len(processes); nrInitiated++ {
+	for nrInitiated := 0; nrInitiated < nrProcs; nrInitiated++ {
 		initiatedIdx := <-exe.initiationCompletion
 		processes[initiatedIdx].state = PROCESS_STATE_READY
 		Log("initiation of process: %s succeed", processes[initiatedIdx].id)
