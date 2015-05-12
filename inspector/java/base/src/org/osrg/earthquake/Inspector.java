@@ -124,7 +124,7 @@ public class Inspector {
         String _Disabled = System.getenv("EQ_DISABLE");
         if (_Disabled != null) {
             LOGGER.info("inspection is disabled");
-	    Disabled = true;
+            Disabled = true;
             return;
         }
 
@@ -153,63 +153,64 @@ public class Inspector {
     }
 
     private boolean running = true;
+
     private class ReaderThread extends Thread {
 
-	public void kill() {
-        I2GMessage.I2GMsgReq_Event_Exit.Builder evExitBuilder = I2GMessage.I2GMsgReq_Event_Exit.newBuilder();
-        I2GMessage.I2GMsgReq_Event_Exit evExit = evExitBuilder.setExitCode(0).build(); // TODO: exit code
+        public void kill() {
+            I2GMessage.I2GMsgReq_Event_Exit.Builder evExitBuilder = I2GMessage.I2GMsgReq_Event_Exit.newBuilder();
+            I2GMessage.I2GMsgReq_Event_Exit evExit = evExitBuilder.setExitCode(0).build(); // TODO: exit code
 
-        I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
-        I2GMessage.I2GMsgReq_Event ev = evBuilder
-                .setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
-                .setExit(evExit).build();
+            I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
+            I2GMessage.I2GMsgReq_Event ev = evBuilder
+                    .setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
+                    .setExit(evExit).build();
 
-        running = false;
-        sendEvent(ev, false);
+            running = false;
+            sendEvent(ev, false);
 
-	    try {
-		GAInstream.close();
-	    } catch (IOException e) {
-		LOGGER.severe("closing GAInstream failed: " + e);
-	    }
-	}
+            try {
+                GAInstream.close();
+            } catch (IOException e) {
+                LOGGER.severe("closing GAInstream failed: " + e);
+            }
+        }
 
         public void run() {
             LOGGER.info("reader thread starts");
 
-	    while (running) {
-		LOGGER.fine("reader thread loop");
+            while (running) {
+                LOGGER.fine("reader thread loop");
 
-		I2GMessage.I2GMsgRsp rsp = RecvRsp();
-		if (rsp == null) {
-		    // TODO: need to determine orchestrator is broken or kill() is called
-            if (!running) {
-                LOGGER.info("exiting reader thread");
-		        return;
+                I2GMessage.I2GMsgRsp rsp = RecvRsp();
+                if (rsp == null) {
+                    // TODO: need to determine orchestrator is broken or kill() is called
+                    if (!running) {
+                        LOGGER.info("exiting reader thread");
+                        return;
+                    }
+                }
+
+                if (rsp.getRes() == I2GMessage.I2GMsgRsp.Result.END) {
+                    LOGGER.info("inspection end");
+                    Disabled = true;
+                    break;
+                }
+
+                if (rsp.getRes() != I2GMessage.I2GMsgRsp.Result.ACK) {
+                    LOGGER.severe("invalid response: " + rsp.getRes());
+                    System.exit(1);
+                }
+
+                int msgID = rsp.getMsgId();
+                LOGGER.info("recieved response, message ID: " + Integer.toString(msgID));
+                synchronized (waitingMap) {
+                    SynchronousQueue<Object> q = waitingMap.get(msgID);
+                    Object token = new Object();
+                    q.offer(token);
+                    waitingMap.remove(q);
+                }
             }
-		}
-
-		if (rsp.getRes() == I2GMessage.I2GMsgRsp.Result.END) {
-		    LOGGER.info("inspection end");
-		    Disabled = true;
-		    break;
-		}
-
-		if (rsp.getRes() != I2GMessage.I2GMsgRsp.Result.ACK) {
-		    LOGGER.severe("invalid response: " + rsp.getRes());
-		    System.exit(1);
-		}
-
-		int msgID = rsp.getMsgId();
-		LOGGER.info("recieved response, message ID: " + Integer.toString(msgID));
-		synchronized (waitingMap) {
-		    SynchronousQueue<Object> q = waitingMap.get(msgID);
-		    Object token = new Object();
-		    q.offer(token);
-		    waitingMap.remove(q);
-		}
-	    }
-	}
+        }
     }
 
     private ReaderThread reader;
@@ -237,11 +238,11 @@ public class Inspector {
 
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /* FIXME */)
-                                             .setTid((int)Thread.currentThread().getId())
-                                             .setType(I2GMessage.I2GMsgReq.Type.INITIATION)
-                                             .setMsgId(0)
-                                             .setProcessId(ProcessID)
-                                             .setInitiation(initiationReq).build();
+                .setTid((int) Thread.currentThread().getId())
+                .setType(I2GMessage.I2GMsgReq.Type.INITIATION)
+                .setMsgId(0)
+                .setProcessId(ProcessID)
+                .setInitiation(initiationReq).build();
 
         LOGGER.info("executing request for initiation");
         I2GMessage.I2GMsgRsp rsp = ExecReq(req);
@@ -257,6 +258,7 @@ public class Inspector {
     }
 
     private int MsgID = 1;
+
     private synchronized int nextMsgID() {
         int ret;
         ret = MsgID;
@@ -268,11 +270,11 @@ public class Inspector {
         int msgID = nextMsgID();
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
-                                            .setTid((int)Thread.currentThread().getId())
-                                            .setType(I2GMessage.I2GMsgReq.Type.EVENT)
-                                            .setMsgId(msgID)
-                                            .setProcessId(ProcessID)
-                                            .setEvent(ev).build();
+                .setTid((int) Thread.currentThread().getId())
+                .setType(I2GMessage.I2GMsgReq.Type.EVENT)
+                .setMsgId(msgID)
+                .setProcessId(ProcessID)
+                .setEvent(ev).build();
 
         SendReq(req);
 
@@ -317,6 +319,6 @@ public class Inspector {
     }
 
     public void StopInspection() {
-	reader.kill();
+        reader.kill();
     }
 }
