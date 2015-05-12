@@ -33,6 +33,9 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.*;
 import java.net.*;
 
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
+
 public class Inspector {
     private boolean Direct = false;
     private boolean Disabled = false;
@@ -150,6 +153,14 @@ public class Inspector {
         }
 
         waitingMap = new HashMap<Integer, SynchronousQueue<Object>>();
+
+        Signal signal = new Signal("TERM");
+        Signal.handle(signal, new SignalHandler() {
+            public void handle(Signal signal) {
+                LOGGER.info("singal: " + signal + " catched");
+                reader.kill();
+            }
+        });
     }
 
     private boolean running = true;
