@@ -29,6 +29,8 @@ import (
 	"net"
 	"os"
 	"sync/atomic"
+
+	"./searchpolicy"
 )
 
 type executionGlobalFlags struct {
@@ -928,8 +930,16 @@ func readSearchModeDir(dir string) *SearchModeInfo {
 	return &ret
 }
 
-func searchMode(flags orchestratorFlags, exe *execution, dir string) {
+func searchMode(flags orchestratorFlags, exe *execution, dir string, policyName string) {
 	info := readSearchModeDir(dir)
+
+	policy := searchpolicy.New(policyName)
+	if policy == nil {
+		Log("invalid policy name: %s", policy.Name())
+		os.Exit(1)
+	}
+
+	policy.Init()
 
 	Log("start execution loop body")
 	if !exe.globalFlags.direct {
@@ -1064,8 +1074,8 @@ func launchOrchestrator(flags orchestratorFlags) {
 	}
 
 	if flags.SearchMode {
-		Log("search mode, directory: %s", flags.SearchModeDir)
-		searchMode(flags, exe, flags.SearchModeDir)
+		Log("search mode, directory: %s, policy: %s", flags.SearchModeDir, flags.SearchPolicy)
+		searchMode(flags, exe, flags.SearchModeDir, flags.SearchPolicy)
 	} else {
 		Log("simulation mode")
 		simulationMode(flags, exe)

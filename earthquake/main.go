@@ -31,6 +31,7 @@ type orchestratorFlags struct {
 	SearchMode        bool
 	InitSearchModeDir bool
 	SearchModeDir     string
+	SearchPolicy      string
 }
 
 type guestAgentFlags struct {
@@ -71,6 +72,7 @@ func init() {
 	orchestratorFlagset.BoolVar(&_orchestratorFlags.SearchMode, "search-mode", false, "Run search mode")
 	orchestratorFlagset.BoolVar(&_orchestratorFlags.InitSearchModeDir, "init-search-mode-directory", false, "Initialize a directory for storing search mode info")
 	orchestratorFlagset.StringVar(&_orchestratorFlags.SearchModeDir, "search-mode-directory", "", "Directory which has config and pas traces of search mode testing")
+	orchestratorFlagset.StringVar(&_orchestratorFlags.SearchPolicy, "search-policy", "", "Search mode policy")
 
 	guestAgentFlagset.StringVar(&_guestAgentFlags.VirtIOPathIn, "virtio-path-in", "", "Path of VirtIO channel (input side)")
 	guestAgentFlagset.StringVar(&_guestAgentFlags.VirtIOPathOut, "virtio-path-out", "", "Path of VirtIO channel (output side)")
