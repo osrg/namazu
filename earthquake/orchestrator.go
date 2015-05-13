@@ -31,6 +31,8 @@ import (
 	"sync/atomic"
 
 	"./searchpolicy"
+
+	"./historystorage"
 )
 
 type executionGlobalFlags struct {
@@ -970,6 +972,7 @@ func simulationMode(flags orchestratorFlags, exe *execution) {
 }
 
 func initSearchModeDir(dir string) {
+	historystorage.New("naive")
 	// should be called without daemonize
 
 	var infoBuf bytes.Buffer
