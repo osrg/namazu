@@ -159,6 +159,8 @@ public class Inspector {
             public void handle(Signal signal) {
                 LOGGER.info("singal: " + signal + " catched");
                 reader.kill();
+
+                System.exit(0);
             }
         });
     }
