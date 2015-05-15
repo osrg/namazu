@@ -30,6 +30,7 @@ type calcDuplicationFlags struct {
 }
 
 type visualizeFlags struct {
+	Mode     string
 	TraceDir string
 }
 
@@ -57,6 +58,7 @@ func init() {
 	calcDuplicationFlagset.StringVar(&_calcDuplicationFlags.TraceDir, "trace-dir", "", "path of trace data directory")
 
 	visualizeFlagset.StringVar(&_visualizeFlags.TraceDir, "trace-dir", "", "path of trace data directory")
+	visualizeFlagset.StringVar(&_visualizeFlags.Mode, "mode", "", "mode of visualization")
 
 	permutateFlagset.StringVar(&_permutateFlags.TracePath, "trace-path", "", "path of trace data file")
 }

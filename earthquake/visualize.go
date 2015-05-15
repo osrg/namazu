@@ -134,10 +134,7 @@ func indexLookup(s *state) int {
 	return -1
 }
 
-func visualize(args []string) {
-	calcDuplicationFlagset.Parse(args)
-
-	traceDir := _calcDuplicationFlags.TraceDir
+func d3(traceDir string) {
 	if traceDir == "" {
 		fmt.Printf("specify directory path of trace data\n")
 		os.Exit(1)
@@ -163,6 +160,7 @@ func visualize(args []string) {
 	infoDec := gob.NewDecoder(infoFile)
 	var info SearchModeInfo
 	derr := infoDec.Decode(&info)
+
 	if derr != nil {
 		fmt.Printf("failed to decode info file: %s\n", derr)
 		os.Exit(1)
@@ -260,4 +258,95 @@ func visualize(args []string) {
 
 	fmt.Printf("}\n")
 
+}
+
+func isSeenTrace(tr *SingleTrace, traces []*SingleTrace) bool {
+	for _, seen := range traces {
+		if len(tr.EventSequence) != len(seen.EventSequence) {
+			return false
+		}
+
+		for i, ev := range tr.EventSequence {
+			if !areEventsEqual(&ev, &seen.EventSequence[i]) {
+				return false
+			}
+		}
+
+		return true
+	}
+
+	return false
+}
+
+func gnuplot(traceDir string) {
+	if traceDir == "" {
+		fmt.Printf("specify directory path of trace data\n")
+		os.Exit(1)
+	}
+
+	des, err := ioutil.ReadDir(traceDir)
+	if err != nil {
+		fmt.Printf("failed to read directory(%s): %s\n", traceDir, err)
+		os.Exit(1)
+	}
+
+	if len(des) == 0 {
+		fmt.Printf("directory %s is empty\n", traceDir)
+		os.Exit(1)
+	}
+
+	infoFile, oerr := os.Open(traceDir + "/" + SearchModeInfoPath)
+	if oerr != nil {
+		fmt.Printf("failed to read info file of search mode: %s\n", oerr)
+		os.Exit(1)
+	}
+
+	infoDec := gob.NewDecoder(infoFile)
+	var info SearchModeInfo
+	derr := infoDec.Decode(&info)
+
+	if derr != nil {
+		fmt.Printf("failed to decode info file: %s\n", derr)
+		os.Exit(1)
+	}
+
+	pastTraces := make([]*SingleTrace, 0)
+	nrUniqueEvents := 0
+
+	for i := 0; i < info.NrCollectedTraces; i++ {
+		path := fmt.Sprintf("%s/%08x", traceDir, i)
+		traceFile, toerr := os.Open(path)
+		if toerr != nil {
+			fmt.Printf("failed to open trace file(%s): %s\n", traceFile, toerr)
+			os.Exit(1)
+		}
+
+		tDec := gob.NewDecoder(traceFile)
+		var newTrace SingleTrace
+		derr = tDec.Decode(&newTrace)
+		if derr != nil {
+			fmt.Printf("decoding file(%s) failed: %s\n", path, derr)
+			os.Exit(1)
+		}
+
+		if !isSeenTrace(&newTrace, pastTraces) {
+			nrUniqueEvents++
+			pastTraces = append(pastTraces, &newTrace)
+		}
+
+		fmt.Printf("%d %d\n", i, nrUniqueEvents)
+	}
+}
+
+func visualize(args []string) {
+	visualizeFlagset.Parse(args)
+
+	switch _visualizeFlags.Mode {
+	case "d3js":
+		d3(_visualizeFlags.TraceDir)
+	case "gnuplot":
+		gnuplot(_visualizeFlags.TraceDir)
+	default:
+		fmt.Printf("unknown mode of visualize: %s\n", _visualizeFlags.Mode)
+	}
 }
