@@ -937,7 +937,7 @@ func searchMode(flags orchestratorFlags, exe *execution, dir string, policyName 
 
 	policy := searchpolicy.New(policyName)
 	if policy == nil {
-		Log("invalid policy name: %s", policy.Name())
+		Log("invalid policy name: %s", policyName)
 		os.Exit(1)
 	}
 
