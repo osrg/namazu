@@ -1,0 +1,33 @@
+{
+    "id": "http://github.com/osrg/earthquake/schema/event.json_schema#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "schema for an event",
+    "additionalProperties": true,
+    "required": [
+	"class",
+	"deferred",
+	"process",
+	"type",
+	"uuid"
+    ],
+    "type": "object",
+    "properties": {
+	"uuid": {
+	    "type": "string"
+	},
+	"process": {
+	    "type": "string"
+	},
+	"deferred": {
+	    "type": "boolean"
+	},
+	"type": {
+	    "type": "string"
+	},
+	"class": {
+	    "type": "string"
+	},
+	"option": {
+	}
+    }
+}

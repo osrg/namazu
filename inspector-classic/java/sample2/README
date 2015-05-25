@@ -1,0 +1,5 @@
+../../../earthquake/earthquake -launch-orchestrator -execution-file-path=testExecution.json
+
+export EQ_ENV_PROCESS_ID=hello EQ_MODE_DIRECT=1
+java -javaagent:../base/target/earthquake-inspector.jar=script:hello.btm Hello
+

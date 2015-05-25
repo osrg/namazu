@@ -1,4 +1,0 @@
-[
-   {"type": "funcCall", "param": {"name": "Readline"}},
-   {"type": "funcCall", "param": {"name": "Writeline"}}
-]

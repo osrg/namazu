@@ -1,0 +1,7 @@
+[
+{
+    "directory": "/home/mitake/github/sheepdog.git/sheep",
+    "command": "/usr/local/bin/clang  -I/home/mitake/github/sheepdog.git/include -I/home/mitake/github/sheepdog.git/sheep -o sheep.o -c /home/mitake/github/sheepdog.git/sheep/sheep.c",
+    "file": "sheep.c"
+}
+]

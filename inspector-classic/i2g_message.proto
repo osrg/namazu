@@ -1,0 +1,77 @@
+// Copyright (C) 2014 Nippon Telegraph and Telephone Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+// implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package equtils;
+
+option java_package = "org.osrg.earthquake";
+
+// I2G: Inspector to Guestagent
+
+message I2GMsgReq_Event_FuncCall {
+  required string name = 1;
+};
+
+message I2GMsgReq_Event_Exit {
+  required int32 exitCode = 1;
+};
+
+message I2GMsgReq_Event {
+  enum Type {
+    FUNC_CALL = 1;
+    EXIT = 2;
+  };
+
+  required Type type = 1;
+
+  optional I2GMsgReq_Event_FuncCall FuncCall = 2;
+  optional I2GMsgReq_Event_Exit Exit = 3;
+};
+
+message I2GMsgReq_Initiation {
+  required string processId = 1;
+};
+
+message I2GMsgReq {
+  enum Type {
+    EVENT = 1;
+    INITIATION = 2;
+  };
+
+  required string process_id = 1;
+  required Type type = 2;
+
+  required int32 pid = 3;
+  required int32 tid = 4;
+
+  required int32 msg_id = 5;
+
+  optional int32 ga_msg_id = 6;	// set by guestagent in a case of non direct mode
+
+  optional I2GMsgReq_Event Event = 7;
+  optional I2GMsgReq_Initiation Initiation = 8;
+};
+
+message I2GMsgRsp {
+  enum Result {
+    ACK = 1;
+    ERROR = 2;
+    END = 3;			// FIXME: is this reply?
+  };
+
+  required Result res = 1;	// FIXME: result should be required field
+  optional int32 msg_id = 2;
+
+  optional int32 ga_msg_id = 3;	// set by guestagent in a case of non direct mode
+};
