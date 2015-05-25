@@ -1,0 +1,826 @@
++ CONFIG_JSON=config.json
+++ pwd
++ EQDIR=/home/penguin/WORK/earthquake/example/zk/../..
++ export LD_LIBRARY_PATH=/home/penguin/WORK/earthquake/example/zk/../../bin:
++ LD_LIBRARY_PATH=/home/penguin/WORK/earthquake/example/zk/../../bin:
++ export PYTHONPATH=/home/penguin/WORK/earthquake/example/zk/../..:
++ PYTHONPATH=/home/penguin/WORK/earthquake/example/zk/../..:
++ python -m pyearthquake.cmd.orchestrator_loader config.json
+[INFO]orchestrator_loader.py:24: Loading orchestrator "pyearthquake.orchestrator.orchestrator.BasicOrchestrator()"
+[INFO]orchestrator_loader.py:27: Loaded orchestrator <pyearthquake.orchestrator.orchestrator.BasicOrchestrator object at 0x7fa504051850>
+[INFO]orchestrator.py:61: Processes: {u'zksrv2': {'queue': <Queue at 0x7fa503251750 maxsize=None>}, u'zksrv3': {'queue': <Queue at 0x7fa5032517d0 maxsize=None>}, u'zksrv1': {'queue': <Queue at 0x7fa503251590 maxsize=None>}, u'zkcli1': {'queue': <Queue at 0x7fa503251850 maxsize=None>}, u'zkcli2': {'queue': <Queue at 0x7fa5032518d0 maxsize=None>}}
+[INFO]orchestrator.py:65: Loading DLL "libearthquake.so"
+[INFO]orchestrator.py:67: Loaded DLL "<CDLL 'libearthquake.so', handle 17a0f40 at 7fa5042a1850>"
+Mon May 25 02:03:13 JST 2015 ...ake/libearthquake.go(39): init() ENTER
+Mon May 25 02:03:13 JST 2015 ...ake/libearthquake.go(43): init() LEAVE
+Mon May 25 02:03:13 JST 2015 ...ake/libearthquake.go(62): searchDir: /tmp/eq/search
+[INFO]orchestrator.py:77: Loading ProcessWatcher "pyearthquake.orchestrator.watcher.BasicProcessWatcher()"
+[INFO]orchestrator.py:82: Loaded ProcessWatcher <pyearthquake.orchestrator.watcher.BasicProcessWatcher object at 0x7fa50323b4d0> for process zksrv2
+[INFO]orchestrator.py:82: Loaded ProcessWatcher <pyearthquake.orchestrator.watcher.BasicProcessWatcher object at 0x7fa503b78950> for process zksrv3
+[INFO]orchestrator.py:82: Loaded ProcessWatcher <pyearthquake.orchestrator.watcher.BasicProcessWatcher object at 0x7fa503251910> for process zksrv1
+[INFO]orchestrator.py:82: Loaded ProcessWatcher <pyearthquake.orchestrator.watcher.BasicProcessWatcher object at 0x7fa503251950> for process zkcli1
+[INFO]orchestrator.py:82: Loaded ProcessWatcher <pyearthquake.orchestrator.watcher.BasicProcessWatcher object at 0x7fa503251990> for process zkcli2
+[INFO]orchestrator.py:95: Loading termination detector "pyearthquake.orchestrator.detector.InspectionEndDetector()"
+[INFO]orchestrator.py:98: Loaded termination detector <pyearthquake.orchestrator.detector.InspectionEndDetector object at 0x7fa5032519d0>
+[INFO]orchestrator.py:87: Loading explorer "pyearthquake.orchestrator.explorer.DumbExplorer()"
+[INFO]orchestrator.py:90: Loaded explorer <pyearthquake.orchestrator.explorer.DumbExplorer object at 0x7fa503b7e1d0>
+[DEBUG]explorer.py:81: [44mset initial state=<State hash=0x35d373>[0m
+[INFO]orchestrator_loader.py:36: Starting orchestrator
+[DEBUG]orchestrator.py:111: registering flask routes
+(13498) wsgi starting up on http://127.0.0.1:10000/
+(13498) accepted ('127.0.0.1', 46813)
+(13498) accepted ('127.0.0.1', 46821)
+(13498) accepted ('127.0.0.1', 46826)
+(13498) accepted ('127.0.0.1', 46829)
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'05d8d56f-9fa7-4d54-870c-d7aaaaa9d8bb', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FollowerRequestProcessor.processRequest', u'request': u'sessionid:0x10001facd6f0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.011078
+[DEBUG]explorer.py:109: In state <State hash=0x35d373>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FollowerRequestProcessor.processRequest', u'request': u'sessionid:0x10001facd6f0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'05d8d56f-9fa7-4d54-870c-d7aaaaa9d8bb'}
+[DEBUG]explorer.py:113: In state <State hash=0x35d373>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FollowerRequestProcessor.processRequest', u'request': u'sessionid:0x10001facd6f0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x35d373>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FollowerRequestProcessor.processRequest', u'request': u'sessionid:0x10001facd6f0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x35d373>-><State hash=0x-744d14dd2db3be52>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-744d14dd2db3be52>
+[DEBUG]explorer.py:136: transit from <State hash=0x35d373> to <State hash=0x-744d14dd2db3be52>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'05d8d56f-9fa7-4d54-870c-d7aaaaa9d8bb'}, 'uuid': '95f47ed7-c45e-4717-bc80-9406d2aa7eb4'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 5.774931
+(13498) accepted ('127.0.0.1', 46830)
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'868180bd-42a5-4aa5-aa4c-8d54c60097f5', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.001264
+[DEBUG]explorer.py:109: In state <State hash=0x-744d14dd2db3be52>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'868180bd-42a5-4aa5-aa4c-8d54c60097f5'}
+[DEBUG]explorer.py:113: In state <State hash=0x-744d14dd2db3be52>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-744d14dd2db3be52>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-744d14dd2db3be52>-><State hash=0x-69fee4dc33c210de>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-69fee4dc33c210de>
+[DEBUG]explorer.py:136: transit from <State hash=0x-744d14dd2db3be52> to <State hash=0x-69fee4dc33c210de>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'868180bd-42a5-4aa5-aa4c-8d54c60097f5'}, 'uuid': '9e9a1a7c-8864-4039-9044-6ce2ddea6746'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 4.156963
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'e0bc32e5-efa8-4897-b4e2-e5aa96b6c132', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x10001facd6f0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.010103
+[DEBUG]explorer.py:109: In state <State hash=0x-69fee4dc33c210de>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x10001facd6f0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'e0bc32e5-efa8-4897-b4e2-e5aa96b6c132'}
+[DEBUG]explorer.py:113: In state <State hash=0x-69fee4dc33c210de>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x10001facd6f0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-69fee4dc33c210de>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x10001facd6f0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-69fee4dc33c210de>-><State hash=0x621a5f2c085f187e>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x621a5f2c085f187e>
+[DEBUG]explorer.py:136: transit from <State hash=0x-69fee4dc33c210de> to <State hash=0x621a5f2c085f187e>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'e0bc32e5-efa8-4897-b4e2-e5aa96b6c132'}, 'uuid': 'ed2561dd-8adb-49a6-a365-0daff07fd602'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.008620
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'2d477b60-8118-4c95-9654-b78fc2290895', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.001273
+[DEBUG]explorer.py:109: In state <State hash=0x621a5f2c085f187e>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'2d477b60-8118-4c95-9654-b78fc2290895'}
+[DEBUG]explorer.py:113: In state <State hash=0x621a5f2c085f187e>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x621a5f2c085f187e>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x621a5f2c085f187e>-><State hash=0x-791a6df2bf97424a>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-791a6df2bf97424a>
+[DEBUG]explorer.py:136: transit from <State hash=0x621a5f2c085f187e> to <State hash=0x-791a6df2bf97424a>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'2d477b60-8118-4c95-9654-b78fc2290895'}, 'uuid': '33e4df08-5893-4caf-a227-be3789ecc83f'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.004875
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'a84abc7b-b504-41a9-b4a4-3c8bbd82a9fc', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.005464
+[DEBUG]explorer.py:109: In state <State hash=0x-791a6df2bf97424a>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'a84abc7b-b504-41a9-b4a4-3c8bbd82a9fc'}
+[DEBUG]explorer.py:113: In state <State hash=0x-791a6df2bf97424a>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-791a6df2bf97424a>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-791a6df2bf97424a>-><State hash=0x-47f8986111bd0aff>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-47f8986111bd0aff>
+[DEBUG]explorer.py:136: transit from <State hash=0x-791a6df2bf97424a> to <State hash=0x-47f8986111bd0aff>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'a84abc7b-b504-41a9-b4a4-3c8bbd82a9fc'}, 'uuid': 'af103c60-d104-43d7-bc46-c5fdabee0cdd'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.012377
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'7f507574-ef1c-44e6-84aa-5a7cea2cc35e', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.007808
+[DEBUG]explorer.py:109: In state <State hash=0x-47f8986111bd0aff>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'7f507574-ef1c-44e6-84aa-5a7cea2cc35e'}
+[DEBUG]explorer.py:113: In state <State hash=0x-47f8986111bd0aff>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-47f8986111bd0aff>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-47f8986111bd0aff>-><State hash=0x2f254a1c368b9d8f>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x2f254a1c368b9d8f>
+[DEBUG]explorer.py:136: transit from <State hash=0x-47f8986111bd0aff> to <State hash=0x2f254a1c368b9d8f>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'7f507574-ef1c-44e6-84aa-5a7cea2cc35e'}, 'uuid': 'f790a41f-5dac-40af-915f-c8ede3239339'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.020887
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'ca7cdfb4-f8be-4def-b8d1-3b4d57519eac', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.010514
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'b8cde62f-0119-4916-9c34-11e137478b05', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.008710
+[DEBUG]explorer.py:109: In state <State hash=0x2f254a1c368b9d8f>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'ca7cdfb4-f8be-4def-b8d1-3b4d57519eac'}
+[DEBUG]explorer.py:113: In state <State hash=0x2f254a1c368b9d8f>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x2f254a1c368b9d8f>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x2f254a1c368b9d8f>-><State hash=0x-15d010d80319b228>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-15d010d80319b228>
+[DEBUG]explorer.py:136: transit from <State hash=0x2f254a1c368b9d8f> to <State hash=0x-15d010d80319b228>
+[DEBUG]explorer.py:109: In state <State hash=0x-15d010d80319b228>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'b8cde62f-0119-4916-9c34-11e137478b05'}
+[DEBUG]explorer.py:113: In state <State hash=0x-15d010d80319b228>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-15d010d80319b228>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-15d010d80319b228>-><State hash=0x1a00cc8902eaa5c0>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x1a00cc8902eaa5c0>
+[DEBUG]explorer.py:136: transit from <State hash=0x-15d010d80319b228> to <State hash=0x1a00cc8902eaa5c0>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'b8cde62f-0119-4916-9c34-11e137478b05'}, 'uuid': 'fec0bba8-8164-4847-85b4-883d1eaa428b'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.037347
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'913cea57-d672-4a44-b660-cc0234e69a95', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.003410
+(13498) accepted ('127.0.0.1', 46831)
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'59e30c16-18d5-48d0-840a-01ecd0f9f5ea', u'process': u'zksrv3', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:36] "POST /api/v1 HTTP/1.1" 200 133 0.001204
+[DEBUG]explorer.py:109: In state <State hash=0x1a00cc8902eaa5c0>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'913cea57-d672-4a44-b660-cc0234e69a95'}
+[DEBUG]explorer.py:113: In state <State hash=0x1a00cc8902eaa5c0>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x1a00cc8902eaa5c0>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x1a00cc8902eaa5c0>-><State hash=0x4b723278e69de84d>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x4b723278e69de84d>
+[DEBUG]explorer.py:136: transit from <State hash=0x1a00cc8902eaa5c0> to <State hash=0x4b723278e69de84d>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'913cea57-d672-4a44-b660-cc0234e69a95'}, 'uuid': '5a78d85c-4c12-4741-9693-303b02323b66'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.131808
+[DEBUG]explorer.py:109: In state <State hash=0x4b723278e69de84d>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv3', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'59e30c16-18d5-48d0-840a-01ecd0f9f5ea'}
+[DEBUG]explorer.py:113: In state <State hash=0x4b723278e69de84d>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x4b723278e69de84d>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x4b723278e69de84d>-><State hash=0x7bcea133b359e2a6>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x7bcea133b359e2a6>
+[DEBUG]explorer.py:136: transit from <State hash=0x4b723278e69de84d> to <State hash=0x7bcea133b359e2a6>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'59e30c16-18d5-48d0-840a-01ecd0f9f5ea'}, 'uuid': '560d8364-c914-41d6-b170-da504c6b03c6'}
+127.0.0.1 - - [25/May/2015 02:03:36] "GET /api/v1/zksrv3 HTTP/1.1" 200 346 3.615031
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'7ec763dc-5e10-4a11-974f-5f1fb1117c45', u'process': u'zksrv3', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.001048
+[DEBUG]explorer.py:109: In state <State hash=0x7bcea133b359e2a6>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv3', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'7ec763dc-5e10-4a11-974f-5f1fb1117c45'}
+[DEBUG]explorer.py:113: In state <State hash=0x7bcea133b359e2a6>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x7bcea133b359e2a6>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x7bcea133b359e2a6>-><State hash=0x69a9e8628205b41a>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x69a9e8628205b41a>
+[DEBUG]explorer.py:136: transit from <State hash=0x7bcea133b359e2a6> to <State hash=0x69a9e8628205b41a>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'7ec763dc-5e10-4a11-974f-5f1fb1117c45'}, 'uuid': '959cc0c0-070d-46a9-9360-b2f006de0770'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv3 HTTP/1.1" 200 346 0.287047
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'ca7cdfb4-f8be-4def-b8d1-3b4d57519eac'}, 'uuid': '32636be5-6de3-45e1-af59-6b89e466003b'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.000838
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'd44879bc-7652-44ae-b785-652898b6a6e7', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.005387
+[DEBUG]explorer.py:109: In state <State hash=0x69a9e8628205b41a>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'd44879bc-7652-44ae-b785-652898b6a6e7'}
+[DEBUG]explorer.py:113: In state <State hash=0x69a9e8628205b41a>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x69a9e8628205b41a>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x69a9e8628205b41a>-><State hash=0x4844b6013c81653a>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x4844b6013c81653a>
+[DEBUG]explorer.py:136: transit from <State hash=0x69a9e8628205b41a> to <State hash=0x4844b6013c81653a>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'd44879bc-7652-44ae-b785-652898b6a6e7'}, 'uuid': 'd763b8f3-d4b6-428a-8d36-6d51eba2af82'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.300315
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'ad4c2502-d42e-47a2-b9c4-5c83ae27fd8d', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.002695
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'2b5a2195-2d33-4411-ba3a-7e1e88b8c399', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.003006
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'c3650d0f-6e14-4cf1-bb20-3f8250366e4d', u'process': u'zksrv3', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.003643
+[DEBUG]explorer.py:109: In state <State hash=0x4844b6013c81653a>, the following 2 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'ad4c2502-d42e-47a2-b9c4-5c83ae27fd8d'}
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'2b5a2195-2d33-4411-ba3a-7e1e88b8c399'}
+[DEBUG]explorer.py:113: In state <State hash=0x4844b6013c81653a>, the following NEW 2 callbacks were yielded for the above 2 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x4844b6013c81653a>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x4844b6013c81653a>-><State hash=0x-4ec3501dc458521e>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x4844b6013c81653a> to <State hash=0x-4ec3501dc458521e>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'ad4c2502-d42e-47a2-b9c4-5c83ae27fd8d'}, 'uuid': '6d5328ed-ee36-4876-8746-09f34f8c06ad'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.976068
+[DEBUG]explorer.py:107: Before state <State hash=0x-4ec3501dc458521e>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x-4ec3501dc458521e>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv3', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'c3650d0f-6e14-4cf1-bb20-3f8250366e4d'}
+[DEBUG]explorer.py:113: In state <State hash=0x-4ec3501dc458521e>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-4ec3501dc458521e>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-4ec3501dc458521e>-><State hash=0x-4d85f8b9d60c538d>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x-4ec3501dc458521e> to <State hash=0x-4d85f8b9d60c538d>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'2b5a2195-2d33-4411-ba3a-7e1e88b8c399'}, 'uuid': '67f82b44-dbc8-40bb-8f43-ef2629989d39'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.082843
+[DEBUG]explorer.py:107: Before state <State hash=0x-4d85f8b9d60c538d>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x-4d85f8b9d60c538d>, the following 0 events happend
+[DEBUG]explorer.py:113: In state <State hash=0x-4d85f8b9d60c538d>, the following NEW 0 callbacks were yielded for the above 0 events
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-4d85f8b9d60c538d>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-4d85f8b9d60c538d>-><State hash=0x-4d7792289194cf38>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-4d7792289194cf38>
+[DEBUG]explorer.py:136: transit from <State hash=0x-4d85f8b9d60c538d> to <State hash=0x-4d7792289194cf38>
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'2252ac61-77c9-42e4-aa01-7ec2433d6cda', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.004661
+[DEBUG]explorer.py:109: In state <State hash=0x-4d7792289194cf38>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'2252ac61-77c9-42e4-aa01-7ec2433d6cda'}
+[DEBUG]explorer.py:113: In state <State hash=0x-4d7792289194cf38>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-4d7792289194cf38>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-4d7792289194cf38>-><State hash=0x-3cd5e2e935759eb9>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-3cd5e2e935759eb9>
+[DEBUG]explorer.py:136: transit from <State hash=0x-4d7792289194cf38> to <State hash=0x-3cd5e2e935759eb9>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'2252ac61-77c9-42e4-aa01-7ec2433d6cda'}, 'uuid': '00eb6b3d-f025-413b-8a94-f51ce75cea5d'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.055941
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'd892fac2-0c5d-41e8-8b37-7d8cdfe0114a', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.005548
+[DEBUG]explorer.py:109: In state <State hash=0x-3cd5e2e935759eb9>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'd892fac2-0c5d-41e8-8b37-7d8cdfe0114a'}
+[DEBUG]explorer.py:113: In state <State hash=0x-3cd5e2e935759eb9>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-3cd5e2e935759eb9>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-3cd5e2e935759eb9>-><State hash=0x-11a8ad74b8cddcae>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-11a8ad74b8cddcae>
+[DEBUG]explorer.py:136: transit from <State hash=0x-3cd5e2e935759eb9> to <State hash=0x-11a8ad74b8cddcae>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'd892fac2-0c5d-41e8-8b37-7d8cdfe0114a'}, 'uuid': '99167cd7-e3be-41cd-a4ee-31f2e81c958b'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.005342
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'7141362f-d314-40a3-abe2-376af8b0ab08', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.004071
+[DEBUG]explorer.py:109: In state <State hash=0x-11a8ad74b8cddcae>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'7141362f-d314-40a3-abe2-376af8b0ab08'}
+[DEBUG]explorer.py:113: In state <State hash=0x-11a8ad74b8cddcae>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-11a8ad74b8cddcae>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-11a8ad74b8cddcae>-><State hash=0x3b766228e76bfa5>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x3b766228e76bfa5>
+[DEBUG]explorer.py:136: transit from <State hash=0x-11a8ad74b8cddcae> to <State hash=0x3b766228e76bfa5>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'7141362f-d314-40a3-abe2-376af8b0ab08'}, 'uuid': 'f9bb5471-a5a6-482b-85bf-d9635fb6d590'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.027498
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'd785b675-a469-46bb-8dbf-b62da720d3ef', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.004007
+[DEBUG]explorer.py:109: In state <State hash=0x3b766228e76bfa5>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'd785b675-a469-46bb-8dbf-b62da720d3ef'}
+[DEBUG]explorer.py:113: In state <State hash=0x3b766228e76bfa5>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x3b766228e76bfa5>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x3b766228e76bfa5>-><State hash=0x32f3575a9cbfa485>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x32f3575a9cbfa485>
+[DEBUG]explorer.py:136: transit from <State hash=0x3b766228e76bfa5> to <State hash=0x32f3575a9cbfa485>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'd785b675-a469-46bb-8dbf-b62da720d3ef'}, 'uuid': '9edf4e1f-63fa-4710-bd20-469ea577d4e0'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.010951
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'6b92ca0c-a956-4d93-bc74-99849481ee46', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.000940
+[DEBUG]explorer.py:109: In state <State hash=0x32f3575a9cbfa485>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'6b92ca0c-a956-4d93-bc74-99849481ee46'}
+[DEBUG]explorer.py:113: In state <State hash=0x32f3575a9cbfa485>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x32f3575a9cbfa485>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x32f3575a9cbfa485>-><State hash=0x1d0f5d8efcd625d5>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x1d0f5d8efcd625d5>
+[DEBUG]explorer.py:136: transit from <State hash=0x32f3575a9cbfa485> to <State hash=0x1d0f5d8efcd625d5>
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'0c0d3684-62a7-4dfb-ab4a-0c0f6f0d8004', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.001083
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'757ad049-3d1d-49c7-b6bd-556914ffce01', u'process': u'zksrv3', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:37] "POST /api/v1 HTTP/1.1" 200 133 0.000803
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'6b92ca0c-a956-4d93-bc74-99849481ee46'}, 'uuid': 'dd65628a-625d-4b5e-b204-bd00831b86cb'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.014608
+[DEBUG]explorer.py:109: In state <State hash=0x1d0f5d8efcd625d5>, the following 2 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'0c0d3684-62a7-4dfb-ab4a-0c0f6f0d8004'}
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv3', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'757ad049-3d1d-49c7-b6bd-556914ffce01'}
+[DEBUG]explorer.py:113: In state <State hash=0x1d0f5d8efcd625d5>, the following NEW 2 callbacks were yielded for the above 2 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x1d0f5d8efcd625d5>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x1d0f5d8efcd625d5>-><State hash=0x-40fa9367e5d5ca18>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x1d0f5d8efcd625d5> to <State hash=0x-40fa9367e5d5ca18>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'0c0d3684-62a7-4dfb-ab4a-0c0f6f0d8004'}, 'uuid': 'a8eb6290-90f3-4e1f-a9b4-b597e3dd6e78'}
+127.0.0.1 - - [25/May/2015 02:03:37] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.159232
+[DEBUG]explorer.py:107: Before state <State hash=0x-40fa9367e5d5ca18>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x-40fa9367e5d5ca18>, the following 0 events happend
+[DEBUG]explorer.py:113: In state <State hash=0x-40fa9367e5d5ca18>, the following NEW 0 callbacks were yielded for the above 0 events
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-40fa9367e5d5ca18>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-40fa9367e5d5ca18>-><State hash=0x5b9fb3bcd71a170d>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x5b9fb3bcd71a170d>
+[DEBUG]explorer.py:136: transit from <State hash=0x-40fa9367e5d5ca18> to <State hash=0x5b9fb3bcd71a170d>
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'98c8eeae-2f94-4810-bb9b-a7b322848f45', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.005387
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'a1653df4-1261-4d3a-ad7c-1abef5d18981', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.004712
+[DEBUG]explorer.py:109: In state <State hash=0x5b9fb3bcd71a170d>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'98c8eeae-2f94-4810-bb9b-a7b322848f45'}
+[DEBUG]explorer.py:113: In state <State hash=0x5b9fb3bcd71a170d>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x5b9fb3bcd71a170d>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x5b9fb3bcd71a170d>-><State hash=0x483ea3ec5790eeb6>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x483ea3ec5790eeb6>
+[DEBUG]explorer.py:136: transit from <State hash=0x5b9fb3bcd71a170d> to <State hash=0x483ea3ec5790eeb6>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'98c8eeae-2f94-4810-bb9b-a7b322848f45'}, 'uuid': 'a5bff14f-e06e-4c18-96bb-2b0fc41482c3'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.014723
+[DEBUG]explorer.py:109: In state <State hash=0x483ea3ec5790eeb6>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'a1653df4-1261-4d3a-ad7c-1abef5d18981'}
+[DEBUG]explorer.py:113: In state <State hash=0x483ea3ec5790eeb6>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x483ea3ec5790eeb6>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x483ea3ec5790eeb6>-><State hash=0x7432324a11dff828>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x7432324a11dff828>
+[DEBUG]explorer.py:136: transit from <State hash=0x483ea3ec5790eeb6> to <State hash=0x7432324a11dff828>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'a1653df4-1261-4d3a-ad7c-1abef5d18981'}, 'uuid': '596a14fd-3c18-45b3-8313-f28d911cde00'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.034233
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'5c705077-7352-4dc6-99b3-af0acb03dda3', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.004445
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'105403f7-0957-4d55-94d5-8e97284aec6a', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.003279
+[DEBUG]explorer.py:109: In state <State hash=0x7432324a11dff828>, the following 2 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'5c705077-7352-4dc6-99b3-af0acb03dda3'}
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'105403f7-0957-4d55-94d5-8e97284aec6a'}
+[DEBUG]explorer.py:113: In state <State hash=0x7432324a11dff828>, the following NEW 2 callbacks were yielded for the above 2 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x7432324a11dff828>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x7432324a11dff828>-><State hash=0x408e1c2691630e0a>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x7432324a11dff828> to <State hash=0x408e1c2691630e0a>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'5c705077-7352-4dc6-99b3-af0acb03dda3'}, 'uuid': '4334602a-cad1-41ad-80bb-2d29abf3c284'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.039980
+[DEBUG]explorer.py:107: Before state <State hash=0x408e1c2691630e0a>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x408e1c2691630e0a>, the following 0 events happend
+[DEBUG]explorer.py:113: In state <State hash=0x408e1c2691630e0a>, the following NEW 0 callbacks were yielded for the above 0 events
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x408e1c2691630e0a>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x408e1c2691630e0a>-><State hash=0x64b870031d1f10c7>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x64b870031d1f10c7>
+[DEBUG]explorer.py:136: transit from <State hash=0x408e1c2691630e0a> to <State hash=0x64b870031d1f10c7>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'105403f7-0957-4d55-94d5-8e97284aec6a'}, 'uuid': 'db3bd584-78b1-4dc3-947e-52fb24245b35'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.049384
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'a609cb24-a67d-411c-8045-d4423cea2ea9', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.001240
+[DEBUG]explorer.py:109: In state <State hash=0x64b870031d1f10c7>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'a609cb24-a67d-411c-8045-d4423cea2ea9'}
+[DEBUG]explorer.py:113: In state <State hash=0x64b870031d1f10c7>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x64b870031d1f10c7>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x64b870031d1f10c7>-><State hash=0x-3224961ab283f92b>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-3224961ab283f92b>
+[DEBUG]explorer.py:136: transit from <State hash=0x64b870031d1f10c7> to <State hash=0x-3224961ab283f92b>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'a609cb24-a67d-411c-8045-d4423cea2ea9'}, 'uuid': '8b8e8b28-76d2-451b-9aad-c4db02b9e261'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.024835
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'3fcc0f3c-aa45-425a-bd67-d403478a99a3', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.001232
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'c3650d0f-6e14-4cf1-bb20-3f8250366e4d'}, 'uuid': 'fd5de5a4-c185-45ea-8d12-6b13aa2480ac'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv3 HTTP/1.1" 200 346 0.014862
+[DEBUG]explorer.py:109: In state <State hash=0x-3224961ab283f92b>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'3fcc0f3c-aa45-425a-bd67-d403478a99a3'}
+[DEBUG]explorer.py:113: In state <State hash=0x-3224961ab283f92b>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-3224961ab283f92b>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0xfffffffffffffffe txntype:unknown reqpath:/test-'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-3224961ab283f92b>-><State hash=0x759605112c6f3aff>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x759605112c6f3aff>
+[DEBUG]explorer.py:136: transit from <State hash=0x-3224961ab283f92b> to <State hash=0x759605112c6f3aff>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'757ad049-3d1d-49c7-b6bd-556914ffce01'}, 'uuid': '6d9669b9-6237-4188-96ab-e855a940b56d'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv3 HTTP/1.1" 200 346 0.001127
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'3fcc0f3c-aa45-425a-bd67-d403478a99a3'}, 'uuid': 'b401d058-7468-446a-91ac-562b4125f876'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.039916
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'3bb9ba68-481b-4175-8141-be332aeedb12', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.002943
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'c054b584-55d6-44df-b3ab-5b6c71446488', u'process': u'zksrv3', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.000900
+[DEBUG]explorer.py:109: In state <State hash=0x759605112c6f3aff>, the following 2 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'3bb9ba68-481b-4175-8141-be332aeedb12'}
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'}, 'process': u'zksrv3', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'c054b584-55d6-44df-b3ab-5b6c71446488'}
+[DEBUG]explorer.py:113: In state <State hash=0x759605112c6f3aff>, the following NEW 2 callbacks were yielded for the above 2 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x759605112c6f3aff>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x759605112c6f3aff>-><State hash=0x2bf0291afdb00190>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x759605112c6f3aff> to <State hash=0x2bf0291afdb00190>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'3bb9ba68-481b-4175-8141-be332aeedb12'}, 'uuid': 'fd1e4d26-9a53-4454-ada6-04f1ad4832d8'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.012298
+[DEBUG]explorer.py:107: Before state <State hash=0x2bf0291afdb00190>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x2bf0291afdb00190>, the following 0 events happend
+[DEBUG]explorer.py:113: In state <State hash=0x2bf0291afdb00190>, the following NEW 0 callbacks were yielded for the above 0 events
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x2bf0291afdb00190>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x1 zxid:0x100000002 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x2bf0291afdb00190>-><State hash=0x-457973b469ac844d>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-457973b469ac844d>
+[DEBUG]explorer.py:136: transit from <State hash=0x2bf0291afdb00190> to <State hash=0x-457973b469ac844d>
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'2551901d-18ac-463b-a6e1-60dceaad6305', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.003672
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'c054b584-55d6-44df-b3ab-5b6c71446488'}, 'uuid': 'da1cc3f0-95ff-438e-9d45-a136a1cb0f02'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv3 HTTP/1.1" 200 346 0.032686
+[DEBUG]explorer.py:109: In state <State hash=0x-457973b469ac844d>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'2551901d-18ac-463b-a6e1-60dceaad6305'}
+[DEBUG]explorer.py:113: In state <State hash=0x-457973b469ac844d>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-457973b469ac844d>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-457973b469ac844d>-><State hash=0x-11ab1f9a01659fc7>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-11ab1f9a01659fc7>
+[DEBUG]explorer.py:136: transit from <State hash=0x-457973b469ac844d> to <State hash=0x-11ab1f9a01659fc7>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'2551901d-18ac-463b-a6e1-60dceaad6305'}, 'uuid': '18461bb3-1f62-4def-b89a-820d3499ebc7'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.037908
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'df4ebb72-8f16-4f28-b720-9f81cf0178d3', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.004997
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'0cda05dd-f523-40f3-8706-92bc9d215079', u'process': u'zksrv3', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.001732
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'e3543b42-1a67-4049-a23e-92c91d0a736a', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.001279
+[DEBUG]explorer.py:109: In state <State hash=0x-11ab1f9a01659fc7>, the following 2 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'df4ebb72-8f16-4f28-b720-9f81cf0178d3'}
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv3', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'0cda05dd-f523-40f3-8706-92bc9d215079'}
+[DEBUG]explorer.py:113: In state <State hash=0x-11ab1f9a01659fc7>, the following NEW 2 callbacks were yielded for the above 2 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-11ab1f9a01659fc7>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-11ab1f9a01659fc7>-><State hash=0x3bc1f91017d8b47a>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x-11ab1f9a01659fc7> to <State hash=0x3bc1f91017d8b47a>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'df4ebb72-8f16-4f28-b720-9f81cf0178d3'}, 'uuid': '22e0059d-1ec8-484c-b5d0-1ab53b740eb2'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.137437
+[DEBUG]explorer.py:107: Before state <State hash=0x3bc1f91017d8b47a>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x3bc1f91017d8b47a>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'e3543b42-1a67-4049-a23e-92c91d0a736a'}
+[DEBUG]explorer.py:113: In state <State hash=0x3bc1f91017d8b47a>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x3bc1f91017d8b47a>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x3bc1f91017d8b47a>-><State hash=0x-38b48048f215142d>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x3bc1f91017d8b47a> to <State hash=0x-38b48048f215142d>
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'0c8dff09-fb65-49c0-b3c2-36368fc6b33f', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.001663
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'0cda05dd-f523-40f3-8706-92bc9d215079'}, 'uuid': 'b8f7334f-7cf2-4416-99ec-15e7a336aea1'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv3 HTTP/1.1" 200 346 0.062840
+[DEBUG]explorer.py:107: Before state <State hash=0x-38b48048f215142d>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x-38b48048f215142d>, the following 0 events happend
+[DEBUG]explorer.py:113: In state <State hash=0x-38b48048f215142d>, the following NEW 0 callbacks were yielded for the above 0 events
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-38b48048f215142d>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-38b48048f215142d>-><State hash=0x-1b15ab0c983d69d1>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-1b15ab0c983d69d1>
+[DEBUG]explorer.py:136: transit from <State hash=0x-38b48048f215142d> to <State hash=0x-1b15ab0c983d69d1>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'e3543b42-1a67-4049-a23e-92c91d0a736a'}, 'uuid': 'ecf57d7e-3793-46c3-9632-768ada4ad351'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.052707
+[DEBUG]explorer.py:109: In state <State hash=0x-1b15ab0c983d69d1>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'0c8dff09-fb65-49c0-b3c2-36368fc6b33f'}
+[DEBUG]explorer.py:113: In state <State hash=0x-1b15ab0c983d69d1>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-1b15ab0c983d69d1>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SendAckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-1b15ab0c983d69d1>-><State hash=0x-6610f80008621d1d>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-6610f80008621d1d>
+[DEBUG]explorer.py:136: transit from <State hash=0x-1b15ab0c983d69d1> to <State hash=0x-6610f80008621d1d>
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'603098ca-2893-4766-8751-a655b2e556c0', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.001047
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'0c8dff09-fb65-49c0-b3c2-36368fc6b33f'}, 'uuid': '3a790b6a-a88e-4547-b903-2f31582499b0'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.047700
+[DEBUG]explorer.py:109: In state <State hash=0x-6610f80008621d1d>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'603098ca-2893-4766-8751-a655b2e556c0'}
+[DEBUG]explorer.py:113: In state <State hash=0x-6610f80008621d1d>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-6610f80008621d1d>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-6610f80008621d1d>-><State hash=0x-23b8ae1cc63661f6>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-23b8ae1cc63661f6>
+[DEBUG]explorer.py:136: transit from <State hash=0x-6610f80008621d1d> to <State hash=0x-23b8ae1cc63661f6>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'603098ca-2893-4766-8751-a655b2e556c0'}, 'uuid': 'ff1d5d66-ce09-4e46-a84a-4cd465dea397'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.039568
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'bbeff5d0-f882-442d-b2ee-0554c67719a9', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.008675
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'cf364a16-ee2f-401b-9e52-ba2473a34f96', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.007884
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'9756d3a9-48eb-410f-b0b3-e2adf61e85b7', u'process': u'zksrv3', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:03:38] "POST /api/v1 HTTP/1.1" 200 133 0.001666
+[DEBUG]explorer.py:109: In state <State hash=0x-23b8ae1cc63661f6>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'bbeff5d0-f882-442d-b2ee-0554c67719a9'}
+[DEBUG]explorer.py:113: In state <State hash=0x-23b8ae1cc63661f6>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-23b8ae1cc63661f6>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-23b8ae1cc63661f6>-><State hash=0x394d6cc3a3eba3cf>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x394d6cc3a3eba3cf>
+[DEBUG]explorer.py:136: transit from <State hash=0x-23b8ae1cc63661f6> to <State hash=0x394d6cc3a3eba3cf>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'bbeff5d0-f882-442d-b2ee-0554c67719a9'}, 'uuid': '8cbf2f6c-44c7-4433-8d7b-7c905875a937'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.082396
+[DEBUG]explorer.py:109: In state <State hash=0x394d6cc3a3eba3cf>, the following 2 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'cf364a16-ee2f-401b-9e52-ba2473a34f96'}
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'}, 'process': u'zksrv3', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'9756d3a9-48eb-410f-b0b3-e2adf61e85b7'}
+[DEBUG]explorer.py:113: In state <State hash=0x394d6cc3a3eba3cf>, the following NEW 2 callbacks were yielded for the above 2 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x394d6cc3a3eba3cf>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x394d6cc3a3eba3cf>-><State hash=0x44d9768a32e43f9b>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x394d6cc3a3eba3cf> to <State hash=0x44d9768a32e43f9b>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'cf364a16-ee2f-401b-9e52-ba2473a34f96'}, 'uuid': '19ba531c-96ac-48b1-b281-4b57082e53d9'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.061996
+[DEBUG]explorer.py:107: Before state <State hash=0x44d9768a32e43f9b>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x44d9768a32e43f9b>, the following 0 events happend
+[DEBUG]explorer.py:113: In state <State hash=0x44d9768a32e43f9b>, the following NEW 0 callbacks were yielded for the above 0 events
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x44d9768a32e43f9b>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FinalRequestProcessor.processRequest', u'request': u'sessionid:0x20001facbe30000 type:create cxid:0x2 zxid:0x100000003 txntype:1 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x44d9768a32e43f9b>-><State hash=0x-1c92d7c99196f3b8>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-1c92d7c99196f3b8>
+[DEBUG]explorer.py:136: transit from <State hash=0x44d9768a32e43f9b> to <State hash=0x-1c92d7c99196f3b8>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'9756d3a9-48eb-410f-b0b3-e2adf61e85b7'}, 'uuid': '40284b5f-0830-4907-bb4b-0584d6a6c5fc'}
+127.0.0.1 - - [25/May/2015 02:03:38] "GET /api/v1/zksrv3 HTTP/1.1" 200 346 0.119086
+(13498) accepted ('127.0.0.1', 46833)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zkcli1', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc652'}
+127.0.0.1 - - [25/May/2015 02:03:47] "POST /api/v1 HTTP/1.1" 200 109 0.001020
+[DEBUG]explorer.py:109: In state <State hash=0x-1c92d7c99196f3b8>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zkcli1', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc652'}
+[DEBUG]explorer.py:113: In state <State hash=0x-1c92d7c99196f3b8>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zkcli1', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-1c92d7c99196f3b8>, digestible=<Digestible {'process': u'zkcli1', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-1c92d7c99196f3b8>-><State hash=0x-7b8ad15b7ea4b96a>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-7b8ad15b7ea4b96a>
+[DEBUG]explorer.py:136: transit from <State hash=0x-1c92d7c99196f3b8> to <State hash=0x-7b8ad15b7ea4b96a>
+(13498) accepted ('127.0.0.1', 46834)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zkcli2', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc653'}
+127.0.0.1 - - [25/May/2015 02:03:47] "POST /api/v1 HTTP/1.1" 200 109 0.001725
+[DEBUG]explorer.py:109: In state <State hash=0x-7b8ad15b7ea4b96a>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zkcli2', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc653'}
+[DEBUG]explorer.py:113: In state <State hash=0x-7b8ad15b7ea4b96a>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zkcli2', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-7b8ad15b7ea4b96a>, digestible=<Digestible {'process': u'zkcli2', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-7b8ad15b7ea4b96a>-><State hash=0xc00c9a05c865ae1>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0xc00c9a05c865ae1>
+[DEBUG]explorer.py:136: transit from <State hash=0x-7b8ad15b7ea4b96a> to <State hash=0xc00c9a05c865ae1>
+(13498) accepted ('127.0.0.1', 46835)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zksrv1', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc649'}
+127.0.0.1 - - [25/May/2015 02:03:47] "POST /api/v1 HTTP/1.1" 200 109 0.001332
+[DEBUG]explorer.py:109: In state <State hash=0xc00c9a05c865ae1>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zksrv1', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc649'}
+[DEBUG]explorer.py:113: In state <State hash=0xc00c9a05c865ae1>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0xc00c9a05c865ae1>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0xc00c9a05c865ae1>-><State hash=0x-4726585bd04cfd92>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-4726585bd04cfd92>
+[DEBUG]explorer.py:136: transit from <State hash=0xc00c9a05c865ae1> to <State hash=0x-4726585bd04cfd92>
+(13498) accepted ('127.0.0.1', 46836)
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'NopAction', 'option': {}, 'uuid': 'f3a7c7e2-1c97-4beb-80f9-b4e63d4ec081'}
+127.0.0.1 - - [25/May/2015 02:03:47] "GET /api/v1/zksrv1 HTTP/1.1" 200 272 8.654940
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zksrv2', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc650'}
+127.0.0.1 - - [25/May/2015 02:03:47] "POST /api/v1 HTTP/1.1" 200 109 0.001152
+[DEBUG]explorer.py:109: In state <State hash=0x-4726585bd04cfd92>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zksrv2', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc650'}
+[DEBUG]explorer.py:113: In state <State hash=0x-4726585bd04cfd92>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-4726585bd04cfd92>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-4726585bd04cfd92>-><State hash=0x-404a38e7672b7b8a>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-404a38e7672b7b8a>
+[DEBUG]explorer.py:136: transit from <State hash=0x-4726585bd04cfd92> to <State hash=0x-404a38e7672b7b8a>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'NopAction', 'option': {}, 'uuid': '83a08be9-74ec-44a1-812b-67162280db19'}
+127.0.0.1 - - [25/May/2015 02:03:47] "GET /api/v1/zksrv2 HTTP/1.1" 200 272 8.648767
+(13498) accepted ('127.0.0.1', 46837)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zksrv3', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc651'}
+127.0.0.1 - - [25/May/2015 02:03:47] "POST /api/v1 HTTP/1.1" 200 109 0.000916
+[DEBUG]explorer.py:109: In state <State hash=0x-404a38e7672b7b8a>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zksrv3', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc651'}
+[DEBUG]explorer.py:113: In state <State hash=0x-404a38e7672b7b8a>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-404a38e7672b7b8a>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-404a38e7672b7b8a>-><State hash=0x229c922f2ae21e49>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x229c922f2ae21e49>
+[DEBUG]explorer.py:136: transit from <State hash=0x-404a38e7672b7b8a> to <State hash=0x229c922f2ae21e49>
+[DEBUG]detector.py:58: InspectionEndDetector detected terminated=True
+[DEBUG]explorer.py:208: [41m*** REACH TERMINAL STATE (<State hash=0x229c922f2ae21e49>) ***[0m
+Mon May 25 02:03:47 JST 2015 ...ake/libearthquake.go(83): EQRegistExecutionHistory_UnstableAPI: nameStr=<State hash=0x229c922f2ae21e49>
+Mon May 25 02:03:47 JST 2015 ...ake/libearthquake.go(93): EQRegistExecutionHistory_UnstableAPI: writing /tmp/eq/search/history/0000000000000001/name
+Mon May 25 02:03:47 JST 2015 ...ake/libearthquake.go(98): EQRegistExecutionHistory_UnstableAPI: wrote /tmp/eq/search/history/0000000000000001/name
+Mon May 25 02:03:47 JST 2015 ...ake/libearthquake.go(101): EQRegistExecutionHistory_UnstableAPI: writing /tmp/eq/search/history/0000000000000001/json
+Mon May 25 02:03:47 JST 2015 ...ake/libearthquake.go(106): EQRegistExecutionHistory_UnstableAPI: wrote /tmp/eq/search/history/0000000000000001/json
+[INFO]explorer.py:196: [41mTERMINAL STATE(FRONTIER) state <State hash=0x229c922f2ae21e49>, count=0->1, count_sum=0->1, all_states=0->1[0m
+[INFO]watcher.py:81: Process zksrv2: terminated
+[INFO]watcher.py:81: Process zksrv3: terminated
+[INFO]watcher.py:81: Process zksrv1: terminated
+[INFO]watcher.py:81: Process zkcli1: terminated
+[INFO]watcher.py:81: Process zkcli2: terminated
+[DEBUG]explorer.py:228: Reset to <State hash=0x35d373>
+[INFO]watcher.py:84: Process zksrv2: please restart me manually
+[INFO]watcher.py:84: Process zksrv3: please restart me manually
+[INFO]watcher.py:84: Process zksrv1: please restart me manually
+[INFO]watcher.py:84: Process zkcli1: please restart me manually
+[INFO]watcher.py:84: Process zkcli2: please restart me manually
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'NopAction', 'option': {}, 'uuid': 'dfaf9530-24d5-4750-9365-29787969797b'}
+127.0.0.1 - - [25/May/2015 02:03:47] "GET /api/v1/zksrv3 HTTP/1.1" 200 272 8.684967
+(13498) accepted ('127.0.0.1', 46845)
+(13498) accepted ('127.0.0.1', 46855)
+(13498) accepted ('127.0.0.1', 46860)
+(13498) accepted ('127.0.0.1', 46863)
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'47270dcf-bf8d-4558-9973-f311094102dc', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'FollowerRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.033636
+[DEBUG]explorer.py:109: In state <State hash=0x35d373>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'FollowerRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'47270dcf-bf8d-4558-9973-f311094102dc'}
+[DEBUG]explorer.py:113: In state <State hash=0x35d373>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FollowerRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x35d373>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'FollowerRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x35d373>-><State hash=0x-3042c5c2b895d0b3>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-3042c5c2b895d0b3>
+[DEBUG]explorer.py:136: transit from <State hash=0x35d373> to <State hash=0x-3042c5c2b895d0b3>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'47270dcf-bf8d-4558-9973-f311094102dc'}, 'uuid': '72384fc7-4eff-4515-9c28-859ee623f867'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 4.874673
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'ce8b18fb-4b02-4f63-9edb-d2c813d76509', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.009915
+[DEBUG]explorer.py:109: In state <State hash=0x-3042c5c2b895d0b3>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'ce8b18fb-4b02-4f63-9edb-d2c813d76509'}
+[DEBUG]explorer.py:113: In state <State hash=0x-3042c5c2b895d0b3>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-3042c5c2b895d0b3>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-3042c5c2b895d0b3>-><State hash=0x532000fe5ae81bb6>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x532000fe5ae81bb6>
+[DEBUG]explorer.py:136: transit from <State hash=0x-3042c5c2b895d0b3> to <State hash=0x532000fe5ae81bb6>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'ce8b18fb-4b02-4f63-9edb-d2c813d76509'}, 'uuid': 'c57ab483-4c49-419b-a647-223579f94c2e'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 0.039383
+(13498) accepted ('127.0.0.1', 46864)
+(13498) accepted ('127.0.0.1', 46865)
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'f45ebf60-bf12-45c3-8a9c-c3cc4b36a776', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.012237
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'01adb213-0e8b-49be-914c-214c540bceca', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.002190
+[DEBUG]explorer.py:109: In state <State hash=0x532000fe5ae81bb6>, the following 2 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'f45ebf60-bf12-45c3-8a9c-c3cc4b36a776'}
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'01adb213-0e8b-49be-914c-214c540bceca'}
+[DEBUG]explorer.py:113: In state <State hash=0x532000fe5ae81bb6>, the following NEW 2 callbacks were yielded for the above 2 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x532000fe5ae81bb6>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'LeaderRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x532000fe5ae81bb6>-><State hash=0x-4a9c5fa912d8d9de>[0m
+[DEBUG]explorer.py:136: transit from <State hash=0x532000fe5ae81bb6> to <State hash=0x-4a9c5fa912d8d9de>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'f45ebf60-bf12-45c3-8a9c-c3cc4b36a776'}, 'uuid': '6c87dd32-dcb6-4ebf-b2f3-7ca535006e84'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 3.101096
+[DEBUG]explorer.py:107: Before state <State hash=0x-4a9c5fa912d8d9de>, the following OLD 1 callbacks had been yielded
+[DEBUG]explorer.py:108: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:109: In state <State hash=0x-4a9c5fa912d8d9de>, the following 0 events happend
+[DEBUG]explorer.py:113: In state <State hash=0x-4a9c5fa912d8d9de>, the following NEW 0 callbacks were yielded for the above 0 events
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-4a9c5fa912d8d9de>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x10001fb6b4e0000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-4a9c5fa912d8d9de>-><State hash=0x-26aa79ac7b291ba8>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-26aa79ac7b291ba8>
+[DEBUG]explorer.py:136: transit from <State hash=0x-4a9c5fa912d8d9de> to <State hash=0x-26aa79ac7b291ba8>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'01adb213-0e8b-49be-914c-214c540bceca'}, 'uuid': '234e934e-9183-4490-924b-6d7a9cf25354'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 28.545048
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'361d1f43-0541-4861-b076-f5ed0e61ac11', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.007406
+[DEBUG]explorer.py:109: In state <State hash=0x-26aa79ac7b291ba8>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'361d1f43-0541-4861-b076-f5ed0e61ac11'}
+[DEBUG]explorer.py:113: In state <State hash=0x-26aa79ac7b291ba8>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-26aa79ac7b291ba8>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'PrepRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0xfffffffffffffffe txntype:unknown reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-26aa79ac7b291ba8>-><State hash=0x4d16c26505037f0c>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x4d16c26505037f0c>
+[DEBUG]explorer.py:136: transit from <State hash=0x-26aa79ac7b291ba8> to <State hash=0x4d16c26505037f0c>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'361d1f43-0541-4861-b076-f5ed0e61ac11'}, 'uuid': '480d3031-32b0-4596-ad2a-7f0cc061c6a2'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.008438
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'1d72321c-dd4c-45ad-a4bd-88027c274bc2', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.004341
+[DEBUG]explorer.py:109: In state <State hash=0x4d16c26505037f0c>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'1d72321c-dd4c-45ad-a4bd-88027c274bc2'}
+[DEBUG]explorer.py:113: In state <State hash=0x4d16c26505037f0c>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x4d16c26505037f0c>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'ProposalRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x4d16c26505037f0c>-><State hash=0x247838024e24a081>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x247838024e24a081>
+[DEBUG]explorer.py:136: transit from <State hash=0x4d16c26505037f0c> to <State hash=0x247838024e24a081>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'1d72321c-dd4c-45ad-a4bd-88027c274bc2'}, 'uuid': '4b302993-fd6d-4ff5-b32a-024a8c443525'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.019789
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'609a7e7d-7bd5-495a-a985-157f4245534b', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.004291
+[DEBUG]explorer.py:109: In state <State hash=0x247838024e24a081>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'609a7e7d-7bd5-495a-a985-157f4245534b'}
+[DEBUG]explorer.py:113: In state <State hash=0x247838024e24a081>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x247838024e24a081>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'CommitProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x247838024e24a081>-><State hash=0x6c8fbd00ff8890c1>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x6c8fbd00ff8890c1>
+[DEBUG]explorer.py:136: transit from <State hash=0x247838024e24a081> to <State hash=0x6c8fbd00ff8890c1>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'609a7e7d-7bd5-495a-a985-157f4245534b'}, 'uuid': '72b1885c-dc37-4ac7-8cb7-be43dfe37414'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.011277
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'07984bc2-8dea-44b7-be5b-47ac8ed81e2c', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.018358
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'89a7ee78-abdd-4c28-bfd1-bd0add09b295', u'process': u'zksrv1', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:15] "POST /api/v1 HTTP/1.1" 200 133 0.008710
+[DEBUG]explorer.py:109: In state <State hash=0x6c8fbd00ff8890c1>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'07984bc2-8dea-44b7-be5b-47ac8ed81e2c'}
+[DEBUG]explorer.py:113: In state <State hash=0x6c8fbd00ff8890c1>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x6c8fbd00ff8890c1>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x6c8fbd00ff8890c1>-><State hash=0x-250c4f22713ec883>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-250c4f22713ec883>
+[DEBUG]explorer.py:136: transit from <State hash=0x6c8fbd00ff8890c1> to <State hash=0x-250c4f22713ec883>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'07984bc2-8dea-44b7-be5b-47ac8ed81e2c'}, 'uuid': 'fd73e415-358e-4c43-a99e-8de37079f731'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.027125
+[DEBUG]explorer.py:109: In state <State hash=0x-250c4f22713ec883>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv1', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'89a7ee78-abdd-4c28-bfd1-bd0add09b295'}
+[DEBUG]explorer.py:113: In state <State hash=0x-250c4f22713ec883>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-250c4f22713ec883>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-250c4f22713ec883>-><State hash=0x651d20390b21545e>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x651d20390b21545e>
+[DEBUG]explorer.py:136: transit from <State hash=0x-250c4f22713ec883> to <State hash=0x651d20390b21545e>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'89a7ee78-abdd-4c28-bfd1-bd0add09b295'}, 'uuid': '6cfcb18e-17e5-4ab1-bd92-dfb27a7c3f69'}
+127.0.0.1 - - [25/May/2015 02:04:15] "GET /api/v1/zksrv1 HTTP/1.1" 200 346 28.833283
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'8474328c-9ba3-4daf-aa77-24b77e7cebfe', u'process': u'zksrv2', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:16] "POST /api/v1 HTTP/1.1" 200 133 0.015263
+[DEBUG]explorer.py:109: In state <State hash=0x651d20390b21545e>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv2', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'8474328c-9ba3-4daf-aa77-24b77e7cebfe'}
+[DEBUG]explorer.py:113: In state <State hash=0x651d20390b21545e>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x651d20390b21545e>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'AckRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x651d20390b21545e>-><State hash=0xa11bf196150e027>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0xa11bf196150e027>
+[DEBUG]explorer.py:136: transit from <State hash=0x651d20390b21545e> to <State hash=0xa11bf196150e027>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'8474328c-9ba3-4daf-aa77-24b77e7cebfe'}, 'uuid': '2f8948e9-65ce-4a89-8614-c2b74faed601'}
+127.0.0.1 - - [25/May/2015 02:04:16] "GET /api/v1/zksrv2 HTTP/1.1" 200 346 0.137182
+(13498) accepted ('127.0.0.1', 46866)
+[DEBUG]orchestrator.py:128: API ==> {u'uuid': u'6b7dd820-66c3-4e9f-9bf9-32200e7ddc6e', u'process': u'zksrv3', u'deferred': True, u'type': u'event', u'class': u'FunctionCallEvent', u'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}}
+127.0.0.1 - - [25/May/2015 02:04:16] "POST /api/v1 HTTP/1.1" 200 133 0.008002
+[DEBUG]explorer.py:109: In state <State hash=0xa11bf196150e027>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'}, 'process': u'zksrv3', 'deferred': True, 'type': 'event', 'class': 'FunctionCallEvent', 'uuid': u'6b7dd820-66c3-4e9f-9bf9-32200e7ddc6e'}
+[DEBUG]explorer.py:113: In state <State hash=0xa11bf196150e027>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0xa11bf196150e027>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': 'PassDeferredEventAction', 'event_digest': ('FunctionCallEvent', {u'func_name': u'SyncRequestProcessor.processRequest', u'request': u'sessionid:0x20001fb69c40000 type:createSession cxid:0x0 zxid:0x100000001 txntype:-10 reqpath:n/a'})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0xa11bf196150e027>-><State hash=0x26d241473cfbc7a0>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x26d241473cfbc7a0>
+[DEBUG]explorer.py:136: transit from <State hash=0xa11bf196150e027> to <State hash=0x26d241473cfbc7a0>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'PassDeferredEventAction', 'option': {'event_uuid': u'6b7dd820-66c3-4e9f-9bf9-32200e7ddc6e'}, 'uuid': 'f97d2d44-7bf7-421c-a03b-3f7522253823'}
+127.0.0.1 - - [25/May/2015 02:04:16] "GET /api/v1/zksrv3 HTTP/1.1" 200 346 29.073344
+(13498) accepted ('127.0.0.1', 46868)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zkcli1', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc652'}
+127.0.0.1 - - [25/May/2015 02:04:21] "POST /api/v1 HTTP/1.1" 200 109 0.001517
+[DEBUG]explorer.py:109: In state <State hash=0x26d241473cfbc7a0>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zkcli1', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc652'}
+[DEBUG]explorer.py:113: In state <State hash=0x26d241473cfbc7a0>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zkcli1', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x26d241473cfbc7a0>, digestible=<Digestible {'process': u'zkcli1', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x26d241473cfbc7a0>-><State hash=0x6219cafb0a73e976>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x6219cafb0a73e976>
+[DEBUG]explorer.py:136: transit from <State hash=0x26d241473cfbc7a0> to <State hash=0x6219cafb0a73e976>
+(13498) accepted ('127.0.0.1', 46869)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zkcli2', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc653'}
+127.0.0.1 - - [25/May/2015 02:04:21] "POST /api/v1 HTTP/1.1" 200 109 0.001034
+[DEBUG]explorer.py:109: In state <State hash=0x6219cafb0a73e976>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zkcli2', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc653'}
+[DEBUG]explorer.py:113: In state <State hash=0x6219cafb0a73e976>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zkcli2', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x6219cafb0a73e976>, digestible=<Digestible {'process': u'zkcli2', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x6219cafb0a73e976>-><State hash=0x-37b46ea9b36cb42b>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-37b46ea9b36cb42b>
+[DEBUG]explorer.py:136: transit from <State hash=0x6219cafb0a73e976> to <State hash=0x-37b46ea9b36cb42b>
+(13498) accepted ('127.0.0.1', 46870)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zksrv1', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc649'}
+127.0.0.1 - - [25/May/2015 02:04:21] "POST /api/v1 HTTP/1.1" 200 109 0.001965
+[DEBUG]explorer.py:109: In state <State hash=0x-37b46ea9b36cb42b>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zksrv1', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc649'}
+[DEBUG]explorer.py:113: In state <State hash=0x-37b46ea9b36cb42b>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv1', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-37b46ea9b36cb42b>, digestible=<Digestible {'process': u'zksrv1', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-37b46ea9b36cb42b>-><State hash=0x-2ceecbe448d68d3e>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-2ceecbe448d68d3e>
+[DEBUG]explorer.py:136: transit from <State hash=0x-37b46ea9b36cb42b> to <State hash=0x-2ceecbe448d68d3e>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv1', 'type': 'action', 'class': 'NopAction', 'option': {}, 'uuid': '6c52c75a-dfee-4904-aab5-2893dd88f6db'}
+127.0.0.1 - - [25/May/2015 02:04:21] "GET /api/v1/zksrv1 HTTP/1.1" 200 272 6.055038
+(13498) accepted ('127.0.0.1', 46871)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zksrv2', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc650'}
+127.0.0.1 - - [25/May/2015 02:04:21] "POST /api/v1 HTTP/1.1" 200 109 0.001049
+[DEBUG]explorer.py:109: In state <State hash=0x-2ceecbe448d68d3e>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zksrv2', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc650'}
+[DEBUG]explorer.py:113: In state <State hash=0x-2ceecbe448d68d3e>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv2', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-2ceecbe448d68d3e>, digestible=<Digestible {'process': u'zksrv2', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-2ceecbe448d68d3e>-><State hash=0x-113d61c92f4b3586>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x-113d61c92f4b3586>
+[DEBUG]explorer.py:136: transit from <State hash=0x-2ceecbe448d68d3e> to <State hash=0x-113d61c92f4b3586>
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv2', 'type': 'action', 'class': 'NopAction', 'option': {}, 'uuid': 'e51671cf-41c1-4a62-a9e1-52e5c2450490'}
+127.0.0.1 - - [25/May/2015 02:04:21] "GET /api/v1/zksrv2 HTTP/1.1" 200 272 5.489307
+(13498) accepted ('127.0.0.1', 46872)
+[DEBUG]orchestrator.py:128: API ==> {u'process': u'zksrv3', u'type': u'event', u'class': u'InspectionEndEvent', u'option': {}, u'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc651'}
+127.0.0.1 - - [25/May/2015 02:04:21] "POST /api/v1 HTTP/1.1" 200 109 0.000951
+[DEBUG]explorer.py:109: In state <State hash=0x-113d61c92f4b3586>, the following 1 events happend
+[DEBUG]explorer.py:112: * {'option': {}, 'process': u'zksrv3', 'deferred': None, 'type': 'event', 'class': 'InspectionEndEvent', 'uuid': u'1f13eaa6-4b92-45f0-a4de-1236081dc651'}
+[DEBUG]explorer.py:113: In state <State hash=0x-113d61c92f4b3586>, the following NEW 1 callbacks were yielded for the above 1 events
+[DEBUG]explorer.py:114: * <Digestible {'process': u'zksrv3', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>
+[DEBUG]explorer.py:169: [44mInvoking the callback at state=<State hash=0x-113d61c92f4b3586>, digestible=<Digestible {'process': u'zksrv3', 'action_digest': ('NopAction', {}), 'event_digest': ('InspectionEndEvent', {})}>[0m
+[DEBUG]explorer.py:175: [44mState Transition: <State hash=0x-113d61c92f4b3586>-><State hash=0x8fecedc5b8938a9>[0m
+[WARNING]explorer.py:134: No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, next_state=<State hash=0x8fecedc5b8938a9>
+[DEBUG]explorer.py:136: transit from <State hash=0x-113d61c92f4b3586> to <State hash=0x8fecedc5b8938a9>
+[DEBUG]detector.py:58: InspectionEndDetector detected terminated=True
+[DEBUG]explorer.py:208: [41m*** REACH TERMINAL STATE (<State hash=0x8fecedc5b8938a9>) ***[0m
+Mon May 25 02:04:21 JST 2015 ...ake/libearthquake.go(83): EQRegistExecutionHistory_UnstableAPI: nameStr=<State hash=0x8fecedc5b8938a9>
+Mon May 25 02:04:21 JST 2015 ...ake/libearthquake.go(93): EQRegistExecutionHistory_UnstableAPI: writing /tmp/eq/search/history/0000000000000002/name
+Mon May 25 02:04:21 JST 2015 ...ake/libearthquake.go(98): EQRegistExecutionHistory_UnstableAPI: wrote /tmp/eq/search/history/0000000000000002/name
+Mon May 25 02:04:21 JST 2015 ...ake/libearthquake.go(101): EQRegistExecutionHistory_UnstableAPI: writing /tmp/eq/search/history/0000000000000002/json
+Mon May 25 02:04:21 JST 2015 ...ake/libearthquake.go(106): EQRegistExecutionHistory_UnstableAPI: wrote /tmp/eq/search/history/0000000000000002/json
+[INFO]explorer.py:196: [41mTERMINAL STATE(FRONTIER) state <State hash=0x8fecedc5b8938a9>, count=0->1, count_sum=1->2, all_states=1->2[0m
+[INFO]watcher.py:81: Process zksrv2: terminated
+[INFO]watcher.py:81: Process zksrv3: terminated
+[INFO]watcher.py:81: Process zksrv1: terminated
+[INFO]watcher.py:81: Process zkcli1: terminated
+[INFO]watcher.py:81: Process zkcli2: terminated
+[DEBUG]explorer.py:228: Reset to <State hash=0x35d373>
+[INFO]watcher.py:84: Process zksrv2: please restart me manually
+[INFO]watcher.py:84: Process zksrv3: please restart me manually
+[INFO]watcher.py:84: Process zksrv1: please restart me manually
+[INFO]watcher.py:84: Process zkcli1: please restart me manually
+[INFO]watcher.py:84: Process zkcli2: please restart me manually
+[DEBUG]orchestrator.py:152: API <== {'process': u'zksrv3', 'type': 'action', 'class': 'NopAction', 'option': {}, 'uuid': 'bfb61e15-a1a9-419e-9045-fac9e9173321'}
+127.0.0.1 - - [25/May/2015 02:04:21] "GET /api/v1/zksrv3 HTTP/1.1" 200 272 8.112621
+(13498) accepted ('127.0.0.1', 46876)
+Mon May 25 02:04:43 JST 2015 ...ake/libearthquake.go(133): loop expCount=1, nameFile=/tmp/eq/search/history/0000000000000001/name, nameStr=<State hash=0x229c922f2ae21e49>, pattenCount=0
+Mon May 25 02:04:43 JST 2015 ...ake/libearthquake.go(137): nameStr=<State hash=0x229c922f2ae21e49> is frontier
+Mon May 25 02:04:43 JST 2015 ...ake/libearthquake.go(141): putting line to csv: 1	1
+
+Mon May 25 02:04:43 JST 2015 ...ake/libearthquake.go(133): loop expCount=2, nameFile=/tmp/eq/search/history/0000000000000002/name, nameStr=<State hash=0x8fecedc5b8938a9>, pattenCount=1
+Mon May 25 02:04:43 JST 2015 ...ake/libearthquake.go(137): nameStr=<State hash=0x8fecedc5b8938a9> is frontier
+Mon May 25 02:04:43 JST 2015 ...ake/libearthquake.go(141): putting line to csv: 2	2
+
+[DEBUG]orchestrator.py:121: CSV <== #exp_count	pattern_count
+1	1
+2	2
+
+127.0.0.1 - - [25/May/2015 02:04:43] "GET /visualize_api/csv HTTP/1.1" 200 148 0.001181

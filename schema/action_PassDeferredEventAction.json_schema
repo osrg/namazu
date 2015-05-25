@@ -1,0 +1,39 @@
+{
+    "id": "http://github.com/osrg/earthquake/schema/action_PassDeferredEventAction.json_schema#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "schema for a PassDeferredEventAction",
+    "additionalProperties": true,
+    "required": [
+	"class",
+	"option",
+	"process",
+	"type",
+	"uuid"
+    ],
+    "type": "object",
+    "properties": {
+	"option": {
+	    "required": [
+		"event_uuid"
+	    ],
+	    "type": "object",
+	    "properties": {
+		"event_uuid": {
+		    "type": "string"
+		}
+	    }
+	},
+	"process": {
+	    "type": "string"
+	},
+	"type": {
+	    "type": "string"
+	},
+	"class": {
+	    "type": "string"
+	},
+	"uuid": {
+	    "type": "string"
+	}
+    }
+}

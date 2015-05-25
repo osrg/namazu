@@ -1,5 +1,6 @@
 
 import org.osrg.earthquake.*;
+import java.util.*;
 import org.jboss.byteman.rule.*;
 import org.jboss.byteman.rule.helper.*;
 
@@ -25,6 +26,10 @@ public class EQHelper extends Helper
 
     public void eventFuncCall(String name) {
 	inspector.EventFuncCall(name);
+    }
+
+    public void eventFuncCall(String name, Map<String, Object> argMap) {
+	inspector.EventFuncCall(name, argMap);
     }
 
     public void stopInspection() {

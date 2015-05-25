@@ -14,8 +14,10 @@
 // limitations under the License.
 
 package org.osrg.earthquake;
+import java.util.*;
 
 public class InspectorTester {
+    //TODO: introduce JUnit unittest
     public static void main(String args[]) {
         Inspector i = new Inspector();
         i.Initiation();
@@ -23,5 +25,14 @@ public class InspectorTester {
         System.out.println("sending funcCall event (testMethod)");
         i.EventFuncCall("testMethod");
         System.out.println("sent funcCall event (testMethod)");
+
+	Map<String, Object> argMap = new HashMap<String, Object>();
+	argMap.put("foo", "bar");
+	argMap.put("n", 42);
+        System.out.println("sending funcCall event (testMethod2)");
+        i.EventFuncCall("testMethod2", argMap);
+        System.out.println("sent funcCall event (testMethod2)");
+	
+	i.StopInspection();
     }
 }

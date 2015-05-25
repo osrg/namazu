@@ -1,0 +1,71 @@
+// Copyright (C) 2014 Nippon Telegraph and Telephone Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+// implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package equtils;
+
+// G2O: Guestagent to Orchestrator
+
+message G2OMsgReq_Initiation {
+  required string Id = 1;
+};
+
+message G2OMsgReq {
+  enum Op {
+    INITIATION = 1;
+  };
+
+  required Op op = 1;
+
+  optional G2OMsgReq_Initiation Initiation = 2;
+};
+
+message G2OMsgRsp {
+  enum Result {
+    SUCCEED = 1;
+    ERROR = 2;
+  };
+
+  required Result res = 1;
+};
+
+// O2G: Orchestrator to Guestagent
+message O2GMsgReq_ExecShellCmd {
+  required string ShellCmd = 1;
+};
+
+message O2GMsgRsp_ExecShellCmd {
+  required string Result = 1;
+};
+
+message O2GMsgReq {
+  enum Op {
+    EXECSHELLCMD = 1;
+  };
+
+  required Op op = 1;
+
+  optional O2GMsgReq_ExecShellCmd ExecShellCmd = 2;
+};
+
+message O2GMsgRsp {
+  enum Result {
+    SUCCEED = 1;
+    ERROR = 2;
+  };
+
+  required Result res = 1;
+
+  optional O2GMsgRsp_ExecShellCmd ExecShellCmd = 2;
+};

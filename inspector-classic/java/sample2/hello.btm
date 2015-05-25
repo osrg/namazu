@@ -1,0 +1,11 @@
+RULE earthquake sample
+CLASS Hello
+METHOD sayHello
+AT ENTRY
+BIND i = new org.osrg.earthquake.Inspector()
+IF true
+DO 
+i.Initiation();
+i.EventFuncCall("sayHello");
+ENDRULE
+

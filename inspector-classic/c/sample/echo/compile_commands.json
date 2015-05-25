@@ -1,0 +1,7 @@
+[
+{
+    "directory": "/home/mitake/earthquake.git/inspector/c/sample/echo",
+    "command": "/usr/local/bin/clang  -I/home/mitake/earthquake.git/inspector/c/sample/echo -o echoserv.o -c /home/mitake/earthquake.git/inspector/c/sample/echo/echoserv.c",
+    "file": "echoserv.c"
+}
+]

@@ -1,0 +1,15 @@
+{
+    "globalFlags" : { "direct": 1 },
+
+    "processes" : [
+            { "id": "tester" }
+    ],
+
+    "executionSequence" : [
+        { "states": [
+          { "processId": "tester", "event": {"eventType": "funcCall", "eventParam": {"name": "testMethod"} } }
+        ],
+          "action": { "type": "nop", "param" : {} }
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "id": "http://github.com/osrg/earthquake/schema/action.json_schema#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "schema for an action",
+    "additionalProperties": true,
+    "required": [
+	"class",
+	"process",
+	"type",
+	"uuid"
+    ],
+    "type": "object",
+    "properties": {
+	"option": {
+	},
+	"process": {
+	    "type": "string"
+	},
+	"type": {
+	    "type": "string"
+	},
+	"class": {
+	    "type": "string"
+	},
+	"uuid": {
+	    "type": "string"
+	}
+    }
+}
