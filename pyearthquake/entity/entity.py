@@ -10,7 +10,7 @@ class EntityBase(object):
     type_name = '_meta'
 
     # these are included in json
-    process = '_earthquake'
+    process = '_earthquake_invalid_process_id'
     uuid = '00000000-0000-0000-0000-000000000000'
     option = {}
 
