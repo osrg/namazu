@@ -19,6 +19,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"github.com/mitchellh/cli"
 )
 
 type dumpTraceFlags struct {
@@ -77,4 +78,30 @@ func runSearchTools(name string, args []string) {
 		fmt.Printf("unknown subcommand: %s\n", name)
 		os.Exit(1)
 	}
+}
+
+type searchCmd struct {
+}
+
+func (cmd searchCmd) Help() string {
+	return "search help (todo)"
+}
+
+func (cmd searchCmd) Run(args []string) int {
+	if len(args) < 2 {
+		cmd.Help()
+		return -1
+	}
+
+	runSearchTools(args[0], args[1:])
+
+	return 0
+}
+
+func (cmd searchCmd) Synopsis() string {
+	return "search subcommand"
+}
+
+func searchCommandFactory() (cli.Command, error) {
+	return searchCmd{}, nil
 }

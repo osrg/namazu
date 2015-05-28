@@ -22,6 +22,7 @@ import (
 	"bytes"
 	"encoding/gob"
 	"encoding/json"
+	"flag"
 	"fmt"
 	"github.com/sevlyar/go-daemon"
 	"io"
@@ -29,6 +30,7 @@ import (
 	"net"
 	"os"
 	"sync/atomic"
+	"github.com/mitchellh/cli"
 
 	"./searchpolicy"
 
@@ -1083,4 +1085,56 @@ func launchOrchestrator(flags orchestratorFlags) {
 		Log("simulation mode")
 		simulationMode(flags, exe)
 	}
+}
+
+var (
+	orchestratorFlagset = flag.NewFlagSet("orchestrator", flag.ExitOnError)
+	_orchestratorFlags  = orchestratorFlags{}
+)
+
+type orchestratorFlags struct {
+	Debug             bool
+	ExecutionFilePath string
+	LogFilePath       string
+	ListenTCPPort     int
+	Daemonize         bool
+
+	SearchMode        bool
+	InitSearchModeDir bool
+	SearchModeDir     string
+	SearchPolicy      string
+}
+
+func init() {
+	orchestratorFlagset.BoolVar(&_orchestratorFlags.Debug, "debug", false, "Debug mode")
+	orchestratorFlagset.StringVar(&_orchestratorFlags.ExecutionFilePath, "execution-file-path", "", "Path of execution file")
+	orchestratorFlagset.StringVar(&_orchestratorFlags.LogFilePath, "log-file-path", "", "Path of log file")
+	orchestratorFlagset.IntVar(&_orchestratorFlags.ListenTCPPort, "listen-tcp-port", 10000, "TCP Port to listen on")
+	orchestratorFlagset.BoolVar(&_orchestratorFlags.Daemonize, "daemonize", false, "Daemonize")
+	orchestratorFlagset.BoolVar(&_orchestratorFlags.SearchMode, "search-mode", false, "Run search mode")
+	orchestratorFlagset.BoolVar(&_orchestratorFlags.InitSearchModeDir, "init-search-mode-directory", false, "Initialize a directory for storing search mode info")
+	orchestratorFlagset.StringVar(&_orchestratorFlags.SearchModeDir, "search-mode-directory", "", "Directory which has config and pas traces of search mode testing")
+	orchestratorFlagset.StringVar(&_orchestratorFlags.SearchPolicy, "search-policy", "", "Search mode policy")
+}
+
+type orchestratorCmd struct {
+}
+
+func (cmd orchestratorCmd) Help() string {
+	return "orchestrator help (todo)"
+}
+
+func (cmd orchestratorCmd) Run(args []string) int {
+	orchestratorFlagset.Parse(args)
+	launchOrchestrator(_orchestratorFlags)
+
+	return 0
+}
+
+func (cmd orchestratorCmd) Synopsis() string {
+	return "orchestrator subcommand"
+}
+
+func orchestratorCommandFactory() (cli.Command, error) {
+	return orchestratorCmd{}, nil
 }

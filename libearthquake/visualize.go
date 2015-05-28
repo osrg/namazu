@@ -335,6 +335,8 @@ func gnuplot(traceDir string) {
 		}
 
 		fmt.Printf("%d %d\n", i, nrUniqueEvents)
+
+		traceFile.Close()
 	}
 }
 
