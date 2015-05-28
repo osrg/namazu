@@ -18,7 +18,18 @@ class PacketEvent(EventBase):
     """
     L7 packet message
     """
-    deferred = True    
+    deferred = True
+
+    @classmethod
+    def from_message(cls, src_process, dst_process, message):
+        inst = cls()
+        # we do not set inst.process here
+        inst.option = {
+            'src_process': src_process,
+            'dst_process': dst_process,
+            'message': message
+        }                
+        return inst
 
 
 @event_class()

@@ -6,7 +6,7 @@ import time
 import uuid
 
 from .. import LOG as _LOG
-from ..entity import *
+from ..entity.entity import *
 from ..entity.event import *
 from ..entity.action import *
 from ..util import *
@@ -63,7 +63,8 @@ class BasicProcessWatcher(WatcherBase):
         self.process = process_id
 
     def handles(self, event):
-        return event.process == self.process
+        proc_match = event.process == self.process
+        return proc_match
 
     def on_event(self, state, event):
         pairs = []

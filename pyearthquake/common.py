@@ -2,7 +2,7 @@ import sys
 import logging
 
 def init_logger():
-    logger = logging.getLogger('pyearthquake')
+    logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     handler = logging.StreamHandler(sys.stderr)
     formatter = logging.Formatter('[%(levelname)s]%(filename)s:%(lineno)d: %(message)s')

@@ -8,8 +8,8 @@
                                            |                                                  |
     +----------+     +---------------+     |   * Receives events from the inspectors	      |
     |  Testee  | --- | EQ Inspector  | --- |   * Generate action set from events              |
-    +----------+     +---------------+     |     (Including injected fault actions)	      |
-                                           |   * Send actions to the inspectors		      |
+    +----------+     +---------------+     |     (Including injected fault actions)           |
+                                           |   * Send actions to the inspectors               |
     +----------+     +---------------+     |     in various orders                            |
     |  Testee  | --- | EQ Inspector  | --- |                                                  |
     +----------+     +---------------+     +--------------------------------------------------+
@@ -22,7 +22,8 @@
 
 ## Inspectors
 ### Implemented Inspectors:
- * Java
+ * Java: byteman
+ * Ethernet: Open vSwitch + ryu
  
 ## Orchestrator
 ### Implemented Backend and Bindings:
@@ -57,7 +58,7 @@
 ### Implemented Entities
  * Events:
   * `FunctionCallEvent`: inspected and deferred function calls
-  * `PacketEvent`: inspected and deferred ethernet packets (WIP)
+  * `PacketEvent`: inspected and deferred ethernet packets
   * `LogEvent`: inspected syslog (WIP)
   * `InspectionEndEvent`: termination of inspectors. usable for the `InspectionEndDetector` plug-in.
   
