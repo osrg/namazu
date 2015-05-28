@@ -17,8 +17,10 @@ package main
 
 import (
 	. "./equtils"
-	"github.com/golang/protobuf/proto"
+	"flag"
 	"fmt"
+	"github.com/golang/protobuf/proto"
+	"github.com/mitchellh/cli"
 	"github.com/sevlyar/go-daemon"
 	"net"
 	"os"
@@ -284,4 +286,51 @@ func launchGuestAgent(flags guestAgentFlags) {
 
 		go doProxy(reqArrive, p)
 	}
+}
+
+type guestAgentFlags struct {
+	VirtIOPathIn  string
+	VirtIOPathOut string
+	Debug         bool
+	Daemonize     bool
+	LogFilePath   string
+	MachineID     string
+	ListenTCPPort int
+}
+
+var (
+	guestAgentFlagset = flag.NewFlagSet("guestagent", flag.ExitOnError)
+	_guestAgentFlags  = guestAgentFlags{}
+)
+
+func init() {
+	guestAgentFlagset.StringVar(&_guestAgentFlags.VirtIOPathIn, "virtio-path-in", "", "Path of VirtIO channel (input side)")
+	guestAgentFlagset.StringVar(&_guestAgentFlags.VirtIOPathOut, "virtio-path-out", "", "Path of VirtIO channel (output side)")
+	guestAgentFlagset.BoolVar(&_guestAgentFlags.Debug, "debug", false, "Debug mode")
+	guestAgentFlagset.BoolVar(&_guestAgentFlags.Daemonize, "daemonize", true, "Daemonize")
+	guestAgentFlagset.StringVar(&_guestAgentFlags.LogFilePath, "log-file-path", "/var/log/earthquake.log", "Path of log file")
+	guestAgentFlagset.StringVar(&_guestAgentFlags.MachineID, "machine-id", "", "ID of this machine")
+	guestAgentFlagset.IntVar(&_guestAgentFlags.ListenTCPPort, "listen-tcp-port", 10000, "TCP Port to listen on")
+}
+
+type guestAgentCmd struct {
+}
+
+func (cmd guestAgentCmd) Help() string {
+	return "guestagent help (todo)"
+}
+
+func (cmd guestAgentCmd) Run(args []string) int {
+	guestAgentFlagset.Parse(args)
+	launchGuestAgent(_guestAgentFlags)
+
+	return 0
+}
+
+func (cmd guestAgentCmd) Synopsis() string {
+	return "guestAgent subcommand"
+}
+
+func guestAgentCommandFactory() (cli.Command, error) {
+	return guestAgentCmd{}, nil
 }
