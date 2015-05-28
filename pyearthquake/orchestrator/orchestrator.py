@@ -42,24 +42,45 @@ class OrchestratorBase(object):
         orchestrator plugin class constructor
         """
         pass
+
+    def _init_early(self):
+        self.processes = {}        
+        self.watchers = []
+        self.default_watcher = DefaultWatcher()
+        self.default_watcher.init_with_orchestrator(orchestrator=self)
     
     def init_with_config(self, config):
+        self._init_early()
         self.config = config
         self._init_parse_config()
         self._init_load_libearthquake()
-        self._init_load_process_watcher_plugin()
         self._init_load_termination_detector_plugin()                
         self._init_load_explorer_plugin()
+        self._init_regist_known_processes()
+
+    def regist_process(self, pid):
+        queue = Queue()
+        self.processes[pid] = { 'queue': queue }
+
+        def regist_watcher():
+            LOG.info('Loading ProcessWatcher "%s"', self.process_watcher_str)
+            watcher = eval(self.process_watcher_str)
+            assert isinstance(watcher, WatcherBase)
+            watcher.init_with_process(orchestrator=self, process_id=pid)
+            LOG.info('Loaded ProcessWatcher %s for process %s', watcher, pid)                        
+            self.watchers.append(watcher) # TODO: integrate self.watchers to self.processes
+
+        regist_watcher()
+        LOG.info('Registered Process %s: %s', pid, self.processes[pid])
         
     def _init_parse_config(self):
         self.listen_port = int(self.config['globalFlags']['orchestratorListenPort'])
-        self.processes = {}
-        for p in self.config['processes']:
-            pid = p['id']
-            queue = Queue()
-            self.processes[pid] = { 'queue': queue }
-        LOG.info('Processes: %s', self.processes)
+        self.process_watcher_str = self.config['globalFlags']['plugin']['processWatcher']
+        self.explorer_str = self.config['globalFlags']['plugin']['explorer']
+        self.detector_str = self.config['globalFlags']['plugin']['terminationDetector']
         
+        self.known_processes = self.config['processes']
+
     def _init_load_libearthquake(self):
         dll_str = 'libearthquake.so'
         LOG.info('Loading DLL "%s"', dll_str)        
@@ -69,34 +90,28 @@ class OrchestratorBase(object):
         rc = self.libearthquake.EQInitCtx(config_json_str)
         assert rc == 0
 
-    def _init_load_process_watcher_plugin(self):
-        self.watchers = []
-        self.default_watcher = DefaultWatcher()
-        self.default_watcher.init_with_orchestrator(orchestrator=self)
-        watcher_str = self.config['globalFlags']['plugin']['processWatcher']
-        LOG.info('Loading ProcessWatcher "%s"', watcher_str)
-        for p in self.processes:
-            watcher = eval(watcher_str)
-            assert isinstance(watcher, WatcherBase)
-            watcher.init_with_process(orchestrator=self, process_id=p)
-            LOG.info('Loaded ProcessWatcher %s for process %s', watcher, p)                        
-            self.watchers.append(watcher)
+        
         
     def _init_load_explorer_plugin(self):
-        explorer_str = self.config['globalFlags']['plugin']['explorer']
-        LOG.info('Loading explorer "%s"', explorer_str)
-        self.explorer = eval(explorer_str)
+        LOG.info('Loading explorer "%s"', self.explorer_str)
+        self.explorer = eval(self.explorer_str)
         assert isinstance(self.explorer, ExplorerBase)        
-        LOG.info('Loaded explorer %s', self.explorer)            
-        self.explorer.init_with_orchestrator(self, initial_state=BasicState())
+        LOG.info('Loaded explorer %s', self.explorer)
+        initial_state = self.make_initial_state()
+        self.explorer.init_with_orchestrator(self, initial_state)
 
     def _init_load_termination_detector_plugin(self):
-        detector_str = self.config['globalFlags']['plugin']['terminationDetector']
-        LOG.info('Loading termination detector "%s"', detector_str)
-        self.termination_detector = eval(detector_str)
+        LOG.info('Loading termination detector "%s"', self.detector_str)
+        self.termination_detector = eval(self.detector_str)
         assert isinstance(self.termination_detector, TerminationDetectorBase)
         LOG.info('Loaded termination detector %s', self.termination_detector)            
         self.termination_detector.init_with_orchestrator(self)
+
+    def _init_regist_known_processes(self):
+        for p in self.known_processes:
+            LOG.debug('Registering a known process: %s', p)
+            pid = p['id']
+            self.regist_process(pid)
         
     def start(self):
         explorer_worker_handle = eventlet.spawn(self.explorer.worker)
@@ -129,7 +144,9 @@ class OrchestratorBase(object):
 
             ## check process id (TODO: check dup)
             process_id = ev_jsdict['process']
-            assert process_id in self.processes.keys(), 'unknown process %s. check the config.' % (process_id)
+            assert self.validate_process_id(process_id)                 
+            if not process_id in self.processes:
+                self.regist_process(process_id)
 
             ## send event to explorer
             ev = EventBase.dispatch_from_jsondict(ev_jsdict)
@@ -140,7 +157,10 @@ class OrchestratorBase(object):
 
         @app.route('/api/v1/<process_id>', methods=['GET'])
         def api_v1_get(process_id):
-            assert process_id in self.processes.keys(), 'unknown process %s. check the config.' % (process_id)
+            ## FIXME: make sure single conn exists for a single <process_id>
+            assert self.validate_process_id(process_id)
+            if not process_id in self.processes:
+                self.regist_process(process_id)
              
             ## wait for action from explorer
             got = self.processes[process_id]['queue'].get()
@@ -163,6 +183,10 @@ class OrchestratorBase(object):
         rc = subprocess.call(command, shell=True)
         return rc
 
+    def validate_process_id(self, process_id):
+        # TODO: check dup
+        return True
+
     @abstractmethod
     def call_action(self, action):
         """
@@ -172,6 +196,13 @@ class OrchestratorBase(object):
 
     @abstractmethod
     def make_digestible_pair(self, event, action):
+        """
+        it may be interesting to override this
+        """
+        pass
+
+    @abstractmethod
+    def make_initial_state(self):
         """
         it may be interesting to override this
         """
@@ -186,3 +217,6 @@ class BasicOrchestrator(OrchestratorBase):
     def make_digestible_pair(self, event, action):
         digestible = BasicDigestible(event, action)
         return digestible
+
+    def make_initial_state(self):
+        return BasicState()

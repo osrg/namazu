@@ -1,23 +1,19 @@
 import pyearthquake
-LOG = pyearthquake.LOG.getChild('cmd.orchestrator_loader')
+LOG = pyearthquake.LOG.getChild(__name__)
 
 import sys
 import json
+from .common import *
 
-def load_modules():
-    import pyearthquake
-    import pyearthquake.orchestrator.orchestrator
-    import pyearthquake.orchestrator.watcher
-    import pyearthquake.orchestrator.detector
-    import pyearthquake.orchestrator.explorer
-
-def load_config():
-    config_path = sys.argv[1]
-    config_file = open(config_path)
-    config_str = config_file.read()
-    config_file.close()
-    config = json.loads(config_str)
-    return config
+def load_additional_modules(config):
+    module_strs = []    
+    try:
+        module_strs = config['globalFlags']['plugin']['modules']
+    except KeyError as e:
+        return
+    for f in module_strs:
+        LOG.info('Loading module %s', f)
+        __import__(f)
 
 def load_orchestrator_plugin(config):
     oc_str = config['globalFlags']['plugin']['orchestrator']
@@ -29,8 +25,9 @@ def load_orchestrator_plugin(config):
     
 def main():
     assert len(sys.argv) > 1, "argument is required (config path)"
+    config = load_config(sys.argv[1])
     load_modules()
-    config = load_config()
+    load_additional_modules(config)    
     oc = load_orchestrator_plugin(config)
     oc.init_with_config(config)
     LOG.info('Starting orchestrator')

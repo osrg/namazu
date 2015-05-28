@@ -102,15 +102,15 @@ class ExplorerBase(object):
         return events
 
 
-    def _worker__print_events_and_callbacks(self, digestibles, new_events, new_digestibles):
+    def _worker__print_events_and_digestibles(self, digestibles, new_events, new_digestibles):
         if digestibles:
-            LOG.debug('Before state %s, the following OLD %d callbacks had been yielded', self.state.to_short_str(), len(digestibles))
+            LOG.debug('Before state %s, the following OLD %d digestibles had been yielded', self.state.to_short_str(), len(digestibles))
             for digestible in digestibles: LOG.debug('* %s', digestible)
         LOG.debug('In state %s, the following %d events happend', self.state.to_short_str(), len(new_events))
         for e in new_events:
             try: LOG.debug('* %f: %s', e.recv_timestamp, e.abstract_msg)
             except Exception: LOG.debug('* %s', e)
-        LOG.debug('In state %s, the following NEW %d callbacks were yielded for the above %d events', self.state.to_short_str(), len(new_digestibles), len(new_events))
+        LOG.debug('In state %s, the following NEW %d digestibles were yielded for the above %d events', self.state.to_short_str(), len(new_digestibles), len(new_events))
         for new_digestible in new_digestibles: LOG.debug('* %s', new_digestible)
             
     def worker(self):
@@ -126,7 +126,7 @@ class ExplorerBase(object):
                 for w in self.oc.watchers:
                     if w.handles(e): new_digestibles.extend(w.on_event(self.state, e)); e_handled = True
                 if not e_handled: new_digestibles.extend(self.oc.default_watcher.on_event(self.state, e))
-            self._worker__print_events_and_callbacks(digestibles, new_events, new_digestibles)
+            self._worker__print_events_and_digestibles(digestibles, new_events, new_digestibles)
             digestibles.extend(new_digestibles)
             if not digestibles: LOG.warn('No DIGESTIBLE, THIS MIGHT CAUSE FALSE DEADLOCK, state=%s', self.state.to_short_str())
 
@@ -144,8 +144,11 @@ class ExplorerBase(object):
         """
         if not digestibles: return self.state, []
         chosen_digestible = self.choose_digestible(digestibles)
+        LOG.debug('Chosen digestible: %s', chosen_digestible)
         assert(any(digestible.event.uuid == chosen_digestible.event.uuid for digestible in digestibles))
+        digestibles_len_before_remove = len(digestibles)
         digestibles.remove(chosen_digestible)
+        assert len(digestibles) == digestibles_len_before_remove - 1, 'hash race?'
         other_digestibles = digestibles
 
         if chosen_digestible:
