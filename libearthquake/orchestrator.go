@@ -127,14 +127,6 @@ type execution struct {
 	directListen net.Listener // only used in direct mode
 }
 
-const (
-	SearchModeInfoPath = "SearchModeInfo"
-)
-
-type SearchModeInfo struct {
-	NrCollectedTraces int
-}
-
 var exe *execution
 
 func parseExecutionFile(path string, simulation bool) *execution {
@@ -767,17 +759,6 @@ func waitProcessesNoDirect(exe *execution) {
 		}(m)
 	}
 
-}
-
-type Event struct {
-	ProcId string
-
-	EventType  string
-	EventParam string
-}
-
-type SingleTrace struct {
-	EventSequence []Event
 }
 
 func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {

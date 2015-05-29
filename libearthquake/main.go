@@ -28,7 +28,7 @@ func main() {
 	c.Commands = map[string]cli.CommandFactory{
 		"orchestrator": orchestratorCommandFactory,
 		"guestagent":   guestAgentCommandFactory,
-		"search":       searchCommandFactory,
+		"searchtools":       searchToolsCommandFactory,
 	}
 
 	exitStatus, err := c.Run()

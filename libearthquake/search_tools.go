@@ -16,92 +16,41 @@
 package main
 
 import (
-	"flag"
 	"fmt"
-	"os"
 	"github.com/mitchellh/cli"
+
+	"./searchtools"
 )
 
-type dumpTraceFlags struct {
-	TracePath string
+type searchToolsCmd struct {
 }
 
-type calcDuplicationFlags struct {
-	TraceDir string
+func (cmd searchToolsCmd) Help() string {
+	return "searchtools help (todo)"
 }
 
-type visualizeFlags struct {
-	Mode     string
-	TraceDir string
-}
-
-type permutateFlags struct {
-	TracePath string
-}
-
-var (
-	dumpTraceFlagset = flag.NewFlagSet("dump-trace", flag.ExitOnError)
-	_dumpTraceFlags  = dumpTraceFlags{}
-
-	calcDuplicationFlagset = flag.NewFlagSet("calc-duplication", flag.ExitOnError)
-	_calcDuplicationFlags  = calcDuplicationFlags{}
-
-	visualizeFlagset = flag.NewFlagSet("visualize", flag.ExitOnError)
-	_visualizeFlags  = visualizeFlags{}
-
-	permutateFlagset = flag.NewFlagSet("permutate", flag.ExitOnError)
-	_permutateFlags  = permutateFlags{}
-)
-
-func init() {
-	dumpTraceFlagset.StringVar(&_dumpTraceFlags.TracePath, "trace-path", "", "path of trace data file")
-
-	calcDuplicationFlagset.StringVar(&_calcDuplicationFlags.TraceDir, "trace-dir", "", "path of trace data directory")
-
-	visualizeFlagset.StringVar(&_visualizeFlags.TraceDir, "trace-dir", "", "path of trace data directory")
-	visualizeFlagset.StringVar(&_visualizeFlags.Mode, "mode", "", "mode of visualization")
-
-	permutateFlagset.StringVar(&_permutateFlags.TracePath, "trace-path", "", "path of trace data file")
-}
-
-func runSearchTools(name string, args []string) {
-	switch name {
-	case "dump-trace":
-		dumpTrace(args)
-	case "calc-duplication":
-		calcDuplication(args)
-	case "visualize":
-		visualize(args)
-	case "permutate":
-		permutate(args)
-	default:
-		fmt.Printf("unknown subcommand: %s\n", name)
-		os.Exit(1)
-	}
-}
-
-type searchCmd struct {
-}
-
-func (cmd searchCmd) Help() string {
-	return "search help (todo)"
-}
-
-func (cmd searchCmd) Run(args []string) int {
-	if len(args) < 2 {
-		cmd.Help()
-		return -1
+func (cmd searchToolsCmd) Run(args []string) int {
+	c := cli.NewCLI("earthquake search tools", "0.0.0")
+	c.Args = args
+	c.Commands = map[string]cli.CommandFactory{
+		"calc-dup":   searchtools.CalcDupCommandFactory,
+		"visualize":  searchtools.VisualizeCommandFactory,
+		"permutate":  searchtools.PermutateCommandFactory,
+		"dump-trace": searchtools.DumpTraceCommandFactory,
 	}
 
-	runSearchTools(args[0], args[1:])
+	exitStatus, err := c.Run()
+	if err != nil {
+		fmt.Printf("failed to execute search tool: %s\n", err)
+	}
 
-	return 0
+	return exitStatus
 }
 
-func (cmd searchCmd) Synopsis() string {
-	return "search subcommand"
+func (cmd searchToolsCmd) Synopsis() string {
+	return "searchtools subcommand"
 }
 
-func searchCommandFactory() (cli.Command, error) {
-	return searchCmd{}, nil
+func searchToolsCommandFactory() (cli.Command, error) {
+	return searchToolsCmd{}, nil
 }
