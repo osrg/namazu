@@ -12,7 +12,7 @@ from pyearthquake.entity.event import *
 from pyearthquake.entity.action import *
 import hexdump as hd # hexdump conflict with scapy.all.hexdump
 
-import zktraffic # tested with 629490c (Apr 16 2015, AkihiroSuda/zktraffic:suda)
+import zktraffic # tested with b3e9dd0 (Jun 4 2015)
 import zktraffic.base.client_message
 import zktraffic.base.server_message
 import zktraffic.zab.quorum_packet
@@ -48,6 +48,7 @@ class Util(object):
     @classmethod
     def _make_message_from_zt(cls, klazz, zt):
         msg = { 'class_group': klazz.name, 'class': zt.__class__.__name__ }
+        ignore_keys = ('timestr', 'src', 'dst', 'length', 'session_id', 'client_id', 'txn_time', 'txn_zxid', 'timeout', 'timestamp', 'ip', 'port', 'session', 'client') # because client port may differ
         def gen():
             for k in dir(zt):
                 v = getattr(zt, k)
@@ -60,7 +61,7 @@ class Util(object):
                         v = getattr(zt, alt_k)
                     yield k, v
         for k, v in gen():
-            if k in ('timestr', 'src', 'dst', 'length', 'session_id', 'client_id', 'txn_zxid'): continue
+            if k in ignore_keys: continue
             if k == 'zxid':
                 msg['zxid_hi'] = v >> 32
                 msg['zxid_low'] = v & 0xFFFF
@@ -214,7 +215,7 @@ class ZkInspector(EtherInspectorBase):
     def _map_ZkQuorumPacket_to_event(self, pkt):
         event = pkt[ZkQuorumPacket].event        
         msg = event.option['message']
-        if IGNORE_PING and (msg['class_group'] == 'ZkQuorumPacket' and msg['class'] == 'PingQP'):
+        if IGNORE_PING and (msg['class_group'] == 'ZkQuorumPacket' and msg['class'] == 'Ping'):
             return None
         self._print_packet_as(pkt, ZkQuorumPacket, colorama.Back.WHITE + colorama.Fore.BLACK)
         return event

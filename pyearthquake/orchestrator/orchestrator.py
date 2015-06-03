@@ -4,6 +4,7 @@ import copy
 import ctypes
 import eventlet
 from eventlet import wsgi
+from eventlet.semaphore import *
 from eventlet.queue import *
 from flask import Flask, request, Response, jsonify
 import json
@@ -60,7 +61,8 @@ class OrchestratorBase(object):
 
     def regist_process(self, pid):
         queue = Queue()
-        self.processes[pid] = { 'queue': queue }
+        sem = Semaphore()
+        self.processes[pid] = { 'queue': queue, 'sem': sem }
 
         def regist_watcher():
             LOG.info('Loading ProcessWatcher "%s"', self.process_watcher_str)
@@ -161,15 +163,27 @@ class OrchestratorBase(object):
             assert self.validate_process_id(process_id)
             if not process_id in self.processes:
                 self.regist_process(process_id)
+
+            ## acquire sem
+            sem_acquired = self.processes[process_id]['sem'].acquire(blocking=False)
+            if not sem_acquired:
+                err = 'Could not acquire semaphore for %s' % process_id
+                LOG.warn(err)
+                return err
              
             ## wait for action from explorer
+            ## (FIXME: we should break this wait and release the sem when the conn is closed)
             got = self.processes[process_id]['queue'].get()
             action = got['action']
+            LOG.debug('Dequeued action %s', action)            
             assert isinstance(action, ActionBase)
 
             ## return action
             action_jsdict = action.to_jsondict()
             LOG.debug('API <== %s', action_jsdict)
+
+            ## release sem
+            self.processes[process_id]['sem'].release()
             return jsonify(action_jsdict)
     
     def send_action(self, action):
@@ -177,7 +191,9 @@ class OrchestratorBase(object):
         explorer calls this
         """
         process_id = action.process
+        # no need to acquire sem
         self.processes[process_id]['queue'].put({'type': 'action', 'action': action})
+        LOG.debug('Enqueued action %s', action)
         
     def execute_command(self, command):
         rc = subprocess.call(command, shell=True)

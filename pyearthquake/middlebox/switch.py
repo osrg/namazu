@@ -125,8 +125,8 @@ class RyuOF13Switch(RyuOF13SwitchBase):
             m = OFPMatch(eth_type=0x0800, ip_proto=socket.IPPROTO_TCP, tcp_src=port)
             matches.append(m)
         for port in udp_ports:
-            m = OFPMatch(eth_type=0x0800, ip_proto=socket.IPPROTO_UDP, tcp_dst=port)
+            m = OFPMatch(eth_type=0x0800, ip_proto=socket.IPPROTO_UDP, udp_dst=port)
             matches.append(m)
-            m = OFPMatch(eth_type=0x0800, ip_proto=socket.IPPROTO_UDP, tcp_src=port)
+            m = OFPMatch(eth_type=0x0800, ip_proto=socket.IPPROTO_UDP, udp_src=port)
             matches.append(m)
         super(RyuOF13Switch, self).__init__(matches, zmq_addr, *args, **kwargs)

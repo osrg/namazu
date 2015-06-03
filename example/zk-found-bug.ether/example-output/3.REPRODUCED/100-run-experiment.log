@@ -1,0 +1,122 @@
+$ ./100-run-experiment.py
+[INFO] Cleaning veths
+[INFO] Cleating docker containers
+c807ff5b889a996e206b5924031e836139b4728a0ce3b93792990d17c0d0eb26
+18ebec5b1b8bfb2b422a2e88a65b9ecc20309fd04b69937800d14268ba750193
+23f98cdc683baa92dfbafede4557e8eeb8d34b599e851782bb6183e98024140d
+[INFO] Setting up pipework
+[INFO] Starting ZooKeeper
+[INFO] Waiting for 5 seconds to wait ZooKeeper
+[INFO] Stopping inspection
+{}{}{}{}[INFO] Checking whether the bug was reproduced
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 06/09/2015 11:53 GMT
+Clients:
+ /192.168.42.254:54803[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: leader
+Node count: 5
+:
+Parsed {'zxid': '0x100000000', 'mode': 'leader'}:
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 06/09/2015 11:53 GMT
+Clients:
+ /192.168.42.254:59661[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: follower
+Node count: 5
+:
+Parsed {'zxid': '0x100000000', 'mode': 'follower'}:
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 06/09/2015 11:53 GMT
+Clients:
+ /192.168.42.254:39884[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: follower
+Node count: 5
+:
+Parsed {'zxid': '0x100000000', 'mode': 'follower'}:
+OK: [{'zxid': '0x100000000', 'mode': 'leader'}, {'zxid': '0x100000000', 'mode': 'follower'}, {'zxid': '0x100000000', 'mode': 'follower'}]
+[IMPORTANT] The bug was NOT reproduced
+[INFO] Collecting ZooKeeper log files
+[INFO] Killing the docker container
+zk1
+zk2
+zk3
+[IMPORTANT] If the bug was not reproduced, please run this script again. You may have to change time_slice and time_bound in config.json.
+suda@suda-PC2:~/WORK/earthquake/example/zk-found-bug.ether⟫ ./100-run-experiment.py
+[INFO] Cleaning veths
+[INFO] Cleating docker containers
+6268a982ca71a1aa94f1398329110256af4615d98e3d98ef3fc689be8cce5fa7
+83ded7e69228d69abfd0b0d9a91f202e525df5ecad66e3accedcd061140ad93f
+aec4778ad20f516d508faf0ab728a0f299fa5bdbf897eab541d969318a09e3f3
+[INFO] Setting up pipework
+[INFO] Starting ZooKeeper
+[INFO] Waiting for 5 seconds to wait ZooKeeper
+[INFO] Stopping inspection
+{}{}{}{}[INFO] Checking whether the bug was reproduced
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 06/09/2015 11:53 GMT
+Clients:
+ /192.168.42.254:54882[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: leader
+Node count: 5
+:
+Parsed {'zxid': '0x100000000', 'mode': 'leader'}:
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 06/09/2015 11:53 GMT
+Clients:
+ /192.168.42.254:59740[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: observer
+Node count: 5
+:
+Parsed {'zxid': '0x100000000', 'mode': 'observer'}:
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 06/09/2015 11:53 GMT
+Clients:
+ /192.168.42.254:39963[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: observer
+Node count: 5
+:
+Parsed {'zxid': '0x100000000', 'mode': 'observer'}:
+Traceback (most recent call last):
+  File "./check.py", line 47, in <module>
+    main()
+  File "./check.py", line 43, in main
+    assert len(observers) == 0, 'Bad observers: %s' % l
+AssertionError: Bad observers: [{'zxid': '0x100000000', 'mode': 'leader'}, {'zxid': '0x100000000', 'mode': 'observer'}, {'zxid': '0x100000000', 'mode': 'observer'}]
+[IMPORTANT] THE BUG WAS REPRODUCED!
+

@@ -1,0 +1,636 @@
+{
+  "elements": [
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "server_id": 2,
+            "election_addr": "192.168.42.2:3888",
+            "class": "Initial",
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "server_id": 3,
+            "election_addr": "192.168.42.3:3888",
+            "class": "Initial",
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk3"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": -2147483648,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "looking",
+            "peer_epoch": -9223372036854776000,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000xserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nserver.3=192.168.42.3:2888:3888:observer;0.0.0.0:2181\nversion=0",
+            "leader": -9223372036854776000,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk3"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": -2147483648,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "looking",
+            "peer_epoch": -9223372036854776000,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000xserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nserver.2=192.168.42.2:2888:3888:observer;0.0.0.0:2181\nversion=0",
+            "leader": -9223372036854776000,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk2",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": 0,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "leading",
+            "peer_epoch": 0,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000Bserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nversion=0",
+            "leader": 1,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "config_version": 0,
+            "zxid_hi": 0,
+            "zxid_low": 0,
+            "sid": 2,
+            "protocol_version": 65536,
+            "class": "ObserverInfo",
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk3",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": 0,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "leading",
+            "peer_epoch": 0,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000Bserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nversion=0",
+            "leader": 1,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": -2147483648,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "looking",
+            "peer_epoch": -9223372036854776000,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000xserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nserver.3=192.168.42.3:2888:3888:observer;0.0.0.0:2181\nversion=0",
+            "leader": -9223372036854776000,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk3"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "config_version": 0,
+            "zxid_hi": 0,
+            "zxid_low": 0,
+            "sid": 3,
+            "protocol_version": 65536,
+            "class": "ObserverInfo",
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk3"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk3",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": 0,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "leading",
+            "peer_epoch": 1,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000Jserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nversion=100000000",
+            "leader": 1,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk3",
+          "message": {
+            "protocol_version": 65536,
+            "zxid_hi": 1,
+            "class": "LeaderInfo",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": -2147483648,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "looking",
+            "peer_epoch": -9223372036854776000,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000xserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nserver.2=192.168.42.2:2888:3888:observer;0.0.0.0:2181\nversion=0",
+            "leader": -9223372036854776000,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk2",
+          "message": {
+            "protocol_version": 65536,
+            "zxid_hi": 1,
+            "class": "LeaderInfo",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "epoch": 0,
+            "zxid_hi": 0,
+            "class": "AckEpoch",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": -2147483648,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "looking",
+            "peer_epoch": -9223372036854776000,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000xserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nserver.2=192.168.42.2:2888:3888:observer;0.0.0.0:2181\nversion=0",
+            "leader": -9223372036854776000,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk2",
+          "message": {
+            "zxid_hi": 1,
+            "class": "QuorumPacket",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk2",
+          "message": {
+            "zxid_hi": 1,
+            "class": "QuorumPacket",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "epoch": 0,
+            "zxid_hi": 0,
+            "class": "AckEpoch",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk3"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk2",
+          "message": {
+            "zxid_hi": 1,
+            "class": "NewLeader",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk2",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": 0,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "leading",
+            "peer_epoch": 1,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000Jserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nversion=100000000",
+            "leader": 1,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "zxid_hi": 1,
+            "class": "Ack",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk2",
+          "message": {
+            "zxid_hi": -1,
+            "class": "UpToDate",
+            "zxid_low": 65535,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk3",
+          "message": {
+            "zxid_hi": 1,
+            "class": "NewLeader",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk3",
+          "message": {
+            "zxid_hi": 1,
+            "class": "QuorumPacket",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk3",
+          "message": {
+            "zxid_hi": 1,
+            "class": "QuorumPacket",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk2",
+          "message": {
+            "election_epoch": 1,
+            "zxid_hi": 0,
+            "zxid_low": 0,
+            "class": "Notification",
+            "state": "leading",
+            "peer_epoch": 1,
+            "config": "\u0000\u0000\u0000\u0002\u0000\u0000\u0000Jserver.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nversion=100000000",
+            "leader": 1,
+            "class_group": "ZkFLEPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "zxid_hi": 1,
+            "class": "Ack",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "zxid_hi": 1,
+            "class": "Ack",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk3"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "zxid_hi": 1,
+            "class": "Ack",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk2"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk3",
+          "message": {
+            "zxid_hi": -1,
+            "class": "UpToDate",
+            "zxid_low": 65535,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk1"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": "PassDeferredEventAction",
+      "event_digest": [
+        "PacketEvent",
+        {
+          "dst_process": "zk1",
+          "message": {
+            "zxid_hi": 1,
+            "class": "Ack",
+            "zxid_low": 0,
+            "class_group": "ZkQuorumPacket"
+          },
+          "src_process": "zk3"
+        }
+      ]
+    },
+    {
+      "process": "_earthquake_ether_inspector",
+      "action_digest": [
+        "NopAction",
+        {}
+      ],
+      "event_digest": [
+        "InspectionEndEvent",
+        {}
+      ]
+    },
+    {
+      "process": "zk1",
+      "action_digest": [
+        "NopAction",
+        {}
+      ],
+      "event_digest": [
+        "InspectionEndEvent",
+        {}
+      ]
+    },
+    {
+      "process": "zk3",
+      "action_digest": [
+        "NopAction",
+        {}
+      ],
+      "event_digest": [
+        "InspectionEndEvent",
+        {}
+      ]
+    },
+    {
+      "process": "zk2",
+      "action_digest": [
+        "NopAction",
+        {}
+      ],
+      "event_digest": [
+        "InspectionEndEvent",
+        {}
+      ]
+    }
+  ],
+  "type": "list"
+}

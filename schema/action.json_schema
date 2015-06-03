@@ -12,6 +12,7 @@
     "type": "object",
     "properties": {
 	"option": {
+	    "type": "object"
 	},
 	"process": {
 	    "type": "string"

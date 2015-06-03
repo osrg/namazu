@@ -168,8 +168,15 @@ class ExplorerBase(object):
     def do_transition(self, digestible):
         assert isinstance(digestible, DigestibleBase)
         LOG.debug(colorama.Back.BLUE +
-                  'Invoking the callback at state=%s, digestible=%s' +
-                  colorama.Style.RESET_ALL, self.state.to_short_str(), digestible)
+                  "Invoking the action:\n" +
+                  "  action=%s\n" +
+                  "  event=%s\n" + 
+                  "  state=%s\n" + 
+                  "  digestible=%s\n" +
+                  colorama.Style.RESET_ALL, 
+                  digestible.action, digestible.event, 
+                  self.state.to_short_str(), 
+                  digestible)
         self.oc.call_action(digestible.action)
         next_state = self.state.make_copy()
         next_state.append_digestible(digestible)
@@ -234,11 +241,16 @@ class ExplorerBase(object):
         return next_state
         
 
+class DumbExplorer(ExplorerBase):        
+    def choose_digestible(self, digestibles):
+        assert (digestibles)
+        return digestibles[0]
+
 
 class RandomExplorer(ExplorerBase):
     def __init__(self, time_slice):
         super(RandomExplorer, self).__init__()
-        self.time_slice = time_slice
+        self.time_slice = time_slice #msecs
         
     def choose_digestible(self, digestibles):
         assert (digestibles)
@@ -247,10 +259,26 @@ class RandomExplorer(ExplorerBase):
         return chosen_digestible
 
 
-class DumbExplorer(ExplorerBase):        
+class TimeBoundedRandomExplorer(RandomExplorer):
+    def __init__(self, time_slice, time_bound):
+        super(TimeBoundedRandomExplorer, self).__init__(time_slice)
+        self.saved_time_slice = time_slice        
+        self.time_bound = time_bound #msecs
+        
     def choose_digestible(self, digestibles):
         assert (digestibles)
-        return digestibles[0]
+        now = time.time()
+        hurried = filter(lambda d: (now - d.event.recv_timestamp) * 1000.0 > self.time_bound, digestibles)
+        if len(hurried) > 0:
+            LOG.debug('Hurried to send the following %d digestibles, now=%s', len(hurried), now)
+            LOG.debug(hurried)
+            self.time_slice = 0
+            chosen_digestible = hurried[0]
+        else:
+            self.time_slice = self.saved_time_slice
+            r = random.randint(0, len(digestibles)-1)
+            chosen_digestible = digestibles[r]
+        return chosen_digestible
 
 
 from networkx.algorithms.traversal.depth_first_search import dfs_tree
