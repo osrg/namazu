@@ -39,6 +39,7 @@ func (cmd searchToolsCmd) Run(args []string) int {
 		"dump-trace": searchtools.DumpTraceCommandFactory,
 
 		"init": searchtools.InitCommandFactory,
+		"run":  searchtools.RunCommandFactory,
 	}
 
 	exitStatus, err := c.Run()
