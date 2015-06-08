@@ -37,6 +37,8 @@ func (cmd searchToolsCmd) Run(args []string) int {
 		"visualize":  searchtools.VisualizeCommandFactory,
 		"permutate":  searchtools.PermutateCommandFactory,
 		"dump-trace": searchtools.DumpTraceCommandFactory,
+
+		"init": searchtools.InitCommandFactory,
 	}
 
 	exitStatus, err := c.Run()
