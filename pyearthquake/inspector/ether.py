@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 import eventlet
-from eventlet.green import SocketServer, zmq
+from eventlet.green import SocketServer, zmq, time
 import functools
 import hexdump
 import json
@@ -133,7 +133,7 @@ class EtherInspectorBase(object):
         """
         assert isinstance(ev, PacketEvent)
         assert ev.deferred
-        self.deferred_events[ev.uuid] = {'event': ev, 'packet': pkt}
+        self.deferred_events[ev.uuid] = {'event': ev, 'packet': pkt, 'time': time.time()}
         LOG.debug('Defer event uuid=%s, packet=%s, deferred(after defer)=%d', 
                   ev.uuid, pkt.mysummary(), len(self.deferred_events))
         
@@ -162,8 +162,13 @@ class EtherInspectorBase(object):
 
     def on_recv_action_from_orchestrator(self, action):
         LOG.debug('Received action: %s', action)
-        ev_uuid = action.option['event_uuid']
-        self.pass_deferred_event_uuid(ev_uuid)
+        if isinstance(action, PassDeferredEventAction):
+            ev_uuid = action.option['event_uuid']
+            self.pass_deferred_event_uuid(ev_uuid)
+        elif isinstance(action, NopAction):
+            LOG.debug('nop action: %s', action)
+        else:
+            LOG.warn('Unsupported action: %s', action)
 
     def _oc_worker(self):
         error_count = 0

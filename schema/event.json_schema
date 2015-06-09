@@ -28,6 +28,7 @@
 	    "type": "string"
 	},
 	"option": {
+	    "type": "object"	
 	}
     }
 }

@@ -28,9 +28,10 @@ class StateBase(object):
         
     def __hash__(self):
         """
-        needed for networkx
+        FIXME: https://github.com/osrg/earthquake/issues/5
         """
-        return hash((tuple(self.digestible_sequence)))
+        filtered = filter(lambda d: not isinstance(d.event, InspectionEndEvent), self.digestible_sequence)
+        return hash(tuple(filtered))
 
     def __eq__(self, other):
         """
@@ -61,9 +62,9 @@ class StateBase(object):
             LOG.error('make_copy() failed for %s', self)
             raise e
 
-    def append_digestible(self, ec):
-        assert isinstance(ec, DigestibleBase)
-        self.digestible_sequence.append(ec)
+    def append_digestible(self, d):
+        assert isinstance(d, DigestibleBase)
+        self.digestible_sequence.append(d)
         self.last_transition_time = time.time()
 
 

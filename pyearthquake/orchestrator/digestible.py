@@ -48,6 +48,9 @@ class DigestibleBase(object):
         return repr(self)
 
     def __hash__(self):
+        """
+        FIXME: https://github.com/osrg/earthquake/issues/5
+        """
         return hash(repr(self.to_jsondict()))
 
     def __eq__(self, other):

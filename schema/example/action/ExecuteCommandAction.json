@@ -1,6 +1,6 @@
 {
     "type": "action",
-    "class": "ExecuteCommandAction",
+    "class": "ExecuteCommandOnOrchestratorAction",
     "process": "zksrv1",
     "uuid": "1f13eaa6-4b92-45f0-a4de-1236081dc649",
     "option": {
