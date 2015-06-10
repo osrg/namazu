@@ -1,4 +1,6 @@
 # Earthquake: Dynamic Model Checker for Distributed Systems
+
+[![Join the chat at https://gitter.im/osrg/earthquake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Earthquake is a dynamic model checker (DMCK) for real implementations of distributed system (such as ZooKeeper).
 
 Earthquakes permutes C/Java function calls, Ethernet packets, and injected fault events in various orders so as to find implementation-level bugs of the distributed system.
