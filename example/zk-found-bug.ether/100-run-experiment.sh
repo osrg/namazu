@@ -5,7 +5,7 @@ source lib.sh
 INFO "Cleaning veths"
 CLEAN_VETHS
 
-INFO "Cleating docker containers"
+INFO "Creating docker containers"
 START_DOCKER
 
 INFO "Setting up pipework"
@@ -14,7 +14,7 @@ SET_PIPEWORK
 INFO "Starting ZooKeeper"
 START_ZOOKEEPER
 
-INFO "Waiting for ${ZK_START_WAIT_SECS} seconds to wait ZooKeeper"
+INFO "Waiting for ${ZK_START_WAIT_SECS}"
 sleep $ZK_START_WAIT_SECS
 
 if [ -z $DISABLE_EQ ]; then
