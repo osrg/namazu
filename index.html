@@ -48,12 +48,12 @@ What are the distributed systems specific bugs? The bugs caused by
 hardware faults, non determinism of message ordering, and mix of them
 (non distributed systems does not need to handle them). Some
 researchers point out that real world systems (e.g. Hadoop) have
-such bugs, which can cause terrible failures like data loss [1,
-3]. They showed the existence of the bugs by building implementation
+such bugs, which can cause terrible failures like data loss [<a id="samc" class="anchor" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" aria-hidden="true">1</a>,
+<a id="modist" class="anchor" href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" aria-hidden="true">3</a>]. They showed the existence of the bugs by building implementation
 level distributed system model checkers (DMCK). The DMCKs have a
 capability of searching complex state space of protocols and injeting
 faults at critical timings. In addition, they can work with actual
-implementation (not formal model [2]) directly.
+implementation (not formal model [<a id="tla-amazon" class="anchor" href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" aria-hidden="true">2</a>]) directly.
 </p>
 
 <p>
