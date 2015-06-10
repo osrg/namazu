@@ -31,16 +31,17 @@
  * `pyearthquake`: python binding for `libearthquake`
 
 ### Implemented Plug-ins:
- * Orchestrator Plug-in: manages explorer and so on.
+ * Orchestrator Plug-in: manages Explorer and so on.
   * `BasicOrchestrator`: a basic orchestrator
   
  * Explorer Plug-in: explores state space
   * `DumbExplorer`: reorder nothing
   * `RandomExplorer`: reorder actions in randomly
-  * `GreedyExplorer` (WIP)
+  * `TimeBoundedRandomExplorer`: similar to `RandomExplorer`, but maximum deferred time is bounded
+  * `GreedyExplorer`: (WIP, but this must be the most effective exploration policy)
   
- * Process Watcher Plug-in: watches events from processes, maps event->action, and execute actions. You can check safety properties(i.e. assertion) in Process Watcher.
-  * 'BasicProcessWatcher`: a basic process watcher
+ * Process Watcher Plug-in: watches events from processes, maps event->action, and execute actions. You can check safety properties (i.e. assertion) in Process Watcher.
+  * `BasicProcessWatcher`: a basic process watcher
   
  * Termination Detector Plug-in:  detects termination of one-shot execution. Execution histories are recorded to storage on such terminations.
   * `InspectionEndDetector`: detects termination when `InspectionEndEvent`s are observed from all processes
@@ -68,6 +69,3 @@
   * `ExecuteCommandOnInspectorAction`: (WIP)
   * `ExecuteCommandOnOrchestratorAction`: usable for fault-injection that kills inspectors
 
-
-
- 

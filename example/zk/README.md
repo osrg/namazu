@@ -3,9 +3,7 @@
 ## Getting Started
 Prepare
 
-    $ sudo apt-get install -y \
-      python-eventlet python-flask python-colorama python-networkx python-six \
-      default-jdk maven
+    $ sudo apt-get install -y default-jdk maven
     $ cp config_example.json config.json
     $ ./000-prepare-zk.sh
     $ ./010-start-orchestrator.sh

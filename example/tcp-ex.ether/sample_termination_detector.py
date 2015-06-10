@@ -6,7 +6,7 @@ from pyearthquake.orchestrator.detector import *
 
 class SampleTerminationDetector(TerminationDetectorBase):
     def __init__(self, messages=2):
-        self.messages = 2
+        self.messages = messages
     
     def is_terminal_state(self, state):
        # terrible bad hack
