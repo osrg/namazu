@@ -1,7 +1,7 @@
 RULE FinalRequestProcessor.processRequest
 CLASS FinalRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -13,7 +13,7 @@ ENDRULE
 RULE PrepRequestProcessor.processRequest
 CLASS PrepRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -25,7 +25,7 @@ ENDRULE
 RULE SyncRequestProcessor.processRequest
 CLASS SyncRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -37,7 +37,7 @@ ENDRULE
 RULE AckRequestProcessor.processRequest
 CLASS AckRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -49,7 +49,7 @@ ENDRULE
 RULE CommitProcessor.processRequest
 CLASS CommitProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -61,7 +61,7 @@ ENDRULE
 RULE FollowerRequestProcessor.processRequest
 CLASS FollowerRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -73,7 +73,7 @@ ENDRULE
 RULE LeaderRequestProcessor.processRequest
 CLASS LeaderRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -85,7 +85,7 @@ ENDRULE
 RULE ObserverRequestProcessor.processRequest
 CLASS ObserverRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -97,7 +97,7 @@ ENDRULE
 RULE ProposalRequestProcessor.processRequest
 CLASS ProposalRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -109,7 +109,7 @@ ENDRULE
 RULE ReadOnlyRequestProcessor.processRequest
 CLASS ReadOnlyRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -121,7 +121,7 @@ ENDRULE
 RULE SendAckRequestProcessor.processRequest
 CLASS SendAckRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -133,7 +133,7 @@ ENDRULE
 RULE Leader.ToBeAppliedRequestProcessor.processRequest
 CLASS ToBeAppliedRequestProcessor
 METHOD processRequest
-HELPER EQHelper
+HELPER HTTPEQHelper
 BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
@@ -142,10 +142,10 @@ argMap.put("request", request.toString());
 eventFuncCall("Leader.ToBeAppliedRequestProcessor.processRequest", argMap);
 ENDRULE
 
-RULE invoke initiation, call static constructor of EQHelper
+RULE invoke initiation, call static constructor of HTTPEQHelper
 CLASS QuorumPeerMain
 METHOD main
-HELPER EQHelper
+HELPER HTTPEQHelper
 AT ENTRY
 IF true
 DO

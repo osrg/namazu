@@ -16,10 +16,10 @@
 package org.osrg.earthquake;
 import java.util.*;
 
-public class InspectorTester {
+public class HTTPInspectorTester {
     //TODO: introduce JUnit unittest
     public static void main(String args[]) {
-        Inspector i = new Inspector();
+        Inspector i = new HTTPInspector();
         i.Initiation();
 
         System.out.println("sending funcCall event (testMethod)");
