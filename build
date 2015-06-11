@@ -9,12 +9,3 @@ pushd inspector/java/base
 mvn package
 popd
 cp -f inspector/java/base/target/earthquake-inspector.jar ./bin/
-
-
-
-pushd inspector-classic/java/base
-mvn package
-popd
-cp -f inspector-classic/java/base/target/earthquake-inspector.jar ./bin/earthquake-inspector-classic.jar
-
-
