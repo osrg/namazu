@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="stylesheets/github-light.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
   </head>
   <body>
     <div class="wrapper">
@@ -29,79 +29,82 @@
       </header>
       <section>
         <h3>
-<a id="what-is-this" class="anchor" href="#what-is-this" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is this?</h3>
+	  <a id="what-is-this" class="anchor" href="#what-is-this" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is this?</h3>
 
-<p>
-In short, the goal of earthquake project is providing a foundation of
-debugger for distributed systems.
-</p>
+	<p>
+	  In short, the goal of earthquake project is providing a foundation of
+	  debugger for distributed systems.
+	</p>
 
-<p>
-Developing and maintaining distributed systems is difficult. The
-difficulty comes from many factors, but we believe that one of the
-most important reasons is lacking of a good debugger for distributed
-systems specific bugs.
-</p>
+	<p>
+	  Developing and maintaining distributed systems is difficult. The
+	  difficulty comes from many factors, but we believe that one of the
+	  most important reasons is lacking of a good debugger for distributed
+	  systems specific bugs.
+	</p>
 
-<p>
-What are the distributed systems specific bugs? The bugs caused by
-hardware faults, non determinism of message ordering, and mix of them
-(non distributed systems does not need to handle them). Some
-researchers point out that real world systems (e.g. Hadoop) have
-such bugs, which can cause terrible failures like data loss [<a id="samc" class="anchor" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" aria-hidden="true">1</a>,
-<a id="modist" class="anchor" href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" aria-hidden="true">3</a>]. They showed the existence of the bugs by building implementation
-level distributed system model checkers (DMCK). The DMCKs have a
-capability of searching complex state space of protocols and injeting
-faults at critical timings. In addition, they can work with actual
-implementation (not formal model [<a id="tla-amazon" class="anchor" href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" aria-hidden="true">2</a>]) directly.
-</p>
+	<p>
+	  What are the distributed systems specific bugs? The bugs caused by
+	  hardware faults, non determinism of message ordering, and mix of them
+	  (non distributed systems does not need to handle them). Some
+	  researchers point out that real world systems (e.g. Hadoop) have
+	  such bugs, which can cause terrible failures like data loss [<a id="samc" class="anchor" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" aria-hidden="true">1</a>,
+	  <a id="modist" class="anchor" href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" aria-hidden="true">3</a>]. They showed the existence of the bugs by building implementation
+	  level distributed system model checkers (DMCK). The DMCKs have a
+	  capability of searching complex state space of protocols and injeting
+	  faults at critical timings. In addition, they can work with actual
+	  implementation (not formal model [<a id="tla-amazon" class="anchor" href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" aria-hidden="true">2</a>]) directly.
+	</p>
 
-<p>
-earthquake is a framework for such DMCKs. Its design does not depend
-on programming languages and opearting systems. You can write your own
-state space search policy for your system. We hope it will make your
-life a little bit easier.
-</p>
+	<p>
+	  earthquake is a framework for such DMCKs. Its design does not depend
+	  on programming languages and opearting systems. You can write your own
+	  state space search policy for your system. We hope it will make your
+	  life a little bit easier.
+	</p>
 
-<ul>
-<li>
-<a id="samc" class="anchor" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" aria-hidden="true">
-[1] Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model
-    Checking for Fast Discovery of Deep Bugs in Cloud Systems. In
-    Proc. of OSDI '14.
-</a>
-</li>
+	<ul>
+	  <li>
+	    <a id="samc" class="anchor" href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" aria-hidden="true">
+	      [1] Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model
+	      Checking for Fast Discovery of Deep Bugs in Cloud Systems. In
+	      Proc. of OSDI '14.
+	    </a>
+	  </li>
 
-<li>
-<a id="tla-amazon" class="anchor" href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" aria-hidden="true">
-[2] Chris Newcombe, et al. Use of Formal Methods at Amazon Web
-    Services. Amazon.com Technical Report, 2014.
-</a>
-</li>
+	  <li>
+	    <a id="tla-amazon" class="anchor" href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" aria-hidden="true">
+	      [2] Chris Newcombe, et al. Use of Formal Methods at Amazon Web
+	      Services. Amazon.com Technical Report, 2014.
+	    </a>
+	  </li>
 
-<li>
-<a id="modist" class="anchor" href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" aria-hidden="true">
-[3] Junfeng Yang, et al. MODIST: Transparent Model Checking of
-    Unmodified Distributed Systems. In Proc. of NSDI '09.
-</a>
-</li>
-</ul>
+	  <li>
+	    <a id="modist" class="anchor" href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" aria-hidden="true">
+	      [3] Junfeng Yang, et al. MODIST: Transparent Model Checking of
+	      Unmodified Distributed Systems. In Proc. of NSDI '09.
+	    </a>
+	  </li>
+	</ul>
 
-<h3><a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use?</h3>
+	<h3><a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use?</h3>
 
-<p>
-<a href="https://github.com/osrg/earthquake/blob/master/README.md">README file</a> is a good start point.
-</p>
+	<p>
+	  <a href="https://github.com/osrg/earthquake/blob/master/README.md">README file</a> is a good start point.
+	</p>
 
-<h3><a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h3>
+	<h3><a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h3>
 
-<p>
-The project is managed on <a href="https://github.com/osrg/earthquake">github</a>. <a href="https://github.com/osrg/earthquake/pulls">Pull requests</a> and <a href="https://github.com/osrg/earthquake/issues">issues</a> are welcome. We are using <a href="https://gitter.im/osrg/earthquake">gitter</a> for discussion. Feel free to join.
-</p>
-
-<div id="twitter-timeline-container">
-  <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/EarthquakeDMCK" data-widget-id="608816516100837376">Tweets by @EarthquakeDMCK</a>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</div>
+	<p>
+	  The project is managed on <a href="https://github.com/osrg/earthquake">github</a>. <a href="https://github.com/osrg/earthquake/pulls">Pull requests</a> and <a href="https://github.com/osrg/earthquake/issues">issues</a> are welcome. We are using <a href="https://gitter.im/osrg/earthquake">gitter</a> for discussion. Feel free to join.
+	</p>
+	<p>
+	  Copyright&copy; 2015 Nippon Telegraph and Telephone Corporation.
+	</p>
+	<div id="twitter-timeline-container">
+	  <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/EarthquakeDMCK" data-widget-id="608816516100837376">Tweets by @EarthquakeDMCK</a>
+	  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</div>
+      </section>
   </body>
 </html>
