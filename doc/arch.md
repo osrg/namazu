@@ -36,7 +36,7 @@
   
  * Explorer Plug-in: explores state space
   * `DumbExplorer`: reorder nothing
-  * `RandomExplorer`: reorder actions in randomly
+  * `RandomExplorer`: reorder actions randomly
   * `TimeBoundedRandomExplorer`: similar to `RandomExplorer`, but maximum deferred time is bounded
   * `GreedyExplorer`: (WIP, but this must be the most effective exploration policy)
   
