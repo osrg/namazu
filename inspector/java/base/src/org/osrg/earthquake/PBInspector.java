@@ -36,7 +36,7 @@ import java.net.*;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
 
-public class Inspector {
+public class PBInspector implements Inspector {
     private boolean Direct = false;
     private boolean Disabled = false;
     private String ProcessID;
@@ -111,7 +111,7 @@ public class Inspector {
         return rsp;
     }
 
-    public Inspector() {
+    public PBInspector() {
         LOGGER = Logger.getLogger(this.getClass().getName());
         LOGGER.setLevel(Level.INFO);
 
@@ -156,13 +156,13 @@ public class Inspector {
 
         Signal signal = new Signal("TERM");
         Signal.handle(signal, new SignalHandler() {
-            public void handle(Signal signal) {
-                LOGGER.info("singal: " + signal + " catched");
-                reader.kill();
+		public void handle(Signal signal) {
+		    LOGGER.info("singal: " + signal + " catched");
+		    reader.kill();
 
-                System.exit(0);
-            }
-        });
+		    System.exit(0);
+		}
+	    });
     }
 
     private boolean running = true;
@@ -175,8 +175,8 @@ public class Inspector {
 
             I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
             I2GMessage.I2GMsgReq_Event ev = evBuilder
-                    .setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
-                    .setExit(evExit).build();
+		.setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
+		.setExit(evExit).build();
 
             running = false;
             sendEvent(ev, false);
@@ -251,11 +251,11 @@ public class Inspector {
 
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /* FIXME */)
-                .setTid((int) Thread.currentThread().getId())
-                .setType(I2GMessage.I2GMsgReq.Type.INITIATION)
-                .setMsgId(0)
-                .setProcessId(ProcessID)
-                .setInitiation(initiationReq).build();
+	    .setTid((int) Thread.currentThread().getId())
+	    .setType(I2GMessage.I2GMsgReq.Type.INITIATION)
+	    .setMsgId(0)
+	    .setProcessId(ProcessID)
+	    .setInitiation(initiationReq).build();
 
         LOGGER.info("executing request for initiation");
         I2GMessage.I2GMsgRsp rsp = ExecReq(req);
@@ -283,11 +283,11 @@ public class Inspector {
         int msgID = nextMsgID();
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
-                .setTid((int) Thread.currentThread().getId())
-                .setType(I2GMessage.I2GMsgReq.Type.EVENT)
-                .setMsgId(msgID)
-                .setProcessId(ProcessID)
-                .setEvent(ev).build();
+	    .setTid((int) Thread.currentThread().getId())
+	    .setType(I2GMessage.I2GMsgReq.Type.EVENT)
+	    .setMsgId(msgID)
+	    .setProcessId(ProcessID)
+	    .setEvent(ev).build();
 
         SendReq(req);
 
@@ -325,10 +325,14 @@ public class Inspector {
 
         I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
         I2GMessage.I2GMsgReq_Event ev = evBuilder
-                .setType(I2GMessage.I2GMsgReq_Event.Type.FUNC_CALL)
-                .setFuncCall(evFun).build();
+	    .setType(I2GMessage.I2GMsgReq_Event.Type.FUNC_CALL)
+	    .setFuncCall(evFun).build();
 
         sendEvent(ev, true);
+    }
+
+    public void EventFuncCall(String funcName, Map<String, Object> argMap) {
+	// TODO: not implemented yet
     }
 
     public void StopInspection() {

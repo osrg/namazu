@@ -15,9 +15,9 @@
 
 package org.osrg.earthquake;
 
-public class InspectorTester {
+public class PBInspectorTester {
     public static void main(String args[]) {
-        Inspector i = new Inspector();
+        Inspector i = new PBInspector();
         i.Initiation();
 
         System.out.println("sending funcCall event (testMethod)");
