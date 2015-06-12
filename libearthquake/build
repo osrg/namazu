@@ -19,5 +19,5 @@ echo "Compiling libearthquake.so"
 # NOTE: go 1.5 or higher is required to use buildmode=c-shared
 go build -buildmode=c-shared -o ../bin/libearthquake.so libearthquake.go
 
-echo "Compiling earthquake-classic"
-go build -o ../bin/earthquake-classic $(ls *.go | grep -v libearthquake.go)
+echo "Compiling earthquake"
+go build -o ../bin/earthquake $(ls *.go | grep -v libearthquake.go)
