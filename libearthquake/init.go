@@ -26,17 +26,63 @@ import (
 )
 
 const (
-	storageConfigPath string = "config.json"
+	storageConfigPath    string = "config.json"
+	storageMaterialsPath string = "materials"
 )
 
+func recursiveHardLink(srcPath, dstPath string) {
+	f, oerr := os.Open(srcPath)
+	if oerr != nil {
+		fmt.Printf("failed to open source path: %s (%s)\n",
+			srcPath, oerr)
+		os.Exit(1)
+	}
+
+	names, rerr := f.Readdirnames(0)
+	if rerr != nil {
+		fmt.Printf("failed to readdirnames: %s\n", rerr)
+		os.Exit(1)
+	}
+
+	for _, name := range names {
+		path := srcPath + "/" + name
+
+		fi, serr := os.Stat(path)
+		if serr != nil {
+			fmt.Printf("failed to stat (%s): %s", path, serr)
+			os.Exit(1)
+		}
+
+		if fi.Mode().IsDir() {
+			dstDir := dstPath + "/" + name
+			merr := os.Mkdir(dstDir, 0777)
+			if merr != nil {
+				fmt.Printf("failed to make directory %s: %s\n",
+					dstDir, merr)
+				os.Exit(1)
+			}
+			recursiveHardLink(path, dstDir)
+		} else {
+			lerr := os.Link(path, dstPath + "/" + name)
+			if lerr != nil {
+				fmt.Printf("failed to link (src: %s, dst: %s): %s\n",
+					path, dstPath + "/" + name, lerr)
+				os.Exit(1)
+			}
+		}
+	}
+
+}
+
 func _init(args []string) {
-	if len(args) != 2 {
-		fmt.Printf("specify <config file path> <storage dir path>\n")
+	if len(args) != 3 {
+		fmt.Printf("specify <config file path> <materials dir path> <storage dir path>\n")
 		os.Exit(1)
 	}
 
 	conf := args[0]
-	storage := args[1]
+	materials := args[1]
+	storage := args[2]
 
 	cfi, cerr := os.Stat(conf)
 	if cerr != nil {
@@ -77,12 +123,22 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
-	lerr := os.Link(conf, storage + "/" + storageConfigPath)
+	lerr := os.Link(conf, storage+"/"+storageConfigPath)
 	if lerr != nil {
 		fmt.Printf("creating link of config file (%s) failed (%s)\n", conf, lerr)
 		os.Exit(1)
 	}
 
+	materialDir := storage + "/" + storageMaterialsPath
+	derr = os.Mkdir(materialDir, 0777)
+	if derr != nil {
+		fmt.Printf("creating a directory for materials (%s) failed (%s)\n",
+			storage + "/" + storageMaterialsPath, derr)
+		os.Exit(1)
+		// TODO: cleaning conf file
+	}
+
+	recursiveHardLink(materials, materialDir)
 	fmt.Printf("ok\n")
 }
 
