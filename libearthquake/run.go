@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package searchtools
+package main
 
 import (
 	// "encoding/gob"
@@ -60,6 +60,6 @@ func (cmd runCmd) Synopsis() string {
 	return "run subcommand"
 }
 
-func RunCommandFactory() (cli.Command, error) {
+func runCommandFactory() (cli.Command, error) {
 	return runCmd{}, nil
 }
