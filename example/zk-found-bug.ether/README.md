@@ -25,7 +25,7 @@ commit 98a3cabfa279833b81908d72f1c10ee9f598a045 (Tue Jun 2 19:17:09 2015 +0000)
 ## How to reproduce the bug with earthquake
     
 ### Start Earthquake
-Please see [../../doc/how-to-install-deps.md](../../doc/how-to-install-deps.md) for how to setup the environment.
+Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for how to setup the environment.
 
     $ sudo pip install zktraffic==0.1.3
     $ ./000-prepare.sh
