@@ -123,6 +123,12 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
+	_, err := parseRunConfig(conf)
+	if err != nil {
+		fmt.Printf("parsing config file (%s) failed: %s\n", conf, err)
+		os.Exit(1)
+	}
+
 	lerr := os.Link(conf, storage+"/"+storageConfigPath)
 	if lerr != nil {
 		fmt.Printf("creating link of config file (%s) failed (%s)\n", conf, lerr)

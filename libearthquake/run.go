@@ -17,13 +17,37 @@ package main
 
 import (
 	// "encoding/gob"
+	"encoding/json"
 	"fmt"
 	"os"
 
-	// . "../equtils"
+	. "./equtils"
 
 	"github.com/mitchellh/cli"
 )
+
+type runConfig struct {
+	runScript string
+}
+
+func parseRunConfig(jsonPath string) (*runConfig, error) {
+	jsonBuf, rerr := WholeRead(jsonPath)
+	if rerr != nil {
+		return nil, rerr
+	}
+
+	var root map[string]interface{}
+	err := json.Unmarshal(jsonBuf, &root)
+	if err != nil {
+		return nil, err
+	}
+
+	runScript := root["run"].(string)
+
+	return &runConfig{
+		runScript: runScript,
+	}, nil
+}
 
 func run(args []string) {
 	if len(args) != 1 {
