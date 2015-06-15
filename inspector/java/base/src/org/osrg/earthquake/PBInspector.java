@@ -296,12 +296,20 @@ public class PBInspector implements Inspector {
 
     private void sendEvent(I2GMessage.I2GMsgReq_Event ev, boolean needRsp) {
         int msgID = nextMsgID();
+
+        I2GMessage.I2GMsgReq_JavaSpecificFields.Builder javaSpecificFieldBuilder =
+                I2GMessage.I2GMsgReq_JavaSpecificFields.newBuilder();
+        javaSpecificFieldBuilder.setThreadName(Thread.currentThread().getName());
+        I2GMessage.I2GMsgReq_JavaSpecificFields javaSpecificField = javaSpecificFieldBuilder.build();
+
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
 	    .setTid((int) Thread.currentThread().getId())
 	    .setType(I2GMessage.I2GMsgReq.Type.EVENT)
 	    .setMsgId(msgID)
 	    .setProcessId(ProcessID)
+        .setHasJavaSpecificFields(1)
+        .setJavaSpecificFields(javaSpecificField)
 	    .setEvent(ev).build();
 
 	if (Dryrun) {

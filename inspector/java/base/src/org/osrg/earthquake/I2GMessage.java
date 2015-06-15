@@ -2279,6 +2279,490 @@ public final class I2GMessage {
     // @@protoc_insertion_point(class_scope:equtils.I2GMsgReq_Initiation)
   }
 
+  public interface I2GMsgReq_JavaSpecificFieldsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:equtils.I2GMsgReq_JavaSpecificFields)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string threadName = 1;</code>
+     */
+    boolean hasThreadName();
+    /**
+     * <code>required string threadName = 1;</code>
+     */
+    java.lang.String getThreadName();
+    /**
+     * <code>required string threadName = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getThreadNameBytes();
+  }
+  /**
+   * Protobuf type {@code equtils.I2GMsgReq_JavaSpecificFields}
+   */
+  public static final class I2GMsgReq_JavaSpecificFields extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:equtils.I2GMsgReq_JavaSpecificFields)
+      I2GMsgReq_JavaSpecificFieldsOrBuilder {
+    // Use I2GMsgReq_JavaSpecificFields.newBuilder() to construct.
+    private I2GMsgReq_JavaSpecificFields(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private I2GMsgReq_JavaSpecificFields(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final I2GMsgReq_JavaSpecificFields defaultInstance;
+    public static I2GMsgReq_JavaSpecificFields getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public I2GMsgReq_JavaSpecificFields getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private I2GMsgReq_JavaSpecificFields(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              threadName_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.class, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<I2GMsgReq_JavaSpecificFields> PARSER =
+        new com.google.protobuf.AbstractParser<I2GMsgReq_JavaSpecificFields>() {
+      public I2GMsgReq_JavaSpecificFields parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new I2GMsgReq_JavaSpecificFields(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<I2GMsgReq_JavaSpecificFields> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int THREADNAME_FIELD_NUMBER = 1;
+    private java.lang.Object threadName_;
+    /**
+     * <code>required string threadName = 1;</code>
+     */
+    public boolean hasThreadName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string threadName = 1;</code>
+     */
+    public java.lang.String getThreadName() {
+      java.lang.Object ref = threadName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          threadName_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string threadName = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getThreadNameBytes() {
+      java.lang.Object ref = threadName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        threadName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      threadName_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasThreadName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getThreadNameBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getThreadNameBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code equtils.I2GMsgReq_JavaSpecificFields}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:equtils.I2GMsgReq_JavaSpecificFields)
+        org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFieldsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.class, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.Builder.class);
+      }
+
+      // Construct using org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        threadName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor;
+      }
+
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields getDefaultInstanceForType() {
+        return org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.getDefaultInstance();
+      }
+
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields build() {
+        org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields buildPartial() {
+        org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields result = new org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.threadName_ = threadName_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields) {
+          return mergeFrom((org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields other) {
+        if (other == org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.getDefaultInstance()) return this;
+        if (other.hasThreadName()) {
+          bitField0_ |= 0x00000001;
+          threadName_ = other.threadName_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasThreadName()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object threadName_ = "";
+      /**
+       * <code>required string threadName = 1;</code>
+       */
+      public boolean hasThreadName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string threadName = 1;</code>
+       */
+      public java.lang.String getThreadName() {
+        java.lang.Object ref = threadName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            threadName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string threadName = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getThreadNameBytes() {
+        java.lang.Object ref = threadName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          threadName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string threadName = 1;</code>
+       */
+      public Builder setThreadName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        threadName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string threadName = 1;</code>
+       */
+      public Builder clearThreadName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        threadName_ = getDefaultInstance().getThreadName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string threadName = 1;</code>
+       */
+      public Builder setThreadNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        threadName_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:equtils.I2GMsgReq_JavaSpecificFields)
+    }
+
+    static {
+      defaultInstance = new I2GMsgReq_JavaSpecificFields(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:equtils.I2GMsgReq_JavaSpecificFields)
+  }
+
   public interface I2GMsgReqOrBuilder extends
       // @@protoc_insertion_point(interface_extends:equtils.I2GMsgReq)
       com.google.protobuf.MessageOrBuilder {
@@ -2375,6 +2859,28 @@ public final class I2GMessage {
      * <code>optional .equtils.I2GMsgReq_Initiation Initiation = 8;</code>
      */
     org.osrg.earthquake.I2GMessage.I2GMsgReq_InitiationOrBuilder getInitiationOrBuilder();
+
+    /**
+     * <code>required int32 HasJavaSpecificFields = 9;</code>
+     */
+    boolean hasHasJavaSpecificFields();
+    /**
+     * <code>required int32 HasJavaSpecificFields = 9;</code>
+     */
+    int getHasJavaSpecificFields();
+
+    /**
+     * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     */
+    boolean hasJavaSpecificFields();
+    /**
+     * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     */
+    org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields getJavaSpecificFields();
+    /**
+     * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     */
+    org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFieldsOrBuilder getJavaSpecificFieldsOrBuilder();
   }
   /**
    * Protobuf type {@code equtils.I2GMsgReq}
@@ -2489,6 +2995,24 @@ public final class I2GMessage {
                 initiation_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000080;
+              break;
+            }
+            case 72: {
+              bitField0_ |= 0x00000100;
+              hasJavaSpecificFields_ = input.readInt32();
+              break;
+            }
+            case 82: {
+              org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000200) == 0x00000200)) {
+                subBuilder = javaSpecificFields_.toBuilder();
+              }
+              javaSpecificFields_ = input.readMessage(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(javaSpecificFields_);
+                javaSpecificFields_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000200;
               break;
             }
           }
@@ -2780,6 +3304,42 @@ public final class I2GMessage {
       return initiation_;
     }
 
+    public static final int HASJAVASPECIFICFIELDS_FIELD_NUMBER = 9;
+    private int hasJavaSpecificFields_;
+    /**
+     * <code>required int32 HasJavaSpecificFields = 9;</code>
+     */
+    public boolean hasHasJavaSpecificFields() {
+      return ((bitField0_ & 0x00000100) == 0x00000100);
+    }
+    /**
+     * <code>required int32 HasJavaSpecificFields = 9;</code>
+     */
+    public int getHasJavaSpecificFields() {
+      return hasJavaSpecificFields_;
+    }
+
+    public static final int JAVASPECIFICFIELDS_FIELD_NUMBER = 10;
+    private org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields javaSpecificFields_;
+    /**
+     * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     */
+    public boolean hasJavaSpecificFields() {
+      return ((bitField0_ & 0x00000200) == 0x00000200);
+    }
+    /**
+     * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     */
+    public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields getJavaSpecificFields() {
+      return javaSpecificFields_;
+    }
+    /**
+     * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     */
+    public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFieldsOrBuilder getJavaSpecificFieldsOrBuilder() {
+      return javaSpecificFields_;
+    }
+
     private void initFields() {
       processId_ = "";
       type_ = org.osrg.earthquake.I2GMessage.I2GMsgReq.Type.EVENT;
@@ -2789,6 +3349,8 @@ public final class I2GMessage {
       gaMsgId_ = 0;
       event_ = org.osrg.earthquake.I2GMessage.I2GMsgReq_Event.getDefaultInstance();
       initiation_ = org.osrg.earthquake.I2GMessage.I2GMsgReq_Initiation.getDefaultInstance();
+      hasJavaSpecificFields_ = 0;
+      javaSpecificFields_ = org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2816,6 +3378,10 @@ public final class I2GMessage {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasHasJavaSpecificFields()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (hasEvent()) {
         if (!getEvent().isInitialized()) {
           memoizedIsInitialized = 0;
@@ -2824,6 +3390,12 @@ public final class I2GMessage {
       }
       if (hasInitiation()) {
         if (!getInitiation().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasJavaSpecificFields()) {
+        if (!getJavaSpecificFields().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -2858,6 +3430,12 @@ public final class I2GMessage {
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         output.writeMessage(8, initiation_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        output.writeInt32(9, hasJavaSpecificFields_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        output.writeMessage(10, javaSpecificFields_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2899,6 +3477,14 @@ public final class I2GMessage {
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(8, initiation_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(9, hasJavaSpecificFields_);
+      }
+      if (((bitField0_ & 0x00000200) == 0x00000200)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(10, javaSpecificFields_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3011,6 +3597,7 @@ public final class I2GMessage {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getEventFieldBuilder();
           getInitiationFieldBuilder();
+          getJavaSpecificFieldsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -3043,6 +3630,14 @@ public final class I2GMessage {
           initiationBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000080);
+        hasJavaSpecificFields_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        if (javaSpecificFieldsBuilder_ == null) {
+          javaSpecificFields_ = org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.getDefaultInstance();
+        } else {
+          javaSpecificFieldsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
 
@@ -3111,6 +3706,18 @@ public final class I2GMessage {
         } else {
           result.initiation_ = initiationBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000100;
+        }
+        result.hasJavaSpecificFields_ = hasJavaSpecificFields_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000200;
+        }
+        if (javaSpecificFieldsBuilder_ == null) {
+          result.javaSpecificFields_ = javaSpecificFields_;
+        } else {
+          result.javaSpecificFields_ = javaSpecificFieldsBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3153,6 +3760,12 @@ public final class I2GMessage {
         if (other.hasInitiation()) {
           mergeInitiation(other.getInitiation());
         }
+        if (other.hasHasJavaSpecificFields()) {
+          setHasJavaSpecificFields(other.getHasJavaSpecificFields());
+        }
+        if (other.hasJavaSpecificFields()) {
+          mergeJavaSpecificFields(other.getJavaSpecificFields());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -3178,6 +3791,10 @@ public final class I2GMessage {
           
           return false;
         }
+        if (!hasHasJavaSpecificFields()) {
+          
+          return false;
+        }
         if (hasEvent()) {
           if (!getEvent().isInitialized()) {
             
@@ -3186,6 +3803,12 @@ public final class I2GMessage {
         }
         if (hasInitiation()) {
           if (!getInitiation().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasJavaSpecificFields()) {
+          if (!getJavaSpecificFields().isInitialized()) {
             
             return false;
           }
@@ -3697,6 +4320,154 @@ public final class I2GMessage {
           initiation_ = null;
         }
         return initiationBuilder_;
+      }
+
+      private int hasJavaSpecificFields_ ;
+      /**
+       * <code>required int32 HasJavaSpecificFields = 9;</code>
+       */
+      public boolean hasHasJavaSpecificFields() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      /**
+       * <code>required int32 HasJavaSpecificFields = 9;</code>
+       */
+      public int getHasJavaSpecificFields() {
+        return hasJavaSpecificFields_;
+      }
+      /**
+       * <code>required int32 HasJavaSpecificFields = 9;</code>
+       */
+      public Builder setHasJavaSpecificFields(int value) {
+        bitField0_ |= 0x00000100;
+        hasJavaSpecificFields_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 HasJavaSpecificFields = 9;</code>
+       */
+      public Builder clearHasJavaSpecificFields() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        hasJavaSpecificFields_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields javaSpecificFields_ = org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.Builder, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFieldsOrBuilder> javaSpecificFieldsBuilder_;
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      public boolean hasJavaSpecificFields() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields getJavaSpecificFields() {
+        if (javaSpecificFieldsBuilder_ == null) {
+          return javaSpecificFields_;
+        } else {
+          return javaSpecificFieldsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      public Builder setJavaSpecificFields(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields value) {
+        if (javaSpecificFieldsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          javaSpecificFields_ = value;
+          onChanged();
+        } else {
+          javaSpecificFieldsBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000200;
+        return this;
+      }
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      public Builder setJavaSpecificFields(
+          org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.Builder builderForValue) {
+        if (javaSpecificFieldsBuilder_ == null) {
+          javaSpecificFields_ = builderForValue.build();
+          onChanged();
+        } else {
+          javaSpecificFieldsBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000200;
+        return this;
+      }
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      public Builder mergeJavaSpecificFields(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields value) {
+        if (javaSpecificFieldsBuilder_ == null) {
+          if (((bitField0_ & 0x00000200) == 0x00000200) &&
+              javaSpecificFields_ != org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.getDefaultInstance()) {
+            javaSpecificFields_ =
+              org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.newBuilder(javaSpecificFields_).mergeFrom(value).buildPartial();
+          } else {
+            javaSpecificFields_ = value;
+          }
+          onChanged();
+        } else {
+          javaSpecificFieldsBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000200;
+        return this;
+      }
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      public Builder clearJavaSpecificFields() {
+        if (javaSpecificFieldsBuilder_ == null) {
+          javaSpecificFields_ = org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.getDefaultInstance();
+          onChanged();
+        } else {
+          javaSpecificFieldsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000200);
+        return this;
+      }
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.Builder getJavaSpecificFieldsBuilder() {
+        bitField0_ |= 0x00000200;
+        onChanged();
+        return getJavaSpecificFieldsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFieldsOrBuilder getJavaSpecificFieldsOrBuilder() {
+        if (javaSpecificFieldsBuilder_ != null) {
+          return javaSpecificFieldsBuilder_.getMessageOrBuilder();
+        } else {
+          return javaSpecificFields_;
+        }
+      }
+      /**
+       * <code>optional .equtils.I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.Builder, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFieldsOrBuilder> 
+          getJavaSpecificFieldsFieldBuilder() {
+        if (javaSpecificFieldsBuilder_ == null) {
+          javaSpecificFieldsBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields.Builder, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFieldsOrBuilder>(
+                  getJavaSpecificFields(),
+                  getParentForChildren(),
+                  isClean());
+          javaSpecificFields_ = null;
+        }
+        return javaSpecificFieldsBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:equtils.I2GMsgReq)
@@ -4464,6 +5235,11 @@ public final class I2GMessage {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_equtils_I2GMsgReq_Initiation_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_equtils_I2GMsgReq_JavaSpecificFields_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_equtils_I2GMsgReq_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -4490,18 +5266,21 @@ public final class I2GMessage {
       "utils.I2GMsgReq_Event_FuncCall\022+\n\004Exit\030\003" +
       " \001(\0132\035.equtils.I2GMsgReq_Event_Exit\"\037\n\004T" +
       "ype\022\r\n\tFUNC_CALL\020\001\022\010\n\004EXIT\020\002\")\n\024I2GMsgRe" +
-      "q_Initiation\022\021\n\tprocessId\030\001 \002(\t\"\202\002\n\tI2GM" +
-      "sgReq\022\022\n\nprocess_id\030\001 \002(\t\022%\n\004type\030\002 \002(\0162",
-      "\027.equtils.I2GMsgReq.Type\022\013\n\003pid\030\003 \002(\005\022\013\n" +
-      "\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 \002(\005\022\021\n\tga_msg_id\030" +
-      "\006 \001(\005\022\'\n\005Event\030\007 \001(\0132\030.equtils.I2GMsgReq" +
-      "_Event\0221\n\nInitiation\030\010 \001(\0132\035.equtils.I2G" +
-      "MsgReq_Initiation\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\n" +
-      "INITIATION\020\002\"}\n\tI2GMsgRsp\022&\n\003res\030\001 \002(\0162\031" +
-      ".equtils.I2GMsgRsp.Result\022\016\n\006msg_id\030\002 \001(" +
-      "\005\022\021\n\tga_msg_id\030\003 \001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022" +
-      "\t\n\005ERROR\020\002\022\007\n\003END\020\003B\025\n\023org.osrg.earthqua" +
-      "ke"
+      "q_Initiation\022\021\n\tprocessId\030\001 \002(\t\"2\n\034I2GMs" +
+      "gReq_JavaSpecificFields\022\022\n\nthreadName\030\001 ",
+      "\002(\t\"\344\002\n\tI2GMsgReq\022\022\n\nprocess_id\030\001 \002(\t\022%\n" +
+      "\004type\030\002 \002(\0162\027.equtils.I2GMsgReq.Type\022\013\n\003" +
+      "pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 \002(\005\022\021" +
+      "\n\tga_msg_id\030\006 \001(\005\022\'\n\005Event\030\007 \001(\0132\030.equti" +
+      "ls.I2GMsgReq_Event\0221\n\nInitiation\030\010 \001(\0132\035" +
+      ".equtils.I2GMsgReq_Initiation\022\035\n\025HasJava" +
+      "SpecificFields\030\t \002(\005\022A\n\022JavaSpecificFiel" +
+      "ds\030\n \001(\0132%.equtils.I2GMsgReq_JavaSpecifi" +
+      "cFields\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\nINITIATION" +
+      "\020\002\"}\n\tI2GMsgRsp\022&\n\003res\030\001 \002(\0162\031.equtils.I",
+      "2GMsgRsp.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_ms" +
+      "g_id\030\003 \001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002" +
+      "\022\007\n\003END\020\003B\025\n\023org.osrg.earthquake"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4539,14 +5318,20 @@ public final class I2GMessage {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_I2GMsgReq_Initiation_descriptor,
         new java.lang.String[] { "ProcessId", });
-    internal_static_equtils_I2GMsgReq_descriptor =
+    internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_equtils_I2GMsgReq_JavaSpecificFields_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor,
+        new java.lang.String[] { "ThreadName", });
+    internal_static_equtils_I2GMsgReq_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_equtils_I2GMsgReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_I2GMsgReq_descriptor,
-        new java.lang.String[] { "ProcessId", "Type", "Pid", "Tid", "MsgId", "GaMsgId", "Event", "Initiation", });
+        new java.lang.String[] { "ProcessId", "Type", "Pid", "Tid", "MsgId", "GaMsgId", "Event", "Initiation", "HasJavaSpecificFields", "JavaSpecificFields", });
     internal_static_equtils_I2GMsgRsp_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_equtils_I2GMsgRsp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_I2GMsgRsp_descriptor,

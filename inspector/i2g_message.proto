@@ -43,6 +43,10 @@ message I2GMsgReq_Initiation {
   required string processId = 1;
 };
 
+message I2GMsgReq_JavaSpecificFields {
+  required string threadName = 1;
+};
+
 message I2GMsgReq {
   enum Type {
     EVENT = 1;
@@ -61,6 +65,9 @@ message I2GMsgReq {
 
   optional I2GMsgReq_Event Event = 7;
   optional I2GMsgReq_Initiation Initiation = 8;
+
+  required int32 HasJavaSpecificFields = 9;
+  optional I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;
 };
 
 message I2GMsgRsp {
