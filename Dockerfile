@@ -6,6 +6,9 @@ MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 ## Update
 RUN apt-get update
 
+## Install protoc
+RUN apt-get install -y protobuf-compiler
+
 ## Install Go 1.5 (or later) to /go
 ENV GOROOT_BOOTSTRAP /go1.4
 RUN git clone -b release-branch.go1.4 https://go.googlesource.com/go $GOROOT_BOOTSTRAP && (cd $GOROOT_BOOTSTRAP/src; ./make.bash)

@@ -1,0 +1,22 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build -t osrg/earthquake .
+## NOTE: there is no package of linux-headers-$(uname -r)
+#    - sudo apt-get update && sudo apt-get install -y openvswitch-datapath-dkms linux-headers-generic
+#    - sudo modprobe openvswitch
+
+test:
+  override:
+     - docker run osrg/earthquake echo "=== CircleCI Dummy Test ==="
+## NOTE: --privileged fails due to AppArmor
+#    - sudo docker run --privileged  osrg/earthquake wrapdocker /init.dind-ovs-ryu.sh echo "=== CircleCI Dummy Test ==="
+
+notify:
+  webhooks:
+    - url: https://webhooks.gitter.im/e/5fcece8113b7600c7324
+
