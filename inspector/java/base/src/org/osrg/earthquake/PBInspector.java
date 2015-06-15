@@ -39,6 +39,7 @@ import sun.misc.SignalHandler;
 public class PBInspector implements Inspector {
     private boolean Direct = false;
     private boolean Disabled = false;
+    private boolean Dryrun = false;
     private String ProcessID;
     private int GATCPPort = 10000;
 
@@ -129,6 +130,12 @@ public class PBInspector implements Inspector {
             LOGGER.info("inspection is disabled");
             Disabled = true;
             return;
+        }
+
+        String _Dryrun = System.getenv("EQ_DRYRUN");
+        if (_Dryrun != null) {
+            LOGGER.info("inspection in dryrun");
+            Dryrun = true;
         }
 
         String _Direct = System.getenv("EQ_MODE_DIRECT");
@@ -233,18 +240,20 @@ public class PBInspector implements Inspector {
             return;
         }
 
-        try {
-            GASock = new Socket("localhost", GATCPPort);
+	if (!Dryrun) {
+	    try {
+		GASock = new Socket("localhost", GATCPPort);
 
-            OutputStream out = GASock.getOutputStream();
-            GAOutstream = new DataOutputStream(out);
+		OutputStream out = GASock.getOutputStream();
+		GAOutstream = new DataOutputStream(out);
 
-            InputStream in = GASock.getInputStream();
-            GAInstream = new DataInputStream(in);
-        } catch (IOException e) {
-            LOGGER.severe("failed to connect to guest agent: " + e);
-            System.exit(1);
-        }
+		InputStream in = GASock.getInputStream();
+		GAInstream = new DataInputStream(in);
+	    } catch (IOException e) {
+		LOGGER.severe("failed to connect to guest agent: " + e);
+		System.exit(1);
+	    }
+	}
 
         I2GMessage.I2GMsgReq_Initiation.Builder initiationReqBuilder = I2GMessage.I2GMsgReq_Initiation.newBuilder();
         I2GMessage.I2GMsgReq_Initiation initiationReq = initiationReqBuilder.setProcessId(ProcessID).build();
@@ -256,6 +265,12 @@ public class PBInspector implements Inspector {
 	    .setMsgId(0)
 	    .setProcessId(ProcessID)
 	    .setInitiation(initiationReq).build();
+
+	if (Dryrun) {
+	    // TODO: dump initiation message
+        System.out.println("initiation message: " + req.toString());
+	    return;
+	}
 
         LOGGER.info("executing request for initiation");
         I2GMessage.I2GMsgRsp rsp = ExecReq(req);
@@ -281,13 +296,28 @@ public class PBInspector implements Inspector {
 
     private void sendEvent(I2GMessage.I2GMsgReq_Event ev, boolean needRsp) {
         int msgID = nextMsgID();
+
+        I2GMessage.I2GMsgReq_JavaSpecificFields.Builder javaSpecificFieldBuilder =
+                I2GMessage.I2GMsgReq_JavaSpecificFields.newBuilder();
+        javaSpecificFieldBuilder.setThreadName(Thread.currentThread().getName());
+        I2GMessage.I2GMsgReq_JavaSpecificFields javaSpecificField = javaSpecificFieldBuilder.build();
+
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
 	    .setTid((int) Thread.currentThread().getId())
 	    .setType(I2GMessage.I2GMsgReq.Type.EVENT)
 	    .setMsgId(msgID)
 	    .setProcessId(ProcessID)
+        .setHasJavaSpecificFields(1)
+        .setJavaSpecificFields(javaSpecificField)
 	    .setEvent(ev).build();
+
+	if (Dryrun) {
+	    // TODO: dump message
+	    System.out.println("dryrun mode, do nothing");
+        System.out.println("event message: " + req.toString());
+	    return;
+	}
 
         SendReq(req);
 
@@ -336,6 +366,11 @@ public class PBInspector implements Inspector {
     }
 
     public void StopInspection() {
+	if (Dryrun) {
+	    System.out.println("dryrun mode, do nothing");
+	    return;
+	}
+
         reader.kill();
     }
 }

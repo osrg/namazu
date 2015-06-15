@@ -13,12 +13,13 @@ It has these top-level messages:
 	I2GMsgReq_Event_Exit
 	I2GMsgReq_Event
 	I2GMsgReq_Initiation
+	I2GMsgReq_JavaSpecificFields
 	I2GMsgReq
 	I2GMsgRsp
 */
 package equtils
 
-import proto "code.google.com/p/goprotobuf/proto"
+import proto "github.com/golang/protobuf/proto"
 import math "math"
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -207,16 +208,34 @@ func (m *I2GMsgReq_Initiation) GetProcessId() string {
 	return ""
 }
 
+type I2GMsgReq_JavaSpecificFields struct {
+	ThreadName       *string `protobuf:"bytes,1,req,name=threadName" json:"threadName,omitempty"`
+	XXX_unrecognized []byte  `json:"-"`
+}
+
+func (m *I2GMsgReq_JavaSpecificFields) Reset()         { *m = I2GMsgReq_JavaSpecificFields{} }
+func (m *I2GMsgReq_JavaSpecificFields) String() string { return proto.CompactTextString(m) }
+func (*I2GMsgReq_JavaSpecificFields) ProtoMessage()    {}
+
+func (m *I2GMsgReq_JavaSpecificFields) GetThreadName() string {
+	if m != nil && m.ThreadName != nil {
+		return *m.ThreadName
+	}
+	return ""
+}
+
 type I2GMsgReq struct {
-	ProcessId        *string               `protobuf:"bytes,1,req,name=process_id" json:"process_id,omitempty"`
-	Type             *I2GMsgReq_Type       `protobuf:"varint,2,req,name=type,enum=equtils.I2GMsgReq_Type" json:"type,omitempty"`
-	Pid              *int32                `protobuf:"varint,3,req,name=pid" json:"pid,omitempty"`
-	Tid              *int32                `protobuf:"varint,4,req,name=tid" json:"tid,omitempty"`
-	MsgId            *int32                `protobuf:"varint,5,req,name=msg_id" json:"msg_id,omitempty"`
-	GaMsgId          *int32                `protobuf:"varint,6,opt,name=ga_msg_id" json:"ga_msg_id,omitempty"`
-	Event            *I2GMsgReq_Event      `protobuf:"bytes,7,opt" json:"Event,omitempty"`
-	Initiation       *I2GMsgReq_Initiation `protobuf:"bytes,8,opt" json:"Initiation,omitempty"`
-	XXX_unrecognized []byte                `json:"-"`
+	ProcessId             *string                       `protobuf:"bytes,1,req,name=process_id" json:"process_id,omitempty"`
+	Type                  *I2GMsgReq_Type               `protobuf:"varint,2,req,name=type,enum=equtils.I2GMsgReq_Type" json:"type,omitempty"`
+	Pid                   *int32                        `protobuf:"varint,3,req,name=pid" json:"pid,omitempty"`
+	Tid                   *int32                        `protobuf:"varint,4,req,name=tid" json:"tid,omitempty"`
+	MsgId                 *int32                        `protobuf:"varint,5,req,name=msg_id" json:"msg_id,omitempty"`
+	GaMsgId               *int32                        `protobuf:"varint,6,opt,name=ga_msg_id" json:"ga_msg_id,omitempty"`
+	Event                 *I2GMsgReq_Event              `protobuf:"bytes,7,opt" json:"Event,omitempty"`
+	Initiation            *I2GMsgReq_Initiation         `protobuf:"bytes,8,opt" json:"Initiation,omitempty"`
+	HasJavaSpecificFields *int32                        `protobuf:"varint,9,req" json:"HasJavaSpecificFields,omitempty"`
+	JavaSpecificFields    *I2GMsgReq_JavaSpecificFields `protobuf:"bytes,10,opt" json:"JavaSpecificFields,omitempty"`
+	XXX_unrecognized      []byte                        `json:"-"`
 }
 
 func (m *I2GMsgReq) Reset()         { *m = I2GMsgReq{} }
@@ -275,6 +294,20 @@ func (m *I2GMsgReq) GetEvent() *I2GMsgReq_Event {
 func (m *I2GMsgReq) GetInitiation() *I2GMsgReq_Initiation {
 	if m != nil {
 		return m.Initiation
+	}
+	return nil
+}
+
+func (m *I2GMsgReq) GetHasJavaSpecificFields() int32 {
+	if m != nil && m.HasJavaSpecificFields != nil {
+		return *m.HasJavaSpecificFields
+	}
+	return 0
+}
+
+func (m *I2GMsgReq) GetJavaSpecificFields() *I2GMsgReq_JavaSpecificFields {
+	if m != nil {
+		return m.JavaSpecificFields
 	}
 	return nil
 }
