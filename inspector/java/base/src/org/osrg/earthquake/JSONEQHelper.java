@@ -20,15 +20,15 @@ import java.util.*;
 import org.jboss.byteman.rule.*;
 import org.jboss.byteman.rule.helper.*;
 
-public class HTTPEQHelper extends Helper
+public class JSONEQHelper extends Helper
 {
-    static HTTPInspector inspector;
+    static JSONInspector inspector;
 
     static {
-    	inspector = new HTTPInspector();
+	inspector = new JSONInspector();
     };
 
-    HTTPEQHelper(Rule rule) {
+    public JSONEQHelper(Rule rule) {
 	super(rule);
     }
 

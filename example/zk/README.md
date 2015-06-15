@@ -2,8 +2,8 @@
 
 ## Getting Started
 Prepare
+Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for how to setup the environment.
 
-    $ sudo apt-get install -y default-jdk maven
     $ cp config_example.json config.json
     $ ./000-prepare-zk.sh
     $ ./010-start-orchestrator.sh

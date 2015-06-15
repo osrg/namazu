@@ -39,7 +39,7 @@ import org.apache.http.entity.*;
 
 import net.arnx.jsonic.*;
 
-public class HTTPInspector implements Inspector {
+public class JSONInspector implements Inspector {
     private boolean Disabled = false;
     private Logger LOGGER;
 
@@ -51,7 +51,7 @@ public class HTTPInspector implements Inspector {
     private Map<String, SynchronousQueue<Object>> waitingMap;
 
     
-    public HTTPInspector() {
+    public JSONInspector() {
         LOGGER = Logger.getLogger(this.getClass().getName());
         LOGGER.setLevel(Level.INFO);
 
