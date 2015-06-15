@@ -3,6 +3,9 @@
 FROM osrg/dind-ovs-ryu
 MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 
+## Update
+RUN apt-get update
+
 ## Install Go 1.5 (or later) to /go
 ENV GOROOT_BOOTSTRAP /go1.4
 RUN git clone -b release-branch.go1.4 https://go.googlesource.com/go $GOROOT_BOOTSTRAP && (cd $GOROOT_BOOTSTRAP/src; ./make.bash)
@@ -20,7 +23,7 @@ RUN wget --no-check-certificate --quiet https://raw.githubusercontent.com/osrg/p
 RUN chmod +x /usr/local/bin/pipework
 
 ## Install Earthquake deps
-RUN apt-get update && apt-get install -y python-flask python-scapy python-zmq sudo
+RUN apt-get install -y python-flask python-scapy python-zmq sudo
 RUN pip install hexdump
 
 ## Copy Earthquake to /earthquake
