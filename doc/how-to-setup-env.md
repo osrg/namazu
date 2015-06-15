@@ -1,6 +1,9 @@
 # How to setup the environment for Earthquake
 
 All you have to do is make Docker installed on your host and run the pre-built Docker image [osrg/earthquake](https://registry.hub.docker.com/u/osrg/earthquake/).
+
+[![Docker Hub](http://dockeri.co/image/osrg/earthquake)](https://registry.hub.docker.com/u/osrg/earthquake/)
+
     
     $ docker run --privileged -t -i osrg/earthquake
 	* /etc/openvswitch/conf.db does not exist
