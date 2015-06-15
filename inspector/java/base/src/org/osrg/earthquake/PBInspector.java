@@ -268,6 +268,7 @@ public class PBInspector implements Inspector {
 
 	if (Dryrun) {
 	    // TODO: dump initiation message
+        System.out.println("initiation message: " + req.toString());
 	    return;
 	}
 
@@ -306,6 +307,7 @@ public class PBInspector implements Inspector {
 	if (Dryrun) {
 	    // TODO: dump message
 	    System.out.println("dryrun mode, do nothing");
+        System.out.println("event message: " + req.toString());
 	    return;
 	}
 
