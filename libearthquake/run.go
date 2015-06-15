@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
 
 	. "./equtils"
 
@@ -56,16 +57,25 @@ func run(args []string) {
 	}
 
 	storage := args[0]
-	conf := storage + "/" + storageConfigPath
+	confPath := storage + "/" + storageConfigPath
 
-	cf, cerr := os.Open(conf)
-	if cerr != nil {
-		fmt.Printf("failed to open config file %s (%s)\n", conf, cerr)
+	conf, err := parseRunConfig(confPath)
+	if err != nil {
+		fmt.Printf("failed to parse config file %s: %s\n", confPath, err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("ok: %s\n", cf)
+	runScriptPath := storage + "/" + storageMaterialsPath + "/" + conf.runScript
+	runCmd := exec.Command("sh", "-c", runScriptPath)
 
+	runCmd.Stdout = os.Stdout
+	runCmd.Stderr = os.Stderr
+
+	rerr := runCmd.Run()
+	if rerr != nil {
+		fmt.Printf("failed to execute run script %s: %s\n", runScriptPath, rerr)
+		os.Exit(1)
+	}
 }
 
 type runCmd struct {
