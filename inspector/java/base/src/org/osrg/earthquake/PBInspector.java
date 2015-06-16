@@ -39,6 +39,7 @@ import sun.misc.SignalHandler;
 public class PBInspector implements Inspector {
     private boolean Direct = false;
     private boolean Disabled = false;
+    private boolean NoInitiation = false;
     private boolean Dryrun = false;
     private String ProcessID;
     private int GATCPPort = 10000;
@@ -52,12 +53,16 @@ public class PBInspector implements Inspector {
     private Map<Integer, SynchronousQueue<Object>> waitingMap;
 
     private int SendReq(I2GMessage.I2GMsgReq req) {
+        return SendReq(GAOutstream, req);
+    }
+
+    private int SendReq(DataOutputStream outstream, I2GMessage.I2GMsgReq req) {
         byte[] serialized = req.toByteArray();
         byte[] lengthBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(serialized.length).array();
 
         try {
-            GAOutstream.write(lengthBuf);
-            GAOutstream.write(serialized);
+            outstream.write(lengthBuf);
+            outstream.write(serialized);
         } catch (IOException e) {
             return 1;
         }
@@ -66,10 +71,14 @@ public class PBInspector implements Inspector {
     }
 
     private I2GMessage.I2GMsgRsp RecvRsp() {
+        return RecvRsp(GAInstream);
+    }
+
+    private I2GMessage.I2GMsgRsp RecvRsp(DataInputStream instream) {
         byte[] lengthBuf = new byte[4];
 
         try {
-            GAInstream.read(lengthBuf, 0, 4);
+            instream.read(lengthBuf, 0, 4);
         } catch (IOException e) {
             LOGGER.severe("failed to read header of response: " + e);
             return null;
@@ -79,7 +88,7 @@ public class PBInspector implements Inspector {
         byte[] rspBuf = new byte[length];
 
         try {
-            GAInstream.read(rspBuf, 0, length);
+            instream.read(rspBuf, 0, length);
         } catch (IOException e) {
             LOGGER.severe("failed to read body of response: " + e);
             return null;
@@ -136,6 +145,12 @@ public class PBInspector implements Inspector {
         if (_Dryrun != null) {
             LOGGER.info("inspection in dryrun");
             Dryrun = true;
+        }
+
+        String _NoInitiation = System.getenv("EQ_NO_INITIATION");
+        if (_NoInitiation != null) {
+            LOGGER.info("no initiation, connection per thread model");
+            NoInitiation = true;
         }
 
         String _Direct = System.getenv("EQ_MODE_DIRECT");
@@ -240,6 +255,11 @@ public class PBInspector implements Inspector {
             return;
         }
 
+        if (NoInitiation) {
+            LOGGER.info("no initiation mode");
+            return;
+        }
+
 	if (!Dryrun) {
 	    try {
 		GASock = new Socket("localhost", GATCPPort);
@@ -319,22 +339,77 @@ public class PBInspector implements Inspector {
 	    return;
 	}
 
-        SendReq(req);
+        if (NoInitiation) {
+            final ThreadLocal<Socket> tlsSocket = new ThreadLocal<Socket>() {
+                protected Socket initialValue() {
+                    Socket sock = null;
 
-        SynchronousQueue<Object> q = new SynchronousQueue<Object>();
-        synchronized (waitingMap) {
-            waitingMap.put(msgID, q);
-        }
+                    try {
+                    	sock = new Socket("localhost", GATCPPort);
+                    } catch (IOException e) {
+                        LOGGER.severe("failed to connect to guest agent: " + e);
+                        System.exit(1);
+                    }
 
-        if (!needRsp) {
-            return;
-        }
+                    return sock;
+                }
+            };
 
-        try {
-            q.take();
-        } catch (InterruptedException e) {
-            LOGGER.severe("interrupted: " + e);
-            System.exit(1); // TODO: handling
+            ThreadLocal<DataOutputStream> tlsOutputStream = new ThreadLocal<DataOutputStream>() {
+                protected DataOutputStream initialValue() {
+                    DataOutputStream stream = null;
+                    Socket sock = tlsSocket.get();
+
+                    try {
+ 		                OutputStream out = sock.getOutputStream();
+		                stream = new DataOutputStream(out);
+                    } catch (IOException e) {
+                        LOGGER.severe("failed to get DataOutputStream: " + e);
+                        System.exit(1);
+                    }
+
+                    return stream;
+                }
+            };
+
+            ThreadLocal<DataInputStream> tlsInputStream = new ThreadLocal<DataInputStream>() {
+                protected DataInputStream initialValue() {
+                    DataInputStream stream = null;
+                    Socket sock = tlsSocket.get();
+
+                    try {
+ 		                InputStream in = sock.getInputStream();
+		                stream = new DataInputStream(in);
+                    } catch (IOException e) {
+                        LOGGER.severe("failed to get DataOutputStream: " + e);
+                        System.exit(1);
+                    }
+
+                    return stream;
+                }
+            };
+
+            SendReq(tlsOutputStream.get(), req);
+            I2GMessage.I2GMsgRsp rsp = RecvRsp(tlsInputStream.get());
+            LOGGER.fine("response message: " + rsp.toString());
+        } else {
+            SendReq(req);
+
+            SynchronousQueue<Object> q = new SynchronousQueue<Object>();
+            synchronized (waitingMap) {
+               waitingMap.put(msgID, q);
+            }
+
+            if (!needRsp) {
+                return;
+            }
+
+            try {
+                q.take();
+            } catch (InterruptedException e) {
+                LOGGER.severe("interrupted: " + e);
+                System.exit(1); // TODO: handling
+            }
         }
     }
 
