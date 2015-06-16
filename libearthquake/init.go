@@ -145,6 +145,9 @@ func _init(args []string) {
 	}
 
 	recursiveHardLink(materials, materialDir)
+
+	initSearchModeDir(storage)
+
 	fmt.Printf("ok\n")
 }
 

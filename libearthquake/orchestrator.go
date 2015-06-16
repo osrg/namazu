@@ -26,7 +26,6 @@ import (
 	"fmt"
 	"github.com/sevlyar/go-daemon"
 	"io"
-	"io/ioutil"
 	"net"
 	"os"
 	"sync/atomic"
@@ -961,22 +960,11 @@ func initSearchModeDir(dir string) {
 	var infoBuf bytes.Buffer
 	enc := gob.NewEncoder(&infoBuf)
 
-	des, err := ioutil.ReadDir(dir)
-	if err != nil {
-		fmt.Printf("failed to read directory %s: %s\n", dir, err)
-		return
-	}
-
-	if len(des) != 0 {
-		fmt.Printf("directory %s is not empty\n", dir)
-		return
-	}
-
 	info := SearchModeInfo{
 		0,
 	}
 
-	err = enc.Encode(&info)
+	err := enc.Encode(&info)
 	if err != nil {
 		fmt.Printf("failed to encode search mode information: %s\n", err)
 		return
