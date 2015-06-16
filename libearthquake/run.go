@@ -82,6 +82,9 @@ func run(args []string) {
 		fmt.Printf("failed to execute run script %s: %s\n", runScriptPath, rerr)
 		os.Exit(1)
 	}
+
+	info.NrCollectedTraces++
+	updateSearchModeInfo(storage, info)
 }
 
 type runCmd struct {

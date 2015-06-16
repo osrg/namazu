@@ -760,10 +760,7 @@ func waitProcessesNoDirect(exe *execution) {
 
 }
 
-func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
-	newTraceId := info.NrCollectedTraces
-	info.NrCollectedTraces++
-
+func updateSearchModeInfo(dir string, info *SearchModeInfo) {
 	infoFile, err := os.OpenFile(dir+"/"+SearchModeInfoPath, os.O_WRONLY, 0666)
 	if err != nil {
 		Log("failed to open file: %s", err)
@@ -783,10 +780,17 @@ func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
 		Log("updating info file failed: %s", werr)
 		os.Exit(1)
 	}
+}
+
+func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
+	newTraceId := info.NrCollectedTraces
+	info.NrCollectedTraces++
+
+	updateSearchModeInfo(dir, info)
 
 	var traceBuf bytes.Buffer
-	enc = gob.NewEncoder(&traceBuf)
-	eerr = enc.Encode(&trace)
+	enc := gob.NewEncoder(&traceBuf)
+	eerr := enc.Encode(&trace)
 	if eerr != nil {
 		Log("encoding trace failed: %s", eerr)
 		os.Exit(1)
@@ -799,7 +803,7 @@ func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
 		Log("fialed to create a file for new trace: %s", oerr)
 	}
 
-	_, werr = traceFile.Write(traceBuf.Bytes())
+	_, werr := traceFile.Write(traceBuf.Bytes())
 	if werr != nil {
 		Log("writing new trace to file failed: %s", werr)
 		os.Exit(1)
