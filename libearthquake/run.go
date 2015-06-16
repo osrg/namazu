@@ -65,11 +65,14 @@ func run(args []string) {
 		os.Exit(1)
 	}
 
-	runScriptPath := storage + "/" + storageMaterialsPath + "/" + conf.runScript
+	materialsDir := storage + "/" + storageMaterialsPath
+	runScriptPath := materialsDir + "/" + conf.runScript
 	runCmd := exec.Command("sh", "-c", runScriptPath)
 
 	runCmd.Stdout = os.Stdout
 	runCmd.Stderr = os.Stderr
+
+	runCmd.Env = append(runCmd.Env, "MATERIALS_DIR=" + materialsDir)
 
 	rerr := runCmd.Run()
 	if rerr != nil {
