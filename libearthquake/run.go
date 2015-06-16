@@ -66,7 +66,14 @@ func run(args []string) {
 	}
 
 	info := readSearchModeDir(storage)
-	fmt.Printf("NrCollectedTraces: %d\n", info.NrCollectedTraces)
+	nextId := info.NrCollectedTraces
+
+	nextDir := storage + "/" + fmt.Sprintf("%08x", nextId)
+	err = os.Mkdir(nextDir, 0777)
+	if err != nil {
+		fmt.Printf("failed to create directory %s: %s\n", nextDir, err)
+		os.Exit(1)
+	}
 
 	materialsDir := storage + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript
