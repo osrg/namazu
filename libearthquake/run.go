@@ -82,6 +82,7 @@ func run(args []string) {
 	runCmd.Stdout = os.Stdout
 	runCmd.Stderr = os.Stderr
 
+	runCmd.Env = append(runCmd.Env, "WORKING_DIR=" + nextDir)
 	runCmd.Env = append(runCmd.Env, "MATERIALS_DIR=" + materialsDir)
 
 	rerr := runCmd.Run()
