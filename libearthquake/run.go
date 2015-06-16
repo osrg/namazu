@@ -65,6 +65,9 @@ func run(args []string) {
 		os.Exit(1)
 	}
 
+	info := readSearchModeDir(storage)
+	fmt.Printf("NrCollectedTraces: %d\n", info.NrCollectedTraces)
+
 	materialsDir := storage + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript
 	runCmd := exec.Command("sh", "-c", runScriptPath)
