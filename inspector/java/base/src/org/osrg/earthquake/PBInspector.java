@@ -178,13 +178,13 @@ public class PBInspector implements Inspector {
 
         Signal signal = new Signal("TERM");
         Signal.handle(signal, new SignalHandler() {
-		public void handle(Signal signal) {
-		    LOGGER.info("singal: " + signal + " catched");
-		    reader.kill();
+            public void handle(Signal signal) {
+                LOGGER.info("singal: " + signal + " catched");
+                reader.kill();
 
-		    System.exit(0);
-		}
-	    });
+                System.exit(0);
+            }
+        });
     }
 
     private boolean running = true;
@@ -197,8 +197,8 @@ public class PBInspector implements Inspector {
 
             I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
             I2GMessage.I2GMsgReq_Event ev = evBuilder
-		.setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
-		.setExit(evExit).build();
+                    .setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
+                    .setExit(evExit).build();
 
             running = false;
             sendEvent(ev, false);
@@ -260,37 +260,37 @@ public class PBInspector implements Inspector {
             return;
         }
 
-	if (!Dryrun) {
-	    try {
-		GASock = new Socket("localhost", GATCPPort);
+        if (!Dryrun) {
+            try {
+                GASock = new Socket("localhost", GATCPPort);
 
-		OutputStream out = GASock.getOutputStream();
-		GAOutstream = new DataOutputStream(out);
+                OutputStream out = GASock.getOutputStream();
+                GAOutstream = new DataOutputStream(out);
 
-		InputStream in = GASock.getInputStream();
-		GAInstream = new DataInputStream(in);
-	    } catch (IOException e) {
-		LOGGER.severe("failed to connect to guest agent: " + e);
-		System.exit(1);
-	    }
-	}
+                InputStream in = GASock.getInputStream();
+                GAInstream = new DataInputStream(in);
+            } catch (IOException e) {
+                LOGGER.severe("failed to connect to guest agent: " + e);
+                System.exit(1);
+            }
+        }
 
         I2GMessage.I2GMsgReq_Initiation.Builder initiationReqBuilder = I2GMessage.I2GMsgReq_Initiation.newBuilder();
         I2GMessage.I2GMsgReq_Initiation initiationReq = initiationReqBuilder.setProcessId(ProcessID).build();
 
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /* FIXME */)
-	    .setTid((int) Thread.currentThread().getId())
-	    .setType(I2GMessage.I2GMsgReq.Type.INITIATION)
-	    .setMsgId(0)
-	    .setProcessId(ProcessID)
-	    .setInitiation(initiationReq).build();
+                .setTid((int) Thread.currentThread().getId())
+                .setType(I2GMessage.I2GMsgReq.Type.INITIATION)
+                .setMsgId(0)
+                .setProcessId(ProcessID)
+                .setInitiation(initiationReq).build();
 
-	if (Dryrun) {
-	    // TODO: dump initiation message
-        System.out.println("initiation message: " + req.toString());
-	    return;
-	}
+        if (Dryrun) {
+            // TODO: dump initiation message
+            System.out.println("initiation message: " + req.toString());
+            return;
+        }
 
         LOGGER.info("executing request for initiation");
         I2GMessage.I2GMsgRsp rsp = ExecReq(req);
@@ -324,20 +324,20 @@ public class PBInspector implements Inspector {
 
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
         I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
-	    .setTid((int) Thread.currentThread().getId())
-	    .setType(I2GMessage.I2GMsgReq.Type.EVENT)
-	    .setMsgId(msgID)
-	    .setProcessId(ProcessID)
-        .setHasJavaSpecificFields(1)
-        .setJavaSpecificFields(javaSpecificField)
-	    .setEvent(ev).build();
+                .setTid((int) Thread.currentThread().getId())
+                .setType(I2GMessage.I2GMsgReq.Type.EVENT)
+                .setMsgId(msgID)
+                .setProcessId(ProcessID)
+                .setHasJavaSpecificFields(1)
+                .setJavaSpecificFields(javaSpecificField)
+                .setEvent(ev).build();
 
-	if (Dryrun) {
-	    // TODO: dump message
-	    System.out.println("dryrun mode, do nothing");
-        System.out.println("event message: " + req.toString());
-	    return;
-	}
+        if (Dryrun) {
+            // TODO: dump message
+            System.out.println("dryrun mode, do nothing");
+            System.out.println("event message: " + req.toString());
+            return;
+        }
 
         if (NoInitiation) {
             final ThreadLocal<Socket> tlsSocket = new ThreadLocal<Socket>() {
@@ -345,7 +345,7 @@ public class PBInspector implements Inspector {
                     Socket sock = null;
 
                     try {
-                    	sock = new Socket("localhost", GATCPPort);
+                        sock = new Socket("localhost", GATCPPort);
                     } catch (IOException e) {
                         LOGGER.severe("failed to connect to guest agent: " + e);
                         System.exit(1);
@@ -361,8 +361,8 @@ public class PBInspector implements Inspector {
                     Socket sock = tlsSocket.get();
 
                     try {
- 		                OutputStream out = sock.getOutputStream();
-		                stream = new DataOutputStream(out);
+                        OutputStream out = sock.getOutputStream();
+                        stream = new DataOutputStream(out);
                     } catch (IOException e) {
                         LOGGER.severe("failed to get DataOutputStream: " + e);
                         System.exit(1);
@@ -378,8 +378,8 @@ public class PBInspector implements Inspector {
                     Socket sock = tlsSocket.get();
 
                     try {
- 		                InputStream in = sock.getInputStream();
-		                stream = new DataInputStream(in);
+                        InputStream in = sock.getInputStream();
+                        stream = new DataInputStream(in);
                     } catch (IOException e) {
                         LOGGER.severe("failed to get DataOutputStream: " + e);
                         System.exit(1);
@@ -397,7 +397,7 @@ public class PBInspector implements Inspector {
 
             SynchronousQueue<Object> q = new SynchronousQueue<Object>();
             synchronized (waitingMap) {
-               waitingMap.put(msgID, q);
+                waitingMap.put(msgID, q);
             }
 
             if (!needRsp) {
@@ -430,21 +430,21 @@ public class PBInspector implements Inspector {
 
         I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
         I2GMessage.I2GMsgReq_Event ev = evBuilder
-	    .setType(I2GMessage.I2GMsgReq_Event.Type.FUNC_CALL)
-	    .setFuncCall(evFun).build();
+                .setType(I2GMessage.I2GMsgReq_Event.Type.FUNC_CALL)
+                .setFuncCall(evFun).build();
 
         sendEvent(ev, true);
     }
 
     public void EventFuncCall(String funcName, Map<String, Object> argMap) {
-	// TODO: not implemented yet
+        // TODO: not implemented yet
     }
 
     public void StopInspection() {
-	if (Dryrun) {
-	    System.out.println("dryrun mode, do nothing");
-	    return;
-	}
+        if (Dryrun) {
+            System.out.println("dryrun mode, do nothing");
+            return;
+        }
 
         reader.kill();
     }
