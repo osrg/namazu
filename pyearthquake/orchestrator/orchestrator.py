@@ -119,10 +119,21 @@ class OrchestratorBase(object):
         explorer_worker_handle = eventlet.spawn(self.explorer.worker)
         flask_app = Flask(self.__class__.__name__)
         flask_app.debug = True
+    #    self.regist_sigpipe_handler()
         self.regist_flask_routes(flask_app)
         server_sock = eventlet.listen(('localhost', self.listen_port))
         wsgi.server(server_sock, flask_app)
         raise RuntimeError('should not reach here!')
+
+    # import signal
+    # def regist_sigpipe_handler(self):
+    #     orig_handler = signal.getsignal(signal.SIGPIPE)
+    #     def handler(signum, frame):
+    #         LOG.debug('SIGPIPE handler called')
+    #         if hasattr(orig_handler, '__call__'):
+    #             return orig_handler(signum, frame)
+    #     signal.signal(signal.SIGPIPE, handler)
+    #     LOG.info('Installed SIGPIPE handler')
 
     def regist_flask_routes(self, app):
         LOG.debug('registering flask routes')
@@ -156,35 +167,46 @@ class OrchestratorBase(object):
             self.explorer.send_event(ev)
             return jsonify({})
 
-
         @app.route('/api/v1/<process_id>', methods=['GET'])
         def api_v1_get(process_id):
-            ## FIXME: make sure single conn exists for a single <process_id>
             assert self.validate_process_id(process_id)
             if not process_id in self.processes:
                 self.regist_process(process_id)
 
-            ## acquire sem
+            LOG.debug('Acquiring sem for %s', process_id)
             sem_acquired = self.processes[process_id]['sem'].acquire(blocking=False)
             if not sem_acquired:
                 err = 'Could not acquire semaphore for %s' % process_id
                 LOG.warn(err)
-                return err
-             
+                return err #TODO set HTTP error code
+            LOG.debug('Acquired sem for %s', process_id)
+
+            try:
+                ret = Response(_api_v1_get(process_id), 'application/json')
+            finally:
+                ## release sem
+                self.processes[process_id]['sem'].release()
+                LOG.debug('Released sem for %s', process_id)
+            assert ret
+            return ret
+
+        def _api_v1_get(process_id):
             ## wait for action from explorer
-            ## (FIXME: we should break this wait and release the sem when the conn is closed)
+            ## WARNING: conn may be closed while waiting in this blocking q.get
+            ## FIXME: we should break this wait and release the sem when the conn is closed, 
+            ## but Flask has no support for conn close detection, so we should not rely on Flask, maybe
+            ## http://stackoverflow.com/questions/17787023/python-how-to-catch-a-flask-except-like-this
+            LOG.debug('Dequeuing action for %s', process_id)
             got = self.processes[process_id]['queue'].get()
             action = got['action']
-            LOG.debug('Dequeued action %s', action)            
+            LOG.debug('Dequeued action %s for %s', action, process_id)
             assert isinstance(action, ActionBase)
 
             ## return action
             action_jsdict = action.to_jsondict()
             LOG.debug('API <== %s', action_jsdict)
-
-            ## release sem
-            self.processes[process_id]['sem'].release()
-            return jsonify(action_jsdict)
+            ret = json.dumps(action_jsdict)
+            yield ret
     
     def send_action(self, action):
         """

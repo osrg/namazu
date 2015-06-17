@@ -1,0 +1,6 @@
+$ curl http://localhost:10000/api/v1/dummy
+^C (== KILL PROCESS)
+
+$ curl --data @dummy.json http://localhost:10000/api/v1
+==> WHAT HAPPENS?
+
