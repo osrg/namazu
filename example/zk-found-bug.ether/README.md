@@ -1,9 +1,9 @@
-# ZooKeeper Bug: distributed race condition related to QV version
+# ZooKeeper Bug [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212): distributed race condition related to QV version
 
 When a joiner is listed as an observer in an initial config,
 the joiner should become a non-voting follower (not an observer) until reconfig is triggered. [(Link)](http://zookeeper.apache.org/doc/trunk/zookeeperReconfig.html#sc_reconfig_general)
 
-I found a race-condition situation where an observer keeps being an observer and cannot become a non-voting follower.
+We found a race-condition situation where an observer keeps being an observer and cannot become a non-voting follower.
 
 This race condition happens when an observer receives an UPTODATE Quorum Packet from the leader:2888/tcp *after* receiving a Notification FLE Packet of which n.config version is larger than the observer's one from leader:3888/tcp.
 
@@ -11,6 +11,8 @@ Event history: [example-output/3.REPRODUCED/json](example-output/3.REPRODUCED/js
 
 ## ZooKeeper Version
 commit 98a3cabfa279833b81908d72f1c10ee9f598a045 (Tue Jun 2 19:17:09 2015 +0000)
+
+NOTE: We reported the bug ([ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212)) to ZooKeeper community, and the bug is fixed in [commit ec056d3c3a18b862d0cd83296b7d4319652b0b1c (Mon Jun 15 23:05:25 2015 +0000)](https://github.com/apache/zookeeper/commit/ec056d3c3a18b862d0cd83296b7d4319652b0b1c).
 
 ## Detail
  * Problem: An observer cannot become a non-voting follower
@@ -26,6 +28,8 @@ commit 98a3cabfa279833b81908d72f1c10ee9f598a045 (Tue Jun 2 19:17:09 2015 +0000)
     
 ### Start Earthquake
 Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for how to setup the environment.
+
+NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper-2212](https://registry.hub.docker.com/u/osrg/earthquake-zookeeper-2212/) container.
 
     $ sudo pip install zktraffic==0.1.3
     $ ./000-prepare.sh
