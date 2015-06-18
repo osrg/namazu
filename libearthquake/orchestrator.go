@@ -1044,6 +1044,8 @@ func acceptNewProcess(readyProcCh chan *process) {
 			os.Exit(1)
 		}
 
+		Log("accepted new connection: %v", conn)
+
 		proc := new(process)
 		proc.id = ""
 		proc.conn = conn
@@ -1052,7 +1054,7 @@ func acceptNewProcess(readyProcCh chan *process) {
 		proc.eventRspSend = make(chan *I2GMsgRsp)
 		proc.eventReqToMain = make(chan *I2GMsgReq_Event)
 
-		handleProcessNoInitiation(proc, readyProcCh)
+		go handleProcessNoInitiation(proc, readyProcCh)
 	}
 }
 
