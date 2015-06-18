@@ -24,12 +24,12 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/mitchellh/cli"
 	"github.com/sevlyar/go-daemon"
 	"io"
 	"net"
 	"os"
 	"sync/atomic"
-	"github.com/mitchellh/cli"
 
 	"./searchpolicy"
 
@@ -783,10 +783,11 @@ func updateSearchModeInfo(dir string, info *SearchModeInfo) {
 }
 
 func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
-	newTraceId := info.NrCollectedTraces
-	info.NrCollectedTraces++
+	// FIXME
+	// newTraceId := info.NrCollectedTraces
+	// info.NrCollectedTraces++
 
-	updateSearchModeInfo(dir, info)
+	// updateSearchModeInfo(dir, info)
 
 	var traceBuf bytes.Buffer
 	enc := gob.NewEncoder(&traceBuf)
@@ -796,7 +797,8 @@ func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
 		os.Exit(1)
 	}
 
-	tracePath := fmt.Sprintf("%s/%08x", dir, newTraceId)
+	// FIXME
+	tracePath := fmt.Sprintf("%s/history", dir)
 	Log("new trace path: %s", tracePath)
 	traceFile, oerr := os.Create(tracePath)
 	if oerr != nil {
@@ -937,6 +939,179 @@ func searchMode(flags orchestratorFlags, exe *execution, dir string, policyName 
 		waitProcessesDirect(exe)
 	}
 	singleSearch(exe, dir, info)
+	Log("end execution loop body")
+
+}
+
+func handleProcessNoInitiation(proc *process, readyProcCh chan *process) {
+	go func(p *process) {
+		for {
+			req := &I2GMsgReq{}
+
+			rerr := RecvMsg(p.conn, req)
+			if rerr != nil {
+				if rerr == io.EOF {
+					Log("received EOF from process idx :%d", p.idx)
+					Log("recv routine end (process index :%d)", p.idx)
+					return
+				} else {
+					Log("failed to recieve request (process index: %d): %s", p.idx, rerr)
+					return // TODO: error handling
+				}
+			}
+
+			Log("received message from process idx :%d", p.idx)
+			p.eventReqRecv <- req
+		}
+	}(proc)
+
+	go func(p *process) {
+		for {
+			rsp := <-p.eventRspSend
+			serr := SendMsg(p.conn, rsp)
+			if serr != nil {
+				Log("failed to send response (process index: %d): %s", p.idx, serr)
+				return // TODO: error handling
+			}
+			if *rsp.Res == I2GMsgRsp_END {
+				Log("send routine end (process index :%d)", p.idx)
+				return
+			}
+		}
+	}(proc)
+
+	recvCh := make(chan bool)
+
+	req := (*I2GMsgReq)(nil)
+
+	go func() {
+		for {
+			req = <-proc.eventReqRecv
+			Log("received event from main goroutine: %v", proc)
+			recvCh <- true
+		}
+	}()
+
+	for {
+		select {
+		case <-recvCh:
+			if *req.Type != I2GMsgReq_EVENT {
+				Log("invalid message from process %v, type: %d", proc, *req.Type)
+				os.Exit(1)
+			}
+
+			if proc.id == "" {
+				// initialize id with a member of event
+				proc.id = *req.ProcessId
+			}
+
+			Log("event message received from process %v", proc)
+
+			go func(r *I2GMsgReq) {
+				proc.eventReqToMain <- r.Event
+			}(req)
+
+			readyProcCh <- proc
+			if *req.Event.Type != I2GMsgReq_Event_EXIT {
+				<-proc.gotoNext
+
+				result := I2GMsgRsp_ACK
+				req_msg_id := *req.MsgId
+				rsp := &I2GMsgRsp{
+					Res:   &result,
+					MsgId: &req_msg_id,
+				}
+
+				proc.eventRspSend <- rsp
+				Log("replied to the event message from process %v", proc)
+			}
+		}
+	}
+}
+
+func acceptNewProcess(readyProcCh chan *process) {
+	sport := fmt.Sprintf(":%d", 10000) // FIXME
+	ln, lerr := net.Listen("tcp", sport)
+	if lerr != nil {
+		Log("failed to listen on port %d: %s", 10000, lerr)
+		os.Exit(1)
+	}
+
+	for {
+		conn, aerr := ln.Accept()
+		if aerr != nil {
+			Log("failed to accept on %v: %s", ln, aerr)
+			os.Exit(1)
+		}
+
+		proc := new(process)
+		proc.id = ""
+		proc.conn = conn
+		proc.gotoNext = make(chan interface{})
+		proc.eventReqRecv = make(chan *I2GMsgReq)
+		proc.eventRspSend = make(chan *I2GMsgRsp)
+
+		handleProcessNoInitiation(proc, readyProcCh)
+	}
+}
+
+func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh chan interface{}) {
+	readyProcCh := make(chan *process)
+
+	go func() {
+		acceptNewProcess(readyProcCh)
+	}()
+
+	eventSeq := make([]Event, 0)
+
+	running := true
+	for running {
+		select {
+		case readyProc := <-readyProcCh:
+			eventReq := <-readyProc.eventReqToMain
+
+			if *eventReq.Type == I2GMsgReq_Event_EXIT {
+				Log("process %v is exiting", readyProc)
+				continue
+			}
+
+			// TODO: search policy interface
+			e := Event{
+				readyProc.id,
+
+				"FuncCall",
+				*eventReq.FuncCall.Name,
+			}
+			eventSeq = append(eventSeq, e)
+
+			Log("process %v: %v", readyProc, eventReq)
+			readyProc.gotoNext <- true
+
+		case <-endCh:
+			Log("main loop end")
+			running = false
+		}
+	}
+
+	newTrace := SingleTrace{
+		eventSeq,
+	}
+	recordNewTrace(workingDir, info, newTrace)
+
+	endCh <- true
+}
+
+func searchModeNoInitiation(info *SearchModeInfo, workingDir string, policyName string, endCh chan interface{}) {
+	policy := searchpolicy.New(policyName)
+	if policy == nil {
+		Log("invalid policy name: %s", policyName)
+		os.Exit(1)
+	}
+
+	policy.Init()
+	Log("start execution loop body")
+
+	singleSearchNoInitiation(workingDir, info, endCh)
 	Log("end execution loop body")
 
 }

@@ -75,6 +75,9 @@ func run(args []string) {
 		os.Exit(1)
 	}
 
+	end := make(chan interface{})
+	go searchModeNoInitiation(info, nextDir, "dumb", end)
+
 	materialsDir := storage + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript
 	runCmd := exec.Command("sh", "-c", runScriptPath)
@@ -82,14 +85,17 @@ func run(args []string) {
 	runCmd.Stdout = os.Stdout
 	runCmd.Stderr = os.Stderr
 
-	runCmd.Env = append(runCmd.Env, "WORKING_DIR=" + nextDir)
-	runCmd.Env = append(runCmd.Env, "MATERIALS_DIR=" + materialsDir)
+	runCmd.Env = append(runCmd.Env, "WORKING_DIR="+nextDir)
+	runCmd.Env = append(runCmd.Env, "MATERIALS_DIR="+materialsDir)
 
 	rerr := runCmd.Run()
 	if rerr != nil {
 		fmt.Printf("failed to execute run script %s: %s\n", runScriptPath, rerr)
 		os.Exit(1)
 	}
+
+	end <- true
+	<-end
 
 	info.NrCollectedTraces++
 	updateSearchModeInfo(storage, info)
