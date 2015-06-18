@@ -125,7 +125,19 @@ public class PBInspector implements Inspector {
         LOGGER = Logger.getLogger(this.getClass().getName());
         LOGGER.setLevel(Level.INFO);
 
-        try {
+        Signal signal = new Signal("TERM");
+        Signal.handle(signal, new SignalHandler() {
+            public void handle(Signal signal) {
+                LOGGER.info("singal: " + signal + " catched");
+                if (reader != null) {
+                    reader.kill();
+                }
+
+                System.exit(0);
+            }
+        });
+
+         try {
             FileHandler logFileHandler = new FileHandler("/tmp/earthquake-inspection-java.log");
             logFileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(logFileHandler);
@@ -175,16 +187,6 @@ public class PBInspector implements Inspector {
         }
 
         waitingMap = new HashMap<Integer, SynchronousQueue<Object>>();
-
-        Signal signal = new Signal("TERM");
-        Signal.handle(signal, new SignalHandler() {
-            public void handle(Signal signal) {
-                LOGGER.info("singal: " + signal + " catched");
-                reader.kill();
-
-                System.exit(0);
-            }
-        });
     }
 
     private boolean running = true;
