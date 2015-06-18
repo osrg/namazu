@@ -1050,6 +1050,7 @@ func acceptNewProcess(readyProcCh chan *process) {
 		proc.gotoNext = make(chan interface{})
 		proc.eventReqRecv = make(chan *I2GMsgReq)
 		proc.eventRspSend = make(chan *I2GMsgRsp)
+		proc.eventReqToMain = make(chan *I2GMsgReq_Event)
 
 		handleProcessNoInitiation(proc, readyProcCh)
 	}
@@ -1068,7 +1069,9 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 	for running {
 		select {
 		case readyProc := <-readyProcCh:
+			Log("ready process %v", readyProc)
 			eventReq := <-readyProc.eventReqToMain
+			Log("recieved message from %v", readyProc)
 
 			if *eventReq.Type == I2GMsgReq_Event_EXIT {
 				Log("process %v is exiting", readyProc)
