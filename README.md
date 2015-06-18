@@ -18,7 +18,7 @@ Please refer to [example/zk-found-bug.ether](example/zk-found-bug.ether) for fur
 
 ## Quick Start
  * How to set up the environment: [doc/how-to-setup-env.md](doc/how-to-setup-env.md)
- * Example: Finding a distributed race condition bug of ZooKeeper: [example/zk-found-bug.ether](example/zk-found-bug.ether)
+ * Example: Finding a distributed race condition bug of ZooKeeper([ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212)): [example/zk-found-bug.ether](example/zk-found-bug.ether)
 
 ## Archtecture
 Please see [doc/arch.md](doc/arch.md).
