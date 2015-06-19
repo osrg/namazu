@@ -182,7 +182,7 @@ class OrchestratorBase(object):
             LOG.debug('Acquired sem for %s', process_id)
 
             try:
-                ret = Response(_api_v1_get(process_id), 'application/json')
+                ret = Response(_api_v1_get(process_id), mimetype='application/json')
             finally:
                 ## release sem
                 self.processes[process_id]['sem'].release()
