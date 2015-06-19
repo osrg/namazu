@@ -2279,6 +2279,906 @@ public final class I2GMessage {
     // @@protoc_insertion_point(class_scope:equtils.I2GMsgReq_Initiation)
   }
 
+  public interface I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string fileName = 1;</code>
+     */
+    boolean hasFileName();
+    /**
+     * <code>required string fileName = 1;</code>
+     */
+    java.lang.String getFileName();
+    /**
+     * <code>required string fileName = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getFileNameBytes();
+
+    /**
+     * <code>required string className = 2;</code>
+     */
+    boolean hasClassName();
+    /**
+     * <code>required string className = 2;</code>
+     */
+    java.lang.String getClassName();
+    /**
+     * <code>required string className = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getClassNameBytes();
+
+    /**
+     * <code>required string methodName = 3;</code>
+     */
+    boolean hasMethodName();
+    /**
+     * <code>required string methodName = 3;</code>
+     */
+    java.lang.String getMethodName();
+    /**
+     * <code>required string methodName = 3;</code>
+     */
+    com.google.protobuf.ByteString
+        getMethodNameBytes();
+
+    /**
+     * <code>required int32 lineNumber = 4;</code>
+     */
+    boolean hasLineNumber();
+    /**
+     * <code>required int32 lineNumber = 4;</code>
+     */
+    int getLineNumber();
+  }
+  /**
+   * Protobuf type {@code equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement}
+   */
+  public static final class I2GMsgReq_JavaSpecificFields_StackTraceElement extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement)
+      I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder {
+    // Use I2GMsgReq_JavaSpecificFields_StackTraceElement.newBuilder() to construct.
+    private I2GMsgReq_JavaSpecificFields_StackTraceElement(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private I2GMsgReq_JavaSpecificFields_StackTraceElement(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final I2GMsgReq_JavaSpecificFields_StackTraceElement defaultInstance;
+    public static I2GMsgReq_JavaSpecificFields_StackTraceElement getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public I2GMsgReq_JavaSpecificFields_StackTraceElement getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private I2GMsgReq_JavaSpecificFields_StackTraceElement(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              fileName_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              className_ = bs;
+              break;
+            }
+            case 26: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000004;
+              methodName_ = bs;
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              lineNumber_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.class, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<I2GMsgReq_JavaSpecificFields_StackTraceElement> PARSER =
+        new com.google.protobuf.AbstractParser<I2GMsgReq_JavaSpecificFields_StackTraceElement>() {
+      public I2GMsgReq_JavaSpecificFields_StackTraceElement parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new I2GMsgReq_JavaSpecificFields_StackTraceElement(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<I2GMsgReq_JavaSpecificFields_StackTraceElement> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int FILENAME_FIELD_NUMBER = 1;
+    private java.lang.Object fileName_;
+    /**
+     * <code>required string fileName = 1;</code>
+     */
+    public boolean hasFileName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string fileName = 1;</code>
+     */
+    public java.lang.String getFileName() {
+      java.lang.Object ref = fileName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          fileName_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string fileName = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getFileNameBytes() {
+      java.lang.Object ref = fileName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        fileName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CLASSNAME_FIELD_NUMBER = 2;
+    private java.lang.Object className_;
+    /**
+     * <code>required string className = 2;</code>
+     */
+    public boolean hasClassName() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string className = 2;</code>
+     */
+    public java.lang.String getClassName() {
+      java.lang.Object ref = className_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          className_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string className = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getClassNameBytes() {
+      java.lang.Object ref = className_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        className_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int METHODNAME_FIELD_NUMBER = 3;
+    private java.lang.Object methodName_;
+    /**
+     * <code>required string methodName = 3;</code>
+     */
+    public boolean hasMethodName() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required string methodName = 3;</code>
+     */
+    public java.lang.String getMethodName() {
+      java.lang.Object ref = methodName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          methodName_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string methodName = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMethodNameBytes() {
+      java.lang.Object ref = methodName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        methodName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int LINENUMBER_FIELD_NUMBER = 4;
+    private int lineNumber_;
+    /**
+     * <code>required int32 lineNumber = 4;</code>
+     */
+    public boolean hasLineNumber() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required int32 lineNumber = 4;</code>
+     */
+    public int getLineNumber() {
+      return lineNumber_;
+    }
+
+    private void initFields() {
+      fileName_ = "";
+      className_ = "";
+      methodName_ = "";
+      lineNumber_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasFileName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasClassName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMethodName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasLineNumber()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getFileNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getClassNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(3, getMethodNameBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, lineNumber_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getFileNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getClassNameBytes());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, getMethodNameBytes());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, lineNumber_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement)
+        org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.class, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder.class);
+      }
+
+      // Construct using org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        fileName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        className_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        methodName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000004);
+        lineNumber_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.osrg.earthquake.I2GMessage.internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
+      }
+
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement getDefaultInstanceForType() {
+        return org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.getDefaultInstance();
+      }
+
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement build() {
+        org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement buildPartial() {
+        org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement result = new org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.fileName_ = fileName_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.className_ = className_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.methodName_ = methodName_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.lineNumber_ = lineNumber_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement) {
+          return mergeFrom((org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement other) {
+        if (other == org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.getDefaultInstance()) return this;
+        if (other.hasFileName()) {
+          bitField0_ |= 0x00000001;
+          fileName_ = other.fileName_;
+          onChanged();
+        }
+        if (other.hasClassName()) {
+          bitField0_ |= 0x00000002;
+          className_ = other.className_;
+          onChanged();
+        }
+        if (other.hasMethodName()) {
+          bitField0_ |= 0x00000004;
+          methodName_ = other.methodName_;
+          onChanged();
+        }
+        if (other.hasLineNumber()) {
+          setLineNumber(other.getLineNumber());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasFileName()) {
+          
+          return false;
+        }
+        if (!hasClassName()) {
+          
+          return false;
+        }
+        if (!hasMethodName()) {
+          
+          return false;
+        }
+        if (!hasLineNumber()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object fileName_ = "";
+      /**
+       * <code>required string fileName = 1;</code>
+       */
+      public boolean hasFileName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string fileName = 1;</code>
+       */
+      public java.lang.String getFileName() {
+        java.lang.Object ref = fileName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            fileName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string fileName = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getFileNameBytes() {
+        java.lang.Object ref = fileName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          fileName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string fileName = 1;</code>
+       */
+      public Builder setFileName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        fileName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string fileName = 1;</code>
+       */
+      public Builder clearFileName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        fileName_ = getDefaultInstance().getFileName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string fileName = 1;</code>
+       */
+      public Builder setFileNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        fileName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object className_ = "";
+      /**
+       * <code>required string className = 2;</code>
+       */
+      public boolean hasClassName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string className = 2;</code>
+       */
+      public java.lang.String getClassName() {
+        java.lang.Object ref = className_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            className_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string className = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getClassNameBytes() {
+        java.lang.Object ref = className_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          className_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string className = 2;</code>
+       */
+      public Builder setClassName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        className_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string className = 2;</code>
+       */
+      public Builder clearClassName() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        className_ = getDefaultInstance().getClassName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string className = 2;</code>
+       */
+      public Builder setClassNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        className_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object methodName_ = "";
+      /**
+       * <code>required string methodName = 3;</code>
+       */
+      public boolean hasMethodName() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required string methodName = 3;</code>
+       */
+      public java.lang.String getMethodName() {
+        java.lang.Object ref = methodName_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            methodName_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string methodName = 3;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMethodNameBytes() {
+        java.lang.Object ref = methodName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          methodName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string methodName = 3;</code>
+       */
+      public Builder setMethodName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        methodName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string methodName = 3;</code>
+       */
+      public Builder clearMethodName() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        methodName_ = getDefaultInstance().getMethodName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string methodName = 3;</code>
+       */
+      public Builder setMethodNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+        methodName_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int lineNumber_ ;
+      /**
+       * <code>required int32 lineNumber = 4;</code>
+       */
+      public boolean hasLineNumber() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 lineNumber = 4;</code>
+       */
+      public int getLineNumber() {
+        return lineNumber_;
+      }
+      /**
+       * <code>required int32 lineNumber = 4;</code>
+       */
+      public Builder setLineNumber(int value) {
+        bitField0_ |= 0x00000008;
+        lineNumber_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 lineNumber = 4;</code>
+       */
+      public Builder clearLineNumber() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        lineNumber_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement)
+    }
+
+    static {
+      defaultInstance = new I2GMsgReq_JavaSpecificFields_StackTraceElement(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement)
+  }
+
   public interface I2GMsgReq_JavaSpecificFieldsOrBuilder extends
       // @@protoc_insertion_point(interface_extends:equtils.I2GMsgReq_JavaSpecificFields)
       com.google.protobuf.MessageOrBuilder {
@@ -2296,6 +3196,39 @@ public final class I2GMessage {
      */
     com.google.protobuf.ByteString
         getThreadNameBytes();
+
+    /**
+     * <code>required int32 nrStackTraceElements = 2;</code>
+     */
+    boolean hasNrStackTraceElements();
+    /**
+     * <code>required int32 nrStackTraceElements = 2;</code>
+     */
+    int getNrStackTraceElements();
+
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    java.util.List<org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement> 
+        getStackTraceElementsList();
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement getStackTraceElements(int index);
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    int getStackTraceElementsCount();
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    java.util.List<? extends org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> 
+        getStackTraceElementsOrBuilderList();
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder getStackTraceElementsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code equtils.I2GMsgReq_JavaSpecificFields}
@@ -2355,6 +3288,19 @@ public final class I2GMessage {
               threadName_ = bs;
               break;
             }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              nrStackTraceElements_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                stackTraceElements_ = new java.util.ArrayList<org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              stackTraceElements_.add(input.readMessage(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.PARSER, extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2363,6 +3309,9 @@ public final class I2GMessage {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          stackTraceElements_ = java.util.Collections.unmodifiableList(stackTraceElements_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -2437,8 +3386,60 @@ public final class I2GMessage {
       }
     }
 
+    public static final int NRSTACKTRACEELEMENTS_FIELD_NUMBER = 2;
+    private int nrStackTraceElements_;
+    /**
+     * <code>required int32 nrStackTraceElements = 2;</code>
+     */
+    public boolean hasNrStackTraceElements() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required int32 nrStackTraceElements = 2;</code>
+     */
+    public int getNrStackTraceElements() {
+      return nrStackTraceElements_;
+    }
+
+    public static final int STACKTRACEELEMENTS_FIELD_NUMBER = 3;
+    private java.util.List<org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement> stackTraceElements_;
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    public java.util.List<org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement> getStackTraceElementsList() {
+      return stackTraceElements_;
+    }
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    public java.util.List<? extends org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> 
+        getStackTraceElementsOrBuilderList() {
+      return stackTraceElements_;
+    }
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    public int getStackTraceElementsCount() {
+      return stackTraceElements_.size();
+    }
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement getStackTraceElements(int index) {
+      return stackTraceElements_.get(index);
+    }
+    /**
+     * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     */
+    public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder getStackTraceElementsOrBuilder(
+        int index) {
+      return stackTraceElements_.get(index);
+    }
+
     private void initFields() {
       threadName_ = "";
+      nrStackTraceElements_ = 0;
+      stackTraceElements_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2450,6 +3451,16 @@ public final class I2GMessage {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasNrStackTraceElements()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getStackTraceElementsCount(); i++) {
+        if (!getStackTraceElements(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -2459,6 +3470,12 @@ public final class I2GMessage {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeBytes(1, getThreadNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, nrStackTraceElements_);
+      }
+      for (int i = 0; i < stackTraceElements_.size(); i++) {
+        output.writeMessage(3, stackTraceElements_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -2472,6 +3489,14 @@ public final class I2GMessage {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(1, getThreadNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, nrStackTraceElements_);
+      }
+      for (int i = 0; i < stackTraceElements_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, stackTraceElements_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2582,6 +3607,7 @@ public final class I2GMessage {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getStackTraceElementsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -2592,6 +3618,14 @@ public final class I2GMessage {
         super.clear();
         threadName_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
+        nrStackTraceElements_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (stackTraceElementsBuilder_ == null) {
+          stackTraceElements_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          stackTraceElementsBuilder_.clear();
+        }
         return this;
       }
 
@@ -2624,6 +3658,19 @@ public final class I2GMessage {
           to_bitField0_ |= 0x00000001;
         }
         result.threadName_ = threadName_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.nrStackTraceElements_ = nrStackTraceElements_;
+        if (stackTraceElementsBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            stackTraceElements_ = java.util.Collections.unmodifiableList(stackTraceElements_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.stackTraceElements_ = stackTraceElements_;
+        } else {
+          result.stackTraceElements_ = stackTraceElementsBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2645,6 +3692,35 @@ public final class I2GMessage {
           threadName_ = other.threadName_;
           onChanged();
         }
+        if (other.hasNrStackTraceElements()) {
+          setNrStackTraceElements(other.getNrStackTraceElements());
+        }
+        if (stackTraceElementsBuilder_ == null) {
+          if (!other.stackTraceElements_.isEmpty()) {
+            if (stackTraceElements_.isEmpty()) {
+              stackTraceElements_ = other.stackTraceElements_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureStackTraceElementsIsMutable();
+              stackTraceElements_.addAll(other.stackTraceElements_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.stackTraceElements_.isEmpty()) {
+            if (stackTraceElementsBuilder_.isEmpty()) {
+              stackTraceElementsBuilder_.dispose();
+              stackTraceElementsBuilder_ = null;
+              stackTraceElements_ = other.stackTraceElements_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              stackTraceElementsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getStackTraceElementsFieldBuilder() : null;
+            } else {
+              stackTraceElementsBuilder_.addAllMessages(other.stackTraceElements_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -2653,6 +3729,16 @@ public final class I2GMessage {
         if (!hasThreadName()) {
           
           return false;
+        }
+        if (!hasNrStackTraceElements()) {
+          
+          return false;
+        }
+        for (int i = 0; i < getStackTraceElementsCount(); i++) {
+          if (!getStackTraceElements(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -2750,6 +3836,278 @@ public final class I2GMessage {
         threadName_ = value;
         onChanged();
         return this;
+      }
+
+      private int nrStackTraceElements_ ;
+      /**
+       * <code>required int32 nrStackTraceElements = 2;</code>
+       */
+      public boolean hasNrStackTraceElements() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required int32 nrStackTraceElements = 2;</code>
+       */
+      public int getNrStackTraceElements() {
+        return nrStackTraceElements_;
+      }
+      /**
+       * <code>required int32 nrStackTraceElements = 2;</code>
+       */
+      public Builder setNrStackTraceElements(int value) {
+        bitField0_ |= 0x00000002;
+        nrStackTraceElements_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 nrStackTraceElements = 2;</code>
+       */
+      public Builder clearNrStackTraceElements() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        nrStackTraceElements_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement> stackTraceElements_ =
+        java.util.Collections.emptyList();
+      private void ensureStackTraceElementsIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          stackTraceElements_ = new java.util.ArrayList<org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement>(stackTraceElements_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> stackTraceElementsBuilder_;
+
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public java.util.List<org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement> getStackTraceElementsList() {
+        if (stackTraceElementsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(stackTraceElements_);
+        } else {
+          return stackTraceElementsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public int getStackTraceElementsCount() {
+        if (stackTraceElementsBuilder_ == null) {
+          return stackTraceElements_.size();
+        } else {
+          return stackTraceElementsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement getStackTraceElements(int index) {
+        if (stackTraceElementsBuilder_ == null) {
+          return stackTraceElements_.get(index);
+        } else {
+          return stackTraceElementsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder setStackTraceElements(
+          int index, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement value) {
+        if (stackTraceElementsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStackTraceElementsIsMutable();
+          stackTraceElements_.set(index, value);
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder setStackTraceElements(
+          int index, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder builderForValue) {
+        if (stackTraceElementsBuilder_ == null) {
+          ensureStackTraceElementsIsMutable();
+          stackTraceElements_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder addStackTraceElements(org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement value) {
+        if (stackTraceElementsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStackTraceElementsIsMutable();
+          stackTraceElements_.add(value);
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder addStackTraceElements(
+          int index, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement value) {
+        if (stackTraceElementsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureStackTraceElementsIsMutable();
+          stackTraceElements_.add(index, value);
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder addStackTraceElements(
+          org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder builderForValue) {
+        if (stackTraceElementsBuilder_ == null) {
+          ensureStackTraceElementsIsMutable();
+          stackTraceElements_.add(builderForValue.build());
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder addStackTraceElements(
+          int index, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder builderForValue) {
+        if (stackTraceElementsBuilder_ == null) {
+          ensureStackTraceElementsIsMutable();
+          stackTraceElements_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder addAllStackTraceElements(
+          java.lang.Iterable<? extends org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement> values) {
+        if (stackTraceElementsBuilder_ == null) {
+          ensureStackTraceElementsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, stackTraceElements_);
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder clearStackTraceElements() {
+        if (stackTraceElementsBuilder_ == null) {
+          stackTraceElements_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public Builder removeStackTraceElements(int index) {
+        if (stackTraceElementsBuilder_ == null) {
+          ensureStackTraceElementsIsMutable();
+          stackTraceElements_.remove(index);
+          onChanged();
+        } else {
+          stackTraceElementsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder getStackTraceElementsBuilder(
+          int index) {
+        return getStackTraceElementsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder getStackTraceElementsOrBuilder(
+          int index) {
+        if (stackTraceElementsBuilder_ == null) {
+          return stackTraceElements_.get(index);  } else {
+          return stackTraceElementsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public java.util.List<? extends org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> 
+           getStackTraceElementsOrBuilderList() {
+        if (stackTraceElementsBuilder_ != null) {
+          return stackTraceElementsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(stackTraceElements_);
+        }
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder addStackTraceElementsBuilder() {
+        return getStackTraceElementsFieldBuilder().addBuilder(
+            org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder addStackTraceElementsBuilder(
+          int index) {
+        return getStackTraceElementsFieldBuilder().addBuilder(
+            index, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .equtils.I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       */
+      public java.util.List<org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder> 
+           getStackTraceElementsBuilderList() {
+        return getStackTraceElementsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> 
+          getStackTraceElementsFieldBuilder() {
+        if (stackTraceElementsBuilder_ == null) {
+          stackTraceElementsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder, org.osrg.earthquake.I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElementOrBuilder>(
+                  stackTraceElements_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          stackTraceElements_ = null;
+        }
+        return stackTraceElementsBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:equtils.I2GMsgReq_JavaSpecificFields)
@@ -5235,6 +6593,11 @@ public final class I2GMessage {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_equtils_I2GMsgReq_Initiation_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -5266,21 +6629,27 @@ public final class I2GMessage {
       "utils.I2GMsgReq_Event_FuncCall\022+\n\004Exit\030\003" +
       " \001(\0132\035.equtils.I2GMsgReq_Event_Exit\"\037\n\004T" +
       "ype\022\r\n\tFUNC_CALL\020\001\022\010\n\004EXIT\020\002\")\n\024I2GMsgRe" +
-      "q_Initiation\022\021\n\tprocessId\030\001 \002(\t\"2\n\034I2GMs" +
-      "gReq_JavaSpecificFields\022\022\n\nthreadName\030\001 ",
-      "\002(\t\"\344\002\n\tI2GMsgReq\022\022\n\nprocess_id\030\001 \002(\t\022%\n" +
-      "\004type\030\002 \002(\0162\027.equtils.I2GMsgReq.Type\022\013\n\003" +
-      "pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 \002(\005\022\021" +
-      "\n\tga_msg_id\030\006 \001(\005\022\'\n\005Event\030\007 \001(\0132\030.equti" +
-      "ls.I2GMsgReq_Event\0221\n\nInitiation\030\010 \001(\0132\035" +
-      ".equtils.I2GMsgReq_Initiation\022\035\n\025HasJava" +
-      "SpecificFields\030\t \002(\005\022A\n\022JavaSpecificFiel" +
-      "ds\030\n \001(\0132%.equtils.I2GMsgReq_JavaSpecifi" +
-      "cFields\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\nINITIATION" +
-      "\020\002\"}\n\tI2GMsgRsp\022&\n\003res\030\001 \002(\0162\031.equtils.I",
-      "2GMsgRsp.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_ms" +
-      "g_id\030\003 \001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002" +
-      "\022\007\n\003END\020\003B\025\n\023org.osrg.earthquake"
+      "q_Initiation\022\021\n\tprocessId\030\001 \002(\t\"}\n.I2GMs" +
+      "gReq_JavaSpecificFields_StackTraceElemen",
+      "t\022\020\n\010fileName\030\001 \002(\t\022\021\n\tclassName\030\002 \002(\t\022\022" +
+      "\n\nmethodName\030\003 \002(\t\022\022\n\nlineNumber\030\004 \002(\005\"\245" +
+      "\001\n\034I2GMsgReq_JavaSpecificFields\022\022\n\nthrea" +
+      "dName\030\001 \002(\t\022\034\n\024nrStackTraceElements\030\002 \002(" +
+      "\005\022S\n\022stackTraceElements\030\003 \003(\01327.equtils." +
+      "I2GMsgReq_JavaSpecificFields_StackTraceE" +
+      "lement\"\344\002\n\tI2GMsgReq\022\022\n\nprocess_id\030\001 \002(\t" +
+      "\022%\n\004type\030\002 \002(\0162\027.equtils.I2GMsgReq.Type\022" +
+      "\013\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 \002(" +
+      "\005\022\021\n\tga_msg_id\030\006 \001(\005\022\'\n\005Event\030\007 \001(\0132\030.eq",
+      "utils.I2GMsgReq_Event\0221\n\nInitiation\030\010 \001(" +
+      "\0132\035.equtils.I2GMsgReq_Initiation\022\035\n\025HasJ" +
+      "avaSpecificFields\030\t \002(\005\022A\n\022JavaSpecificF" +
+      "ields\030\n \001(\0132%.equtils.I2GMsgReq_JavaSpec" +
+      "ificFields\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\nINITIAT" +
+      "ION\020\002\"}\n\tI2GMsgRsp\022&\n\003res\030\001 \002(\0162\031.equtil" +
+      "s.I2GMsgRsp.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga" +
+      "_msg_id\030\003 \001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERRO" +
+      "R\020\002\022\007\n\003END\020\003B\025\n\023org.osrg.earthquake"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5318,20 +6687,26 @@ public final class I2GMessage {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_I2GMsgReq_Initiation_descriptor,
         new java.lang.String[] { "ProcessId", });
-    internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor =
+    internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_equtils_I2GMsgReq_JavaSpecificFields_StackTraceElement_descriptor,
+        new java.lang.String[] { "FileName", "ClassName", "MethodName", "LineNumber", });
+    internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_equtils_I2GMsgReq_JavaSpecificFields_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_I2GMsgReq_JavaSpecificFields_descriptor,
-        new java.lang.String[] { "ThreadName", });
+        new java.lang.String[] { "ThreadName", "NrStackTraceElements", "StackTraceElements", });
     internal_static_equtils_I2GMsgReq_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_equtils_I2GMsgReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_I2GMsgReq_descriptor,
         new java.lang.String[] { "ProcessId", "Type", "Pid", "Tid", "MsgId", "GaMsgId", "Event", "Initiation", "HasJavaSpecificFields", "JavaSpecificFields", });
     internal_static_equtils_I2GMsgRsp_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_equtils_I2GMsgRsp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_I2GMsgRsp_descriptor,

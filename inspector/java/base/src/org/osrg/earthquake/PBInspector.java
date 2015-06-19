@@ -137,7 +137,7 @@ public class PBInspector implements Inspector {
             }
         });
 
-         try {
+        try {
             FileHandler logFileHandler = new FileHandler("/tmp/earthquake-inspection-java.log");
             logFileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(logFileHandler);
@@ -203,7 +203,7 @@ public class PBInspector implements Inspector {
                     .setExit(evExit).build();
 
             running = false;
-            sendEvent(ev, false);
+            sendEvent(ev, false, null);
 
             try {
                 GAInstream.close();
@@ -316,12 +316,22 @@ public class PBInspector implements Inspector {
         return ret;
     }
 
-    private void sendEvent(I2GMessage.I2GMsgReq_Event ev, boolean needRsp) {
+    private void sendEvent(I2GMessage.I2GMsgReq_Event ev, boolean needRsp, I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement traces[]) {
         int msgID = nextMsgID();
 
         I2GMessage.I2GMsgReq_JavaSpecificFields.Builder javaSpecificFieldBuilder =
                 I2GMessage.I2GMsgReq_JavaSpecificFields.newBuilder();
         javaSpecificFieldBuilder.setThreadName(Thread.currentThread().getName());
+
+        if (traces == null) {
+            javaSpecificFieldBuilder.setNrStackTraceElements(0);
+        } else {
+            javaSpecificFieldBuilder.setNrStackTraceElements(traces.length);
+            for (int i = 0; i < traces.length; i++) {
+                javaSpecificFieldBuilder.addStackTraceElements(traces[i]);
+            }
+        }
+
         I2GMessage.I2GMsgReq_JavaSpecificFields javaSpecificField = javaSpecificFieldBuilder.build();
 
         I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
@@ -415,6 +425,27 @@ public class PBInspector implements Inspector {
         }
     }
 
+    private I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement[] makeStackTrace() {
+        StackTraceElement traces[] = Thread.currentThread().getStackTrace();
+        I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement[] ret = new I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement[traces.length];
+
+        for (int i = 0; i < traces.length; i++) {
+            StackTraceElement trace = traces[i];
+
+            I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder traceBuilder = I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.newBuilder();
+            traceBuilder.setClassName(trace.getClassName())
+                    .setFileName(trace.getFileName())
+                    .setMethodName(trace.getMethodName())
+                    .setLineNumber(trace.getLineNumber());
+
+            I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement newElement = traceBuilder.build();
+
+            ret[i] = newElement;
+        }
+
+        return ret;
+    }
+
     public void EventFuncCall(String funcName) {
         if (Disabled) {
             LOGGER.fine("already disabled");
@@ -435,7 +466,7 @@ public class PBInspector implements Inspector {
                 .setType(I2GMessage.I2GMsgReq_Event.Type.FUNC_CALL)
                 .setFuncCall(evFun).build();
 
-        sendEvent(ev, true);
+        sendEvent(ev, true, makeStackTrace());
     }
 
     public void EventFuncCall(String funcName, Map<String, Object> argMap) {

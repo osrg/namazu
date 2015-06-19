@@ -13,6 +13,7 @@ It has these top-level messages:
 	I2GMsgReq_Event_Exit
 	I2GMsgReq_Event
 	I2GMsgReq_Initiation
+	I2GMsgReq_JavaSpecificFields_StackTraceElement
 	I2GMsgReq_JavaSpecificFields
 	I2GMsgReq
 	I2GMsgRsp
@@ -208,9 +209,55 @@ func (m *I2GMsgReq_Initiation) GetProcessId() string {
 	return ""
 }
 
-type I2GMsgReq_JavaSpecificFields struct {
-	ThreadName       *string `protobuf:"bytes,1,req,name=threadName" json:"threadName,omitempty"`
+type I2GMsgReq_JavaSpecificFields_StackTraceElement struct {
+	FileName         *string `protobuf:"bytes,1,req,name=fileName" json:"fileName,omitempty"`
+	ClassName        *string `protobuf:"bytes,2,req,name=className" json:"className,omitempty"`
+	MethodName       *string `protobuf:"bytes,3,req,name=methodName" json:"methodName,omitempty"`
+	LineNumber       *int32  `protobuf:"varint,4,req,name=lineNumber" json:"lineNumber,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
+}
+
+func (m *I2GMsgReq_JavaSpecificFields_StackTraceElement) Reset() {
+	*m = I2GMsgReq_JavaSpecificFields_StackTraceElement{}
+}
+func (m *I2GMsgReq_JavaSpecificFields_StackTraceElement) String() string {
+	return proto.CompactTextString(m)
+}
+func (*I2GMsgReq_JavaSpecificFields_StackTraceElement) ProtoMessage() {}
+
+func (m *I2GMsgReq_JavaSpecificFields_StackTraceElement) GetFileName() string {
+	if m != nil && m.FileName != nil {
+		return *m.FileName
+	}
+	return ""
+}
+
+func (m *I2GMsgReq_JavaSpecificFields_StackTraceElement) GetClassName() string {
+	if m != nil && m.ClassName != nil {
+		return *m.ClassName
+	}
+	return ""
+}
+
+func (m *I2GMsgReq_JavaSpecificFields_StackTraceElement) GetMethodName() string {
+	if m != nil && m.MethodName != nil {
+		return *m.MethodName
+	}
+	return ""
+}
+
+func (m *I2GMsgReq_JavaSpecificFields_StackTraceElement) GetLineNumber() int32 {
+	if m != nil && m.LineNumber != nil {
+		return *m.LineNumber
+	}
+	return 0
+}
+
+type I2GMsgReq_JavaSpecificFields struct {
+	ThreadName           *string                                           `protobuf:"bytes,1,req,name=threadName" json:"threadName,omitempty"`
+	NrStackTraceElements *int32                                            `protobuf:"varint,2,req,name=nrStackTraceElements" json:"nrStackTraceElements,omitempty"`
+	StackTraceElements   []*I2GMsgReq_JavaSpecificFields_StackTraceElement `protobuf:"bytes,3,rep,name=stackTraceElements" json:"stackTraceElements,omitempty"`
+	XXX_unrecognized     []byte                                            `json:"-"`
 }
 
 func (m *I2GMsgReq_JavaSpecificFields) Reset()         { *m = I2GMsgReq_JavaSpecificFields{} }
@@ -222,6 +269,20 @@ func (m *I2GMsgReq_JavaSpecificFields) GetThreadName() string {
 		return *m.ThreadName
 	}
 	return ""
+}
+
+func (m *I2GMsgReq_JavaSpecificFields) GetNrStackTraceElements() int32 {
+	if m != nil && m.NrStackTraceElements != nil {
+		return *m.NrStackTraceElements
+	}
+	return 0
+}
+
+func (m *I2GMsgReq_JavaSpecificFields) GetStackTraceElements() []*I2GMsgReq_JavaSpecificFields_StackTraceElement {
+	if m != nil {
+		return m.StackTraceElements
+	}
+	return nil
 }
 
 type I2GMsgReq struct {

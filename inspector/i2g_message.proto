@@ -43,8 +43,18 @@ message I2GMsgReq_Initiation {
   required string processId = 1;
 };
 
+message I2GMsgReq_JavaSpecificFields_StackTraceElement {
+  required string fileName = 1;
+  required string className = 2;
+  required string methodName = 3;
+  required int32 lineNumber = 4;
+};
+
 message I2GMsgReq_JavaSpecificFields {
   required string threadName = 1;
+
+  required int32 nrStackTraceElements = 2;
+  repeated I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;
 };
 
 message I2GMsgReq {
