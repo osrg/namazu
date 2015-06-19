@@ -15,11 +15,27 @@
 
 package equtils
 
+type Event_JavaSpecific_StackTraceElement struct {
+	LineNumber int
+	ClassName  string
+	MethodName string
+	FileName   string
+}
+
+type Event_JavaSpecific struct {
+	ThreadName string
+
+	NrStackTraceElements int
+	StackTraceElements   []Event_JavaSpecific_StackTraceElement
+}
+
 type Event struct {
 	ProcId string
 
 	EventType  string
 	EventParam string
+
+	JavaSpecific Event_JavaSpecific
 }
 
 type SingleTrace struct {

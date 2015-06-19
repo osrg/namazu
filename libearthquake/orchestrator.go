@@ -84,8 +84,8 @@ type process struct {
 	endExecution   chan bool
 	endCompletion  chan interface{}
 
-	eventReqToMain chan *I2GMsgReq_Event
-	gotoNext       chan interface{}
+	reqToMain chan *I2GMsgReq
+	gotoNext  chan interface{}
 
 	eventReqRecv chan *I2GMsgReq
 	eventRspSend chan *I2GMsgRsp
@@ -318,7 +318,7 @@ func handleProcess(n *process) {
 			}
 
 			go func(r *I2GMsgReq) {
-				n.eventReqToMain <- r.Event
+				n.reqToMain <- r
 			}(req)
 
 			exe.eventArrive <- n.idx
@@ -423,7 +423,8 @@ func runExecution() {
 				break
 			}
 
-			eventReq := <-n.eventReqToMain
+			req := <-n.reqToMain
+			eventReq := req.Event
 			if !found {
 				n.gotoNext <- true
 				continue
@@ -563,7 +564,7 @@ func waitProcessesDirect(exe *execution) {
 		n.startExecution = make(chan interface{})
 		n.endExecution = make(chan bool)
 		n.endCompletion = make(chan interface{})
-		n.eventReqToMain = make(chan *I2GMsgReq_Event)
+		n.reqToMain = make(chan *I2GMsgReq)
 		n.gotoNext = make(chan interface{})
 		n.exe = exe
 
@@ -724,7 +725,7 @@ func waitProcessesNoDirect(exe *execution) {
 					process.state = PROCESS_STATE_READY
 					process.endExecution = make(chan bool)
 					process.endCompletion = make(chan interface{})
-					process.eventReqToMain = make(chan *I2GMsgReq_Event)
+					process.reqToMain = make(chan *I2GMsgReq)
 					process.gotoNext = make(chan interface{})
 					process.eventReqRecv = make(chan *I2GMsgReq)
 					process.eventRspSend = make(chan *I2GMsgRsp)
@@ -825,7 +826,8 @@ func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 	for nrLivingProcesses != 0 {
 		nIdx := <-exe.eventArrive
 		n := exe.processes[nIdx]
-		eventReq := <-n.eventReqToMain
+		req := <-n.reqToMain
+		eventReq := req.Event
 
 		if *eventReq.Type == I2GMsgReq_Event_EXIT {
 			nrLivingProcesses--
@@ -836,10 +838,10 @@ func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 
 		// TODO: search policy interface
 		e := Event{
-			n.id,
+			ProcId: n.id,
 
-			"FuncCall",
-			*eventReq.FuncCall.Name,
+			EventType:  "FuncCall",
+			EventParam: *eventReq.FuncCall.Name,
 		}
 		eventSeq = append(eventSeq, e)
 
@@ -1008,7 +1010,7 @@ func handleProcessNoInitiation(proc *process, readyProcCh chan *process) {
 			Log("event message received from process %v", proc)
 
 			go func(r *I2GMsgReq) {
-				proc.eventReqToMain <- r.Event
+				proc.reqToMain <- r
 			}(req)
 
 			readyProcCh <- proc
@@ -1052,7 +1054,7 @@ func acceptNewProcess(readyProcCh chan *process) {
 		proc.gotoNext = make(chan interface{})
 		proc.eventReqRecv = make(chan *I2GMsgReq)
 		proc.eventRspSend = make(chan *I2GMsgRsp)
-		proc.eventReqToMain = make(chan *I2GMsgReq_Event)
+		proc.reqToMain = make(chan *I2GMsgReq)
 
 		go handleProcessNoInitiation(proc, readyProcCh)
 	}
@@ -1072,7 +1074,8 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 		select {
 		case readyProc := <-readyProcCh:
 			Log("ready process %v", readyProc)
-			eventReq := <-readyProc.eventReqToMain
+			req := <-readyProc.reqToMain
+			eventReq := req.Event
 			Log("recieved message from %v", readyProc)
 
 			if *eventReq.Type == I2GMsgReq_Event_EXIT {
@@ -1082,10 +1085,10 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 
 			// TODO: search policy interface
 			e := Event{
-				readyProc.id,
+				ProcId: readyProc.id,
 
-				"FuncCall",
-				*eventReq.FuncCall.Name,
+				EventType:  "FuncCall",
+				EventParam: *eventReq.FuncCall.Name,
 			}
 			eventSeq = append(eventSeq, e)
 
