@@ -1,0 +1,30 @@
+{
+    "globalFlags": {
+        "orchestratorListenPort": 10000,
+        "search": {
+	    "mode": "naive",
+            "directory": "\/tmp\/eq\/search"
+        },
+	"plugin": {
+	    "modules": ["zk_orchestrator", "zk_termination_detector" ],
+	    "orchestrator": "sys.modules[\"zk_orchestrator\"].ZkOrchestrator()",
+	    "explorer": "pyearthquake.orchestrator.explorer.TimeBoundedRandomExplorer(time_slice=100, time_bound=500)",
+	    "processWatcher": "pyearthquake.orchestrator.watcher.BasicProcessWatcher()",
+	    "terminationDetector": "sys.modules[\"zk_termination_detector\"].ZkTerminationDetector()"
+	}
+    },
+    "processes": [
+        {
+            "id": "zk1",
+	    "ip": "192.168.42.1-this-is-not-supported-yet"
+        },
+        {
+            "id": "zk2",
+	    "ip": "192.168.42.2"
+        },
+        {
+            "id": "zk3",
+	    "ip": "192.168.42.3"
+        }
+    ]
+}
