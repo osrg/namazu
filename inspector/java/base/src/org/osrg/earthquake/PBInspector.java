@@ -479,6 +479,8 @@ public class PBInspector implements Inspector {
             return;
         }
 
-        reader.kill();
+        if (reader != null) {
+            reader.kill();
+        }
     }
 }
