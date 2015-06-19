@@ -35,7 +35,7 @@ type Event struct {
 	EventType  string
 	EventParam string
 
-	JavaSpecific Event_JavaSpecific
+	JavaSpecific *Event_JavaSpecific
 }
 
 type SingleTrace struct {

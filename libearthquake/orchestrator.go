@@ -1090,6 +1090,27 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 				EventType:  "FuncCall",
 				EventParam: *eventReq.FuncCall.Name,
 			}
+
+			if *req.HasJavaSpecificFields == 1 {
+				ejs := Event_JavaSpecific{
+					ThreadName: *req.JavaSpecificFields.ThreadName,
+				}
+
+				for _, stackTraceElement := range req.JavaSpecificFields.StackTraceElements {
+					element := Event_JavaSpecific_StackTraceElement{
+						LineNumber: int(*stackTraceElement.LineNumber),
+						ClassName:  *stackTraceElement.ClassName,
+						MethodName: *stackTraceElement.MethodName,
+						FileName:   *stackTraceElement.FileName,
+					}
+
+					ejs.StackTraceElements = append(ejs.StackTraceElements, element)
+				}
+				ejs.NrStackTraceElements = int(*req.JavaSpecificFields.NrStackTraceElements)
+
+				e.JavaSpecific = &ejs
+			}
+
 			eventSeq = append(eventSeq, e)
 
 			Log("process %v: %v", readyProc, eventReq)
