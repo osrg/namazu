@@ -1,4 +1,4 @@
-// Copyright (C) 2015 Nippon Telegraph and Telephone Corporation.
+// Copyright (C) 2014 - 2015 Nippon Telegraph and Telephone Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,12 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.osrg.earthquake;
+package net.osrg.earthquake;
 
-import java.util.*;
-import net.arnx.jsonic.*;
+import java.util.Map;
 
-public class Event extends Entity{
-    public boolean deferred;
+public interface Inspector {
+    public void Initiation();
+    public void EventFuncCall(String funcName);
+    public void EventFuncCall(String funcName, Map<String, Object> argMap);
+    public void StopInspection();
 }
-

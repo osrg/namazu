@@ -13,22 +13,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.osrg.earthquake;
+package net.osrg.earthquake;
 
-import org.osrg.earthquake.*;
+import net.osrg.earthquake.*;
 import java.util.*;
 import org.jboss.byteman.rule.*;
 import org.jboss.byteman.rule.helper.*;
 
-public class PBEQHelper extends Helper
+public class JSONEQHelper extends Helper
 {
-    static PBInspector inspector;
+    static JSONInspector inspector;
 
     static {
-    	inspector = new PBInspector();
+	inspector = new JSONInspector();
     };
 
-    public PBEQHelper(Rule rule) {
+    public JSONEQHelper(Rule rule) {
 	super(rule);
     }
 
@@ -53,3 +53,5 @@ public class PBEQHelper extends Helper
 	inspector.StopInspection();
     }
 }
+
+

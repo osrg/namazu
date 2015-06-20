@@ -13,15 +13,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package org.osrg.earthquake;
+package net.osrg.earthquake;
+import java.util.*;
 
-public class PBInspectorTester {
+public class JSONInspectorTester {
+    //TODO: introduce JUnit unittest
     public static void main(String args[]) {
-        Inspector i = new PBInspector();
+        Inspector i = new JSONInspector();
         i.Initiation();
 
         System.out.println("sending funcCall event (testMethod)");
         i.EventFuncCall("testMethod");
         System.out.println("sent funcCall event (testMethod)");
+
+	Map<String, Object> argMap = new HashMap<String, Object>();
+	argMap.put("foo", "bar");
+	argMap.put("n", 42);
+        System.out.println("sending funcCall event (testMethod2)");
+        i.EventFuncCall("testMethod2", argMap);
+        System.out.println("sent funcCall event (testMethod2)");
+	
+	i.StopInspection();
     }
 }

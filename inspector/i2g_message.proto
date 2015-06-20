@@ -15,7 +15,7 @@
 
 package equtils;
 
-option java_package = "org.osrg.earthquake";
+option java_package = "net.osrg.earthquake";
 
 // I2G: Inspector to Guestagent
 
