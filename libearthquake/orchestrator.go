@@ -63,8 +63,8 @@ type machine struct {
 	virtIOIn  net.Conn // unix domain socket
 	virtIOOut net.Conn // unix domain socket
 
-	eventReqRecv chan *I2GMsgReq
-	eventRspSend chan *I2GMsgRsp
+	eventReqRecv chan *InspectorMsgReq
+	eventRspSend chan *InspectorMsgRsp
 
 	processes []*process
 }
@@ -84,11 +84,11 @@ type process struct {
 	endExecution   chan bool
 	endCompletion  chan interface{}
 
-	reqToMain chan *I2GMsgReq
+	reqToMain chan *InspectorMsgReq
 	gotoNext  chan interface{}
 
-	eventReqRecv chan *I2GMsgReq
-	eventRspSend chan *I2GMsgRsp
+	eventReqRecv chan *InspectorMsgReq
+	eventRspSend chan *InspectorMsgRsp
 
 	directRecvEndCompletion chan interface{} // only used in direct mode (FIXME)
 	directSendEndCompletion chan interface{}
@@ -264,7 +264,7 @@ func handleProcess(n *process) {
 	if n.exe.globalFlags.direct {
 		req := <-n.eventReqRecv
 
-		if *req.Type != I2GMsgReq_INITIATION {
+		if *req.Type != InspectorMsgReq_INITIATION {
 			Log("invalid message during initiation (process index: %d)", n.idx)
 			os.Exit(1)
 		}
@@ -273,9 +273,9 @@ func handleProcess(n *process) {
 		Log("Process %s is initiating...", *initiationReq.ProcessId)
 		n.id = *initiationReq.ProcessId
 
-		result := I2GMsgRsp_ACK
+		result := InspectorMsgRsp_ACK
 		req_msg_id := *req.MsgId
-		rsp := &I2GMsgRsp{
+		rsp := &InspectorMsgRsp{
 			Res:   &result,
 			MsgId: &req_msg_id,
 		}
@@ -291,7 +291,7 @@ func handleProcess(n *process) {
 
 	recvCh := make(chan bool)
 
-	req := (*I2GMsgReq)(nil)
+	req := (*InspectorMsgReq)(nil)
 
 	go func() {
 		for {
@@ -305,7 +305,7 @@ func handleProcess(n *process) {
 
 		select {
 		case <-recvCh:
-			if *req.Type != I2GMsgReq_EVENT {
+			if *req.Type != InspectorMsgReq_EVENT {
 				Log("invalid message from process %s, type: %d", n.id, *req.Type)
 				os.Exit(1)
 			}
@@ -317,17 +317,17 @@ func handleProcess(n *process) {
 				Log("guest agent message id: %d", gaMsgId)
 			}
 
-			go func(r *I2GMsgReq) {
+			go func(r *InspectorMsgReq) {
 				n.reqToMain <- r
 			}(req)
 
 			exe.eventArrive <- n.idx
-			if *req.Event.Type != I2GMsgReq_Event_EXIT {
+			if *req.Event.Type != InspectorMsgReq_Event_EXIT {
 				<-n.gotoNext
 
-				result := I2GMsgRsp_ACK
+				result := InspectorMsgRsp_ACK
 				req_msg_id := *req.MsgId
-				rsp := &I2GMsgRsp{
+				rsp := &InspectorMsgRsp{
 					Res:   &result,
 					MsgId: &req_msg_id,
 				}
@@ -343,8 +343,8 @@ func handleProcess(n *process) {
 			Log("needToNotifyEnd: %s", needToNotifyEnd)
 
 			if needToNotifyEnd {
-				result := I2GMsgRsp_END
-				rsp := &I2GMsgRsp{
+				result := InspectorMsgRsp_END
+				rsp := &InspectorMsgRsp{
 					Res: &result,
 				}
 
@@ -370,9 +370,9 @@ func handleProcess(n *process) {
 	}
 }
 
-func matchStateAndEvent(state *executionUnitState, ev *I2GMsgReq_Event) bool {
+func matchStateAndEvent(state *executionUnitState, ev *InspectorMsgReq_Event) bool {
 	if state.eventType == "funcCall" {
-		if *ev.Type == I2GMsgReq_Event_FUNC_CALL {
+		if *ev.Type == InspectorMsgReq_Event_FUNC_CALL {
 			ev_funcCall_name := *ev.FuncCall.Name
 			state_funcCall := state.eventParam.(map[string]interface{})
 			if state_funcCall["name"].(string) == ev_funcCall_name {
@@ -525,8 +525,8 @@ func waitMachines() {
 
 		Log("connected to machine %s", machine.id)
 
-		machine.eventReqRecv = make(chan *I2GMsgReq)
-		machine.eventRspSend = make(chan *I2GMsgRsp)
+		machine.eventReqRecv = make(chan *InspectorMsgReq)
+		machine.eventRspSend = make(chan *InspectorMsgRsp)
 
 		go machineInitiation(machine, fin)
 	}
@@ -564,19 +564,19 @@ func waitProcessesDirect(exe *execution) {
 		n.startExecution = make(chan interface{})
 		n.endExecution = make(chan bool)
 		n.endCompletion = make(chan interface{})
-		n.reqToMain = make(chan *I2GMsgReq)
+		n.reqToMain = make(chan *InspectorMsgReq)
 		n.gotoNext = make(chan interface{})
 		n.exe = exe
 
-		n.eventReqRecv = make(chan *I2GMsgReq)
-		n.eventRspSend = make(chan *I2GMsgRsp)
+		n.eventReqRecv = make(chan *InspectorMsgReq)
+		n.eventRspSend = make(chan *InspectorMsgRsp)
 
 		n.directRecvEndCompletion = make(chan interface{})
 		n.directSendEndCompletion = make(chan interface{})
 
 		go func(n *process) {
 			for {
-				req := &I2GMsgReq{}
+				req := &InspectorMsgReq{}
 
 				rerr := RecvMsg(n.conn, req)
 				if rerr != nil {
@@ -606,7 +606,7 @@ func waitProcessesDirect(exe *execution) {
 					n.directSendEndCompletion <- true
 					return // TODO: error handling
 				}
-				if *rsp.Res == I2GMsgRsp_END {
+				if *rsp.Res == InspectorMsgRsp_END {
 					Log("send routine end (process index :%d)", n.idx)
 					n.directSendEndCompletion <- true
 					return
@@ -632,7 +632,7 @@ func runMachineProxy(exe *execution) {
 
 		go func(m *machine) {
 			for {
-				req := &I2GMsgReq{}
+				req := &InspectorMsgReq{}
 
 				rerr := RecvMsg(m.virtIOIn, req)
 				if rerr != nil {
@@ -712,9 +712,9 @@ func waitProcessesNoDirect(exe *execution) {
 				case PROCESS_STATE_CONNECTED:
 					// do initiation here
 
-					result := I2GMsgRsp_ACK
+					result := InspectorMsgRsp_ACK
 					gaMsgId := *req.GaMsgId
-					rsp := &I2GMsgRsp{
+					rsp := &InspectorMsgRsp{
 						Res:     &result,
 						GaMsgId: &gaMsgId,
 					}
@@ -725,10 +725,10 @@ func waitProcessesNoDirect(exe *execution) {
 					process.state = PROCESS_STATE_READY
 					process.endExecution = make(chan bool)
 					process.endCompletion = make(chan interface{})
-					process.reqToMain = make(chan *I2GMsgReq)
+					process.reqToMain = make(chan *InspectorMsgReq)
 					process.gotoNext = make(chan interface{})
-					process.eventReqRecv = make(chan *I2GMsgReq)
-					process.eventRspSend = make(chan *I2GMsgRsp)
+					process.eventReqRecv = make(chan *InspectorMsgReq)
+					process.eventRspSend = make(chan *InspectorMsgRsp)
 					process.exe = exe
 
 					go func() {
@@ -829,7 +829,7 @@ func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
 		req := <-n.reqToMain
 		eventReq := req.Event
 
-		if *eventReq.Type == I2GMsgReq_Event_EXIT {
+		if *eventReq.Type == InspectorMsgReq_Event_EXIT {
 			nrLivingProcesses--
 			Log("process %s is exiting, remaining living pocesses: %d", n.id, nrLivingProcesses)
 			n.endExecution <- false
@@ -948,7 +948,7 @@ func searchMode(flags orchestratorFlags, exe *execution, dir string, policyName 
 func handleProcessNoInitiation(proc *process, readyProcCh chan *process) {
 	go func(p *process) {
 		for {
-			req := &I2GMsgReq{}
+			req := &InspectorMsgReq{}
 
 			rerr := RecvMsg(p.conn, req)
 			if rerr != nil {
@@ -975,7 +975,7 @@ func handleProcessNoInitiation(proc *process, readyProcCh chan *process) {
 				Log("failed to send response (process index: %d): %s", p.idx, serr)
 				return // TODO: error handling
 			}
-			if *rsp.Res == I2GMsgRsp_END {
+			if *rsp.Res == InspectorMsgRsp_END {
 				Log("send routine end (process index :%d)", p.idx)
 				return
 			}
@@ -984,7 +984,7 @@ func handleProcessNoInitiation(proc *process, readyProcCh chan *process) {
 
 	recvCh := make(chan bool)
 
-	req := (*I2GMsgReq)(nil)
+	req := (*InspectorMsgReq)(nil)
 
 	go func() {
 		for {
@@ -997,7 +997,7 @@ func handleProcessNoInitiation(proc *process, readyProcCh chan *process) {
 	for {
 		select {
 		case <-recvCh:
-			if *req.Type != I2GMsgReq_EVENT {
+			if *req.Type != InspectorMsgReq_EVENT {
 				Log("invalid message from process %v, type: %d", proc, *req.Type)
 				os.Exit(1)
 			}
@@ -1009,17 +1009,17 @@ func handleProcessNoInitiation(proc *process, readyProcCh chan *process) {
 
 			Log("event message received from process %v", proc)
 
-			go func(r *I2GMsgReq) {
+			go func(r *InspectorMsgReq) {
 				proc.reqToMain <- r
 			}(req)
 
 			readyProcCh <- proc
-			if *req.Event.Type != I2GMsgReq_Event_EXIT {
+			if *req.Event.Type != InspectorMsgReq_Event_EXIT {
 				<-proc.gotoNext
 
-				result := I2GMsgRsp_ACK
+				result := InspectorMsgRsp_ACK
 				req_msg_id := *req.MsgId
-				rsp := &I2GMsgRsp{
+				rsp := &InspectorMsgRsp{
 					Res:   &result,
 					MsgId: &req_msg_id,
 				}
@@ -1052,9 +1052,9 @@ func acceptNewProcess(readyProcCh chan *process) {
 		proc.id = ""
 		proc.conn = conn
 		proc.gotoNext = make(chan interface{})
-		proc.eventReqRecv = make(chan *I2GMsgReq)
-		proc.eventRspSend = make(chan *I2GMsgRsp)
-		proc.reqToMain = make(chan *I2GMsgReq)
+		proc.eventReqRecv = make(chan *InspectorMsgReq)
+		proc.eventRspSend = make(chan *InspectorMsgRsp)
+		proc.reqToMain = make(chan *InspectorMsgReq)
 
 		go handleProcessNoInitiation(proc, readyProcCh)
 	}
@@ -1078,7 +1078,7 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 			eventReq := req.Event
 			Log("recieved message from %v", readyProc)
 
-			if *eventReq.Type == I2GMsgReq_Event_EXIT {
+			if *eventReq.Type == InspectorMsgReq_Event_EXIT {
 				Log("process %v is exiting", readyProc)
 				continue
 			}

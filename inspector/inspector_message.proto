@@ -17,17 +17,15 @@ package equtils;
 
 option java_package = "net.osrg.earthquake";
 
-// I2G: Inspector to Guestagent
-
-message I2GMsgReq_Event_FuncCall {
+message InspectorMsgReq_Event_FuncCall {
   required string name = 1;
 };
 
-message I2GMsgReq_Event_Exit {
+message InspectorMsgReq_Event_Exit {
   required int32 exitCode = 1;
 };
 
-message I2GMsgReq_Event {
+message InspectorMsgReq_Event {
   enum Type {
     FUNC_CALL = 1;
     EXIT = 2;
@@ -35,29 +33,29 @@ message I2GMsgReq_Event {
 
   required Type type = 1;
 
-  optional I2GMsgReq_Event_FuncCall FuncCall = 2;
-  optional I2GMsgReq_Event_Exit Exit = 3;
+  optional InspectorMsgReq_Event_FuncCall FuncCall = 2;
+  optional InspectorMsgReq_Event_Exit Exit = 3;
 };
 
-message I2GMsgReq_Initiation {
+message InspectorMsgReq_Initiation {
   required string processId = 1;
 };
 
-message I2GMsgReq_JavaSpecificFields_StackTraceElement {
+message InspectorMsgReq_JavaSpecificFields_StackTraceElement {
   required string fileName = 1;
   required string className = 2;
   required string methodName = 3;
   required int32 lineNumber = 4;
 };
 
-message I2GMsgReq_JavaSpecificFields {
+message InspectorMsgReq_JavaSpecificFields {
   required string threadName = 1;
 
   required int32 nrStackTraceElements = 2;
-  repeated I2GMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;
+  repeated InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;
 };
 
-message I2GMsgReq {
+message InspectorMsgReq {
   enum Type {
     EVENT = 1;
     INITIATION = 2;
@@ -73,14 +71,14 @@ message I2GMsgReq {
 
   optional int32 ga_msg_id = 6;	// set by guestagent in a case of non direct mode
 
-  optional I2GMsgReq_Event Event = 7;
-  optional I2GMsgReq_Initiation Initiation = 8;
+  optional InspectorMsgReq_Event Event = 7;
+  optional InspectorMsgReq_Initiation Initiation = 8;
 
   required int32 HasJavaSpecificFields = 9;
-  optional I2GMsgReq_JavaSpecificFields JavaSpecificFields = 10;
+  optional InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;
 };
 
-message I2GMsgRsp {
+message InspectorMsgRsp {
   enum Result {
     ACK = 1;
     ERROR = 2;

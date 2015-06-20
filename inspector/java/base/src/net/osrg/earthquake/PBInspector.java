@@ -52,11 +52,11 @@ public class PBInspector implements Inspector {
 
     private Map<Integer, SynchronousQueue<Object>> waitingMap;
 
-    private int SendReq(I2GMessage.I2GMsgReq req) {
+    private int SendReq(InspectorMessage.InspectorMsgReq req) {
         return SendReq(GAOutstream, req);
     }
 
-    private int SendReq(DataOutputStream outstream, I2GMessage.I2GMsgReq req) {
+    private int SendReq(DataOutputStream outstream, InspectorMessage.InspectorMsgReq req) {
         byte[] serialized = req.toByteArray();
         byte[] lengthBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(serialized.length).array();
 
@@ -70,11 +70,11 @@ public class PBInspector implements Inspector {
         return 0;
     }
 
-    private I2GMessage.I2GMsgRsp RecvRsp() {
+    private InspectorMessage.InspectorMsgRsp RecvRsp() {
         return RecvRsp(GAInstream);
     }
 
-    private I2GMessage.I2GMsgRsp RecvRsp(DataInputStream instream) {
+    private InspectorMessage.InspectorMsgRsp RecvRsp(DataInputStream instream) {
         byte[] lengthBuf = new byte[4];
 
         try {
@@ -94,9 +94,9 @@ public class PBInspector implements Inspector {
             return null;
         }
 
-        I2GMessage.I2GMsgRsp rsp;
+        InspectorMessage.InspectorMsgRsp rsp;
         try {
-            rsp = I2GMessage.I2GMsgRsp.parseFrom(rspBuf);
+            rsp = InspectorMessage.InspectorMsgRsp.parseFrom(rspBuf);
         } catch (InvalidProtocolBufferException e) {
             LOGGER.severe("failed to parse response: " + e);
             return null;
@@ -105,14 +105,14 @@ public class PBInspector implements Inspector {
         return rsp;
     }
 
-    private I2GMessage.I2GMsgRsp ExecReq(I2GMessage.I2GMsgReq req) {
+    private InspectorMessage.InspectorMsgRsp ExecReq(InspectorMessage.InspectorMsgReq req) {
         int ret = SendReq(req);
         if (ret != 0) {
             LOGGER.severe("failed to send request");
             System.exit(1);
         }
 
-        I2GMessage.I2GMsgRsp rsp = RecvRsp();
+        InspectorMessage.InspectorMsgRsp rsp = RecvRsp();
         if (rsp == null) {
             LOGGER.severe("failed to receive response");
             System.exit(1);
@@ -194,12 +194,12 @@ public class PBInspector implements Inspector {
     private class ReaderThread extends Thread {
 
         public void kill() {
-            I2GMessage.I2GMsgReq_Event_Exit.Builder evExitBuilder = I2GMessage.I2GMsgReq_Event_Exit.newBuilder();
-            I2GMessage.I2GMsgReq_Event_Exit evExit = evExitBuilder.setExitCode(0).build(); // TODO: exit code
+            InspectorMessage.InspectorMsgReq_Event_Exit.Builder evExitBuilder = InspectorMessage.InspectorMsgReq_Event_Exit.newBuilder();
+            InspectorMessage.InspectorMsgReq_Event_Exit evExit = evExitBuilder.setExitCode(0).build(); // TODO: exit code
 
-            I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
-            I2GMessage.I2GMsgReq_Event ev = evBuilder
-                    .setType(I2GMessage.I2GMsgReq_Event.Type.EXIT)
+            InspectorMessage.InspectorMsgReq_Event.Builder evBuilder = InspectorMessage.InspectorMsgReq_Event.newBuilder();
+            InspectorMessage.InspectorMsgReq_Event ev = evBuilder
+                    .setType(InspectorMessage.InspectorMsgReq_Event.Type.EXIT)
                     .setExit(evExit).build();
 
             running = false;
@@ -218,7 +218,7 @@ public class PBInspector implements Inspector {
             while (running) {
                 LOGGER.fine("reader thread loop");
 
-                I2GMessage.I2GMsgRsp rsp = RecvRsp();
+                InspectorMessage.InspectorMsgRsp rsp = RecvRsp();
                 if (rsp == null) {
                     // TODO: need to determine orchestrator is broken or kill() is called
                     if (!running) {
@@ -227,13 +227,13 @@ public class PBInspector implements Inspector {
                     }
                 }
 
-                if (rsp.getRes() == I2GMessage.I2GMsgRsp.Result.END) {
+                if (rsp.getRes() == InspectorMessage.InspectorMsgRsp.Result.END) {
                     LOGGER.info("inspection end");
                     Disabled = true;
                     break;
                 }
 
-                if (rsp.getRes() != I2GMessage.I2GMsgRsp.Result.ACK) {
+                if (rsp.getRes() != InspectorMessage.InspectorMsgRsp.Result.ACK) {
                     LOGGER.severe("invalid response: " + rsp.getRes());
                     System.exit(1);
                 }
@@ -277,13 +277,13 @@ public class PBInspector implements Inspector {
             }
         }
 
-        I2GMessage.I2GMsgReq_Initiation.Builder initiationReqBuilder = I2GMessage.I2GMsgReq_Initiation.newBuilder();
-        I2GMessage.I2GMsgReq_Initiation initiationReq = initiationReqBuilder.setProcessId(ProcessID).build();
+        InspectorMessage.InspectorMsgReq_Initiation.Builder initiationReqBuilder = InspectorMessage.InspectorMsgReq_Initiation.newBuilder();
+        InspectorMessage.InspectorMsgReq_Initiation initiationReq = initiationReqBuilder.setProcessId(ProcessID).build();
 
-        I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
-        I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /* FIXME */)
+        InspectorMessage.InspectorMsgReq.Builder reqBuilder = InspectorMessage.InspectorMsgReq.newBuilder();
+        InspectorMessage.InspectorMsgReq req = reqBuilder.setPid(0 /* FIXME */)
                 .setTid((int) Thread.currentThread().getId())
-                .setType(I2GMessage.I2GMsgReq.Type.INITIATION)
+                .setType(InspectorMessage.InspectorMsgReq.Type.INITIATION)
                 .setMsgId(0)
                 .setProcessId(ProcessID)
                 .setInitiation(initiationReq).build();
@@ -295,8 +295,8 @@ public class PBInspector implements Inspector {
         }
 
         LOGGER.info("executing request for initiation");
-        I2GMessage.I2GMsgRsp rsp = ExecReq(req);
-        if (rsp.getRes() != I2GMessage.I2GMsgRsp.Result.ACK) {
+        InspectorMessage.InspectorMsgRsp rsp = ExecReq(req);
+        if (rsp.getRes() != InspectorMessage.InspectorMsgRsp.Result.ACK) {
             LOGGER.severe("initiation failed, result: " + rsp.getRes());
             System.exit(1);
         }
@@ -316,11 +316,11 @@ public class PBInspector implements Inspector {
         return ret;
     }
 
-    private void sendEvent(I2GMessage.I2GMsgReq_Event ev, boolean needRsp, I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement traces[]) {
+    private void sendEvent(InspectorMessage.InspectorMsgReq_Event ev, boolean needRsp, InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement traces[]) {
         int msgID = nextMsgID();
 
-        I2GMessage.I2GMsgReq_JavaSpecificFields.Builder javaSpecificFieldBuilder =
-                I2GMessage.I2GMsgReq_JavaSpecificFields.newBuilder();
+        InspectorMessage.InspectorMsgReq_JavaSpecificFields.Builder javaSpecificFieldBuilder =
+                InspectorMessage.InspectorMsgReq_JavaSpecificFields.newBuilder();
         javaSpecificFieldBuilder.setThreadName(Thread.currentThread().getName());
 
         if (traces == null) {
@@ -332,12 +332,12 @@ public class PBInspector implements Inspector {
             }
         }
 
-        I2GMessage.I2GMsgReq_JavaSpecificFields javaSpecificField = javaSpecificFieldBuilder.build();
+        InspectorMessage.InspectorMsgReq_JavaSpecificFields javaSpecificField = javaSpecificFieldBuilder.build();
 
-        I2GMessage.I2GMsgReq.Builder reqBuilder = I2GMessage.I2GMsgReq.newBuilder();
-        I2GMessage.I2GMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
+        InspectorMessage.InspectorMsgReq.Builder reqBuilder = InspectorMessage.InspectorMsgReq.newBuilder();
+        InspectorMessage.InspectorMsgReq req = reqBuilder.setPid(0 /*FIXME*/)
                 .setTid((int) Thread.currentThread().getId())
-                .setType(I2GMessage.I2GMsgReq.Type.EVENT)
+                .setType(InspectorMessage.InspectorMsgReq.Type.EVENT)
                 .setMsgId(msgID)
                 .setProcessId(ProcessID)
                 .setHasJavaSpecificFields(1)
@@ -402,7 +402,7 @@ public class PBInspector implements Inspector {
             };
 
             SendReq(tlsOutputStream.get(), req);
-            I2GMessage.I2GMsgRsp rsp = RecvRsp(tlsInputStream.get());
+            InspectorMessage.InspectorMsgRsp rsp = RecvRsp(tlsInputStream.get());
             LOGGER.fine("response message: " + rsp.toString());
         } else {
             SendReq(req);
@@ -425,20 +425,20 @@ public class PBInspector implements Inspector {
         }
     }
 
-    private I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement[] makeStackTrace() {
+    private InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[] makeStackTrace() {
         StackTraceElement traces[] = Thread.currentThread().getStackTrace();
-        I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement[] ret = new I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement[traces.length];
+        InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[] ret = new InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[traces.length];
 
         for (int i = 0; i < traces.length; i++) {
             StackTraceElement trace = traces[i];
 
-            I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.Builder traceBuilder = I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement.newBuilder();
+            InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder traceBuilder = InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.newBuilder();
             traceBuilder.setClassName(trace.getClassName())
                     .setFileName(trace.getFileName())
                     .setMethodName(trace.getMethodName())
                     .setLineNumber(trace.getLineNumber());
 
-            I2GMessage.I2GMsgReq_JavaSpecificFields_StackTraceElement newElement = traceBuilder.build();
+            InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement newElement = traceBuilder.build();
 
             ret[i] = newElement;
         }
@@ -458,12 +458,12 @@ public class PBInspector implements Inspector {
         }
 
         LOGGER.finest("EventFuncCall: " + funcName);
-        I2GMessage.I2GMsgReq_Event_FuncCall.Builder evFunBuilder = I2GMessage.I2GMsgReq_Event_FuncCall.newBuilder();
-        I2GMessage.I2GMsgReq_Event_FuncCall evFun = evFunBuilder.setName(funcName).build();
+        InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder evFunBuilder = InspectorMessage.InspectorMsgReq_Event_FuncCall.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event_FuncCall evFun = evFunBuilder.setName(funcName).build();
 
-        I2GMessage.I2GMsgReq_Event.Builder evBuilder = I2GMessage.I2GMsgReq_Event.newBuilder();
-        I2GMessage.I2GMsgReq_Event ev = evBuilder
-                .setType(I2GMessage.I2GMsgReq_Event.Type.FUNC_CALL)
+        InspectorMessage.InspectorMsgReq_Event.Builder evBuilder = InspectorMessage.InspectorMsgReq_Event.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event ev = evBuilder
+                .setType(InspectorMessage.InspectorMsgReq_Event.Type.FUNC_CALL)
                 .setFuncCall(evFun).build();
 
         sendEvent(ev, true, makeStackTrace());
