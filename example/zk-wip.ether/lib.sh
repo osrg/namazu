@@ -3,7 +3,7 @@
 ## CONFIG
 DOCKER_IMAGE_NAME=zk_wip_testbed
 CONFIG_JSON=config.json
-ZK_START_WAIT_SECS=10
+ZK_START_WAIT_SECS=20
 ZK_STOP_WAIT_SECS=10
 
 ## ENVS
@@ -30,7 +30,7 @@ alias EQ_SWITCH="ryu-manager ./zk_switch.py"
 
 alias EQ_ORCHESTRATOR="python -m pyearthquake.cmd.orchestrator_loader $CONFIG_JSON"
 
-alias EQ_INSPECTOR="python ./zk_inspector.py"
+alias EQ_INSPECTOR="python ./dumb_inspector.py"
 
 
 function CLEAN_VETHS(){
