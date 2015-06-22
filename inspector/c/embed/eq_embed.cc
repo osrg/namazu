@@ -36,7 +36,7 @@
 
 #include <syslog.h>
 
-#include "i2g_message.pb.h"
+#include "inspector_message.pb.h"
 #include "utils.h"
 
 #include <vector>
@@ -82,7 +82,7 @@ static pthread_mutex_t waiting_thread_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t waiting_thread_cond = PTHREAD_COND_INITIALIZER;
 static vector<struct waiting_thread_info *> waiting_thread_list;
 
-static int recv_msg(I2GMsgRsp *rsp);
+static int recv_msg(InspectorMsgRsp *rsp);
 
 static bool running = true;
 
@@ -94,16 +94,16 @@ static void *reader_thread(void *arg)
 
   while (true) {
     eqi_info("waiting response from orchestrator...\n");
-    I2GMsgRsp rsp;
+    InspectorMsgRsp rsp;
     ret = recv_msg(&rsp);
     if (ret) {
-      eqi_err("failed to receive I2GMsgRsp: %m\n");
+      eqi_err("failed to receive InspectorMsgRsp: %m\n");
       exit(1);
     }
 
     eqi_info("response code from orchestrator: %d\n", rsp.res());
 
-    if (rsp.res() == I2GMsgRsp_Result_END) {
+    if (rsp.res() == InspectorMsgRsp_Result_END) {
       eqi_info("inspection ends\n");
 
       pthread_mutex_lock(&waiting_thread_mutex);
@@ -116,7 +116,7 @@ static void *reader_thread(void *arg)
       pthread_exit(0);
     }
 
-    if (rsp.res() != I2GMsgRsp_Result_ACK) {
+    if (rsp.res() != InspectorMsgRsp_Result_ACK) {
       eqi_err("invalid response\n");
       exit(1);
     }
@@ -176,20 +176,20 @@ static int next_msg_id(void)
   return id.val;
 }
 
-static int send_msg(I2GMsgReq *req);
+static int send_msg(InspectorMsgReq *req);
 
-static void send_event_to_orchestrator(I2GMsgReq_Event *ev)
+static void send_event_to_orchestrator(InspectorMsgReq_Event *ev)
 {
   pid_t pid, tid;
 
   pid = getpid();
   tid = gettid();
 
-  I2GMsgReq req;
+  InspectorMsgReq req;
 
   string *env_processId = new string(_env_processId);
   req.set_allocated_process_id(env_processId);
-  req.set_type(I2GMsgReq_Type_EVENT);
+  req.set_type(InspectorMsgReq_Type_EVENT);
   req.set_pid(pid);
   req.set_tid(tid);
   req.set_allocated_event(ev);
@@ -225,10 +225,10 @@ void eq_event_func_call(const char *name)
     return;
   }
 
-  I2GMsgReq_Event *ev = new I2GMsgReq_Event;
-  ev->set_type(I2GMsgReq_Event_Type_FUNC_CALL);
+  InspectorMsgReq_Event *ev = new InspectorMsgReq_Event;
+  ev->set_type(InspectorMsgReq_Event_Type_FUNC_CALL);
 
-  I2GMsgReq_Event_FuncCall *ev_funccall = new I2GMsgReq_Event_FuncCall;
+  InspectorMsgReq_Event_FuncCall *ev_funccall = new InspectorMsgReq_Event_FuncCall;
   ev_funccall->set_name(name);
 
   ev->set_allocated_funccall(ev_funccall);
@@ -236,7 +236,7 @@ void eq_event_func_call(const char *name)
   send_event_to_orchestrator(ev);
 }
 
-static int send_msg(I2GMsgReq *req)
+static int send_msg(InspectorMsgReq *req)
 {
   string serialized;
   req->SerializeToString(&serialized); // TODO: how to check error of serialization?
@@ -256,7 +256,7 @@ static int send_msg(I2GMsgReq *req)
   return 0;
 }
 
-static int recv_msg(I2GMsgRsp *rsp)
+static int recv_msg(InspectorMsgRsp *rsp)
 {
   int ret, len = 0;
 
@@ -283,7 +283,7 @@ static int recv_msg(I2GMsgRsp *rsp)
   return 0;
 }
 
-static void exec_req(I2GMsgReq *req, I2GMsgRsp *rsp)
+static void exec_req(InspectorMsgReq *req, InspectorMsgRsp *rsp)
 {
   int ret;
 
@@ -309,23 +309,23 @@ static void initiation(void)
 
   string *env_processId = new string(_env_processId);
 
-  I2GMsgReq_Initiation *initiation = new I2GMsgReq_Initiation;
+  InspectorMsgReq_Initiation *initiation = new InspectorMsgReq_Initiation;
   initiation->set_allocated_processid(env_processId);
 
-  I2GMsgReq req;
+  InspectorMsgReq req;
 
   string *env_processId2 = new string(_env_processId); // FIXME: oops...
   req.set_allocated_process_id(env_processId2);
   req.set_pid(pid);
   req.set_tid(tid);
-  req.set_type(I2GMsgReq_Type_INITIATION);
+  req.set_type(InspectorMsgReq_Type_INITIATION);
   req.set_msg_id(0);
   req.set_allocated_initiation(initiation);
 
-  I2GMsgRsp rsp;
+  InspectorMsgRsp rsp;
   exec_req(&req, &rsp);
 
-  if (rsp.res() != I2GMsgRsp_Result_ACK) {
+  if (rsp.res() != InspectorMsgRsp_Result_ACK) {
     eqi_err("initiation failed\n");
     exit(1);
   }
@@ -385,8 +385,8 @@ __attribute__((destructor)) void exit_earthquake_inspection(void)
 {
   eqi_info("destructor called, process %s is exiting\n", _env_processId);
 
-  I2GMsgReq_Event *ev = new I2GMsgReq_Event;
-  ev->set_type(I2GMsgReq_Event_Type_EXIT);
+  InspectorMsgReq_Event *ev = new InspectorMsgReq_Event;
+  ev->set_type(InspectorMsgReq_Event_Type_EXIT);
   send_event_to_orchestrator(ev);
 }
 

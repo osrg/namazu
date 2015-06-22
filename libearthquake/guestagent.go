@@ -96,13 +96,13 @@ type proc struct {
 	idx  int
 	conn *net.Conn
 
-	reqCh chan *I2GMsgReq
-	rspCh chan *I2GMsgRsp
+	reqCh chan *InspectorMsgReq
+	rspCh chan *InspectorMsgRsp
 }
 
 func doProxy(arrive chan int, p *proc) {
 	for {
-		req := &I2GMsgReq{}
+		req := &InspectorMsgReq{}
 		rerr := RecvMsg(*p.conn, req)
 		if rerr != nil {
 			Log("receiving message from %s failed: %s", p.conn, rerr)
@@ -180,10 +180,10 @@ func launchGuestAgent(flags guestAgentFlags) {
 	}
 	Log("initiation succeed")
 
-	fromOrchestrator := make(chan *I2GMsgRsp)
+	fromOrchestrator := make(chan *InspectorMsgRsp)
 	go func() {
 		for {
-			m := &I2GMsgRsp{}
+			m := &InspectorMsgRsp{}
 			oerr := RecvMsg(virtIO, m)
 			if oerr != nil {
 				Log("receiving response from orchestrator failed: %s", oerr)
@@ -195,7 +195,7 @@ func launchGuestAgent(flags guestAgentFlags) {
 		}
 	}()
 
-	serializeCh := make(chan *I2GMsgReq)
+	serializeCh := make(chan *InspectorMsgReq)
 	go func() { // goroutine for serializing write to virtIO
 		for {
 			req := <-serializeCh
@@ -234,12 +234,12 @@ func launchGuestAgent(flags guestAgentFlags) {
 
 				serializeCh <- req
 			case oRsp := <-fromOrchestrator:
-				if *oRsp.Res == I2GMsgRsp_END {
+				if *oRsp.Res == InspectorMsgRsp_END {
 					Log("end message arrived, finishing guest agent")
 
 					for _, p := range procs {
-						res := I2GMsgRsp_END
-						endrsp := &I2GMsgRsp{
+						res := InspectorMsgRsp_END
+						endrsp := &InspectorMsgRsp{
 							Res: &res,
 						}
 						serr := SendMsg(*p.conn, endrsp)
@@ -279,8 +279,8 @@ func launchGuestAgent(flags guestAgentFlags) {
 		p := &proc{
 			idx:   len(procs),
 			conn:  &conn,
-			reqCh: make(chan *I2GMsgReq),
-			rspCh: make(chan *I2GMsgRsp),
+			reqCh: make(chan *InspectorMsgReq),
+			rspCh: make(chan *InspectorMsgRsp),
 		}
 		procs = append(procs, p)
 
