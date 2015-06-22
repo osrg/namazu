@@ -1,0 +1,19 @@
+RULE quorum packet construction
+CLASS QuorumPacket
+METHOD <init>
+HELPER net.osrg.earthquake.PBEQHelper
+AT ENTRY
+IF $# != 0
+DO
+eventFuncCall("QuorumPacket");
+ENDRULE
+
+RULE invoke initiation, call static constructor of EQHelper
+CLASS QuorumPeerMain
+HELPER net.osrg.earthquake.PBEQHelper
+METHOD main
+AT ENTRY
+IF true
+DO
+System.out.println("BTM: main()");
+ENDRULE
