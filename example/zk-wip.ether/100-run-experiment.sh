@@ -6,16 +6,18 @@ EXP_DIR=/tmp/eq-run-experiment/$(date +"%Y%m%d.%H%M%S")
 mkdir -p ${EXP_DIR}
 IMPORTANT "===== EXPERIMENT BEGIN (${EXP_DIR}) ====="
 
+PREBOOT 1 1 #args: sid, sleep_secs
+PREBOOT 2 1
+PREBOOT 3 1
+
 BOOT 1 0 #args: sid, sleep_secs
 BOOT 2 0
 INFO "Invoking reconfig 2"
 RECONFIG_ADD_SERVER 2 10 5 #args: sid, trials, sleep_secs
-[ $? -eq 0 ]
-BOOT 3 5
+ZKSYNC /
+BOOT 3 0
 INFO "Invoking reconfig 3"
-RECONFIG_ADD_SERVER 3 100 5
-[ $? -eq 0 ]
-SLEEP 10
+RECONFIG_ADD_SERVER 3 5 5 || (IMPORTANT "PERHAPS ZOOKEEPER-2172 WAS REPRODUCED!"; touch ${EXP_DIR}/REPRODUCED)
 
 if [ -z $DISABLE_EQ ]; then
     INFO "Stopping inspection"
@@ -25,11 +27,17 @@ if [ -z $DISABLE_EQ ]; then
     cp -r /tmp/eq/search/history/${last_exp} ${EXP_DIR}
 fi
 
-
-CREATE_ZNODE /foo bar
-
 INFO "Collecting ZooKeeper log files"
 COLLECT_ZOOKEEPER_LOG ${EXP_DIR}
+
+INFO "Trying to create znodes"
+CREATE_ZNODE /foo bar || true
+
+if [ -e ${EXP_DIR}/REPRODUCED ]; then
+    IMPORTANT "PLEASE CHECK WHETHER ZOOKEEPER-2172 WAS REPRODUCED!!"
+    IMPORTANT "DROPPING TO SHELL"
+    bash --login -i
+fi    
 
 INFO "Killing the docker containers"
 KILL_DOCKERS

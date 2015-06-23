@@ -8,7 +8,7 @@
 	"plugin": {
 	    "modules": ["zk_orchestrator", "zk_termination_detector" ],
 	    "orchestrator": "sys.modules[\"zk_orchestrator\"].ZkOrchestrator()",
-	    "explorer": "pyearthquake.orchestrator.explorer.TimeBoundedRandomExplorer(time_slice=100, time_bound=500)",
+	    "explorer": "pyearthquake.orchestrator.explorer.TimeBoundedRandomExplorer(time_slice=100, time_bound=200)",
 	    "processWatcher": "pyearthquake.orchestrator.watcher.BasicProcessWatcher()",
 	    "terminationDetector": "sys.modules[\"zk_termination_detector\"].ZkTerminationDetector()"
 	}

@@ -58,8 +58,7 @@ class DummyInspector(EtherInspectorBase):
         super(DummyInspector, self).__init__(zmq_addr=ZMQ_ADDR)
         self.regist_layer_on_tcp(DummyPacket, 2888)
         self.regist_layer_on_tcp(DummyPacket, 3888)
-        self.regist_layer_on_tcp(DummyPacket, 2181)                
-
+        self.regist_layer_on_tcp(DummyPacket, 2181)        
     
     def map_packet_to_event(self, pkt):
         """

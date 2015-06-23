@@ -50,13 +50,6 @@ def main(zkid, zkensemble, overwrite):
         with open('/zk_data/myid', 'w') as f:
             f.write(str(zkid) + '\n')
 
-    ip_ready = False
-    while not ip_ready:
-        ip = zkid2ip(zkid)
-        print('Waiting for configuration of %s', ip)
-        rc = subprocess.call(['ping', ip, '-c1','-w10','-q'])
-        ip_ready = rc == 0
-
     rc = subprocess.call(['bin/zkServer.sh', 'start-foreground'])
     raise RuntimeError('zkServer.sh exited with status %d' % rc)
 

@@ -30,21 +30,31 @@ alias EQ_ORCHESTRATOR="python -m pyearthquake.cmd.orchestrator_loader $CONFIG_JS
 
 alias EQ_INSPECTOR="python ./dumb_inspector.py"
 
+function PREBOOT(){
+    sid=$1
+    wait_secs=$2
+    INFO "=== Pre-Boot ${sid} ==="
+    INFO "Pre-Boot ${sid}: Starting Docker"
+    START_DOCKER ${sid}
+    INFO "Pre-Boot ${sid}: Setting pipework"    
+    SET_PIPEWORK ${sid}
+    SLEEP ${wait_secs}
+    INFO "Pre-Boot ${sid}: Pinging"        
+    ping -c 3 192.168.42.${sid} || (return $(false))
+}
+
 function BOOT(){
     sid=$1
     wait_secs=$2
     INFO "=== Boot ${sid} ==="
-    INFO "Boot ${sid}: Starting Docker"
-    START_DOCKER ${sid}
-    INFO "Boot ${sid}: Setting pipework"    
-    SET_PIPEWORK ${sid}
     INFO "Boot ${sid}: Starting ZooKeeper"        
     START_ZOOKEEPER ${sid}
     SLEEP ${wait_secs}
 }
 
+
 function SLEEP(){
-    echo -n $(INFO "Sleeping(${1})..")
+    echo -n $(INFO "Sleeping(${1} secs)..")
     sleep ${1}
     echo "Done"
 }    
@@ -84,6 +94,9 @@ function KILL_DOCKERS(){
 
 ZKCLI=zk_testbed/zookeeper/bin/zkCli.sh 
 ZKCLI_ARG="-server 192.168.42.1"
+function ZKSYNC(){
+    $ZKCLI $ZKCLI_ARG sync $1
+}
 function RECONFIG_ADD_SERVER(){
     sid=$1
     trials=$2
@@ -94,13 +107,13 @@ function RECONFIG_ADD_SERVER(){
 	$ZKCLI $ZKCLI_ARG reconfig -add server.${sid}=192.168.42.${sid}:2888:3888:participant\;2181 2>&1 | tee ${tmp}
 	errors=$(grep KeeperErrorCode ${tmp} | wc -l)
 	if [ $errors -eq 0 ]; then
-	    INFO "Reconfig success (sid=${sid})"; rm -f ${tmp}; return 0
+	    INFO "Reconfig success (sid=${sid})"; rm -f ${tmp}; return $(true)
 	fi
 	INFO "Reconfig fail (sid=${sid}, trial=${f} of ${trials})"	
 	rm -f $tmp
 	SLEEP ${sleep_secs}
     done
-    return 1
+    return $(false)
 }
 
 function CREATE_ZNODE(){
