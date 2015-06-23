@@ -3,8 +3,6 @@
 ## CONFIG
 DOCKER_IMAGE_NAME=zk_wip_testbed
 CONFIG_JSON=config.json
-ZK_START_WAIT_SECS=20
-ZK_STOP_WAIT_SECS=10
 
 ## ENVS
 EQDIR=$(pwd)/../..
@@ -32,24 +30,38 @@ alias EQ_ORCHESTRATOR="python -m pyearthquake.cmd.orchestrator_loader $CONFIG_JS
 
 alias EQ_INSPECTOR="python ./dumb_inspector.py"
 
-
-function CLEAN_VETHS(){
-    garbages=$(ip a | egrep -o 'veth.*:' | sed -e s/://g)
-    for f in $garbages; do sudo ip link delete $f; done
+function BOOT(){
+    sid=$1
+    wait_secs=$2
+    INFO "=== Boot ${sid} ==="
+    INFO "Boot ${sid}: Starting Docker"
+    START_DOCKER ${sid}
+    INFO "Boot ${sid}: Setting pipework"    
+    SET_PIPEWORK ${sid}
+    INFO "Boot ${sid}: Starting ZooKeeper"        
+    START_ZOOKEEPER ${sid}
+    SLEEP ${wait_secs}
 }
 
+function SLEEP(){
+    echo -n $(INFO "Sleeping(${1})..")
+    sleep ${1}
+    echo "Done"
+}    
+
 function START_DOCKER(){
-    for f in $(seq 1 3); do
-        docker run -i -t -d -e ZKID=${f} -e ZKENSEMBLE=1 -h zk${f} --name zk${f} $DOCKER_IMAGE_NAME /bin/bash;
-    done
+    sid=$1
+    docker run -i -t -d -e ZKID=${sid} -e ZKENSEMBLE=1 -h zk${sid} --name zk${sid} $DOCKER_IMAGE_NAME /bin/bash
 }
 
 function SET_PIPEWORK(){
-    for f in $(seq 1 3); do sudo pipework ovsbr0 zk${f} 192.168.42.${f}/24; done
+    sid=$1
+    sudo pipework ovsbr0 zk${sid} 192.168.42.${sid}/24
 }
 
 function START_ZOOKEEPER(){
-    for f in $(seq 1 3); do docker exec -d zk${f} /bin/bash -c '/init.py > /log 2>&1'; done
+    sid=$1
+    docker exec -d zk${sid} /bin/bash -c '/init.py > /log 2>&1'
 }
 
 function STOP_EQ_INSPECTION(){
@@ -62,22 +74,35 @@ function CHECK_BUG_REPRODUCED(){
 }    
 
 function COLLECT_ZOOKEEPER_LOG(){
-    mkdir -p /tmp/eq-zklog
-    ZOOKEEPER_LOG_DIR=$(mktemp -d /tmp/eq-zklog/XXXXX)
-    for f in zk1 zk2 zk3; do docker cp $f:/log $ZOOKEEPER_LOG_DIR/$f; done
+    d=$1
+    for f in zk1 zk2 zk3; do docker cp $f:/log $d/$f; done
 }
 
-function KILL_DOCKER(){
+function KILL_DOCKERS(){
     docker rm -f zk1 zk2 zk3
 }
 
 ZKCLI=zk_testbed/zookeeper/bin/zkCli.sh 
 ZKCLI_ARG="-server 192.168.42.1"
-function DO_RECONFIG_ADD(){
-    f=$1
-    $ZKCLI $ZKCLI_ARG reconfig -add server.${f}=192.168.42.${f}:2888:3888:participant\;2181
+function RECONFIG_ADD_SERVER(){
+    sid=$1
+    trials=$2
+    sleep_secs=$3
+    for f in $(seq 1 ${trials}); do
+	INFO "Reconfig (sid=${sid}, trial=${f} of ${trials})"
+	tmp=$(mktemp)
+	$ZKCLI $ZKCLI_ARG reconfig -add server.${sid}=192.168.42.${sid}:2888:3888:participant\;2181 2>&1 | tee ${tmp}
+	errors=$(grep KeeperErrorCode ${tmp} | wc -l)
+	if [ $errors -eq 0 ]; then
+	    INFO "Reconfig success (sid=${sid})"; rm -f ${tmp}; return 0
+	fi
+	INFO "Reconfig fail (sid=${sid}, trial=${f} of ${trials})"	
+	rm -f $tmp
+	SLEEP ${sleep_secs}
+    done
+    return 1
 }
 
-function DO_CREATE_ZNODE(){
+function CREATE_ZNODE(){
     $ZKCLI $ZKCLI_ARG create $1 $2
 }
