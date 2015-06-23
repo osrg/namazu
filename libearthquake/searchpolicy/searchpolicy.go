@@ -20,6 +20,7 @@ import (
 
 	. "../equtils"
 	"./dumb"
+	"./random"
 )
 
 type SearchPolicy interface {
@@ -34,6 +35,8 @@ func CreatePolicy(name string) SearchPolicy {
 	switch name {
 	case "dumb":
 		return dumb.New()
+	case "random":
+		return random.New()
 	default:
 		fmt.Printf("unknown search policy: %s\n", name)
 	}

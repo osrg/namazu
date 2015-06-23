@@ -76,7 +76,7 @@ func run(args []string) {
 	}
 
 	end := make(chan interface{})
-	go searchModeNoInitiation(info, nextDir, "dumb", end)
+	go searchModeNoInitiation(info, nextDir, "random", end)
 
 	materialsDir := storage + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript
