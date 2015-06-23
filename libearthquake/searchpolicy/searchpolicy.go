@@ -18,15 +18,19 @@ package searchpolicy
 import (
 	"fmt"
 
+	. "../equtils"
 	"./dumb"
 )
 
 type SearchPolicy interface {
 	Init()
 	Name() string
+
+	GetNextEventChan() chan *Event
+	QueueNextEvent(ev *Event)
 }
 
-func New(name string) SearchPolicy {
+func CreatePolicy(name string) SearchPolicy {
 	switch name {
 	case "dumb":
 		return dumb.New()

@@ -31,7 +31,7 @@ import (
 	"os"
 	"sync/atomic"
 
-	"./searchpolicy"
+	. "./searchpolicy"
 
 	"./historystorage"
 )
@@ -925,7 +925,7 @@ func readSearchModeDir(dir string) *SearchModeInfo {
 func searchMode(flags orchestratorFlags, exe *execution, dir string, policyName string) {
 	info := readSearchModeDir(dir)
 
-	policy := searchpolicy.New(policyName)
+	policy := CreatePolicy(policyName)
 	if policy == nil {
 		Log("invalid policy name: %s", policyName)
 		os.Exit(1)
@@ -1060,7 +1060,7 @@ func acceptNewProcess(readyProcCh chan *process) {
 	}
 }
 
-func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh chan interface{}) {
+func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh chan interface{}, policy SearchPolicy) {
 	readyProcCh := make(chan *process)
 
 	go func() {
@@ -1068,6 +1068,9 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 	}()
 
 	eventSeq := make([]Event, 0)
+
+	nextEventChan := policy.GetNextEventChan()
+	ev2Proc := make(map[*Event]*process)
 
 	running := true
 	for running {
@@ -1084,7 +1087,7 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 			}
 
 			// TODO: search policy interface
-			e := Event{
+			e := &Event{
 				ProcId: readyProc.id,
 
 				EventType:  "FuncCall",
@@ -1111,9 +1114,14 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 				e.JavaSpecific = &ejs
 			}
 
-			eventSeq = append(eventSeq, e)
+			ev2Proc[e] = readyProc
+			policy.QueueNextEvent(e)
 
-			Log("process %v: %v", readyProc, eventReq)
+		case nextEvent:= <- nextEventChan:
+			readyProc := ev2Proc[nextEvent]
+			delete(ev2Proc, nextEvent)
+
+			eventSeq = append(eventSeq, *nextEvent)
 			readyProc.gotoNext <- true
 
 		case <-endCh:
@@ -1131,7 +1139,7 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 }
 
 func searchModeNoInitiation(info *SearchModeInfo, workingDir string, policyName string, endCh chan interface{}) {
-	policy := searchpolicy.New(policyName)
+	policy := CreatePolicy(policyName)
 	if policy == nil {
 		Log("invalid policy name: %s", policyName)
 		os.Exit(1)
@@ -1140,7 +1148,7 @@ func searchModeNoInitiation(info *SearchModeInfo, workingDir string, policyName 
 	policy.Init()
 	Log("start execution loop body")
 
-	singleSearchNoInitiation(workingDir, info, endCh)
+	singleSearchNoInitiation(workingDir, info, endCh, policy)
 	Log("end execution loop body")
 
 }

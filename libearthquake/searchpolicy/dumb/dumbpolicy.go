@@ -15,7 +15,12 @@
 
 package dumb
 
+import (
+	. "../../equtils"
+)
+
 type Dumb struct {
+	nextEventChan chan *Event
 }
 
 func (d *Dumb) Init() {
@@ -25,6 +30,20 @@ func (d *Dumb) Name() string {
 	return "dumb"
 }
 
+func (d *Dumb) GetNextEventChan() chan *Event {
+	return d.nextEventChan
+}
+
+func (d *Dumb) QueueNextEvent(ev *Event) {
+	go func(e *Event) {
+		d.nextEventChan <- ev
+	}(ev)
+}
+
 func New() *Dumb {
-	return &Dumb{}
+	nextEventChan := make(chan *Event)
+
+	return &Dumb{
+		nextEventChan,
+	}
 }
