@@ -1,0 +1,19 @@
+RULE BOS_write()
+CLASS BufferedOutputStream
+METHOD write(byte[], int, int)
+HELPER net.osrg.earthquake.JSONEQHelper
+AT ENTRY
+IF true
+DO System.out.println("BTM: ******************** Hello BOS#write() ********************");
+ENDRULE
+
+
+RULE invoke initiation, call static constructor of net.osrg.earthquake.JSONEQHelper
+CLASS QuorumPeerMain
+METHOD main
+HELPER net.osrg.earthquake.JSONEQHelper
+AT ENTRY
+IF true
+DO
+System.out.println("BTM: main()");
+ENDRULE
