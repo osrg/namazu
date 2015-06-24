@@ -14,6 +14,7 @@ It has these top-level messages:
 	InspectorMsgReq_Event
 	InspectorMsgReq_Initiation
 	InspectorMsgReq_JavaSpecificFields_StackTraceElement
+	InspectorMsgReq_JavaSpecificFields_Params
 	InspectorMsgReq_JavaSpecificFields
 	InspectorMsgReq
 	InspectorMsgRsp
@@ -253,10 +254,38 @@ func (m *InspectorMsgReq_JavaSpecificFields_StackTraceElement) GetLineNumber() i
 	return 0
 }
 
+type InspectorMsgReq_JavaSpecificFields_Params struct {
+	Name             *string `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
+	Value            *string `protobuf:"bytes,2,req,name=value" json:"value,omitempty"`
+	XXX_unrecognized []byte  `json:"-"`
+}
+
+func (m *InspectorMsgReq_JavaSpecificFields_Params) Reset() {
+	*m = InspectorMsgReq_JavaSpecificFields_Params{}
+}
+func (m *InspectorMsgReq_JavaSpecificFields_Params) String() string { return proto.CompactTextString(m) }
+func (*InspectorMsgReq_JavaSpecificFields_Params) ProtoMessage()    {}
+
+func (m *InspectorMsgReq_JavaSpecificFields_Params) GetName() string {
+	if m != nil && m.Name != nil {
+		return *m.Name
+	}
+	return ""
+}
+
+func (m *InspectorMsgReq_JavaSpecificFields_Params) GetValue() string {
+	if m != nil && m.Value != nil {
+		return *m.Value
+	}
+	return ""
+}
+
 type InspectorMsgReq_JavaSpecificFields struct {
 	ThreadName           *string                                                 `protobuf:"bytes,1,req,name=threadName" json:"threadName,omitempty"`
 	NrStackTraceElements *int32                                                  `protobuf:"varint,2,req,name=nrStackTraceElements" json:"nrStackTraceElements,omitempty"`
 	StackTraceElements   []*InspectorMsgReq_JavaSpecificFields_StackTraceElement `protobuf:"bytes,3,rep,name=stackTraceElements" json:"stackTraceElements,omitempty"`
+	NrParams             *int32                                                  `protobuf:"varint,4,req,name=nrParams" json:"nrParams,omitempty"`
+	Params               []*InspectorMsgReq_JavaSpecificFields_Params            `protobuf:"bytes,5,rep,name=params" json:"params,omitempty"`
 	XXX_unrecognized     []byte                                                  `json:"-"`
 }
 
@@ -281,6 +310,20 @@ func (m *InspectorMsgReq_JavaSpecificFields) GetNrStackTraceElements() int32 {
 func (m *InspectorMsgReq_JavaSpecificFields) GetStackTraceElements() []*InspectorMsgReq_JavaSpecificFields_StackTraceElement {
 	if m != nil {
 		return m.StackTraceElements
+	}
+	return nil
+}
+
+func (m *InspectorMsgReq_JavaSpecificFields) GetNrParams() int32 {
+	if m != nil && m.NrParams != nil {
+		return *m.NrParams
+	}
+	return 0
+}
+
+func (m *InspectorMsgReq_JavaSpecificFields) GetParams() []*InspectorMsgReq_JavaSpecificFields_Params {
+	if m != nil {
+		return m.Params
 	}
 	return nil
 }
