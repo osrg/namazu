@@ -1111,6 +1111,17 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 				}
 				ejs.NrStackTraceElements = int(*req.JavaSpecificFields.NrStackTraceElements)
 
+				for _, param := range req.JavaSpecificFields.Params {
+					param := Event_JavaSpecific_Param {
+						Name: *param.Name,
+						Value: *param.Value,
+					}
+
+					ejs.Params = append(ejs.Params, param)
+				}
+
+				ejs.NrParams = int(*req.JavaSpecificFields.NrParams)
+
 				e.JavaSpecific = &ejs
 			}
 
