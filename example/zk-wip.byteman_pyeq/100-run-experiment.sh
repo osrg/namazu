@@ -8,12 +8,17 @@ IMPORTANT "===== EXPERIMENT BEGIN (${EXP_DIR}) ====="
 
 
 BOOT 1
+CREATE_ZNODE /hoge1 fuga
+CREATE_ZNODE /hoge2 fuga
+CREATE_ZNODE /hoge3 fuga
+
 BOOT 2
 INFO "Invoking reconfig 2"
 RECONFIG_ADD_SERVER 2 10 5 #args: sid, trials, sleep_secs
-ZKSYNC /
-BOOT 3
+
+
 INFO "Invoking reconfig 3"
+BOOT 3
 RECONFIG_ADD_SERVER 3 5 5 || (IMPORTANT "PERHAPS ZOOKEEPER-2172 WAS REPRODUCED!"; touch ${EXP_DIR}/REPRODUCED)
 
 if [ -z $DISABLE_EQ ]; then

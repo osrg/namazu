@@ -78,7 +78,7 @@ function COLLECT_ZOOKEEPER_LOG(){
 
 
 ZKCLI=zookeeper/bin/zkCli.sh 
-ZKCLI_ARG="-server 127.0.0.1"
+ZKCLI_ARG="-server localhost:2181"
 function ZKSYNC(){
     $ZKCLI $ZKCLI_ARG sync $1
 }
@@ -89,7 +89,9 @@ function RECONFIG_ADD_SERVER(){
     for f in $(seq 1 ${trials}); do
 	INFO "Reconfig (sid=${sid}, trial=${f} of ${trials})"
 	tmp=$(mktemp)
-	$ZKCLI $ZKCLI_ARG reconfig -add server.${sid}=127.0.0.1:$((2887+sid)):$((3887+sid)):participant\;$((2180+sid)) 2>&1 | tee ${tmp}
+	cmd="$ZKCLI $ZKCLI_ARG reconfig -add server.${sid}=localhost:$((2887+sid)):$((3887+sid)):participant;$((2180+sid))"
+	INFO "Reconfig Invoking: ${cmd}"
+	${cmd} 2>&1 | tee ${tmp}
 	errors=$(grep KeeperErrorCode ${tmp} | wc -l)
 	if [ $errors -eq 0 ]; then
 	    INFO "Reconfig success (sid=${sid})"; rm -f ${tmp}; return $(true)

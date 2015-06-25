@@ -1,19 +1,56 @@
-RULE BOS_write()
-CLASS BufferedOutputStream
-METHOD write(byte[], int, int)
-HELPER net.osrg.earthquake.JSONEQHelper
+RULE SyncRequestProcessor flush entry
+CLASS SyncRequestProcessor
+METHOD flush
+BIND argMap = new java.util.HashMap()
 AT ENTRY
-IF true
-DO System.out.println("BTM: ******************** Hello BOS#write() ********************");
-ENDRULE
-
-
-RULE invoke initiation, call static constructor of net.osrg.earthquake.JSONEQHelper
-CLASS QuorumPeerMain
-METHOD main
-HELPER net.osrg.earthquake.JSONEQHelper
-AT ENTRY
-IF true
+IF TRUE
 DO
-System.out.println("BTM: main()");
+traceln("BTM: SyncRequestProcessor flush entry");
+Thread.sleep(100);
 ENDRULE
+
+RULE SyncRequestProcessor flush return
+CLASS SyncRequestProcessor
+METHOD flush
+BIND argMap = new java.util.HashMap()
+AT RETURN
+IF TRUE
+DO
+traceln("BTM: SyncRequestProcessor flush return");
+Thread.sleep(100);
+ENDRULE
+
+
+
+# RULE FileTxnLog commit entry
+# CLASS FileTxnLog
+# METHOD commit
+# BIND argMap = new java.util.HashMap()
+# AT ENTRY
+# IF TRUE
+# DO
+# traceln("BTM: FileTxnLog commit entry");
+# Thread.sleep(100);
+# ENDRULE
+
+# RULE FileTxnLog commit return
+# CLASS FileTxnLog
+# METHOD commit
+# BIND argMap = new java.util.HashMap()
+# AT RETURN
+# IF TRUE
+# DO
+# traceln("BTM: FileTxnLog commit return");
+# Thread.sleep(100);
+# ENDRULE
+
+
+# RULE invoke initiation, call static constructor of net.osrg.earthquake.JSONEQHelper
+# CLASS QuorumPeerMain
+# METHOD main
+# HELPER net.osrg.earthquake.JSONEQHelper
+# AT ENTRY
+# IF true
+# DO
+# System.out.println("BTM: main()");
+# ENDRULE
