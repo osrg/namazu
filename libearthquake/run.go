@@ -28,7 +28,8 @@ import (
 )
 
 type runConfig struct {
-	runScript string
+	runScript    string
+	searchPolicy string
 }
 
 func parseRunConfig(jsonPath string) (*runConfig, error) {
@@ -43,10 +44,23 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 		return nil, err
 	}
 
-	runScript := root["run"].(string)
+	runScript := ""
+	if _, ok := root["run"]; ok {
+		runScript = root["run"].(string)
+	} else {
+		fmt.Printf("required field \"run\" is missing\n")
+		os.Exit(1)	// TODO: construct suitable error
+		return nil, nil
+	}
+
+	searchPolicy := "dumb"
+	if _, ok := root["searchPolicy"]; ok {
+		searchPolicy = root["searchPolicy"].(string)
+	}
 
 	return &runConfig{
 		runScript: runScript,
+		searchPolicy: searchPolicy,
 	}, nil
 }
 
@@ -76,7 +90,7 @@ func run(args []string) {
 	}
 
 	end := make(chan interface{})
-	go searchModeNoInitiation(info, nextDir, "random", end)
+	go searchModeNoInitiation(info, nextDir, conf.searchPolicy, end)
 
 	materialsDir := storage + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript

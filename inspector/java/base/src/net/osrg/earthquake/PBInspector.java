@@ -203,7 +203,7 @@ public class PBInspector implements Inspector {
                     .setExit(evExit).build();
 
             running = false;
-            sendEvent(ev, false, null);
+            sendEvent(ev, false, null, null);
 
             try {
                 GAInstream.close();
@@ -316,7 +316,9 @@ public class PBInspector implements Inspector {
         return ret;
     }
 
-    private void sendEvent(InspectorMessage.InspectorMsgReq_Event ev, boolean needRsp, InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement traces[]) {
+    private void sendEvent(InspectorMessage.InspectorMsgReq_Event ev, boolean needRsp,
+                           InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement traces[],
+                           InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[] params)  {
         int msgID = nextMsgID();
 
         InspectorMessage.InspectorMsgReq_JavaSpecificFields.Builder javaSpecificFieldBuilder =
@@ -329,6 +331,15 @@ public class PBInspector implements Inspector {
             javaSpecificFieldBuilder.setNrStackTraceElements(traces.length);
             for (int i = 0; i < traces.length; i++) {
                 javaSpecificFieldBuilder.addStackTraceElements(traces[i]);
+            }
+        }
+
+        if (params == null) {
+            javaSpecificFieldBuilder.setNrParams(0);
+        } else {
+            javaSpecificFieldBuilder.setNrParams(params.length);
+            for (int i = 0; i < params.length; i++) {
+                javaSpecificFieldBuilder.addParams(params[i]);
             }
         }
 
@@ -358,6 +369,7 @@ public class PBInspector implements Inspector {
 
                     try {
                         sock = new Socket("localhost", GATCPPort);
+                        sock.setSoTimeout(0);
                     } catch (IOException e) {
                         LOGGER.severe("failed to connect to guest agent: " + e);
                         System.exit(1);
@@ -466,11 +478,44 @@ public class PBInspector implements Inspector {
                 .setType(InspectorMessage.InspectorMsgReq_Event.Type.FUNC_CALL)
                 .setFuncCall(evFun).build();
 
-        sendEvent(ev, true, makeStackTrace());
+        sendEvent(ev, true, makeStackTrace(), null);
     }
 
-    public void EventFuncCall(String funcName, Map<String, Object> argMap) {
-        // TODO: not implemented yet
+    private InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[] makeParamsArray(Map<String, Object> paramMap) {
+        InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[] ret;
+        ret = new InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[paramMap.size()];
+
+        int i = 0;
+        for (Map.Entry<String, Object> e: paramMap.entrySet()) {
+            InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder paramBuilder = InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.newBuilder();
+
+            ret[i++] = paramBuilder.setName(e.getKey()).setValue(e.getValue().toString()).build();
+        }
+
+        return ret;
+    }
+    public void EventFuncCall(String funcName, Map<String, Object> paramMap) {
+         if (Disabled) {
+            LOGGER.fine("already disabled");
+            return;
+        }
+
+        if (!running) {
+            LOGGER.fine("killed");
+            return;
+        }
+
+        LOGGER.finest("EventFuncCall: " + funcName);
+        LOGGER.info("paramMap: " + paramMap.toString());
+        InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder evFunBuilder = InspectorMessage.InspectorMsgReq_Event_FuncCall.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event_FuncCall evFun = evFunBuilder.setName(funcName).build();
+
+        InspectorMessage.InspectorMsgReq_Event.Builder evBuilder = InspectorMessage.InspectorMsgReq_Event.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event ev = evBuilder
+                .setType(InspectorMessage.InspectorMsgReq_Event.Type.FUNC_CALL)
+                .setFuncCall(evFun).build();
+
+        sendEvent(ev, true, makeStackTrace(), makeParamsArray(paramMap));
     }
 
     public void StopInspection() {

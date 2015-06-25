@@ -3179,6 +3179,655 @@ public final class InspectorMessage {
     // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
   }
 
+  public interface InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string name = 1;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>required string value = 2;</code>
+     */
+    boolean hasValue();
+    /**
+     * <code>required string value = 2;</code>
+     */
+    java.lang.String getValue();
+    /**
+     * <code>required string value = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getValueBytes();
+  }
+  /**
+   * Protobuf type {@code equtils.InspectorMsgReq_JavaSpecificFields_Params}
+   */
+  public static final class InspectorMsgReq_JavaSpecificFields_Params extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+      InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder {
+    // Use InspectorMsgReq_JavaSpecificFields_Params.newBuilder() to construct.
+    private InspectorMsgReq_JavaSpecificFields_Params(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private InspectorMsgReq_JavaSpecificFields_Params(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final InspectorMsgReq_JavaSpecificFields_Params defaultInstance;
+    public static InspectorMsgReq_JavaSpecificFields_Params getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public InspectorMsgReq_JavaSpecificFields_Params getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private InspectorMsgReq_JavaSpecificFields_Params(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              name_ = bs;
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              value_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<InspectorMsgReq_JavaSpecificFields_Params> PARSER =
+        new com.google.protobuf.AbstractParser<InspectorMsgReq_JavaSpecificFields_Params>() {
+      public InspectorMsgReq_JavaSpecificFields_Params parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new InspectorMsgReq_JavaSpecificFields_Params(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InspectorMsgReq_JavaSpecificFields_Params> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int VALUE_FIELD_NUMBER = 2;
+    private java.lang.Object value_;
+    /**
+     * <code>required string value = 2;</code>
+     */
+    public boolean hasValue() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string value = 2;</code>
+     */
+    public java.lang.String getValue() {
+      java.lang.Object ref = value_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          value_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string value = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getValueBytes() {
+      java.lang.Object ref = value_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        value_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      name_ = "";
+      value_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasValue()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getValueBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getValueBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code equtils.InspectorMsgReq_JavaSpecificFields_Params}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+        net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder.class);
+      }
+
+      // Construct using net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        value_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
+      }
+
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params getDefaultInstanceForType() {
+        return net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.getDefaultInstance();
+      }
+
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params build() {
+        net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params buildPartial() {
+        net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params result = new net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.value_ = value_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params) {
+          return mergeFrom((net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params other) {
+        if (other == net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          bitField0_ |= 0x00000001;
+          name_ = other.name_;
+          onChanged();
+        }
+        if (other.hasValue()) {
+          bitField0_ |= 0x00000002;
+          value_ = other.value_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        if (!hasValue()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object value_ = "";
+      /**
+       * <code>required string value = 2;</code>
+       */
+      public boolean hasValue() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string value = 2;</code>
+       */
+      public java.lang.String getValue() {
+        java.lang.Object ref = value_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            value_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string value = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getValueBytes() {
+        java.lang.Object ref = value_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          value_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string value = 2;</code>
+       */
+      public Builder setValue(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        value_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string value = 2;</code>
+       */
+      public Builder clearValue() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        value_ = getDefaultInstance().getValue();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string value = 2;</code>
+       */
+      public Builder setValueBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        value_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+    }
+
+    static {
+      defaultInstance = new InspectorMsgReq_JavaSpecificFields_Params(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+  }
+
   public interface InspectorMsgReq_JavaSpecificFieldsOrBuilder extends
       // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_JavaSpecificFields)
       com.google.protobuf.MessageOrBuilder {
@@ -3228,6 +3877,39 @@ public final class InspectorMessage {
      * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder getStackTraceElementsOrBuilder(
+        int index);
+
+    /**
+     * <code>required int32 nrParams = 4;</code>
+     */
+    boolean hasNrParams();
+    /**
+     * <code>required int32 nrParams = 4;</code>
+     */
+    int getNrParams();
+
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> 
+        getParamsList();
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params getParams(int index);
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    int getParamsCount();
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> 
+        getParamsOrBuilderList();
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder getParamsOrBuilder(
         int index);
   }
   /**
@@ -3301,6 +3983,19 @@ public final class InspectorMessage {
               stackTraceElements_.add(input.readMessage(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.PARSER, extensionRegistry));
               break;
             }
+            case 32: {
+              bitField0_ |= 0x00000004;
+              nrParams_ = input.readInt32();
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                params_ = new java.util.ArrayList<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params>();
+                mutable_bitField0_ |= 0x00000010;
+              }
+              params_.add(input.readMessage(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.PARSER, extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -3311,6 +4006,9 @@ public final class InspectorMessage {
       } finally {
         if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
           stackTraceElements_ = java.util.Collections.unmodifiableList(stackTraceElements_);
+        }
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+          params_ = java.util.Collections.unmodifiableList(params_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -3436,10 +4134,62 @@ public final class InspectorMessage {
       return stackTraceElements_.get(index);
     }
 
+    public static final int NRPARAMS_FIELD_NUMBER = 4;
+    private int nrParams_;
+    /**
+     * <code>required int32 nrParams = 4;</code>
+     */
+    public boolean hasNrParams() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required int32 nrParams = 4;</code>
+     */
+    public int getNrParams() {
+      return nrParams_;
+    }
+
+    public static final int PARAMS_FIELD_NUMBER = 5;
+    private java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> params_;
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> getParamsList() {
+      return params_;
+    }
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    public java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> 
+        getParamsOrBuilderList() {
+      return params_;
+    }
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    public int getParamsCount() {
+      return params_.size();
+    }
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params getParams(int index) {
+      return params_.get(index);
+    }
+    /**
+     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     */
+    public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder getParamsOrBuilder(
+        int index) {
+      return params_.get(index);
+    }
+
     private void initFields() {
       threadName_ = "";
       nrStackTraceElements_ = 0;
       stackTraceElements_ = java.util.Collections.emptyList();
+      nrParams_ = 0;
+      params_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3455,8 +4205,18 @@ public final class InspectorMessage {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasNrParams()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       for (int i = 0; i < getStackTraceElementsCount(); i++) {
         if (!getStackTraceElements(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      for (int i = 0; i < getParamsCount(); i++) {
+        if (!getParams(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -3476,6 +4236,12 @@ public final class InspectorMessage {
       }
       for (int i = 0; i < stackTraceElements_.size(); i++) {
         output.writeMessage(3, stackTraceElements_.get(i));
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(4, nrParams_);
+      }
+      for (int i = 0; i < params_.size(); i++) {
+        output.writeMessage(5, params_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -3497,6 +4263,14 @@ public final class InspectorMessage {
       for (int i = 0; i < stackTraceElements_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, stackTraceElements_.get(i));
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, nrParams_);
+      }
+      for (int i = 0; i < params_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, params_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3608,6 +4382,7 @@ public final class InspectorMessage {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getStackTraceElementsFieldBuilder();
+          getParamsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -3625,6 +4400,14 @@ public final class InspectorMessage {
           bitField0_ = (bitField0_ & ~0x00000004);
         } else {
           stackTraceElementsBuilder_.clear();
+        }
+        nrParams_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        if (paramsBuilder_ == null) {
+          params_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+        } else {
+          paramsBuilder_.clear();
         }
         return this;
       }
@@ -3670,6 +4453,19 @@ public final class InspectorMessage {
           result.stackTraceElements_ = stackTraceElements_;
         } else {
           result.stackTraceElements_ = stackTraceElementsBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.nrParams_ = nrParams_;
+        if (paramsBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            params_ = java.util.Collections.unmodifiableList(params_);
+            bitField0_ = (bitField0_ & ~0x00000010);
+          }
+          result.params_ = params_;
+        } else {
+          result.params_ = paramsBuilder_.build();
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -3721,6 +4517,35 @@ public final class InspectorMessage {
             }
           }
         }
+        if (other.hasNrParams()) {
+          setNrParams(other.getNrParams());
+        }
+        if (paramsBuilder_ == null) {
+          if (!other.params_.isEmpty()) {
+            if (params_.isEmpty()) {
+              params_ = other.params_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+            } else {
+              ensureParamsIsMutable();
+              params_.addAll(other.params_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.params_.isEmpty()) {
+            if (paramsBuilder_.isEmpty()) {
+              paramsBuilder_.dispose();
+              paramsBuilder_ = null;
+              params_ = other.params_;
+              bitField0_ = (bitField0_ & ~0x00000010);
+              paramsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getParamsFieldBuilder() : null;
+            } else {
+              paramsBuilder_.addAllMessages(other.params_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -3734,8 +4559,18 @@ public final class InspectorMessage {
           
           return false;
         }
+        if (!hasNrParams()) {
+          
+          return false;
+        }
         for (int i = 0; i < getStackTraceElementsCount(); i++) {
           if (!getStackTraceElements(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        for (int i = 0; i < getParamsCount(); i++) {
+          if (!getParams(i).isInitialized()) {
             
             return false;
           }
@@ -4108,6 +4943,278 @@ public final class InspectorMessage {
           stackTraceElements_ = null;
         }
         return stackTraceElementsBuilder_;
+      }
+
+      private int nrParams_ ;
+      /**
+       * <code>required int32 nrParams = 4;</code>
+       */
+      public boolean hasNrParams() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required int32 nrParams = 4;</code>
+       */
+      public int getNrParams() {
+        return nrParams_;
+      }
+      /**
+       * <code>required int32 nrParams = 4;</code>
+       */
+      public Builder setNrParams(int value) {
+        bitField0_ |= 0x00000008;
+        nrParams_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 nrParams = 4;</code>
+       */
+      public Builder clearNrParams() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        nrParams_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> params_ =
+        java.util.Collections.emptyList();
+      private void ensureParamsIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          params_ = new java.util.ArrayList<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params>(params_);
+          bitField0_ |= 0x00000010;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> paramsBuilder_;
+
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> getParamsList() {
+        if (paramsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(params_);
+        } else {
+          return paramsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public int getParamsCount() {
+        if (paramsBuilder_ == null) {
+          return params_.size();
+        } else {
+          return paramsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params getParams(int index) {
+        if (paramsBuilder_ == null) {
+          return params_.get(index);
+        } else {
+          return paramsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder setParams(
+          int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureParamsIsMutable();
+          params_.set(index, value);
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder setParams(
+          int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          ensureParamsIsMutable();
+          params_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          paramsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder addParams(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureParamsIsMutable();
+          params_.add(value);
+          onChanged();
+        } else {
+          paramsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder addParams(
+          int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params value) {
+        if (paramsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureParamsIsMutable();
+          params_.add(index, value);
+          onChanged();
+        } else {
+          paramsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder addParams(
+          net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          ensureParamsIsMutable();
+          params_.add(builderForValue.build());
+          onChanged();
+        } else {
+          paramsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder addParams(
+          int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder builderForValue) {
+        if (paramsBuilder_ == null) {
+          ensureParamsIsMutable();
+          params_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          paramsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder addAllParams(
+          java.lang.Iterable<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> values) {
+        if (paramsBuilder_ == null) {
+          ensureParamsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, params_);
+          onChanged();
+        } else {
+          paramsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder clearParams() {
+        if (paramsBuilder_ == null) {
+          params_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000010);
+          onChanged();
+        } else {
+          paramsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public Builder removeParams(int index) {
+        if (paramsBuilder_ == null) {
+          ensureParamsIsMutable();
+          params_.remove(index);
+          onChanged();
+        } else {
+          paramsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder getParamsBuilder(
+          int index) {
+        return getParamsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder getParamsOrBuilder(
+          int index) {
+        if (paramsBuilder_ == null) {
+          return params_.get(index);  } else {
+          return paramsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> 
+           getParamsOrBuilderList() {
+        if (paramsBuilder_ != null) {
+          return paramsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(params_);
+        }
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder addParamsBuilder() {
+        return getParamsFieldBuilder().addBuilder(
+            net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder addParamsBuilder(
+          int index) {
+        return getParamsFieldBuilder().addBuilder(
+            index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       */
+      public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder> 
+           getParamsBuilderList() {
+        return getParamsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> 
+          getParamsFieldBuilder() {
+        if (paramsBuilder_ == null) {
+          paramsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder>(
+                  params_,
+                  ((bitField0_ & 0x00000010) == 0x00000010),
+                  getParentForChildren(),
+                  isClean());
+          params_ = null;
+        }
+        return paramsBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_JavaSpecificFields)
@@ -6598,6 +7705,11 @@ public final class InspectorMessage {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -6634,23 +7746,27 @@ public final class InspectorMessage {
       "\203\001\n4InspectorMsgReq_JavaSpecificFields_S" +
       "tackTraceElement\022\020\n\010fileName\030\001 \002(\t\022\021\n\tcl" +
       "assName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002(\t\022\022\n\nlin" +
-      "eNumber\030\004 \002(\005\"\261\001\n\"InspectorMsgReq_JavaSp" +
-      "ecificFields\022\022\n\nthreadName\030\001 \002(\t\022\034\n\024nrSt" +
-      "ackTraceElements\030\002 \002(\005\022Y\n\022stackTraceElem" +
-      "ents\030\003 \003(\0132=.equtils.InspectorMsgReq_Jav" +
-      "aSpecificFields_StackTraceElement\"\202\003\n\017In" +
+      "eNumber\030\004 \002(\005\"H\n)InspectorMsgReq_JavaSpe" +
+      "cificFields_Params\022\014\n\004name\030\001 \002(\t\022\r\n\005valu" +
+      "e\030\002 \002(\t\"\207\002\n\"InspectorMsgReq_JavaSpecific" +
+      "Fields\022\022\n\nthreadName\030\001 \002(\t\022\034\n\024nrStackTra" +
+      "ceElements\030\002 \002(\005\022Y\n\022stackTraceElements\030\003" +
+      " \003(\0132=.equtils.InspectorMsgReq_JavaSpeci" +
+      "ficFields_StackTraceElement\022\020\n\010nrParams\030",
+      "\004 \002(\005\022B\n\006params\030\005 \003(\01322.equtils.Inspecto" +
+      "rMsgReq_JavaSpecificFields_Params\"\202\003\n\017In" +
       "spectorMsgReq\022\022\n\nprocess_id\030\001 \002(\t\022+\n\004typ" +
-      "e\030\002 \002(\0162\035.equtils.InspectorMsgReq.Type\022\013",
+      "e\030\002 \002(\0162\035.equtils.InspectorMsgReq.Type\022\013" +
       "\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 \002(\005" +
       "\022\021\n\tga_msg_id\030\006 \001(\005\022-\n\005Event\030\007 \001(\0132\036.equ" +
       "tils.InspectorMsgReq_Event\0227\n\nInitiation" +
       "\030\010 \001(\0132#.equtils.InspectorMsgReq_Initiat" +
       "ion\022\035\n\025HasJavaSpecificFields\030\t \002(\005\022G\n\022Ja" +
-      "vaSpecificFields\030\n \001(\0132+.equtils.Inspect" +
+      "vaSpecificFields\030\n \001(\0132+.equtils.Inspect",
       "orMsgReq_JavaSpecificFields\"!\n\004Type\022\t\n\005E" +
       "VENT\020\001\022\016\n\nINITIATION\020\002\"\211\001\n\017InspectorMsgR" +
       "sp\022,\n\003res\030\001 \002(\0162\037.equtils.InspectorMsgRs" +
-      "p.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003 ",
+      "p.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003 " +
       "\001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002\022\007\n\003END" +
       "\020\003B\025\n\023net.osrg.earthquake"
     };
@@ -6696,20 +7812,26 @@ public final class InspectorMessage {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor,
         new java.lang.String[] { "FileName", "ClassName", "MethodName", "LineNumber", });
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor =
+    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor =
       getDescriptor().getMessageTypes().get(5);
+    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor,
+        new java.lang.String[] { "Name", "Value", });
+    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor =
+      getDescriptor().getMessageTypes().get(6);
     internal_static_equtils_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor,
-        new java.lang.String[] { "ThreadName", "NrStackTraceElements", "StackTraceElements", });
+        new java.lang.String[] { "ThreadName", "NrStackTraceElements", "StackTraceElements", "NrParams", "Params", });
     internal_static_equtils_InspectorMsgReq_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_equtils_InspectorMsgReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_InspectorMsgReq_descriptor,
         new java.lang.String[] { "ProcessId", "Type", "Pid", "Tid", "MsgId", "GaMsgId", "Event", "Initiation", "HasJavaSpecificFields", "JavaSpecificFields", });
     internal_static_equtils_InspectorMsgRsp_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_equtils_InspectorMsgRsp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_equtils_InspectorMsgRsp_descriptor,

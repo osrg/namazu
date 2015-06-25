@@ -42,6 +42,26 @@ func init() {
 func doDumpTrace(trace *SingleTrace) {
 	for i, ev := range trace.EventSequence {
 		fmt.Printf("%d: %s, %s(%s)\n", i, ev.ProcId, ev.EventType, ev.EventParam)
+
+		if ev.JavaSpecific != nil {
+			js := ev.JavaSpecific
+
+			fmt.Printf("\tThread: %s\n", js.ThreadName)
+
+			fmt.Printf("\tparams:\n")
+			for _, param := range js.Params {
+				fmt.Printf("\t\t%s: %s\n", param.Name, param.Value)
+			}
+
+			fmt.Printf("\tstack trace:\n")
+			for _, stackTraceElement := range js.StackTraceElements {
+				fmt.Printf("\t\t%s %s %s %d\n",
+					stackTraceElement.FileName,
+					stackTraceElement.ClassName,
+					stackTraceElement.MethodName,
+					stackTraceElement.LineNumber)
+			}
+		}
 	}
 }
 

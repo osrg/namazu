@@ -22,11 +22,19 @@ type Event_JavaSpecific_StackTraceElement struct {
 	FileName   string
 }
 
+type Event_JavaSpecific_Param struct {
+	Name  string
+	Value string
+}
+
 type Event_JavaSpecific struct {
 	ThreadName string
 
 	NrStackTraceElements int
 	StackTraceElements   []Event_JavaSpecific_StackTraceElement
+
+	NrParams int
+	Params   []Event_JavaSpecific_Param
 }
 
 type Event struct {

@@ -2,10 +2,13 @@ RULE quorum packet construction
 CLASS QuorumPacket
 METHOD <init>
 HELPER net.osrg.earthquake.PBEQHelper
+BIND argMap = new java.util.HashMap()
 AT ENTRY
-IF $# != 0
+IF $# == 4
 DO
-eventFuncCall("QuorumPacket");
+argMap.put("type", $1);
+argMap.put("zxid", $2);
+eventFuncCall("QuorumPacket", argMap);
 ENDRULE
 
 RULE invoke initiation, call static constructor of EQHelper

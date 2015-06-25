@@ -48,11 +48,19 @@ message InspectorMsgReq_JavaSpecificFields_StackTraceElement {
   required int32 lineNumber = 4;
 };
 
+message InspectorMsgReq_JavaSpecificFields_Params {
+  required string name = 1;
+  required string value = 2;
+};
+
 message InspectorMsgReq_JavaSpecificFields {
   required string threadName = 1;
 
   required int32 nrStackTraceElements = 2;
   repeated InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;
+
+  required int32 nrParams = 4;
+  repeated InspectorMsgReq_JavaSpecificFields_Params params = 5;
 };
 
 message InspectorMsgReq {
