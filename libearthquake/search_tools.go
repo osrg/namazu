@@ -35,7 +35,6 @@ func (cmd searchToolsCmd) Run(args []string) int {
 	c.Commands = map[string]cli.CommandFactory{
 		"calc-dup":   searchtools.CalcDupCommandFactory,
 		"visualize":  searchtools.VisualizeCommandFactory,
-		"permutate":  searchtools.PermutateCommandFactory,
 		"dump-trace": searchtools.DumpTraceCommandFactory,
 	}
 
