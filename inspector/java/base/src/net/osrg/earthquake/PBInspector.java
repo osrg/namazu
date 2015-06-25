@@ -505,6 +505,7 @@ public class PBInspector implements Inspector {
         }
 
         LOGGER.finest("EventFuncCall: " + funcName);
+        LOGGER.info("paramMap: " + paramMap.toString());
         InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder evFunBuilder = InspectorMessage.InspectorMsgReq_Event_FuncCall.newBuilder();
         InspectorMessage.InspectorMsgReq_Event_FuncCall evFun = evFunBuilder.setName(funcName).build();
 
