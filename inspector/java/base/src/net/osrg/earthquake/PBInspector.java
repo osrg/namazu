@@ -369,6 +369,7 @@ public class PBInspector implements Inspector {
 
                     try {
                         sock = new Socket("localhost", GATCPPort);
+                        sock.setSoTimeout(0);
                     } catch (IOException e) {
                         LOGGER.severe("failed to connect to guest agent: " + e);
                         System.exit(1);
