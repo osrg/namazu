@@ -18,18 +18,24 @@ package historystorage
 import (
 	"fmt"
 
+	. "../equtils"
 	"./naive"
 )
 
 type HistoryStorage interface {
-	Init(param string)
+	CreateStorage()
+
+	Init()
 	Name() string
+
+	CreateNewWorkingDir() string
+	RecordNewTrace(newTrace *SingleTrace)
 }
 
-func New(name string) HistoryStorage {
+func New(name, dirPath string) HistoryStorage {
 	switch name {
 	case "naive":
-		return naive.New()
+		return naive.New(dirPath)
 	default:
 		fmt.Printf("unknown history storage: %s\n", name)
 	}

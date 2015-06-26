@@ -13,39 +13,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package equtils
+package naive
 
-type Event_JavaSpecific_StackTraceElement struct {
-	LineNumber int
-	ClassName  string
-	MethodName string
-	FileName   string
+// Common stuff of naive history storage
+
+const (
+	searchModeInfoPath = "SearchModeInfo" // relative path of metadata
+)
+
+// type of metadata
+type searchModeInfo struct {
+	NrCollectedTraces int
 }
 
-type Event_JavaSpecific_Param struct {
-	Name  string
-	Value string
+// type that implements interface HistoryStorage
+type Naive struct {
+	dir  string
+	info *searchModeInfo
+
+	nextWorkingDir string
 }
 
-type Event_JavaSpecific struct {
-	ThreadName string
-
-	NrStackTraceElements int
-	StackTraceElements   []Event_JavaSpecific_StackTraceElement
-
-	NrParams int
-	Params   []Event_JavaSpecific_Param
+func (n *Naive) Name() string {
+	return "naive"
 }
 
-type Event struct {
-	ProcId string
-
-	EventType  string
-	EventParam string
-
-	JavaSpecific *Event_JavaSpecific
-}
-
-type SingleTrace struct {
-	EventSequence []Event
+func New(dirPath string) *Naive {
+	return &Naive{
+		dir: dirPath,
+	}
 }

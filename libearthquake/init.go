@@ -23,6 +23,7 @@ import (
 	// . "../equtils"
 
 	"github.com/mitchellh/cli"
+	"./historystorage"
 )
 
 const (
@@ -82,7 +83,7 @@ func _init(args []string) {
 
 	conf := args[0]
 	materials := args[1]
-	storage := args[2]
+	storagePath := args[2]
 
 	cfi, cerr := os.Stat(conf)
 	if cerr != nil {
@@ -95,58 +96,59 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
-	sfi, serr := os.Stat(storage)
+	sfi, serr := os.Stat(storagePath)
 	if serr != nil {
-		fmt.Printf("failed to stat path: %s (%s)\n", storage, serr)
+		fmt.Printf("failed to stat path: %s (%s)\n", storagePath, serr)
 		os.Exit(1)
 	}
 
 	if !sfi.Mode().IsDir() {
-		fmt.Printf("storage directory (%s) must be a directory\n", storage)
+		fmt.Printf("storagePath directory (%s) must be a directory\n", storagePath)
 		os.Exit(1)
 	}
 
-	dir, derr := os.Open(storage)
+	dir, derr := os.Open(storagePath)
 	if derr != nil {
-		fmt.Printf("failed to open storage directory: %s (%s)\n", storage, derr)
+		fmt.Printf("failed to open storagePath directory: %s (%s)\n", storagePath, derr)
 		os.Exit(1)
 	}
 
 	fi, rderr := dir.Readdir(0)
 	if rderr != nil {
-		fmt.Printf("failed to read storage directory: %s (%s)\n", storage, rderr)
+		fmt.Printf("failed to read storagePath directory: %s (%s)\n", storagePath, rderr)
 		os.Exit(1)
 	}
 
 	if len(fi) != 0 {
-		fmt.Printf("directory for earthquake storage (%s) must be empty\n", storage)
+		fmt.Printf("directory for earthquake storagePath (%s) must be empty\n", storagePath)
 		os.Exit(1)
 	}
 
-	_, err := parseRunConfig(conf)
+	cfg, err := parseRunConfig(conf)
 	if err != nil {
 		fmt.Printf("parsing config file (%s) failed: %s\n", conf, err)
 		os.Exit(1)
 	}
 
-	lerr := os.Link(conf, storage+"/"+storageConfigPath)
+	lerr := os.Link(conf, storagePath+"/"+storageConfigPath)
 	if lerr != nil {
 		fmt.Printf("creating link of config file (%s) failed (%s)\n", conf, lerr)
 		os.Exit(1)
 	}
 
-	materialDir := storage + "/" + storageMaterialsPath
+	materialDir := storagePath + "/" + storageMaterialsPath
 	derr = os.Mkdir(materialDir, 0777)
 	if derr != nil {
 		fmt.Printf("creating a directory for materials (%s) failed (%s)\n",
-			storage + "/" + storageMaterialsPath, derr)
+			storagePath + "/" + storageMaterialsPath, derr)
 		os.Exit(1)
 		// TODO: cleaning conf file
 	}
 
 	recursiveHardLink(materials, materialDir)
 
-	initSearchModeDir(storage)
+	storage := historystorage.New(cfg.storageType, storagePath)
+	storage.CreateStorage()
 
 	fmt.Printf("ok\n")
 }

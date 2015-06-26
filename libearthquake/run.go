@@ -24,12 +24,15 @@ import (
 
 	. "./equtils"
 
+	"./historystorage"
+
 	"github.com/mitchellh/cli"
 )
 
 type runConfig struct {
 	runScript    string
 	searchPolicy string
+	storageType  string
 }
 
 func parseRunConfig(jsonPath string) (*runConfig, error) {
@@ -49,7 +52,7 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 		runScript = root["run"].(string)
 	} else {
 		fmt.Printf("required field \"run\" is missing\n")
-		os.Exit(1)	// TODO: construct suitable error
+		os.Exit(1) // TODO: construct suitable error
 		return nil, nil
 	}
 
@@ -58,9 +61,15 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 		searchPolicy = root["searchPolicy"].(string)
 	}
 
+	storageType := "naive"
+	if _, ok := root["storageType"]; ok {
+		storageType = root["storageType"].(string)
+	}
+
 	return &runConfig{
-		runScript: runScript,
+		runScript:    runScript,
 		searchPolicy: searchPolicy,
+		storageType:  storageType,
 	}, nil
 }
 
@@ -70,8 +79,8 @@ func run(args []string) {
 		os.Exit(1)
 	}
 
-	storage := args[0]
-	confPath := storage + "/" + storageConfigPath
+	storagePath := args[0]
+	confPath := storagePath + "/" + storageConfigPath
 
 	conf, err := parseRunConfig(confPath)
 	if err != nil {
@@ -79,20 +88,17 @@ func run(args []string) {
 		os.Exit(1)
 	}
 
-	info := readSearchModeDir(storage)
-	nextId := info.NrCollectedTraces
+	storage := historystorage.New(conf.storageType, storagePath)
+	storage.Init()
 
-	nextDir := storage + "/" + fmt.Sprintf("%08x", nextId)
-	err = os.Mkdir(nextDir, 0777)
-	if err != nil {
-		fmt.Printf("failed to create directory %s: %s\n", nextDir, err)
-		os.Exit(1)
-	}
+	nextDir := storage.CreateNewWorkingDir()
 
 	end := make(chan interface{})
-	go searchModeNoInitiation(info, nextDir, conf.searchPolicy, end)
+	newTraceCh := make(chan *SingleTrace)
 
-	materialsDir := storage + "/" + storageMaterialsPath
+	go searchModeNoInitiation(nextDir, conf.searchPolicy, end, newTraceCh)
+
+	materialsDir := storagePath + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript
 	runCmd := exec.Command("sh", "-c", runScriptPath)
 
@@ -109,10 +115,9 @@ func run(args []string) {
 	}
 
 	end <- true
-	<-end
+	newTrace := <-newTraceCh
 
-	info.NrCollectedTraces++
-	updateSearchModeInfo(storage, info)
+	storage.RecordNewTrace(newTrace)
 }
 
 type runCmd struct {

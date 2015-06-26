@@ -15,18 +15,118 @@
 
 package naive
 
-type Naive struct {
-	dir string
+import (
+	. "../../equtils"
+
+	"bytes"
+	"encoding/gob"
+	"fmt"
+	"os"
+)
+
+// functions that provides basic functionalities of native history storage
+// these are mainly called in a process of "earthquake run"
+
+func (n *Naive) updateSearchModeInfo() {
+	infoFile, err := os.OpenFile(n.dir+"/"+searchModeInfoPath, os.O_WRONLY, 0666)
+	if err != nil {
+		Log("failed to open file: %s", err)
+		os.Exit(1)
+	}
+
+	var infoBuf bytes.Buffer
+	enc := gob.NewEncoder(&infoBuf)
+	eerr := enc.Encode(n.info)
+	if eerr != nil {
+		Log("encode failed: %s", eerr)
+		os.Exit(1)
+	}
+
+	_, werr := infoFile.Write(infoBuf.Bytes())
+	if werr != nil {
+		Log("updating info file failed: %s", werr)
+		os.Exit(1)
+	}
 }
 
-func (n *Naive) Name() string {
-	return "naive"
+func (n *Naive) RecordNewTrace(newTrace *SingleTrace) {
+	var traceBuf bytes.Buffer
+	enc := gob.NewEncoder(&traceBuf)
+	eerr := enc.Encode(&newTrace)
+	if eerr != nil {
+		Log("encoding trace failed: %s", eerr)
+		os.Exit(1)
+	}
+
+	tracePath := fmt.Sprintf("%s/history", n.nextWorkingDir)
+	Log("new trace path: %s", tracePath)
+	traceFile, oerr := os.Create(tracePath)
+	if oerr != nil {
+		Log("fialed to create a file for new trace: %s", oerr)
+	}
+
+	_, werr := traceFile.Write(traceBuf.Bytes())
+	if werr != nil {
+		Log("writing new trace to file failed: %s", werr)
+		os.Exit(1)
+	}
 }
 
-func (n *Naive) Init(param string) {
-	n.dir = param
+func (n *Naive) readSearchModeInfo() *searchModeInfo {
+	path := n.dir + "/" + searchModeInfoPath
+	file, err := os.Open(path)
+	if err != nil {
+		Log("failed to open search mode info: %s", err)
+		os.Exit(1)
+	}
+
+	fi, serr := file.Stat()
+	if serr != nil {
+		Log("failed to stat: %s", err)
+		os.Exit(1)
+	}
+
+	buf := make([]byte, fi.Size())
+	_, rerr := file.Read(buf)
+	if rerr != nil {
+		Log("failed to read: %s", rerr)
+		os.Exit(1)
+	}
+
+	byteBuf := bytes.NewBuffer(buf)
+	dec := gob.NewDecoder(byteBuf)
+	var ret searchModeInfo
+	derr := dec.Decode(&ret)
+	if derr != nil {
+		Log("decode error; %s", derr)
+		os.Exit(1)
+	}
+
+	Log("a number of collected traces: %d", ret.NrCollectedTraces)
+	return &ret
 }
 
-func New() *Naive {
-	return &Naive{}
+func (n *Naive) CreateNewWorkingDir() string {
+	if n.nextWorkingDir != "" {
+		fmt.Printf("creating working directory twice\n")
+		os.Exit(1)
+	}
+
+	newDirPath := fmt.Sprintf("%s/%08x", n.dir, n.info.NrCollectedTraces)
+
+	err := os.Mkdir(newDirPath, 0777)
+	if err != nil {
+		fmt.Printf("failed to create directory %s: %s\n", newDirPath, err)
+		os.Exit(1)
+	}
+
+	n.info.NrCollectedTraces++
+	n.updateSearchModeInfo()
+
+	n.nextWorkingDir = newDirPath
+	return newDirPath
+}
+
+func (n *Naive) Init() {
+	n.info = n.readSearchModeInfo()
 }
