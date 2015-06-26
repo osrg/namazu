@@ -16,24 +16,15 @@
 package main
 
 import (
-	// "code.google.com/p/goprotobuf/proto"
-	// "encoding/binary"
 	. "./equtils"
-	"bytes"
-	"encoding/gob"
 	"encoding/json"
-	"flag"
 	"fmt"
-	"github.com/mitchellh/cli"
-	"github.com/sevlyar/go-daemon"
 	"io"
 	"net"
 	"os"
 	"sync/atomic"
 
 	. "./searchpolicy"
-
-	"./historystorage"
 )
 
 type executionGlobalFlags struct {
@@ -761,190 +752,6 @@ func waitProcessesNoDirect(exe *execution) {
 
 }
 
-func updateSearchModeInfo(dir string, info *SearchModeInfo) {
-	infoFile, err := os.OpenFile(dir+"/"+SearchModeInfoPath, os.O_WRONLY, 0666)
-	if err != nil {
-		Log("failed to open file: %s", err)
-		os.Exit(1)
-	}
-
-	var infoBuf bytes.Buffer
-	enc := gob.NewEncoder(&infoBuf)
-	eerr := enc.Encode(info)
-	if eerr != nil {
-		Log("encode failed: %s", eerr)
-		os.Exit(1)
-	}
-
-	_, werr := infoFile.Write(infoBuf.Bytes())
-	if werr != nil {
-		Log("updating info file failed: %s", werr)
-		os.Exit(1)
-	}
-}
-
-func recordNewTrace(dir string, info *SearchModeInfo, trace SingleTrace) {
-	// FIXME
-	// newTraceId := info.NrCollectedTraces
-	// info.NrCollectedTraces++
-
-	// updateSearchModeInfo(dir, info)
-
-	var traceBuf bytes.Buffer
-	enc := gob.NewEncoder(&traceBuf)
-	eerr := enc.Encode(&trace)
-	if eerr != nil {
-		Log("encoding trace failed: %s", eerr)
-		os.Exit(1)
-	}
-
-	// FIXME
-	tracePath := fmt.Sprintf("%s/history", dir)
-	Log("new trace path: %s", tracePath)
-	traceFile, oerr := os.Create(tracePath)
-	if oerr != nil {
-		Log("fialed to create a file for new trace: %s", oerr)
-	}
-
-	_, werr := traceFile.Write(traceBuf.Bytes())
-	if werr != nil {
-		Log("writing new trace to file failed: %s", werr)
-		os.Exit(1)
-	}
-}
-
-func singleSearch(exe *execution, dir string, info *SearchModeInfo) {
-	for _, n := range exe.processes {
-		Log("starting execution of process %s", n.id)
-		n.startExecution <- true
-	}
-	Log("all processes started")
-
-	eventSeq := make([]Event, 0)
-
-	nrLivingProcesses := len(exe.processes)
-	for nrLivingProcesses != 0 {
-		nIdx := <-exe.eventArrive
-		n := exe.processes[nIdx]
-		req := <-n.reqToMain
-		eventReq := req.Event
-
-		if *eventReq.Type == InspectorMsgReq_Event_EXIT {
-			nrLivingProcesses--
-			Log("process %s is exiting, remaining living pocesses: %d", n.id, nrLivingProcesses)
-			n.endExecution <- false
-			continue
-		}
-
-		// TODO: search policy interface
-		e := Event{
-			ProcId: n.id,
-
-			EventType:  "FuncCall",
-			EventParam: *eventReq.FuncCall.Name,
-		}
-		eventSeq = append(eventSeq, e)
-
-		Log("process %s: %v", n.id, eventReq)
-		n.gotoNext <- true
-	}
-
-	newTrace := SingleTrace{
-		eventSeq,
-	}
-	recordNewTrace(dir, info, newTrace)
-
-	Log("gathering end completion notification from goroutines")
-	nrEnded := int32(0)
-	fin := make(chan interface{})
-
-	for _, n := range exe.processes {
-		go func(n *process) {
-			Log("reading endCompletion from %s (%v)", n.id, n.endCompletion)
-			<-n.endCompletion
-			Log("endCompletion from %s", n.id)
-
-			atomic.AddInt32(&nrEnded, 1)
-			if int(nrEnded) == len(exe.processes) {
-				fin <- true
-			}
-		}(n)
-	}
-
-	<-fin
-	Log("gathering end completion notification completed")
-}
-
-func readSearchModeDir(dir string) *SearchModeInfo {
-	_, serr := os.Stat(dir + "/" + SearchModeInfoPath)
-	if os.IsNotExist(serr) {
-		_, cerr := os.Create(dir + "/" + SearchModeInfoPath)
-		if cerr != nil {
-			Log("failed to create SearchModeInfo file")
-			os.Exit(1)
-		}
-
-		Log("using fresh directory")
-		return &SearchModeInfo{
-			0,
-		}
-	}
-
-	file, err := os.Open(dir + "/" + SearchModeInfoPath)
-	if err != nil {
-		Log("failed to open search mode info: %s", err)
-		os.Exit(1)
-	}
-
-	fi, serr := file.Stat()
-	if serr != nil {
-		Log("failed to stat: %s", err)
-		os.Exit(1)
-	}
-
-	buf := make([]byte, fi.Size())
-	_, rerr := file.Read(buf)
-	if rerr != nil {
-		Log("failed to read: %s", rerr)
-		os.Exit(1)
-	}
-
-	byteBuf := bytes.NewBuffer(buf)
-	dec := gob.NewDecoder(byteBuf)
-	var ret SearchModeInfo
-	derr := dec.Decode(&ret)
-	if derr != nil {
-		Log("decode error; %s", derr)
-		os.Exit(1)
-	}
-
-	Log("a number of collected traces: %d", ret.NrCollectedTraces)
-	return &ret
-}
-
-func searchMode(flags orchestratorFlags, exe *execution, dir string, policyName string) {
-	info := readSearchModeDir(dir)
-
-	policy := CreatePolicy(policyName)
-	if policy == nil {
-		Log("invalid policy name: %s", policyName)
-		os.Exit(1)
-	}
-
-	policy.Init()
-
-	Log("start execution loop body")
-	if !exe.globalFlags.direct {
-		waitProcessesNoDirect(exe)
-		runMachineProxy(exe)
-	} else {
-		waitProcessesDirect(exe)
-	}
-	singleSearch(exe, dir, info)
-	Log("end execution loop body")
-
-}
-
 func handleProcessNoInitiation(proc *process, readyProcCh chan *process) {
 	go func(p *process) {
 		for {
@@ -1060,7 +867,7 @@ func acceptNewProcess(readyProcCh chan *process) {
 	}
 }
 
-func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh chan interface{}, policy SearchPolicy) {
+func singleSearchNoInitiation(workingDir string, endCh chan interface{}, policy SearchPolicy, newTraceCh chan *SingleTrace) {
 	readyProcCh := make(chan *process)
 
 	go func() {
@@ -1086,7 +893,6 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 				continue
 			}
 
-			// TODO: search policy interface
 			e := &Event{
 				ProcId: readyProc.id,
 
@@ -1112,8 +918,8 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 				ejs.NrStackTraceElements = int(*req.JavaSpecificFields.NrStackTraceElements)
 
 				for _, param := range req.JavaSpecificFields.Params {
-					param := Event_JavaSpecific_Param {
-						Name: *param.Name,
+					param := Event_JavaSpecific_Param{
+						Name:  *param.Name,
 						Value: *param.Value,
 					}
 
@@ -1128,7 +934,7 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 			ev2Proc[e] = readyProc
 			policy.QueueNextEvent(e)
 
-		case nextEvent:= <- nextEventChan:
+		case nextEvent := <-nextEventChan:
 			readyProc := ev2Proc[nextEvent]
 			delete(ev2Proc, nextEvent)
 
@@ -1141,196 +947,15 @@ func singleSearchNoInitiation(workingDir string, info *SearchModeInfo, endCh cha
 		}
 	}
 
-	newTrace := SingleTrace{
+	newTrace := &SingleTrace{
 		eventSeq,
 	}
-	recordNewTrace(workingDir, info, newTrace)
 
-	endCh <- true
+	newTraceCh <- newTrace
 }
 
-func searchModeNoInitiation(info *SearchModeInfo, workingDir string, policyName string, endCh chan interface{}) {
-	policy := CreatePolicy(policyName)
-	if policy == nil {
-		Log("invalid policy name: %s", policyName)
-		os.Exit(1)
-	}
-
-	policy.Init()
+func searchModeNoInitiation(workingDir string, policy SearchPolicy, endCh chan interface{}, newTraceCh chan *SingleTrace) {
 	Log("start execution loop body")
-
-	singleSearchNoInitiation(workingDir, info, endCh, policy)
+	singleSearchNoInitiation(workingDir, endCh, policy, newTraceCh)
 	Log("end execution loop body")
-
-}
-
-func simulationMode(flags orchestratorFlags, exe *execution) {
-	for {
-		Log("start execution loop body")
-		if !exe.globalFlags.direct {
-			waitProcessesNoDirect(exe)
-			runMachineProxy(exe)
-		} else {
-			waitProcessesDirect(exe)
-		}
-		runExecution()
-		Log("end execution loop body")
-	}
-
-	Log("should not reach here!")
-}
-
-func initSearchModeDir(dir string) {
-	historystorage.New("naive")
-	// should be called without daemonize
-
-	var infoBuf bytes.Buffer
-	enc := gob.NewEncoder(&infoBuf)
-
-	info := SearchModeInfo{
-		0,
-	}
-
-	err := enc.Encode(&info)
-	if err != nil {
-		fmt.Printf("failed to encode search mode information: %s\n", err)
-		return
-	}
-
-	file, oerr := os.Create(dir + "/" + SearchModeInfoPath)
-	if oerr != nil {
-		fmt.Printf("failed to open file for search mode info: %s\n", oerr)
-		return
-	}
-
-	_, werr := file.Write(infoBuf.Bytes())
-	if werr != nil {
-		fmt.Printf("failed to write search mode info: %s\n", werr)
-		return
-	}
-}
-
-func launchOrchestrator(flags orchestratorFlags) {
-	if flags.InitSearchModeDir {
-		if flags.SearchModeDir == "" {
-			fmt.Printf("specify a directory path for search mode")
-			return
-		}
-
-		fmt.Printf("initializing search mode directory: %s", flags.SearchModeDir)
-		initSearchModeDir(flags.SearchModeDir)
-
-		return
-	}
-
-	if flags.Daemonize && flags.LogFilePath == "" {
-		InitLog("/var/log/earthquake-orchestrator.log")
-	} else {
-		InitLog(flags.LogFilePath)
-	}
-
-	if flags.Daemonize {
-		context := new(daemon.Context)
-		child, _ := context.Reborn()
-
-		if child != nil {
-			return
-		} else {
-			defer context.Release()
-		}
-	}
-
-	Log("initializing orchestrator")
-
-	exe = parseExecutionFile(flags.ExecutionFilePath, !flags.SearchMode)
-	if exe == nil {
-		Log("invalid execution file")
-		return
-	}
-
-	exe.initiationCompletion = make(chan int)
-	exe.eventArrive = make(chan int)
-	Log("globalFlags.direct: %d", exe.globalFlags.direct)
-
-	if !exe.globalFlags.direct {
-		Log("run in non direct mode (with VMs)")
-		waitMachines()
-
-		for i, n := range exe.processes {
-			n.idx = i
-			n.state = PROCESS_STATE_CONNECTED // FIXME: rename
-		}
-
-	} else {
-		Log("run in direct mode (no VMs)")
-
-		sport := fmt.Sprintf(":%d", flags.ListenTCPPort)
-		ln, lerr := net.Listen("tcp", sport)
-		if lerr != nil {
-			Log("failed to listen on port %d: %s", flags.ListenTCPPort, lerr)
-			os.Exit(1)
-		}
-
-		exe.directListen = ln
-	}
-
-	if flags.SearchMode {
-		Log("search mode, directory: %s, policy: %s", flags.SearchModeDir, flags.SearchPolicy)
-		searchMode(flags, exe, flags.SearchModeDir, flags.SearchPolicy)
-	} else {
-		Log("simulation mode")
-		simulationMode(flags, exe)
-	}
-}
-
-var (
-	orchestratorFlagset = flag.NewFlagSet("orchestrator", flag.ExitOnError)
-	_orchestratorFlags  = orchestratorFlags{}
-)
-
-type orchestratorFlags struct {
-	Debug             bool
-	ExecutionFilePath string
-	LogFilePath       string
-	ListenTCPPort     int
-	Daemonize         bool
-
-	SearchMode        bool
-	InitSearchModeDir bool
-	SearchModeDir     string
-	SearchPolicy      string
-}
-
-func init() {
-	orchestratorFlagset.BoolVar(&_orchestratorFlags.Debug, "debug", false, "Debug mode")
-	orchestratorFlagset.StringVar(&_orchestratorFlags.ExecutionFilePath, "execution-file-path", "", "Path of execution file")
-	orchestratorFlagset.StringVar(&_orchestratorFlags.LogFilePath, "log-file-path", "", "Path of log file")
-	orchestratorFlagset.IntVar(&_orchestratorFlags.ListenTCPPort, "listen-tcp-port", 10000, "TCP Port to listen on")
-	orchestratorFlagset.BoolVar(&_orchestratorFlags.Daemonize, "daemonize", false, "Daemonize")
-	orchestratorFlagset.BoolVar(&_orchestratorFlags.SearchMode, "search-mode", false, "Run search mode")
-	orchestratorFlagset.BoolVar(&_orchestratorFlags.InitSearchModeDir, "init-search-mode-directory", false, "Initialize a directory for storing search mode info")
-	orchestratorFlagset.StringVar(&_orchestratorFlags.SearchModeDir, "search-mode-directory", "", "Directory which has config and pas traces of search mode testing")
-	orchestratorFlagset.StringVar(&_orchestratorFlags.SearchPolicy, "search-policy", "", "Search mode policy")
-}
-
-type orchestratorCmd struct {
-}
-
-func (cmd orchestratorCmd) Help() string {
-	return "orchestrator help (todo)"
-}
-
-func (cmd orchestratorCmd) Run(args []string) int {
-	orchestratorFlagset.Parse(args)
-	launchOrchestrator(_orchestratorFlags)
-
-	return 0
-}
-
-func (cmd orchestratorCmd) Synopsis() string {
-	return "orchestrator subcommand"
-}
-
-func orchestratorCommandFactory() (cli.Command, error) {
-	return orchestratorCmd{}, nil
 }

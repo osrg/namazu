@@ -49,11 +49,3 @@ type Event struct {
 type SingleTrace struct {
 	EventSequence []Event
 }
-
-const (
-	SearchModeInfoPath = "SearchModeInfo"
-)
-
-type SearchModeInfo struct {
-	NrCollectedTraces int
-}

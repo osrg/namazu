@@ -19,12 +19,13 @@ import (
 	"fmt"
 
 	. "../equtils"
+	"../historystorage"
 	"./dumb"
 	"./random"
 )
 
 type SearchPolicy interface {
-	Init()
+	Init(storage historystorage.HistoryStorage)
 	Name() string
 
 	GetNextEventChan() chan *Event
@@ -34,9 +35,9 @@ type SearchPolicy interface {
 func CreatePolicy(name string) SearchPolicy {
 	switch name {
 	case "dumb":
-		return dumb.New()
+		return dumb.DumbNew()
 	case "random":
-		return random.New()
+		return random.RandomNew()
 	default:
 		fmt.Printf("unknown search policy: %s\n", name)
 	}

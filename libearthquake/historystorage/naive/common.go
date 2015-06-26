@@ -13,38 +13,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package dumb
+package naive
 
-import (
-	. "../../equtils"
-	. "../../historystorage"
+// Common stuff of naive history storage
+
+const (
+	searchModeInfoPath = "SearchModeInfo" // relative path of metadata
 )
 
-type Dumb struct {
-	nextEventChan chan *Event
+// type of metadata
+type searchModeInfo struct {
+	NrCollectedTraces int
 }
 
-func (d *Dumb) Init(storage HistoryStorage) {
+// type that implements interface HistoryStorage
+type Naive struct {
+	dir  string
+	info *searchModeInfo
+
+	nextWorkingDir string
 }
 
-func (d *Dumb) Name() string {
-	return "dumb"
+func (n *Naive) Name() string {
+	return "naive"
 }
 
-func (d *Dumb) GetNextEventChan() chan *Event {
-	return d.nextEventChan
-}
-
-func (d *Dumb) QueueNextEvent(ev *Event) {
-	go func(e *Event) {
-		d.nextEventChan <- ev
-	}(ev)
-}
-
-func DumbNew() *Dumb {
-	nextEventChan := make(chan *Event)
-
-	return &Dumb{
-		nextEventChan,
+func New(dirPath string) *Naive {
+	return &Naive{
+		dir: dirPath,
 	}
 }
