@@ -17,13 +17,14 @@ package dumb
 
 import (
 	. "../../equtils"
+	. "../../historystorage"
 )
 
 type Dumb struct {
 	nextEventChan chan *Event
 }
 
-func (d *Dumb) Init() {
+func (d *Dumb) Init(storage HistoryStorage) {
 }
 
 func (d *Dumb) Name() string {
@@ -40,7 +41,7 @@ func (d *Dumb) QueueNextEvent(ev *Event) {
 	}(ev)
 }
 
-func New() *Dumb {
+func DumbNew() *Dumb {
 	nextEventChan := make(chan *Event)
 
 	return &Dumb{

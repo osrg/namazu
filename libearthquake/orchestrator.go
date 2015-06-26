@@ -954,17 +954,8 @@ func singleSearchNoInitiation(workingDir string, endCh chan interface{}, policy 
 	newTraceCh <- newTrace
 }
 
-func searchModeNoInitiation(workingDir string, policyName string, endCh chan interface{}, newTraceCh chan *SingleTrace) {
-	policy := CreatePolicy(policyName)
-	if policy == nil {
-		Log("invalid policy name: %s", policyName)
-		os.Exit(1)
-	}
-
-	policy.Init()
+func searchModeNoInitiation(workingDir string, policy SearchPolicy, endCh chan interface{}, newTraceCh chan *SingleTrace) {
 	Log("start execution loop body")
-
 	singleSearchNoInitiation(workingDir, endCh, policy, newTraceCh)
 	Log("end execution loop body")
-
 }

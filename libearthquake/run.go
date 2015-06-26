@@ -25,6 +25,7 @@ import (
 	. "./equtils"
 
 	"./historystorage"
+	"./searchpolicy"
 
 	"github.com/mitchellh/cli"
 )
@@ -91,12 +92,19 @@ func run(args []string) {
 	storage := historystorage.New(conf.storageType, storagePath)
 	storage.Init()
 
+	policy := searchpolicy.CreatePolicy(conf.searchPolicy)
+	if policy == nil {
+		fmt.Printf("invalid policy name: %s", conf.searchPolicy)
+		os.Exit(1)
+	}
+	policy.Init(storage)
+
 	nextDir := storage.CreateNewWorkingDir()
 
 	end := make(chan interface{})
 	newTraceCh := make(chan *SingleTrace)
 
-	go searchModeNoInitiation(nextDir, conf.searchPolicy, end, newTraceCh)
+	go searchModeNoInitiation(nextDir, policy, end, newTraceCh)
 
 	materialsDir := storagePath + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript

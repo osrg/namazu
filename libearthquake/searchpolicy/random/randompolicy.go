@@ -21,6 +21,7 @@ import (
 	"time"
 
 	. "../../equtils"
+	. "../../historystorage"
 )
 
 type Random struct {
@@ -30,7 +31,7 @@ type Random struct {
 	eventQueue    []*Event
 }
 
-func (r *Random) Init() {
+func (r *Random) Init(storage HistoryStorage) {
 	go func() {
 		for {
 			// TODO: configurable
@@ -68,7 +69,7 @@ func (r *Random) QueueNextEvent(ev *Event) {
 	r.queueMutex.Unlock()
 }
 
-func New() *Random {
+func RandomNew() *Random {
 	nextEventChan := make(chan *Event)
 	eventQueue := make([]*Event, 0)
 	mutex := new(sync.Mutex)
