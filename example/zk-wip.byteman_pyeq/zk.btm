@@ -6,7 +6,7 @@ AT ENTRY
 IF TRUE
 DO
 traceln("BTM: SyncRequestProcessor flush entry");
-Thread.sleep(100);
+Thread.sleep(500);
 ENDRULE
 
 RULE SyncRequestProcessor flush return
@@ -17,7 +17,7 @@ AT RETURN
 IF TRUE
 DO
 traceln("BTM: SyncRequestProcessor flush return");
-Thread.sleep(100);
+Thread.sleep(500);
 ENDRULE
 
 
