@@ -44,5 +44,6 @@ func WholeRead(path string) ([]byte, error) {
 		rbytes += r
 	}
 
+	f.Close()
 	return buf, nil
 }

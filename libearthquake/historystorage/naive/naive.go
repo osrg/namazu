@@ -127,6 +127,29 @@ func (n *Naive) CreateNewWorkingDir() string {
 	return newDirPath
 }
 
+func (n *Naive) NrStoredHistories() int {
+	return n.info.NrCollectedTraces
+}
+
+func (n *Naive) GetStoredHistory(id int) (*SingleTrace, error) {
+	path := fmt.Sprintf("%s/%08x/history", n.dir, id)
+
+	encoded, err := WholeRead(path)
+	if err != nil {
+		return nil, err
+	}
+
+	byteBuf := bytes.NewBuffer(encoded)
+	dec := gob.NewDecoder(byteBuf)
+	var ret SingleTrace
+	derr := dec.Decode(&ret)
+	if derr != nil {
+		return nil, derr
+	}
+
+	return &ret, nil
+}
+
 func (n *Naive) Init() {
 	n.info = n.readSearchModeInfo()
 }

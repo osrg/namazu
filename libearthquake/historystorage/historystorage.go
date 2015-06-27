@@ -30,6 +30,9 @@ type HistoryStorage interface {
 
 	CreateNewWorkingDir() string
 	RecordNewTrace(newTrace *SingleTrace)
+
+	NrStoredHistories() int
+	GetStoredHistory(id int) (*SingleTrace, error)
 }
 
 func New(name, dirPath string) HistoryStorage {
