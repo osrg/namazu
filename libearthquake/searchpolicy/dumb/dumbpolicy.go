@@ -24,7 +24,7 @@ type Dumb struct {
 	nextEventChan chan *Event
 }
 
-func (d *Dumb) Init(storage HistoryStorage) {
+func (d *Dumb) Init(storage HistoryStorage, param map[string]interface{}) {
 }
 
 func (d *Dumb) Name() string {

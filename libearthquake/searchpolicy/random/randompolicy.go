@@ -24,14 +24,32 @@ import (
 	. "../../historystorage"
 )
 
+type RandomParam struct {
+	prioritize string
+}
+
 type Random struct {
 	nextEventChan chan *Event
 	randGen       *rand.Rand
 	queueMutex    *sync.Mutex
 	eventQueue    []*Event
+
+	param *RandomParam
 }
 
-func (r *Random) Init(storage HistoryStorage) {
+func constrRandomParam(rawParam map[string]interface{}) *RandomParam {
+	if _, ok := rawParam["prioritize"]; ok {
+		return &RandomParam{
+			prioritize: rawParam["prioritize"].(string),
+		}
+	}
+
+	return nil
+}
+
+func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
+	r.param = constrRandomParam(param)
+
 	go func() {
 		for {
 			// TODO: configurable
@@ -80,5 +98,6 @@ func RandomNew() *Random {
 		r,
 		mutex,
 		eventQueue,
+		nil,
 	}
 }

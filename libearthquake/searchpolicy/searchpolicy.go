@@ -25,7 +25,7 @@ import (
 )
 
 type SearchPolicy interface {
-	Init(storage historystorage.HistoryStorage)
+	Init(storage historystorage.HistoryStorage, param map[string]interface{})
 	Name() string
 
 	GetNextEventChan() chan *Event

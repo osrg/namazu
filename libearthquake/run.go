@@ -34,6 +34,8 @@ type runConfig struct {
 	runScript    string
 	searchPolicy string
 	storageType  string
+
+	searchPolicyParam map[string]interface{}
 }
 
 func parseRunConfig(jsonPath string) (*runConfig, error) {
@@ -58,8 +60,13 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 	}
 
 	searchPolicy := "dumb"
+	var searchPolicyParam map[string]interface{}
 	if _, ok := root["searchPolicy"]; ok {
 		searchPolicy = root["searchPolicy"].(string)
+
+		if _, ok := root["searchPolicyParam"]; ok {
+			searchPolicyParam = root["searchPolicyParam"].(map[string]interface{})
+		}
 	}
 
 	storageType := "naive"
@@ -71,6 +78,8 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 		runScript:    runScript,
 		searchPolicy: searchPolicy,
 		storageType:  storageType,
+
+		searchPolicyParam: searchPolicyParam,
 	}, nil
 }
 
@@ -97,7 +106,7 @@ func run(args []string) {
 		fmt.Printf("invalid policy name: %s", conf.searchPolicy)
 		os.Exit(1)
 	}
-	policy.Init(storage)
+	policy.Init(storage, conf.searchPolicyParam)
 
 	nextDir := storage.CreateNewWorkingDir()
 
