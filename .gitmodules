@@ -9,3 +9,6 @@
 [submodule "example/zk-found-bug.ether/zk_testbed/zookeeper"]
 	path = example/zk-found-bug.ether/zk_testbed/zookeeper
 	url = https://github.com/apache/zookeeper.git
+[submodule "example/zk-wip.ether/zk_testbed/zookeeper"]
+	path = example/zk-wip.ether/zk_testbed/zookeeper
+	url = https://github.com/apache/zookeeper.git

@@ -1,0 +1,9 @@
+source lib.sh
+./000-prepare.sh;  (while :;do (./100-run-experiment.sh || KILL_DOCKERS); sleep 5; done) 2>&1 | tee /tmp/eq-run-experiment.log
+
+
+
+watch echo -n "#REPRODUCED: "; (find /tmp/eq-run-experiment -name REPRODUCED | wc -l ); echo -n  "#EXP: "; ( ls /tmp/eq-run-experiment | wc -l )
+
+
+KILL_DOCKERS; ./999-end.sh; rm -rf /tmp/eq*
