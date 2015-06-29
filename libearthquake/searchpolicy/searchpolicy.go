@@ -29,7 +29,7 @@ type SearchPolicy interface {
 	Name() string
 
 	GetNextEventChan() chan *Event
-	QueueNextEvent(ev *Event)
+	QueueNextEvent(id string, ev *Event)
 }
 
 func CreatePolicy(name string) SearchPolicy {

@@ -932,7 +932,7 @@ func singleSearchNoInitiation(workingDir string, endCh chan interface{}, policy 
 			}
 
 			ev2Proc[e] = readyProc
-			policy.QueueNextEvent(e)
+			policy.QueueNextEvent(readyProc.id, e)
 
 		case nextEvent := <-nextEventChan:
 			readyProc := ev2Proc[nextEvent]

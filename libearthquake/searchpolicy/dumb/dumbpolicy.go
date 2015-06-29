@@ -35,7 +35,7 @@ func (d *Dumb) GetNextEventChan() chan *Event {
 	return d.nextEventChan
 }
 
-func (d *Dumb) QueueNextEvent(ev *Event) {
+func (d *Dumb) QueueNextEvent(id string, ev *Event) {
 	go func(e *Event) {
 		d.nextEventChan <- ev
 	}(ev)
