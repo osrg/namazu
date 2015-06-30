@@ -6,9 +6,9 @@
 	path = inspector/c/llvm/llvm.git
 	url = https://github.com/osrg/llvm.git
 	branch = earthquake
-[submodule "example/zk-found-bug.ether/zk_testbed/zookeeper"]
-	path = example/zk-found-bug.ether/zk_testbed/zookeeper
+[submodule "example/zk-found-bug.ryu_pyeq/zk_testbed/zookeeper"]
+	path = example/zk-found-bug.ryu_pyeq/zk_testbed/zookeeper
 	url = https://github.com/apache/zookeeper.git
-[submodule "example/zk-wip.ether/zk_testbed/zookeeper"]
-	path = example/zk-wip.ether/zk_testbed/zookeeper
+[submodule "example/zk-wip.ryu_pyeq/zk_testbed/zookeeper"]
+	path = example/zk-wip.ryu_pyeq/zk_testbed/zookeeper
 	url = https://github.com/apache/zookeeper.git
