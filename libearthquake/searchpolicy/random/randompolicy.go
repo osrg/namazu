@@ -26,6 +26,7 @@ import (
 
 type RandomParam struct {
 	prioritize string
+	interval   time.Duration // in millisecond
 }
 
 type Random struct {
@@ -41,13 +42,19 @@ type Random struct {
 }
 
 func constrRandomParam(rawParam map[string]interface{}) *RandomParam {
+	var param RandomParam
+
 	if _, ok := rawParam["prioritize"]; ok {
-		return &RandomParam{
-			prioritize: rawParam["prioritize"].(string),
-		}
+		param.prioritize = rawParam["prioritize"].(string)
 	}
 
-	return nil
+	if _, ok := rawParam["interval"]; ok {
+		param.interval = time.Duration(int(rawParam["interval"].(float64)))
+	} else {
+		param.interval = time.Duration(100) // default: 100ms
+	}
+
+	return &param
 }
 
 func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
@@ -55,8 +62,7 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 
 	go func() {
 		for {
-			// TODO: configurable
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(r.param.interval * time.Millisecond)
 
 			r.queueMutex.Lock()
 			highLen := len(r.highEventQueue)
