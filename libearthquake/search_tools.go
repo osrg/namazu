@@ -36,6 +36,7 @@ func (cmd searchToolsCmd) Run(args []string) int {
 		"calc-dup":   searchtools.CalcDupCommandFactory,
 		"visualize":  searchtools.VisualizeCommandFactory,
 		"dump-trace": searchtools.DumpTraceCommandFactory,
+		"summary":    searchtools.SummaryCommandFactory,
 	}
 
 	exitStatus, err := c.Run()

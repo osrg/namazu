@@ -104,6 +104,7 @@ func (r *Random) QueueNextEvent(procId string, ev *Event) {
 	r.queueMutex.Lock()
 
 	if r.param != nil && procId == r.param.prioritize {
+		Log("**************** process %s alives, prioritizing\n", procId)
 		r.highEventQueue = append(r.highEventQueue, ev)
 	} else {
 		r.lowEventQueue = append(r.lowEventQueue, ev)

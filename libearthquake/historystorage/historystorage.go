@@ -34,6 +34,8 @@ type HistoryStorage interface {
 
 	NrStoredHistories() int
 	GetStoredHistory(id int) (*SingleTrace, error)
+
+	IsSucceed(id int) (bool, error)
 }
 
 func New(name, dirPath string) HistoryStorage {

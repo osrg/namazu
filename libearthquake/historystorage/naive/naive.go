@@ -177,6 +177,26 @@ func (n *Naive) RecordResult(succeed bool) error {
 	return nil
 }
 
+func (n *Naive) IsSucceed(id int) (bool, error) {
+	path := fmt.Sprintf("%s/%08x/%s", n.dir, id, resultPath)
+
+	encoded, err := WholeRead(path)
+	if err != nil {
+		return false, err
+	}
+
+	byteBuf := bytes.NewBuffer(encoded)
+	dec := gob.NewDecoder(byteBuf)
+	var ret testResult
+	derr := dec.Decode(&ret)
+	if derr != nil {
+		return false, derr
+	}
+
+	return ret.Succeed, nil
+
+}
+
 func (n *Naive) Init() {
 	n.info = n.readSearchModeInfo()
 }
