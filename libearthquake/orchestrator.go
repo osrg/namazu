@@ -880,9 +880,15 @@ func singleSearchNoInitiation(workingDir string, endCh chan interface{}, policy 
 	ev2Proc := make(map[*Event]*process)
 
 	running := true
-	for running {
+	for {
 		select {
 		case readyProc := <-readyProcCh:
+			if !running {
+				// run script ended, just ignore events
+				readyProc.gotoNext <- true
+				continue
+			}
+
 			Log("ready process %v", readyProc)
 			req := <-readyProc.reqToMain
 			eventReq := req.Event
@@ -944,14 +950,13 @@ func singleSearchNoInitiation(workingDir string, endCh chan interface{}, policy 
 		case <-endCh:
 			Log("main loop end")
 			running = false
+
+			newTrace := &SingleTrace{
+				eventSeq,
+			}
+			newTraceCh <- newTrace
 		}
 	}
-
-	newTrace := &SingleTrace{
-		eventSeq,
-	}
-
-	newTraceCh <- newTrace
 }
 
 func searchModeNoInitiation(workingDir string, policy SearchPolicy, endCh chan interface{}, newTraceCh chan *SingleTrace) {

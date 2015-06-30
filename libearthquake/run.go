@@ -31,7 +31,10 @@ import (
 )
 
 type runConfig struct {
-	runScript    string
+	runScript      string
+	cleanScript    string
+	validateScript string
+
 	searchPolicy string
 	storageType  string
 
@@ -59,6 +62,16 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 		return nil, nil
 	}
 
+	cleanScript := ""
+	if _, ok := root["clean"]; ok {
+		cleanScript = root["clean"].(string)
+	}
+
+	validateScript := ""
+	if _, ok := root["validate"]; ok {
+		validateScript = root["validate"].(string)
+	}
+
 	searchPolicy := "dumb"
 	var searchPolicyParam map[string]interface{}
 	if _, ok := root["searchPolicy"]; ok {
@@ -75,12 +88,27 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 	}
 
 	return &runConfig{
-		runScript:    runScript,
+		runScript:      runScript,
+		cleanScript:    cleanScript,
+		validateScript: validateScript,
+
 		searchPolicy: searchPolicy,
 		storageType:  storageType,
 
 		searchPolicyParam: searchPolicyParam,
 	}, nil
+}
+
+func createCmd(scriptPath, workingDirPath, materialsDirPath string) *exec.Cmd {
+	cmd := exec.Command("sh", "-c", scriptPath)
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	cmd.Env = append(cmd.Env, "WORKING_DIR="+workingDirPath)
+	cmd.Env = append(cmd.Env, "MATERIALS_DIR="+materialsDirPath)
+
+	return cmd
 }
 
 func run(args []string) {
@@ -117,13 +145,18 @@ func run(args []string) {
 
 	materialsDir := storagePath + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript
-	runCmd := exec.Command("sh", "-c", runScriptPath)
 
-	runCmd.Stdout = os.Stdout
-	runCmd.Stderr = os.Stderr
+	cleanScriptPath := ""
+	if conf.cleanScript != "" {
+		cleanScriptPath = materialsDir + "/" + conf.cleanScript
+	}
 
-	runCmd.Env = append(runCmd.Env, "WORKING_DIR="+nextDir)
-	runCmd.Env = append(runCmd.Env, "MATERIALS_DIR="+materialsDir)
+	validateScriptPath := ""
+	if conf.validateScript != "" {
+		validateScriptPath = materialsDir + "/" + conf.validateScript
+	}
+
+	runCmd := createCmd(runScriptPath, nextDir, materialsDir)
 
 	rerr := runCmd.Run()
 	if rerr != nil {
@@ -135,6 +168,26 @@ func run(args []string) {
 	newTrace := <-newTraceCh
 
 	storage.RecordNewTrace(newTrace)
+
+	if validateScriptPath != "" {
+		validateCmd := createCmd(validateScriptPath, nextDir, materialsDir)
+
+		rerr = validateCmd.Run()
+		if rerr != nil {
+			fmt.Printf("failed to execute validate script %s: %s\n", validateScriptPath, rerr)
+			os.Exit(1)
+		}
+	}
+
+	if cleanScriptPath != "" {
+		cleanCmd := createCmd(cleanScriptPath, nextDir, materialsDir)
+
+		rerr = cleanCmd.Run()
+		if rerr != nil {
+			fmt.Printf("failed to execute clean script %s: %s\n", cleanScriptPath, rerr)
+			os.Exit(1)
+		}
+	}
 }
 
 type runCmd struct {
