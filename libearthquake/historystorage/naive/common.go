@@ -19,11 +19,17 @@ package naive
 
 const (
 	searchModeInfoPath = "SearchModeInfo" // relative path of metadata
+	resultPath         = "result"
 )
 
 // type of metadata
 type searchModeInfo struct {
 	NrCollectedTraces int
+}
+
+// type of result, per history
+type testResult struct {
+	Succeed bool
 }
 
 // type that implements interface HistoryStorage

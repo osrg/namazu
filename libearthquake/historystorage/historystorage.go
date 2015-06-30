@@ -30,6 +30,7 @@ type HistoryStorage interface {
 
 	CreateNewWorkingDir() string
 	RecordNewTrace(newTrace *SingleTrace)
+	RecordResult(succeed bool) error
 
 	NrStoredHistories() int
 	GetStoredHistory(id int) (*SingleTrace, error)

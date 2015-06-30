@@ -150,6 +150,33 @@ func (n *Naive) GetStoredHistory(id int) (*SingleTrace, error) {
 	return &ret, nil
 }
 
+func (n *Naive) RecordResult(succeed bool) error {
+	path := fmt.Sprintf("%s/%s", n.nextWorkingDir, resultPath)
+
+	result := testResult{
+		succeed,
+	}
+
+	var resultBuf bytes.Buffer
+	enc := gob.NewEncoder(&resultBuf)
+	eerr := enc.Encode(&result)
+	if eerr != nil {
+		return eerr
+	}
+
+	resultFile, oerr := os.Create(path)
+	if oerr != nil {
+		return oerr
+	}
+
+	_, werr := resultFile.Write(resultBuf.Bytes())
+	if werr != nil {
+		return werr
+	}
+
+	return nil
+}
+
 func (n *Naive) Init() {
 	n.info = n.readSearchModeInfo()
 }

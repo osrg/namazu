@@ -174,8 +174,13 @@ func run(args []string) {
 
 		rerr = validateCmd.Run()
 		if rerr != nil {
-			fmt.Printf("failed to execute validate script %s: %s\n", validateScriptPath, rerr)
-			os.Exit(1)
+			fmt.Printf("validation failed: %s\n", rerr)
+			// TODO: detailed check of error
+			// e.g. handle a case like permission denied, noent, etc
+			storage.RecordResult(false)
+		} else {
+			fmt.Printf("validation succeed\n")
+			storage.RecordResult(true)
 		}
 	}
 
