@@ -1,0 +1,10 @@
+{
+    "run": "2172_run.sh",
+
+    "searchPolicy" : "random",
+
+    "searchPolicyParam" : {
+	"interval": 500,
+	"prioritize": "zksrv3"
+    }
+}
