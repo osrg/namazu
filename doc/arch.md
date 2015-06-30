@@ -20,6 +20,8 @@
                   +--- Inspectors (for Java) are embedded in testee programs using byteman
 
 
+Please also refer to [figs/eq-redesign.pdf](figs/eq-redesign.pdf) for planned archtecture-level changes.
+
 ## Inspectors
 ### Implemented Inspectors:
  * Java: byteman
