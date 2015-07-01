@@ -129,7 +129,6 @@ func (this *ZK2172) QueueNextEvent(procId string, ev *Event) {
 	}
 
 	if ev.EventParam == "deserializeSnapshot" && procId == "zksrv3" {
-		Log("!!!!!!!!!!!!!!!!!! deserializeSnapshot arrives from %s", procId)
 		newEv.tick = 1000
 	}
 
