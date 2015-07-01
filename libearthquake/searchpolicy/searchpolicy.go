@@ -20,8 +20,10 @@ import (
 
 	. "../equtils"
 	"../historystorage"
+
 	"./dumb"
 	"./random"
+	"./zk2172"
 )
 
 type SearchPolicy interface {
@@ -38,6 +40,8 @@ func CreatePolicy(name string) SearchPolicy {
 		return dumb.DumbNew()
 	case "random":
 		return random.RandomNew()
+	case "ZK2172":
+		return zk2172.ZK2172New()
 	default:
 		fmt.Printf("unknown search policy: %s\n", name)
 	}

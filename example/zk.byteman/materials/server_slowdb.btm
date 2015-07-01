@@ -1,0 +1,19 @@
+RULE load db
+CLASS ZKDatabase
+METHOD loadDataBase
+HELPER net.osrg.earthquake.PBEQHelper
+AT ENTRY
+IF true
+DO
+eventFuncCall("ZKDatabase.loadDataBase");
+ENDRULE
+
+RULE invoke initiation, call static constructor of EQHelper
+CLASS QuorumPeerMain
+HELPER net.osrg.earthquake.PBEQHelper
+METHOD main
+AT ENTRY
+IF true
+DO
+System.out.println("BTM: main()");
+ENDRULE
