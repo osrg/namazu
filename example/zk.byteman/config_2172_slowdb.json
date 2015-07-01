@@ -6,6 +6,6 @@
     "searchPolicy" : "ZK2172",
 
     "searchPolicyParam" : {
-	"interval": 500
+	"interval": 100
     }
 }
