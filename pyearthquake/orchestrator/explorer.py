@@ -165,6 +165,9 @@ class ExplorerBase(object):
     def choose_digestible(self, digestibles):
         pass
 
+    def call_action(self, action):
+        self.oc.call_action(action)
+
     def do_transition(self, digestible):
         assert isinstance(digestible, DigestibleBase)
         LOG.debug(colorama.Back.BLUE +
@@ -177,7 +180,7 @@ class ExplorerBase(object):
                   digestible.action, digestible.event, 
                   self.state.to_short_str(), 
                   digestible)
-        self.oc.call_action(digestible.action)
+        self.call_action(digestible.action)
         next_state = self.state.make_copy()
         next_state.append_digestible(digestible)
         LOG.debug(colorama.Back.BLUE +
@@ -241,10 +244,19 @@ class ExplorerBase(object):
         return next_state
         
 
-class DumbExplorer(ExplorerBase):        
+class DumbExplorer(ExplorerBase):
+    def __init__(self, sleep_msecs=0):
+        super(DumbExplorer, self).__init__()
+        self.sleep_msecs = sleep_msecs
+    
     def choose_digestible(self, digestibles):
         assert (digestibles)
         return digestibles[0]
+
+    def call_action(self, action):
+        if self.sleep_msecs:
+            sleep(self.sleep_msecs / 1000.0)
+        super(DumbExplorer, self).call_action(action)
 
 
 class RandomExplorer(ExplorerBase):

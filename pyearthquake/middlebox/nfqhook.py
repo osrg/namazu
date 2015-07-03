@@ -19,6 +19,7 @@ def nfq_hook_cb(qh, nfmsg, nfad, data):
     LOG.debug('packet_id=%d', packet_id)
     ip_frame = NFQ.cb_get_payload(nfad)
     LOG.debug('ip_frame=len:%d', len(ip_frame))
+    #hexdump(ip_frame)
     LOG.debug('Getting this')
     this_id = data
     LOG.debug('this_id=%s', this_id)
@@ -30,9 +31,10 @@ def nfq_hook_cb(qh, nfmsg, nfad, data):
     LOG.debug('sent packet %d', packet_id)            
     return 1
 
+nfq_hook_cb_c = NFQ.CALLBACK_CFUNCTYPE(nfq_hook_cb) # https://github.com/JohannesBuchner/PyMultiNest/issues/5
 
 class NFQHook(object):
-    NFQ_SOCKET_BUFFER_SIZE = 65536
+    NFQ_SOCKET_BUFFER_SIZE = 1024*4
     
     def __init__(self, nfq_number, zmq_addr):
         self.nfq_number = nfq_number
@@ -58,7 +60,7 @@ class NFQHook(object):
         self_id = id(self)
         LOG.debug('NFQ Worker self id: %s', self_id)
         self.nfq = NFQ(self.nfq_number, 
-                       NFQ.CALLBACK_CFUNCTYPE(nfq_hook_cb), 
+                       nfq_hook_cb_c, 
                        ctypes.c_void_p(self_id))
         worker_handle = eventlet.spawn(self._nfq_worker)
         return worker_handle

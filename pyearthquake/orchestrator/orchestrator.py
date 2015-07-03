@@ -81,7 +81,10 @@ class OrchestratorBase(object):
         self.explorer_str = self.config['globalFlags']['plugin']['explorer']
         self.detector_str = self.config['globalFlags']['plugin']['terminationDetector']
         
-        self.known_processes = self.config['processes']
+        if 'processes' in self.config:
+            self.known_processes = self.config['processes']
+        else:
+            self.known_processes = []
 
     def _init_load_libearthquake(self):
         dll_str = 'libearthquake.so'
@@ -141,13 +144,23 @@ class OrchestratorBase(object):
         def root():
             return 'Hello Earthquake!'
 
-        @app.route('/visualize_api/csv', methods=['GET'])
-        def visualize_api_csv():
+        @app.route('/ctrl_api/v1/forcibly_inspection_end')
+        def ctrl_api_v1_inspection_end():
+            state = self.explorer.state
+            state.forcibly_inspection_ended = True
+            return jsonify({})
+
+        @app.route('/visualize_api/v1/csv', methods=['GET'])
+        def visualize_api_v1_csv():
             csv_fn = self.libearthquake.EQGetStatCSV_UnstableAPI
             csv_fn.restype = ctypes.c_char_p
             csv_str = csv_fn()
             LOG.debug('CSV <== %s', csv_str)
             return Response(csv_str, mimetype='text/csv')
+
+        @app.route('/visualize_api/csv', methods=['GET'])
+        def DEPRECATED_visualize_api_csv():
+            return visualize_api_v1_csv()
         
         @app.route('/api/v1', methods=['POST'])
         def api_v1_post():

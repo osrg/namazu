@@ -1,0 +1,16 @@
+{
+    "globalFlags": {
+        "orchestratorListenPort": 10000,
+        "search": {
+	    "mode": "naive",
+            "directory": "\/tmp\/eq\/search"
+        },
+	"plugin": {
+	    "modules": ["zk_orchestrator" ],
+	    "orchestrator": "sys.modules[\"zk_orchestrator\"].ZkOrchestrator()",
+	    "explorer": "pyearthquake.orchestrator.explorer.DumbExplorer(sleep_msecs=30)",
+	    "processWatcher": "pyearthquake.orchestrator.watcher.BasicProcessWatcher()",
+	    "terminationDetector": "pyearthquake.orchestrator.detector.ForciblyInspectionEndDetector()"
+	}
+    }
+}
