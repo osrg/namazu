@@ -16,6 +16,7 @@ class StateBase(object):
         self.digestible_sequence = []
         self.init_time = time.time()
         self.last_transition_time = 0
+        self.forcibly_inspection_ended = False
         
     def __repr__(self):
         return '<State %s>' % repr(self.digestible_sequence)

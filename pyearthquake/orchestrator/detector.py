@@ -57,3 +57,10 @@ class InspectionEndDetector(TerminationDetectorBase):
         if terminated:
             LOG.debug("%s detected terminated=%s", self.__class__.__name__, terminated)        
         return terminated
+
+
+class ForciblyInspectionEndDetector(TerminationDetectorBase):
+    def is_terminal_state(self, state):
+        if state.forcibly_inspection_ended is None:
+            return False
+        return state.forcibly_inspection_ended

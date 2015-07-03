@@ -12,6 +12,7 @@ LOG = _LOG.getChild(__name__)
 class NFQ(object):
     """
     low-level NFQ
+    TODO: check SegV
     """
     NF_DROP = 0
     NF_ACCEPT = 1
@@ -144,6 +145,7 @@ if __name__ == "__main__":
                          struct nfgenmsg *nfmsg,
                          struct nfq_data *nfad, void *data);
         """
+        print "===CB==="
         LOG.info("CB called with data=%s", data)
         payload = NFQ.cb_get_payload(nfad)
         packet_id = NFQ.cb_get_packet_id(nfad)
@@ -153,7 +155,8 @@ if __name__ == "__main__":
         NFQ.cb_set_verdict(qh, packet_id, NFQ.NF_ACCEPT)
         return 1
 
-    nfq = NFQ(Q_NUM, NFQ.CALLBACK_CFUNCTYPE(cb))
+    cb_c = NFQ.CALLBACK_CFUNCTYPE(cb) # https://github.com/JohannesBuchner/PyMultiNest/issues/5
+    nfq = NFQ(Q_NUM, cb_c)
     s = socket.fromfd(nfq.fd, socket.AF_UNIX, socket.SOCK_STREAM)
     while True:
             d = s.recv(SOCK_BUF_SIZE)
