@@ -8,7 +8,7 @@
 	"plugin": {
 	    "modules": ["sample_orchestrator", "sample_termination_detector" ],
 	    "orchestrator": "sys.modules[\"sample_orchestrator\"].SampleOrchestrator()",
-	    "explorer": "pyearthquake.orchestrator.explorer.GreedyExplorer(50)",
+	    "explorer": "pyearthquake.orchestrator.explorer.GreedyExplorer(20)",
 	    "processWatcher": "pyearthquake.orchestrator.watcher.BasicProcessWatcher()",
 	    "terminationDetector": "sys.modules[\"sample_termination_detector\"].SampleTerminationDetector(messages=2)"
 	}

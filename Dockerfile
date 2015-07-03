@@ -21,9 +21,12 @@ RUN apt-get install -y default-jdk maven
 ## Install ryu
 RUN pip uninstall -y ryu && pip install ryu==3.20.2
 
-## Install pipework (our patched version for avoidance of veth name conflicts)
-RUN wget --no-check-certificate --quiet https://raw.githubusercontent.com/osrg/pipework/fix-pid-conflict/pipework -O /usr/local/bin/pipework
+## Install pipework
+RUN wget --no-check-certificate --quiet https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework -O /usr/local/bin/pipework
 RUN chmod +x /usr/local/bin/pipework
+
+## Install nfqhook deps
+RUN apt-get install -y libnetfilter-queue1 python-prctl
 
 ## Install Earthquake deps
 RUN apt-get install -y python-flask python-scapy python-zmq sudo

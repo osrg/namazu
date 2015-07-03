@@ -25,7 +25,8 @@ Please also refer to [figs/eq-redesign.pdf](figs/eq-redesign.pdf) for planned ar
 ## Inspectors
 ### Implemented Inspectors:
  * Java: byteman
- * Ethernet: Open vSwitch + ryu
+ * Ethernet (ryu): Open vSwitch + ryu
+ * Ethernet (nfqhook): iptables + NFQUEUE
  
 ## Orchestrator
 ### Implemented Backend and Bindings:

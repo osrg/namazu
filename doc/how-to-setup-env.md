@@ -45,7 +45,7 @@ You need to install Go 1.5 or later to build libearthquake.so.
     
     $ sudo pip install flask scapy zmq hexdump
     
-### Install Dependencies for Ethernet inspector
+### Install Dependencies for Ethernet inspector (ryu)
 #### Install Open vSwitch
     
     $ sudo apt-get install -y openvswitch-switch
@@ -61,7 +61,7 @@ Earthquake is tested with ryu 3.20.2
 #### Install pipework
     
     $ sudo apt-get install -y arping
-    $ sudo wget --no-check-certificate --quiet https://raw.githubusercontent.com/osrg/pipework/fix-pid-conflict/pipework -O /usr/local/bin/pipework
+    $ sudo wget --no-check-certificate --quiet https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework -O /usr/local/bin/pipework
     $ sudo chmod +x /usr/local/bin/pipework
     
 
@@ -72,6 +72,10 @@ Earthquake is tested with ryu 3.20.2
     $ sudo ovs-vsctl set-controller ovsbr0 tcp:127.0.0.1
     $ sudo echo 'ip addr add 192.168.42.254/24 dev ovsbr0' > /etc/rc.local
     $ sudo sh /etc/rc.local
+
+### Install Dependencies for Ethernet inspector (nfqhook)
+    
+    $ sudo apt-get install -y libnetfilter-queue1 python-prctl
     
 
 ### Build Earthquake
