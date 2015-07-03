@@ -55,6 +55,11 @@ do
     $MATERIALS_DIR/bin/zkServer.sh --config $WORKING_DIR/quorumconf/$i stop
 done
 
+for i in `seq 2 3`;
+do
+    rm -rf $WORKING_DIR/zookeeper$i/version-2/
+done
+
 # start actual test
 
 EQ_MODE_DIRECT=1 EQ_ENV_PROCESS_ID=zksrv1 EQ_NO_INITIATION=1 SERVER_JVMFLAGS="-javaagent:$AGENT_CP=script:$MATERIALS_DIR/server_slowdb.btm" ZOO_LOG_DIR=$WORKING_DIR/zookeeper1/logs/1/ $MATERIALS_DIR/bin/zkServer.sh --config $WORKING_DIR/quorumconf/1 start
