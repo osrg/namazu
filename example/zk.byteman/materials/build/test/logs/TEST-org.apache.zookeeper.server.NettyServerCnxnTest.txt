@@ -1,0 +1,98 @@
+Testsuite: org.apache.zookeeper.server.NettyServerCnxnTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.486 sec
+------------- Standard Output ---------------
+2015-05-21 15:08:34,449 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11221
+2015-05-21 15:08:34,457 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testSendCloseSession
+2015-05-21 15:08:34,459 [myid:] - INFO  [main:ClientBase@443] - Initial fdcount is: 46
+2015-05-21 15:08:34,596 [myid:] - INFO  [main:ClientBase@461] - STARTING server
+2015-05-21 15:08:34,599 [myid:] - INFO  [main:ClientBase@381] - CREATING server instance 127.0.0.1:11221
+2015-05-21 15:08:34,655 [myid:] - INFO  [main:ClientBase@356] - STARTING server instance 127.0.0.1:11221
+2015-05-21 15:08:34,660 [myid:] - INFO  [main:Environment@109] - Server environment:zookeeper.version=3.6.0-SNAPSHOT--1, built on 04/16/2015 06:13 GMT
+2015-05-21 15:08:34,660 [myid:] - INFO  [main:Environment@109] - Server environment:host.name=mitake-jiseki-PC
+2015-05-21 15:08:34,660 [myid:] - INFO  [main:Environment@109] - Server environment:java.version=1.7.0_75
+2015-05-21 15:08:34,660 [myid:] - INFO  [main:Environment@109] - Server environment:java.vendor=Oracle Corporation
+2015-05-21 15:08:34,660 [myid:] - INFO  [main:Environment@109] - Server environment:java.home=/usr/lib/jvm/java-7-openjdk-amd64/jre
+2015-05-21 15:08:34,660 [myid:] - INFO  [main:Environment@109] - Server environment:java.class.path=/home/mitake/github/zookeeper.git/build/test/classes:/home/mitake/github/zookeeper.git/build/test/lib/antlr-2.7.6.jar:/home/mitake/github/zookeeper.git/build/test/lib/checkstyle-5.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-beanutils-core-1.7.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-cli-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-collections-2.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-lang-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-logging-1.0.3.jar:/home/mitake/github/zookeeper.git/build/test/lib/google-collections-0.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/hamcrest-core-1.1.jar:/home/mitake/github/zookeeper.git/build/test/lib/junit-4.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/mockito-all-1.8.2.jar:/home/mitake/github/zookeeper.git/build/classes:/home/mitake/github/zookeeper.git/src/java/lib/aspectjrt.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjtools.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjweaver.jar:/home/mitake/github/zookeeper.git/src/java/lib/ivy-2.2.0.jar:/home/mitake/github/zookeeper.git/src/java/lib/org.aspectj.matcher.jar:/home/mitake/github/zookeeper.git/src/java/lib/protobuf-java-2.6.1.jar:/usr/share/ant/lib/ant.jar:/home/mitake/github/zookeeper.git/build/lib/commons-cli-1.2.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-core-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-mapper-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/javacc.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-util-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jline-2.11.jar:/home/mitake/github/zookeeper.git/build/lib/log4j-1.2.16.jar:/home/mitake/github/zookeeper.git/build/lib/netty-3.7.0.Final.jar:/home/mitake/github/zookeeper.git/build/lib/servlet-api-2.5-20081211.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-api-1.7.5.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-log4j12-1.7.5.jar:/usr/share/ant/lib/junit.jar:/usr/share/java/ant-launcher-1.9.3.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar
+2015-05-21 15:08:34,661 [myid:] - INFO  [main:Environment@109] - Server environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2015-05-21 15:08:34,661 [myid:] - INFO  [main:Environment@109] - Server environment:java.io.tmpdir=/tmp
+2015-05-21 15:08:34,661 [myid:] - INFO  [main:Environment@109] - Server environment:java.compiler=<NA>
+2015-05-21 15:08:34,661 [myid:] - INFO  [main:Environment@109] - Server environment:os.name=Linux
+2015-05-21 15:08:34,662 [myid:] - INFO  [main:Environment@109] - Server environment:os.arch=amd64
+2015-05-21 15:08:34,662 [myid:] - INFO  [main:Environment@109] - Server environment:os.version=3.13.0-45-generic
+2015-05-21 15:08:34,662 [myid:] - INFO  [main:Environment@109] - Server environment:user.name=mitake
+2015-05-21 15:08:34,662 [myid:] - INFO  [main:Environment@109] - Server environment:user.home=/home/mitake
+2015-05-21 15:08:34,662 [myid:] - INFO  [main:Environment@109] - Server environment:user.dir=/home/mitake/github/zookeeper.git/build/test
+2015-05-21 15:08:34,663 [myid:] - INFO  [main:Environment@109] - Server environment:os.memory.free=441MB
+2015-05-21 15:08:34,663 [myid:] - INFO  [main:Environment@109] - Server environment:os.memory.max=491MB
+2015-05-21 15:08:34,663 [myid:] - INFO  [main:Environment@109] - Server environment:os.memory.total=491MB
+2015-05-21 15:08:34,670 [myid:] - INFO  [main:ZooKeeperServer@825] - minSessionTimeout set to 6000
+2015-05-21 15:08:34,670 [myid:] - INFO  [main:ZooKeeperServer@834] - maxSessionTimeout set to 60000
+2015-05-21 15:08:34,670 [myid:] - INFO  [main:ZooKeeperServer@156] - Created server with tickTime 3000 minSessionTimeout 6000 maxSessionTimeout 60000 datadir /home/mitake/github/zookeeper.git/build/test/tmp/test8475741048599328814.junit.dir/version-2 snapdir /home/mitake/github/zookeeper.git/build/test/tmp/test8475741048599328814.junit.dir/version-2
+2015-05-21 15:08:34,670 [myid:] - INFO  [main:NettyServerCnxnFactory@486] - binding to port 0.0.0.0/0.0.0.0:11221
+2015-05-21 15:08:34,686 [myid:] - INFO  [main:FileTxnSnapLog@298] - Snapshotting: 0x0 to /home/mitake/github/zookeeper.git/build/test/tmp/test8475741048599328814.junit.dir/version-2/snapshot.0
+2015-05-21 15:08:34,701 [myid:] - INFO  [main:FourLetterWordMain@63] - connecting to 127.0.0.1 11221
+2015-05-21 15:08:34,722 [myid:] - INFO  [New I/O worker #1:NettyServerCnxn@635] - Processing stat command from /127.0.0.1:44453
+2015-05-21 15:08:34,723 [myid:] - INFO  [New I/O worker #1:NettyServerCnxn$StatCommand@472] - Stat command output
+2015-05-21 15:08:34,726 [myid:] - INFO  [main:JMXEnv@224] - ensureParent:[InMemoryDataTree, StandaloneServer_port]
+2015-05-21 15:08:34,733 [myid:] - INFO  [main:JMXEnv@241] - expect:InMemoryDataTree
+2015-05-21 15:08:34,733 [myid:] - INFO  [main:JMXEnv@245] - found:InMemoryDataTree org.apache.ZooKeeperService:name0=StandaloneServer_port11221,name1=InMemoryDataTree
+2015-05-21 15:08:34,734 [myid:] - INFO  [main:JMXEnv@241] - expect:StandaloneServer_port
+2015-05-21 15:08:34,734 [myid:] - INFO  [main:JMXEnv@245] - found:StandaloneServer_port org.apache.ZooKeeperService:name0=StandaloneServer_port11221
+2015-05-21 15:08:34,734 [myid:] - INFO  [main:ClientBase@457] - Client test setup finished
+2015-05-21 15:08:34,735 [myid:] - INFO  [Thread-2:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testSendCloseSession
+2015-05-21 15:08:34,741 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:zookeeper.version=3.6.0-SNAPSHOT--1, built on 04/16/2015 06:13 GMT
+2015-05-21 15:08:34,741 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:host.name=mitake-jiseki-PC
+2015-05-21 15:08:34,741 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:java.version=1.7.0_75
+2015-05-21 15:08:34,741 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:java.vendor=Oracle Corporation
+2015-05-21 15:08:34,742 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:java.home=/usr/lib/jvm/java-7-openjdk-amd64/jre
+2015-05-21 15:08:34,742 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:java.class.path=/home/mitake/github/zookeeper.git/build/test/classes:/home/mitake/github/zookeeper.git/build/test/lib/antlr-2.7.6.jar:/home/mitake/github/zookeeper.git/build/test/lib/checkstyle-5.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-beanutils-core-1.7.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-cli-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-collections-2.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-lang-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-logging-1.0.3.jar:/home/mitake/github/zookeeper.git/build/test/lib/google-collections-0.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/hamcrest-core-1.1.jar:/home/mitake/github/zookeeper.git/build/test/lib/junit-4.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/mockito-all-1.8.2.jar:/home/mitake/github/zookeeper.git/build/classes:/home/mitake/github/zookeeper.git/src/java/lib/aspectjrt.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjtools.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjweaver.jar:/home/mitake/github/zookeeper.git/src/java/lib/ivy-2.2.0.jar:/home/mitake/github/zookeeper.git/src/java/lib/org.aspectj.matcher.jar:/home/mitake/github/zookeeper.git/src/java/lib/protobuf-java-2.6.1.jar:/usr/share/ant/lib/ant.jar:/home/mitake/github/zookeeper.git/build/lib/commons-cli-1.2.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-core-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-mapper-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/javacc.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-util-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jline-2.11.jar:/home/mitake/github/zookeeper.git/build/lib/log4j-1.2.16.jar:/home/mitake/github/zookeeper.git/build/lib/netty-3.7.0.Final.jar:/home/mitake/github/zookeeper.git/build/lib/servlet-api-2.5-20081211.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-api-1.7.5.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-log4j12-1.7.5.jar:/usr/share/ant/lib/junit.jar:/usr/share/java/ant-launcher-1.9.3.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar
+2015-05-21 15:08:34,742 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2015-05-21 15:08:34,742 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:java.io.tmpdir=/tmp
+2015-05-21 15:08:34,742 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:java.compiler=<NA>
+2015-05-21 15:08:34,742 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:os.name=Linux
+2015-05-21 15:08:34,742 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:os.arch=amd64
+2015-05-21 15:08:34,743 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:os.version=3.13.0-45-generic
+2015-05-21 15:08:34,743 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:user.name=mitake
+2015-05-21 15:08:34,743 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:user.home=/home/mitake
+2015-05-21 15:08:34,743 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:user.dir=/home/mitake/github/zookeeper.git/build/test
+2015-05-21 15:08:34,743 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:os.memory.free=437MB
+2015-05-21 15:08:34,743 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:os.memory.max=491MB
+2015-05-21 15:08:34,743 [myid:] - INFO  [Thread-2:Environment@109] - Client environment:os.memory.total=491MB
+2015-05-21 15:08:34,745 [myid:] - INFO  [Thread-2:ZooKeeper@717] - Initiating client connection, connectString=127.0.0.1:11221 sessionTimeout=30000 watcher=org.apache.zookeeper.test.ClientBase$CountdownWatcher@780dcb0a
+2015-05-21 15:08:34,754 [myid:] - INFO  [Thread-2-SendThread(127.0.0.1:11221):ClientCnxn$SendThread@1096] - Opening socket connection to server 127.0.0.1/127.0.0.1:11221. Will not attempt to authenticate using SASL (unknown error)
+2015-05-21 15:08:34,755 [myid:] - INFO  [Thread-2-SendThread(127.0.0.1:11221):ClientCnxn$SendThread@968] - Socket connection established, initiating session, client: /127.0.0.1:44454, server: 127.0.0.1/127.0.0.1:11221
+2015-05-21 15:08:34,757 [myid:] - INFO  [New I/O worker #2:ZooKeeperServer@931] - Client attempting to establish new session at /127.0.0.1:44454
+2015-05-21 15:08:34,760 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.1
+2015-05-21 15:08:34,780 [myid:] - INFO  [SyncThread:0:ZooKeeperServer@645] - Established session 0x100062203a30000 with negotiated timeout 30000 for client /127.0.0.1:44454
+2015-05-21 15:08:34,780 [myid:] - INFO  [Thread-2-SendThread(127.0.0.1:11221):ClientCnxn$SendThread@1357] - Session establishment complete on server 127.0.0.1/127.0.0.1:11221, sessionid = 0x100062203a30000, negotiated timeout = 30000
+2015-05-21 15:08:34,785 [myid:] - INFO  [Thread-2:JMXEnv@113] - expect:0x100062203a30000
+2015-05-21 15:08:34,786 [myid:] - INFO  [Thread-2:JMXEnv@116] - found:0x100062203a30000 org.apache.ZooKeeperService:name0=StandaloneServer_port11221,name1=Connections,name2=127.0.0.1,name3=0x100062203a30000
+2015-05-21 15:08:34,807 [myid:] - INFO  [Thread-2-SendThread(127.0.0.1:11221):ClientCnxn$SendThread@1211] - Unable to read additional data from server sessionid 0x100062203a30000, likely server has closed socket, closing socket connection and attempting reconnect
+2015-05-21 15:08:34,810 [myid:] - INFO  [Thread-2:MBeanRegistry@119] - Unregister MBean [org.apache.ZooKeeperService:name0=StandaloneServer_port11221,name1=Connections,name2=127.0.0.1,name3=0x100062203a30000]
+2015-05-21 15:08:34,810 [myid:] - INFO  [Thread-2:NettyServerCnxnTest@74] - Waiting for the channel disconnected event
+2015-05-21 15:08:34,909 [myid:] - INFO  [Thread-2:ZooKeeper@1111] - Session: 0x100062203a30000 closed
+2015-05-21 15:08:34,909 [myid:] - INFO  [Thread-2-EventThread:ClientCnxn$EventThread@531] - EventThread shut down
+2015-05-21 15:08:34,909 [myid:] - INFO  [Thread-2:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 60231
+2015-05-21 15:08:34,910 [myid:] - INFO  [Thread-2:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 42
+2015-05-21 15:08:34,910 [myid:] - INFO  [Thread-2:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testSendCloseSession
+2015-05-21 15:08:34,910 [myid:] - INFO  [main:ClientBase@538] - tearDown starting
+2015-05-21 15:08:34,911 [myid:] - INFO  [main:ClientBase@508] - STOPPING server
+2015-05-21 15:08:34,911 [myid:] - INFO  [main:NettyServerCnxnFactory@463] - shutdown called 0.0.0.0/0.0.0.0:11221
+2015-05-21 15:08:34,922 [myid:] - INFO  [main:ZooKeeperServer@465] - shutting down
+2015-05-21 15:08:34,922 [myid:] - INFO  [main:SessionTrackerImpl@232] - Shutting down
+2015-05-21 15:08:34,922 [myid:] - INFO  [main:PrepRequestProcessor@973] - Shutting down
+2015-05-21 15:08:34,922 [myid:] - INFO  [main:SyncRequestProcessor@191] - Shutting down
+2015-05-21 15:08:34,922 [myid:] - INFO  [ProcessThread(sid:0 cport:11221)::PrepRequestProcessor@155] - PrepRequestProcessor exited loop!
+2015-05-21 15:08:34,923 [myid:] - INFO  [SyncThread:0:SyncRequestProcessor@169] - SyncRequestProcessor exited!
+2015-05-21 15:08:34,923 [myid:] - INFO  [main:FinalRequestProcessor@489] - shutdown of request processor complete
+2015-05-21 15:08:34,923 [myid:] - INFO  [main:MBeanRegistry@119] - Unregister MBean [org.apache.ZooKeeperService:name0=StandaloneServer_port11221,name1=InMemoryDataTree]
+2015-05-21 15:08:34,923 [myid:] - INFO  [main:MBeanRegistry@119] - Unregister MBean [org.apache.ZooKeeperService:name0=StandaloneServer_port11221]
+2015-05-21 15:08:34,923 [myid:] - INFO  [main:FourLetterWordMain@63] - connecting to 127.0.0.1 11221
+2015-05-21 15:08:34,924 [myid:] - INFO  [main:JMXEnv@142] - ensureOnly:[]
+2015-05-21 15:08:34,925 [myid:] - INFO  [main:ClientBase@563] - fdcount after test is: 58 at start it was 46
+2015-05-21 15:08:34,925 [myid:] - INFO  [main:ClientBase@565] - sleeping for 20 secs
+2015-05-21 15:08:34,926 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testSendCloseSession
+2015-05-21 15:08:34,926 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testSendCloseSession
+------------- ---------------- ---------------
+
+Testcase: testSendCloseSession took 0.469 sec

@@ -1,0 +1,30 @@
+Testsuite: org.apache.zookeeper.CustomHostProviderTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.093 sec
+------------- Standard Output ---------------
+2015-05-21 15:02:45,945 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11221
+2015-05-21 15:02:45,958 [myid:] - INFO  [main:Environment@109] - Client environment:zookeeper.version=3.6.0-SNAPSHOT--1, built on 04/16/2015 06:13 GMT
+2015-05-21 15:02:45,958 [myid:] - INFO  [main:Environment@109] - Client environment:host.name=mitake-jiseki-PC
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:java.version=1.7.0_75
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:java.vendor=Oracle Corporation
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:java.home=/usr/lib/jvm/java-7-openjdk-amd64/jre
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:java.class.path=/home/mitake/github/zookeeper.git/build/test/classes:/home/mitake/github/zookeeper.git/build/test/lib/antlr-2.7.6.jar:/home/mitake/github/zookeeper.git/build/test/lib/checkstyle-5.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-beanutils-core-1.7.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-cli-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-collections-2.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-lang-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-logging-1.0.3.jar:/home/mitake/github/zookeeper.git/build/test/lib/google-collections-0.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/hamcrest-core-1.1.jar:/home/mitake/github/zookeeper.git/build/test/lib/junit-4.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/mockito-all-1.8.2.jar:/home/mitake/github/zookeeper.git/build/classes:/home/mitake/github/zookeeper.git/src/java/lib/aspectjrt.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjtools.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjweaver.jar:/home/mitake/github/zookeeper.git/src/java/lib/ivy-2.2.0.jar:/home/mitake/github/zookeeper.git/src/java/lib/org.aspectj.matcher.jar:/home/mitake/github/zookeeper.git/src/java/lib/protobuf-java-2.6.1.jar:/usr/share/ant/lib/ant.jar:/home/mitake/github/zookeeper.git/build/lib/commons-cli-1.2.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-core-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-mapper-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/javacc.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-util-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jline-2.11.jar:/home/mitake/github/zookeeper.git/build/lib/log4j-1.2.16.jar:/home/mitake/github/zookeeper.git/build/lib/netty-3.7.0.Final.jar:/home/mitake/github/zookeeper.git/build/lib/servlet-api-2.5-20081211.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-api-1.7.5.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-log4j12-1.7.5.jar:/usr/share/ant/lib/junit.jar:/usr/share/java/ant-launcher-1.9.3.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:java.io.tmpdir=/tmp
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:java.compiler=<NA>
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:os.name=Linux
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:os.arch=amd64
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:os.version=3.13.0-45-generic
+2015-05-21 15:02:45,959 [myid:] - INFO  [main:Environment@109] - Client environment:user.name=mitake
+2015-05-21 15:02:45,960 [myid:] - INFO  [main:Environment@109] - Client environment:user.home=/home/mitake
+2015-05-21 15:02:45,960 [myid:] - INFO  [main:Environment@109] - Client environment:user.dir=/home/mitake/github/zookeeper.git/build/test
+2015-05-21 15:02:45,961 [myid:] - INFO  [main:Environment@109] - Client environment:os.memory.free=480MB
+2015-05-21 15:02:45,961 [myid:] - INFO  [main:Environment@109] - Client environment:os.memory.max=491MB
+2015-05-21 15:02:45,961 [myid:] - INFO  [main:Environment@109] - Client environment:os.memory.total=491MB
+2015-05-21 15:02:45,966 [myid:] - INFO  [main:ZooKeeper@717] - Initiating client connection, connectString=127.0.0.1:11221 sessionTimeout=30000 watcher=testZooKeeperWithCustomHostProvider(org.apache.zookeeper.CustomHostProviderTest)
+2015-05-21 15:02:45,978 [myid:] - INFO  [main:ZooKeeper@717] - Initiating client connection, connectString=127.0.0.1:11221 sessionTimeout=30000 watcher=testZooKeeperWithCustomHostProvider(org.apache.zookeeper.CustomHostProviderTest)
+2015-05-21 15:02:45,978 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11222
+2015-05-21 15:02:45,978 [myid:] - INFO  [main:ClientCnxnSocketNIO@376] - testableCloseSocket() called
+2015-05-21 15:02:45,978 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11223
+------------- ---------------- ---------------
+
+Testcase: testZooKeeperWithCustomHostProvider took 0.089 sec

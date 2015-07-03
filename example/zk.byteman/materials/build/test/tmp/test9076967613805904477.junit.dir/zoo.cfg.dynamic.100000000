@@ -1,0 +1,2 @@
+server.1=127.0.0.1:11286:11287:participant
+server.2=127.0.0.1:11288:11289:participant

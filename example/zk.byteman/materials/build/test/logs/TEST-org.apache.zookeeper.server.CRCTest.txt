@@ -1,0 +1,190 @@
+Testsuite: org.apache.zookeeper.server.CRCTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.774 sec
+------------- Standard Output ---------------
+2015-05-21 15:08:05,329 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11221
+2015-05-21 15:08:05,380 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testChecksums
+2015-05-21 15:08:05,382 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testChecksums
+2015-05-21 15:08:05,405 [myid:] - INFO  [main:Environment@109] - Server environment:zookeeper.version=3.6.0-SNAPSHOT--1, built on 04/16/2015 06:13 GMT
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:host.name=mitake-jiseki-PC
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:java.version=1.7.0_75
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:java.vendor=Oracle Corporation
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:java.home=/usr/lib/jvm/java-7-openjdk-amd64/jre
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:java.class.path=/home/mitake/github/zookeeper.git/build/test/classes:/home/mitake/github/zookeeper.git/build/test/lib/antlr-2.7.6.jar:/home/mitake/github/zookeeper.git/build/test/lib/checkstyle-5.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-beanutils-core-1.7.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-cli-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-collections-2.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-lang-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-logging-1.0.3.jar:/home/mitake/github/zookeeper.git/build/test/lib/google-collections-0.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/hamcrest-core-1.1.jar:/home/mitake/github/zookeeper.git/build/test/lib/junit-4.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/mockito-all-1.8.2.jar:/home/mitake/github/zookeeper.git/build/classes:/home/mitake/github/zookeeper.git/src/java/lib/aspectjrt.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjtools.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjweaver.jar:/home/mitake/github/zookeeper.git/src/java/lib/ivy-2.2.0.jar:/home/mitake/github/zookeeper.git/src/java/lib/org.aspectj.matcher.jar:/home/mitake/github/zookeeper.git/src/java/lib/protobuf-java-2.6.1.jar:/usr/share/ant/lib/ant.jar:/home/mitake/github/zookeeper.git/build/lib/commons-cli-1.2.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-core-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-mapper-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/javacc.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-util-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jline-2.11.jar:/home/mitake/github/zookeeper.git/build/lib/log4j-1.2.16.jar:/home/mitake/github/zookeeper.git/build/lib/netty-3.7.0.Final.jar:/home/mitake/github/zookeeper.git/build/lib/servlet-api-2.5-20081211.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-api-1.7.5.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-log4j12-1.7.5.jar:/usr/share/ant/lib/junit.jar:/usr/share/java/ant-launcher-1.9.3.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:java.io.tmpdir=/tmp
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:java.compiler=<NA>
+2015-05-21 15:08:05,406 [myid:] - INFO  [main:Environment@109] - Server environment:os.name=Linux
+2015-05-21 15:08:05,407 [myid:] - INFO  [main:Environment@109] - Server environment:os.arch=amd64
+2015-05-21 15:08:05,407 [myid:] - INFO  [main:Environment@109] - Server environment:os.version=3.13.0-45-generic
+2015-05-21 15:08:05,407 [myid:] - INFO  [main:Environment@109] - Server environment:user.name=mitake
+2015-05-21 15:08:05,408 [myid:] - INFO  [main:Environment@109] - Server environment:user.home=/home/mitake
+2015-05-21 15:08:05,409 [myid:] - INFO  [main:Environment@109] - Server environment:user.dir=/home/mitake/github/zookeeper.git/build/test
+2015-05-21 15:08:05,409 [myid:] - INFO  [main:Environment@109] - Server environment:os.memory.free=478MB
+2015-05-21 15:08:05,409 [myid:] - INFO  [main:Environment@109] - Server environment:os.memory.max=491MB
+2015-05-21 15:08:05,409 [myid:] - INFO  [main:Environment@109] - Server environment:os.memory.total=491MB
+2015-05-21 15:08:05,419 [myid:] - INFO  [main:ZooKeeperServer@825] - minSessionTimeout set to 6000
+2015-05-21 15:08:05,419 [myid:] - INFO  [main:ZooKeeperServer@834] - maxSessionTimeout set to 60000
+2015-05-21 15:08:05,419 [myid:] - INFO  [main:ZooKeeperServer@156] - Created server with tickTime 3000 minSessionTimeout 6000 maxSessionTimeout 60000 datadir /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2 snapdir /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2
+2015-05-21 15:08:05,429 [myid:] - INFO  [main:NIOServerCnxnFactory@673] - Configuring NIO connection handler with 10s sessionless connection timeout, 2 selector thread(s), 24 worker threads, and 64 kB direct buffers.
+2015-05-21 15:08:05,434 [myid:] - INFO  [main:NIOServerCnxnFactory@686] - binding to port 0.0.0.0/0.0.0.0:11221
+2015-05-21 15:08:05,442 [myid:] - INFO  [main:FileTxnSnapLog@298] - Snapshotting: 0x0 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.0
+2015-05-21 15:08:05,500 [myid:] - INFO  [main:CRCTest@121] - starting up the zookeeper server .. waiting
+2015-05-21 15:08:05,501 [myid:] - INFO  [main:FourLetterWordMain@63] - connecting to 127.0.0.1 11221
+2015-05-21 15:08:05,504 [myid:] - INFO  [NIOServerCxnFactory.AcceptThread:0.0.0.0/0.0.0.0:11221:NIOServerCnxnFactory$AcceptThread@296] - Accepted socket connection from /127.0.0.1:44391
+2015-05-21 15:08:05,507 [myid:] - INFO  [NIOWorkerThread-1:NIOServerCnxn@836] - Processing stat command from /127.0.0.1:44391
+2015-05-21 15:08:05,509 [myid:] - INFO  [NIOWorkerThread-1:NIOServerCnxn$StatCommand@685] - Stat command output
+2015-05-21 15:08:05,509 [myid:] - INFO  [NIOWorkerThread-1:NIOServerCnxn@1007] - Closed socket connection for client /127.0.0.1:44391 (no session established for client)
+2015-05-21 15:08:05,513 [myid:] - INFO  [main:Environment@109] - Client environment:zookeeper.version=3.6.0-SNAPSHOT--1, built on 04/16/2015 06:13 GMT
+2015-05-21 15:08:05,513 [myid:] - INFO  [main:Environment@109] - Client environment:host.name=mitake-jiseki-PC
+2015-05-21 15:08:05,513 [myid:] - INFO  [main:Environment@109] - Client environment:java.version=1.7.0_75
+2015-05-21 15:08:05,513 [myid:] - INFO  [main:Environment@109] - Client environment:java.vendor=Oracle Corporation
+2015-05-21 15:08:05,513 [myid:] - INFO  [main:Environment@109] - Client environment:java.home=/usr/lib/jvm/java-7-openjdk-amd64/jre
+2015-05-21 15:08:05,514 [myid:] - INFO  [main:Environment@109] - Client environment:java.class.path=/home/mitake/github/zookeeper.git/build/test/classes:/home/mitake/github/zookeeper.git/build/test/lib/antlr-2.7.6.jar:/home/mitake/github/zookeeper.git/build/test/lib/checkstyle-5.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-beanutils-core-1.7.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-cli-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-collections-2.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-lang-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-logging-1.0.3.jar:/home/mitake/github/zookeeper.git/build/test/lib/google-collections-0.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/hamcrest-core-1.1.jar:/home/mitake/github/zookeeper.git/build/test/lib/junit-4.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/mockito-all-1.8.2.jar:/home/mitake/github/zookeeper.git/build/classes:/home/mitake/github/zookeeper.git/src/java/lib/aspectjrt.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjtools.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjweaver.jar:/home/mitake/github/zookeeper.git/src/java/lib/ivy-2.2.0.jar:/home/mitake/github/zookeeper.git/src/java/lib/org.aspectj.matcher.jar:/home/mitake/github/zookeeper.git/src/java/lib/protobuf-java-2.6.1.jar:/usr/share/ant/lib/ant.jar:/home/mitake/github/zookeeper.git/build/lib/commons-cli-1.2.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-core-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-mapper-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/javacc.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-util-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jline-2.11.jar:/home/mitake/github/zookeeper.git/build/lib/log4j-1.2.16.jar:/home/mitake/github/zookeeper.git/build/lib/netty-3.7.0.Final.jar:/home/mitake/github/zookeeper.git/build/lib/servlet-api-2.5-20081211.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-api-1.7.5.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-log4j12-1.7.5.jar:/usr/share/ant/lib/junit.jar:/usr/share/java/ant-launcher-1.9.3.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar
+2015-05-21 15:08:05,514 [myid:] - INFO  [main:Environment@109] - Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2015-05-21 15:08:05,514 [myid:] - INFO  [main:Environment@109] - Client environment:java.io.tmpdir=/tmp
+2015-05-21 15:08:05,514 [myid:] - INFO  [main:Environment@109] - Client environment:java.compiler=<NA>
+2015-05-21 15:08:05,514 [myid:] - INFO  [main:Environment@109] - Client environment:os.name=Linux
+2015-05-21 15:08:05,515 [myid:] - INFO  [main:Environment@109] - Client environment:os.arch=amd64
+2015-05-21 15:08:05,515 [myid:] - INFO  [main:Environment@109] - Client environment:os.version=3.13.0-45-generic
+2015-05-21 15:08:05,515 [myid:] - INFO  [main:Environment@109] - Client environment:user.name=mitake
+2015-05-21 15:08:05,515 [myid:] - INFO  [main:Environment@109] - Client environment:user.home=/home/mitake
+2015-05-21 15:08:05,515 [myid:] - INFO  [main:Environment@109] - Client environment:user.dir=/home/mitake/github/zookeeper.git/build/test
+2015-05-21 15:08:05,515 [myid:] - INFO  [main:Environment@109] - Client environment:os.memory.free=462MB
+2015-05-21 15:08:05,515 [myid:] - INFO  [main:Environment@109] - Client environment:os.memory.max=491MB
+2015-05-21 15:08:05,515 [myid:] - INFO  [main:Environment@109] - Client environment:os.memory.total=491MB
+2015-05-21 15:08:05,518 [myid:] - INFO  [main:ZooKeeper@717] - Initiating client connection, connectString=127.0.0.1:11221 sessionTimeout=30000 watcher=org.apache.zookeeper.server.CRCTest@68a2af21
+2015-05-21 15:08:05,529 [myid:] - INFO  [main-SendThread(127.0.0.1:11221):ClientCnxn$SendThread@1096] - Opening socket connection to server 127.0.0.1/127.0.0.1:11221. Will not attempt to authenticate using SASL (unknown error)
+2015-05-21 15:08:05,529 [myid:] - INFO  [NIOServerCxnFactory.AcceptThread:0.0.0.0/0.0.0.0:11221:NIOServerCnxnFactory$AcceptThread@296] - Accepted socket connection from /127.0.0.1:44392
+2015-05-21 15:08:05,529 [myid:] - INFO  [main-SendThread(127.0.0.1:11221):ClientCnxn$SendThread@968] - Socket connection established, initiating session, client: /127.0.0.1:44392, server: 127.0.0.1/127.0.0.1:11221
+2015-05-21 15:08:05,532 [myid:] - INFO  [NIOWorkerThread-2:ZooKeeperServer@931] - Client attempting to establish new session at /127.0.0.1:44392
+2015-05-21 15:08:05,533 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.1
+2015-05-21 15:08:05,549 [myid:] - INFO  [SyncThread:0:ZooKeeperServer@645] - Established session 0x100062191660000 with negotiated timeout 30000 for client /127.0.0.1:44392
+2015-05-21 15:08:05,550 [myid:] - INFO  [main-SendThread(127.0.0.1:11221):ClientCnxn$SendThread@1357] - Session establishment complete on server 127.0.0.1/127.0.0.1:11221, sessionid = 0x100062191660000, negotiated timeout = 30000
+2015-05-21 15:08:05,552 [myid:] - INFO  [main-EventThread:CRCTest@183] - Event:SyncConnected None null
+2015-05-21 15:08:06,515 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x8b to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.8b
+2015-05-21 15:08:06,523 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.8d
+2015-05-21 15:08:07,505 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x11d to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.11d
+2015-05-21 15:08:07,509 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.11f
+2015-05-21 15:08:08,121 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x178 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.178
+2015-05-21 15:08:08,126 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.17a
+2015-05-21 15:08:08,679 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x1cc to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.1cc
+2015-05-21 15:08:08,687 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.1ce
+2015-05-21 15:08:09,556 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x254 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.254
+2015-05-21 15:08:09,561 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.256
+2015-05-21 15:08:10,352 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x2d0 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.2d0
+2015-05-21 15:08:10,358 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.2d2
+2015-05-21 15:08:10,982 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x342 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.342
+2015-05-21 15:08:10,987 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.344
+2015-05-21 15:08:11,861 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x3cf to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.3cf
+2015-05-21 15:08:11,866 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.3d1
+2015-05-21 15:08:12,578 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x43f to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.43f
+2015-05-21 15:08:12,583 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.441
+2015-05-21 15:08:13,213 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x4a2 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.4a2
+2015-05-21 15:08:13,220 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.4a4
+2015-05-21 15:08:13,729 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x4f2 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.4f2
+2015-05-21 15:08:13,734 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.4f4
+2015-05-21 15:08:14,416 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x55d to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.55d
+2015-05-21 15:08:14,420 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.55f
+2015-05-21 15:08:15,027 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x5c2 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.5c2
+2015-05-21 15:08:15,031 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.5c4
+2015-05-21 15:08:15,613 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x624 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.624
+2015-05-21 15:08:15,625 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.626
+2015-05-21 15:08:16,244 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x692 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.692
+2015-05-21 15:08:16,248 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.694
+2015-05-21 15:08:17,084 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x728 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.728
+2015-05-21 15:08:17,088 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.72a
+2015-05-21 15:08:17,620 [myid:] - INFO  [Snapshot Thread:FileTxnSnapLog@298] - Snapshotting: 0x780 to /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.780
+2015-05-21 15:08:17,624 [myid:] - INFO  [SyncThread:0:FileTxnLog@200] - Creating new log file: log.782
+2015-05-21 15:08:18,085 [myid:] - INFO  [ProcessThread(sid:0 cport:11221)::PrepRequestProcessor@675] - Processed session termination for sessionid: 0x100062191660000
+2015-05-21 15:08:18,092 [myid:] - INFO  [main:ZooKeeper@1111] - Session: 0x100062191660000 closed
+2015-05-21 15:08:18,092 [myid:] - INFO  [NIOWorkerThread-21:MBeanRegistry@119] - Unregister MBean [org.apache.ZooKeeperService:name0=StandaloneServer_port11221,name1=Connections,name2=127.0.0.1,name3=0x100062191660000]
+2015-05-21 15:08:18,092 [myid:] - INFO  [ConnnectionExpirer:NIOServerCnxnFactory$ConnectionExpirerThread@583] - ConnnectionExpirerThread interrupted
+2015-05-21 15:08:18,092 [myid:] - INFO  [main-EventThread:ClientCnxn$EventThread@531] - EventThread shut down
+2015-05-21 15:08:18,092 [myid:] - INFO  [NIOWorkerThread-21:NIOServerCnxn@1007] - Closed socket connection for client /127.0.0.1:44392 which had sessionid 0x100062191660000
+2015-05-21 15:08:18,092 [myid:] - INFO  [NIOServerCxnFactory.AcceptThread:0.0.0.0/0.0.0.0:11221:NIOServerCnxnFactory$AcceptThread@219] - accept thread exitted run method
+2015-05-21 15:08:18,092 [myid:] - INFO  [NIOServerCxnFactory.SelectorThread-1:NIOServerCnxnFactory$SelectorThread@420] - selector thread exitted run method
+2015-05-21 15:08:18,092 [myid:] - INFO  [NIOServerCxnFactory.SelectorThread-0:NIOServerCnxnFactory$SelectorThread@420] - selector thread exitted run method
+2015-05-21 15:08:18,093 [myid:] - INFO  [main:ZooKeeperServer@465] - shutting down
+2015-05-21 15:08:18,093 [myid:] - INFO  [main:SessionTrackerImpl@232] - Shutting down
+2015-05-21 15:08:18,093 [myid:] - INFO  [main:PrepRequestProcessor@973] - Shutting down
+2015-05-21 15:08:18,093 [myid:] - INFO  [main:SyncRequestProcessor@191] - Shutting down
+2015-05-21 15:08:18,093 [myid:] - INFO  [ProcessThread(sid:0 cport:11221)::PrepRequestProcessor@155] - PrepRequestProcessor exited loop!
+2015-05-21 15:08:18,093 [myid:] - INFO  [SyncThread:0:SyncRequestProcessor@169] - SyncRequestProcessor exited!
+2015-05-21 15:08:18,093 [myid:] - INFO  [main:FinalRequestProcessor@489] - shutdown of request processor complete
+2015-05-21 15:08:18,094 [myid:] - INFO  [main:MBeanRegistry@119] - Unregister MBean [org.apache.ZooKeeperService:name0=StandaloneServer_port11221,name1=InMemoryDataTree]
+2015-05-21 15:08:18,094 [myid:] - INFO  [main:MBeanRegistry@119] - Unregister MBean [org.apache.ZooKeeperService:name0=StandaloneServer_port11221]
+2015-05-21 15:08:18,094 [myid:] - INFO  [main:FourLetterWordMain@63] - connecting to 127.0.0.1 11221
+2015-05-21 15:08:18,095 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.72a
+2015-05-21 15:08:18,095 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.5c2
+2015-05-21 15:08:18,095 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.17a
+2015-05-21 15:08:18,096 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.780
+2015-05-21 15:08:18,096 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.256
+2015-05-21 15:08:18,096 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.3cf
+2015-05-21 15:08:18,096 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.1
+2015-05-21 15:08:18,096 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.694
+2015-05-21 15:08:18,097 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.11f
+2015-05-21 15:08:18,097 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.728
+2015-05-21 15:08:18,097 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.178
+2015-05-21 15:08:18,097 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.624
+2015-05-21 15:08:18,097 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.3d1
+2015-05-21 15:08:18,097 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.4f2
+2015-05-21 15:08:18,098 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.626
+2015-05-21 15:08:18,098 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.2d2
+2015-05-21 15:08:18,098 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.2d0
+2015-05-21 15:08:18,098 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.344
+2015-05-21 15:08:18,098 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.8d
+2015-05-21 15:08:18,098 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.441
+2015-05-21 15:08:18,099 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.4a4
+2015-05-21 15:08:18,099 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.342
+2015-05-21 15:08:18,099 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.692
+2015-05-21 15:08:18,099 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.782
+2015-05-21 15:08:18,099 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.43f
+2015-05-21 15:08:18,099 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.254
+2015-05-21 15:08:18,099 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.55f
+2015-05-21 15:08:18,099 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.11d
+2015-05-21 15:08:18,100 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.5c4
+2015-05-21 15:08:18,100 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.55d
+2015-05-21 15:08:18,100 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.8b
+2015-05-21 15:08:18,100 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.4f4
+2015-05-21 15:08:18,100 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.0
+2015-05-21 15:08:18,100 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.1cc
+2015-05-21 15:08:18,100 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/snapshot.4a2
+2015-05-21 15:08:18,100 [myid:] - INFO  [main:CRCTest@146] - file is /home/mitake/github/zookeeper.git/build/test/tmp/test5135402022657443690.junit.dir/version-2/log.1ce
+2015-05-21 15:08:18,103 [myid:] - INFO  [main:CRCTest@160] - crc corruption
+java.io.IOException: Unreasonable length = 1634230628
+	at org.apache.jute.BinaryInputArchive.checkLength(BinaryInputArchive.java:127)
+	at org.apache.jute.BinaryInputArchive.readBuffer(BinaryInputArchive.java:92)
+	at org.apache.zookeeper.server.persistence.Util.readTxnBytes(Util.java:233)
+	at org.apache.zookeeper.server.persistence.FileTxnLog$FileTxnIterator.next(FileTxnLog.java:668)
+	at org.apache.zookeeper.server.CRCTest.testChecksums(CRCTest.java:156)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.apache.zookeeper.JUnit4ZKTestRunner$LoggedInvokeMethod.evaluate(JUnit4ZKTestRunner.java:52)
+	at org.junit.rules.TestWatchman$1.evaluate(TestWatchman.java:52)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:69)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:48)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:292)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:532)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1165)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1016)
+2015-05-21 15:08:18,142 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 67407
+2015-05-21 15:08:18,142 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 6
+2015-05-21 15:08:18,142 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testChecksums
+2015-05-21 15:08:18,143 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testChecksums
+2015-05-21 15:08:18,143 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testChecksums
+------------- ---------------- ---------------
+
+Testcase: testChecksums took 12.763 sec

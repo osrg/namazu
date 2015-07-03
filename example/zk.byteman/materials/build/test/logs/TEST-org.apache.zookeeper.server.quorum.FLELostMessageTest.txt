@@ -1,0 +1,91 @@
+Testsuite: org.apache.zookeeper.server.quorum.FLELostMessageTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.156 sec
+------------- Standard Output ---------------
+2015-05-21 15:11:07,229 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testLostMessage
+2015-05-21 15:11:07,234 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testLostMessage
+2015-05-21 15:11:07,236 [myid:] - INFO  [main:FLELostMessageTest@67] - TestLE: testLostMessage, 3
+2015-05-21 15:11:07,236 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11221
+2015-05-21 15:11:07,240 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11222
+2015-05-21 15:11:07,254 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11223
+2015-05-21 15:11:07,254 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11224
+2015-05-21 15:11:07,255 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11225
+2015-05-21 15:11:07,255 [myid:] - INFO  [main:PortAssignment@32] - assigning port 11226
+2015-05-21 15:11:07,268 [myid:] - INFO  [main:NIOServerCnxnFactory@673] - Configuring NIO connection handler with 10s sessionless connection timeout, 2 selector thread(s), 24 worker threads, and 64 kB direct buffers.
+2015-05-21 15:11:07,273 [myid:] - INFO  [main:NIOServerCnxnFactory@686] - binding to port 0.0.0.0/0.0.0.0:11223
+2015-05-21 15:11:07,292 [myid:] - INFO  [main:QuorumPeer@645] - currentEpoch not found! Creating with a reasonable default of 0. This should only happen when you are upgrading your installation
+2015-05-21 15:11:07,301 [myid:] - INFO  [main:QuorumPeer@660] - acceptedEpoch not found! Creating with a reasonable default of 0. This should only happen when you are upgrading your installation
+2015-05-21 15:11:07,312 [myid:] - INFO  [QuorumPeerListener:QuorumCnxManager$Listener@550] - My election bind port: 0.0.0.0/0.0.0.0:11224
+2015-05-21 15:11:07,314 [myid:] - INFO  [main:FLETestUtils$LEThread@46] - Constructor: Thread-0
+2015-05-21 15:11:07,315 [myid:] - INFO  [main:NIOServerCnxnFactory@673] - Configuring NIO connection handler with 10s sessionless connection timeout, 2 selector thread(s), 24 worker threads, and 64 kB direct buffers.
+2015-05-21 15:11:07,315 [myid:] - INFO  [Thread-0:FLETestUtils$LEThread@54] - Going to call leader election: 1
+2015-05-21 15:11:07,316 [myid:] - INFO  [main:NIOServerCnxnFactory@686] - binding to port 0.0.0.0/0.0.0.0:11221
+2015-05-21 15:11:07,317 [myid:] - INFO  [QuorumPeerListener:QuorumCnxManager$Listener@550] - My election bind port: 0.0.0.0/0.0.0.0:11222
+2015-05-21 15:11:07,319 [myid:] - INFO  [0.0.0.0/0.0.0.0:11224:QuorumCnxManager$Listener@556] - Received connection request /127.0.0.1:42635
+2015-05-21 15:11:07,320 [myid:] - INFO  [main:QuorumCnxManager@197] - Have smaller server identifier, so dropping the connection: (1, 0)
+2015-05-21 15:11:07,320 [myid:] - INFO  [0.0.0.0/0.0.0.0:11222:QuorumCnxManager$Listener@556] - Received connection request /127.0.0.1:37628
+2015-05-21 15:11:07,323 [myid:] - INFO  [WorkerReceiver[myid=1]:FastLeaderElection$Messenger$WorkerReceiver@273] - Backward compatibility mode (36 bits), server id: 0
+2015-05-21 15:11:07,323 [myid:] - INFO  [WorkerReceiver[myid=1]:FastLeaderElection$Messenger$WorkerReceiver@313] - Backward compatibility mode (before reconfig), server id: 0
+2015-05-21 15:11:07,323 [myid:] - INFO  [WorkerReceiver[myid=1]:FastLeaderElection@683] - Notification: 0 (message format version), 0 (n.leader), 0x0 (n.zxid), 0x1 (n.round), LOOKING (n.state), 0 (n.sid), 0x0 (n.peerEPoch), LOOKING (my state)
+2015-05-21 15:11:07,361 [myid:] - INFO  [Thread-0:FastLeaderElection@889] - New election. My id =  1, proposed zxid=0x0
+2015-05-21 15:11:07,363 [myid:] - WARN  [WorkerSender[myid=1]:QuorumCnxManager@384] - Cannot open channel to 2 at election address 0.0.0.0/0.0.0.0:11226
+java.net.ConnectException: Connection refused
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:339)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:198)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:182)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:579)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.connectOne(QuorumCnxManager.java:369)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.connectOne(QuorumCnxManager.java:407)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.toSend(QuorumCnxManager.java:346)
+	at org.apache.zookeeper.server.quorum.FastLeaderElection$Messenger$WorkerSender.process(FastLeaderElection.java:481)
+	at org.apache.zookeeper.server.quorum.FastLeaderElection$Messenger$WorkerSender.run(FastLeaderElection.java:460)
+	at java.lang.Thread.run(Thread.java:745)
+2015-05-21 15:11:07,369 [myid:] - INFO  [WorkerReceiver[myid=1]:FastLeaderElection@683] - Notification: 2 (message format version), 1 (n.leader), 0x0 (n.zxid), 0x1 (n.round), LOOKING (n.state), 1 (n.sid), 0x0 (n.peerEPoch), LOOKING (my state)0 (n.config version)
+2015-05-21 15:11:07,369 [myid:] - INFO  [WorkerReceiver[myid=1]:FastLeaderElection$Messenger$WorkerReceiver@273] - Backward compatibility mode (36 bits), server id: 0
+2015-05-21 15:11:07,369 [myid:] - INFO  [WorkerReceiver[myid=1]:FastLeaderElection$Messenger$WorkerReceiver@313] - Backward compatibility mode (before reconfig), server id: 0
+2015-05-21 15:11:07,369 [myid:] - INFO  [WorkerReceiver[myid=1]:FastLeaderElection@683] - Notification: 0 (message format version), 1 (n.leader), 0x0 (n.zxid), 0x1 (n.round), FOLLOWING (n.state), 0 (n.sid), 0x0 (n.peerEPoch), LOOKING (my state)
+2015-05-21 15:11:07,369 [myid:] - INFO  [Thread-0:MBeanRegistry@119] - Unregister MBean [org.apache.ZooKeeperService:name0=LeaderElection]
+2015-05-21 15:11:07,369 [myid:] - INFO  [Thread-0:FLETestUtils$LEThread@67] - Finished election: 1, 1
+2015-05-21 15:11:07,369 [myid:] - INFO  [Thread-0:FLETestUtils$LEThread@73] - Joining
+2015-05-21 15:11:07,369 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 39629
+2015-05-21 15:11:07,370 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 12
+2015-05-21 15:11:07,370 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testLostMessage
+2015-05-21 15:11:07,370 [myid:] - INFO  [0.0.0.0/0.0.0.0:11222:QuorumCnxManager$Listener@578] - Leaving listener
+2015-05-21 15:11:07,370 [myid:] - WARN  [SendWorker:1:QuorumCnxManager$SendWorker@753] - Interrupted while waiting for message on queue
+java.lang.InterruptedException
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.reportInterruptAfterWait(AbstractQueuedSynchronizer.java:2017)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2095)
+	at java.util.concurrent.ArrayBlockingQueue.poll(ArrayBlockingQueue.java:389)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.pollSendQueue(QuorumCnxManager.java:905)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.access$500(QuorumCnxManager.java:62)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager$SendWorker.run(QuorumCnxManager.java:741)
+2015-05-21 15:11:07,371 [myid:] - WARN  [RecvWorker:1:QuorumCnxManager$RecvWorker@836] - Connection broken for id 1, my id = 0, error = 
+java.net.SocketException: Socket closed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:152)
+	at java.net.SocketInputStream.read(SocketInputStream.java:122)
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.io.DataInputStream.readInt(DataInputStream.java:387)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager$RecvWorker.run(QuorumCnxManager.java:821)
+2015-05-21 15:11:07,371 [myid:] - WARN  [RecvWorker:1:QuorumCnxManager$RecvWorker@839] - Interrupting SendWorker
+2015-05-21 15:11:07,371 [myid:] - WARN  [RecvWorker:0:QuorumCnxManager$RecvWorker@836] - Connection broken for id 0, my id = 1, error = 
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager$RecvWorker.run(QuorumCnxManager.java:821)
+2015-05-21 15:11:07,372 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testLostMessage
+2015-05-21 15:11:07,372 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testLostMessage
+2015-05-21 15:11:07,371 [myid:] - WARN  [SendWorker:1:QuorumCnxManager$SendWorker@762] - Send worker leaving thread  id 1 my id = 0
+2015-05-21 15:11:07,372 [myid:] - WARN  [RecvWorker:0:QuorumCnxManager$RecvWorker@839] - Interrupting SendWorker
+2015-05-21 15:11:07,373 [myid:] - WARN  [SendWorker:0:QuorumCnxManager$SendWorker@753] - Interrupted while waiting for message on queue
+java.lang.InterruptedException
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.reportInterruptAfterWait(AbstractQueuedSynchronizer.java:2017)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2095)
+	at java.util.concurrent.ArrayBlockingQueue.poll(ArrayBlockingQueue.java:389)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.pollSendQueue(QuorumCnxManager.java:905)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.access$500(QuorumCnxManager.java:62)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager$SendWorker.run(QuorumCnxManager.java:741)
+2015-05-21 15:11:07,374 [myid:] - WARN  [SendWorker:0:QuorumCnxManager$SendWorker@762] - Send worker leaving thread  id 0 my id = 1
+------------- ---------------- ---------------
+
+Testcase: testLostMessage took 0.144 sec
