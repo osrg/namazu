@@ -7,6 +7,7 @@ import prctl
 
 from .. import LOG as _LOG
 LOG = _LOG.getChild(__name__)
+#LOG.setLevel(logging.INFO)
 
 class NFQ(object):
     """
@@ -35,15 +36,15 @@ class NFQ(object):
     dll.nfq_get_payload.restype = c_int
 
     CALLBACK_CFUNCTYPE = CFUNCTYPE(c_int,
-                              c_void_p, #qh
-                              c_void_p, #nfmsg
-                              c_void_p, #nfad
-                              c_void_p) #data
+                                   c_void_p, #qh
+                                   c_void_p, #nfmsg
+                                   c_void_p, #nfad
+                                   c_void_p) #data
 
-    def __init__(self, q_num, cb):
+    def __init__(self, q_num, cb, cb_data=c_void_p(None)):
         self._check_cap()
         self.h = self._make_handle()
-        self.qh = self._make_queue_handle(self.h, q_num, cb)
+        self.qh = self._make_queue_handle(self.h, q_num, cb, cb_data)
         self.fd = self.dll.nfq_fd(self.h)
 
     @classmethod
@@ -69,9 +70,9 @@ class NFQ(object):
         return h
 
     @classmethod
-    def _make_queue_handle(cls, h, q_num, cb):
-        LOG.debug('Calling nfq_create_queue(%s, %s, %s, 0)', h, q_num, cb)        
-        qh = cls.dll.nfq_create_queue(h, q_num, cb, 0)
+    def _make_queue_handle(cls, h, q_num, cb, data):
+        LOG.debug('Calling nfq_create_queue(%s, %s, %s, %s)', h, q_num, cb, data)        
+        qh = cls.dll.nfq_create_queue(h, q_num, cb, data)
         LOG.debug('Called nfq_create_queue=%d', qh)                
         assert qh, "qh=%d" % qh
         LOG.debug('Calling nfq_set_mode(%d, NFQNL_COPY_PACKET)', qh)                
@@ -143,11 +144,12 @@ if __name__ == "__main__":
                          struct nfgenmsg *nfmsg,
                          struct nfq_data *nfad, void *data);
         """
+        LOG.info("CB called with data=%s", data)
         payload = NFQ.cb_get_payload(nfad)
         packet_id = NFQ.cb_get_packet_id(nfad)
         hexdump(payload)
         ip = IP(payload)
-        print "ID %d: %s" % (packet_id, ip.summary())
+        LOG.info("ID %d: %s", packet_id, ip.summary())
         NFQ.cb_set_verdict(qh, packet_id, NFQ.NF_ACCEPT)
         return 1
 
