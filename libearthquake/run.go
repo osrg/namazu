@@ -138,6 +138,7 @@ func run(args []string) {
 	policy.Init(storage, conf.searchPolicyParam)
 
 	nextDir := storage.CreateNewWorkingDir()
+	InitLog(nextDir + "/earthquake.log")
 
 	end := make(chan interface{})
 	newTraceCh := make(chan *SingleTrace)
