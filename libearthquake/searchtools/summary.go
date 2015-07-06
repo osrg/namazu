@@ -20,12 +20,27 @@ import (
 	// "io/ioutil"
 	"os"
 	// "sort"
+	"flag"
+	"time"
 
 	// . "../equtils"
 	"../historystorage"
 
 	"github.com/mitchellh/cli"
 )
+
+type summaryFlags struct {
+	ListUpOverAverage bool
+}
+
+var (
+	summaryFlagset = flag.NewFlagSet("summary", flag.ExitOnError)
+	_summaryFlags  = summaryFlags{}
+)
+
+func init() {
+	summaryFlagset.BoolVar(&_summaryFlags.ListUpOverAverage, "list-up-over-average", false, "list up IDs of runs whose time is longer than average")
+}
 
 func doSummary(historyStoragePath string) {
 	// FIXME: storage type
@@ -47,13 +62,53 @@ func doSummary(historyStoragePath string) {
 	}
 }
 
+func listUpOverAverage(historyStoragePath string) {
+	// FIXME: storage type
+	storage := historystorage.New("naive", historyStoragePath)
+
+	storage.Init()
+	nrStored := storage.NrStoredHistories()
+
+	totalTime := time.Duration(0)
+
+	for i := 0; i < nrStored; i++ {
+		time, err := storage.GetRequiredTime(i)
+		if err != nil {
+			fmt.Printf("failed to open history %08x, %s\n", i, err)
+			continue // just skip?
+		}
+
+		totalTime += time
+	}
+
+	averageTime := time.Duration(int64(totalTime) / int64(nrStored))
+
+	for i := 0; i < nrStored; i++ {
+		time, err := storage.GetRequiredTime(i)
+		if err != nil {
+			fmt.Printf("failed to open history %08x, %s\n", i, err)
+			continue // just skip?
+		}
+
+		if averageTime < time {
+			fmt.Printf("%08x\n", i)
+		}
+	}
+}
+
 func summary(args []string) {
-	if len(args) != 1 {
+	summaryFlagset.Parse(args)
+
+	if summaryFlagset.NArg() != 1 {
 		fmt.Printf("need history storage path\n")
 		os.Exit(1)
 	}
 
-	doSummary(args[0])
+	if _summaryFlags.ListUpOverAverage {
+		listUpOverAverage(args[len(args)-1])
+	} else {
+		doSummary(args[len(args)-1])
+	}
 }
 
 type summaryCmd struct {
