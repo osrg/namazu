@@ -16,12 +16,12 @@
 package searchtools
 
 import (
+	. "../equtils"
 	"encoding/gob"
+	"flag"
 	"fmt"
 	"os"
-	"flag"
-
-	. "../equtils"
+	"time"
 
 	"github.com/mitchellh/cli"
 )
@@ -41,7 +41,7 @@ func init() {
 
 func doDumpTrace(trace *SingleTrace) {
 	for i, ev := range trace.EventSequence {
-		fmt.Printf("%d: %s, %s(%s)\n", i, ev.ProcId, ev.EventType, ev.EventParam)
+		fmt.Printf("%d @ %s: %s, %s(%s)\n", i, ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.EventType, ev.EventParam)
 
 		if ev.JavaSpecific != nil {
 			js := ev.JavaSpecific
