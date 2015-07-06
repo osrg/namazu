@@ -199,6 +199,26 @@ func (n *Naive) IsSucceed(id int) (bool, error) {
 
 }
 
+func (n *Naive) GetRequiredTime(id int) (time.Duration, error) {
+	path := fmt.Sprintf("%s/%08x/%s", n.dir, id, resultPath)
+
+	encoded, err := WholeRead(path)
+	if err != nil {
+		return 0, err
+	}
+
+	byteBuf := bytes.NewBuffer(encoded)
+	dec := gob.NewDecoder(byteBuf)
+	var ret testResult
+	derr := dec.Decode(&ret)
+	if derr != nil {
+		return 0, derr
+	}
+
+	return ret.RequiredTime, nil
+
+}
+
 func (n *Naive) Init() {
 	n.info = n.readSearchModeInfo()
 }

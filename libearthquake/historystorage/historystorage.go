@@ -37,6 +37,7 @@ type HistoryStorage interface {
 	GetStoredHistory(id int) (*SingleTrace, error)
 
 	IsSucceed(id int) (bool, error)
+	GetRequiredTime(id int) (time.Duration, error)
 }
 
 func New(name, dirPath string) HistoryStorage {
