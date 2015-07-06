@@ -17,6 +17,7 @@ package historystorage
 
 import (
 	"fmt"
+	"time"
 
 	. "../equtils"
 	"./naive"
@@ -30,7 +31,7 @@ type HistoryStorage interface {
 
 	CreateNewWorkingDir() string
 	RecordNewTrace(newTrace *SingleTrace)
-	RecordResult(succeed bool) error
+	RecordResult(succeed bool, requiredTime time.Duration) error
 
 	NrStoredHistories() int
 	GetStoredHistory(id int) (*SingleTrace, error)

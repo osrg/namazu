@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"time"
 
 	. "./equtils"
 
@@ -158,6 +159,8 @@ func run(args []string) {
 
 	runCmd := createCmd(runScriptPath, nextDir, materialsDir)
 
+	startTime := time.Now()
+
 	rerr := runCmd.Run()
 	if rerr != nil {
 		fmt.Printf("failed to execute run script %s: %s\n", runScriptPath, rerr)
@@ -166,6 +169,9 @@ func run(args []string) {
 
 	end <- true
 	newTrace := <-newTraceCh
+
+	endTime := time.Now()
+	requiredTime := endTime.Sub(startTime)
 
 	storage.RecordNewTrace(newTrace)
 
@@ -177,10 +183,10 @@ func run(args []string) {
 			fmt.Printf("validation failed: %s\n", rerr)
 			// TODO: detailed check of error
 			// e.g. handle a case like permission denied, noent, etc
-			storage.RecordResult(false)
+			storage.RecordResult(false, requiredTime)
 		} else {
 			fmt.Printf("validation succeed\n")
-			storage.RecordResult(true)
+			storage.RecordResult(true, requiredTime)
 		}
 	}
 

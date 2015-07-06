@@ -22,6 +22,7 @@ import (
 	"encoding/gob"
 	"fmt"
 	"os"
+	"time"
 )
 
 // functions that provides basic functionalities of native history storage
@@ -150,11 +151,12 @@ func (n *Naive) GetStoredHistory(id int) (*SingleTrace, error) {
 	return &ret, nil
 }
 
-func (n *Naive) RecordResult(succeed bool) error {
+func (n *Naive) RecordResult(succeed bool, requiredTime time.Duration) error {
 	path := fmt.Sprintf("%s/%s", n.nextWorkingDir, resultPath)
 
 	result := testResult{
 		succeed,
+		requiredTime,
 	}
 
 	var resultBuf bytes.Buffer
