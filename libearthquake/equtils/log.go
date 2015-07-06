@@ -32,7 +32,7 @@ const (
 
 var (
 	use_stdout = false
-	dst_file   *os.File
+	dstFiles   []*os.File
 )
 
 func Log(format string, v ...interface{}) {
@@ -48,8 +48,10 @@ func Log(format string, v ...interface{}) {
 	file = file[head:len(file)]
 	timestr := time.Now().Local().Format(time.UnixDate)
 
-	if dst_file != nil {
-		fmt.Fprintf(dst_file, "%s %s%s(%d): %s\n", timestr, prefix, file, line, formatted)
+	if len(dstFiles) != 0 {
+		for _, dst := range dstFiles {
+			fmt.Fprintf(dst, "%s %s%s(%d): %s\n", timestr, prefix, file, line, formatted)
+		}
 	} else {
 		fmt.Printf("%s %s%s(%d): %s\n", timestr, prefix, file, line, formatted)
 	}
@@ -66,8 +68,12 @@ func InitLog(path string) {
 		os.Exit(1)
 	}
 
-	dst_file = file
-	dst_file.Seek(0, 2)
+	dstFiles = append(dstFiles, file)
+	file.Seek(0, 2)
+}
+
+func AddLogTee(newDst *os.File) {
+	dstFiles = append(dstFiles, newDst)
 }
 
 func Panic(format string, v ...interface{}) {
@@ -76,8 +82,10 @@ func Panic(format string, v ...interface{}) {
 	_, file, line, _ := runtime.Caller(1)
 	timestr := time.Now().String()
 
-	if dst_file != nil {
-		fmt.Fprintf(dst_file, "%s %s(%d): %s\n", timestr, file, line, formatted)
+	if len(dstFiles) != 0 {
+		for _, dst := range dstFiles {
+			fmt.Fprintf(dst, "%s %s(%d): %s\n", timestr, file, line, formatted)
+		}
 	} else {
 		fmt.Printf("%s %s(%d): %s\n", timestr, file, line, formatted)
 	}

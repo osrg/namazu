@@ -139,6 +139,7 @@ func run(args []string) {
 
 	nextDir := storage.CreateNewWorkingDir()
 	InitLog(nextDir + "/earthquake.log")
+	AddLogTee(os.Stdout)
 
 	end := make(chan interface{})
 	newTraceCh := make(chan *SingleTrace)
