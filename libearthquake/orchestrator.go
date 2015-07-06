@@ -23,6 +23,7 @@ import (
 	"net"
 	"os"
 	"sync/atomic"
+	"time"
 
 	. "./searchpolicy"
 )
@@ -900,7 +901,8 @@ func singleSearchNoInitiation(workingDir string, endCh chan interface{}, policy 
 			}
 
 			e := &Event{
-				ProcId: readyProc.id,
+				ArrivedTime: time.Now(),
+				ProcId:      readyProc.id,
 
 				EventType:  "FuncCall",
 				EventParam: *eventReq.FuncCall.Name,
