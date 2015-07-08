@@ -14,7 +14,6 @@ go get github.com/sevlyar/go-daemon
 go get github.com/mitchellh/cli
 
 EQUTILS_PATH=`pwd`/equtils
-protoc --go_out=$EQUTILS_PATH -I$EQUTILS_PATH $EQUTILS_PATH/*.proto
 protoc --go_out=$EQUTILS_PATH -I$BUILDROOT/inspector $BUILDROOT/inspector/*.proto
 
 echo "Compiling libearthquake.so"
