@@ -119,7 +119,7 @@ func run(args []string) {
 	}
 
 	storagePath := args[0]
-	confPath := storagePath + "/" + storageConfigPath
+	confPath := storagePath + "/" + historystorage.StorageConfigPath
 
 	conf, err := parseRunConfig(confPath)
 	if err != nil {

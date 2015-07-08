@@ -22,12 +22,11 @@ import (
 
 	// . "../equtils"
 
-	"github.com/mitchellh/cli"
 	"./historystorage"
+	"github.com/mitchellh/cli"
 )
 
 const (
-	storageConfigPath    string = "config.json"
 	storageMaterialsPath string = "materials"
 )
 
@@ -64,10 +63,10 @@ func recursiveHardLink(srcPath, dstPath string) {
 			}
 			recursiveHardLink(path, dstDir)
 		} else {
-			lerr := os.Link(path, dstPath + "/" + name)
+			lerr := os.Link(path, dstPath+"/"+name)
 			if lerr != nil {
 				fmt.Printf("failed to link (src: %s, dst: %s): %s\n",
-					path, dstPath + "/" + name, lerr)
+					path, dstPath+"/"+name, lerr)
 				os.Exit(1)
 			}
 		}
@@ -130,7 +129,7 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
-	lerr := os.Link(conf, storagePath+"/"+storageConfigPath)
+	lerr := os.Link(conf, storagePath+"/"+historystorage.StorageConfigPath)
 	if lerr != nil {
 		fmt.Printf("creating link of config file (%s) failed (%s)\n", conf, lerr)
 		os.Exit(1)
@@ -140,7 +139,7 @@ func _init(args []string) {
 	derr = os.Mkdir(materialDir, 0777)
 	if derr != nil {
 		fmt.Printf("creating a directory for materials (%s) failed (%s)\n",
-			storagePath + "/" + storageMaterialsPath, derr)
+			storagePath+"/"+storageMaterialsPath, derr)
 		os.Exit(1)
 		// TODO: cleaning conf file
 	}

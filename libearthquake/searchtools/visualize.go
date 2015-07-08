@@ -67,8 +67,7 @@ func seenBefore(traces []*SingleTrace, newTrace *SingleTrace) bool {
 }
 
 func gnuplot(historyStoragePath string) {
-	// FIXME: storage type
-	storage := historystorage.New("naive", historyStoragePath)
+	storage := historystorage.LoadStorage(historyStoragePath)
 
 	storage.Init()
 	nrStored := storage.NrStoredHistories()

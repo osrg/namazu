@@ -16,11 +16,16 @@
 package historystorage
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
 	. "../equtils"
 	"./naive"
+)
+
+const (
+	StorageConfigPath string = "config.json"
 )
 
 type HistoryStorage interface {
@@ -46,6 +51,38 @@ func New(name, dirPath string) HistoryStorage {
 		return naive.New(dirPath)
 	default:
 		fmt.Printf("unknown history storage: %s\n", name)
+	}
+
+	return nil
+}
+
+func LoadStorage(dirPath string) HistoryStorage {
+	confPath := dirPath + "/" + StorageConfigPath
+
+	jsonBuf, rerr := WholeRead(confPath)
+	if rerr != nil {
+		return nil
+	}
+
+	var root map[string]interface{}
+	err := json.Unmarshal(jsonBuf, &root)
+	if err != nil {
+		return nil
+	}
+
+	storageType := ""
+	if _, ok := root["storageType"]; ok {
+		storageType = root["storageType"].(string)
+	} else {
+		storageType = "naive"
+	}
+
+	switch storageType {
+	case "naive":
+		return naive.New(dirPath)
+	default:
+		fmt.Printf("unknown history storage: %s\n", storageType)
+		return nil
 	}
 
 	return nil

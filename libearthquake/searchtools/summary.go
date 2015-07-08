@@ -43,8 +43,7 @@ func init() {
 }
 
 func doSummary(historyStoragePath string) {
-	// FIXME: storage type
-	storage := historystorage.New("naive", historyStoragePath)
+	storage := historystorage.LoadStorage(historyStoragePath)
 
 	storage.Init()
 	nrStored := storage.NrStoredHistories()
@@ -63,8 +62,7 @@ func doSummary(historyStoragePath string) {
 }
 
 func listUpOverAverage(historyStoragePath string) {
-	// FIXME: storage type
-	storage := historystorage.New("naive", historyStoragePath)
+	storage := historystorage.LoadStorage(historyStoragePath)
 
 	storage.Init()
 	nrStored := storage.NrStoredHistories()
