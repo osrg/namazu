@@ -173,8 +173,8 @@ class EtherInspectorBase(object):
 
     def _oc_worker(self):
         error_count = 0
+        got = None
         while True:
-            got = None
             try:
                 get_url = self.orchestrator_rest_url + '/actions/' + self.process_id
                 LOG.debug('GET %s', get_url)
@@ -190,7 +190,8 @@ class EtherInspectorBase(object):
                 error_count = 0
             except Exception as e:
                 LOG.error('cannot HTTP GET', exc_info=True)
-                if got:
-                    LOG.error(got)
+                if got is not None:
+                    LOG.error('Got: %s', got.text)
                 error_count += 1
                 eventlet.sleep(error_count * 1.0)
+            got = None
