@@ -55,9 +55,10 @@ Please also refer to [figs/eq-redesign.pdf](figs/eq-redesign.pdf) for planned ar
   * HTTP enables simplification of connection handling and proxying
    * Even if inspectors crashed unexpectedly, you can send `InspectionEndEvent`s to the orchestrator manually with `curl`/`wget`.
   * JSON enables flexible structuralization. Some JSON-friendly tools (e.g., JQ, MongoDB, ..) can be used with execution history JSONs.
- * `POST /api/v1` (Non-blocking): send an event to the orchestrator
- * `GET /api/v1/<process_id>` (Blocking): receive an action for <process_id>from the orchestrator.
- * `GET /visualize_api/csv`: GET CSV statistics. You may use `gnuplot` to visualize CSV.
+ * `POST /api/v2/events/<process_id>/<event_uuid>` (Non-blocking): send an event to the orchestrator
+ * `GET /api/v2/actions/<process_id>` (Blocking): receive an action for <process_id> from the orchestrator.
+ * `DELETE /api/v2/actions/<process_id>/<action_uuid>` (Non-blocking): ack for get
+ * `GET /api/v2/visualizers/csv`: GET CSV statistics. You may use `gnuplot` to visualize CSV.
 
 ### Implemented Entities
  * Events:

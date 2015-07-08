@@ -52,7 +52,7 @@ function START_ZOOKEEPER(){
 }
 
 function STOP_EQ_INSPECTION(){
-    for f in InspectionEndEvents/*.json; do curl --data @$f http://localhost:10000/api/v1; done    
+    curl --data {} http://localhost:10000/api/v2/ctrl/force_terminate
 }
 
 function CHECK_BUG_REPRODUCED(){

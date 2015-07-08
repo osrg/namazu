@@ -1,6 +1,9 @@
-$ curl http://localhost:10000/api/v1/dummy
+$ curl http://localhost:10000/api/v2/actions/dummy
 ^C (== KILL PROCESS)
 
-$ curl --data @dummy.json http://localhost:10000/api/v1
-==> WHAT HAPPENS?
+$ curl --data @dummy.json http://localhost:10000/api/v2/events/dummy/dummy-uuid
+$ curl http://localhost:10000/api/v2/actions/dummy
+SHOULD GET SOME ACTION
+$ curl -X DELETE http://localhost:10000/api/v2/actions/${ACTION_UUID}
+
 
