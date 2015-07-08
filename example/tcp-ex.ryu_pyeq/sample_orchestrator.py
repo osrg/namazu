@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from pyearthquake.entity.event import *
 from pyearthquake.orchestrator.state import *
 from pyearthquake.orchestrator.orchestrator import *
 

@@ -4,9 +4,8 @@ import six
 import time
 
 from .. import LOG as _LOG
-from ..entity import *
-from ..util import *
-from .digestible import *
+from ..entity.event import InspectionEndEvent
+from .digestible import DigestibleBase
 
 LOG = _LOG.getChild('orchestrator.state')
     
@@ -16,7 +15,7 @@ class StateBase(object):
         self.digestible_sequence = []
         self.init_time = time.time()
         self.last_transition_time = 0
-        self.forcibly_inspection_ended = False
+        self.forcibly_terminated = False
         
     def __repr__(self):
         return '<State %s>' % repr(self.digestible_sequence)
@@ -68,6 +67,9 @@ class StateBase(object):
         self.digestible_sequence.append(d)
         self.last_transition_time = time.time()
 
+    def force_terminate(self):
+        self.forcibly_terminated = True
+        self.last_transition_time = time.time()
 
 class BasicState(StateBase):
     pass

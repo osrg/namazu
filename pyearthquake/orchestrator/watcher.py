@@ -6,11 +6,7 @@ import time
 import uuid
 
 from .. import LOG as _LOG
-from ..entity.entity import *
-from ..entity.event import *
-from ..entity.action import *
-from ..util import *
-from .digestible import *
+from ..entity.action import PassDeferredEventAction, NopAction
 
 LOG = _LOG.getChild('orchestrator.watcher')
 

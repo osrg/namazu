@@ -46,4 +46,3 @@ class InspectionEndEvent(EventBase):
     Inspection end (not deferrable)
     """
     deferred = False
-    

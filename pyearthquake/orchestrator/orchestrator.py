@@ -14,18 +14,13 @@ import sys
 import time
 import uuid
 
-
 from .. import LOG as _LOG
-from ..entity import *
-from ..entity.entity import *
-from ..util import *
-
-
-from .digestible import *
-from .state import *
-from .watcher import *
-from .detector import *
-from .explorer import *
+from ..entity.entity import EventBase, ActionBase
+from .detector import TerminationDetectorBase
+from .digestible import BasicDigestible
+from .explorer import ExplorerBase
+from .state import BasicState
+from .watcher import WatcherBase, DefaultWatcher
 
 LOG = _LOG.getChild('orchestrator.orchestrator')
 
@@ -36,6 +31,7 @@ import pyearthquake.orchestrator.watcher
 import pyearthquake.orchestrator.detector
 import pyearthquake.orchestrator.explorer
 
+
 @six.add_metaclass(ABCMeta)
 class OrchestratorBase(object):
     def __init__(self):
@@ -45,42 +41,45 @@ class OrchestratorBase(object):
         pass
 
     def _init_early(self):
-        self.processes = {}        
+        self.processes = {}
         self.watchers = []
         self.default_watcher = DefaultWatcher()
         self.default_watcher.init_with_orchestrator(orchestrator=self)
-    
+
     def init_with_config(self, config):
+        """
+        orchestrator_loader calls this
+        """
         self._init_early()
         self.config = config
         self._init_parse_config()
         self._init_load_libearthquake()
-        self._init_load_termination_detector_plugin()                
+        self._init_load_termination_detector_plugin()
         self._init_load_explorer_plugin()
         self._init_regist_known_processes()
 
     def regist_process(self, pid):
         queue = Queue()
         sem = Semaphore()
-        self.processes[pid] = { 'queue': queue, 'sem': sem }
+        self.processes[pid] = {'queue': queue, 'sem': sem}
 
         def regist_watcher():
             LOG.info('Loading ProcessWatcher "%s"', self.process_watcher_str)
             watcher = eval(self.process_watcher_str)
             assert isinstance(watcher, WatcherBase)
             watcher.init_with_process(orchestrator=self, process_id=pid)
-            LOG.info('Loaded ProcessWatcher %s for process %s', watcher, pid)                        
-            self.watchers.append(watcher) # TODO: integrate self.watchers to self.processes
+            LOG.info('Loaded ProcessWatcher %s for process %s', watcher, pid)
+            self.watchers.append(watcher)  # TODO: integrate self.watchers to self.processes
 
         regist_watcher()
         LOG.info('Registered Process %s: %s', pid, self.processes[pid])
-        
+
     def _init_parse_config(self):
         self.listen_port = int(self.config['globalFlags']['orchestratorListenPort'])
         self.process_watcher_str = self.config['globalFlags']['plugin']['processWatcher']
         self.explorer_str = self.config['globalFlags']['plugin']['explorer']
         self.detector_str = self.config['globalFlags']['plugin']['terminationDetector']
-        
+
         if 'processes' in self.config:
             self.known_processes = self.config['processes']
         else:
@@ -88,19 +87,17 @@ class OrchestratorBase(object):
 
     def _init_load_libearthquake(self):
         dll_str = 'libearthquake.so'
-        LOG.info('Loading DLL "%s"', dll_str)        
+        LOG.info('Loading DLL "%s"', dll_str)
         self.libearthquake = ctypes.CDLL(dll_str)
-        LOG.info('Loaded DLL "%s"', self.libearthquake)        
+        LOG.info('Loaded DLL "%s"', self.libearthquake)
         config_json_str = json.dumps(self.config)
         rc = self.libearthquake.EQInitCtx(config_json_str)
         assert rc == 0
 
-        
-        
     def _init_load_explorer_plugin(self):
         LOG.info('Loading explorer "%s"', self.explorer_str)
         self.explorer = eval(self.explorer_str)
-        assert isinstance(self.explorer, ExplorerBase)        
+        assert isinstance(self.explorer, ExplorerBase)
         LOG.info('Loaded explorer %s', self.explorer)
         initial_state = self.make_initial_state()
         self.explorer.init_with_orchestrator(self, initial_state)
@@ -109,7 +106,7 @@ class OrchestratorBase(object):
         LOG.info('Loading termination detector "%s"', self.detector_str)
         self.termination_detector = eval(self.detector_str)
         assert isinstance(self.termination_detector, TerminationDetectorBase)
-        LOG.info('Loaded termination detector %s', self.termination_detector)            
+        LOG.info('Loaded termination detector %s', self.termination_detector)
         self.termination_detector.init_with_orchestrator(self)
 
     def _init_regist_known_processes(self):
@@ -117,12 +114,12 @@ class OrchestratorBase(object):
             LOG.debug('Registering a known process: %s', p)
             pid = p['id']
             self.regist_process(pid)
-        
+
     def start(self):
         explorer_worker_handle = eventlet.spawn(self.explorer.worker)
         flask_app = Flask(self.__class__.__name__)
         flask_app.debug = True
-    #    self.regist_sigpipe_handler()
+        #    self.regist_sigpipe_handler()
         self.regist_flask_routes(flask_app)
         server_sock = eventlet.listen(('localhost', self.listen_port))
         wsgi.server(server_sock, flask_app)
@@ -140,14 +137,15 @@ class OrchestratorBase(object):
 
     def regist_flask_routes(self, app):
         LOG.debug('registering flask routes')
+
         @app.route('/')
         def root():
             return 'Hello Earthquake!'
 
-        @app.route('/ctrl_api/v1/forcibly_inspection_end')
+        @app.route('/ctrl_api/v1/force_terminate')
         def ctrl_api_v1_inspection_end():
             state = self.explorer.state
-            state.forcibly_inspection_ended = True
+            state.force_terminate()
             return jsonify({})
 
         @app.route('/visualize_api/v1/csv', methods=['GET'])
@@ -161,16 +159,16 @@ class OrchestratorBase(object):
         @app.route('/visualize_api/csv', methods=['GET'])
         def DEPRECATED_visualize_api_csv():
             return visualize_api_v1_csv()
-        
+
         @app.route('/api/v1', methods=['POST'])
         def api_v1_post():
             ## get event
             ev_jsdict = request.get_json(force=True)
-            LOG.debug('API ==> %s', ev_jsdict)            
+            LOG.debug('API ==> %s', ev_jsdict)
 
             ## check process id (TODO: check dup)
             process_id = ev_jsdict['process']
-            assert self.validate_process_id(process_id)                 
+            assert self.validate_process_id(process_id)
             if not process_id in self.processes:
                 self.regist_process(process_id)
 
@@ -191,7 +189,7 @@ class OrchestratorBase(object):
             if not sem_acquired:
                 err = 'Could not acquire semaphore for %s' % process_id
                 LOG.warn(err)
-                return err #TODO set HTTP error code
+                return err  # TODO set HTTP error code
             LOG.debug('Acquired sem for %s', process_id)
 
             try:
@@ -220,7 +218,7 @@ class OrchestratorBase(object):
             LOG.debug('API <== %s', action_jsdict)
             ret = json.dumps(action_jsdict)
             yield ret
-    
+
     def send_action(self, action):
         """
         explorer calls this
@@ -229,7 +227,7 @@ class OrchestratorBase(object):
         # no need to acquire sem
         self.processes[process_id]['queue'].put({'type': 'action', 'action': action})
         LOG.debug('Enqueued action %s', action)
-        
+
     def execute_command(self, command):
         rc = subprocess.call(command, shell=True)
         return rc

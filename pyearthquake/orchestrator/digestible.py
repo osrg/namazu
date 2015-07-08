@@ -1,14 +1,12 @@
 from abc import ABCMeta, abstractmethod
-import colorama
 import six
 
 from .. import LOG as _LOG
-from ..entity import *
-from ..entity.entity import *
-from ..util import *
+from ..entity.entity import EventBase, ActionBase
 
 LOG = _LOG.getChild('orchestrator.digestible')
-        
+
+
 @six.add_metaclass(ABCMeta)
 class DigestibleBase(object):
     """
@@ -16,7 +14,13 @@ class DigestibleBase(object):
     digest is used for recording and comparison of history 
     (see to_jsondict())
     """
+
     def __init__(self, event, action):
+        """
+        :param event: EventBase
+        :param action: ActionBase
+        :return: None
+        """
         assert event.process == action.process
         self.event = event
         self.action = action
@@ -25,10 +29,10 @@ class DigestibleBase(object):
     def digest_event(self):
         pass
 
-    @abstractmethod    
+    @abstractmethod
     def digest_action(self):
         pass
-    
+
     def to_jsondict(self):
         """
         makes digest for recording history of executed Pair<Event, Action>.
@@ -40,7 +44,7 @@ class DigestibleBase(object):
             'action_digest': self.digest_action(),
         }
         return d
-    
+
     def __repr__(self):
         return '<Digestible %s>' % repr(self.to_jsondict())
 
@@ -62,9 +66,9 @@ class DigestibleBase(object):
 
 class BasicDigestible(DigestibleBase):
     def digest_event(self):
-        assert self.event
+        assert isinstance(self.event, EventBase)
         return self.event.digest()
 
     def digest_action(self):
-        assert self.action
+        assert isinstance(self.action, ActionBase)
         return self.action.digest()
