@@ -1,0 +1,53 @@
+Testsuite: org.apache.zookeeper.server.ZooKeeperServerTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.045 sec
+------------- Standard Output ---------------
+2015-05-21 15:09:30,301 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testSortDataDirDescending
+2015-05-21 15:09:30,306 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testSortDataDirDescending
+2015-05-21 15:09:30,310 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 13210
+2015-05-21 15:09:30,310 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 4
+2015-05-21 15:09:30,310 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testSortDataDirDescending
+2015-05-21 15:09:30,310 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testSortDataDirDescending
+2015-05-21 15:09:30,310 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testSortDataDirDescending
+2015-05-21 15:09:30,312 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testForceSyncDefaultDisabled
+2015-05-21 15:09:30,312 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testForceSyncDefaultDisabled
+2015-05-21 15:09:30,314 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 13210
+2015-05-21 15:09:30,314 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 4
+2015-05-21 15:09:30,314 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testForceSyncDefaultDisabled
+2015-05-21 15:09:30,315 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testForceSyncDefaultDisabled
+2015-05-21 15:09:30,315 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testForceSyncDefaultDisabled
+2015-05-21 15:09:30,315 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testGetLogFiles
+2015-05-21 15:09:30,315 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testGetLogFiles
+2015-05-21 15:09:30,317 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 13210
+2015-05-21 15:09:30,317 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 4
+2015-05-21 15:09:30,317 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testGetLogFiles
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testGetLogFiles
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testGetLogFiles
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testForceSyncDefaultEnabled
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testForceSyncDefaultEnabled
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 13210
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 4
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testForceSyncDefaultEnabled
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testForceSyncDefaultEnabled
+2015-05-21 15:09:30,318 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testForceSyncDefaultEnabled
+2015-05-21 15:09:30,319 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testInvalidSnapshot
+2015-05-21 15:09:30,319 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testInvalidSnapshot
+2015-05-21 15:09:30,333 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 13210
+2015-05-21 15:09:30,333 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 4
+2015-05-21 15:09:30,333 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testInvalidSnapshot
+2015-05-21 15:09:30,333 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testInvalidSnapshot
+2015-05-21 15:09:30,333 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testInvalidSnapshot
+2015-05-21 15:09:30,333 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testSortDataDirAscending
+2015-05-21 15:09:30,333 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testSortDataDirAscending
+2015-05-21 15:09:30,334 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 13210
+2015-05-21 15:09:30,334 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 4
+2015-05-21 15:09:30,334 [myid:] - INFO  [main:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testSortDataDirAscending
+2015-05-21 15:09:30,334 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testSortDataDirAscending
+2015-05-21 15:09:30,334 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testSortDataDirAscending
+------------- ---------------- ---------------
+
+Testcase: testSortDataDirDescending took 0.01 sec
+Testcase: testForceSyncDefaultDisabled took 0.003 sec
+Testcase: testGetLogFiles took 0.003 sec
+Testcase: testForceSyncDefaultEnabled took 0.001 sec
+Testcase: testInvalidSnapshot took 0.014 sec
+Testcase: testSortDataDirAscending took 0.001 sec

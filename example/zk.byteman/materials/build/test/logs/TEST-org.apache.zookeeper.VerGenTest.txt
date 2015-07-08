@@ -1,0 +1,61 @@
+Testsuite: org.apache.zookeeper.VerGenTest
+Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.054 sec
+------------- Standard Output ---------------
+2015-05-21 15:07:58,350 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testGenFile
+2015-05-21 15:07:58,369 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testGenFile
+2015-05-21 15:07:58,369 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testGenFile
+2015-05-21 15:07:58,370 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testParser
+2015-05-21 15:07:58,371 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testParser
+2015-05-21 15:07:58,371 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testParser
+2015-05-21 15:07:58,372 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testGenFile
+2015-05-21 15:07:58,373 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testGenFile
+2015-05-21 15:07:58,373 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testGenFile
+2015-05-21 15:07:58,373 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testParser
+2015-05-21 15:07:58,373 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testParser
+2015-05-21 15:07:58,373 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testParser
+2015-05-21 15:07:58,374 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testGenFile
+2015-05-21 15:07:58,375 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testGenFile
+2015-05-21 15:07:58,375 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testGenFile
+2015-05-21 15:07:58,376 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testParser
+2015-05-21 15:07:58,378 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testParser
+2015-05-21 15:07:58,378 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testParser
+2015-05-21 15:07:58,378 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testGenFile
+2015-05-21 15:07:58,380 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testGenFile
+2015-05-21 15:07:58,380 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testGenFile
+2015-05-21 15:07:58,380 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testParser
+2015-05-21 15:07:58,380 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testParser
+2015-05-21 15:07:58,380 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testParser
+2015-05-21 15:07:58,381 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testGenFile
+2015-05-21 15:07:58,382 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testGenFile
+2015-05-21 15:07:58,382 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testGenFile
+2015-05-21 15:07:58,383 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testParser
+2015-05-21 15:07:58,383 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testParser
+2015-05-21 15:07:58,383 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testParser
+2015-05-21 15:07:58,384 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testGenFile
+2015-05-21 15:07:58,385 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testGenFile
+2015-05-21 15:07:58,385 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testGenFile
+2015-05-21 15:07:58,385 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testParser
+2015-05-21 15:07:58,385 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testParser
+2015-05-21 15:07:58,385 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testParser
+2015-05-21 15:07:58,386 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testGenFile
+2015-05-21 15:07:58,387 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testGenFile
+2015-05-21 15:07:58,387 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testGenFile
+2015-05-21 15:07:58,388 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testParser
+2015-05-21 15:07:58,388 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testParser
+2015-05-21 15:07:58,388 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testParser
+------------- ---------------- ---------------
+
+Testcase: testGenFile[0] took 0.02 sec
+Testcase: testParser[0] took 0.001 sec
+Testcase: testGenFile[1] took 0.001 sec
+Testcase: testParser[1] took 0.001 sec
+Testcase: testGenFile[2] took 0.002 sec
+Testcase: testParser[2] took 0.002 sec
+Testcase: testGenFile[3] took 0.002 sec
+Testcase: testParser[3] took 0 sec
+Testcase: testGenFile[4] took 0.001 sec
+Testcase: testParser[4] took 0 sec
+Testcase: testGenFile[5] took 0.001 sec
+Testcase: testParser[5] took 0.001 sec
+Testcase: testGenFile[6] took 0.001 sec
+Testcase: testParser[6] took 0 sec

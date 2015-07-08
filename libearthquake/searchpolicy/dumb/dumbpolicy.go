@@ -24,7 +24,7 @@ type Dumb struct {
 	nextEventChan chan *Event
 }
 
-func (d *Dumb) Init(storage HistoryStorage) {
+func (d *Dumb) Init(storage HistoryStorage, param map[string]interface{}) {
 }
 
 func (d *Dumb) Name() string {
@@ -35,7 +35,7 @@ func (d *Dumb) GetNextEventChan() chan *Event {
 	return d.nextEventChan
 }
 
-func (d *Dumb) QueueNextEvent(ev *Event) {
+func (d *Dumb) QueueNextEvent(id string, ev *Event) {
 	go func(e *Event) {
 		d.nextEventChan <- ev
 	}(ev)

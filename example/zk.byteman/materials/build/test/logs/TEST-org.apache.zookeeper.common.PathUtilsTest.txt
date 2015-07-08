@@ -1,0 +1,23 @@
+Testsuite: org.apache.zookeeper.common.PathUtilsTest
+Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.02 sec
+
+Testcase: testValidatePath_ContainsNullCharacter took 0.001 sec
+Testcase: testValidatePath_DoubleSlash took 0 sec
+Testcase: testValidatePath_ud800 took 0 sec
+Testcase: testValidatePath_uf8ff took 0 sec
+Testcase: testValidatePath_HighestAllowableChar took 0 sec
+Testcase: testValidatePath_SupplementaryChar took 0 sec
+Testcase: testValidatePath_SinglePeriod took 0 sec
+Testcase: testValidatePath_DoublePeriod took 0 sec
+Testcase: testValidatePath_NameContainingPeriod took 0 sec
+Testcase: testValidatePath_0x01 took 0 sec
+Testcase: testValidatePath_0x1F took 0 sec
+Testcase: testValidatePath_NotAbsolutePath took 0 sec
+Testcase: testValidatePath_0x20 took 0 sec
+Testcase: testValidatePath_0x7e took 0 sec
+Testcase: testValidatePath_0x7f took 0 sec
+Testcase: testValidatePath_0x9f took 0 sec
+Testcase: testValidatePath_Null took 0 sec
+Testcase: testValidatePath_EmptyString took 0 sec
+Testcase: testValidatePath_ValidPath took 0 sec
+Testcase: testValidatePath_EndsWithSlash took 0 sec

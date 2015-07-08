@@ -1,0 +1,5 @@
+server.0=localhost:11246:11247:participant;localhost:11245
+server.1=localhost:11249:11250:participant;localhost:11248
+server.2=localhost:11252:11253:participant;localhost:11251
+server.3=localhost:11255:11256:participant;localhost:11254
+server.4=localhost:11258:11259:participant;localhost:11257

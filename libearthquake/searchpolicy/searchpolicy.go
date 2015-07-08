@@ -20,16 +20,18 @@ import (
 
 	. "../equtils"
 	"../historystorage"
+
 	"./dumb"
 	"./random"
+	"./zk2172"
 )
 
 type SearchPolicy interface {
-	Init(storage historystorage.HistoryStorage)
+	Init(storage historystorage.HistoryStorage, param map[string]interface{})
 	Name() string
 
 	GetNextEventChan() chan *Event
-	QueueNextEvent(ev *Event)
+	QueueNextEvent(id string, ev *Event)
 }
 
 func CreatePolicy(name string) SearchPolicy {
@@ -38,6 +40,8 @@ func CreatePolicy(name string) SearchPolicy {
 		return dumb.DumbNew()
 	case "random":
 		return random.RandomNew()
+	case "ZK2172":
+		return zk2172.ZK2172New()
 	default:
 		fmt.Printf("unknown search policy: %s\n", name)
 	}

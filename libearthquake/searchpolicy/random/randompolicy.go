@@ -24,30 +24,67 @@ import (
 	. "../../historystorage"
 )
 
+type RandomParam struct {
+	prioritize string
+	interval   time.Duration // in millisecond
+}
+
 type Random struct {
 	nextEventChan chan *Event
 	randGen       *rand.Rand
 	queueMutex    *sync.Mutex
-	eventQueue    []*Event
+
+	// todo: more than just two levels
+	highEventQueue []*Event // high priority
+	lowEventQueue  []*Event // low priority
+
+	param *RandomParam
 }
 
-func (r *Random) Init(storage HistoryStorage) {
+func constrRandomParam(rawParam map[string]interface{}) *RandomParam {
+	var param RandomParam
+
+	if _, ok := rawParam["prioritize"]; ok {
+		param.prioritize = rawParam["prioritize"].(string)
+	}
+
+	if _, ok := rawParam["interval"]; ok {
+		param.interval = time.Duration(int(rawParam["interval"].(float64)))
+	} else {
+		param.interval = time.Duration(100) // default: 100ms
+	}
+
+	return &param
+}
+
+func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
+	r.param = constrRandomParam(param)
+
 	go func() {
 		for {
-			// TODO: configurable
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(r.param.interval * time.Millisecond)
 
 			r.queueMutex.Lock()
-			qlen := len(r.eventQueue)
-			if qlen == 0 {
+			highLen := len(r.highEventQueue)
+			lowLen := len(r.lowEventQueue)
+			if highLen == 0 && lowLen == 0 {
 				Log("no event is queued")
 				r.queueMutex.Unlock()
 				continue
 			}
 
-			idx := r.randGen.Int() % qlen
-			next := r.eventQueue[idx]
-			r.eventQueue = append(r.eventQueue[:idx], r.eventQueue[idx+1:]...)
+			var next *Event
+
+			if highLen != 0 {
+				idx := r.randGen.Int() % highLen
+				next = r.highEventQueue[idx]
+				r.highEventQueue = append(r.highEventQueue[:idx], r.highEventQueue[idx+1:]...)
+			} else {
+				idx := r.randGen.Int() % lowLen
+				next = r.lowEventQueue[idx]
+				r.lowEventQueue = append(r.lowEventQueue[:idx], r.lowEventQueue[idx+1:]...)
+			}
+
 			r.queueMutex.Unlock()
 
 			r.nextEventChan <- next
@@ -63,15 +100,22 @@ func (r *Random) GetNextEventChan() chan *Event {
 	return r.nextEventChan
 }
 
-func (r *Random) QueueNextEvent(ev *Event) {
+func (r *Random) QueueNextEvent(procId string, ev *Event) {
 	r.queueMutex.Lock()
-	r.eventQueue = append(r.eventQueue, ev)
+
+	if r.param != nil && procId == r.param.prioritize {
+		Log("**************** process %s alives, prioritizing\n", procId)
+		r.highEventQueue = append(r.highEventQueue, ev)
+	} else {
+		r.lowEventQueue = append(r.lowEventQueue, ev)
+	}
 	r.queueMutex.Unlock()
 }
 
 func RandomNew() *Random {
 	nextEventChan := make(chan *Event)
-	eventQueue := make([]*Event, 0)
+	highEventQueue := make([]*Event, 0)
+	lowEventQueue := make([]*Event, 0)
 	mutex := new(sync.Mutex)
 	r := rand.New(rand.NewSource(time.Now().Unix()))
 
@@ -79,6 +123,8 @@ func RandomNew() *Random {
 		nextEventChan,
 		r,
 		mutex,
-		eventQueue,
+		highEventQueue,
+		lowEventQueue,
+		nil,
 	}
 }

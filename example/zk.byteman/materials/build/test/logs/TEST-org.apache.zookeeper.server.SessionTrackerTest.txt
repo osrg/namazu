@@ -1,0 +1,47 @@
+Testsuite: org.apache.zookeeper.server.SessionTrackerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.469 sec
+------------- Standard Output ---------------
+2015-05-21 15:09:01,789 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testCloseSessionRequestAfterSessionExpiry
+2015-05-21 15:09:01,794 [myid:] - INFO  [Thread-0:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testCloseSessionRequestAfterSessionExpiry
+2015-05-21 15:09:01,818 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:zookeeper.version=3.6.0-SNAPSHOT--1, built on 04/16/2015 06:13 GMT
+2015-05-21 15:09:01,818 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:host.name=mitake-jiseki-PC
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:java.version=1.7.0_75
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:java.vendor=Oracle Corporation
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:java.home=/usr/lib/jvm/java-7-openjdk-amd64/jre
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:java.class.path=/home/mitake/github/zookeeper.git/build/test/classes:/home/mitake/github/zookeeper.git/build/test/lib/antlr-2.7.6.jar:/home/mitake/github/zookeeper.git/build/test/lib/checkstyle-5.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-beanutils-core-1.7.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-cli-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-collections-2.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-lang-1.0.jar:/home/mitake/github/zookeeper.git/build/test/lib/commons-logging-1.0.3.jar:/home/mitake/github/zookeeper.git/build/test/lib/google-collections-0.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/hamcrest-core-1.1.jar:/home/mitake/github/zookeeper.git/build/test/lib/junit-4.9.jar:/home/mitake/github/zookeeper.git/build/test/lib/mockito-all-1.8.2.jar:/home/mitake/github/zookeeper.git/build/classes:/home/mitake/github/zookeeper.git/src/java/lib/aspectjrt.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjtools.jar:/home/mitake/github/zookeeper.git/src/java/lib/aspectjweaver.jar:/home/mitake/github/zookeeper.git/src/java/lib/ivy-2.2.0.jar:/home/mitake/github/zookeeper.git/src/java/lib/org.aspectj.matcher.jar:/home/mitake/github/zookeeper.git/src/java/lib/protobuf-java-2.6.1.jar:/usr/share/ant/lib/ant.jar:/home/mitake/github/zookeeper.git/build/lib/commons-cli-1.2.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-core-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/jackson-mapper-asl-1.9.11.jar:/home/mitake/github/zookeeper.git/build/lib/javacc.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jetty-util-6.1.26.jar:/home/mitake/github/zookeeper.git/build/lib/jline-2.11.jar:/home/mitake/github/zookeeper.git/build/lib/log4j-1.2.16.jar:/home/mitake/github/zookeeper.git/build/lib/netty-3.7.0.Final.jar:/home/mitake/github/zookeeper.git/build/lib/servlet-api-2.5-20081211.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-api-1.7.5.jar:/home/mitake/github/zookeeper.git/build/lib/slf4j-log4j12-1.7.5.jar:/usr/share/ant/lib/junit.jar:/usr/share/java/ant-launcher-1.9.3.jar:/usr/share/ant/lib/ant-junit.jar:/usr/share/ant/lib/ant-junit4.jar
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:java.io.tmpdir=/tmp
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:java.compiler=<NA>
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:os.name=Linux
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:os.arch=amd64
+2015-05-21 15:09:01,819 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:os.version=3.13.0-45-generic
+2015-05-21 15:09:01,820 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:user.name=mitake
+2015-05-21 15:09:01,820 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:user.home=/home/mitake
+2015-05-21 15:09:01,821 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:user.dir=/home/mitake/github/zookeeper.git/build/test
+2015-05-21 15:09:01,821 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:os.memory.free=475MB
+2015-05-21 15:09:01,821 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:os.memory.max=491MB
+2015-05-21 15:09:01,822 [myid:] - INFO  [Thread-0:Environment@109] - Server environment:os.memory.total=491MB
+2015-05-21 15:09:01,832 [myid:] - INFO  [Thread-0:ZooKeeperServer@825] - minSessionTimeout set to 6000
+2015-05-21 15:09:01,832 [myid:] - INFO  [Thread-0:ZooKeeperServer@834] - maxSessionTimeout set to 60000
+2015-05-21 15:09:01,832 [myid:] - INFO  [Thread-0:ZooKeeperServer@156] - Created server with tickTime 3000 minSessionTimeout 6000 maxSessionTimeout 60000 datadir /home/mitake/github/zookeeper.git/build/test/tmp/test4490382064505466936.junit.dir/version-2 snapdir /home/mitake/github/zookeeper.git/build/test/tmp/test4490382064505466936.junit.dir/version-2
+2015-05-21 15:09:06,240 [myid:] - INFO  [SessionTracker:ZooKeeperServer@351] - Expiring session 0x52fbc, timeout of 3000ms exceeded
+2015-05-21 15:09:06,240 [myid:] - INFO  [Thread-0:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 21136
+2015-05-21 15:09:06,240 [myid:] - INFO  [Thread-0:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 8
+2015-05-21 15:09:06,240 [myid:] - INFO  [Thread-0:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testCloseSessionRequestAfterSessionExpiry
+2015-05-21 15:09:06,240 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testCloseSessionRequestAfterSessionExpiry
+2015-05-21 15:09:06,241 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testCloseSessionRequestAfterSessionExpiry
+2015-05-21 15:09:06,242 [myid:] - INFO  [main:ZKTestCase$1@55] - STARTING testAddSessionAfterSessionExpiry
+2015-05-21 15:09:06,243 [myid:] - INFO  [Thread-1:JUnit4ZKTestRunner$LoggedInvokeMethod@50] - RUNNING TEST METHOD testAddSessionAfterSessionExpiry
+2015-05-21 15:09:06,243 [myid:] - INFO  [Thread-1:ZooKeeperServer@825] - minSessionTimeout set to 6000
+2015-05-21 15:09:06,243 [myid:] - INFO  [Thread-1:ZooKeeperServer@834] - maxSessionTimeout set to 60000
+2015-05-21 15:09:06,243 [myid:] - INFO  [Thread-1:ZooKeeperServer@156] - Created server with tickTime 3000 minSessionTimeout 6000 maxSessionTimeout 60000 datadir /home/mitake/github/zookeeper.git/build/test/tmp/test2642310507889502530.junit.dir/version-2 snapdir /home/mitake/github/zookeeper.git/build/test/tmp/test2642310507889502530.junit.dir/version-2
+2015-05-21 15:09:12,240 [myid:] - INFO  [SessionTracker:ZooKeeperServer@351] - Expiring session 0x52fbc, timeout of 3000ms exceeded
+2015-05-21 15:09:12,247 [myid:] - INFO  [Thread-1:JUnit4ZKTestRunner$LoggedInvokeMethod@55] - Memory used 26420
+2015-05-21 15:09:12,247 [myid:] - INFO  [Thread-1:JUnit4ZKTestRunner$LoggedInvokeMethod@60] - Number of threads 11
+2015-05-21 15:09:12,247 [myid:] - INFO  [Thread-1:JUnit4ZKTestRunner$LoggedInvokeMethod@65] - FINISHED TEST METHOD testAddSessionAfterSessionExpiry
+2015-05-21 15:09:12,247 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testAddSessionAfterSessionExpiry
+2015-05-21 15:09:12,247 [myid:] - INFO  [main:ZKTestCase$1@60] - FINISHED testAddSessionAfterSessionExpiry
+------------- ---------------- ---------------
+
+Testcase: testCloseSessionRequestAfterSessionExpiry took 4.452 sec
+Testcase: testAddSessionAfterSessionExpiry took 6.005 sec

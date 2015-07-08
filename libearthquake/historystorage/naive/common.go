@@ -17,13 +17,24 @@ package naive
 
 // Common stuff of naive history storage
 
+import (
+	"time"
+)
+
 const (
 	searchModeInfoPath = "SearchModeInfo" // relative path of metadata
+	resultPath         = "result"
 )
 
 // type of metadata
 type searchModeInfo struct {
 	NrCollectedTraces int
+}
+
+// type of result, per history
+type testResult struct {
+	Succeed      bool
+	RequiredTime time.Duration
 }
 
 // type that implements interface HistoryStorage

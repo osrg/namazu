@@ -15,6 +15,10 @@
 
 package equtils
 
+import (
+	"time"
+)
+
 type Event_JavaSpecific_StackTraceElement struct {
 	LineNumber int
 	ClassName  string
@@ -38,6 +42,8 @@ type Event_JavaSpecific struct {
 }
 
 type Event struct {
+	ArrivedTime time.Time
+
 	ProcId string
 
 	EventType  string
@@ -49,3 +55,4 @@ type Event struct {
 type SingleTrace struct {
 	EventSequence []Event
 }
+

@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"time"
 
 	. "./equtils"
 
@@ -31,9 +32,14 @@ import (
 )
 
 type runConfig struct {
-	runScript    string
+	runScript      string
+	cleanScript    string
+	validateScript string
+
 	searchPolicy string
 	storageType  string
+
+	searchPolicyParam map[string]interface{}
 }
 
 func parseRunConfig(jsonPath string) (*runConfig, error) {
@@ -57,9 +63,24 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 		return nil, nil
 	}
 
+	cleanScript := ""
+	if _, ok := root["clean"]; ok {
+		cleanScript = root["clean"].(string)
+	}
+
+	validateScript := ""
+	if _, ok := root["validate"]; ok {
+		validateScript = root["validate"].(string)
+	}
+
 	searchPolicy := "dumb"
+	var searchPolicyParam map[string]interface{}
 	if _, ok := root["searchPolicy"]; ok {
 		searchPolicy = root["searchPolicy"].(string)
+
+		if _, ok := root["searchPolicyParam"]; ok {
+			searchPolicyParam = root["searchPolicyParam"].(map[string]interface{})
+		}
 	}
 
 	storageType := "naive"
@@ -68,10 +89,27 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 	}
 
 	return &runConfig{
-		runScript:    runScript,
+		runScript:      runScript,
+		cleanScript:    cleanScript,
+		validateScript: validateScript,
+
 		searchPolicy: searchPolicy,
 		storageType:  storageType,
+
+		searchPolicyParam: searchPolicyParam,
 	}, nil
+}
+
+func createCmd(scriptPath, workingDirPath, materialsDirPath string) *exec.Cmd {
+	cmd := exec.Command("sh", "-c", scriptPath)
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	cmd.Env = append(cmd.Env, "WORKING_DIR="+workingDirPath)
+	cmd.Env = append(cmd.Env, "MATERIALS_DIR="+materialsDirPath)
+
+	return cmd
 }
 
 func run(args []string) {
@@ -81,7 +119,7 @@ func run(args []string) {
 	}
 
 	storagePath := args[0]
-	confPath := storagePath + "/" + storageConfigPath
+	confPath := storagePath + "/" + historystorage.StorageConfigPath
 
 	conf, err := parseRunConfig(confPath)
 	if err != nil {
@@ -97,9 +135,11 @@ func run(args []string) {
 		fmt.Printf("invalid policy name: %s", conf.searchPolicy)
 		os.Exit(1)
 	}
-	policy.Init(storage)
+	policy.Init(storage, conf.searchPolicyParam)
 
 	nextDir := storage.CreateNewWorkingDir()
+	InitLog(nextDir + "/earthquake.log")
+	AddLogTee(os.Stdout)
 
 	end := make(chan interface{})
 	newTraceCh := make(chan *SingleTrace)
@@ -108,13 +148,20 @@ func run(args []string) {
 
 	materialsDir := storagePath + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript
-	runCmd := exec.Command("sh", "-c", runScriptPath)
 
-	runCmd.Stdout = os.Stdout
-	runCmd.Stderr = os.Stderr
+	cleanScriptPath := ""
+	if conf.cleanScript != "" {
+		cleanScriptPath = materialsDir + "/" + conf.cleanScript
+	}
 
-	runCmd.Env = append(runCmd.Env, "WORKING_DIR="+nextDir)
-	runCmd.Env = append(runCmd.Env, "MATERIALS_DIR="+materialsDir)
+	validateScriptPath := ""
+	if conf.validateScript != "" {
+		validateScriptPath = materialsDir + "/" + conf.validateScript
+	}
+
+	runCmd := createCmd(runScriptPath, nextDir, materialsDir)
+
+	startTime := time.Now()
 
 	rerr := runCmd.Run()
 	if rerr != nil {
@@ -125,7 +172,35 @@ func run(args []string) {
 	end <- true
 	newTrace := <-newTraceCh
 
+	endTime := time.Now()
+	requiredTime := endTime.Sub(startTime)
+
 	storage.RecordNewTrace(newTrace)
+
+	if validateScriptPath != "" {
+		validateCmd := createCmd(validateScriptPath, nextDir, materialsDir)
+
+		rerr = validateCmd.Run()
+		if rerr != nil {
+			fmt.Printf("validation failed: %s\n", rerr)
+			// TODO: detailed check of error
+			// e.g. handle a case like permission denied, noent, etc
+			storage.RecordResult(false, requiredTime)
+		} else {
+			fmt.Printf("validation succeed\n")
+			storage.RecordResult(true, requiredTime)
+		}
+	}
+
+	if cleanScriptPath != "" {
+		cleanCmd := createCmd(cleanScriptPath, nextDir, materialsDir)
+
+		rerr = cleanCmd.Run()
+		if rerr != nil {
+			fmt.Printf("failed to execute clean script %s: %s\n", cleanScriptPath, rerr)
+			os.Exit(1)
+		}
+	}
 }
 
 type runCmd struct {

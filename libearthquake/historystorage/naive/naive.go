@@ -22,6 +22,7 @@ import (
 	"encoding/gob"
 	"fmt"
 	"os"
+	"time"
 )
 
 // functions that provides basic functionalities of native history storage
@@ -148,6 +149,74 @@ func (n *Naive) GetStoredHistory(id int) (*SingleTrace, error) {
 	}
 
 	return &ret, nil
+}
+
+func (n *Naive) RecordResult(succeed bool, requiredTime time.Duration) error {
+	path := fmt.Sprintf("%s/%s", n.nextWorkingDir, resultPath)
+
+	result := testResult{
+		succeed,
+		requiredTime,
+	}
+
+	var resultBuf bytes.Buffer
+	enc := gob.NewEncoder(&resultBuf)
+	eerr := enc.Encode(&result)
+	if eerr != nil {
+		return eerr
+	}
+
+	resultFile, oerr := os.Create(path)
+	if oerr != nil {
+		return oerr
+	}
+
+	_, werr := resultFile.Write(resultBuf.Bytes())
+	if werr != nil {
+		return werr
+	}
+
+	return nil
+}
+
+func (n *Naive) IsSucceed(id int) (bool, error) {
+	path := fmt.Sprintf("%s/%08x/%s", n.dir, id, resultPath)
+
+	encoded, err := WholeRead(path)
+	if err != nil {
+		return false, err
+	}
+
+	byteBuf := bytes.NewBuffer(encoded)
+	dec := gob.NewDecoder(byteBuf)
+	var ret testResult
+	derr := dec.Decode(&ret)
+	if derr != nil {
+		return false, derr
+	}
+
+	return ret.Succeed, nil
+
+}
+
+func (n *Naive) GetRequiredTime(id int) (time.Duration, error) {
+	path := fmt.Sprintf("%s/%08x/%s", n.dir, id, resultPath)
+
+	encoded, err := WholeRead(path)
+	if err != nil {
+		return 0, err
+	}
+
+	byteBuf := bytes.NewBuffer(encoded)
+	dec := gob.NewDecoder(byteBuf)
+	var ret testResult
+	derr := dec.Decode(&ret)
+	if derr != nil {
+		return 0, derr
+	}
+
+	return ret.RequiredTime, nil
+
 }
 
 func (n *Naive) Init() {

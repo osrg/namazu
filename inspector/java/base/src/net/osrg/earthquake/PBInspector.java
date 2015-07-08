@@ -444,10 +444,15 @@ public class PBInspector implements Inspector {
         for (int i = 0; i < traces.length; i++) {
             StackTraceElement trace = traces[i];
 
+            if (trace == null) {
+                LOGGER.info("stack trace entry %d is null" + i);
+                continue;
+            }
+
             InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder traceBuilder = InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.newBuilder();
-            traceBuilder.setClassName(trace.getClassName())
-                    .setFileName(trace.getFileName())
-                    .setMethodName(trace.getMethodName())
+            traceBuilder.setClassName(trace.getClassName() != null ? trace.getClassName() : "<no class name>")
+                    .setFileName(trace.getFileName() != null ? trace.getFileName() : "<no file name>")
+                    .setMethodName(trace.getMethodName() != null ? trace.getMethodName() : "<no method name>")
                     .setLineNumber(trace.getLineNumber());
 
             InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement newElement = traceBuilder.build();
