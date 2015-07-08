@@ -1,70 +1,54 @@
-## FIXME: remove unused imports
-from abc import ABCMeta, abstractmethod
-import colorama
-import copy
-import eventlet
-from eventlet.greenthread import sleep
-from eventlet.semaphore import Semaphore
-from eventlet.timeout import Timeout
-from eventlet.queue import *
-from greenlet import GreenletExit
-import networkx as nx
-import six
-import time
 import random
-import uuid
 import json
 
-from .. import LOG as _LOG
-from ..entity import *
-from ..util import *
+from eventlet.greenthread import sleep
+from eventlet.timeout import Timeout
+from eventlet.queue import *
+import networkx as nx
 
+from .. import LOG as _LOG
 from .state import *
 from .watcher import *
 from .digestible import *
 
 LOG = _LOG.getChild('orchestrator.explorer')
 
-class Graph(object):
-    """
-    MOVE ME TO LIBEARTHQUAKE.SO
-    """
-    def __init__(self, initial_state):
-        self._g = nx.DiGraph()
-        self.visit_node(initial_state)
-
-    def draw(self):
-        nx.draw(self._g)
-        matplotlib.peclot.show()
-        
-    def get_leaf_nodes(self):
-        return [n for n,d in self._g.out_degree().items() if d==0]
-
-    def _print_nodes(self):
-        leaf_nodes = self.get_leaf_nodes()
-        LOG.debug('* Nodes (%d): %s', len(self._g.nodes()), [str(x) for x in self._g.nodes()])
-        LOG.debug('* Leaf Nodes (%d): %s', len(leaf_nodes), [str(x) for x in leaf_nodes])
-
-    def visit_node(self, state):
-        assert isinstance(state, StateBase)
-        count = self._g.node[state]['count'] if self._g.has_node(state) else 0
-        # LOG.debug('Visit state %s, count=%d->%d', state.to_short_str(), count, count+1)
-        self._g.add_node(state, count=count+1)
-        
-    def visit_edge(self, state, next_state, digestible):
-        assert isinstance(state, StateBase)
-        assert isinstance(next_state, StateBase)
-        assert isinstance(digestible, DigestibleBase)
-        self.visit_node(state)
-        self.visit_node(next_state)
-        self._g.add_edge(state, next_state, digestible=digestible)
-        # self._print_nodes()
+# class Graph(object):
+#     """
+#     MOVE ME TO LIBEARTHQUAKE.SO
+#     """
+#     def __init__(self, initial_state):
+#         self._g = nx.DiGraph()
+#         self.visit_node(initial_state)
+#
+#     def get_leaf_nodes(self):
+#         return [n for n,d in self._g.out_degree().items() if d==0]
+#
+#     def _print_nodes(self):
+#         leaf_nodes = self.get_leaf_nodes()
+#         LOG.debug('* Nodes (%d): %s', len(self._g.nodes()), [str(x) for x in self._g.nodes()])
+#         LOG.debug('* Leaf Nodes (%d): %s', len(leaf_nodes), [str(x) for x in leaf_nodes])
+#
+#     def visit_node(self, state):
+#         assert isinstance(state, StateBase)
+#         count = self._g.node[state]['count'] if self._g.has_node(state) else 0
+#         # LOG.debug('Visit state %s, count=%d->%d', state.to_short_str(), count, count+1)
+#         self._g.add_node(state, count=count+1)
+#
+#     def visit_edge(self, state, next_state, digestible):
+#         assert isinstance(state, StateBase)
+#         assert isinstance(next_state, StateBase)
+#         assert isinstance(digestible, DigestibleBase)
+#         self.visit_node(state)
+#         self.visit_node(next_state)
+#         self._g.add_edge(state, next_state, digestible=digestible)
+#         # self._print_nodes()
 
 
 @six.add_metaclass(ABCMeta)
 class ExplorerBase(object):
     def __init__(self):
-        self.graph = None
+        # self.graph = None
         self._event_q = Queue()
         self.oc = None
         self.state = None
@@ -79,7 +63,7 @@ class ExplorerBase(object):
         LOG.debug(colorama.Back.BLUE +
                   'set initial state=%s' +
                   colorama.Style.RESET_ALL, self.state.to_short_str())
-        self.graph = Graph(self.state)
+        # self.graph = Graph(self.state)
 
 
     def send_event(self, event):
@@ -187,7 +171,7 @@ class ExplorerBase(object):
                   'State Transition: %s->%s' +
                   colorama.Style.RESET_ALL, self.state.to_short_str(), next_state.to_short_str())        
 
-        self.graph.visit_edge(self.state, next_state, digestible)
+        # self.graph.visit_edge(self.state, next_state, digestible)
         ## NOTE: worker sets self.state to next_state
         return next_state
 
@@ -293,47 +277,53 @@ class TimeBoundedRandomExplorer(RandomExplorer):
         return chosen_digestible
 
 
-from networkx.algorithms.traversal.depth_first_search import dfs_tree
+# from networkx.algorithms.traversal.depth_first_search import dfs_tree
+# class GreedyExplorer(ExplorerBase):
+#     def __init__(self, time_slice):
+#         super(GreedyExplorer, self).__init__()
+#         self.time_slice = time_slice
+#
+#     def get_subtrees(self, digestibles):
+#         d = {}
+#         frontier_digestibles = list(digestibles) # this is a shallow copy
+#         g = self.graph._g ## FIXME: should not access others' private vars
+#         assert self.state in g.edge
+#         for next_state in g.edge[self.state]:
+#             ## NOTE: even if digestible==edge_digestible, event_uuid can differ. Do NOT return edge_digestible.
+#             edge_digestible = g.edge[self.state][next_state]['digestible']
+#             digestibles_matched = [digestible for digestible in digestibles if digestible == edge_digestible]
+#             if not digestibles_matched: continue
+#             digestible = digestibles_matched[0]
+#             frontier_digestibles.remove(digestible)
+#             subtree = dfs_tree(g, next_state)
+#             d[digestible] = subtree
+#         for digestible in frontier_digestibles:
+#             d[digestible] = None
+#         return d
+#
+#     def evaluate_digestible_subtree(self, digestible, subtree):
+#         assert(digestible) # subtree may be None
+#         if not subtree:
+#             metric = 1.0
+#         else:
+#             subtree_nodes = subtree.number_of_nodes()
+#             metric = 1.0 / subtree_nodes if subtree_nodes > 0 else 1.0
+#         rand_factor = random.randint(9, 11) / 10.0
+#         metric *= rand_factor
+#         return metric
+#
+#     def choose_digestible(self, digestibles):
+#         assert (digestibles)
+#         digestible_metrics = {}
+#         for digestible, subtree in self.get_subtrees(digestibles).items():
+#             metric = self.evaluate_digestible_subtree(digestible, subtree)
+#             LOG.debug('Evaluated: metric=%f, digestible=%s', metric, digestible)
+#             digestible_metrics[digestible] = metric
+#         chosen_digestible = max(digestible_metrics, key=digestible_metrics.get)
+#         return chosen_digestible
 class GreedyExplorer(ExplorerBase):
     def __init__(self, time_slice):
-        super(GreedyExplorer, self).__init__()
-        self.time_slice = time_slice
-    
-    def get_subtrees(self, digestibles):
-        d = {}        
-        frontier_digestibles = list(digestibles) # this is a shallow copy
-        g = self.graph._g ## FIXME: should not access others' private vars  
-        assert self.state in g.edge        
-        for next_state in g.edge[self.state]:
-            ## NOTE: even if digestible==edge_digestible, event_uuid can differ. Do NOT return edge_digestible.
-            edge_digestible = g.edge[self.state][next_state]['digestible']
-            digestibles_matched = [digestible for digestible in digestibles if digestible == edge_digestible]
-            if not digestibles_matched: continue
-            digestible = digestibles_matched[0]
-            frontier_digestibles.remove(digestible)
-            subtree = dfs_tree(g, next_state)
-            d[digestible] = subtree
-        for digestible in frontier_digestibles:
-            d[digestible] = None
-        return d
+        raise NotImplementedError("GreedyExplorer is under refactoring. This will revive when new graph storage is implemented (Issue #23)")
 
-    def evaluate_digestible_subtree(self, digestible, subtree):
-        assert(digestible) # subtree may be None
-        if not subtree: 
-            metric = 1.0
-        else:
-            subtree_nodes = subtree.number_of_nodes()
-            metric = 1.0 / subtree_nodes if subtree_nodes > 0 else 1.0
-        rand_factor = random.randint(9, 11) / 10.0
-        metric *= rand_factor
-        return metric
-    
     def choose_digestible(self, digestibles):
-        assert (digestibles)        
-        digestible_metrics = {}
-        for digestible, subtree in self.get_subtrees(digestibles).items():
-            metric = self.evaluate_digestible_subtree(digestible, subtree)
-            LOG.debug('Evaluated: metric=%f, digestible=%s', metric, digestible)
-            digestible_metrics[digestible] = metric
-        chosen_digestible = max(digestible_metrics, key=digestible_metrics.get)
-        return chosen_digestible
+        pass
