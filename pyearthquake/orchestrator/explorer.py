@@ -272,7 +272,7 @@ class GreedyExplorer(ExplorerBase):
     def __init__(self, time_slice):
         super(GreedyExplorer, self).__init__(time_slice)
         raise NotImplementedError(
-            "GreedyExplorer is under refactoring since June 8, 2015. This will revive when new graph storage is implemented (Issue #23)")
+            "GreedyExplorer is under refactoring since July 8, 2015. This will revive when new graph storage is implemented (Issue #23)")
 
     def choose_digestible(self, digestibles):
         pass
