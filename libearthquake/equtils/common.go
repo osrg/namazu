@@ -55,3 +55,4 @@ type Event struct {
 type SingleTrace struct {
 	EventSequence []Event
 }
+
