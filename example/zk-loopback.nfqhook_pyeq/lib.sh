@@ -36,7 +36,7 @@ function DO_TEST(){
 }
 
 function STOP_EQ_INSPECTION(){
-    curl http://localhost:10000/ctrl_api/v1/force_terminate
+    curl --data {} http://localhost:10000/api/v2/ctrl/force_terminate
 }
 
 shopt -s expand_aliases

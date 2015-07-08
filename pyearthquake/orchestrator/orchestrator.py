@@ -2,10 +2,10 @@ from abc import ABCMeta, abstractmethod
 import colorama
 import copy
 import ctypes
+import os
 import eventlet
 from eventlet import wsgi
-from eventlet.semaphore import *
-from eventlet.queue import *
+from eventlet.queue import Queue
 from flask import Flask, request, Response, jsonify
 import json
 import six
@@ -59,9 +59,9 @@ class OrchestratorBase(object):
         self._init_regist_known_processes()
 
     def regist_process(self, pid):
-        queue = Queue()
-        sem = Semaphore()
-        self.processes[pid] = {'queue': queue, 'sem': sem}
+
+        assert not pid in self.processes, 'Process %s has been already registered' % pid
+        self.processes[pid] = {'actions': [], 'http_action_ready': Queue()}
 
         def regist_watcher():
             LOG.info('Loading ProcessWatcher "%s"', self.process_watcher_str)
@@ -75,6 +75,7 @@ class OrchestratorBase(object):
         LOG.info('Registered Process %s: %s', pid, self.processes[pid])
 
     def _init_parse_config(self):
+        # TODO: define config schema
         self.listen_port = int(self.config['globalFlags']['orchestratorListenPort'])
         self.process_watcher_str = self.config['globalFlags']['plugin']['processWatcher']
         self.explorer_str = self.config['globalFlags']['plugin']['explorer']
@@ -119,105 +120,103 @@ class OrchestratorBase(object):
         explorer_worker_handle = eventlet.spawn(self.explorer.worker)
         flask_app = Flask(self.__class__.__name__)
         flask_app.debug = True
-        #    self.regist_sigpipe_handler()
         self.regist_flask_routes(flask_app)
-        server_sock = eventlet.listen(('localhost', self.listen_port))
-        wsgi.server(server_sock, flask_app)
-        raise RuntimeError('should not reach here!')
-
-    # import signal
-    # def regist_sigpipe_handler(self):
-    #     orig_handler = signal.getsignal(signal.SIGPIPE)
-    #     def handler(signum, frame):
-    #         LOG.debug('SIGPIPE handler called')
-    #         if hasattr(orig_handler, '__call__'):
-    #             return orig_handler(signum, frame)
-    #     signal.signal(signal.SIGPIPE, handler)
-    #     LOG.info('Installed SIGPIPE handler')
+        sock = eventlet.listen(('localhost', self.listen_port))
+        wsgi.server(sock, flask_app)
+        explorer_worker_handle.wait()
+        raise RuntimeError('should not reach here! (TODO: support shutdown on inspection termination)')
 
     def regist_flask_routes(self, app):
         LOG.debug('registering flask routes')
+        api_root = '/api/v2'
+        LOG.debug('REST API root=%s', api_root)
 
-        @app.route('/')
-        def root():
-            return 'Hello Earthquake!'
+        @app.route('/', methods=['GET'])
+        def GET_root():
+            text = 'Hello Earthquake! -- %s(pid=%d)\n' % (str(self), os.getpid())
+            return Response(text, mimetype='text/plain')
 
-        @app.route('/ctrl_api/v1/force_terminate')
-        def ctrl_api_v1_inspection_end():
+        @app.route('/api/v1', methods=['GET', 'POST'])
+        def GETPOST_old_api_v1():
+            """
+            API v1 has been eliminated. So return 406 Not Acceptable
+            """
+            return Response('API v1 has been eliminated. Use API v2 or later.\n', status=406, mimetype='text/plain')
+
+        @app.route(api_root + '/ctrl/force_terminate', methods=['POST'])
+        def POST_ctrl_force_terminate():
+            """
+            Forcibly terminate inspection
+            """
+            # We don't support GET, as GET must be idempotent (RFC 7231)
             state = self.explorer.state
+            LOG.debug('Calling state.force_terminate()')
             state.force_terminate()
             return jsonify({})
 
-        @app.route('/visualize_api/v1/csv', methods=['GET'])
-        def visualize_api_v1_csv():
+        @app.route(api_root + '/visualizers/csv', methods=['GET'])
+        def GET_visualizers_csv():
+            """
+            Visualize (to be eliminated?)
+            """
             csv_fn = self.libearthquake.EQGetStatCSV_UnstableAPI
             csv_fn.restype = ctypes.c_char_p
-            csv_str = csv_fn()
-            LOG.debug('CSV <== %s', csv_str)
-            return Response(csv_str, mimetype='text/csv')
+            csv = csv_fn()
+            LOG.debug('CSV <== %s', csv)
+            return Response(csv, mimetype='text/csv')
 
-        @app.route('/visualize_api/csv', methods=['GET'])
-        def DEPRECATED_visualize_api_csv():
-            return visualize_api_v1_csv()
 
-        @app.route('/api/v1', methods=['POST'])
-        def api_v1_post():
+        @app.route(api_root + '/events/<process_id>/<event_uuid>', methods=['POST'])
+        def POST_events(process_id, event_uuid):
             ## get event
-            ev_jsdict = request.get_json(force=True)
-            LOG.debug('API ==> %s', ev_jsdict)
+            ## NOTE: get_json(force=True): ignore mimetype('application/json')
+            event_jsdict = request.get_json(force=True)
+            LOG.debug('API ==> %s', event_jsdict)
+            assert event_jsdict['uuid'] == event_uuid
 
-            ## check process id (TODO: check dup)
-            process_id = ev_jsdict['process']
-            assert self.validate_process_id(process_id)
+            ## regist process, if not registed
             if not process_id in self.processes:
                 self.regist_process(process_id)
 
             ## send event to explorer
-            ev = EventBase.dispatch_from_jsondict(ev_jsdict)
-            ev.recv_timestamp = time.time()
-            self.explorer.send_event(ev)
+            event = EventBase.dispatch_from_jsondict(event_jsdict)
+            event.recv_timestamp = time.time()
+            self.explorer.send_event(event)
             return jsonify({})
 
-        @app.route('/api/v1/<process_id>', methods=['GET'])
-        def api_v1_get(process_id):
-            assert self.validate_process_id(process_id)
+        @app.route(api_root + '/actions/<process_id>', methods=['GET'])
+        def GET_actions(process_id):
+            ## regist process, if not registed
             if not process_id in self.processes:
                 self.regist_process(process_id)
 
-            LOG.debug('Acquiring sem for %s', process_id)
-            sem_acquired = self.processes[process_id]['sem'].acquire(blocking=False)
-            if not sem_acquired:
-                err = 'Could not acquire semaphore for %s' % process_id
-                LOG.warn(err)
-                return err  # TODO set HTTP error code
-            LOG.debug('Acquired sem for %s', process_id)
-
-            try:
-                ret = Response(_api_v1_get(process_id), mimetype='application/json')
-            finally:
-                ## release sem
-                self.processes[process_id]['sem'].release()
-                LOG.debug('Released sem for %s', process_id)
-            assert ret
-            return ret
-
-        def _api_v1_get(process_id):
-            ## wait for action from explorer
-            ## WARNING: conn may be closed while waiting in this blocking q.get
-            ## FIXME: we should break this wait and release the sem when the conn is closed, 
-            ## but Flask has no support for conn close detection, so we should not rely on Flask, maybe
-            ## http://stackoverflow.com/questions/17787023/python-how-to-catch-a-flask-except-like-this
-            LOG.debug('Dequeuing action for %s', process_id)
-            got = self.processes[process_id]['queue'].get()
-            action = got['action']
-            LOG.debug('Dequeued action %s for %s', action, process_id)
-            assert isinstance(action, ActionBase)
+            ## wait for action
+            actions_len = len(self.processes[process_id]['actions'])
+            LOG.debug('left actions: %d', actions_len)
+            if actions_len == 0:
+                LOG.debug('waiting for a new action')
+                self.processes[process_id]['http_action_ready'].get()
+            assert(len(self.processes[process_id]['actions']) >= 0)
+            action = self.processes[process_id]['actions'][0]
 
             ## return action
             action_jsdict = action.to_jsondict()
             LOG.debug('API <== %s', action_jsdict)
-            ret = json.dumps(action_jsdict)
-            yield ret
+            return jsonify(action_jsdict)
+
+        @app.route(api_root + '/actions/<process_id>/<action_uuid>', methods=['DELETE'])
+        def DELETE_actions(process_id, action_uuid):
+            assert process_id in self.processes
+            actions = [(i, x) for i, x in enumerate(self.processes[process_id]['actions']) if x.uuid == action_uuid]
+            assert len(actions) <= 1
+            if len(actions) == 0:
+                ## this is expected because DELETE must be idempotent
+                LOG.warn('Action %s has been already deleted?', action_uuid)
+                return jsonify({})
+            i = actions[0][0]
+            del self.processes[process_id]['actions'][i]
+            LOG.debug('DELETE %s', action_uuid)
+            return jsonify({})
 
     def send_action(self, action):
         """
@@ -225,16 +224,13 @@ class OrchestratorBase(object):
         """
         process_id = action.process
         # no need to acquire sem
-        self.processes[process_id]['queue'].put({'type': 'action', 'action': action})
+        self.processes[process_id]['actions'].append(action)
+        self.processes[process_id]['http_action_ready'].put(True)
         LOG.debug('Enqueued action %s', action)
 
     def execute_command(self, command):
         rc = subprocess.call(command, shell=True)
         return rc
-
-    def validate_process_id(self, process_id):
-        # TODO: check dup
-        return True
 
     @abstractmethod
     def call_action(self, action):

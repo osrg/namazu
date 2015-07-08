@@ -19,7 +19,7 @@ class SampleState(BasicState):
                     is_res = msg['is_res']
                     s += ('(%d)' if is_res else '%d') % msg_no
                 else:
-                    s += '?[%s]' % ec
+                    s += '?[%s]' % d
             return '<S %s>' % s
         except Exception as e:
             LOG.exception(e)

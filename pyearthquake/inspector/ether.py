@@ -1,40 +1,38 @@
 from abc import ABCMeta, abstractmethod
 import eventlet
 from eventlet.green import SocketServer, zmq, time
-import functools
 import hexdump
 import json
 import scapy.all
 import six
 import requests
-from StringIO import StringIO
 
 from .. import LOG as _LOG
-from ..entity.entity import *
-from ..entity.event import *
-from ..entity.action import *
+from ..entity.entity import EventBase, ActionBase
+from ..entity.event import PacketEvent
+from ..entity.action import PassDeferredEventAction, NopAction
 from .ether_tcp_watcher import TCPWatcher
 
 LOG = _LOG.getChild(__name__)
 
 ENABLE_TCP_WATCHER = True
 
-eventlet.monkey_patch()
+eventlet.monkey_patch() # for requests
 
 @six.add_metaclass(ABCMeta)
 class EtherInspectorBase(object):
     pkt_recv_handler_table = {}
-    def __init__(self, zmq_addr, oc_addr='http://localhost:10000/api/v1', process_id='_earthquake_ether_inspector'):
+    def __init__(self, zmq_addr, orchestrator_rest_url='http://localhost:10000/api/v2', process_id='_earthquake_ether_inspector'):
         if ENABLE_TCP_WATCHER:
             LOG.info('Using TCPWatcher')
             self.tcp_watcher = TCPWatcher()
         else: self.tcp_watcher = None
         self.deferred_events = {} # key: string(event_uuid), value; {'event': PacketEvent, 'packet': PacketBase}
 
-        LOG.info('ZMQ Addr: %s', zmq_addr)        
+        LOG.info('ZMQ Addr: %s', zmq_addr)
         self.zmq_addr = zmq_addr
-        LOG.info('OC Addr: %s', oc_addr)        
-        self.oc_addr = oc_addr
+        LOG.info('OC REST URL: %s', orchestrator_rest_url)
+        self.orchestrator_rest_url = orchestrator_rest_url
         LOG.info('System Process ID: %s', process_id)                        
         self.process_id = process_id
         
@@ -150,14 +148,17 @@ class EtherInspectorBase(object):
         except Exception as e:
             LOG.error('cannot pass this event: %s', ev_uuid, exc_info=True)
 
-    def send_event_to_orchestrator(self, ev):
+    def send_event_to_orchestrator(self, event):
         try:
-            jsdict = ev.to_jsondict()
+            event_jsdict = event.to_jsondict()
             headers = {'content-type': 'application/json'}
-            r = requests.post(self.oc_addr, data=json.dumps(jsdict), headers=headers)
+            post_url = self.orchestrator_rest_url + '/events/' + self.process_id + '/' + event.uuid
+            LOG.debug('POST %s', post_url)
+            r = requests.post(post_url, data=json.dumps(event_jsdict), headers=headers)
             return True
         except Exception as e:
-            LOG.error('cannot send event: %s', ev, exc_info=True)
+            LOG.error('cannot send event: %s', event, exc_info=True)
+            ## do not re-raise the exception to continue processing
             return False
 
     def on_recv_action_from_orchestrator(self, action):
@@ -173,15 +174,23 @@ class EtherInspectorBase(object):
     def _oc_worker(self):
         error_count = 0
         while True:
+            got = None
             try:
-                addr = self.oc_addr + '/' + self.process_id
-                LOG.debug('GET %s', addr)
-                r = requests.get(addr)
-                jsdict = r.json()
-                action = ActionBase.dispatch_from_jsondict(jsdict)
+                get_url = self.orchestrator_rest_url + '/actions/' + self.process_id
+                LOG.debug('GET %s', get_url)
+                got = requests.get(get_url)
+                got_jsdict = got.json()
+                action = ActionBase.dispatch_from_jsondict(got_jsdict)
+                LOG.debug('got %s', action.uuid)
+                delete_url = get_url + '/' + action.uuid
+                LOG.debug('DELETE %s', delete_url)
+                deleted = requests.delete(delete_url)
+                assert deleted.status_code == 200
                 self.on_recv_action_from_orchestrator(action)
                 error_count = 0
             except Exception as e:
-                LOG.error('cannot HTTP GET', exc_info=True)                
+                LOG.error('cannot HTTP GET', exc_info=True)
+                if got:
+                    LOG.error(got)
                 error_count += 1
                 eventlet.sleep(error_count * 1.0)
