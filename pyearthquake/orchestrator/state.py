@@ -4,9 +4,8 @@ import six
 import time
 
 from .. import LOG as _LOG
-from ..entity import *
-from ..util import *
-from .digestible import *
+from ..entity.event import InspectionEndEvent
+from .digestible import DigestibleBase
 
 LOG = _LOG.getChild('orchestrator.state')
     
