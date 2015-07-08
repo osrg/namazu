@@ -14,10 +14,15 @@ LOG = _LOG.getChild('orchestrator.detector')
 class TerminationDetectorBase(object):
     def init_with_orchestrator(self, orchestrator):
         self.oc = orchestrator
-        
+
     @abstractmethod
     def is_terminal_state(self, state):
         pass
+
+
+class BasicTerminationDetector(TerminationDetectorBase):
+    def is_terminal_state(self, state):
+        return state.forcibly_terminated
 
 
 class IdleForWhileDetector(TerminationDetectorBase):
@@ -25,6 +30,8 @@ class IdleForWhileDetector(TerminationDetectorBase):
         self.threshold_msecs = msecs
         
     def is_terminal_state(self, state):
+        if state.forcibly_terminated:
+            return True
         now = time.time()
         elapsed_secs = now - state.last_transition_time
         elapsed_msecs = elapsed_secs * 1000
@@ -42,7 +49,8 @@ class InspectionEndDetector(TerminationDetectorBase):
         """
         FIXME: make me light-weight
         """
-        
+        if state.forcibly_terminated:
+            return True
         process_ended = {}
         for pid in self.oc.processes.keys():
             process_ended[pid] = False
@@ -57,10 +65,3 @@ class InspectionEndDetector(TerminationDetectorBase):
         if terminated:
             LOG.debug("%s detected terminated=%s", self.__class__.__name__, terminated)        
         return terminated
-
-
-class ForciblyInspectionEndDetector(TerminationDetectorBase):
-    def is_terminal_state(self, state):
-        if state.forcibly_inspection_ended is None:
-            return False
-        return state.forcibly_inspection_ended

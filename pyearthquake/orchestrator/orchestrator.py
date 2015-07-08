@@ -144,10 +144,10 @@ class OrchestratorBase(object):
         def root():
             return 'Hello Earthquake!'
 
-        @app.route('/ctrl_api/v1/forcibly_inspection_end')
+        @app.route('/ctrl_api/v1/force_terminate')
         def ctrl_api_v1_inspection_end():
             state = self.explorer.state
-            state.forcibly_inspection_ended = True
+            state.force_terminate()
             return jsonify({})
 
         @app.route('/visualize_api/v1/csv', methods=['GET'])

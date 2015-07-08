@@ -10,7 +10,7 @@
 	    "orchestrator": "sys.modules[\"zk_orchestrator\"].ZkOrchestrator()",
 	    "explorer": "pyearthquake.orchestrator.explorer.DumbExplorer(sleep_msecs=30)",
 	    "processWatcher": "pyearthquake.orchestrator.watcher.BasicProcessWatcher()",
-	    "terminationDetector": "pyearthquake.orchestrator.detector.ForciblyInspectionEndDetector()"
+	    "terminationDetector": "pyearthquake.orchestrator.detector.BasicTerminationDetector()"
 	}
     }
 }
