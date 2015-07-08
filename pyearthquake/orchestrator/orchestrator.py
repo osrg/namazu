@@ -174,10 +174,6 @@ class OrchestratorBase(object):
             LOG.debug('API ==> %s', event_jsdict)
             assert event_jsdict['uuid'] == event_uuid
 
-            ## regist process, if not registed
-            if not process_id in self.processes:
-                self.regist_process(process_id)
-
             ## send event to explorer
             event = EventBase.dispatch_from_jsondict(event_jsdict)
             event.recv_timestamp = time.time()
@@ -190,14 +186,16 @@ class OrchestratorBase(object):
             if not process_id in self.processes:
                 self.regist_process(process_id)
 
-            ## wait for action
-            actions_len = len(self.processes[process_id]['actions'])
-            LOG.debug('left actions: %d', actions_len)
-            if actions_len == 0:
-                LOG.debug('waiting for a new action')
-                self.processes[process_id]['http_action_ready'].get()
-            assert(len(self.processes[process_id]['actions']) >= 0)
-            action = self.processes[process_id]['actions'][0]
+            def wait_for_actions():
+                while True:
+                    actions_len = len(self.processes[process_id]['actions'])
+                    LOG.debug('#actions=%d', actions_len)
+                    if actions_len > 0: break
+                    LOG.debug('waiting for a new action')
+                    self.processes[process_id]['http_action_ready'].get()
+                return self.processes[process_id]['actions'][0]
+
+            action = wait_for_actions()
 
             ## return action
             action_jsdict = action.to_jsondict()
@@ -223,10 +221,9 @@ class OrchestratorBase(object):
         explorer calls this
         """
         process_id = action.process
-        # no need to acquire sem
         self.processes[process_id]['actions'].append(action)
         self.processes[process_id]['http_action_ready'].put(True)
-        LOG.debug('Enqueued action %s', action)
+        LOG.debug('Enqueued action %s, #actions=%d', action, len(self.processes[process_id]['actions']))
 
     def execute_command(self, command):
         rc = subprocess.call(command, shell=True)
