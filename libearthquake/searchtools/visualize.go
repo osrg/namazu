@@ -18,9 +18,9 @@ package searchtools
 import (
 	"fmt"
 	// "io/ioutil"
-	"os"
-	// "sort"
 	"flag"
+	"os"
+	"sort"
 
 	. "../equtils"
 	"../historystorage"
@@ -30,6 +30,8 @@ import (
 
 type visualizeFlags struct {
 	Mode string
+
+	POReduction bool
 }
 
 var (
@@ -39,10 +41,20 @@ var (
 
 func init() {
 	visualizeFlagset.StringVar(&_visualizeFlags.Mode, "mode", "", "mode of visualization")
+	visualizeFlagset.BoolVar(&_visualizeFlags.POReduction, "po-reduction", true, "count with partial order reduction")
 }
 
-func seenBefore(traces []*SingleTrace, newTrace *SingleTrace) bool {
-	for _, trace := range traces {
+type uniqueTraceUnit struct {
+	trace *SingleTrace
+
+	tracesPerTransitionEntity map[string][]*Event
+}
+
+func seenBefore(traces []*uniqueTraceUnit, newUnit *uniqueTraceUnit) bool {
+	for _, _trace := range traces {
+		trace := _trace.trace
+		newTrace := newUnit.trace
+
 		if len(trace.EventSequence) != len(newTrace.EventSequence) {
 			continue
 		}
@@ -66,13 +78,86 @@ func seenBefore(traces []*SingleTrace, newTrace *SingleTrace) bool {
 	return false
 }
 
-func gnuplot(historyStoragePath string) {
+func createTracesPerEntity(_trace *uniqueTraceUnit) {
+	trace := _trace.trace
+
+	perEntity := make(map[string][]*Event)
+
+	for _, ev := range trace.EventSequence {
+		if _, ok := perEntity[ev.ProcId]; !ok {
+			perEntity[ev.ProcId] = make([]*Event, 0)
+		}
+
+		perEntity[ev.ProcId] = append(perEntity[ev.ProcId], &ev)
+	}
+
+	_trace.tracesPerTransitionEntity = perEntity
+}
+
+func tracesEqualInPO(_a, _b *uniqueTraceUnit) bool {
+	a := _a.tracesPerTransitionEntity
+	b := _b.tracesPerTransitionEntity
+
+	entitiesOfA := make([]string, 0)
+	for entity, _ := range a {
+		entitiesOfA = append(entitiesOfA, entity)
+	}
+
+	entitiesOfB := make([]string, 0)
+	for entity, _ := range b {
+		entitiesOfB = append(entitiesOfB, entity)
+	}
+
+	if len(entitiesOfA) != len(entitiesOfB) {
+		return false
+	}
+
+	sort.Strings(entitiesOfA)
+	sort.Strings(entitiesOfB)
+
+	for i, entity := range entitiesOfA {
+		if entitiesOfB[i] != entity {
+			return false
+		}
+	}
+
+	for _, entityOfA := range entitiesOfA {
+		aEvents := a[entityOfA]
+		bEvents := b[entityOfA]
+
+		if len(aEvents) != len(bEvents) {
+			return false
+		}
+
+		for i, ev := range aEvents {
+			if !areEventsEqual(ev, bEvents[i]) {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+func seenBeforePOR(traces []*uniqueTraceUnit, newUnit *uniqueTraceUnit) bool {
+	createTracesPerEntity(newUnit)
+
+	for _, trace := range traces {
+		if tracesEqualInPO(trace, newUnit) {
+			return true
+		}
+	}
+
+	return false
+}
+
+func gnuplot(historyStoragePath string, poReduction bool) {
 	storage := historystorage.LoadStorage(historyStoragePath)
 
 	storage.Init()
 	nrStored := storage.NrStoredHistories()
 	nrUniques := 0
-	uniqueTraces := make([]*SingleTrace, 0)
+	uniqueTraces := make([]*uniqueTraceUnit, 0)
 
 	for i := 0; i < nrStored; i++ {
 		trace, err := storage.GetStoredHistory(i)
@@ -81,12 +166,24 @@ func gnuplot(historyStoragePath string) {
 			os.Exit(1)
 		}
 
-		if !seenBefore(uniqueTraces, trace) {
-			nrUniques++
-			uniqueTraces = append(uniqueTraces, trace)
+		newUnit := &uniqueTraceUnit{
+			trace: trace,
 		}
 
-		fmt.Printf("%d %d\n", i + 1, nrUniques)
+		seen := false
+
+		if poReduction {
+			seen = seenBeforePOR(uniqueTraces, newUnit)
+		} else {
+			seen = seenBefore(uniqueTraces, newUnit)
+		}
+
+		if !seen {
+			nrUniques++
+			uniqueTraces = append(uniqueTraces, newUnit)
+		}
+
+		fmt.Printf("%d %d\n", i+1, nrUniques)
 	}
 }
 
@@ -98,7 +195,7 @@ func visualize(args []string) {
 		if visualizeFlagset.NArg() != 1 {
 			fmt.Printf("need a path of history storage")
 		}
-		gnuplot(args[len(args)-1])
+		gnuplot(args[len(args)-1], _visualizeFlags.POReduction)
 	default:
 		fmt.Printf("unknown mode of visualize: %s\n", _visualizeFlags.Mode)
 	}
