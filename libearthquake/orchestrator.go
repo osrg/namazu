@@ -17,11 +17,11 @@ package main
 
 import (
 	. "./equtils"
-	. "./searchpolicy"
+	. "./explorepolicy"
 	"./inspectorhandler"
 )
 
-func orchestrate(endCh chan interface{}, policy SearchPolicy, newTraceCh chan *SingleTrace) {
+func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *SingleTrace) {
 	readyEntityCh := make(chan *TransitionEntity)
 
 	inspectorhandler.StartAllInspectorHandler(readyEntityCh)
