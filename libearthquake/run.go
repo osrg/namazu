@@ -144,7 +144,7 @@ func run(args []string) {
 	end := make(chan interface{})
 	newTraceCh := make(chan *SingleTrace)
 
-	go searchModeNoInitiation(nextDir, policy, end, newTraceCh)
+	go orchestrate(end, policy, newTraceCh)
 
 	materialsDir := storagePath + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript

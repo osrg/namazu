@@ -16,6 +16,7 @@
 package equtils
 
 import (
+	"net"
 	"time"
 )
 
@@ -56,3 +57,13 @@ type SingleTrace struct {
 	EventSequence []Event
 }
 
+type TransitionEntity struct {
+	Id   string
+	Conn net.Conn
+
+	ReqToMain chan *InspectorMsgReq
+	GotoNext  chan interface{}
+
+	EventReqRecv chan *InspectorMsgReq
+	EventRspSend chan *InspectorMsgRsp
+}
