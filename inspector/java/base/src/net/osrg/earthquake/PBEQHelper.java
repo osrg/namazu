@@ -45,8 +45,32 @@ public class PBEQHelper extends Helper
 	inspector.EventFuncCall(name);
     }
 
+    public void eventFuncCall(String name, String classFilter) {
+	inspector.EventFuncCall(name, classFilter);
+    }
+
     public void eventFuncCall(String name, Map<String, Object> argMap) {
 	inspector.EventFuncCall(name, argMap);
+    }
+
+    public void eventFuncCall(String name, Map<String, Object> argMap, String classFilter) {
+	inspector.EventFuncCall(name, argMap, classFilter);
+    }
+
+    public void eventFuncReturn(String name) {
+	inspector.EventFuncReturn(name);
+    }
+
+    public void eventFuncReturn(String name, String classFilter) {
+	inspector.EventFuncReturn(name, classFilter);
+    }
+
+    public void eventFuncReturn(String name, Map<String, Object> argMap) {
+	inspector.EventFuncReturn(name, argMap);
+    }
+
+    public void eventFuncReturn(String name, Map<String, Object> argMap, String classFilter) {
+	inspector.EventFuncReturn(name, argMap, classFilter);
     }
 
     public void stopInspection() {

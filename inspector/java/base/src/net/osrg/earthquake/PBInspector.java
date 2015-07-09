@@ -486,6 +486,29 @@ public class PBInspector implements Inspector {
         sendEvent(ev, true, makeStackTrace(), null);
     }
 
+    public void EventFuncReturn(String funcName) {
+        if (Disabled) {
+            LOGGER.fine("already disabled");
+            return;
+        }
+
+        if (!running) {
+            LOGGER.fine("killed");
+            return;
+        }
+
+        LOGGER.finest("EventFuncReturn: " + funcName);
+        InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder evFunBuilder = InspectorMessage.InspectorMsgReq_Event_FuncReturn.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event_FuncReturn evFun = evFunBuilder.setName(funcName).build();
+
+        InspectorMessage.InspectorMsgReq_Event.Builder evBuilder = InspectorMessage.InspectorMsgReq_Event.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event ev = evBuilder
+                .setType(InspectorMessage.InspectorMsgReq_Event.Type.FUNC_RETURN)
+                .setFuncReturn(evFun).build();
+
+        sendEvent(ev, true, makeStackTrace(), null);
+    }
+
     private InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[] makeParamsArray(Map<String, Object> paramMap) {
         InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[] ret;
         ret = new InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[paramMap.size()];
@@ -494,7 +517,7 @@ public class PBInspector implements Inspector {
         for (Map.Entry<String, Object> e: paramMap.entrySet()) {
             InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder paramBuilder = InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.newBuilder();
 
-            ret[i++] = paramBuilder.setName(e.getKey()).setValue(e.getValue().toString()).build();
+            ret[i++] = paramBuilder.setName(e.getKey()).setValue(e.getValue() == null ? "null" : e.getValue().toString()).build();
         }
 
         return ret;
@@ -529,6 +552,14 @@ public class PBInspector implements Inspector {
         EventFuncCall(funcName);
     }
 
+    public void EventFuncReturn(String funcName, String classFilter) {
+        if (!classFilterMatch(classFilter)) {
+            return;
+        }
+
+        EventFuncReturn(funcName);
+    }
+
     public void EventFuncCall(String funcName, Map<String, Object> paramMap) {
          if (Disabled) {
             LOGGER.fine("already disabled");
@@ -553,12 +584,44 @@ public class PBInspector implements Inspector {
         sendEvent(ev, true, makeStackTrace(), makeParamsArray(paramMap));
     }
 
+    public void EventFuncReturn(String funcName, Map<String, Object> paramMap) {
+         if (Disabled) {
+            LOGGER.fine("already disabled");
+            return;
+        }
+
+        if (!running) {
+            LOGGER.fine("killed");
+            return;
+        }
+
+        LOGGER.finest("EventFuncReturn: " + funcName);
+        LOGGER.info("paramMap: " + paramMap.toString());
+        InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder evFunBuilder = InspectorMessage.InspectorMsgReq_Event_FuncReturn.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event_FuncReturn evFun = evFunBuilder.setName(funcName).build();
+
+        InspectorMessage.InspectorMsgReq_Event.Builder evBuilder = InspectorMessage.InspectorMsgReq_Event.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event ev = evBuilder
+                .setType(InspectorMessage.InspectorMsgReq_Event.Type.FUNC_RETURN)
+                .setFuncReturn(evFun).build();
+
+        sendEvent(ev, true, makeStackTrace(), makeParamsArray(paramMap));
+    }
+
     public void EventFuncCall(String funcName, Map<String, Object> paramMap, String classFilter) {
         if (!classFilterMatch(classFilter)) {
             return;
         }
 
         EventFuncCall(funcName, paramMap);
+    }
+
+    public void EventFuncReturn(String funcName, Map<String, Object> paramMap, String classFilter) {
+        if (!classFilterMatch(classFilter)) {
+            return;
+        }
+
+        EventFuncReturn(funcName, paramMap);
     }
 
     public void StopInspection() {

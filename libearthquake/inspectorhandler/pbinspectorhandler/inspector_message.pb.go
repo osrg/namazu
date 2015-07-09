@@ -10,6 +10,7 @@ It is generated from these files:
 
 It has these top-level messages:
 	InspectorMsgReq_Event_FuncCall
+	InspectorMsgReq_Event_FuncReturn
 	InspectorMsgReq_Event_Exit
 	InspectorMsgReq_Event
 	InspectorMsgReq_Initiation
@@ -31,17 +32,20 @@ var _ = math.Inf
 type InspectorMsgReq_Event_Type int32
 
 const (
-	InspectorMsgReq_Event_FUNC_CALL InspectorMsgReq_Event_Type = 1
-	InspectorMsgReq_Event_EXIT      InspectorMsgReq_Event_Type = 2
+	InspectorMsgReq_Event_FUNC_CALL   InspectorMsgReq_Event_Type = 1
+	InspectorMsgReq_Event_FUNC_RETURN InspectorMsgReq_Event_Type = 2
+	InspectorMsgReq_Event_EXIT        InspectorMsgReq_Event_Type = 3
 )
 
 var InspectorMsgReq_Event_Type_name = map[int32]string{
 	1: "FUNC_CALL",
-	2: "EXIT",
+	2: "FUNC_RETURN",
+	3: "EXIT",
 }
 var InspectorMsgReq_Event_Type_value = map[string]int32{
-	"FUNC_CALL": 1,
-	"EXIT":      2,
+	"FUNC_CALL":   1,
+	"FUNC_RETURN": 2,
+	"EXIT":        3,
 }
 
 func (x InspectorMsgReq_Event_Type) Enum() *InspectorMsgReq_Event_Type {
@@ -146,6 +150,22 @@ func (m *InspectorMsgReq_Event_FuncCall) GetName() string {
 	return ""
 }
 
+type InspectorMsgReq_Event_FuncReturn struct {
+	Name             *string `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
+	XXX_unrecognized []byte  `json:"-"`
+}
+
+func (m *InspectorMsgReq_Event_FuncReturn) Reset()         { *m = InspectorMsgReq_Event_FuncReturn{} }
+func (m *InspectorMsgReq_Event_FuncReturn) String() string { return proto.CompactTextString(m) }
+func (*InspectorMsgReq_Event_FuncReturn) ProtoMessage()    {}
+
+func (m *InspectorMsgReq_Event_FuncReturn) GetName() string {
+	if m != nil && m.Name != nil {
+		return *m.Name
+	}
+	return ""
+}
+
 type InspectorMsgReq_Event_Exit struct {
 	ExitCode         *int32 `protobuf:"varint,1,req,name=exitCode" json:"exitCode,omitempty"`
 	XXX_unrecognized []byte `json:"-"`
@@ -163,10 +183,11 @@ func (m *InspectorMsgReq_Event_Exit) GetExitCode() int32 {
 }
 
 type InspectorMsgReq_Event struct {
-	Type             *InspectorMsgReq_Event_Type     `protobuf:"varint,1,req,name=type,enum=pbinspectorhandler.InspectorMsgReq_Event_Type" json:"type,omitempty"`
-	FuncCall         *InspectorMsgReq_Event_FuncCall `protobuf:"bytes,2,opt" json:"FuncCall,omitempty"`
-	Exit             *InspectorMsgReq_Event_Exit     `protobuf:"bytes,3,opt" json:"Exit,omitempty"`
-	XXX_unrecognized []byte                          `json:"-"`
+	Type             *InspectorMsgReq_Event_Type       `protobuf:"varint,1,req,name=type,enum=pbinspectorhandler.InspectorMsgReq_Event_Type" json:"type,omitempty"`
+	FuncCall         *InspectorMsgReq_Event_FuncCall   `protobuf:"bytes,2,opt" json:"FuncCall,omitempty"`
+	FuncReturn       *InspectorMsgReq_Event_FuncReturn `protobuf:"bytes,3,opt" json:"FuncReturn,omitempty"`
+	Exit             *InspectorMsgReq_Event_Exit       `protobuf:"bytes,4,opt" json:"Exit,omitempty"`
+	XXX_unrecognized []byte                            `json:"-"`
 }
 
 func (m *InspectorMsgReq_Event) Reset()         { *m = InspectorMsgReq_Event{} }
@@ -183,6 +204,13 @@ func (m *InspectorMsgReq_Event) GetType() InspectorMsgReq_Event_Type {
 func (m *InspectorMsgReq_Event) GetFuncCall() *InspectorMsgReq_Event_FuncCall {
 	if m != nil {
 		return m.FuncCall
+	}
+	return nil
+}
+
+func (m *InspectorMsgReq_Event) GetFuncReturn() *InspectorMsgReq_Event_FuncReturn {
+	if m != nil {
+		return m.FuncReturn
 	}
 	return nil
 }

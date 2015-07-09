@@ -492,6 +492,490 @@ public final class InspectorMessage {
     // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_Event_FuncCall)
   }
 
+  public interface InspectorMsgReq_Event_FuncReturnOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_Event_FuncReturn)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required string name = 1;</code>
+     */
+    boolean hasName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    java.lang.String getName();
+    /**
+     * <code>required string name = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+  }
+  /**
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Event_FuncReturn}
+   */
+  public static final class InspectorMsgReq_Event_FuncReturn extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq_Event_FuncReturn)
+      InspectorMsgReq_Event_FuncReturnOrBuilder {
+    // Use InspectorMsgReq_Event_FuncReturn.newBuilder() to construct.
+    private InspectorMsgReq_Event_FuncReturn(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private InspectorMsgReq_Event_FuncReturn(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final InspectorMsgReq_Event_FuncReturn defaultInstance;
+    public static InspectorMsgReq_Event_FuncReturn getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public InspectorMsgReq_Event_FuncReturn getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private InspectorMsgReq_Event_FuncReturn(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000001;
+              name_ = bs;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<InspectorMsgReq_Event_FuncReturn> PARSER =
+        new com.google.protobuf.AbstractParser<InspectorMsgReq_Event_FuncReturn>() {
+      public InspectorMsgReq_Event_FuncReturn parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new InspectorMsgReq_Event_FuncReturn(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InspectorMsgReq_Event_FuncReturn> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    public static final int NAME_FIELD_NUMBER = 1;
+    private java.lang.Object name_;
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public boolean hasName() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          name_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string name = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      name_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasName()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getNameBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getNameBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Event_FuncReturn}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq_Event_FuncReturn)
+        net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturnOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder.class);
+      }
+
+      // Construct using net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        name_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_descriptor;
+      }
+
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn getDefaultInstanceForType() {
+        return net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.getDefaultInstance();
+      }
+
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn build() {
+        net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn buildPartial() {
+        net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn result = new net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.name_ = name_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn) {
+          return mergeFrom((net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn other) {
+        if (other == net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.getDefaultInstance()) return this;
+        if (other.hasName()) {
+          bitField0_ |= 0x00000001;
+          name_ = other.name_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasName()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder clearName() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq_Event_FuncReturn)
+    }
+
+    static {
+      defaultInstance = new InspectorMsgReq_Event_FuncReturn(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_Event_FuncReturn)
+  }
+
   public interface InspectorMsgReq_Event_ExitOrBuilder extends
       // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_Event_Exit)
       com.google.protobuf.MessageOrBuilder {
@@ -924,15 +1408,28 @@ public final class InspectorMessage {
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCallOrBuilder getFuncCallOrBuilder();
 
     /**
-     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+     */
+    boolean hasFuncReturn();
+    /**
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+     */
+    net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn getFuncReturn();
+    /**
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+     */
+    net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturnOrBuilder getFuncReturnOrBuilder();
+
+    /**
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
      */
     boolean hasExit();
     /**
-     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit getExit();
     /**
-     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder getExitOrBuilder();
   }
@@ -1013,8 +1510,21 @@ public final class InspectorMessage {
               break;
             }
             case 26: {
-              net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder subBuilder = null;
+              net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder subBuilder = null;
               if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = funcReturn_.toBuilder();
+              }
+              funcReturn_ = input.readMessage(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(funcReturn_);
+                funcReturn_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000004;
+              break;
+            }
+            case 34: {
+              net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
                 subBuilder = exit_.toBuilder();
               }
               exit_ = input.readMessage(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.PARSER, extensionRegistry);
@@ -1022,7 +1532,7 @@ public final class InspectorMessage {
                 subBuilder.mergeFrom(exit_);
                 exit_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000004;
+              bitField0_ |= 0x00000008;
               break;
             }
           }
@@ -1074,9 +1584,13 @@ public final class InspectorMessage {
        */
       FUNC_CALL(0, 1),
       /**
-       * <code>EXIT = 2;</code>
+       * <code>FUNC_RETURN = 2;</code>
        */
-      EXIT(1, 2),
+      FUNC_RETURN(1, 2),
+      /**
+       * <code>EXIT = 3;</code>
+       */
+      EXIT(2, 3),
       ;
 
       /**
@@ -1084,9 +1598,13 @@ public final class InspectorMessage {
        */
       public static final int FUNC_CALL_VALUE = 1;
       /**
-       * <code>EXIT = 2;</code>
+       * <code>FUNC_RETURN = 2;</code>
        */
-      public static final int EXIT_VALUE = 2;
+      public static final int FUNC_RETURN_VALUE = 2;
+      /**
+       * <code>EXIT = 3;</code>
+       */
+      public static final int EXIT_VALUE = 3;
 
 
       public final int getNumber() { return value; }
@@ -1094,7 +1612,8 @@ public final class InspectorMessage {
       public static Type valueOf(int value) {
         switch (value) {
           case 1: return FUNC_CALL;
-          case 2: return EXIT;
+          case 2: return FUNC_RETURN;
+          case 3: return EXIT;
           default: return null;
         }
       }
@@ -1183,22 +1702,43 @@ public final class InspectorMessage {
       return funcCall_;
     }
 
-    public static final int EXIT_FIELD_NUMBER = 3;
-    private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit exit_;
+    public static final int FUNCRETURN_FIELD_NUMBER = 3;
+    private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn funcReturn_;
     /**
-     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
      */
-    public boolean hasExit() {
+    public boolean hasFuncReturn() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+     */
+    public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn getFuncReturn() {
+      return funcReturn_;
+    }
+    /**
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+     */
+    public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturnOrBuilder getFuncReturnOrBuilder() {
+      return funcReturn_;
+    }
+
+    public static final int EXIT_FIELD_NUMBER = 4;
+    private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit exit_;
+    /**
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
+     */
+    public boolean hasExit() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit getExit() {
       return exit_;
     }
     /**
-     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder getExitOrBuilder() {
       return exit_;
@@ -1207,6 +1747,7 @@ public final class InspectorMessage {
     private void initFields() {
       type_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Type.FUNC_CALL;
       funcCall_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.getDefaultInstance();
+      funcReturn_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.getDefaultInstance();
       exit_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
@@ -1221,6 +1762,12 @@ public final class InspectorMessage {
       }
       if (hasFuncCall()) {
         if (!getFuncCall().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasFuncReturn()) {
+        if (!getFuncReturn().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -1245,7 +1792,10 @@ public final class InspectorMessage {
         output.writeMessage(2, funcCall_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeMessage(3, exit_);
+        output.writeMessage(3, funcReturn_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeMessage(4, exit_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1266,7 +1816,11 @@ public final class InspectorMessage {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, exit_);
+          .computeMessageSize(3, funcReturn_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, exit_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1378,6 +1932,7 @@ public final class InspectorMessage {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getFuncCallFieldBuilder();
+          getFuncReturnFieldBuilder();
           getExitFieldBuilder();
         }
       }
@@ -1395,12 +1950,18 @@ public final class InspectorMessage {
           funcCallBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (funcReturnBuilder_ == null) {
+          funcReturn_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.getDefaultInstance();
+        } else {
+          funcReturnBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
         if (exitBuilder_ == null) {
           exit_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.getDefaultInstance();
         } else {
           exitBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -1444,6 +2005,14 @@ public final class InspectorMessage {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
+        if (funcReturnBuilder_ == null) {
+          result.funcReturn_ = funcReturn_;
+        } else {
+          result.funcReturn_ = funcReturnBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
         if (exitBuilder_ == null) {
           result.exit_ = exit_;
         } else {
@@ -1471,6 +2040,9 @@ public final class InspectorMessage {
         if (other.hasFuncCall()) {
           mergeFuncCall(other.getFuncCall());
         }
+        if (other.hasFuncReturn()) {
+          mergeFuncReturn(other.getFuncReturn());
+        }
         if (other.hasExit()) {
           mergeExit(other.getExit());
         }
@@ -1485,6 +2057,12 @@ public final class InspectorMessage {
         }
         if (hasFuncCall()) {
           if (!getFuncCall().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasFuncReturn()) {
+          if (!getFuncReturn().isInitialized()) {
             
             return false;
           }
@@ -1668,17 +2246,133 @@ public final class InspectorMessage {
         return funcCallBuilder_;
       }
 
+      private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn funcReturn_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturnOrBuilder> funcReturnBuilder_;
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      public boolean hasFuncReturn() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn getFuncReturn() {
+        if (funcReturnBuilder_ == null) {
+          return funcReturn_;
+        } else {
+          return funcReturnBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      public Builder setFuncReturn(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn value) {
+        if (funcReturnBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          funcReturn_ = value;
+          onChanged();
+        } else {
+          funcReturnBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      public Builder setFuncReturn(
+          net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder builderForValue) {
+        if (funcReturnBuilder_ == null) {
+          funcReturn_ = builderForValue.build();
+          onChanged();
+        } else {
+          funcReturnBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      public Builder mergeFuncReturn(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn value) {
+        if (funcReturnBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              funcReturn_ != net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.getDefaultInstance()) {
+            funcReturn_ =
+              net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.newBuilder(funcReturn_).mergeFrom(value).buildPartial();
+          } else {
+            funcReturn_ = value;
+          }
+          onChanged();
+        } else {
+          funcReturnBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      public Builder clearFuncReturn() {
+        if (funcReturnBuilder_ == null) {
+          funcReturn_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.getDefaultInstance();
+          onChanged();
+        } else {
+          funcReturnBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder getFuncReturnBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getFuncReturnFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturnOrBuilder getFuncReturnOrBuilder() {
+        if (funcReturnBuilder_ != null) {
+          return funcReturnBuilder_.getMessageOrBuilder();
+        } else {
+          return funcReturn_;
+        }
+      }
+      /**
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncReturn FuncReturn = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturnOrBuilder> 
+          getFuncReturnFieldBuilder() {
+        if (funcReturnBuilder_ == null) {
+          funcReturnBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncReturnOrBuilder>(
+                  getFuncReturn(),
+                  getParentForChildren(),
+                  isClean());
+          funcReturn_ = null;
+        }
+        return funcReturnBuilder_;
+      }
+
       private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit exit_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder> exitBuilder_;
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       public boolean hasExit() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit getExit() {
         if (exitBuilder_ == null) {
@@ -1688,7 +2382,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       public Builder setExit(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit value) {
         if (exitBuilder_ == null) {
@@ -1700,11 +2394,11 @@ public final class InspectorMessage {
         } else {
           exitBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       public Builder setExit(
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder builderForValue) {
@@ -1714,15 +2408,15 @@ public final class InspectorMessage {
         } else {
           exitBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       public Builder mergeExit(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit value) {
         if (exitBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
               exit_ != net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.getDefaultInstance()) {
             exit_ =
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.newBuilder(exit_).mergeFrom(value).buildPartial();
@@ -1733,11 +2427,11 @@ public final class InspectorMessage {
         } else {
           exitBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       public Builder clearExit() {
         if (exitBuilder_ == null) {
@@ -1746,19 +2440,19 @@ public final class InspectorMessage {
         } else {
           exitBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder getExitBuilder() {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return getExitFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder getExitOrBuilder() {
         if (exitBuilder_ != null) {
@@ -1768,7 +2462,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder> 
@@ -7685,6 +8379,11 @@ public final class InspectorMessage {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -7735,43 +8434,47 @@ public final class InspectorMessage {
     java.lang.String[] descriptorData = {
       "\n\027inspector_message.proto\022\022pbinspectorha" +
       "ndler\".\n\036InspectorMsgReq_Event_FuncCall\022" +
-      "\014\n\004name\030\001 \002(\t\".\n\032InspectorMsgReq_Event_E" +
-      "xit\022\020\n\010exitCode\030\001 \002(\005\"\372\001\n\025InspectorMsgRe" +
-      "q_Event\022<\n\004type\030\001 \002(\0162..pbinspectorhandl" +
-      "er.InspectorMsgReq_Event.Type\022D\n\010FuncCal" +
-      "l\030\002 \001(\01322.pbinspectorhandler.InspectorMs" +
-      "gReq_Event_FuncCall\022<\n\004Exit\030\003 \001(\0132..pbin" +
-      "spectorhandler.InspectorMsgReq_Event_Exi" +
-      "t\"\037\n\004Type\022\r\n\tFUNC_CALL\020\001\022\010\n\004EXIT\020\002\"/\n\032In",
-      "spectorMsgReq_Initiation\022\021\n\tprocessId\030\001 " +
-      "\002(\t\"\203\001\n4InspectorMsgReq_JavaSpecificFiel" +
-      "ds_StackTraceElement\022\020\n\010fileName\030\001 \002(\t\022\021" +
-      "\n\tclassName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002(\t\022\022\n" +
-      "\nlineNumber\030\004 \002(\005\"H\n)InspectorMsgReq_Jav" +
-      "aSpecificFields_Params\022\014\n\004name\030\001 \002(\t\022\r\n\005" +
-      "value\030\002 \002(\t\"\235\002\n\"InspectorMsgReq_JavaSpec" +
-      "ificFields\022\022\n\nthreadName\030\001 \002(\t\022\034\n\024nrStac" +
-      "kTraceElements\030\002 \002(\005\022d\n\022stackTraceElemen" +
-      "ts\030\003 \003(\0132H.pbinspectorhandler.InspectorM",
-      "sgReq_JavaSpecificFields_StackTraceEleme" +
-      "nt\022\020\n\010nrParams\030\004 \002(\005\022M\n\006params\030\005 \003(\0132=.p" +
-      "binspectorhandler.InspectorMsgReq_JavaSp" +
-      "ecificFields_Params\"\256\003\n\017InspectorMsgReq\022" +
-      "\022\n\nprocess_id\030\001 \002(\t\0226\n\004type\030\002 \002(\0162(.pbin" +
-      "spectorhandler.InspectorMsgReq.Type\022\013\n\003p" +
-      "id\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 \002(\005\022\021\n" +
-      "\tga_msg_id\030\006 \001(\005\0228\n\005Event\030\007 \001(\0132).pbinsp" +
-      "ectorhandler.InspectorMsgReq_Event\022B\n\nIn" +
-      "itiation\030\010 \001(\0132..pbinspectorhandler.Insp",
-      "ectorMsgReq_Initiation\022\035\n\025HasJavaSpecifi" +
-      "cFields\030\t \002(\005\022R\n\022JavaSpecificFields\030\n \001(" +
-      "\01326.pbinspectorhandler.InspectorMsgReq_J" +
-      "avaSpecificFields\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\n" +
-      "INITIATION\020\002\"\224\001\n\017InspectorMsgRsp\0227\n\003res\030" +
-      "\001 \002(\0162*.pbinspectorhandler.InspectorMsgR" +
-      "sp.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003" +
-      " \001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002\022\007\n\003EN" +
-      "D\020\003B\025\n\023net.osrg.earthquake"
+      "\014\n\004name\030\001 \002(\t\"0\n InspectorMsgReq_Event_F" +
+      "uncReturn\022\014\n\004name\030\001 \002(\t\".\n\032InspectorMsgR" +
+      "eq_Event_Exit\022\020\n\010exitCode\030\001 \002(\005\"\325\002\n\025Insp" +
+      "ectorMsgReq_Event\022<\n\004type\030\001 \002(\0162..pbinsp" +
+      "ectorhandler.InspectorMsgReq_Event.Type\022" +
+      "D\n\010FuncCall\030\002 \001(\01322.pbinspectorhandler.I" +
+      "nspectorMsgReq_Event_FuncCall\022H\n\nFuncRet" +
+      "urn\030\003 \001(\01324.pbinspectorhandler.Inspector",
+      "MsgReq_Event_FuncReturn\022<\n\004Exit\030\004 \001(\0132.." +
+      "pbinspectorhandler.InspectorMsgReq_Event" +
+      "_Exit\"0\n\004Type\022\r\n\tFUNC_CALL\020\001\022\017\n\013FUNC_RET" +
+      "URN\020\002\022\010\n\004EXIT\020\003\"/\n\032InspectorMsgReq_Initi" +
+      "ation\022\021\n\tprocessId\030\001 \002(\t\"\203\001\n4InspectorMs" +
+      "gReq_JavaSpecificFields_StackTraceElemen" +
+      "t\022\020\n\010fileName\030\001 \002(\t\022\021\n\tclassName\030\002 \002(\t\022\022" +
+      "\n\nmethodName\030\003 \002(\t\022\022\n\nlineNumber\030\004 \002(\005\"H" +
+      "\n)InspectorMsgReq_JavaSpecificFields_Par" +
+      "ams\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"\235\002\n\"Ins",
+      "pectorMsgReq_JavaSpecificFields\022\022\n\nthrea" +
+      "dName\030\001 \002(\t\022\034\n\024nrStackTraceElements\030\002 \002(" +
+      "\005\022d\n\022stackTraceElements\030\003 \003(\0132H.pbinspec" +
+      "torhandler.InspectorMsgReq_JavaSpecificF" +
+      "ields_StackTraceElement\022\020\n\010nrParams\030\004 \002(" +
+      "\005\022M\n\006params\030\005 \003(\0132=.pbinspectorhandler.I" +
+      "nspectorMsgReq_JavaSpecificFields_Params" +
+      "\"\256\003\n\017InspectorMsgReq\022\022\n\nprocess_id\030\001 \002(\t" +
+      "\0226\n\004type\030\002 \002(\0162(.pbinspectorhandler.Insp" +
+      "ectorMsgReq.Type\022\013\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002",
+      "(\005\022\016\n\006msg_id\030\005 \002(\005\022\021\n\tga_msg_id\030\006 \001(\005\0228\n" +
+      "\005Event\030\007 \001(\0132).pbinspectorhandler.Inspec" +
+      "torMsgReq_Event\022B\n\nInitiation\030\010 \001(\0132..pb" +
+      "inspectorhandler.InspectorMsgReq_Initiat" +
+      "ion\022\035\n\025HasJavaSpecificFields\030\t \002(\005\022R\n\022Ja" +
+      "vaSpecificFields\030\n \001(\01326.pbinspectorhand" +
+      "ler.InspectorMsgReq_JavaSpecificFields\"!" +
+      "\n\004Type\022\t\n\005EVENT\020\001\022\016\n\nINITIATION\020\002\"\224\001\n\017In" +
+      "spectorMsgRsp\0227\n\003res\030\001 \002(\0162*.pbinspector" +
+      "handler.InspectorMsgRsp.Result\022\016\n\006msg_id",
+      "\030\002 \001(\005\022\021\n\tga_msg_id\030\003 \001(\005\"%\n\006Result\022\007\n\003A" +
+      "CK\020\001\022\t\n\005ERROR\020\002\022\007\n\003END\020\003B\025\n\023net.osrg.ear" +
+      "thquake"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7791,50 +8494,56 @@ public final class InspectorMessage {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_descriptor,
         new java.lang.String[] { "Name", });
-    internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncReturn_descriptor,
+        new java.lang.String[] { "Name", });
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor,
         new java.lang.String[] { "ExitCode", });
     internal_static_pbinspectorhandler_InspectorMsgReq_Event_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_pbinspectorhandler_InspectorMsgReq_Event_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_Event_descriptor,
-        new java.lang.String[] { "Type", "FuncCall", "Exit", });
+        new java.lang.String[] { "Type", "FuncCall", "FuncReturn", "Exit", });
     internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor,
         new java.lang.String[] { "ProcessId", });
     internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor,
         new java.lang.String[] { "FileName", "ClassName", "MethodName", "LineNumber", });
     internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_descriptor,
         new java.lang.String[] { "Name", "Value", });
     internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_descriptor,
         new java.lang.String[] { "ThreadName", "NrStackTraceElements", "StackTraceElements", "NrParams", "Params", });
     internal_static_pbinspectorhandler_InspectorMsgReq_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_pbinspectorhandler_InspectorMsgReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_descriptor,
         new java.lang.String[] { "ProcessId", "Type", "Pid", "Tid", "MsgId", "GaMsgId", "Event", "Initiation", "HasJavaSpecificFields", "JavaSpecificFields", });
     internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_pbinspectorhandler_InspectorMsgRsp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor,
