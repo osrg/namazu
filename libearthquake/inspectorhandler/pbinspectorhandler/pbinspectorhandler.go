@@ -67,21 +67,9 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 		}
 	}(entity)
 
-	recvCh := make(chan bool)
-
-	req := (*InspectorMsgReq)(nil)
-
-	go func() {
-		for {
-			req = <-eventReqRecv
-			Log("received event from main goroutine: %s", entity.Id)
-			recvCh <- true
-		}
-	}()
-
 	for {
 		select {
-		case <-recvCh:
+		case req := <-eventReqRecv:
 			if *req.Type != InspectorMsgReq_EVENT {
 				Log("invalid message from transition entity %s, type: %d", entity.Id, *req.Type)
 				os.Exit(1)
