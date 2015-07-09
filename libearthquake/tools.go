@@ -19,24 +19,24 @@ import (
 	"fmt"
 	"github.com/mitchellh/cli"
 
-	"./searchtools"
+	"./tools"
 )
 
-type searchToolsCmd struct {
+type toolsCmd struct {
 }
 
-func (cmd searchToolsCmd) Help() string {
-	return "searchtools help (todo)"
+func (cmd toolsCmd) Help() string {
+	return "tools help (todo)"
 }
 
-func (cmd searchToolsCmd) Run(args []string) int {
+func (cmd toolsCmd) Run(args []string) int {
 	c := cli.NewCLI("earthquake search tools", "0.0.0")
 	c.Args = args
 	c.Commands = map[string]cli.CommandFactory{
-		"calc-dup":   searchtools.CalcDupCommandFactory,
-		"visualize":  searchtools.VisualizeCommandFactory,
-		"dump-trace": searchtools.DumpTraceCommandFactory,
-		"summary":    searchtools.SummaryCommandFactory,
+		"calc-dup":   tools.CalcDupCommandFactory,
+		"visualize":  tools.VisualizeCommandFactory,
+		"dump-trace": tools.DumpTraceCommandFactory,
+		"summary":    tools.SummaryCommandFactory,
 	}
 
 	exitStatus, err := c.Run()
@@ -47,10 +47,10 @@ func (cmd searchToolsCmd) Run(args []string) int {
 	return exitStatus
 }
 
-func (cmd searchToolsCmd) Synopsis() string {
-	return "searchtools subcommand"
+func (cmd toolsCmd) Synopsis() string {
+	return "tools subcommand"
 }
 
-func searchToolsCommandFactory() (cli.Command, error) {
-	return searchToolsCmd{}, nil
+func toolsCommandFactory() (cli.Command, error) {
+	return toolsCmd{}, nil
 }
