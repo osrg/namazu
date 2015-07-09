@@ -44,7 +44,7 @@ func orchestrate(endCh chan interface{}, policy SearchPolicy, newTraceCh chan *S
 			}
 
 			Log("ready process %v", readyEntity)
-			event := <-readyEntity.ReqToMain
+			event := <-readyEntity.EventToMain
 			Log("recieved message from %v", readyEntity)
 
 			ev2entity[event] = readyEntity

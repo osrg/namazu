@@ -139,7 +139,7 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 			}
 
 			go func(ev *Event) {
-				entity.ReqToMain <- ev
+				entity.EventToMain <- ev
 			}(e)
 
 			readyEntityCh <- entity
@@ -182,7 +182,7 @@ func (handler *PBInspectorHandler) StartAccept(readyEntityCh chan *TransitionEnt
 		entity.Id = "uninitialized"
 		entity.Conn = conn
 		entity.GotoNext = make(chan interface{})
-		entity.ReqToMain = make(chan *Event)
+		entity.EventToMain = make(chan *Event)
 
 		go handler.handleEntity(entity, readyEntityCh)
 	}
