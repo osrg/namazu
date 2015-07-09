@@ -20,6 +20,7 @@ import (
 	"io"
 	"net"
 	"os"
+	"time"
 
 	. "../../equtils"
 )
@@ -28,6 +29,9 @@ type PBInspectorHandler struct {
 }
 
 func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyEntityCh chan *TransitionEntity) {
+	eventReqRecv := make(chan *InspectorMsgReq)
+	eventRspSend := make(chan *InspectorMsgRsp)
+
 	go func(e *TransitionEntity) {
 		for {
 			req := &InspectorMsgReq{}
@@ -44,13 +48,13 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 			}
 
 			Log("received message from transition entity :%s", e.Id)
-			e.EventReqRecv <- req
+			eventReqRecv <- req
 		}
 	}(entity)
 
 	go func(e *TransitionEntity) {
 		for {
-			rsp := <-e.EventRspSend
+			rsp := <-eventRspSend
 			serr := SendMsg(e.Conn, rsp)
 			if serr != nil {
 				Log("failed to send response (transition entity: %s): %s", e.Id, serr)
@@ -69,7 +73,7 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 
 	go func() {
 		for {
-			req = <-entity.EventReqRecv
+			req = <-eventReqRecv
 			Log("received event from main goroutine: %s", entity.Id)
 			recvCh <- true
 		}
@@ -83,6 +87,11 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 				os.Exit(1)
 			}
 
+			if *req.Event.Type == InspectorMsgReq_Event_EXIT {
+				Log("process %v is exiting", entity)
+				continue
+			}
+
 			if entity.Id == "uninitialized" {
 				// initialize id with a member of event
 				entity.Id = *req.ProcessId
@@ -90,11 +99,51 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 
 			Log("event message received from transition entity %s", entity.Id)
 
-			go func(r *InspectorMsgReq) {
-				entity.ReqToMain <- r
-			}(req)
+			e := &Event{
+				ArrivedTime: time.Now(),
+				ProcId:      entity.Id,
+
+				EventType:  "FuncCall",
+				EventParam: *req.Event.FuncCall.Name,
+			}
+
+			if *req.HasJavaSpecificFields == 1 {
+				ejs := Event_JavaSpecific{
+					ThreadName: *req.JavaSpecificFields.ThreadName,
+				}
+
+				for _, stackTraceElement := range req.JavaSpecificFields.StackTraceElements {
+					element := Event_JavaSpecific_StackTraceElement{
+						LineNumber: int(*stackTraceElement.LineNumber),
+						ClassName:  *stackTraceElement.ClassName,
+						MethodName: *stackTraceElement.MethodName,
+						FileName:   *stackTraceElement.FileName,
+					}
+
+					ejs.StackTraceElements = append(ejs.StackTraceElements, element)
+				}
+				ejs.NrStackTraceElements = int(*req.JavaSpecificFields.NrStackTraceElements)
+
+				for _, param := range req.JavaSpecificFields.Params {
+					param := Event_JavaSpecific_Param{
+						Name:  *param.Name,
+						Value: *param.Value,
+					}
+
+					ejs.Params = append(ejs.Params, param)
+				}
+
+				ejs.NrParams = int(*req.JavaSpecificFields.NrParams)
+
+				e.JavaSpecific = &ejs
+			}
+
+			go func(ev *Event) {
+				entity.ReqToMain <- ev
+			}(e)
 
 			readyEntityCh <- entity
+
 			if *req.Event.Type != InspectorMsgReq_Event_EXIT {
 				<-entity.GotoNext
 
@@ -105,7 +154,7 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 					MsgId: &req_msg_id,
 				}
 
-				entity.EventRspSend <- rsp
+				eventRspSend <- rsp
 				Log("replied to the event message from process %v", entity)
 			}
 		}
@@ -133,9 +182,7 @@ func (handler *PBInspectorHandler) StartAccept(readyEntityCh chan *TransitionEnt
 		entity.Id = "uninitialized"
 		entity.Conn = conn
 		entity.GotoNext = make(chan interface{})
-		entity.EventReqRecv = make(chan *InspectorMsgReq)
-		entity.EventRspSend = make(chan *InspectorMsgRsp)
-		entity.ReqToMain = make(chan *InspectorMsgReq)
+		entity.ReqToMain = make(chan *Event)
 
 		go handler.handleEntity(entity, readyEntityCh)
 	}

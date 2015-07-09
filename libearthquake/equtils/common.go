@@ -61,9 +61,6 @@ type TransitionEntity struct {
 	Id   string
 	Conn net.Conn
 
-	ReqToMain chan *InspectorMsgReq
+	ReqToMain chan *Event
 	GotoNext  chan interface{}
-
-	EventReqRecv chan *InspectorMsgReq
-	EventRspSend chan *InspectorMsgRsp
 }

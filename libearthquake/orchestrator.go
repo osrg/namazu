@@ -17,8 +17,6 @@ package main
 
 import (
 	. "./equtils"
-	"time"
-
 	. "./searchpolicy"
 	"./inspectorhandler"
 )
@@ -46,56 +44,11 @@ func orchestrate(endCh chan interface{}, policy SearchPolicy, newTraceCh chan *S
 			}
 
 			Log("ready process %v", readyEntity)
-			req := <-readyEntity.ReqToMain
-			eventReq := req.Event
+			event := <-readyEntity.ReqToMain
 			Log("recieved message from %v", readyEntity)
 
-			if *eventReq.Type == InspectorMsgReq_Event_EXIT {
-				Log("process %v is exiting", readyEntity)
-				continue
-			}
-
-			e := &Event{
-				ArrivedTime: time.Now(),
-				ProcId:      readyEntity.Id,
-
-				EventType:  "FuncCall",
-				EventParam: *eventReq.FuncCall.Name,
-			}
-
-			if *req.HasJavaSpecificFields == 1 {
-				ejs := Event_JavaSpecific{
-					ThreadName: *req.JavaSpecificFields.ThreadName,
-				}
-
-				for _, stackTraceElement := range req.JavaSpecificFields.StackTraceElements {
-					element := Event_JavaSpecific_StackTraceElement{
-						LineNumber: int(*stackTraceElement.LineNumber),
-						ClassName:  *stackTraceElement.ClassName,
-						MethodName: *stackTraceElement.MethodName,
-						FileName:   *stackTraceElement.FileName,
-					}
-
-					ejs.StackTraceElements = append(ejs.StackTraceElements, element)
-				}
-				ejs.NrStackTraceElements = int(*req.JavaSpecificFields.NrStackTraceElements)
-
-				for _, param := range req.JavaSpecificFields.Params {
-					param := Event_JavaSpecific_Param{
-						Name:  *param.Name,
-						Value: *param.Value,
-					}
-
-					ejs.Params = append(ejs.Params, param)
-				}
-
-				ejs.NrParams = int(*req.JavaSpecificFields.NrParams)
-
-				e.JavaSpecific = &ejs
-			}
-
-			ev2entity[e] = readyEntity
-			policy.QueueNextEvent(readyEntity.Id, e)
+			ev2entity[event] = readyEntity
+			policy.QueueNextEvent(readyEntity.Id, event)
 
 		case nextEvent := <-nextEventChan:
 			readyEntity := ev2entity[nextEvent]
