@@ -26,6 +26,7 @@ class RyuOF13SwitchBase(SimpleSwitch13):
     @abstractmethod
     def __init__(self, matches, inspector_zmq_addr,  *args, **kwargs):
         super(RyuOF13SwitchBase, self).__init__(*args, **kwargs)
+        raise NotImplementedError('Under ZMQ refactoring')
         self.matches = matches
         ### Start ZMQ Worker
         self.zmq_ctx = zmq.Context()

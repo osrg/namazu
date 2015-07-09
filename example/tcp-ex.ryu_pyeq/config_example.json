@@ -10,7 +10,7 @@
 	    "orchestrator": "sys.modules[\"sample_orchestrator\"].SampleOrchestrator()",
 	    "explorer": "pyearthquake.orchestrator.explorer.TimeBoundedRandomExplorer(10, 100)",
 	    "processWatcher": "pyearthquake.orchestrator.watcher.BasicProcessWatcher()",
-	    "terminationDetector": "sys.modules[\"sample_termination_detector\"].SampleTerminationDetector(messages=2)"
+	    "terminationDetector": "sys.modules[\"sample_termination_detector\"].SampleTerminationDetector(messages=1000)"
 	}
     },
     "processes": [

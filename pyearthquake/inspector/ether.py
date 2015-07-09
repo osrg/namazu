@@ -27,7 +27,7 @@ class EtherInspectorBase(object):
             LOG.info('Using TCPWatcher')
             self.tcp_watcher = TCPWatcher()
         else: self.tcp_watcher = None
-        self.deferred_events = {} # key: string(event_uuid), value; {'event': PacketEvent, 'packet': PacketBase}
+        self.deferred_events = {} # key: string(event_uuid), value: {'event': PacketEvent, 'metadata`: dict}
 
         LOG.info('ZMQ Addr: %s', zmq_addr)
         self.zmq_addr = zmq_addr
@@ -58,13 +58,13 @@ class EtherInspectorBase(object):
         scapy.all.bind_layers(scapy.all.TCP, klazz, dport=tcp_port)
         scapy.all.bind_layers(scapy.all.TCP, klazz, sport=tcp_port)
 
-    def inspect(self, raw_eth_frame):
+    def inspect(self, eth_bytes):
         """
         scapy inspector
 
         Do NOT call TWICE for the same packet, as the inspector can have side-effects
         """
-        pkt = scapy.all.Ether(raw_eth_frame) 
+        pkt = scapy.all.Ether(eth_bytes) 
         return pkt
                         
     def _zmq_worker(self):
@@ -72,37 +72,42 @@ class EtherInspectorBase(object):
         ZeroMQ worker for the inspector
         """
         while True:
-            raw_eth_frame = self.zs.recv()
+            metadata_str, eth_bytes = self.zs.recv_multipart()
+            metadata = json.loads(metadata_str)
             try:
-                # LOG.info('Full-Hexdump (%d bytes)', len(raw_eth_frame))
-                # for line in hexdump.hexdump(raw_eth_frame, result='generator'):
+                # LOG.info('Full-Hexdump (%d bytes)', len(eth_bytes))
+                # for line in hexdump.hexdump(eth_bytes, result='generator'):
                 #     LOG.info(line)
                     
                 if self.tcp_watcher:
-                    self.tcp_watcher.on_recv(raw_eth_frame, default_handler=self._on_recv_frame_from_switch)
+                    self.tcp_watcher.on_recv(metadata, eth_bytes, default_handler=self._on_recv_from_middlebox)
                 else:
-                    self._on_recv_frame_from_switch(raw_eth_frame)
+                    self._on_recv_from_middlebox(metadata, eth_bytes)
             except Exception as e:
                 LOG.error('Error in _zmq_worker()', exc_info=True)
                 try:
-                    LOG.error('Full-Hexdump (%d bytes)', len(raw_eth_frame))
-                    for line in hexdump.hexdump(raw_eth_frame, result='generator'):
+                    LOG.error('Full-Hexdump (%d bytes)', len(eth_bytes))
+                    for line in hexdump.hexdump(eth_bytes, result='generator'):
                         LOG.error(line)
                 except:
                     LOG.error('Error while hexdumping', exc_info=True)
-                self._send_frame_to_switch(raw_eth_frame)
+                self._send_to_middlebox(metadata)
 
-    def _send_frame_to_switch(self, raw_eth_frame):
-        self.zs.send(raw_eth_frame)
+    def _send_to_middlebox(self, metadata):
+        assert isinstance(metadata, dict)
+        resp_metadata = metadata.copy()
+        resp_metadata['action'] = 'accept'
+        resp_metadata_str = json.dumps(resp_metadata)
+        self.zs.send_multipart((resp_metadata_str, ''))
 
-    def _on_recv_frame_from_switch(self, raw_eth_frame):
-        pkt = self.inspect(raw_eth_frame)
-        event = self.map_packet_to_event(pkt)
+    def _on_recv_from_middlebox(self, metadata, eth_bytes):
+        inspected_packet = self.inspect(eth_bytes)
+        event = self.map_packet_to_event(inspected_packet)
         assert event is None or isinstance(event, PacketEvent)        
         if not event:
-            self._send_frame_to_switch(raw_eth_frame)            
+            self._send_to_middlebox(metadata)
         else:
-            self.on_packet_event(event, pkt)
+            self.on_packet_event(metadata, event)
 
     @abstractmethod
     def map_packet_to_event(self, pkt):        
@@ -111,42 +116,41 @@ class EtherInspectorBase(object):
         """
         pass
         
-    def on_packet_event(self, ev, pkt, buffer_if_not_sent=False):
-        assert isinstance(ev, PacketEvent)
-        ev.process = self.process_id
-        sent = self.send_event_to_orchestrator(ev)
+    def on_packet_event(self, metadata, event, buffer_if_not_sent=False):
+        assert isinstance(event, PacketEvent)
+        event.process = self.process_id
+        sent = self.send_event_to_orchestrator(event)
         if not sent:
             if buffer_if_not_sent:
-                LOG.debug('Buffering an event: %s', ev)
+                LOG.debug('Buffering an event: %s', event)
             else:
-                LOG.debug('Passing an event observed: %s', ev)
-                LOG.debug('Pass %s, %s', ev.uuid, pkt.mysummary())
-                self._send_frame_to_switch(str(pkt))
+                LOG.debug('Passing an event (could not sent to orchestrator): %s', event)
+                self._send_to_middlebox(metadata)
                 return
-        self.defer_packet_event(ev, pkt)
+        self.defer_packet_event(metadata, event)
         
-    def defer_packet_event(self, ev, pkt):
+    def defer_packet_event(self, metadata, event):
         """
         Defer the packet until the orchestrator permits
         """
-        assert isinstance(ev, PacketEvent)
-        assert ev.deferred
-        self.deferred_events[ev.uuid] = {'event': ev, 'packet': pkt, 'time': time.time()}
-        LOG.debug('Defer event uuid=%s, packet=%s, deferred(after defer)=%d', 
-                  ev.uuid, pkt.mysummary(), len(self.deferred_events))
+        assert isinstance(event, PacketEvent)
+        assert event.deferred
+        self.deferred_events[event.uuid] = {'event': event, 'metadata': metadata, 'time': time.time()}
+        LOG.debug('Defer event=%s, deferred(after defer)=%d',
+                  event, len(self.deferred_events))
         
-    def pass_deferred_event_uuid(self, ev_uuid):
+    def pass_deferred_event_uuid(self, event_uuid):
         try:
-            event = self.deferred_events[ev_uuid]['event']
+            event = self.deferred_events[event_uuid]['event']
             assert isinstance(event, PacketEvent)
             assert event.deferred
-            pkt = self.deferred_events[ev_uuid]['packet']
-            LOG.debug('Pass deferred event uuid=%s, packet=%s, len(before pass)=%d', 
-                      ev_uuid, pkt.mysummary(), len(self.deferred_events))
-            self._send_frame_to_switch(str(pkt))
-            del self.deferred_events[ev_uuid]
+            metadata = self.deferred_events[event_uuid]['metadata']
+            LOG.debug('Pass deferred event=%s, len(before pass)=%d',
+                      event, len(self.deferred_events))
+            self._send_to_middlebox(metadata)
+            del self.deferred_events[event_uuid]
         except Exception as e:
-            LOG.error('cannot pass this event: %s', ev_uuid, exc_info=True)
+            LOG.error('cannot pass this event: %s', event_uuid, exc_info=True)
 
     def send_event_to_orchestrator(self, event):
         try:
