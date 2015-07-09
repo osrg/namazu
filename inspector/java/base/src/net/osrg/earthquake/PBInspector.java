@@ -499,6 +499,36 @@ public class PBInspector implements Inspector {
 
         return ret;
     }
+
+    private boolean classFilterMatch(String className) {
+        StackTraceElement traces[] = Thread.currentThread().getStackTrace();
+
+        for (int i = 0; i < traces.length; i++) {
+            StackTraceElement trace = traces[i];
+
+            String name = trace.getClassName();
+            if (name == null) {
+                continue;
+            }
+
+            if (name.equals(className)) {
+                LOGGER.info("class filter match: " + className);
+                return true;
+            }
+        }
+
+        LOGGER.info("class filter dones't match: " + className);
+        return false;
+    }
+
+    public void EventFuncCall(String funcName, String classFilter) {
+        if (!classFilterMatch(classFilter)) {
+            return;
+        }
+
+        EventFuncCall(funcName);
+    }
+
     public void EventFuncCall(String funcName, Map<String, Object> paramMap) {
          if (Disabled) {
             LOGGER.fine("already disabled");
@@ -521,6 +551,14 @@ public class PBInspector implements Inspector {
                 .setFuncCall(evFun).build();
 
         sendEvent(ev, true, makeStackTrace(), makeParamsArray(paramMap));
+    }
+
+    public void EventFuncCall(String funcName, Map<String, Object> paramMap, String classFilter) {
+        if (!classFilterMatch(classFilter)) {
+            return;
+        }
+
+        EventFuncCall(funcName, paramMap);
     }
 
     public void StopInspection() {
