@@ -14,7 +14,7 @@ go get github.com/sevlyar/go-daemon
 go get github.com/mitchellh/cli
 
 EQUTILS_PATH=`pwd`/equtils
-protoc --go_out=$EQUTILS_PATH -I$BUILDROOT/inspector $BUILDROOT/inspector/*.proto
+protoc --go_out=$BUILDROOT/libearthquake/inspectorhandler/pbinspectorhandler -I$BUILDROOT/inspector $BUILDROOT/inspector/*.proto
 
 echo "Compiling libearthquake.so"
 # NOTE: go 1.5 or higher is required to use buildmode=c-shared

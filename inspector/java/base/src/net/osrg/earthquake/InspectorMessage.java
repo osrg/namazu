@@ -9,7 +9,7 @@ public final class InspectorMessage {
       com.google.protobuf.ExtensionRegistry registry) {
   }
   public interface InspectorMsgReq_Event_FuncCallOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_Event_FuncCall)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_Event_FuncCall)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -27,11 +27,11 @@ public final class InspectorMessage {
         getNameBytes();
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgReq_Event_FuncCall}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Event_FuncCall}
    */
   public static final class InspectorMsgReq_Event_FuncCall extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq_Event_FuncCall)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq_Event_FuncCall)
       InspectorMsgReq_Event_FuncCallOrBuilder {
     // Use InspectorMsgReq_Event_FuncCall.newBuilder() to construct.
     private InspectorMsgReq_Event_FuncCall(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -98,12 +98,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_FuncCall_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_FuncCall_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder.class);
     }
@@ -281,20 +281,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgReq_Event_FuncCall}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Event_FuncCall}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq_Event_FuncCall)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq_Event_FuncCall)
         net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCallOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_FuncCall_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_FuncCall_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder.class);
       }
@@ -330,7 +330,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_FuncCall_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall getDefaultInstanceForType() {
@@ -481,7 +481,7 @@ public final class InspectorMessage {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_Event_FuncCall)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq_Event_FuncCall)
     }
 
     static {
@@ -489,11 +489,11 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_Event_FuncCall)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_Event_FuncCall)
   }
 
   public interface InspectorMsgReq_Event_ExitOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_Event_Exit)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_Event_Exit)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -506,11 +506,11 @@ public final class InspectorMessage {
     int getExitCode();
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgReq_Event_Exit}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Event_Exit}
    */
   public static final class InspectorMsgReq_Event_Exit extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq_Event_Exit)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq_Event_Exit)
       InspectorMsgReq_Event_ExitOrBuilder {
     // Use InspectorMsgReq_Event_Exit.newBuilder() to construct.
     private InspectorMsgReq_Event_Exit(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -576,12 +576,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_Exit_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_Exit_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder.class);
     }
@@ -732,20 +732,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgReq_Event_Exit}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Event_Exit}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq_Event_Exit)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq_Event_Exit)
         net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_Exit_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_Exit_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder.class);
       }
@@ -781,7 +781,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_Exit_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit getDefaultInstanceForType() {
@@ -886,7 +886,7 @@ public final class InspectorMessage {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_Event_Exit)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq_Event_Exit)
     }
 
     static {
@@ -894,54 +894,54 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_Event_Exit)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_Event_Exit)
   }
 
   public interface InspectorMsgReq_EventOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_Event)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_Event)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .equtils.InspectorMsgReq_Event.Type type = 1;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgReq_Event.Type type = 1;</code>
      */
     boolean hasType();
     /**
-     * <code>required .equtils.InspectorMsgReq_Event.Type type = 1;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgReq_Event.Type type = 1;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Type getType();
 
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
      */
     boolean hasFuncCall();
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall getFuncCall();
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCallOrBuilder getFuncCallOrBuilder();
 
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
      */
     boolean hasExit();
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit getExit();
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder getExitOrBuilder();
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgReq_Event}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Event}
    */
   public static final class InspectorMsgReq_Event extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq_Event)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq_Event)
       InspectorMsgReq_EventOrBuilder {
     // Use InspectorMsgReq_Event.newBuilder() to construct.
     private InspectorMsgReq_Event(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -1039,12 +1039,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Builder.class);
     }
@@ -1065,7 +1065,7 @@ public final class InspectorMessage {
     }
 
     /**
-     * Protobuf enum {@code equtils.InspectorMsgReq_Event.Type}
+     * Protobuf enum {@code pbinspectorhandler.InspectorMsgReq_Event.Type}
      */
     public enum Type
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -1143,20 +1143,20 @@ public final class InspectorMessage {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:equtils.InspectorMsgReq_Event.Type)
+      // @@protoc_insertion_point(enum_scope:pbinspectorhandler.InspectorMsgReq_Event.Type)
     }
 
     private int bitField0_;
     public static final int TYPE_FIELD_NUMBER = 1;
     private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Type type_;
     /**
-     * <code>required .equtils.InspectorMsgReq_Event.Type type = 1;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgReq_Event.Type type = 1;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .equtils.InspectorMsgReq_Event.Type type = 1;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgReq_Event.Type type = 1;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Type getType() {
       return type_;
@@ -1165,19 +1165,19 @@ public final class InspectorMessage {
     public static final int FUNCCALL_FIELD_NUMBER = 2;
     private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall funcCall_;
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
      */
     public boolean hasFuncCall() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall getFuncCall() {
       return funcCall_;
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCallOrBuilder getFuncCallOrBuilder() {
       return funcCall_;
@@ -1186,19 +1186,19 @@ public final class InspectorMessage {
     public static final int EXIT_FIELD_NUMBER = 3;
     private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit exit_;
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
      */
     public boolean hasExit() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit getExit() {
       return exit_;
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder getExitOrBuilder() {
       return exit_;
@@ -1347,20 +1347,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgReq_Event}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Event}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq_Event)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq_Event)
         net.osrg.earthquake.InspectorMessage.InspectorMsgReq_EventOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Builder.class);
       }
@@ -1410,7 +1410,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Event_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Event_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event getDefaultInstanceForType() {
@@ -1519,19 +1519,19 @@ public final class InspectorMessage {
 
       private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Type type_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Type.FUNC_CALL;
       /**
-       * <code>required .equtils.InspectorMsgReq_Event.Type type = 1;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgReq_Event.Type type = 1;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .equtils.InspectorMsgReq_Event.Type type = 1;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgReq_Event.Type type = 1;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Type getType() {
         return type_;
       }
       /**
-       * <code>required .equtils.InspectorMsgReq_Event.Type type = 1;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgReq_Event.Type type = 1;</code>
        */
       public Builder setType(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Type value) {
         if (value == null) {
@@ -1543,7 +1543,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>required .equtils.InspectorMsgReq_Event.Type type = 1;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgReq_Event.Type type = 1;</code>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1556,13 +1556,13 @@ public final class InspectorMessage {
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCallOrBuilder> funcCallBuilder_;
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       public boolean hasFuncCall() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall getFuncCall() {
         if (funcCallBuilder_ == null) {
@@ -1572,7 +1572,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       public Builder setFuncCall(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall value) {
         if (funcCallBuilder_ == null) {
@@ -1588,7 +1588,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       public Builder setFuncCall(
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder builderForValue) {
@@ -1602,7 +1602,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       public Builder mergeFuncCall(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall value) {
         if (funcCallBuilder_ == null) {
@@ -1621,7 +1621,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       public Builder clearFuncCall() {
         if (funcCallBuilder_ == null) {
@@ -1634,7 +1634,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder getFuncCallBuilder() {
         bitField0_ |= 0x00000002;
@@ -1642,7 +1642,7 @@ public final class InspectorMessage {
         return getFuncCallFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCallOrBuilder getFuncCallOrBuilder() {
         if (funcCallBuilder_ != null) {
@@ -1652,7 +1652,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_FuncCall FuncCall = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCall.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_FuncCallOrBuilder> 
@@ -1672,13 +1672,13 @@ public final class InspectorMessage {
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder> exitBuilder_;
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       public boolean hasExit() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit getExit() {
         if (exitBuilder_ == null) {
@@ -1688,7 +1688,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       public Builder setExit(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit value) {
         if (exitBuilder_ == null) {
@@ -1704,7 +1704,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       public Builder setExit(
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder builderForValue) {
@@ -1718,7 +1718,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       public Builder mergeExit(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit value) {
         if (exitBuilder_ == null) {
@@ -1737,7 +1737,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       public Builder clearExit() {
         if (exitBuilder_ == null) {
@@ -1750,7 +1750,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder getExitBuilder() {
         bitField0_ |= 0x00000004;
@@ -1758,7 +1758,7 @@ public final class InspectorMessage {
         return getExitFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder getExitOrBuilder() {
         if (exitBuilder_ != null) {
@@ -1768,7 +1768,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event_Exit Exit = 3;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event_Exit Exit = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_Exit.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event_ExitOrBuilder> 
@@ -1784,7 +1784,7 @@ public final class InspectorMessage {
         return exitBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_Event)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq_Event)
     }
 
     static {
@@ -1792,11 +1792,11 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_Event)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_Event)
   }
 
   public interface InspectorMsgReq_InitiationOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_Initiation)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_Initiation)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1814,11 +1814,11 @@ public final class InspectorMessage {
         getProcessIdBytes();
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgReq_Initiation}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Initiation}
    */
   public static final class InspectorMsgReq_Initiation extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq_Initiation)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq_Initiation)
       InspectorMsgReq_InitiationOrBuilder {
     // Use InspectorMsgReq_Initiation.newBuilder() to construct.
     private InspectorMsgReq_Initiation(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -1885,12 +1885,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Initiation_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Initiation_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.Builder.class);
     }
@@ -2068,20 +2068,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgReq_Initiation}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Initiation}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq_Initiation)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq_Initiation)
         net.osrg.earthquake.InspectorMessage.InspectorMsgReq_InitiationOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Initiation_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Initiation_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.Builder.class);
       }
@@ -2117,7 +2117,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_Initiation_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation getDefaultInstanceForType() {
@@ -2268,7 +2268,7 @@ public final class InspectorMessage {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_Initiation)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq_Initiation)
     }
 
     static {
@@ -2276,11 +2276,11 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_Initiation)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_Initiation)
   }
 
   public interface InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2335,11 +2335,11 @@ public final class InspectorMessage {
     int getLineNumber();
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement}
    */
   public static final class InspectorMsgReq_JavaSpecificFields_StackTraceElement extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
       InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder {
     // Use InspectorMsgReq_JavaSpecificFields_StackTraceElement.newBuilder() to construct.
     private InspectorMsgReq_JavaSpecificFields_StackTraceElement(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -2423,12 +2423,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder.class);
     }
@@ -2741,20 +2741,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
         net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder.class);
       }
@@ -2796,7 +2796,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement getDefaultInstanceForType() {
@@ -3168,7 +3168,7 @@ public final class InspectorMessage {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
     }
 
     static {
@@ -3176,11 +3176,11 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement)
   }
 
   public interface InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -3212,11 +3212,11 @@ public final class InspectorMessage {
         getValueBytes();
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgReq_JavaSpecificFields_Params}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params}
    */
   public static final class InspectorMsgReq_JavaSpecificFields_Params extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params)
       InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder {
     // Use InspectorMsgReq_JavaSpecificFields_Params.newBuilder() to construct.
     private InspectorMsgReq_JavaSpecificFields_Params(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -3289,12 +3289,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder.class);
     }
@@ -3526,20 +3526,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgReq_JavaSpecificFields_Params}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params)
         net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder.class);
       }
@@ -3577,7 +3577,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params getDefaultInstanceForType() {
@@ -3817,7 +3817,7 @@ public final class InspectorMessage {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params)
     }
 
     static {
@@ -3825,11 +3825,11 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_JavaSpecificFields_Params)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params)
   }
 
   public interface InspectorMsgReq_JavaSpecificFieldsOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq_JavaSpecificFields)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -3856,25 +3856,25 @@ public final class InspectorMessage {
     int getNrStackTraceElements();
 
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement> 
         getStackTraceElementsList();
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement getStackTraceElements(int index);
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     int getStackTraceElementsCount();
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> 
         getStackTraceElementsOrBuilderList();
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder getStackTraceElementsOrBuilder(
         int index);
@@ -3889,35 +3889,35 @@ public final class InspectorMessage {
     int getNrParams();
 
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> 
         getParamsList();
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params getParams(int index);
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     int getParamsCount();
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> 
         getParamsOrBuilderList();
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder getParamsOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgReq_JavaSpecificFields}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_JavaSpecificFields}
    */
   public static final class InspectorMsgReq_JavaSpecificFields extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq_JavaSpecificFields)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields)
       InspectorMsgReq_JavaSpecificFieldsOrBuilder {
     // Use InspectorMsgReq_JavaSpecificFields.newBuilder() to construct.
     private InspectorMsgReq_JavaSpecificFields(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -4016,12 +4016,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields.Builder.class);
     }
@@ -4102,32 +4102,32 @@ public final class InspectorMessage {
     public static final int STACKTRACEELEMENTS_FIELD_NUMBER = 3;
     private java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement> stackTraceElements_;
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement> getStackTraceElementsList() {
       return stackTraceElements_;
     }
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     public java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> 
         getStackTraceElementsOrBuilderList() {
       return stackTraceElements_;
     }
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     public int getStackTraceElementsCount() {
       return stackTraceElements_.size();
     }
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement getStackTraceElements(int index) {
       return stackTraceElements_.get(index);
     }
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder getStackTraceElementsOrBuilder(
         int index) {
@@ -4152,32 +4152,32 @@ public final class InspectorMessage {
     public static final int PARAMS_FIELD_NUMBER = 5;
     private java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> params_;
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> getParamsList() {
       return params_;
     }
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     public java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> 
         getParamsOrBuilderList() {
       return params_;
     }
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     public int getParamsCount() {
       return params_.size();
     }
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params getParams(int index) {
       return params_.get(index);
     }
     /**
-     * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+     * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder getParamsOrBuilder(
         int index) {
@@ -4351,20 +4351,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgReq_JavaSpecificFields}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_JavaSpecificFields}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq_JavaSpecificFields)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields)
         net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFieldsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields.Builder.class);
       }
@@ -4418,7 +4418,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields getDefaultInstanceForType() {
@@ -4718,7 +4718,7 @@ public final class InspectorMessage {
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> stackTraceElementsBuilder_;
 
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement> getStackTraceElementsList() {
         if (stackTraceElementsBuilder_ == null) {
@@ -4728,7 +4728,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public int getStackTraceElementsCount() {
         if (stackTraceElementsBuilder_ == null) {
@@ -4738,7 +4738,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement getStackTraceElements(int index) {
         if (stackTraceElementsBuilder_ == null) {
@@ -4748,7 +4748,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder setStackTraceElements(
           int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement value) {
@@ -4765,7 +4765,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder setStackTraceElements(
           int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder builderForValue) {
@@ -4779,7 +4779,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder addStackTraceElements(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement value) {
         if (stackTraceElementsBuilder_ == null) {
@@ -4795,7 +4795,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder addStackTraceElements(
           int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement value) {
@@ -4812,7 +4812,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder addStackTraceElements(
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder builderForValue) {
@@ -4826,7 +4826,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder addStackTraceElements(
           int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder builderForValue) {
@@ -4840,7 +4840,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder addAllStackTraceElements(
           java.lang.Iterable<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement> values) {
@@ -4855,7 +4855,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder clearStackTraceElements() {
         if (stackTraceElementsBuilder_ == null) {
@@ -4868,7 +4868,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public Builder removeStackTraceElements(int index) {
         if (stackTraceElementsBuilder_ == null) {
@@ -4881,14 +4881,14 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder getStackTraceElementsBuilder(
           int index) {
         return getStackTraceElementsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder getStackTraceElementsOrBuilder(
           int index) {
@@ -4898,7 +4898,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElementOrBuilder> 
            getStackTraceElementsOrBuilderList() {
@@ -4909,14 +4909,14 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder addStackTraceElementsBuilder() {
         return getStackTraceElementsFieldBuilder().addBuilder(
             net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.getDefaultInstance());
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder addStackTraceElementsBuilder(
           int index) {
@@ -4924,7 +4924,7 @@ public final class InspectorMessage {
             index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.getDefaultInstance());
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_StackTraceElement stackTraceElements = 3;</code>
        */
       public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement.Builder> 
            getStackTraceElementsBuilderList() {
@@ -4990,7 +4990,7 @@ public final class InspectorMessage {
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> paramsBuilder_;
 
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> getParamsList() {
         if (paramsBuilder_ == null) {
@@ -5000,7 +5000,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public int getParamsCount() {
         if (paramsBuilder_ == null) {
@@ -5010,7 +5010,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params getParams(int index) {
         if (paramsBuilder_ == null) {
@@ -5020,7 +5020,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder setParams(
           int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params value) {
@@ -5037,7 +5037,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder setParams(
           int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder builderForValue) {
@@ -5051,7 +5051,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder addParams(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params value) {
         if (paramsBuilder_ == null) {
@@ -5067,7 +5067,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder addParams(
           int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params value) {
@@ -5084,7 +5084,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder addParams(
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder builderForValue) {
@@ -5098,7 +5098,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder addParams(
           int index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder builderForValue) {
@@ -5112,7 +5112,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder addAllParams(
           java.lang.Iterable<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params> values) {
@@ -5127,7 +5127,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder clearParams() {
         if (paramsBuilder_ == null) {
@@ -5140,7 +5140,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public Builder removeParams(int index) {
         if (paramsBuilder_ == null) {
@@ -5153,14 +5153,14 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder getParamsBuilder(
           int index) {
         return getParamsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder getParamsOrBuilder(
           int index) {
@@ -5170,7 +5170,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public java.util.List<? extends net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_ParamsOrBuilder> 
            getParamsOrBuilderList() {
@@ -5181,14 +5181,14 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder addParamsBuilder() {
         return getParamsFieldBuilder().addBuilder(
             net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.getDefaultInstance());
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder addParamsBuilder(
           int index) {
@@ -5196,7 +5196,7 @@ public final class InspectorMessage {
             index, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.getDefaultInstance());
       }
       /**
-       * <code>repeated .equtils.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
+       * <code>repeated .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields_Params params = 5;</code>
        */
       public java.util.List<net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder> 
            getParamsBuilderList() {
@@ -5217,7 +5217,7 @@ public final class InspectorMessage {
         return paramsBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq_JavaSpecificFields)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields)
     }
 
     static {
@@ -5225,11 +5225,11 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq_JavaSpecificFields)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq_JavaSpecificFields)
   }
 
   public interface InspectorMsgReqOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgReq)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgReq)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -5247,11 +5247,11 @@ public final class InspectorMessage {
         getProcessIdBytes();
 
     /**
-     * <code>required .equtils.InspectorMsgReq.Type type = 2;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
      */
     boolean hasType();
     /**
-     * <code>required .equtils.InspectorMsgReq.Type type = 2;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type getType();
 
@@ -5300,28 +5300,28 @@ public final class InspectorMessage {
     int getGaMsgId();
 
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
      */
     boolean hasEvent();
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event getEvent();
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_EventOrBuilder getEventOrBuilder();
 
     /**
-     * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
      */
     boolean hasInitiation();
     /**
-     * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation getInitiation();
     /**
-     * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_InitiationOrBuilder getInitiationOrBuilder();
 
@@ -5335,24 +5335,24 @@ public final class InspectorMessage {
     int getHasJavaSpecificFields();
 
     /**
-     * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
      */
     boolean hasJavaSpecificFields();
     /**
-     * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields getJavaSpecificFields();
     /**
-     * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
      */
     net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFieldsOrBuilder getJavaSpecificFieldsOrBuilder();
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgReq}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgReq}
    */
   public static final class InspectorMsgReq extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgReq)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgReq)
       InspectorMsgReqOrBuilder {
     // Use InspectorMsgReq.newBuilder() to construct.
     private InspectorMsgReq(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -5494,12 +5494,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgReq.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Builder.class);
     }
@@ -5520,7 +5520,7 @@ public final class InspectorMessage {
     }
 
     /**
-     * Protobuf enum {@code equtils.InspectorMsgReq.Type}
+     * Protobuf enum {@code pbinspectorhandler.InspectorMsgReq.Type}
      */
     public enum Type
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -5598,7 +5598,7 @@ public final class InspectorMessage {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:equtils.InspectorMsgReq.Type)
+      // @@protoc_insertion_point(enum_scope:pbinspectorhandler.InspectorMsgReq.Type)
     }
 
     private int bitField0_;
@@ -5647,13 +5647,13 @@ public final class InspectorMessage {
     public static final int TYPE_FIELD_NUMBER = 2;
     private net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type type_;
     /**
-     * <code>required .equtils.InspectorMsgReq.Type type = 2;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required .equtils.InspectorMsgReq.Type type = 2;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type getType() {
       return type_;
@@ -5730,19 +5730,19 @@ public final class InspectorMessage {
     public static final int EVENT_FIELD_NUMBER = 7;
     private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event event_;
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
      */
     public boolean hasEvent() {
       return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event getEvent() {
       return event_;
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_EventOrBuilder getEventOrBuilder() {
       return event_;
@@ -5751,19 +5751,19 @@ public final class InspectorMessage {
     public static final int INITIATION_FIELD_NUMBER = 8;
     private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation initiation_;
     /**
-     * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
      */
     public boolean hasInitiation() {
       return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation getInitiation() {
       return initiation_;
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_InitiationOrBuilder getInitiationOrBuilder() {
       return initiation_;
@@ -5787,19 +5787,19 @@ public final class InspectorMessage {
     public static final int JAVASPECIFICFIELDS_FIELD_NUMBER = 10;
     private net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields javaSpecificFields_;
     /**
-     * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
      */
     public boolean hasJavaSpecificFields() {
       return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields getJavaSpecificFields() {
       return javaSpecificFields_;
     }
     /**
-     * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+     * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
      */
     public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFieldsOrBuilder getJavaSpecificFieldsOrBuilder() {
       return javaSpecificFields_;
@@ -6030,20 +6030,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgReq}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgReq}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgReq)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgReq)
         net.osrg.earthquake.InspectorMessage.InspectorMsgReqOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgReq.class, net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Builder.class);
       }
@@ -6112,7 +6112,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgReq_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgReq_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq getDefaultInstanceForType() {
@@ -6378,19 +6378,19 @@ public final class InspectorMessage {
 
       private net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type type_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type.EVENT;
       /**
-       * <code>required .equtils.InspectorMsgReq.Type type = 2;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required .equtils.InspectorMsgReq.Type type = 2;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type getType() {
         return type_;
       }
       /**
-       * <code>required .equtils.InspectorMsgReq.Type type = 2;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
        */
       public Builder setType(net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type value) {
         if (value == null) {
@@ -6402,7 +6402,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>required .equtils.InspectorMsgReq.Type type = 2;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -6559,13 +6559,13 @@ public final class InspectorMessage {
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_EventOrBuilder> eventBuilder_;
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       public boolean hasEvent() {
         return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event getEvent() {
         if (eventBuilder_ == null) {
@@ -6575,7 +6575,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       public Builder setEvent(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event value) {
         if (eventBuilder_ == null) {
@@ -6591,7 +6591,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       public Builder setEvent(
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Builder builderForValue) {
@@ -6605,7 +6605,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       public Builder mergeEvent(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event value) {
         if (eventBuilder_ == null) {
@@ -6624,7 +6624,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       public Builder clearEvent() {
         if (eventBuilder_ == null) {
@@ -6637,7 +6637,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Builder getEventBuilder() {
         bitField0_ |= 0x00000040;
@@ -6645,7 +6645,7 @@ public final class InspectorMessage {
         return getEventFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_EventOrBuilder getEventOrBuilder() {
         if (eventBuilder_ != null) {
@@ -6655,7 +6655,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Event Event = 7;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Event Event = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Event.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_EventOrBuilder> 
@@ -6675,13 +6675,13 @@ public final class InspectorMessage {
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_InitiationOrBuilder> initiationBuilder_;
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       public boolean hasInitiation() {
         return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation getInitiation() {
         if (initiationBuilder_ == null) {
@@ -6691,7 +6691,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       public Builder setInitiation(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation value) {
         if (initiationBuilder_ == null) {
@@ -6707,7 +6707,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       public Builder setInitiation(
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.Builder builderForValue) {
@@ -6721,7 +6721,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       public Builder mergeInitiation(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation value) {
         if (initiationBuilder_ == null) {
@@ -6740,7 +6740,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       public Builder clearInitiation() {
         if (initiationBuilder_ == null) {
@@ -6753,7 +6753,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.Builder getInitiationBuilder() {
         bitField0_ |= 0x00000080;
@@ -6761,7 +6761,7 @@ public final class InspectorMessage {
         return getInitiationFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_InitiationOrBuilder getInitiationOrBuilder() {
         if (initiationBuilder_ != null) {
@@ -6771,7 +6771,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_Initiation Initiation = 8;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_Initiation Initiation = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_InitiationOrBuilder> 
@@ -6823,13 +6823,13 @@ public final class InspectorMessage {
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFieldsOrBuilder> javaSpecificFieldsBuilder_;
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       public boolean hasJavaSpecificFields() {
         return ((bitField0_ & 0x00000200) == 0x00000200);
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields getJavaSpecificFields() {
         if (javaSpecificFieldsBuilder_ == null) {
@@ -6839,7 +6839,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       public Builder setJavaSpecificFields(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields value) {
         if (javaSpecificFieldsBuilder_ == null) {
@@ -6855,7 +6855,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       public Builder setJavaSpecificFields(
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields.Builder builderForValue) {
@@ -6869,7 +6869,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       public Builder mergeJavaSpecificFields(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields value) {
         if (javaSpecificFieldsBuilder_ == null) {
@@ -6888,7 +6888,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       public Builder clearJavaSpecificFields() {
         if (javaSpecificFieldsBuilder_ == null) {
@@ -6901,7 +6901,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields.Builder getJavaSpecificFieldsBuilder() {
         bitField0_ |= 0x00000200;
@@ -6909,7 +6909,7 @@ public final class InspectorMessage {
         return getJavaSpecificFieldsFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       public net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFieldsOrBuilder getJavaSpecificFieldsOrBuilder() {
         if (javaSpecificFieldsBuilder_ != null) {
@@ -6919,7 +6919,7 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>optional .equtils.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
+       * <code>optional .pbinspectorhandler.InspectorMsgReq_JavaSpecificFields JavaSpecificFields = 10;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFields.Builder, net.osrg.earthquake.InspectorMessage.InspectorMsgReq_JavaSpecificFieldsOrBuilder> 
@@ -6935,7 +6935,7 @@ public final class InspectorMessage {
         return javaSpecificFieldsBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgReq)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgReq)
     }
 
     static {
@@ -6943,15 +6943,15 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgReq)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgReq)
   }
 
   public interface InspectorMsgRspOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:equtils.InspectorMsgRsp)
+      // @@protoc_insertion_point(interface_extends:pbinspectorhandler.InspectorMsgRsp)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .equtils.InspectorMsgRsp.Result res = 1;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgRsp.Result res = 1;</code>
      *
      * <pre>
      * FIXME: result should be required field
@@ -6959,7 +6959,7 @@ public final class InspectorMessage {
      */
     boolean hasRes();
     /**
-     * <code>required .equtils.InspectorMsgRsp.Result res = 1;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgRsp.Result res = 1;</code>
      *
      * <pre>
      * FIXME: result should be required field
@@ -6994,11 +6994,11 @@ public final class InspectorMessage {
     int getGaMsgId();
   }
   /**
-   * Protobuf type {@code equtils.InspectorMsgRsp}
+   * Protobuf type {@code pbinspectorhandler.InspectorMsgRsp}
    */
   public static final class InspectorMsgRsp extends
       com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:equtils.InspectorMsgRsp)
+      // @@protoc_insertion_point(message_implements:pbinspectorhandler.InspectorMsgRsp)
       InspectorMsgRspOrBuilder {
     // Use InspectorMsgRsp.newBuilder() to construct.
     private InspectorMsgRsp(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
@@ -7080,12 +7080,12 @@ public final class InspectorMessage {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgRsp_descriptor;
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgRsp_fieldAccessorTable
+      return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgRsp_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.osrg.earthquake.InspectorMessage.InspectorMsgRsp.class, net.osrg.earthquake.InspectorMessage.InspectorMsgRsp.Builder.class);
     }
@@ -7106,7 +7106,7 @@ public final class InspectorMessage {
     }
 
     /**
-     * Protobuf enum {@code equtils.InspectorMsgRsp.Result}
+     * Protobuf enum {@code pbinspectorhandler.InspectorMsgRsp.Result}
      */
     public enum Result
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -7201,14 +7201,14 @@ public final class InspectorMessage {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:equtils.InspectorMsgRsp.Result)
+      // @@protoc_insertion_point(enum_scope:pbinspectorhandler.InspectorMsgRsp.Result)
     }
 
     private int bitField0_;
     public static final int RES_FIELD_NUMBER = 1;
     private net.osrg.earthquake.InspectorMessage.InspectorMsgRsp.Result res_;
     /**
-     * <code>required .equtils.InspectorMsgRsp.Result res = 1;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgRsp.Result res = 1;</code>
      *
      * <pre>
      * FIXME: result should be required field
@@ -7218,7 +7218,7 @@ public final class InspectorMessage {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .equtils.InspectorMsgRsp.Result res = 1;</code>
+     * <code>required .pbinspectorhandler.InspectorMsgRsp.Result res = 1;</code>
      *
      * <pre>
      * FIXME: result should be required field
@@ -7397,20 +7397,20 @@ public final class InspectorMessage {
       return builder;
     }
     /**
-     * Protobuf type {@code equtils.InspectorMsgRsp}
+     * Protobuf type {@code pbinspectorhandler.InspectorMsgRsp}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:equtils.InspectorMsgRsp)
+        // @@protoc_insertion_point(builder_implements:pbinspectorhandler.InspectorMsgRsp)
         net.osrg.earthquake.InspectorMessage.InspectorMsgRspOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgRsp_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgRsp_fieldAccessorTable
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgRsp_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.osrg.earthquake.InspectorMessage.InspectorMsgRsp.class, net.osrg.earthquake.InspectorMessage.InspectorMsgRsp.Builder.class);
       }
@@ -7450,7 +7450,7 @@ public final class InspectorMessage {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.osrg.earthquake.InspectorMessage.internal_static_equtils_InspectorMsgRsp_descriptor;
+        return net.osrg.earthquake.InspectorMessage.internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor;
       }
 
       public net.osrg.earthquake.InspectorMessage.InspectorMsgRsp getDefaultInstanceForType() {
@@ -7539,7 +7539,7 @@ public final class InspectorMessage {
 
       private net.osrg.earthquake.InspectorMessage.InspectorMsgRsp.Result res_ = net.osrg.earthquake.InspectorMessage.InspectorMsgRsp.Result.ACK;
       /**
-       * <code>required .equtils.InspectorMsgRsp.Result res = 1;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgRsp.Result res = 1;</code>
        *
        * <pre>
        * FIXME: result should be required field
@@ -7549,7 +7549,7 @@ public final class InspectorMessage {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .equtils.InspectorMsgRsp.Result res = 1;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgRsp.Result res = 1;</code>
        *
        * <pre>
        * FIXME: result should be required field
@@ -7559,7 +7559,7 @@ public final class InspectorMessage {
         return res_;
       }
       /**
-       * <code>required .equtils.InspectorMsgRsp.Result res = 1;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgRsp.Result res = 1;</code>
        *
        * <pre>
        * FIXME: result should be required field
@@ -7575,7 +7575,7 @@ public final class InspectorMessage {
         return this;
       }
       /**
-       * <code>required .equtils.InspectorMsgRsp.Result res = 1;</code>
+       * <code>required .pbinspectorhandler.InspectorMsgRsp.Result res = 1;</code>
        *
        * <pre>
        * FIXME: result should be required field
@@ -7668,7 +7668,7 @@ public final class InspectorMessage {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:equtils.InspectorMsgRsp)
+      // @@protoc_insertion_point(builder_scope:pbinspectorhandler.InspectorMsgRsp)
     }
 
     static {
@@ -7676,54 +7676,54 @@ public final class InspectorMessage {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:equtils.InspectorMsgRsp)
+    // @@protoc_insertion_point(class_scope:pbinspectorhandler.InspectorMsgRsp)
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgReq_Event_FuncCall_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgReq_Event_FuncCall_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgReq_Event_Exit_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgReq_Event_Exit_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgReq_Event_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgReq_Event_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgReq_Event_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgReq_Initiation_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgReq_Initiation_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgReq_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgReq_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgReq_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgReq_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_equtils_InspectorMsgRsp_descriptor;
+    internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_equtils_InspectorMsgRsp_fieldAccessorTable;
+      internal_static_pbinspectorhandler_InspectorMsgRsp_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7733,42 +7733,45 @@ public final class InspectorMessage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\027inspector_message.proto\022\007equtils\".\n\036In" +
-      "spectorMsgReq_Event_FuncCall\022\014\n\004name\030\001 \002" +
-      "(\t\".\n\032InspectorMsgReq_Event_Exit\022\020\n\010exit" +
-      "Code\030\001 \002(\005\"\331\001\n\025InspectorMsgReq_Event\0221\n\004" +
-      "type\030\001 \002(\0162#.equtils.InspectorMsgReq_Eve" +
-      "nt.Type\0229\n\010FuncCall\030\002 \001(\0132\'.equtils.Insp" +
-      "ectorMsgReq_Event_FuncCall\0221\n\004Exit\030\003 \001(\013" +
-      "2#.equtils.InspectorMsgReq_Event_Exit\"\037\n" +
-      "\004Type\022\r\n\tFUNC_CALL\020\001\022\010\n\004EXIT\020\002\"/\n\032Inspec" +
-      "torMsgReq_Initiation\022\021\n\tprocessId\030\001 \002(\t\"",
-      "\203\001\n4InspectorMsgReq_JavaSpecificFields_S" +
-      "tackTraceElement\022\020\n\010fileName\030\001 \002(\t\022\021\n\tcl" +
-      "assName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002(\t\022\022\n\nlin" +
-      "eNumber\030\004 \002(\005\"H\n)InspectorMsgReq_JavaSpe" +
-      "cificFields_Params\022\014\n\004name\030\001 \002(\t\022\r\n\005valu" +
-      "e\030\002 \002(\t\"\207\002\n\"InspectorMsgReq_JavaSpecific" +
-      "Fields\022\022\n\nthreadName\030\001 \002(\t\022\034\n\024nrStackTra" +
-      "ceElements\030\002 \002(\005\022Y\n\022stackTraceElements\030\003" +
-      " \003(\0132=.equtils.InspectorMsgReq_JavaSpeci" +
-      "ficFields_StackTraceElement\022\020\n\010nrParams\030",
-      "\004 \002(\005\022B\n\006params\030\005 \003(\01322.equtils.Inspecto" +
-      "rMsgReq_JavaSpecificFields_Params\"\202\003\n\017In" +
-      "spectorMsgReq\022\022\n\nprocess_id\030\001 \002(\t\022+\n\004typ" +
-      "e\030\002 \002(\0162\035.equtils.InspectorMsgReq.Type\022\013" +
-      "\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 \002(\005" +
-      "\022\021\n\tga_msg_id\030\006 \001(\005\022-\n\005Event\030\007 \001(\0132\036.equ" +
-      "tils.InspectorMsgReq_Event\0227\n\nInitiation" +
-      "\030\010 \001(\0132#.equtils.InspectorMsgReq_Initiat" +
-      "ion\022\035\n\025HasJavaSpecificFields\030\t \002(\005\022G\n\022Ja" +
-      "vaSpecificFields\030\n \001(\0132+.equtils.Inspect",
-      "orMsgReq_JavaSpecificFields\"!\n\004Type\022\t\n\005E" +
-      "VENT\020\001\022\016\n\nINITIATION\020\002\"\211\001\n\017InspectorMsgR" +
-      "sp\022,\n\003res\030\001 \002(\0162\037.equtils.InspectorMsgRs" +
-      "p.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003 " +
-      "\001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002\022\007\n\003END" +
-      "\020\003B\025\n\023net.osrg.earthquake"
+      "\n\027inspector_message.proto\022\022pbinspectorha" +
+      "ndler\".\n\036InspectorMsgReq_Event_FuncCall\022" +
+      "\014\n\004name\030\001 \002(\t\".\n\032InspectorMsgReq_Event_E" +
+      "xit\022\020\n\010exitCode\030\001 \002(\005\"\372\001\n\025InspectorMsgRe" +
+      "q_Event\022<\n\004type\030\001 \002(\0162..pbinspectorhandl" +
+      "er.InspectorMsgReq_Event.Type\022D\n\010FuncCal" +
+      "l\030\002 \001(\01322.pbinspectorhandler.InspectorMs" +
+      "gReq_Event_FuncCall\022<\n\004Exit\030\003 \001(\0132..pbin" +
+      "spectorhandler.InspectorMsgReq_Event_Exi" +
+      "t\"\037\n\004Type\022\r\n\tFUNC_CALL\020\001\022\010\n\004EXIT\020\002\"/\n\032In",
+      "spectorMsgReq_Initiation\022\021\n\tprocessId\030\001 " +
+      "\002(\t\"\203\001\n4InspectorMsgReq_JavaSpecificFiel" +
+      "ds_StackTraceElement\022\020\n\010fileName\030\001 \002(\t\022\021" +
+      "\n\tclassName\030\002 \002(\t\022\022\n\nmethodName\030\003 \002(\t\022\022\n" +
+      "\nlineNumber\030\004 \002(\005\"H\n)InspectorMsgReq_Jav" +
+      "aSpecificFields_Params\022\014\n\004name\030\001 \002(\t\022\r\n\005" +
+      "value\030\002 \002(\t\"\235\002\n\"InspectorMsgReq_JavaSpec" +
+      "ificFields\022\022\n\nthreadName\030\001 \002(\t\022\034\n\024nrStac" +
+      "kTraceElements\030\002 \002(\005\022d\n\022stackTraceElemen" +
+      "ts\030\003 \003(\0132H.pbinspectorhandler.InspectorM",
+      "sgReq_JavaSpecificFields_StackTraceEleme" +
+      "nt\022\020\n\010nrParams\030\004 \002(\005\022M\n\006params\030\005 \003(\0132=.p" +
+      "binspectorhandler.InspectorMsgReq_JavaSp" +
+      "ecificFields_Params\"\256\003\n\017InspectorMsgReq\022" +
+      "\022\n\nprocess_id\030\001 \002(\t\0226\n\004type\030\002 \002(\0162(.pbin" +
+      "spectorhandler.InspectorMsgReq.Type\022\013\n\003p" +
+      "id\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005\022\016\n\006msg_id\030\005 \002(\005\022\021\n" +
+      "\tga_msg_id\030\006 \001(\005\0228\n\005Event\030\007 \001(\0132).pbinsp" +
+      "ectorhandler.InspectorMsgReq_Event\022B\n\nIn" +
+      "itiation\030\010 \001(\0132..pbinspectorhandler.Insp",
+      "ectorMsgReq_Initiation\022\035\n\025HasJavaSpecifi" +
+      "cFields\030\t \002(\005\022R\n\022JavaSpecificFields\030\n \001(" +
+      "\01326.pbinspectorhandler.InspectorMsgReq_J" +
+      "avaSpecificFields\"!\n\004Type\022\t\n\005EVENT\020\001\022\016\n\n" +
+      "INITIATION\020\002\"\224\001\n\017InspectorMsgRsp\0227\n\003res\030" +
+      "\001 \002(\0162*.pbinspectorhandler.InspectorMsgR" +
+      "sp.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003" +
+      " \001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002\022\007\n\003EN" +
+      "D\020\003B\025\n\023net.osrg.earthquake"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -7782,59 +7785,59 @@ public final class InspectorMessage {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_equtils_InspectorMsgReq_Event_FuncCall_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_equtils_InspectorMsgReq_Event_FuncCall_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgReq_Event_FuncCall_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgReq_Event_FuncCall_descriptor,
         new java.lang.String[] { "Name", });
-    internal_static_equtils_InspectorMsgReq_Event_Exit_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_equtils_InspectorMsgReq_Event_Exit_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgReq_Event_Exit_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgReq_Event_Exit_descriptor,
         new java.lang.String[] { "ExitCode", });
-    internal_static_equtils_InspectorMsgReq_Event_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_equtils_InspectorMsgReq_Event_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgReq_Event_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgReq_Event_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgReq_Event_descriptor,
         new java.lang.String[] { "Type", "FuncCall", "Exit", });
-    internal_static_equtils_InspectorMsgReq_Initiation_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_equtils_InspectorMsgReq_Initiation_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgReq_Initiation_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor,
         new java.lang.String[] { "ProcessId", });
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor =
       getDescriptor().getMessageTypes().get(4);
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor,
         new java.lang.String[] { "FileName", "ClassName", "MethodName", "LineNumber", });
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_descriptor =
       getDescriptor().getMessageTypes().get(5);
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgReq_JavaSpecificFields_Params_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_Params_descriptor,
         new java.lang.String[] { "Name", "Value", });
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_descriptor =
       getDescriptor().getMessageTypes().get(6);
-    internal_static_equtils_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgReq_JavaSpecificFields_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_descriptor,
         new java.lang.String[] { "ThreadName", "NrStackTraceElements", "StackTraceElements", "NrParams", "Params", });
-    internal_static_equtils_InspectorMsgReq_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgReq_descriptor =
       getDescriptor().getMessageTypes().get(7);
-    internal_static_equtils_InspectorMsgReq_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgReq_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgReq_descriptor,
         new java.lang.String[] { "ProcessId", "Type", "Pid", "Tid", "MsgId", "GaMsgId", "Event", "Initiation", "HasJavaSpecificFields", "JavaSpecificFields", });
-    internal_static_equtils_InspectorMsgRsp_descriptor =
+    internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor =
       getDescriptor().getMessageTypes().get(8);
-    internal_static_equtils_InspectorMsgRsp_fieldAccessorTable = new
+    internal_static_pbinspectorhandler_InspectorMsgRsp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_equtils_InspectorMsgRsp_descriptor,
+        internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor,
         new java.lang.String[] { "Res", "MsgId", "GaMsgId", });
   }
 

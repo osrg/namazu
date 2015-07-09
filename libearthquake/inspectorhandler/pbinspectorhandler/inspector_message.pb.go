@@ -3,7 +3,7 @@
 // DO NOT EDIT!
 
 /*
-Package equtils is a generated protocol buffer package.
+Package pbinspectorhandler is a generated protocol buffer package.
 
 It is generated from these files:
 	inspector_message.proto
@@ -19,7 +19,7 @@ It has these top-level messages:
 	InspectorMsgReq
 	InspectorMsgRsp
 */
-package equtils
+package pbinspectorhandler
 
 import proto "github.com/golang/protobuf/proto"
 import math "math"
@@ -163,7 +163,7 @@ func (m *InspectorMsgReq_Event_Exit) GetExitCode() int32 {
 }
 
 type InspectorMsgReq_Event struct {
-	Type             *InspectorMsgReq_Event_Type     `protobuf:"varint,1,req,name=type,enum=equtils.InspectorMsgReq_Event_Type" json:"type,omitempty"`
+	Type             *InspectorMsgReq_Event_Type     `protobuf:"varint,1,req,name=type,enum=pbinspectorhandler.InspectorMsgReq_Event_Type" json:"type,omitempty"`
 	FuncCall         *InspectorMsgReq_Event_FuncCall `protobuf:"bytes,2,opt" json:"FuncCall,omitempty"`
 	Exit             *InspectorMsgReq_Event_Exit     `protobuf:"bytes,3,opt" json:"Exit,omitempty"`
 	XXX_unrecognized []byte                          `json:"-"`
@@ -330,7 +330,7 @@ func (m *InspectorMsgReq_JavaSpecificFields) GetParams() []*InspectorMsgReq_Java
 
 type InspectorMsgReq struct {
 	ProcessId             *string                             `protobuf:"bytes,1,req,name=process_id" json:"process_id,omitempty"`
-	Type                  *InspectorMsgReq_Type               `protobuf:"varint,2,req,name=type,enum=equtils.InspectorMsgReq_Type" json:"type,omitempty"`
+	Type                  *InspectorMsgReq_Type               `protobuf:"varint,2,req,name=type,enum=pbinspectorhandler.InspectorMsgReq_Type" json:"type,omitempty"`
 	Pid                   *int32                              `protobuf:"varint,3,req,name=pid" json:"pid,omitempty"`
 	Tid                   *int32                              `protobuf:"varint,4,req,name=tid" json:"tid,omitempty"`
 	MsgId                 *int32                              `protobuf:"varint,5,req,name=msg_id" json:"msg_id,omitempty"`
@@ -417,7 +417,7 @@ func (m *InspectorMsgReq) GetJavaSpecificFields() *InspectorMsgReq_JavaSpecificF
 }
 
 type InspectorMsgRsp struct {
-	Res              *InspectorMsgRsp_Result `protobuf:"varint,1,req,name=res,enum=equtils.InspectorMsgRsp_Result" json:"res,omitempty"`
+	Res              *InspectorMsgRsp_Result `protobuf:"varint,1,req,name=res,enum=pbinspectorhandler.InspectorMsgRsp_Result" json:"res,omitempty"`
 	MsgId            *int32                  `protobuf:"varint,2,opt,name=msg_id" json:"msg_id,omitempty"`
 	GaMsgId          *int32                  `protobuf:"varint,3,opt,name=ga_msg_id" json:"ga_msg_id,omitempty"`
 	XXX_unrecognized []byte                  `json:"-"`
@@ -449,7 +449,7 @@ func (m *InspectorMsgRsp) GetGaMsgId() int32 {
 }
 
 func init() {
-	proto.RegisterEnum("equtils.InspectorMsgReq_Event_Type", InspectorMsgReq_Event_Type_name, InspectorMsgReq_Event_Type_value)
-	proto.RegisterEnum("equtils.InspectorMsgReq_Type", InspectorMsgReq_Type_name, InspectorMsgReq_Type_value)
-	proto.RegisterEnum("equtils.InspectorMsgRsp_Result", InspectorMsgRsp_Result_name, InspectorMsgRsp_Result_value)
+	proto.RegisterEnum("pbinspectorhandler.InspectorMsgReq_Event_Type", InspectorMsgReq_Event_Type_name, InspectorMsgReq_Event_Type_value)
+	proto.RegisterEnum("pbinspectorhandler.InspectorMsgReq_Type", InspectorMsgReq_Type_name, InspectorMsgReq_Type_value)
+	proto.RegisterEnum("pbinspectorhandler.InspectorMsgRsp_Result", InspectorMsgRsp_Result_name, InspectorMsgRsp_Result_value)
 }
