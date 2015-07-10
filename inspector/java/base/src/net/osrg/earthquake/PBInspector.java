@@ -439,9 +439,34 @@ public class PBInspector implements Inspector {
 
     private InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[] makeStackTrace() {
         StackTraceElement traces[] = Thread.currentThread().getStackTrace();
-        InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[] ret = new InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[traces.length];
 
+        /* CAUTION: heuristics */
+        int maxRuleJavaIdx = -1;
         for (int i = 0; i < traces.length; i++) {
+            StackTraceElement trace = traces[i];
+
+            if (trace == null) {
+                continue;
+            }
+
+            String fileName = trace.getFileName();
+
+            if (fileName == null) {
+                continue;
+            }
+
+            if (fileName.equals("Rule.java")) {
+                maxRuleJavaIdx = i;
+            }
+        }
+
+        if (maxRuleJavaIdx == -1) {
+            LOGGER.severe("unexpected call stack");
+            System.exit(1);
+        }
+
+        InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[] ret = new InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[traces.length - (maxRuleJavaIdx + 1)];
+        for (int i = maxRuleJavaIdx + 1, j = 0; i < traces.length; i++, j++) {
             StackTraceElement trace = traces[i];
 
             if (trace == null) {
@@ -457,7 +482,7 @@ public class PBInspector implements Inspector {
 
             InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement newElement = traceBuilder.build();
 
-            ret[i] = newElement;
+            ret[j] = newElement;
         }
 
         return ret;
