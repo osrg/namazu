@@ -6,8 +6,10 @@ import logging
 import prctl
 
 from .. import LOG as _LOG
+
 LOG = _LOG.getChild(__name__)
-#LOG.setLevel(logging.INFO)
+LOG.setLevel(logging.INFO)
+
 
 class NFQ(object):
     """
@@ -19,8 +21,8 @@ class NFQ(object):
     NF_STOLEN = 2
     NF_QUEUE = 3
     NF_REPEAT = 4
-    NF_STOP = 5  
-  
+    NF_STOP = 5
+
     NFQNL_COPY_NONE = 0
     NFQNL_COPY_META = 1
     NFQNL_COPY_PACKET = 2
@@ -37,10 +39,10 @@ class NFQ(object):
     dll.nfq_get_payload.restype = c_int
 
     CALLBACK_CFUNCTYPE = CFUNCTYPE(c_int,
-                                   c_void_p, #qh
-                                   c_void_p, #nfmsg
-                                   c_void_p, #nfad
-                                   c_void_p) #data
+                                   c_void_p,  # qh
+                                   c_void_p,  # nfmsg
+                                   c_void_p,  # nfad
+                                   c_void_p)  # data
 
     def __init__(self, q_num, cb, cb_data=c_void_p(None)):
         self._check_cap()
@@ -52,8 +54,7 @@ class NFQ(object):
     def _check_cap(cls):
         assert prctl.cap_permitted.net_admin, "missing CAP_NET_ADMIN"
         assert prctl.cap_permitted.net_raw, "missing CAP_NET_RAW"
-        
-        
+
     @classmethod
     def _make_handle(cls):
         LOG.debug('Calling nfq_open()')
@@ -72,27 +73,27 @@ class NFQ(object):
 
     @classmethod
     def _make_queue_handle(cls, h, q_num, cb, data):
-        LOG.debug('Calling nfq_create_queue(%s, %s, %s, %s)', h, q_num, cb, data)        
+        LOG.debug('Calling nfq_create_queue(%s, %s, %s, %s)', h, q_num, cb, data)
         qh = cls.dll.nfq_create_queue(h, q_num, cb, data)
-        LOG.debug('Called nfq_create_queue=%d', qh)                
+        LOG.debug('Called nfq_create_queue=%d', qh)
         assert qh, "qh=%d" % qh
-        LOG.debug('Calling nfq_set_mode(%d, NFQNL_COPY_PACKET)', qh)                
+        LOG.debug('Calling nfq_set_mode(%d, NFQNL_COPY_PACKET)', qh)
         mode_set = cls.dll.nfq_set_mode(qh, cls.NFQNL_COPY_PACKET)
         LOG.debug('Called nfq_set_mode=%d', mode_set)
         assert mode_set >= 0, "mode_set=%d" % mode_set
         return qh
 
     def close(self):
-        LOG.debug('Calling nfq_close(%d)', self.h)                                
+        LOG.debug('Calling nfq_close(%d)', self.h)
         self.dll.nfq_close(self.h)
-        LOG.debug('Called nfq_close()')                                        
+        LOG.debug('Called nfq_close()')
 
     def handle_packet(self, buf):
         assert self.h
         assert buf
         LOG.debug('Calling nfq_handle_packet(%s, buf, %s)', self.h, len(buf))
         self.dll.nfq_handle_packet(self.h, buf, len(buf))
-        LOG.debug('Called nfq_handle_packet')                        
+        LOG.debug('Called nfq_handle_packet')
 
     @classmethod
     def cb_get_payload(cls, nfad):
@@ -101,7 +102,7 @@ class NFQ(object):
         """
         assert nfad
         payload = POINTER(c_char)()
-        LOG.debug('Calling nfq_get_payload')        
+        LOG.debug('Calling nfq_get_payload')
         len = cls.dll.nfq_get_payload(nfad, byref(payload))
         LOG.debug('Called nfq_get_payload')
         ret_str = string_at(payload, len)
@@ -133,8 +134,8 @@ class NFQ(object):
 
 
 if __name__ == "__main__":
-    Q_NUM=42
-    SOCK_BUF_SIZE=65536
+    Q_NUM = 42
+    SOCK_BUF_SIZE = 65536
     import socket
     from scapy.all import IP
     from hexdump import hexdump
@@ -155,12 +156,12 @@ if __name__ == "__main__":
         NFQ.cb_set_verdict(qh, packet_id, NFQ.NF_ACCEPT)
         return 1
 
-    cb_c = NFQ.CALLBACK_CFUNCTYPE(cb) # https://github.com/JohannesBuchner/PyMultiNest/issues/5
+    cb_c = NFQ.CALLBACK_CFUNCTYPE(cb)  # https://github.com/JohannesBuchner/PyMultiNest/issues/5
     nfq = NFQ(Q_NUM, cb_c)
     s = socket.fromfd(nfq.fd, socket.AF_UNIX, socket.SOCK_STREAM)
     while True:
-            d = s.recv(SOCK_BUF_SIZE)
-            assert d
-            nfq.handle_packet(d)
+        d = s.recv(SOCK_BUF_SIZE)
+        assert d
+        nfq.handle_packet(d)
     s.close()
     nfq.close()

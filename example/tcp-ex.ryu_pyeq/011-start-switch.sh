@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
 export PYTHONPATH=../..
-ryu-manager ./sample_switch.py 
+ryu-manager --verbose ./sample_switch.py 
