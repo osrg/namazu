@@ -4,22 +4,12 @@ This protocol is used for communication between inspectors and middleboxes.
 NOTE: the protocol is *not* used for orchestrator.
 
 ## ZeroMQ frame
-Middlebox -> Inspector:
     
     +------------------------------+
     |         JSON metadata        |
     +------------------------------+
     |         Ethernet Frame       |
     +------------------------------+
-    
-Middlebox <- Inspector:
-    
-    +------------------------------+
-    |         JSON metadata        |
-    +------------------------------+
-    |         Ethernet Frame       |
-    +------------------------------+
-    
 
 
 ### JSON metadata
@@ -30,5 +20,5 @@ Middlebox -> Inspector:
 Middlebox <- Inspector:
 
  - `id`(int): Ethernet frame ID
- - `action`(string): either one of {`accept`, `drop`, `modify`}. If `action` is not `modify`, the Ethernet Frame payload *must* be ignored.
+ - `op`(string): either one of {`accept`, `drop`, `modify`}. If `op` is not `modify`, the Ethernet Frame payload *must* be ignored.
  

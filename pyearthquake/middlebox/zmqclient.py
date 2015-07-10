@@ -25,16 +25,22 @@ class ZMQClientBase(object):
 
     def _zmq_worker(self):
         while True:
-            # eth_ignored will be used when 'action' == 'modify' is supported
+            # eth_ignored will be used when 'op' == 'modify' is implemented
             metadata_str, eth_ignored = self.zs.recv_multipart()
             metadata = json.loads(metadata_str)
-            assert metadata['action'] == 'accept', 'Invalid metadata: %s' % (metadata)
+            op = metadata['op']
+            assert op in ('accept', 'drop'), 'Invalid op metadata: %s' % (metadata)
             packet_id = metadata['id']
             assert packet_id in self.pendings, 'Unknown packet metadata: %s' %(metadata)
             eth = self.pendings[packet_id]
             del self.pendings[packet_id]
-            LOG.debug('Pendings-: %d->%d', len(self.pendings) + 1, len(self.pendings))
-            self.on_accept(packet_id, eth, metadata)
+            LOG.debug('Pendings-(id=%d,op=%s): %d->%d', packet_id, op, len(self.pendings) + 1, len(self.pendings))
+            if op == 'accept':
+                self.on_accept(packet_id, eth, metadata)
+            elif op == 'drop':
+                self.on_drop(packet_id, eth, metadata)
+            else:
+                raise RuntimeError('This should not happen')
     
     def send(self, packet_id, eth):
         assert isinstance(eth, Ether)
@@ -43,8 +49,12 @@ class ZMQClientBase(object):
         self.zs.send_multipart((metadata_str, str(eth)))
         assert not packet_id in self.pendings
         self.pendings[packet_id] = eth
-        LOG.debug('Pendings+: %d->%d', len(self.pendings) - 1, len(self.pendings))
+        LOG.debug('Pendings+(id=%d): %d->%d', packet_id, len(self.pendings) - 1, len(self.pendings))
 
     @abstractmethod
     def on_accept(self, packet_id, eth, metadata=None):
+        pass
+
+    @abstractmethod
+    def on_drop(self, packet_id, eth, metadata=None):
         pass

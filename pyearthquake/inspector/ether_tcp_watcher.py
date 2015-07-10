@@ -55,7 +55,7 @@ class TCPWatcher(object):
             return
 
     def dumb_handler(metadata, eth_bytes):
-        pass # LOG.debug('dumb_handler called!!')
+        LOG.warn('dumb_handler called!!')
         
     def on_recv(self, metadata, eth_bytes, default_handler=dumb_handler, retrans_handler=dumb_handler):
         ## Do NOT call scapy inspector before detecting TCP retransmission
