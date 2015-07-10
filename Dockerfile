@@ -7,7 +7,7 @@ MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 RUN apt-get update
 
 ## Install protoc
-RUN apt-get install -y protobuf-compiler
+RUN apt-get install -y --no-install-recommends protobuf-compiler
 
 ## Install Go 1.5 (or later) to /go
 ENV GOROOT_BOOTSTRAP /go1.4
