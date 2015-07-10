@@ -34,10 +34,10 @@ class NFQHookZMQC(ZMQClientBase):
         super(NFQHookZMQC, self).__init__(zmq_addr)
         self.nfq = nfq
 
-    def on_accept(self, packet_id, eth, metadata=None):
+    def on_accept(self, packet_id, eth_bytes, metadata=None):
         NFQ.cb_set_verdict(self.nfq.qh, packet_id, NFQ.NF_ACCEPT)
 
-    def on_drop(self, packet_id, eth, metadata=None):
+    def on_drop(self, packet_id, eth_bytes, metadata=None):
         NFQ.cb_set_verdict(self.nfq.qh, packet_id, NFQ.NF_DROP)
 
 
@@ -75,6 +75,5 @@ class NFQHook(object):
 
     def send_ip_packet_to_inspector(self, packet_id, ip_bytes):
         LOG.debug('Sending packet %d to inspector', packet_id)
-        ip = scapy.all.IP(ip_bytes)
-        dummy_eth = scapy.all.Ether() / ip
-        self.zmq_client.send(packet_id, dummy_eth)
+        dummy_eth = scapy.all.Ether() / scapy.all.IP(ip_bytes)
+        self.zmq_client.send(packet_id, str(dummy_eth))

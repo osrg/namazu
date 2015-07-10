@@ -1,7 +1,6 @@
 from abc import ABCMeta, abstractmethod
-from scapy.all import Ether
 import eventlet
-from eventlet.green import zmq, socket
+from eventlet.green import zmq
 import six
 import json
 
@@ -32,29 +31,28 @@ class ZMQClientBase(object):
             assert op in ('accept', 'drop'), 'Invalid op metadata: %s' % (metadata)
             packet_id = metadata['id']
             assert packet_id in self.pendings, 'Unknown packet metadata: %s' %(metadata)
-            eth = self.pendings[packet_id]
+            eth_bytes = self.pendings[packet_id]
             del self.pendings[packet_id]
             LOG.debug('Pendings-(id=%d,op=%s): %d->%d', packet_id, op, len(self.pendings) + 1, len(self.pendings))
             if op == 'accept':
-                self.on_accept(packet_id, eth, metadata)
+                self.on_accept(packet_id, eth_bytes, metadata)
             elif op == 'drop':
-                self.on_drop(packet_id, eth, metadata)
+                self.on_drop(packet_id, eth_bytes, metadata)
             else:
                 raise RuntimeError('This should not happen')
     
-    def send(self, packet_id, eth):
-        assert isinstance(eth, Ether)
+    def send(self, packet_id, eth_bytes):
         metadata = {'id': packet_id}
         metadata_str = json.dumps(metadata)
-        self.zs.send_multipart((metadata_str, str(eth)))
+        self.zs.send_multipart((metadata_str, eth_bytes))
         assert not packet_id in self.pendings
-        self.pendings[packet_id] = eth
+        self.pendings[packet_id] = eth_bytes
         LOG.debug('Pendings+(id=%d): %d->%d', packet_id, len(self.pendings) - 1, len(self.pendings))
 
     @abstractmethod
-    def on_accept(self, packet_id, eth, metadata=None):
+    def on_accept(self, packet_id, eth_bytes, metadata=None):
         pass
 
     @abstractmethod
-    def on_drop(self, packet_id, eth, metadata=None):
+    def on_drop(self, packet_id, eth_bytes, metadata=None):
         pass

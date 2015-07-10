@@ -66,7 +66,8 @@ class SampleInspector(EtherInspectorBase):
             LOG.debug('mapped event=%s', event)
             return event
         else:
-            LOG.debug('%s unknown packet: %s', self.__class__.__name__, pkt.mysummary())                        
+            LOG.debug('%s unknown packet: %s', self.__class__.__name__, pkt.mysummary())
+            hexdump.hexdump(str(pkt))
             return None
 
 

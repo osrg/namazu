@@ -108,7 +108,7 @@ class EtherInspectorBase(object):
         event = self.map_packet_to_event(inspected_packet)
         assert event is None or isinstance(event, PacketEvent)
         if not event:
-            self._send_to_middlebox(metadata)
+            self._send_to_middlebox(metadata, op='accept')
         else:
             self.on_packet_event(metadata, event)
 
