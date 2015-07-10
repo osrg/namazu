@@ -8,9 +8,9 @@ from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.app.simple_switch_13 import SimpleSwitch13
 from .zmqclient import ZMQClientBase
-from hexdump import hexdump
 
-DISABLE_INJECTION=True
+DISABLE_INJECTION = False
+
 
 class RyuZMQC(ZMQClientBase):
     def __init__(self, zmq_addr, ryu, datapath):
@@ -19,8 +19,6 @@ class RyuZMQC(ZMQClientBase):
         self.datapath = datapath
 
     def on_accept(self, packet_id, eth_bytes, metadata=None):
-        print '==accept=='
-        hexdump(eth_bytes)
         ofp = self.datapath.ofproto
         parser = self.datapath.ofproto_parser
         in_port, out_port = self.ryu.determine_ports(self.datapath, eth_bytes)
@@ -32,8 +30,7 @@ class RyuZMQC(ZMQClientBase):
         self.datapath.send_msg(ofp_packet_out)
 
     def on_drop(self, packet_id, eth_bytes, metadata=None):
-        print '==drop=='
-        hexdump(eth_bytes)
+        pass
 
 
 @six.add_metaclass(ABCMeta)
@@ -45,9 +42,9 @@ class RyuOF13SwitchBase(SimpleSwitch13):
     OFP = ofproto_v1_3
     OFP_PARSER = ofproto_v1_3_parser  # used by child classes
     FLOW_PRIORITY_BASE = 10240
-    
+
     @abstractmethod
-    def __init__(self, matches, inspector_zmq_addr,  *args, **kwargs):
+    def __init__(self, matches, inspector_zmq_addr, *args, **kwargs):
         super(RyuOF13SwitchBase, self).__init__(*args, **kwargs)
         self.matches = matches
         self.zmq_client = None
@@ -57,7 +54,7 @@ class RyuOF13SwitchBase(SimpleSwitch13):
         ofp = datapath.ofproto
         in_port = ofp.OFPP_CONTROLLER
         out_port = ofp.OFPP_FLOOD
-        
+
         pkt = packet.Packet(data)
         eth = pkt.get_protocols(ethernet.ethernet)[0]
         ### self.mac_to_port is managed by the parent class
@@ -66,7 +63,6 @@ class RyuOF13SwitchBase(SimpleSwitch13):
         if eth.dst in self.mac_to_port[datapath.id]:
             out_port = self.mac_to_port[datapath.id][eth.dst]
         return (in_port, out_port)
-
 
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)
     def switch_features_handler(self, ev):
@@ -86,9 +82,9 @@ class RyuOF13SwitchBase(SimpleSwitch13):
                                              actions)]
         for i, match in enumerate(self.matches):
             mod = parser.OFPFlowMod(datapath=datapath,
-                             priority = self.FLOW_PRIORITY_BASE + i,
-                             match=match,
-                             instructions=inst)
+                                    priority=self.FLOW_PRIORITY_BASE + i,
+                                    match=match,
+                                    instructions=inst)
             ### TODO: Check flow overlaps
             datapath.send_msg(mod)
 
@@ -110,7 +106,6 @@ class RyuOF13SwitchBase(SimpleSwitch13):
         ### So we need OVS >= 2.1.
         if msg.reason == ev.msg.datapath.ofproto.OFPR_NO_MATCH or DISABLE_INJECTION:
             self.logger.debug('PKT-IN: NOT inject, msg.reason=%d', msg.reason)
-            hexdump(msg.data)
             super(RyuOF13SwitchBase, self)._packet_in_handler(ev)
         else:
             self.logger.debug('PKT-IN: inject, msg.reason=%d', msg.reason)
@@ -118,7 +113,9 @@ class RyuOF13SwitchBase(SimpleSwitch13):
             self.zmq_client.send(hash(ev), msg.data)
 
 
-import socket            
+import socket
+
+
 class RyuOF13Switch(RyuOF13SwitchBase):
     def __init__(self, tcp_ports, udp_ports, zmq_addr, *args, **kwargs):
         OFPMatch = self.OFP_PARSER.OFPMatch
