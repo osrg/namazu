@@ -3,6 +3,8 @@ machine:
     - docker
 
 dependencies:
+  cache_directories:
+    - /var/lib/docker
   override:
     - docker info
     - docker build -t osrg/earthquake .

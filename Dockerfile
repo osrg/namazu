@@ -7,7 +7,7 @@ MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 RUN apt-get update
 
 ## Install protoc
-RUN apt-get install -y protobuf-compiler
+RUN apt-get install -y --no-install-recommends protobuf-compiler
 
 ## Install Go 1.5 (or later) to /go
 ENV GOROOT_BOOTSTRAP /go1.4
@@ -16,7 +16,7 @@ RUN git clone https://go.googlesource.com/go /go && (cd /go/src; ./make.bash)
 ENV PATH /go/bin:$PATH
 
 ## Install JDK and so on
-RUN apt-get install -y default-jdk maven
+RUN apt-get install -y --no-install-recommends default-jdk maven
 
 ## Install ryu
 RUN pip uninstall -y ryu && pip install ryu==3.20.2
@@ -26,10 +26,10 @@ RUN wget --no-check-certificate --quiet https://raw.githubusercontent.com/jpetaz
 RUN chmod +x /usr/local/bin/pipework
 
 ## Install nfqhook deps
-RUN apt-get install -y libnetfilter-queue1 python-prctl
+RUN apt-get install -y --no-install-recommends libnetfilter-queue1 python-prctl
 
 ## Install Earthquake deps
-RUN apt-get install -y python-flask python-scapy python-zmq sudo
+RUN apt-get install -y --no-install-recommends python-flask python-scapy python-zmq sudo
 RUN pip install hexdump
 
 ## Copy Earthquake to /earthquake
