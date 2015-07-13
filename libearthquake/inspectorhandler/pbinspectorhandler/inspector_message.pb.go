@@ -3,13 +3,14 @@
 // DO NOT EDIT!
 
 /*
-Package equtils is a generated protocol buffer package.
+Package pbinspectorhandler is a generated protocol buffer package.
 
 It is generated from these files:
 	inspector_message.proto
 
 It has these top-level messages:
 	InspectorMsgReq_Event_FuncCall
+	InspectorMsgReq_Event_FuncReturn
 	InspectorMsgReq_Event_Exit
 	InspectorMsgReq_Event
 	InspectorMsgReq_Initiation
@@ -19,7 +20,7 @@ It has these top-level messages:
 	InspectorMsgReq
 	InspectorMsgRsp
 */
-package equtils
+package pbinspectorhandler
 
 import proto "github.com/golang/protobuf/proto"
 import math "math"
@@ -31,17 +32,20 @@ var _ = math.Inf
 type InspectorMsgReq_Event_Type int32
 
 const (
-	InspectorMsgReq_Event_FUNC_CALL InspectorMsgReq_Event_Type = 1
-	InspectorMsgReq_Event_EXIT      InspectorMsgReq_Event_Type = 2
+	InspectorMsgReq_Event_FUNC_CALL   InspectorMsgReq_Event_Type = 1
+	InspectorMsgReq_Event_FUNC_RETURN InspectorMsgReq_Event_Type = 2
+	InspectorMsgReq_Event_EXIT        InspectorMsgReq_Event_Type = 3
 )
 
 var InspectorMsgReq_Event_Type_name = map[int32]string{
 	1: "FUNC_CALL",
-	2: "EXIT",
+	2: "FUNC_RETURN",
+	3: "EXIT",
 }
 var InspectorMsgReq_Event_Type_value = map[string]int32{
-	"FUNC_CALL": 1,
-	"EXIT":      2,
+	"FUNC_CALL":   1,
+	"FUNC_RETURN": 2,
+	"EXIT":        3,
 }
 
 func (x InspectorMsgReq_Event_Type) Enum() *InspectorMsgReq_Event_Type {
@@ -146,6 +150,22 @@ func (m *InspectorMsgReq_Event_FuncCall) GetName() string {
 	return ""
 }
 
+type InspectorMsgReq_Event_FuncReturn struct {
+	Name             *string `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
+	XXX_unrecognized []byte  `json:"-"`
+}
+
+func (m *InspectorMsgReq_Event_FuncReturn) Reset()         { *m = InspectorMsgReq_Event_FuncReturn{} }
+func (m *InspectorMsgReq_Event_FuncReturn) String() string { return proto.CompactTextString(m) }
+func (*InspectorMsgReq_Event_FuncReturn) ProtoMessage()    {}
+
+func (m *InspectorMsgReq_Event_FuncReturn) GetName() string {
+	if m != nil && m.Name != nil {
+		return *m.Name
+	}
+	return ""
+}
+
 type InspectorMsgReq_Event_Exit struct {
 	ExitCode         *int32 `protobuf:"varint,1,req,name=exitCode" json:"exitCode,omitempty"`
 	XXX_unrecognized []byte `json:"-"`
@@ -163,10 +183,11 @@ func (m *InspectorMsgReq_Event_Exit) GetExitCode() int32 {
 }
 
 type InspectorMsgReq_Event struct {
-	Type             *InspectorMsgReq_Event_Type     `protobuf:"varint,1,req,name=type,enum=equtils.InspectorMsgReq_Event_Type" json:"type,omitempty"`
-	FuncCall         *InspectorMsgReq_Event_FuncCall `protobuf:"bytes,2,opt" json:"FuncCall,omitempty"`
-	Exit             *InspectorMsgReq_Event_Exit     `protobuf:"bytes,3,opt" json:"Exit,omitempty"`
-	XXX_unrecognized []byte                          `json:"-"`
+	Type             *InspectorMsgReq_Event_Type       `protobuf:"varint,1,req,name=type,enum=pbinspectorhandler.InspectorMsgReq_Event_Type" json:"type,omitempty"`
+	FuncCall         *InspectorMsgReq_Event_FuncCall   `protobuf:"bytes,2,opt" json:"FuncCall,omitempty"`
+	FuncReturn       *InspectorMsgReq_Event_FuncReturn `protobuf:"bytes,3,opt" json:"FuncReturn,omitempty"`
+	Exit             *InspectorMsgReq_Event_Exit       `protobuf:"bytes,4,opt" json:"Exit,omitempty"`
+	XXX_unrecognized []byte                            `json:"-"`
 }
 
 func (m *InspectorMsgReq_Event) Reset()         { *m = InspectorMsgReq_Event{} }
@@ -183,6 +204,13 @@ func (m *InspectorMsgReq_Event) GetType() InspectorMsgReq_Event_Type {
 func (m *InspectorMsgReq_Event) GetFuncCall() *InspectorMsgReq_Event_FuncCall {
 	if m != nil {
 		return m.FuncCall
+	}
+	return nil
+}
+
+func (m *InspectorMsgReq_Event) GetFuncReturn() *InspectorMsgReq_Event_FuncReturn {
+	if m != nil {
+		return m.FuncReturn
 	}
 	return nil
 }
@@ -330,7 +358,7 @@ func (m *InspectorMsgReq_JavaSpecificFields) GetParams() []*InspectorMsgReq_Java
 
 type InspectorMsgReq struct {
 	ProcessId             *string                             `protobuf:"bytes,1,req,name=process_id" json:"process_id,omitempty"`
-	Type                  *InspectorMsgReq_Type               `protobuf:"varint,2,req,name=type,enum=equtils.InspectorMsgReq_Type" json:"type,omitempty"`
+	Type                  *InspectorMsgReq_Type               `protobuf:"varint,2,req,name=type,enum=pbinspectorhandler.InspectorMsgReq_Type" json:"type,omitempty"`
 	Pid                   *int32                              `protobuf:"varint,3,req,name=pid" json:"pid,omitempty"`
 	Tid                   *int32                              `protobuf:"varint,4,req,name=tid" json:"tid,omitempty"`
 	MsgId                 *int32                              `protobuf:"varint,5,req,name=msg_id" json:"msg_id,omitempty"`
@@ -417,7 +445,7 @@ func (m *InspectorMsgReq) GetJavaSpecificFields() *InspectorMsgReq_JavaSpecificF
 }
 
 type InspectorMsgRsp struct {
-	Res              *InspectorMsgRsp_Result `protobuf:"varint,1,req,name=res,enum=equtils.InspectorMsgRsp_Result" json:"res,omitempty"`
+	Res              *InspectorMsgRsp_Result `protobuf:"varint,1,req,name=res,enum=pbinspectorhandler.InspectorMsgRsp_Result" json:"res,omitempty"`
 	MsgId            *int32                  `protobuf:"varint,2,opt,name=msg_id" json:"msg_id,omitempty"`
 	GaMsgId          *int32                  `protobuf:"varint,3,opt,name=ga_msg_id" json:"ga_msg_id,omitempty"`
 	XXX_unrecognized []byte                  `json:"-"`
@@ -449,7 +477,7 @@ func (m *InspectorMsgRsp) GetGaMsgId() int32 {
 }
 
 func init() {
-	proto.RegisterEnum("equtils.InspectorMsgReq_Event_Type", InspectorMsgReq_Event_Type_name, InspectorMsgReq_Event_Type_value)
-	proto.RegisterEnum("equtils.InspectorMsgReq_Type", InspectorMsgReq_Type_name, InspectorMsgReq_Type_value)
-	proto.RegisterEnum("equtils.InspectorMsgRsp_Result", InspectorMsgRsp_Result_name, InspectorMsgRsp_Result_value)
+	proto.RegisterEnum("pbinspectorhandler.InspectorMsgReq_Event_Type", InspectorMsgReq_Event_Type_name, InspectorMsgReq_Event_Type_value)
+	proto.RegisterEnum("pbinspectorhandler.InspectorMsgReq_Type", InspectorMsgReq_Type_name, InspectorMsgReq_Type_value)
+	proto.RegisterEnum("pbinspectorhandler.InspectorMsgRsp_Result", InspectorMsgRsp_Result_name, InspectorMsgRsp_Result_value)
 }

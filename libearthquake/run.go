@@ -26,7 +26,7 @@ import (
 	. "./equtils"
 
 	"./historystorage"
-	"./searchpolicy"
+	"./explorepolicy"
 
 	"github.com/mitchellh/cli"
 )
@@ -36,10 +36,10 @@ type runConfig struct {
 	cleanScript    string
 	validateScript string
 
-	searchPolicy string
+	explorePolicy string
 	storageType  string
 
-	searchPolicyParam map[string]interface{}
+	explorePolicyParam map[string]interface{}
 }
 
 func parseRunConfig(jsonPath string) (*runConfig, error) {
@@ -73,13 +73,13 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 		validateScript = root["validate"].(string)
 	}
 
-	searchPolicy := "dumb"
-	var searchPolicyParam map[string]interface{}
-	if _, ok := root["searchPolicy"]; ok {
-		searchPolicy = root["searchPolicy"].(string)
+	explorePolicy := "dumb"
+	var explorePolicyParam map[string]interface{}
+	if _, ok := root["explorePolicy"]; ok {
+		explorePolicy = root["explorePolicy"].(string)
 
-		if _, ok := root["searchPolicyParam"]; ok {
-			searchPolicyParam = root["searchPolicyParam"].(map[string]interface{})
+		if _, ok := root["explorePolicyParam"]; ok {
+			explorePolicyParam = root["explorePolicyParam"].(map[string]interface{})
 		}
 	}
 
@@ -93,10 +93,10 @@ func parseRunConfig(jsonPath string) (*runConfig, error) {
 		cleanScript:    cleanScript,
 		validateScript: validateScript,
 
-		searchPolicy: searchPolicy,
+		explorePolicy: explorePolicy,
 		storageType:  storageType,
 
-		searchPolicyParam: searchPolicyParam,
+		explorePolicyParam: explorePolicyParam,
 	}, nil
 }
 
@@ -130,12 +130,12 @@ func run(args []string) {
 	storage := historystorage.New(conf.storageType, storagePath)
 	storage.Init()
 
-	policy := searchpolicy.CreatePolicy(conf.searchPolicy)
+	policy := explorepolicy.CreatePolicy(conf.explorePolicy)
 	if policy == nil {
-		fmt.Printf("invalid policy name: %s", conf.searchPolicy)
+		fmt.Printf("invalid policy name: %s", conf.explorePolicy)
 		os.Exit(1)
 	}
-	policy.Init(storage, conf.searchPolicyParam)
+	policy.Init(storage, conf.explorePolicyParam)
 
 	nextDir := storage.CreateNewWorkingDir()
 	InitLog(nextDir + "/earthquake.log")
@@ -144,7 +144,7 @@ func run(args []string) {
 	end := make(chan interface{})
 	newTraceCh := make(chan *SingleTrace)
 
-	go searchModeNoInitiation(nextDir, policy, end, newTraceCh)
+	go orchestrate(end, policy, newTraceCh)
 
 	materialsDir := storagePath + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + conf.runScript

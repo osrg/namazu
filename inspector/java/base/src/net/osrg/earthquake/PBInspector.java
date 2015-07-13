@@ -439,9 +439,34 @@ public class PBInspector implements Inspector {
 
     private InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[] makeStackTrace() {
         StackTraceElement traces[] = Thread.currentThread().getStackTrace();
-        InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[] ret = new InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[traces.length];
 
+        /* CAUTION: heuristics */
+        int maxRuleJavaIdx = -1;
         for (int i = 0; i < traces.length; i++) {
+            StackTraceElement trace = traces[i];
+
+            if (trace == null) {
+                continue;
+            }
+
+            String fileName = trace.getFileName();
+
+            if (fileName == null) {
+                continue;
+            }
+
+            if (fileName.equals("Rule.java")) {
+                maxRuleJavaIdx = i;
+            }
+        }
+
+        if (maxRuleJavaIdx == -1) {
+            LOGGER.severe("unexpected call stack");
+            System.exit(1);
+        }
+
+        InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[] ret = new InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement[traces.length - (maxRuleJavaIdx + 1)];
+        for (int i = maxRuleJavaIdx + 1, j = 0; i < traces.length; i++, j++) {
             StackTraceElement trace = traces[i];
 
             if (trace == null) {
@@ -457,7 +482,7 @@ public class PBInspector implements Inspector {
 
             InspectorMessage.InspectorMsgReq_JavaSpecificFields_StackTraceElement newElement = traceBuilder.build();
 
-            ret[i] = newElement;
+            ret[j] = newElement;
         }
 
         return ret;
@@ -486,6 +511,29 @@ public class PBInspector implements Inspector {
         sendEvent(ev, true, makeStackTrace(), null);
     }
 
+    public void EventFuncReturn(String funcName) {
+        if (Disabled) {
+            LOGGER.fine("already disabled");
+            return;
+        }
+
+        if (!running) {
+            LOGGER.fine("killed");
+            return;
+        }
+
+        LOGGER.finest("EventFuncReturn: " + funcName);
+        InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder evFunBuilder = InspectorMessage.InspectorMsgReq_Event_FuncReturn.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event_FuncReturn evFun = evFunBuilder.setName(funcName).build();
+
+        InspectorMessage.InspectorMsgReq_Event.Builder evBuilder = InspectorMessage.InspectorMsgReq_Event.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event ev = evBuilder
+                .setType(InspectorMessage.InspectorMsgReq_Event.Type.FUNC_RETURN)
+                .setFuncReturn(evFun).build();
+
+        sendEvent(ev, true, makeStackTrace(), null);
+    }
+
     private InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[] makeParamsArray(Map<String, Object> paramMap) {
         InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[] ret;
         ret = new InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params[paramMap.size()];
@@ -494,11 +542,49 @@ public class PBInspector implements Inspector {
         for (Map.Entry<String, Object> e: paramMap.entrySet()) {
             InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.Builder paramBuilder = InspectorMessage.InspectorMsgReq_JavaSpecificFields_Params.newBuilder();
 
-            ret[i++] = paramBuilder.setName(e.getKey()).setValue(e.getValue().toString()).build();
+            ret[i++] = paramBuilder.setName(e.getKey()).setValue(e.getValue() == null ? "null" : e.getValue().toString()).build();
         }
 
         return ret;
     }
+
+    private boolean classFilterMatch(String className) {
+        StackTraceElement traces[] = Thread.currentThread().getStackTrace();
+
+        for (int i = 0; i < traces.length; i++) {
+            StackTraceElement trace = traces[i];
+
+            String name = trace.getClassName();
+            if (name == null) {
+                continue;
+            }
+
+            if (name.equals(className)) {
+                LOGGER.info("class filter match: " + className);
+                return true;
+            }
+        }
+
+        LOGGER.info("class filter dones't match: " + className);
+        return false;
+    }
+
+    public void EventFuncCall(String funcName, String classFilter) {
+        if (!classFilterMatch(classFilter)) {
+            return;
+        }
+
+        EventFuncCall(funcName);
+    }
+
+    public void EventFuncReturn(String funcName, String classFilter) {
+        if (!classFilterMatch(classFilter)) {
+            return;
+        }
+
+        EventFuncReturn(funcName);
+    }
+
     public void EventFuncCall(String funcName, Map<String, Object> paramMap) {
          if (Disabled) {
             LOGGER.fine("already disabled");
@@ -521,6 +607,46 @@ public class PBInspector implements Inspector {
                 .setFuncCall(evFun).build();
 
         sendEvent(ev, true, makeStackTrace(), makeParamsArray(paramMap));
+    }
+
+    public void EventFuncReturn(String funcName, Map<String, Object> paramMap) {
+         if (Disabled) {
+            LOGGER.fine("already disabled");
+            return;
+        }
+
+        if (!running) {
+            LOGGER.fine("killed");
+            return;
+        }
+
+        LOGGER.finest("EventFuncReturn: " + funcName);
+        LOGGER.info("paramMap: " + paramMap.toString());
+        InspectorMessage.InspectorMsgReq_Event_FuncReturn.Builder evFunBuilder = InspectorMessage.InspectorMsgReq_Event_FuncReturn.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event_FuncReturn evFun = evFunBuilder.setName(funcName).build();
+
+        InspectorMessage.InspectorMsgReq_Event.Builder evBuilder = InspectorMessage.InspectorMsgReq_Event.newBuilder();
+        InspectorMessage.InspectorMsgReq_Event ev = evBuilder
+                .setType(InspectorMessage.InspectorMsgReq_Event.Type.FUNC_RETURN)
+                .setFuncReturn(evFun).build();
+
+        sendEvent(ev, true, makeStackTrace(), makeParamsArray(paramMap));
+    }
+
+    public void EventFuncCall(String funcName, Map<String, Object> paramMap, String classFilter) {
+        if (!classFilterMatch(classFilter)) {
+            return;
+        }
+
+        EventFuncCall(funcName, paramMap);
+    }
+
+    public void EventFuncReturn(String funcName, Map<String, Object> paramMap, String classFilter) {
+        if (!classFilterMatch(classFilter)) {
+            return;
+        }
+
+        EventFuncReturn(funcName, paramMap);
     }
 
     public void StopInspection() {

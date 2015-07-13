@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package searchpolicy
+package explorepolicy
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ import (
 	"./zk2172"
 )
 
-type SearchPolicy interface {
+type ExplorePolicy interface {
 	Init(storage historystorage.HistoryStorage, param map[string]interface{})
 	Name() string
 
@@ -34,7 +34,7 @@ type SearchPolicy interface {
 	QueueNextEvent(id string, ev *Event)
 }
 
-func CreatePolicy(name string) SearchPolicy {
+func CreatePolicy(name string) ExplorePolicy {
 	switch name {
 	case "dumb":
 		return dumb.DumbNew()

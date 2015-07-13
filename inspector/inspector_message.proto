@@ -13,11 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package equtils;
+package pbinspectorhandler;
 
 option java_package = "net.osrg.earthquake";
 
 message InspectorMsgReq_Event_FuncCall {
+  required string name = 1;
+};
+
+message InspectorMsgReq_Event_FuncReturn {
   required string name = 1;
 };
 
@@ -28,13 +32,15 @@ message InspectorMsgReq_Event_Exit {
 message InspectorMsgReq_Event {
   enum Type {
     FUNC_CALL = 1;
-    EXIT = 2;
+    FUNC_RETURN = 2;
+    EXIT = 3;
   };
 
   required Type type = 1;
 
   optional InspectorMsgReq_Event_FuncCall FuncCall = 2;
-  optional InspectorMsgReq_Event_Exit Exit = 3;
+  optional InspectorMsgReq_Event_FuncReturn FuncReturn = 3;
+  optional InspectorMsgReq_Event_Exit Exit = 4;
 };
 
 message InspectorMsgReq_Initiation {

@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Nippon Telegraph and Telephone Corporation.
+// Copyright (C) 2015 Nippon Telegraph and Telephone Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,29 +13,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package inspectorhandler
 
 import (
-	"fmt"
-	"os"
+	. "../equtils"
 
-	"github.com/mitchellh/cli"
+	"./pbinspectorhandler"
 )
 
-func main() {
-	c := cli.NewCLI("earthquake", "0.0.0")
-	c.Args = os.Args[1:]
-	c.Commands = map[string]cli.CommandFactory{
-		"tools":  toolsCommandFactory,
-
-		"init": initCommandFactory,
-		"run":  runCommandFactory,
-	}
-
-	exitStatus, err := c.Run()
-	if err != nil {
-		fmt.Printf("failed to execute command: %s\n", err)
-	}
-
-	os.Exit(exitStatus)
+type InspectorHandler interface {
+	StartAccept(readyEntityCh chan *TransitionEntity)
 }
+
+func StartAllInspectorHandler(readyEntityCh chan *TransitionEntity) {
+	pbInspectorHandler := pbinspectorhandler.NewPBInspectorHanlder()
+	go pbInspectorHandler.StartAccept(readyEntityCh)
+}
+

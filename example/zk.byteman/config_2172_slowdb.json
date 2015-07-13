@@ -3,9 +3,9 @@
     "validate": "2172_validate.sh",
     "clean": "quorumStop.sh",
 
-    "searchPolicy" : "ZK2172",
+    "explorePolicy" : "ZK2172",
 
-    "searchPolicyParam" : {
+    "explorePolicyParam" : {
 	"interval": 100
     }
 }
