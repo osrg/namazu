@@ -1,7 +1,7 @@
 {
-    "id": "http://github.com/osrg/earthquake/schema/action_PassDeferredEventAction.json_schema#",
+    "id": "http://github.com/osrg/earthquake/schema/action_AcceptDeferredEventAction.json_schema#",
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "description": "schema for a PassDeferredEventAction",
+    "description": "schema for a AcceptDeferredEventAction",
     "additionalProperties": true,
     "required": [
 	"class",

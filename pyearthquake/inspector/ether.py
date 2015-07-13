@@ -10,7 +10,7 @@ import requests
 from .. import LOG as _LOG
 from ..entity.entity import EventBase, ActionBase
 from ..entity.event import PacketEvent
-from ..entity.action import PassDeferredEventAction, NopAction
+from ..entity.action import AcceptDeferredEventAction, NopAction
 from .ether_tcp_watcher import TCPWatcher
 
 LOG = _LOG.getChild(__name__)
@@ -130,7 +130,7 @@ class EtherInspectorBase(object):
             if buffer_if_not_sent:
                 LOG.debug('Buffering an event: %s', event)
             else:
-                LOG.debug('Passing an event (could not sent to orchestrator): %s', event)
+                LOG.debug('Accepting an event (could not sent to orchestrator): %s', event)
                 self._send_to_middlebox(metadata)
                 return
         self.defer_packet_event(metadata, event)
@@ -141,18 +141,18 @@ class EtherInspectorBase(object):
         """
         assert isinstance(event, PacketEvent)
         assert event.deferred
+        LOG.debug('Defer event=%s, deferred+:%d->%d',
+                  event, len(self.deferred_events), len(self.deferred_events)+1)
         self.deferred_events[event.uuid] = {'event': event, 'metadata': metadata, 'time': time.time()}
-        LOG.debug('Defer event=%s, deferred(after defer)=%d',
-                  event, len(self.deferred_events))
 
-    def pass_deferred_event_uuid(self, event_uuid):
+    def accept_deferred_event_uuid(self, event_uuid):
         try:
             event = self.deferred_events[event_uuid]['event']
             assert isinstance(event, PacketEvent)
             assert event.deferred
             metadata = self.deferred_events[event_uuid]['metadata']
-            LOG.debug('Pass deferred event=%s, len(before pass)=%d',
-                      event, len(self.deferred_events))
+            LOG.debug('Accept deferred event=%s, deferred-:%d->%d',
+                      event, len(self.deferred_events), len(self.deferred_events)-1)
             self._send_to_middlebox(metadata)
             del self.deferred_events[event_uuid]
         except Exception as e:
@@ -173,7 +173,7 @@ class EtherInspectorBase(object):
 
     def on_recv_action_from_orchestrator(self, action):
         LOG.debug('Received action: %s', action)
-        if isinstance(action, PassDeferredEventAction):
+        if isinstance(action, AcceptDeferredEventAction):
             ev_uuid = action.option['event_uuid']
             self.pass_deferred_event_uuid(ev_uuid)
         elif isinstance(action, NopAction):

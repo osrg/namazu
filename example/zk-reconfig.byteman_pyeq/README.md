@@ -35,7 +35,7 @@ Get execution history
       "elements": [
         {
           "process": "zksrv1",
-          "action_digest": "PassDeferredEventAction",
+          "action_digest": "AcceptDeferredEventAction",
           "event_digest": [
             "FunctionCallEvent",
             {
@@ -47,7 +47,7 @@ Get execution history
         },
         {
           "process": "zksrv2",
-          "action_digest": "PassDeferredEventAction",
+          "action_digest": "AcceptDeferredEventAction",
           "event_digest": [
             "FunctionCallEvent",
             {
