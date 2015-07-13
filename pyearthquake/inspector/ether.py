@@ -24,7 +24,7 @@ eventlet.monkey_patch()  # for requests
 class EtherInspectorBase(object):
     pkt_recv_handler_table = {}
 
-    def __init__(self, zmq_addr, orchestrator_rest_url='http://localhost:10000/api/v2',
+    def __init__(self, zmq_addr, orchestrator_rest_url='http://localhost:10080/api/v2',
                  process_id='_earthquake_ether_inspector'):
         if ENABLE_TCP_WATCHER:
             LOG.info('Using TCPWatcher')

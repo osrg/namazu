@@ -1,6 +1,6 @@
 {
     "globalFlags": {
-        "orchestratorListenPort": 10000,
+        "orchestratorListenPort": 10080,
         "search": {
 	    "mode": "naive",
             "directory": "\/tmp\/eq\/search"
