@@ -26,13 +26,7 @@ Run experiments
     # loop as many times as you want...
 
 
-Get experimental result CSV
-
-    $ curl http://localhost:10000/visualize_api/csv
-    # exp_count	patterns
-    1 1
-    5 2
-    ..
+   ..
 
 Get execution history
 

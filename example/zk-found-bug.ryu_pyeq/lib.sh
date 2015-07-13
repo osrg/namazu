@@ -52,7 +52,7 @@ function START_ZOOKEEPER(){
 }
 
 function STOP_EQ_INSPECTION(){
-    curl --data {} http://localhost:10000/api/v2/ctrl/force_terminate
+    curl --data {} http://localhost:10080/api/v2/ctrl/force_terminate
 }
 
 function CHECK_BUG_REPRODUCED(){
