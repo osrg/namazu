@@ -4,7 +4,7 @@ from eventlet.green import zmq
 import six
 import json
 
-from .. import LOG as _LOG
+from pyearthquake import LOG as _LOG
 
 LOG = _LOG.getChild(__name__)
 

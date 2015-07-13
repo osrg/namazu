@@ -5,7 +5,7 @@ from ctypes import *
 import logging
 import prctl
 
-from .. import LOG as _LOG
+from pyearthquake import LOG as _LOG
 
 LOG = _LOG.getChild(__name__)
 LOG.setLevel(logging.INFO)

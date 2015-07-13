@@ -1,17 +1,18 @@
 from abc import ABCMeta, abstractmethod
-import eventlet
-from eventlet.green import SocketServer, zmq, time
-import hexdump
 import json
-import scapy.all
-import six
 import requests
 
+import eventlet
+from eventlet.green import zmq, time
+import hexdump
+import scapy.all
+import six
+
 from .. import LOG as _LOG
-from ..entity.entity import EventBase, ActionBase
+from ..entity.entity import ActionBase
 from ..entity.event import PacketEvent
 from ..entity.action import AcceptDeferredEventAction, NopAction
-from .ether_tcp_watcher import TCPWatcher
+from pyearthquake.inspector.internal.ether_tcp_watcher import TCPWatcher
 
 LOG = _LOG.getChild(__name__)
 

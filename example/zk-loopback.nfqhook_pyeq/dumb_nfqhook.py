@@ -6,7 +6,7 @@ SLEEP_SECS=0.03
 SOCK_BUF_SIZE=65536
 
 import pyearthquake
-from pyearthquake.middlebox.nfq import NFQ
+from pyearthquake.middlebox.internal.nfq import NFQ
 LOG = pyearthquake.LOG.getChild(__name__)
 import socket
 from scapy.all import IP

@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+
 import six
 from ryu.controller import ofp_event
 from ryu.controller.handler import CONFIG_DISPATCHER, MAIN_DISPATCHER
@@ -7,7 +8,8 @@ from ryu.ofproto import ofproto_v1_3, ofproto_v1_3_parser
 from ryu.lib.packet import packet
 from ryu.lib.packet import ethernet
 from ryu.app.simple_switch_13 import SimpleSwitch13
-from .zmqclient import ZMQClientBase
+
+from pyearthquake.middlebox.internal.zmqclient import ZMQClientBase
 
 DISABLE_INJECTION = False
 

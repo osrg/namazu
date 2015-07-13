@@ -1,6 +1,6 @@
 import ryu.lib.packet.packet
 
-from .. import LOG as _LOG
+from pyearthquake import LOG as _LOG
 LOG = _LOG.getChild(__name__)
 
 class TCPWatcher(object):
