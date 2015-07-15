@@ -64,3 +64,75 @@ type TransitionEntity struct {
 	EventToMain chan *Event
 	GotoNext  chan interface{}
 }
+
+func compareJavaSpecificFields(a, b *Event) bool {
+	// skip thread name and stack trace currently
+
+	if a.JavaSpecific.NrParams != b.JavaSpecific.NrParams {
+		return false
+	}
+
+	for i, aParam := range a.JavaSpecific.Params {
+		bParam := &b.JavaSpecific.Params[i]
+
+		if aParam.Name != bParam.Name {
+			return false
+		}
+
+		if aParam.Value != bParam.Value {
+			return false
+		}
+	}
+
+	return true
+}
+
+func AreEventsEqual(a, b *Event) bool {
+	if a.ProcId != b.ProcId {
+		return false
+	}
+
+	if a.EventType != b.EventType {
+		return false
+	}
+
+	if a.EventParam != b.EventParam {
+		return false
+	}
+
+	if a.JavaSpecific != nil && b.JavaSpecific != nil{
+		return compareJavaSpecificFields(a, b)
+	}
+
+	return true
+}
+
+func AreEventsSliceEqual(a, b []Event) bool{
+	aLen := len(a)
+	bLen := len(b)
+	if aLen != bLen {
+		return false
+	}
+
+	for i := 0; i < aLen; i++ {
+		if !AreEventsEqual(&a[i], &b[i]) {
+			return false
+		}
+	}
+
+	return true
+}
+
+func AreTracesEqual(a, b *SingleTrace) bool {
+	if len(a.EventSequence) != len(b.EventSequence) {
+		return false
+	}
+
+	for i := 0; i < len(a.EventSequence); i++ {
+		if !AreEventsEqual(&a.EventSequence[i], &b.EventSequence[i]) {
+			return false
+		}
+	}
+
+	return true
+}

@@ -21,8 +21,10 @@ import (
 	. "../equtils"
 	"../historystorage"
 
+	"./dfs"
 	"./dumb"
 	"./random"
+
 	"./zk2172"
 )
 
@@ -42,6 +44,8 @@ func CreatePolicy(name string) ExplorePolicy {
 		return random.RandomNew()
 	case "ZK2172":
 		return zk2172.ZK2172New()
+	case "DFS":
+		return dfs.DFSNew()
 	default:
 		fmt.Printf("unknown search policy: %s\n", name)
 	}

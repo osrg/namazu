@@ -62,7 +62,7 @@ func seenBefore(traces []*uniqueTraceUnit, newUnit *uniqueTraceUnit) bool {
 		seen := true
 
 		for i, ev := range trace.EventSequence {
-			if !areEventsEqual(&ev, &newTrace.EventSequence[i]) {
+			if !AreEventsEqual(&ev, &newTrace.EventSequence[i]) {
 				seen = false
 				break
 			}
@@ -130,7 +130,7 @@ func tracesEqualInPO(_a, _b *uniqueTraceUnit) bool {
 		}
 
 		for i, ev := range aEvents {
-			if !areEventsEqual(ev, bEvents[i]) {
+			if !AreEventsEqual(ev, bEvents[i]) {
 				return false
 			}
 		}
