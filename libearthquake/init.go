@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"os"
 
-	// . "../equtils"
+	. "./equtils"
 
 	"./historystorage"
 	"github.com/mitchellh/cli"
@@ -132,7 +132,7 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
-	cfg, err := parseRunConfig(conf)
+	vcfg, err := ParseConfigFile(conf)
 	if err != nil {
 		fmt.Printf("parsing config file (%s) failed: %s\n", conf, err)
 		os.Exit(1)
@@ -155,7 +155,7 @@ func _init(args []string) {
 
 	recursiveHardLink(materials, materialDir)
 
-	storage := historystorage.New(cfg.storageType, storagePath)
+	storage := historystorage.New(vcfg.GetString("storageType"), storagePath)
 	storage.CreateStorage()
 
 	fmt.Printf("ok\n")

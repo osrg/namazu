@@ -21,6 +21,7 @@ import (
 	"bytes"
 	"encoding/gob"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"time"
 )
@@ -135,7 +136,7 @@ func (n *Naive) NrStoredHistories() int {
 func (n *Naive) GetStoredHistory(id int) (*SingleTrace, error) {
 	path := fmt.Sprintf("%s/%08x/history", n.dir, id)
 
-	encoded, err := WholeRead(path)
+	encoded, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
@@ -182,7 +183,7 @@ func (n *Naive) RecordResult(succeed bool, requiredTime time.Duration) error {
 func (n *Naive) IsSucceed(id int) (bool, error) {
 	path := fmt.Sprintf("%s/%08x/%s", n.dir, id, resultPath)
 
-	encoded, err := WholeRead(path)
+	encoded, err := ioutil.ReadFile(path)
 	if err != nil {
 		return false, err
 	}
@@ -202,7 +203,7 @@ func (n *Naive) IsSucceed(id int) (bool, error) {
 func (n *Naive) GetRequiredTime(id int) (time.Duration, error) {
 	path := fmt.Sprintf("%s/%08x/%s", n.dir, id, resultPath)
 
-	encoded, err := WholeRead(path)
+	encoded, err := ioutil.ReadFile(path)
 	if err != nil {
 		return 0, err
 	}

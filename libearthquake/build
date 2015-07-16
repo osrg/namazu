@@ -8,10 +8,12 @@ export GOPATH=$BUILDROOT/gopath
 export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
 
+# TODO: use some package manager
 go get github.com/golang/protobuf/proto
 go get github.com/golang/protobuf/protoc-gen-go
 go get github.com/sevlyar/go-daemon
 go get github.com/mitchellh/cli
+go get github.com/spf13/viper
 
 EQUTILS_PATH=`pwd`/equtils
 protoc --go_out=$BUILDROOT/libearthquake/inspectorhandler/pbinspectorhandler -I$BUILDROOT/inspector $BUILDROOT/inspector/*.proto
