@@ -22,7 +22,7 @@ import (
 	// "os"
 	"flag"
 
-	. "../equtils"
+	// . "../equtils"
 
 	"github.com/mitchellh/cli"
 )
@@ -38,62 +38,6 @@ var (
 
 func init() {
 	calcDuplicationFlagset.StringVar(&_calcDuplicationFlags.TraceDir, "trace-dir", "", "path of trace data directory")
-}
-
-func compareJavaSpecificFields(a, b *Event) bool {
-	// skip thread name and stack trace currently
-
-	if a.JavaSpecific.NrParams != b.JavaSpecific.NrParams {
-		return false
-	}
-
-	for i, aParam := range a.JavaSpecific.Params {
-		bParam := &b.JavaSpecific.Params[i]
-
-		if aParam.Name != bParam.Name {
-			return false
-		}
-
-		if aParam.Value != bParam.Value {
-			return false
-		}
-	}
-
-	return true
-}
-
-func areEventsEqual(a, b *Event) bool {
-	if a.ProcId != b.ProcId {
-		return false
-	}
-
-	if a.EventType != b.EventType {
-		return false
-	}
-
-	if a.EventParam != b.EventParam {
-		return false
-	}
-
-	if a.JavaSpecific != nil && b.JavaSpecific != nil{
-		return compareJavaSpecificFields(a, b)
-	}
-
-	return true
-}
-
-func areTracesEqual(a, b *SingleTrace) bool {
-	if len(a.EventSequence) != len(b.EventSequence) {
-		return false
-	}
-
-	for i := 0; i < len(a.EventSequence); i++ {
-		if !areEventsEqual(&a.EventSequence[i], &b.EventSequence[i]) {
-			return false
-		}
-	}
-
-	return true
 }
 
 func calcDuplication(args []string) {

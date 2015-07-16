@@ -219,6 +219,27 @@ func (n *Naive) GetRequiredTime(id int) (time.Duration, error) {
 
 }
 
+func (n *Naive) Search(prefix []Event) []int {
+	// FIXME: quite ineffective
+
+	len := len(prefix)
+	matched := make([]int, 0)
+
+	for i := 0; i < n.info.NrCollectedTraces-1; i++ { // FIXME: need to - 1 because the latest trace isn't recorded yet
+		history, err := n.GetStoredHistory(i)
+		if err != nil {
+			Log("failed to get history %i: %s", i, err)
+			os.Exit(1)
+		}
+
+		if AreEventsSliceEqual(prefix, history.EventSequence[:len]) {
+			matched = append(matched, i)
+		}
+	}
+
+	return matched
+}
+
 func (n *Naive) Init() {
 	n.info = n.readSearchModeInfo()
 }
