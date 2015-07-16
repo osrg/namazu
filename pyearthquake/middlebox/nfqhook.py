@@ -1,12 +1,14 @@
 import ctypes
-import eventlet
-from eventlet.green import zmq, socket
-import scapy.all
 import sys
 
+import eventlet
+
+from eventlet.green import socket
+import scapy.all
+
 from .. import LOG as _LOG
-from .nfq import NFQ
-from .zmqclient import ZMQClientBase
+from pyearthquake.middlebox.internal.nfq import NFQ
+from pyearthquake.middlebox.internal.zmqclient import ZMQClientBase
 
 LOG = _LOG.getChild(__name__)
 

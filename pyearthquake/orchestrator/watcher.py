@@ -6,7 +6,7 @@ import time
 import uuid
 
 from .. import LOG as _LOG
-from ..entity.action import PassDeferredEventAction, NopAction
+from ..entity.action import AcceptDeferredEventAction, NopAction
 
 LOG = _LOG.getChild('orchestrator.watcher')
 
@@ -45,7 +45,7 @@ class DefaultWatcher(WatcherBase):
     def on_event(self, state, event):
         if event.deferred:
             LOG.warn('DefaultWatcher passing %s immediately. the event is not passed to the explorer', event)
-            action = PassDeferredEventAction.from_event(event)
+            action = AcceptDeferredEventAction.from_event(event)
             self.oc.call_action(action)
         else:
             LOG.warn('DefaultWatcher ignoring %s', event)
@@ -65,7 +65,7 @@ class BasicProcessWatcher(WatcherBase):
     def on_event(self, state, event):
         pairs = []
         if event.deferred:
-            action = PassDeferredEventAction.from_event(event)
+            action = AcceptDeferredEventAction.from_event(event)
         else:
             action = NopAction.from_event(event)
         pair = self.oc.make_digestible_pair(event, action)

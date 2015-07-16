@@ -69,7 +69,8 @@ Please also refer to [figs/eq-redesign.pdf](figs/eq-redesign.pdf) for planned ar
   
  * Actions:
   * `NopAction`: nop
-  * `PassDeferredEventAction`: for `FunctionCallEvent` and `PacketEvent`
+  * `AcceptDeferredEventAction`: for `FunctionCallEvent` and `PacketEvent`
+  * `DropDeferredEventAction`: (WIP)
   * `ExecuteCommandOnInspectorAction`: (WIP)
   * `ExecuteCommandOnOrchestratorAction`: usable for fault-injection that kills inspectors
 

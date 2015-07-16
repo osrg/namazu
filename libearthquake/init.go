@@ -31,42 +31,51 @@ const (
 )
 
 func recursiveHardLink(srcPath, dstPath string) {
-	f, oerr := os.Open(srcPath)
-	if oerr != nil {
+	// TODO: write error to stderr with some logging library
+	f, err := os.Open(srcPath)
+	if err != nil {
 		fmt.Printf("failed to open source path: %s (%s)\n",
-			srcPath, oerr)
+			srcPath, err)
 		os.Exit(1)
 	}
 
-	names, rerr := f.Readdirnames(0)
-	if rerr != nil {
-		fmt.Printf("failed to readdirnames: %s\n", rerr)
+	names, err := f.Readdirnames(0)
+	if err != nil {
+		fmt.Printf("failed to readdirnames: %s\n", err)
 		os.Exit(1)
 	}
 
 	for _, name := range names {
 		path := srcPath + "/" + name
 
-		fi, serr := os.Stat(path)
-		if serr != nil {
-			fmt.Printf("failed to stat (%s): %s", path, serr)
+		fi, err := os.Lstat(path)
+		if err != nil {
+			fmt.Printf("failed to stat (%s): %s", path, err)
 			os.Exit(1)
 		}
 
 		if fi.Mode().IsDir() {
 			dstDir := dstPath + "/" + name
-			merr := os.Mkdir(dstDir, 0777)
-			if merr != nil {
+			err := os.Mkdir(dstDir, 0777)
+			if err != nil {
 				fmt.Printf("failed to make directory %s: %s\n",
-					dstDir, merr)
+					dstDir, err)
 				os.Exit(1)
 			}
 			recursiveHardLink(path, dstDir)
 		} else {
-			lerr := os.Link(path, dstPath+"/"+name)
-			if lerr != nil {
-				fmt.Printf("failed to link (src: %s, dst: %s): %s\n",
-					path, dstPath+"/"+name, lerr)
+			realPath := path
+			if fi.Mode() & os.ModeSymlink != 0 {
+				realPath, err = os.Readlink(path)
+				if err != nil {
+					fmt.Printf("could not read link %s", path)
+					os.Exit(1)
+				}
+			}
+			err := os.Link(realPath, dstPath+"/"+name)
+			if err != nil {
+				fmt.Printf("failed to link (src: %s(%s), dst: %s): %s\n",
+					path, realPath, dstPath+"/"+name, err)
 				os.Exit(1)
 			}
 		}

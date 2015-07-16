@@ -17,6 +17,7 @@ We have successfully found a distributed race condition bug of ZooKeeper using E
 Please refer to [example/zk-found-bug.ryu\_pyeq](example/zk-found-bug.ryu_pyeq) for further information.
 
 ## Quick Start
+NOTE: the master branch is currently under a major refactoring. [v0.1](https://github.com/osrg/earthquake/releases/tag/v0.1) is stable.
  * How to set up the environment: [doc/how-to-setup-env.md](doc/how-to-setup-env.md)
  * Example: Finding a distributed race condition bug of ZooKeeper([ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212)): [example/zk-found-bug.ryu\_pyeq](example/zk-found-bug.ryu_pyeq)
 

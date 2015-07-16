@@ -11,7 +11,7 @@ class NopAction(ActionBase):
         return inst
 
 @action_class()
-class PassDeferredEventAction(ActionBase): # TODO: rename to {Accept, Drop}DeferredEventAction?
+class AcceptDeferredEventAction(ActionBase):
     @classmethod
     def from_event(cls, event):
         assert event.deferred
@@ -23,6 +23,7 @@ class PassDeferredEventAction(ActionBase): # TODO: rename to {Accept, Drop}Defer
     def digest(self):    
         return (self.__class__.__name__)
 
+# TODO: implement DropDeferredEventAction
 
 @action_class()
 class ExecuteCommandOnInspectorAction(ActionBase):
