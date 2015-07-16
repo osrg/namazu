@@ -16,34 +16,7 @@
 package equtils
 
 import (
-	"os"
+//	"github.com/spf13/pflag"
 )
 
-func WholeRead(path string) ([]byte, error) {
-	f, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-
-	fi, serr := f.Stat()
-	if serr != nil {
-		return nil, serr
-	}
-
-	rbytes := 0
-	size := int(fi.Size())
-
-	buf := make([]byte, size)
-
-	for rbytes != size {
-		r, rerr := f.Read(buf[rbytes:])
-		if rerr != nil {
-			return nil, rerr
-		}
-
-		rbytes += r
-	}
-
-	f.Close()
-	return buf, nil
-}
+// config parser goes here

@@ -19,6 +19,7 @@ import (
 	// "encoding/gob"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/exec"
 	"time"
@@ -43,7 +44,7 @@ type runConfig struct {
 }
 
 func parseRunConfig(jsonPath string) (*runConfig, error) {
-	jsonBuf, rerr := WholeRead(jsonPath)
+	jsonBuf, rerr := ioutil.ReadFile(jsonPath)
 	if rerr != nil {
 		return nil, rerr
 	}

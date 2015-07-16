@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
+	"io/ioutil"
 
 	. "../equtils"
 	"./naive"
@@ -61,7 +62,7 @@ func New(name, dirPath string) HistoryStorage {
 func LoadStorage(dirPath string) HistoryStorage {
 	confPath := dirPath + "/" + StorageConfigPath
 
-	jsonBuf, rerr := WholeRead(confPath)
+	jsonBuf, rerr := ioutil.ReadFile(confPath)
 	if rerr != nil {
 		return nil
 	}
