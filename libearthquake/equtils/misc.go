@@ -16,7 +16,27 @@
 package equtils
 
 import (
-//	"github.com/spf13/pflag"
+	"errors"
+	"github.com/spf13/viper"
 )
 
-// config parser goes here
+// TODO: support env vars for overriding (https://github.com/spf13/viper#working-with-environment-variables)
+// TODO: validate config with JSON schema
+func ParseConfigFile(filePath string) (*viper.Viper, error) {
+	v := viper.New()
+	v.SetDefault("run", "")
+	v.SetDefault("clean", "")
+	v.SetDefault("validate", "")
+	v.SetDefault("explorePolicy", "dumb")
+	v.SetDefault("explorePolicyParam", map[string]interface{}{})
+	v.SetDefault("storageType", "naive")
+	// viper supports JSON, YAML, and TOML
+	v.SetConfigFile(filePath)
+	err := v.ReadInConfig()
+	if err == nil {
+		if v.GetString("run") == "" {
+			err = errors.New("required field \"run\" is missing")
+		}
+	}
+	return v, err
+}

@@ -16,10 +16,7 @@
 package main
 
 import (
-	// "encoding/gob"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"time"
@@ -32,74 +29,7 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-type runConfig struct {
-	runScript      string
-	cleanScript    string
-	validateScript string
 
-	explorePolicy string
-	storageType  string
-
-	explorePolicyParam map[string]interface{}
-}
-
-func parseRunConfig(jsonPath string) (*runConfig, error) {
-	jsonBuf, rerr := ioutil.ReadFile(jsonPath)
-	if rerr != nil {
-		return nil, rerr
-	}
-
-	var root map[string]interface{}
-	err := json.Unmarshal(jsonBuf, &root)
-	if err != nil {
-		return nil, err
-	}
-
-	runScript := ""
-	if _, ok := root["run"]; ok {
-		runScript = root["run"].(string)
-	} else {
-		fmt.Printf("required field \"run\" is missing\n")
-		os.Exit(1) // TODO: construct suitable error
-		return nil, nil
-	}
-
-	cleanScript := ""
-	if _, ok := root["clean"]; ok {
-		cleanScript = root["clean"].(string)
-	}
-
-	validateScript := ""
-	if _, ok := root["validate"]; ok {
-		validateScript = root["validate"].(string)
-	}
-
-	explorePolicy := "dumb"
-	var explorePolicyParam map[string]interface{}
-	if _, ok := root["explorePolicy"]; ok {
-		explorePolicy = root["explorePolicy"].(string)
-
-		if _, ok := root["explorePolicyParam"]; ok {
-			explorePolicyParam = root["explorePolicyParam"].(map[string]interface{})
-		}
-	}
-
-	storageType := "naive"
-	if _, ok := root["storageType"]; ok {
-		storageType = root["storageType"].(string)
-	}
-
-	return &runConfig{
-		runScript:      runScript,
-		cleanScript:    cleanScript,
-		validateScript: validateScript,
-
-		explorePolicy: explorePolicy,
-		storageType:  storageType,
-
-		explorePolicyParam: explorePolicyParam,
-	}, nil
-}
 
 func createCmd(scriptPath, workingDirPath, materialsDirPath string) *exec.Cmd {
 	cmd := exec.Command("sh", "-c", scriptPath)
@@ -122,21 +52,21 @@ func run(args []string) {
 	storagePath := args[0]
 	confPath := storagePath + "/" + historystorage.StorageConfigPath
 
-	conf, err := parseRunConfig(confPath)
+	vcfg, err := ParseConfigFile(confPath)
 	if err != nil {
 		fmt.Printf("failed to parse config file %s: %s\n", confPath, err)
 		os.Exit(1)
 	}
 
-	storage := historystorage.New(conf.storageType, storagePath)
+	storage := historystorage.New(vcfg.GetString("storageType"), storagePath)
 	storage.Init()
 
-	policy := explorepolicy.CreatePolicy(conf.explorePolicy)
+	policy := explorepolicy.CreatePolicy(vcfg.GetString("explorePolicy"))
 	if policy == nil {
-		fmt.Printf("invalid policy name: %s", conf.explorePolicy)
+		fmt.Printf("invalid policy name: %s", vcfg.GetString("explorePolicy"))
 		os.Exit(1)
 	}
-	policy.Init(storage, conf.explorePolicyParam)
+	policy.Init(storage, vcfg.GetStringMap("explorePolicyParam"))
 
 	nextDir := storage.CreateNewWorkingDir()
 	InitLog(nextDir + "/earthquake.log")
@@ -148,16 +78,16 @@ func run(args []string) {
 	go orchestrate(end, policy, newTraceCh)
 
 	materialsDir := storagePath + "/" + storageMaterialsPath
-	runScriptPath := materialsDir + "/" + conf.runScript
+	runScriptPath := materialsDir + "/" + vcfg.GetString("run")
 
 	cleanScriptPath := ""
-	if conf.cleanScript != "" {
-		cleanScriptPath = materialsDir + "/" + conf.cleanScript
+	if vcfg.GetString("clean") != "" {
+		cleanScriptPath = materialsDir + "/" + vcfg.GetString("clean")
 	}
 
 	validateScriptPath := ""
-	if conf.validateScript != "" {
-		validateScriptPath = materialsDir + "/" + conf.validateScript
+	if vcfg.GetString("validate") != "" {
+		validateScriptPath = materialsDir + "/" + vcfg.GetString("validate")
 	}
 
 	runCmd := createCmd(runScriptPath, nextDir, materialsDir)

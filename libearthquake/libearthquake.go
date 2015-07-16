@@ -45,6 +45,7 @@ func init() {
 
 //export EQInitCtx
 func EQInitCtx(configJsonCString *C.char) int {
+	// TODO: refine JSON format for plugins and use equtils.ParseConfigFile
 	configJson := C.GoString(configJsonCString)
 	jsonBuf := []byte(configJson)
 	var root map[string]interface{}

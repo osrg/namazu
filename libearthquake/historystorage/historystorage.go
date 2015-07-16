@@ -16,16 +16,15 @@
 package historystorage
 
 import (
-	"encoding/json"
 	"fmt"
 	"time"
-	"io/ioutil"
 
 	. "../equtils"
 	"./naive"
 )
 
 const (
+	// TODO: we really need to eliminate hard-coded params
 	StorageConfigPath string = "config.json"
 )
 
@@ -62,23 +61,12 @@ func New(name, dirPath string) HistoryStorage {
 func LoadStorage(dirPath string) HistoryStorage {
 	confPath := dirPath + "/" + StorageConfigPath
 
-	jsonBuf, rerr := ioutil.ReadFile(confPath)
-	if rerr != nil {
-		return nil
-	}
-
-	var root map[string]interface{}
-	err := json.Unmarshal(jsonBuf, &root)
+	vcfg, err := ParseConfigFile(confPath)
 	if err != nil {
+		fmt.Printf("error: %s\n", err)
 		return nil
 	}
-
-	storageType := ""
-	if _, ok := root["storageType"]; ok {
-		storageType = root["storageType"].(string)
-	} else {
-		storageType = "naive"
-	}
+	storageType := vcfg.Get("storageType")
 
 	switch storageType {
 	case "naive":
