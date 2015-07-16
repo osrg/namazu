@@ -1,5 +1,0 @@
-iptables -A OUTPUT -j CONNMARK -p tcp -m tcp --dport 9999 --set-mark 42
-iptables -A INPUT -m connmark --mark 42 -j NFLOG --nflog-group 42
-iptables -A OUTPUT -m connmark --mark 42 -j NFLOG --nflog-group 42
-iptables -A OUTPUT -m connmark --mark 42 -j DROP
-dumpcap -i nflog:42
