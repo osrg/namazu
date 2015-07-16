@@ -35,6 +35,7 @@ type BFS struct {
 
 	eventQueue []*Event // high priority
 
+	dumb  bool
 	param *BFSParam
 }
 
@@ -80,6 +81,21 @@ func (this *BFS) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			if nextIdx == -1 {
 				nextIdx = this.randGen.Int() % len(this.eventQueue)
+			} else {
+				Log("a completely new trace, go dumb mode")
+				evQ := this.eventQueue
+				this.eventQueue = []*Event{}
+				this.dumb = true
+				this.queueMutex.Unlock()
+
+				go func() {
+					for _, e := range evQ {
+						this.nextEventChan <- e
+					}
+				}()
+
+				// end this goroutine, below events are processed in a manner of dumb policy
+				break
 			}
 
 			next := this.eventQueue[nextIdx]
@@ -104,7 +120,15 @@ func (this *BFS) GetNextEventChan() chan *Event {
 
 func (this *BFS) QueueNextEvent(procId string, ev *Event) {
 	this.queueMutex.Lock()
-	this.eventQueue = append(this.eventQueue, ev)
+
+	if !this.dumb {
+		this.eventQueue = append(this.eventQueue, ev)
+	} else {
+		go func() {
+			this.nextEventChan <- ev
+		}()
+	}
+
 	this.queueMutex.Unlock()
 }
 
@@ -119,6 +143,7 @@ func BFSNew() *BFS {
 		r,
 		mutex,
 		eventQueue,
+		false,
 		nil,
 	}
 }
