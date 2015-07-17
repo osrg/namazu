@@ -61,7 +61,7 @@ type Action struct {
 }
 
 type SingleTrace struct {
-	EventSequence []Event
+	ActionSequence []Action // NOTE: Action holds the corresponding Evt
 }
 
 type TransitionEntity struct {
@@ -130,16 +130,22 @@ func AreEventsSliceEqual(a, b []Event) bool{
 	return true
 }
 
-func AreTracesEqual(a, b *SingleTrace) bool {
-	if len(a.EventSequence) != len(b.EventSequence) {
+func AreActionsSliceEqual(a, b []Action) bool{
+	aLen := len(a)
+	bLen := len(b)
+	if aLen != bLen {
 		return false
 	}
 
-	for i := 0; i < len(a.EventSequence); i++ {
-		if !AreEventsEqual(&a.EventSequence[i], &b.EventSequence[i]) {
+	for i := 0; i < aLen; i++ {
+		if !AreEventsEqual(a[i].Evt, b[i].Evt) {
 			return false
 		}
 	}
 
 	return true
+}
+
+func AreTracesEqual(a, b *SingleTrace) bool {
+	return  AreActionsSliceEqual(a.ActionSequence, b.ActionSequence)
 }

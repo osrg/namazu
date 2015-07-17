@@ -26,7 +26,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 
 	inspectorhandler.StartAllInspectorHandler(readyEntityCh)
 
-	eventSeq := make([]Event, 0)
+	actionSeq := make([]Action, 0)
 
 	nextActionChan := policy.GetNextActionChan()
 	ev2entity := make(map[*Event]*TransitionEntity)
@@ -59,8 +59,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 			delete(ev2entity, nextEvent)
 
 			// make sequence for tracing
-			// TODO: trace action sequence rather than event sequence
-			eventSeq = append(eventSeq, *nextEvent)
+			actionSeq = append(actionSeq, *nextAction)
 
 			// pass to the inspector handler.
 			// inspector handler should verify action.
@@ -70,7 +69,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 			running = false
 
 			newTrace := &SingleTrace{
-				eventSeq,
+				actionSeq,
 			}
 			newTraceCh <- newTrace
 		}

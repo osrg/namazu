@@ -233,11 +233,16 @@ func (n *Naive) SearchWithConverter(prefix []Event, converter func(events []Even
 			os.Exit(1)
 		}
 
-		if len(history.EventSequence) < prefixLen {
+		if len(history.ActionSequence) < prefixLen {
 			continue
 		}
 
-		converted := converter(history.EventSequence[:prefixLen])
+		convertee := make([]Event, prefixLen)
+		for j, act := range history.ActionSequence[:prefixLen] {
+			convertee[j] = *act.Evt
+		}
+
+		converted := converter(convertee)
 		if AreEventsSliceEqual(prefix, converted) {
 			matched = append(matched, i)
 		}
@@ -248,6 +253,7 @@ func (n *Naive) SearchWithConverter(prefix []Event, converter func(events []Even
 }
 
 func (n *Naive) Search(prefix []Event) []int {
+	// how can we search actions?
 	return n.SearchWithConverter(prefix,
 		func(events []Event) []Event { return events })
 }

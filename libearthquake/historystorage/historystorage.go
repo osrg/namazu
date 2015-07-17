@@ -24,7 +24,7 @@ import (
 )
 
 const (
-	// TODO: we really need to eliminate hard-coded params
+	// TODO: we really need to eliminate hard-coded params (config can be yaml)
 	StorageConfigPath string = "config.json"
 )
 
