@@ -15,26 +15,27 @@
 
 package net.osrg.earthquake;
 
-import net.osrg.earthquake.*;
-import java.util.*;
-import org.jboss.byteman.rule.*;
-import org.jboss.byteman.rule.helper.*;
+import org.jboss.byteman.rule.Rule;
+import org.jboss.byteman.rule.helper.Helper;
 
-public class PBEQHelper extends Helper
-{
+import java.util.Map;
+
+public class PBEQHelper extends Helper {
     static PBInspector inspector;
 
     static {
-    	inspector = new PBInspector();
-    };
+        inspector = new PBInspector();
+    }
+
+    ;
 
     public PBEQHelper(Rule rule) {
-	super(rule);
+        super(rule);
     }
 
     public static void activated() {
-	inspector.Initiation();
-	// System.out.println("BTM: initiation to orchestrator completed");
+        inspector.Initiation();
+        // System.out.println("BTM: initiation to orchestrator completed");
     }
 
     public static void deactivated() {
@@ -42,38 +43,38 @@ public class PBEQHelper extends Helper
     }
 
     public void eventFuncCall(String name) {
-	inspector.EventFuncCall(name);
+        inspector.EventFuncCall(name);
     }
 
     public void eventFuncCall(String name, String classFilter) {
-	inspector.EventFuncCall(name, classFilter);
+        inspector.EventFuncCall(name, classFilter);
     }
 
     public void eventFuncCall(String name, Map<String, Object> argMap) {
-	inspector.EventFuncCall(name, argMap);
+        inspector.EventFuncCall(name, argMap);
     }
 
     public void eventFuncCall(String name, Map<String, Object> argMap, String classFilter) {
-	inspector.EventFuncCall(name, argMap, classFilter);
+        inspector.EventFuncCall(name, argMap, classFilter);
     }
 
     public void eventFuncReturn(String name) {
-	inspector.EventFuncReturn(name);
+        inspector.EventFuncReturn(name);
     }
 
     public void eventFuncReturn(String name, String classFilter) {
-	inspector.EventFuncReturn(name, classFilter);
+        inspector.EventFuncReturn(name, classFilter);
     }
 
     public void eventFuncReturn(String name, Map<String, Object> argMap) {
-	inspector.EventFuncReturn(name, argMap);
+        inspector.EventFuncReturn(name, argMap);
     }
 
     public void eventFuncReturn(String name, Map<String, Object> argMap, String classFilter) {
-	inspector.EventFuncReturn(name, argMap, classFilter);
+        inspector.EventFuncReturn(name, argMap, classFilter);
     }
 
     public void stopInspection() {
-	inspector.StopInspection();
+        inspector.StopInspection();
     }
 }

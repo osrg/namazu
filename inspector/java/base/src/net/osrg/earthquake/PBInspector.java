@@ -15,26 +15,21 @@
 
 package net.osrg.earthquake;
 
-import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
-import sun.awt.windows.ThemeReader;
-import sun.util.logging.resources.logging_fr;
-
-import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.*;
-import java.net.*;
-
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
+
+import java.io.*;
+import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 public class PBInspector implements Inspector {
     private boolean Direct = false;
