@@ -69,7 +69,7 @@ type TransitionEntity struct {
 	Conn net.Conn
 
 	EventToMain chan *Event
-	GotoNext  chan interface{}
+	ActionFromMain chan  *Action
 }
 
 func compareJavaSpecificFields(a, b *Event) bool {

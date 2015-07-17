@@ -37,32 +37,34 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 	for {
 		select {
 		case readyEntity := <-readyEntityCh:
-			if !running {
-				// run script ended, just ignore events
-				readyEntity.GotoNext <- true
-				continue
-			}
-
 			Log("ready process %v", readyEntity)
 			event := <-readyEntity.EventToMain
 			Log("recieved message from %v", readyEntity)
 
-			ev2entity[event] = readyEntity
-			policy.QueueNextEvent(readyEntity.Id, event)
-
-		case nextAction := <-nextActionChan:
-			Log("execute action (type=\"%s\")", nextAction.ActionType)
-			if (nextAction.ActionType != "Accept") {
-				Panic("unsupported action %s", nextAction.ActionType)
+			if running {
+				ev2entity[event] = readyEntity
+				policy.QueueNextEvent(readyEntity.Id, event)
+			} else  {
+				// run script ended, accept event immediately without passing to the policy
+				// FIXME: wrap action type string
+				act := Action{ActionType: "Accept", Evt: event}
+				readyEntity.ActionFromMain <- &act
 			}
+		case nextAction := <-nextActionChan:
+			Log("main loop received action (type=\"%s\") from the policy. " +
+				"passing to the inspector handler", nextAction.ActionType)
+			// find corresponding entity
 			nextEvent := nextAction.Evt
 			readyEntity := ev2entity[nextEvent]
 			delete(ev2entity, nextEvent)
 
+			// make sequence for tracing
 			// TODO: trace action sequence rather than event sequence
 			eventSeq = append(eventSeq, *nextEvent)
-			readyEntity.GotoNext <- true
 
+			// pass to the inspector handler.
+			// inspector handler should verify action.
+			readyEntity.ActionFromMain <- nextAction
 		case <-endCh:
 			Log("main loop end")
 			running = false

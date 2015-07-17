@@ -145,17 +145,21 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 			readyEntityCh <- entity
 
 			if *req.Event.Type != InspectorMsgReq_Event_EXIT {
-				<-entity.GotoNext
-
-				result := InspectorMsgRsp_ACK
-				req_msg_id := *req.MsgId
-				rsp := &InspectorMsgRsp{
-					Res:   &result,
-					MsgId: &req_msg_id,
+				act := <-entity.ActionFromMain
+				Log("execute action (type=\"%s\")", act.ActionType)
+				// FIXME: wrap action type string
+				if (act.ActionType == "Accept") {
+					result := InspectorMsgRsp_ACK
+					req_msg_id := *req.MsgId
+					rsp := &InspectorMsgRsp{
+						Res:   &result,
+						MsgId: &req_msg_id,
+					}
+					eventRspSend <- rsp
+					Log("accepted the event message from process %v", entity)
+				} else {
+					Panic("unsupported action %s", act.ActionType)
 				}
-
-				eventRspSend <- rsp
-				Log("replied to the event message from process %v", entity)
 			}
 		}
 	}
@@ -181,7 +185,7 @@ func (handler *PBInspectorHandler) StartAccept(readyEntityCh chan *TransitionEnt
 		entity := new(TransitionEntity)
 		entity.Id = "uninitialized"
 		entity.Conn = conn
-		entity.GotoNext = make(chan interface{})
+		entity.ActionFromMain = make(chan *Action)
 		entity.EventToMain = make(chan *Event)
 
 		go handler.handleEntity(entity, readyEntityCh)
