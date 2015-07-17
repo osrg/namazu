@@ -23,6 +23,7 @@ import (
 
 	"./bfs"
 	"./dfs"
+	"./dpor"
 	"./dumb"
 	"./random"
 
@@ -49,6 +50,8 @@ func CreatePolicy(name string) ExplorePolicy {
 		return dfs.DFSNew()
 	case "BFS":
 		return bfs.BFSNew()
+	case "DPOR":
+		return dpor.DPORNew()
 	default:
 		fmt.Printf("unknown search policy: %s\n", name)
 	}

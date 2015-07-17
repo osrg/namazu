@@ -220,10 +220,10 @@ func (n *Naive) GetRequiredTime(id int) (time.Duration, error) {
 
 }
 
-func (n *Naive) Search(prefix []Event) []int {
+func (n *Naive) SearchWithConverter(prefix []Event, converter func(events []Event) []Event) []int {
 	// FIXME: quite ineffective
 
-	len := len(prefix)
+	prefixLen := len(prefix)
 	matched := make([]int, 0)
 
 	for i := 0; i < n.info.NrCollectedTraces-1; i++ { // FIXME: need to - 1 because the latest trace isn't recorded yet
@@ -233,12 +233,23 @@ func (n *Naive) Search(prefix []Event) []int {
 			os.Exit(1)
 		}
 
-		if AreEventsSliceEqual(prefix, history.EventSequence[:len]) {
+		if len(history.EventSequence) < prefixLen {
+			continue
+		}
+
+		converted := converter(history.EventSequence[:prefixLen])
+		if AreEventsSliceEqual(prefix, converted) {
 			matched = append(matched, i)
 		}
 	}
 
 	return matched
+
+}
+
+func (n *Naive) Search(prefix []Event) []int {
+	return n.SearchWithConverter(prefix,
+		func(events []Event) []Event { return events })
 }
 
 func (n *Naive) Init() {

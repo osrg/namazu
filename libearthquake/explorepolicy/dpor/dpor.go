@@ -13,10 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package bfs
+package dpor
 
 import (
 	"math/rand"
+	"sort"
 	"sync"
 	"time"
 
@@ -24,23 +25,22 @@ import (
 	. "../../historystorage"
 )
 
-type BFSParam struct {
+type DPORParam struct {
 	interval time.Duration // in millisecond
 }
 
-type BFS struct {
+type DPOR struct {
 	nextEventChan chan *Event
 	randGen       *rand.Rand
 	queueMutex    *sync.Mutex
 
 	eventQueue []*Event // high priority
 
-	dumb  bool
-	param *BFSParam
+	param *DPORParam
 }
 
-func constrBFSParam(rawParam map[string]interface{}) *BFSParam {
-	var param BFSParam
+func constrDPORParam(rawParam map[string]interface{}) *DPORParam {
+	var param DPORParam
 
 	if _, ok := rawParam["interval"]; ok {
 		param.interval = time.Duration(int(rawParam["interval"].(float64)))
@@ -51,8 +51,47 @@ func constrBFSParam(rawParam map[string]interface{}) *BFSParam {
 	return &param
 }
 
-func (this *BFS) Init(storage HistoryStorage, param map[string]interface{}) {
-	this.param = constrBFSParam(param)
+// FIXME: unify functions in visualize.go
+
+func createTracesPerEntity(trace []Event) map[string][]Event {
+	perEntity := make(map[string][]Event)
+
+	for _, ev := range trace {
+		if _, ok := perEntity[ev.ProcId]; !ok {
+			perEntity[ev.ProcId] = make([]Event, 0)
+		}
+
+		perEntity[ev.ProcId] = append(perEntity[ev.ProcId], ev)
+	}
+
+	return perEntity
+}
+
+func reducePartialOrder(trace []Event) []Event {
+	perEntity := createTracesPerEntity(trace)
+
+	keys := make([]string, len(perEntity))
+
+	i := 0
+	for k, _ := range perEntity {
+		keys[i] = k
+		i++
+	}
+
+	sort.Strings(keys)
+
+	reduced := make([]Event, 0)
+	for _, key := range keys {
+		for _, ev := range perEntity[key] {
+			reduced = append(reduced, ev)
+		}
+	}
+
+	return reduced
+}
+
+func (this *DPOR) Init(storage HistoryStorage, param map[string]interface{}) {
+	this.param = constrDPORParam(param)
 
 	prefix := make([]Event, 0)
 
@@ -72,7 +111,7 @@ func (this *BFS) Init(storage HistoryStorage, param map[string]interface{}) {
 				// TODO: match every event in the queue, wait for more intervals, etc
 				tmpprefix := append(prefix, *this.eventQueue[i])
 
-				matched := storage.Search(tmpprefix)
+				matched := storage.SearchWithConverter(reducePartialOrder(tmpprefix), reducePartialOrder)
 				if len(matched) == 0 {
 					nextIdx = i
 					break
@@ -81,21 +120,6 @@ func (this *BFS) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			if nextIdx == -1 {
 				nextIdx = this.randGen.Int() % len(this.eventQueue)
-			} else {
-				Log("a completely new trace, go dumb mode")
-				evQ := this.eventQueue
-				this.eventQueue = []*Event{}
-				this.dumb = true
-				this.queueMutex.Unlock()
-
-				go func() {
-					for _, e := range evQ {
-						this.nextEventChan <- e
-					}
-				}()
-
-				// end this goroutine, below events are processed in a manner of dumb policy
-				break
 			}
 
 			next := this.eventQueue[nextIdx]
@@ -110,40 +134,33 @@ func (this *BFS) Init(storage HistoryStorage, param map[string]interface{}) {
 	}()
 }
 
-func (this *BFS) Name() string {
-	return "BFS"
+func (this *DPOR) Name() string {
+	return "DPOR"
 }
 
-func (this *BFS) GetNextEventChan() chan *Event {
+func (this *DPOR) GetNextEventChan() chan *Event {
 	return this.nextEventChan
 }
 
-func (this *BFS) QueueNextEvent(procId string, ev *Event) {
+func (this *DPOR) QueueNextEvent(procId string, ev *Event) {
 	this.queueMutex.Lock()
 
-	if !this.dumb {
-		this.eventQueue = append(this.eventQueue, ev)
-	} else {
-		go func() {
-			this.nextEventChan <- ev
-		}()
-	}
+	this.eventQueue = append(this.eventQueue, ev)
 
 	this.queueMutex.Unlock()
 }
 
-func BFSNew() *BFS {
+func DPORNew() *DPOR {
 	nextEventChan := make(chan *Event)
 	eventQueue := make([]*Event, 0)
 	mutex := new(sync.Mutex)
 	r := rand.New(rand.NewSource(time.Now().Unix()))
 
-	return &BFS{
+	return &DPOR{
 		nextEventChan,
 		r,
 		mutex,
 		eventQueue,
-		false,
 		nil,
 	}
 }
