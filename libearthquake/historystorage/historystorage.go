@@ -45,6 +45,7 @@ type HistoryStorage interface {
 	GetRequiredTime(id int) (time.Duration, error)
 
 	Search(prefix []Event) []int
+	SearchWithConverter(prefix []Event, converter func(events []Event) []Event) []int
 }
 
 func New(name, dirPath string) HistoryStorage {
