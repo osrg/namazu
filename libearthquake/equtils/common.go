@@ -47,10 +47,17 @@ type Event struct {
 
 	ProcId string
 
-	EventType  string
+	EventType  string // e.g., "FuncCall", "_REST" ("_REST" not supported yet)
 	EventParam string
 
 	JavaSpecific *Event_JavaSpecific
+}
+
+type Action struct {
+	ActionType  string // e.g., "Accept", "_REST" (_"REST" not supported yet)
+	ActionParam string
+
+	Evt *Event
 }
 
 type SingleTrace struct {

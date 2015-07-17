@@ -29,7 +29,7 @@ type BFSParam struct {
 }
 
 type BFS struct {
-	nextEventChan chan *Event
+	nextActionChan chan *Action
 	randGen       *rand.Rand
 	queueMutex    *sync.Mutex
 
@@ -90,7 +90,8 @@ func (this *BFS) Init(storage HistoryStorage, param map[string]interface{}) {
 
 				go func() {
 					for _, e := range evQ {
-						this.nextEventChan <- e
+						act := Action{ActionType: "Accept", Evt: e}
+						this.nextActionChan <- &act
 					}
 				}()
 
@@ -105,7 +106,8 @@ func (this *BFS) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			prefix = append(prefix, *next)
 
-			this.nextEventChan <- next
+			act := Action{ActionType: "Accept", Evt: next}
+			this.nextActionChan <- &act
 		}
 	}()
 }
@@ -114,8 +116,8 @@ func (this *BFS) Name() string {
 	return "BFS"
 }
 
-func (this *BFS) GetNextEventChan() chan *Event {
-	return this.nextEventChan
+func (this *BFS) GetNextActionChan() chan *Action {
+	return this.nextActionChan
 }
 
 func (this *BFS) QueueNextEvent(procId string, ev *Event) {
@@ -125,7 +127,8 @@ func (this *BFS) QueueNextEvent(procId string, ev *Event) {
 		this.eventQueue = append(this.eventQueue, ev)
 	} else {
 		go func() {
-			this.nextEventChan <- ev
+			act := Action{ActionType: "Accept", Evt: ev}
+			this.nextActionChan <- &act
 		}()
 	}
 
@@ -133,13 +136,13 @@ func (this *BFS) QueueNextEvent(procId string, ev *Event) {
 }
 
 func BFSNew() *BFS {
-	nextEventChan := make(chan *Event)
+	nextActionChan := make(chan *Action)
 	eventQueue := make([]*Event, 0)
 	mutex := new(sync.Mutex)
 	r := rand.New(rand.NewSource(time.Now().Unix()))
 
 	return &BFS{
-		nextEventChan,
+		nextActionChan,
 		r,
 		mutex,
 		eventQueue,

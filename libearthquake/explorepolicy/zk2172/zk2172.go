@@ -38,7 +38,7 @@ type zkEvent struct {
 }
 
 type ZK2172 struct {
-	nextEventChan chan *Event
+	nextActionChan chan *Action
 	randGen       *rand.Rand
 	queueMutex    *sync.Mutex
 
@@ -107,7 +107,8 @@ func (this *ZK2172) Init(storage HistoryStorage, param map[string]interface{}) {
 			this.queueMutex.Unlock()
 
 			if nextEvent != nil {
-				this.nextEventChan <- nextEvent
+				act := Action{ActionType: "Accept", Evt: nextEvent}
+				this.nextActionChan <- &act
 			}
 		}
 	}()
@@ -117,8 +118,8 @@ func (this *ZK2172) Name() string {
 	return "ZK2172"
 }
 
-func (this *ZK2172) GetNextEventChan() chan *Event {
-	return this.nextEventChan
+func (this *ZK2172) GetNextActionChan() chan *Action {
+	return this.nextActionChan
 }
 
 func (this *ZK2172) QueueNextEvent(procId string, ev *Event) {
@@ -138,13 +139,13 @@ func (this *ZK2172) QueueNextEvent(procId string, ev *Event) {
 }
 
 func ZK2172New() *ZK2172 {
-	nextEventChan := make(chan *Event)
+	nextActionChan := make(chan *Action)
 	eventQueue := make([]*zkEvent, 0)
 	mutex := new(sync.Mutex)
 	r := rand.New(rand.NewSource(time.Now().Unix()))
 
 	return &ZK2172{
-		nextEventChan,
+		nextActionChan,
 		r,
 		mutex,
 		eventQueue,

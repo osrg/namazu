@@ -30,7 +30,7 @@ type DPORParam struct {
 }
 
 type DPOR struct {
-	nextEventChan chan *Event
+	nextActionChan chan *Action
 	randGen       *rand.Rand
 	queueMutex    *sync.Mutex
 
@@ -129,7 +129,8 @@ func (this *DPOR) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			prefix = append(prefix, *next)
 
-			this.nextEventChan <- next
+			act := Action{ActionType: "Accept", Evt: next}
+			this.nextActionChan <- &act
 		}
 	}()
 }
@@ -138,8 +139,8 @@ func (this *DPOR) Name() string {
 	return "DPOR"
 }
 
-func (this *DPOR) GetNextEventChan() chan *Event {
-	return this.nextEventChan
+func (this *DPOR) GetNextActionChan() chan *Action {
+	return this.nextActionChan
 }
 
 func (this *DPOR) QueueNextEvent(procId string, ev *Event) {
@@ -151,13 +152,13 @@ func (this *DPOR) QueueNextEvent(procId string, ev *Event) {
 }
 
 func DPORNew() *DPOR {
-	nextEventChan := make(chan *Event)
+	nextActionChan := make(chan *Action)
 	eventQueue := make([]*Event, 0)
 	mutex := new(sync.Mutex)
 	r := rand.New(rand.NewSource(time.Now().Unix()))
 
 	return &DPOR{
-		nextEventChan,
+		nextActionChan,
 		r,
 		mutex,
 		eventQueue,
