@@ -21,7 +21,7 @@ import (
 )
 
 type Dumb struct {
-	nextEventChan chan *Event
+	nextActionChan chan *Action
 }
 
 func (d *Dumb) Init(storage HistoryStorage, param map[string]interface{}) {
@@ -31,20 +31,21 @@ func (d *Dumb) Name() string {
 	return "dumb"
 }
 
-func (d *Dumb) GetNextEventChan() chan *Event {
-	return d.nextEventChan
+func (d *Dumb) GetNextActionChan() chan *Action {
+	return d.nextActionChan
 }
 
 func (d *Dumb) QueueNextEvent(id string, ev *Event) {
 	go func(e *Event) {
-		d.nextEventChan <- ev
+		act := Action{ActionType: "Accept", Evt: ev}
+		d.nextActionChan <- &act
 	}(ev)
 }
 
 func DumbNew() *Dumb {
-	nextEventChan := make(chan *Event)
+	nextActionChan := make(chan *Action)
 
 	return &Dumb{
-		nextEventChan,
+		nextActionChan,
 	}
 }

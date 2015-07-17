@@ -34,7 +34,7 @@ type ExplorePolicy interface {
 	Init(storage historystorage.HistoryStorage, param map[string]interface{})
 	Name() string
 
-	GetNextEventChan() chan *Event
+	GetNextActionChan() chan *Action
 	QueueNextEvent(id string, ev *Event)
 }
 

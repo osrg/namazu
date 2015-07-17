@@ -28,7 +28,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 
 	eventSeq := make([]Event, 0)
 
-	nextEventChan := policy.GetNextEventChan()
+	nextActionChan := policy.GetNextActionChan()
 	ev2entity := make(map[*Event]*TransitionEntity)
 
 	Log("start execution loop body")
@@ -50,10 +50,16 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 			ev2entity[event] = readyEntity
 			policy.QueueNextEvent(readyEntity.Id, event)
 
-		case nextEvent := <-nextEventChan:
+		case nextAction := <-nextActionChan:
+			Log("execute action (type=\"%s\")", nextAction.ActionType)
+			if (nextAction.ActionType != "Accept") {
+				Panic("unsupported action %s", nextAction.ActionType)
+			}
+			nextEvent := nextAction.Evt
 			readyEntity := ev2entity[nextEvent]
 			delete(ev2entity, nextEvent)
 
+			// TODO: trace action sequence rather than event sequence
 			eventSeq = append(eventSeq, *nextEvent)
 			readyEntity.GotoNext <- true
 

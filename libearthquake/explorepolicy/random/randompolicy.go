@@ -30,7 +30,7 @@ type RandomParam struct {
 }
 
 type Random struct {
-	nextEventChan chan *Event
+	nextActionChan chan *Action
 	randGen       *rand.Rand
 	queueMutex    *sync.Mutex
 
@@ -87,7 +87,8 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			r.queueMutex.Unlock()
 
-			r.nextEventChan <- next
+			act := Action{ActionType: "Accept", Evt: next}
+			r.nextActionChan <- &act
 		}
 	}()
 }
@@ -96,8 +97,8 @@ func (r *Random) Name() string {
 	return "random"
 }
 
-func (r *Random) GetNextEventChan() chan *Event {
-	return r.nextEventChan
+func (r *Random) GetNextActionChan() chan *Action {
+	return r.nextActionChan
 }
 
 func (r *Random) QueueNextEvent(procId string, ev *Event) {
@@ -113,14 +114,14 @@ func (r *Random) QueueNextEvent(procId string, ev *Event) {
 }
 
 func RandomNew() *Random {
-	nextEventChan := make(chan *Event)
+	nextActionChan := make(chan *Action)
 	highEventQueue := make([]*Event, 0)
 	lowEventQueue := make([]*Event, 0)
 	mutex := new(sync.Mutex)
 	r := rand.New(rand.NewSource(time.Now().Unix()))
 
 	return &Random{
-		nextEventChan,
+		nextActionChan,
 		r,
 		mutex,
 		highEventQueue,
