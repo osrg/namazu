@@ -55,24 +55,11 @@ func seenBefore(traces []*uniqueTraceUnit, newUnit *uniqueTraceUnit) bool {
 		trace := _trace.trace
 		newTrace := newUnit.trace
 
-		if len(trace.EventSequence) != len(newTrace.EventSequence) {
-			continue
+		seen := AreTracesEqual(trace, newTrace)
+
+		if seen {
+			return true
 		}
-
-		seen := true
-
-		for i, ev := range trace.EventSequence {
-			if !AreEventsEqual(&ev, &newTrace.EventSequence[i]) {
-				seen = false
-				break
-			}
-		}
-
-		if !seen {
-			continue
-		}
-
-		return true
 	}
 
 	return false
@@ -83,12 +70,13 @@ func createTracesPerEntity(_trace *uniqueTraceUnit) {
 
 	perEntity := make(map[string][]*Event)
 
-	for _, ev := range trace.EventSequence {
+	for _, act := range trace.ActionSequence {
+		ev := act.Evt
 		if _, ok := perEntity[ev.ProcId]; !ok {
 			perEntity[ev.ProcId] = make([]*Event, 0)
 		}
 
-		perEntity[ev.ProcId] = append(perEntity[ev.ProcId], &ev)
+		perEntity[ev.ProcId] = append(perEntity[ev.ProcId], ev)
 	}
 
 	_trace.tracesPerTransitionEntity = perEntity

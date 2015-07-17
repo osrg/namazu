@@ -18,8 +18,11 @@ package net.osrg.earthquake;
 import java.util.Map;
 
 public interface Inspector {
-    public void Initiation();
-    public void EventFuncCall(String funcName);
-    public void EventFuncCall(String funcName, Map<String, Object> argMap);
-    public void StopInspection();
+    void Initiation();
+
+    void EventFuncCall(String funcName);
+
+    void EventFuncCall(String funcName, Map<String, Object> argMap);
+
+    void StopInspection();
 }

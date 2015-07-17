@@ -40,8 +40,12 @@ func init() {
 }
 
 func doDumpTrace(trace *SingleTrace) {
-	for i, ev := range trace.EventSequence {
-		fmt.Printf("%d @ %s: %s, %s(%s)\n", i, ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.EventType, ev.EventParam)
+	for i, act := range trace.ActionSequence {
+		ev := act.Evt
+		fmt.Printf("%d %s(%s) for @ %s: %s, %s(%s)\n",
+			i,
+			act.ActionType, act.ActionParam,
+			ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.EventType, ev.EventParam)
 
 		if ev.JavaSpecific != nil {
 			js := ev.JavaSpecific
