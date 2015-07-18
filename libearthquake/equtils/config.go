@@ -16,27 +16,46 @@
 package equtils
 
 import (
+	"encoding/json"
 	"errors"
+	"os"
 	"github.com/spf13/viper"
 )
 
+type Config struct {
+	*viper.Viper
+}
+
 // TODO: support env vars for overriding (https://github.com/spf13/viper#working-with-environment-variables)
 // TODO: validate config with JSON schema
-func ParseConfigFile(filePath string) (*viper.Viper, error) {
+func ParseConfigFile(filePath string) (*Config, error) {
 	v := viper.New()
-	v.SetDefault("run", "")
-	v.SetDefault("clean", "")
-	v.SetDefault("validate", "")
-	v.SetDefault("explorePolicy", "dumb")
-	v.SetDefault("explorePolicyParam", map[string]interface{}{})
-	v.SetDefault("storageType", "naive")
+	cfg := &Config{v}
+	cfg.SetDefault("run", "")
+	cfg.SetDefault("clean", "")
+	cfg.SetDefault("validate", "")
+	cfg.SetDefault("explorePolicy", "dumb")
+	cfg.SetDefault("explorePolicyParam", map[string]interface{}{})
+	cfg.SetDefault("storageType", "naive")
 	// viper supports JSON, YAML, and TOML
-	v.SetConfigFile(filePath)
-	err := v.ReadInConfig()
+	cfg.SetConfigFile(filePath)
+	err := cfg.ReadInConfig()
 	if err == nil {
-		if v.GetString("run") == "" {
+		if cfg.GetString("run") == "" {
 			err = errors.New("required field \"run\" is missing")
 		}
 	}
-	return v, err
+	return cfg, err
+}
+
+func (this *Config) DumpToJsonFile(filePath string) error {
+	f, err := os.Create(filePath)
+	if err != nil { return err }
+	defer f.Close()
+	enc := json.NewEncoder(f)
+	var m map[string]interface{}
+	err = this.Marshal(&m)
+	if err != nil { return err }
+	enc.Encode(m)
+	return err
 }
