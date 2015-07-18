@@ -27,28 +27,21 @@ Notes:
 ## Set up the environment manually (You might NOT need to read this section)
 If you want to set up your own environment manually, please follow this instruction.
 
-### Install Go
-You need to install Go 1.5 or later to build libearthquake.so.
+	$ sudo apt-get install -y --no-install-recommends protobuf-compiler default-jdk maven
+    $ curl https://storage.googleapis.com/golang/go1.5beta2.linux-amd64.tar.gz | sudo tar Cxz /usr/local 
+    $ export PATH=/usr/local/go/bin:$PATH 
+
+NOTE: Go 1.5 or later is required to build libearthquake.so.
+
+### (Optional) Install Dependencies for pyearthquake
     
-    $ git clone -b release-branch.go1.4 https://go.googlesource.com/go $HOME/go1.4
-    $ (cd $HOME/go1.4/src; ./make.bash) # golang 1.4 (in $HOME/go1.4/bin) is required to build golang 1.5
-    $ git clone https://go.googlesource.com/go $HOME/go
-    $ (cd $HOME/go/src; ./make.bash)
-    $ export PATH=$HOME/go/bin:$PATH 
-
-
-### Install JDK
-
-    $ sudo apt-get install -y default-jdk maven
-
-### Install Dependencies for pyearthquake
+	$ sudo apt-get install -y --no-install-recommends python-{flask,scapy,zmq}
+    $ sudo pip install hexdump
     
-    $ sudo pip install flask scapy zmq hexdump
-    
-### Install Dependencies for Ethernet inspector (ryu)
+### (Optional) Install Dependencies for Ethernet inspector (ryu)
 #### Install Open vSwitch
     
-    $ sudo apt-get install -y openvswitch-switch
+    $ sudo apt-get install -y --no-install-recommends openvswitch-switch
     
 Earthquake is tested with Open vSwitch 2.3.1 (Ubuntu 15.04).
 
@@ -60,8 +53,8 @@ Earthquake is tested with ryu 3.20.2
 
 #### Install pipework
     
-    $ sudo apt-get install -y arping
-    $ sudo wget --no-check-certificate --quiet https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework -O /usr/local/bin/pipework
+    $ sudo apt-get install -y --no-install-recommends arping
+    $ sudo curl https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework -o /usr/local/bin/pipework
     $ sudo chmod +x /usr/local/bin/pipework
     
 
@@ -73,11 +66,10 @@ Earthquake is tested with ryu 3.20.2
     $ sudo echo 'ip addr add 192.168.42.254/24 dev ovsbr0' > /etc/rc.local
     $ sudo sh /etc/rc.local
 
-### Install Dependencies for Ethernet inspector (nfqhook)
+### (Optional) Install Dependencies for Ethernet inspector (nfqhook)
     
-    $ sudo apt-get install -y libnetfilter-queue1 python-prctl
+    $ sudo apt-get install -y --no-install-recommends libnetfilter-queue1 python-prctl
     
-
 ### Build Earthquake
     
     $ cd /path/to/earthquake
