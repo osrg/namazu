@@ -107,8 +107,9 @@ func (this *ZK2172) Init(storage HistoryStorage, param map[string]interface{}) {
 			this.queueMutex.Unlock()
 
 			if nextEvent != nil {
-				act := Action{ActionType: "Accept", Evt: nextEvent}
-				this.nextActionChan <- &act
+				act, err := nextEvent.MakeAcceptAction()
+				if err != nil { panic(err) }			
+				this.nextActionChan <- act
 			}
 		}
 	}()

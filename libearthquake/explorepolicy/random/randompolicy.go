@@ -87,8 +87,9 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			r.queueMutex.Unlock()
 
-			act := Action{ActionType: "Accept", Evt: next}
-			r.nextActionChan <- &act
+			act, err := next.MakeAcceptAction()
+			if err != nil { panic(err) }			
+			r.nextActionChan <- act
 		}
 	}()
 }

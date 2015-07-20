@@ -37,8 +37,9 @@ func (d *Dumb) GetNextActionChan() chan *Action {
 
 func (d *Dumb) QueueNextEvent(id string, ev *Event) {
 	go func(e *Event) {
-		act := Action{ActionType: "Accept", Evt: ev}
-		d.nextActionChan <- &act
+		act, err := e.MakeAcceptAction()
+		if err != nil { panic(err) }
+		d.nextActionChan <- act
 	}(ev)
 }
 

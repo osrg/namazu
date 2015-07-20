@@ -36,6 +36,8 @@ var (
 )
 
 func init() {
+        Log("***** libearthquake.so: UNDER REFACTORING, YOU SHOULD NOT USE THIS (please try v0.1 instead) *****")
+        Log("libearthquake will expose some DB-lookup functions to external plugins")
 	Log("init() ENTER")
 	libExe = &libExecution{}
 	libExe.searchDir = "/tmp/EQ_UNINITIALIZED_SEARCHDIR"

@@ -129,8 +129,9 @@ func (this *DPOR) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			prefix = append(prefix, *next)
 
-			act := Action{ActionType: "Accept", Evt: next}
-			this.nextActionChan <- &act
+			act, err := next.MakeAcceptAction()
+			if err != nil { panic(err) }			
+			this.nextActionChan <- act
 		}
 	}()
 }

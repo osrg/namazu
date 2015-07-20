@@ -16,6 +16,7 @@
 package equtils
 
 import (
+	"fmt"
 	"net"
 	"time"
 )
@@ -47,17 +48,28 @@ type Event struct {
 
 	ProcId string
 
-	EventType  string // e.g., "FuncCall", "_REST" ("_REST" not supported yet)
+	EventType  string // e.g., "FuncCall", "_JSON"
 	EventParam string
 
 	JavaSpecific *Event_JavaSpecific
 }
 
 type Action struct {
-	ActionType  string // e.g., "Accept", "_REST" (_"REST" not supported yet)
+	ActionType  string // e.g., "Accept", "_JSON"
 	ActionParam string
 
 	Evt *Event
+}
+
+func (this *Event) MakeAcceptAction() (act *Action, err error) {
+	if this.EventType != "_JSON" {
+		// plain old events (e.g., "FuncCall")
+		act = &Action{ActionType: "Accept", Evt: this}
+	} else {
+		// JSON events (for REST inspector handler)
+		err = fmt.Errorf("_JSON not supported yet")
+	}
+	return
 }
 
 type SingleTrace struct {

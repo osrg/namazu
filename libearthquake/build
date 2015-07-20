@@ -11,16 +11,17 @@ export PATH=$GOBIN:$PATH
 # TODO: use some package manager
 go get github.com/golang/protobuf/proto
 go get github.com/golang/protobuf/protoc-gen-go
-go get github.com/sevlyar/go-daemon
 go get github.com/mitchellh/cli
 go get github.com/spf13/viper
+go get github.com/gorilla/mux
 
 EQUTILS_PATH=`pwd`/equtils
 protoc --go_out=$BUILDROOT/libearthquake/inspectorhandler/pbinspectorhandler -I$BUILDROOT/inspector $BUILDROOT/inspector/*.proto
 
-echo "Compiling libearthquake.so"
-# NOTE: go 1.5 or higher is required to use buildmode=c-shared
-go build -buildmode=c-shared -o ../bin/libearthquake.so libearthquake.go
-
 echo "Compiling earthquake"
 go build -o ../bin/earthquake $(ls *.go | grep -v libearthquake.go)
+
+echo "Compiling libearthquake.so"
+# Now libearthquake.so is second-level citizen, so we build later than earthquake
+# NOTE: go 1.5 or higher is required to use buildmode=c-shared
+go build -buildmode=c-shared -o ../bin/libearthquake.so libearthquake.go

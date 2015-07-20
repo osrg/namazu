@@ -95,8 +95,9 @@ func (this *DFS) Init(storage HistoryStorage, param map[string]interface{}) {
 
 				go func() {
 					for _, e := range evQ {
-						act := Action{ActionType: "Accept", Evt: e}
-						this.nextActionChan <- &act
+						act, err := e.MakeAcceptAction()
+						if err != nil { panic(err) }
+						this.nextActionChan <- act
 					}
 				}()
 
@@ -111,8 +112,9 @@ func (this *DFS) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			prefix = append(prefix, *next)
 
-			act := Action{ActionType: "Accept", Evt: next}
-			this.nextActionChan <- &act
+			act, err := next.MakeAcceptAction()
+			if err != nil { panic(err) }			
+			this.nextActionChan <- act
 		}
 	}()
 }
@@ -132,8 +134,9 @@ func (this *DFS) QueueNextEvent(procId string, ev *Event) {
 		this.eventQueue = append(this.eventQueue, ev)
 	} else {
 		go func() {
-			act := Action{ActionType: "Accept", Evt: ev}
-			this.nextActionChan <- &act
+			act, err := ev.MakeAcceptAction()
+			if err != nil { panic(err) }
+			this.nextActionChan <- act
 		}()
 	}
 
