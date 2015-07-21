@@ -19,17 +19,31 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"syscall"
 	"time"
 
 	. "./equtils"
 
-	"./historystorage"
 	"./explorepolicy"
+	"./historystorage"
 
 	"github.com/mitchellh/cli"
 )
 
+func init() {
+	var rLimit syscall.Rlimit
+	err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &rLimit)
+	if err != nil {
+		fmt.Println("Error Getting Rlimit ", err)
+	}
 
+	rLimit.Max = 999999
+	rLimit.Cur = 999999
+	err = syscall.Setrlimit(syscall.RLIMIT_NOFILE, &rLimit)
+	if err != nil {
+		fmt.Println("Error Setting Rlimit ", err)
+	}
+}
 
 func createCmd(scriptPath, workingDirPath, materialsDirPath string) *exec.Cmd {
 	cmd := exec.Command("sh", "-c", scriptPath)
