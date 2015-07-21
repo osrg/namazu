@@ -82,7 +82,7 @@ func dumpTrace(args []string) {
 		fmt.Printf("failed to open trace data file(%s): %s\n", _dumpTraceFlags.TracePath, err)
 		os.Exit(1)
 	}
-
+	gob.Register(map[string]interface{}{})
 	dec := gob.NewDecoder(file)
 	var trace SingleTrace
 	derr := dec.Decode(&trace)

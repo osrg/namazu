@@ -20,6 +20,7 @@ import (
 	"net"
 	"reflect"
 	"time"
+	"github.com/satori/go.uuid"
 )
 
 // TODO: use viper, which enables aliasing for keeping compatibility
@@ -67,11 +68,29 @@ type Event struct {
 	JavaSpecific *Event_JavaSpecific
 }
 
+func (this Event) String() string {
+	if this.EventType == "_JSON" {
+		return fmt.Sprintf("JSONEvent{%s}", this.EventParam)
+	} else {
+		return fmt.Sprintf("Event{PID=%s, Type=%s, Param=%s}",
+			this.ProcId, this.EventType, this.EventParam)
+	}
+}
+
 type Action struct {
 	ActionType  string // e.g., "Accept", "_JSON"
 	ActionParam EAParam
 
 	Evt *Event
+}
+
+func (this Action) String() string {
+	if this.ActionType == "_JSON" {
+		return fmt.Sprintf("JSONAction{%s}", this.ActionParam)
+	} else {
+		return fmt.Sprintf("Action{Type=%s, Param=%s, Event=%s}",
+			this.ActionType, this.ActionParam, this.Evt)
+	}
 }
 
 func (this *Event) MakeAcceptAction() (act *Action, err error) {
@@ -80,7 +99,25 @@ func (this *Event) MakeAcceptAction() (act *Action, err error) {
 		act = &Action{ActionType: "Accept", Evt: this}
 	} else {
 		// JSON events (for REST inspector handler)
-		err = fmt.Errorf("_JSON not supported yet")
+		if ! this.EventParam["deferred"].(bool) {
+			err = fmt.Errorf("Cannot accept an event of which \"deferred\" is false")
+			return
+		}
+		act = &Action {
+			ActionType: "_JSON",
+			ActionParam: EAParam{
+				// TODO: wrap me
+				// please refer to JSON schema file for this format
+				"type": "action",
+				"class": "AcceptDeferredEventAction",
+				"process": this.ProcId,
+				"uuid": uuid.NewV4().String(),
+				"option": map[string]interface{} {
+					"event_uuid": this.EventParam["uuid"].(string),
+				},
+			},
+			Evt: this,
+		}
 	}
 	return
 }
