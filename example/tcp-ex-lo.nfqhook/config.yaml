@@ -1,3 +1,2 @@
 run: run.sh
-# some comments foo bar
-
+explorePolicy: random

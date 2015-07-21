@@ -259,5 +259,6 @@ func (n *Naive) Search(prefix []Event) []int {
 }
 
 func (n *Naive) Init() {
+	gob.Register(map[string]interface{}{})
 	n.info = n.readSearchModeInfo()
 }
