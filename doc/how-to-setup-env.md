@@ -5,23 +5,34 @@ All you have to do is make Docker installed on your host and run the pre-built D
 [![Docker Hub](http://dockeri.co/image/osrg/earthquake)](https://registry.hub.docker.com/u/osrg/earthquake/)
 
     
-    $ docker run --privileged -t -i osrg/earthquake
-	* /etc/openvswitch/conf.db does not exist
-	* Creating empty database /etc/openvswitch/conf.db
-	* Starting ovsdb-server
-	* Configuring Open vSwitch system IDs
-	* Starting ovs-vswitchd
-	* Enabling remote OVSDB managers
-	Assigned 192.168.42.254 to ovsbr0
-	root@48ce4641421a:/earthquake#
-    
+    $ docker run --rm --tty --interactive osrg/earthquake
+	INIT: Running without privileged mode. Please set EQ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector
+	INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
+	INIT: Starting command: ['/bin/bash', '--login', '-i']
+	root@a0c2e4413483:/earthquake# ^D
+	INIT: Exiting with status 0..(['/bin/bash', '--login', '-i'])
+	
 Then, you can do the things what you want in `/earthquake` directory.
 You might want to try several [examples](../example).
 
-Notes:
 
- * If you want to use Ethernet inspector, you should load  Open vSwitch kernel module (`sudo modprobe openvswitch`) before running the Docker image.
- * `--privileged` is required if you want to use Ethernet inspector or Docker-in-Docker.
+## Privileged Mode (provides Docker-in-Docker, Open vSwitch, and Ryu)
+This mode might be useful for Ethernet Inspector.
+    
+    $ sudo modprobe openvswitch
+    $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake 
+    INIT: Running with privileged mode. Enabling DinD, OVS, and Ryu
+    INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
+    INIT: Starting command: ['wrapdocker', '/init.dind-ovs-ryu.sh']
+    * /etc/openvswitch/conf.db does not exist
+    * Creating empty database /etc/openvswitch/conf.db
+    * Starting ovsdb-server
+    * Configuring Open vSwitch system IDs
+    * Starting ovs-vswitchd
+    * Enabling remote OVSDB managers
+    Assigned 192.168.42.254 to ovsbr0
+    root@907529be8b21:/earthquake# ^D
+	INIT: Exiting with status 0..(['wrapdocker', '/init.dind-ovs-ryu.sh'])
     
 
 ## Set up the environment manually (You might NOT need to read this section)
