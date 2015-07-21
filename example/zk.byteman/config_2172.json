@@ -6,7 +6,6 @@
     "explorePolicy" : "random",
 
     "explorePolicyParam" : {
-	"interval": 500,
-	"prioritize": "zksrv3"
+	"interval": 500
     }
 }

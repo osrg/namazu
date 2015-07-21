@@ -1,32 +1,70 @@
-RULE quorum packet construction
-CLASS QuorumPacket
-METHOD <init>
+RULE quorum packet receive in Follower
+CLASS Learner
+METHOD readPacket
+HELPER net.osrg.earthquake.PBEQHelper
+BIND argMap = new java.util.HashMap()
+AT EXIT
+IF $# == 1
+DO
+argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+eventFuncReturn("Learner.readPacket", argMap);
+ENDRULE
+
+RULE quorum packet receive in Leader
+CLASS BinaryInputArchive
+METHOD readRecord
+HELPER net.osrg.earthquake.PBEQHelper
+BIND argMap = new java.util.HashMap()
+AT EXIT
+IF $# == 2
+DO
+# argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+# argMap.put("tag", $2.toString());
+# eventFuncReturn("BinaryInputArchive.readRecord");
+eventFuncReturn("BinaryInputArchive.readRecord", "org.apache.zookeeper.server.quorum.LearnerHandler");
+ENDRULE
+
+RULE quorum packet send in Follower
+CLASS Learner
+METHOD writePacket
 HELPER net.osrg.earthquake.PBEQHelper
 BIND argMap = new java.util.HashMap()
 AT ENTRY
-IF $# == 4
+IF $# == 2
 DO
-argMap.put("type", $1);
-argMap.put("zxid", $2);
-eventFuncCall("QuorumPacket", argMap);
+argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+argMap.put("flush", $2);
+eventFuncReturn("Learner.writePacket", argMap);
 ENDRULE
 
-RULE disk sync
-CLASS CommitProcessor
-METHOD processCommitted
+RULE quorum packet send in Leader
+CLASS LearnerHandler
+METHOD queuePacket
 HELPER net.osrg.earthquake.PBEQHelper
+BIND argMap = new java.util.HashMap()
 AT ENTRY
-IF true
+IF $# == 1
 DO
-eventFuncCall("CommitProcessor.processCommitted");
+argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+eventFuncReturn("LearnerHandler.queuePacket", argMap);
 ENDRULE
 
-RULE invoke initiation, call static constructor of EQHelper
-CLASS QuorumPeerMain
+RULE Quorum connection manager send
+CLASS QuorumCnxManager.SendWorker
+METHOD send
 HELPER net.osrg.earthquake.PBEQHelper
-METHOD main
 AT ENTRY
-IF true
+IF TRUE
 DO
-System.out.println("BTM: main()");
+eventFuncCall("QuorumCnxManager.SendWorker.send");
+ENDRULE
+
+RULE Quorum connection manager recv
+CLASS QuorumCnxManager
+METHOD addToRecvQueue
+HELPER net.osrg.earthquake.PBEQHelper
+AT ENTRY
+IF TRUE
+DO
+eventFuncCall("QuorumCnxManager.addToRecvQueue");
 ENDRULE
