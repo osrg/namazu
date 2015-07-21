@@ -122,6 +122,8 @@ func run(args []string) {
 
 	storage.RecordNewTrace(newTrace)
 
+	succeed := true
+
 	if validateScriptPath != "" {
 		validateCmd := createCmd(validateScriptPath, nextDir, materialsDir)
 
@@ -131,13 +133,14 @@ func run(args []string) {
 			// TODO: detailed check of error
 			// e.g. handle a case like permission denied, noent, etc
 			storage.RecordResult(false, requiredTime)
+			succeed = false
 		} else {
 			fmt.Printf("validation succeed\n")
 			storage.RecordResult(true, requiredTime)
 		}
 	}
 
-	if cleanScriptPath != "" {
+	if succeed && cleanScriptPath != "" {
 		cleanCmd := createCmd(cleanScriptPath, nextDir, materialsDir)
 
 		rerr = cleanCmd.Run()
