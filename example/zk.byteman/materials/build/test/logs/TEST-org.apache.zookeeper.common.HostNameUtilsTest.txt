@@ -1,7 +1,0 @@
-Testsuite: org.apache.zookeeper.common.HostNameUtilsTest
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.456 sec
-
-Testcase: testWildcard took 0.004 sec
-Testcase: testGetByName took 1.412 sec
-Testcase: testHostName took 0.027 sec
-Testcase: testGetByAddress took 0.001 sec
