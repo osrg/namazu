@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-## FIXME: move these ones to the config file
+import os
+# TODO: eliminate port specification
 TCP_PORT=9999
-ZMQ_ADDR='ipc:///tmp/eq/ether_inspector'
 
+ZMQ_ADDR=os.getenv('EQ_ETHER_ZMQ_ADDR')
 
 from scapy.all import *
 import pyearthquake

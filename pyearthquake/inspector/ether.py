@@ -176,7 +176,7 @@ class EtherInspectorBase(object):
         LOG.debug('Received action: %s', action)
         if isinstance(action, AcceptDeferredEventAction):
             ev_uuid = action.option['event_uuid']
-            self.pass_deferred_event_uuid(ev_uuid)
+            self.accept_deferred_event_uuid(ev_uuid)
         elif isinstance(action, NopAction):
             LOG.debug('nop action: %s', action)
         else:

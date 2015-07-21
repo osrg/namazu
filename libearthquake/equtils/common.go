@@ -68,11 +68,29 @@ type Event struct {
 	JavaSpecific *Event_JavaSpecific
 }
 
+func (this Event) String() string {
+	if this.EventType == "_JSON" {
+		return fmt.Sprintf("JSONEvent{%s}", this.EventParam)
+	} else {
+		return fmt.Sprintf("Event{PID=%s, Type=%s, Param=%s}",
+			this.ProcId, this.EventType, this.EventParam)
+	}
+}
+
 type Action struct {
 	ActionType  string // e.g., "Accept", "_JSON"
 	ActionParam EAParam
 
 	Evt *Event
+}
+
+func (this Action) String() string {
+	if this.ActionType == "_JSON" {
+		return fmt.Sprintf("JSONAction{%s}", this.ActionParam)
+	} else {
+		return fmt.Sprintf("Action{Type=%s, Param=%s, Event=%s}",
+			this.ActionType, this.ActionParam, this.Evt)
+	}
 }
 
 func (this *Event) MakeAcceptAction() (act *Action, err error) {

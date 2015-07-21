@@ -69,12 +69,15 @@ func registerProcess(processId string) error {
 	Procs[processId] = &process
 	Log("Registered process: %s", processId)
 	go func() {
-		act := <-process.Entity.ActionFromMain
-		//Log("Received action: %s", act)
-		process.ActionsLock.Lock()
-		process.Actions = append(process.Actions, act)
-		process.ActionsLock.Unlock()
-		process.HttpActionReadyCh <- true
+		for {
+			// TODO: how to shutdown this goroutine
+			act := <-process.Entity.ActionFromMain
+			Log("(From Main)Received action: %s", act)
+			process.ActionsLock.Lock()
+			process.Actions = append(process.Actions, act)
+			process.ActionsLock.Unlock()
+			process.HttpActionReadyCh <- true
+		}
 	}()
 	return nil
 }
@@ -124,9 +127,17 @@ func EventsOnPost(w http.ResponseWriter, r *http.Request) {
 	// send event to entity
 	entity := &Procs[processId].Entity
 	go func() {
+		Log("*EventsOnPost: sending %s to %s", e, processId)
 		entity.EventToMain <- &e
+		Log("*EventsOnPost: sent %s to %s", e, processId)
+
 	}()
-	ReadyEntityCh <- entity
+
+	go func() {
+		Log("*EventsOnPost: notifying %s to main", processId)
+		ReadyEntityCh <- entity
+		Log("*EventsOnPost: notified %s to main", processId)
+	}()
 
 	// return empty json
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -164,10 +175,16 @@ func ActionsOnGet(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	act := Procs[processId].WaitForAction()
-	//Log("Action %s ready for processId=%s", act, processId)
+	// TODO: refactor this logic
+	ch := make(chan *Action)
+	go func() {
+		ch <- Procs[processId].WaitForAction()
+	}()
+	act := <-ch
+
+	Log("Action %s ready for processId=%s", act, processId)
 	// NOTE: an inspector has responsibility to DELETE the action,
-	//       because HTTP GET must be idempotent (RFC 7231)
+	//       because HTTP DELETE must be idempotent (RFC 7231)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(act.ActionParam); err != nil {

@@ -46,7 +46,6 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 				policy.QueueNextEvent(readyEntity.Id, event)
 			} else  {
 				// run script ended, accept event immediately without passing to the policy
-				// FIXME: wrap action type string
 				act, err := event.MakeAcceptAction()
 				if err != nil {
 					panic(err)

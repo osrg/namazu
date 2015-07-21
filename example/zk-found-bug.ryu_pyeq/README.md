@@ -1,3 +1,4 @@
+# *ATTENTION*: the master branch is currently under a major refactoring. Please try [v0.1](https://github.com/osrg/earthquake/releases/tag/v0.1) instead.
 # ZooKeeper Bug [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212): distributed race condition related to QV version
 
 When a joiner is listed as an observer in an initial config,
