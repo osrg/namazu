@@ -18,8 +18,21 @@ package equtils
 import (
 	"fmt"
 	"net"
+	"reflect"
 	"time"
 )
+
+// TODO: use viper, which enables aliasing for keeping compatibility
+type EAParam map[string]interface{}
+
+func (this EAParam) Equals(other EAParam) bool {
+	return reflect.DeepEqual(this, other)
+}
+
+func NewEAParam() EAParam {
+	eaParam := EAParam{}
+	return eaParam
+}
 
 type Event_JavaSpecific_StackTraceElement struct {
 	LineNumber int
@@ -49,14 +62,14 @@ type Event struct {
 	ProcId string
 
 	EventType  string // e.g., "FuncCall", "_JSON"
-	EventParam string
+	EventParam EAParam
 
 	JavaSpecific *Event_JavaSpecific
 }
 
 type Action struct {
 	ActionType  string // e.g., "Accept", "_JSON"
-	ActionParam string
+	ActionParam EAParam
 
 	Evt *Event
 }
@@ -115,7 +128,7 @@ func AreEventsEqual(a, b *Event) bool {
 		return false
 	}
 
-	if a.EventParam != b.EventParam {
+	if ! a.EventParam.Equals(b.EventParam) {
 		return false
 	}
 

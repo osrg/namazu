@@ -88,13 +88,13 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 			Log("event message received from transition entity %s", entity.Id)
 
 			evType := ""
-			evParam := ""
+			evParam := NewEAParam()
 			if *req.Event.Type == InspectorMsgReq_Event_FUNC_CALL {
 				evType = "FuncCall"
-				evParam = *req.Event.FuncCall.Name
+				evParam["name"] = *req.Event.FuncCall.Name
 			} else if *req.Event.Type == InspectorMsgReq_Event_FUNC_RETURN {
 				evType = "FuncReturn"
-				evParam = *req.Event.FuncReturn.Name
+				evParam["name"] = *req.Event.FuncReturn.Name
 			} else {
 				Panic("invalid type of event: %d", *req.Event.Type)
 			}

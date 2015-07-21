@@ -24,6 +24,7 @@ import (
 
 	. "../../equtils"
 	. "../../historystorage"
+	"fmt"
 )
 
 type ZK2172Param struct {
@@ -130,7 +131,11 @@ func (this *ZK2172) QueueNextEvent(procId string, ev *Event) {
 		0,
 	}
 
-	if ev.EventParam == "deserializeSnapshot" && procId == "zksrv3" {
+	if ! ( ev.EventType == "FuncCall" || ev.EventType == "FuncReturn" ) {
+		panic(fmt.Errorf("Unsupported event type %s", ev.EventType))
+	}
+
+	if ev.EventParam["name"].(string) == "deserializeSnapshot" && procId == "zksrv3" {
 		newEv.tick = 1000
 	}
 
