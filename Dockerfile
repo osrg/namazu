@@ -36,6 +36,6 @@ RUN ./build
 ## Silence dind logs
 ENV LOG file
 
-## Start dind bash
-## TODO: support non-privileged environment (disables Ethernet inspector)
-CMD ["wrapdocker", "/init.dind-ovs-ryu.sh"]
+## Start init (does NOT enable DinD/OVS/Ryu by default)
+ADD docker/eq-init.py /eq-init.py
+CMD ["/eq-init.py"]
