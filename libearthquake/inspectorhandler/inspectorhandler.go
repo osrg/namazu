@@ -19,6 +19,7 @@ import (
 	. "../equtils"
 
 	"./pbinspectorhandler"
+	"./restinspectorhandler"
 )
 
 type InspectorHandler interface {
@@ -28,5 +29,6 @@ type InspectorHandler interface {
 func StartAllInspectorHandler(readyEntityCh chan *TransitionEntity) {
 	pbInspectorHandler := pbinspectorhandler.NewPBInspectorHanlder()
 	go pbInspectorHandler.StartAccept(readyEntityCh)
+	restInspectorHandler := restinspectorhandler.NewRESTInspectorHanlder()
+	go restInspectorHandler.StartAccept(readyEntityCh)
 }
-

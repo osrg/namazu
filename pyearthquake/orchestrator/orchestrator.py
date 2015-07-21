@@ -38,6 +38,8 @@ class OrchestratorBase(object):
         """
         orchestrator plugin class constructor
         """
+        LOG.warn('***** pyearthquake orchestrator: UNDER REFACTORING, YOU SHOULD NOT USE THIS (please try v0.1 instead) *****')
+        LOG.warn('pyearthquake orchestrator will be provided as a external plugin for earthquake (planned in August 2015)')
         pass
 
     def _init_early(self):

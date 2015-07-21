@@ -19,7 +19,7 @@ import (
 	// "encoding/gob"
 	"fmt"
 	"os"
-
+	"path"
 	. "./equtils"
 
 	"./historystorage"
@@ -30,57 +30,60 @@ const (
 	storageMaterialsPath string = "materials"
 )
 
-func recursiveHardLink(srcPath, dstPath string) {
+func recursiveHardLink(srcPath, dstPath string) error {
 	// TODO: write error to stderr with some logging library
 	f, err := os.Open(srcPath)
 	if err != nil {
 		fmt.Printf("failed to open source path: %s (%s)\n",
 			srcPath, err)
-		os.Exit(1)
+		return err
 	}
 
 	names, err := f.Readdirnames(0)
 	if err != nil {
 		fmt.Printf("failed to readdirnames: %s\n", err)
-		os.Exit(1)
+		return err
 	}
 
 	for _, name := range names {
-		path := srcPath + "/" + name
+		p := path.Join(srcPath, name)
 
-		fi, err := os.Lstat(path)
+		fi, err := os.Lstat(p)
 		if err != nil {
-			fmt.Printf("failed to stat (%s): %s", path, err)
-			os.Exit(1)
+			fmt.Printf("failed to stat (%s): %s", p, err)
+			return err
 		}
 
 		if fi.Mode().IsDir() {
-			dstDir := dstPath + "/" + name
-			err := os.Mkdir(dstDir, 0777)
+			dstDir := path.Join(dstPath, name)
+			err = os.Mkdir(dstDir, 0777)
 			if err != nil {
 				fmt.Printf("failed to make directory %s: %s\n",
 					dstDir, err)
-				os.Exit(1)
+				return err
 			}
-			recursiveHardLink(path, dstDir)
+			err = recursiveHardLink(p, dstDir)
+			if err != nil {
+				return err
+			}
 		} else {
-			realPath := path
+			realPath := p
 			if fi.Mode() & os.ModeSymlink != 0 {
-				realPath, err = os.Readlink(path)
+				realPath, err = os.Readlink(p)
 				if err != nil {
-					fmt.Printf("could not read link %s", path)
-					os.Exit(1)
+					fmt.Printf("could not read link %s", p)
+					return err
 				}
 			}
-			err := os.Link(realPath, dstPath+"/"+name)
+			err = os.Link(realPath, path.Join(dstPath, name))
 			if err != nil {
 				fmt.Printf("failed to link (src: %s(%s), dst: %s): %s\n",
-					path, realPath, dstPath+"/"+name, err)
-				os.Exit(1)
+					p, realPath, path.Join(dstPath, name), err)
+				return err
 			}
 		}
 	}
-
+	return nil
 }
 
 func _init(args []string) {
@@ -89,24 +92,24 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
-	conf := args[0]
+	confPath := args[0]
 	materials := args[1]
 	storagePath := args[2]
 
-	cfi, cerr := os.Stat(conf)
-	if cerr != nil {
-		fmt.Printf("failed to stat path: %s (%s)\n", conf, cerr)
+	cfi, err := os.Stat(confPath)
+	if err != nil {
+		fmt.Printf("failed to stat path: %s (%s)\n", confPath, err)
 		os.Exit(1)
 	}
 
 	if !cfi.Mode().IsRegular() {
-		fmt.Printf("config file (%s) must be a regular file\n", conf)
+		fmt.Printf("config file (%s) must be a regular file\n", confPath)
 		os.Exit(1)
 	}
 
-	sfi, serr := os.Stat(storagePath)
-	if serr != nil {
-		fmt.Printf("failed to stat path: %s (%s)\n", storagePath, serr)
+	sfi, err := os.Stat(storagePath)
+	if err != nil {
+		fmt.Printf("failed to stat path: %s (%s)\n", storagePath, err)
 		os.Exit(1)
 	}
 
@@ -115,15 +118,15 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
-	dir, derr := os.Open(storagePath)
-	if derr != nil {
-		fmt.Printf("failed to open storagePath directory: %s (%s)\n", storagePath, derr)
+	dir, err := os.Open(storagePath)
+	if err != nil {
+		fmt.Printf("failed to open storagePath directory: %s (%s)\n", storagePath, err)
 		os.Exit(1)
 	}
 
-	fi, rderr := dir.Readdir(0)
-	if rderr != nil {
-		fmt.Printf("failed to read storagePath directory: %s (%s)\n", storagePath, rderr)
+	fi, err := dir.Readdir(0)
+	if err != nil {
+		fmt.Printf("failed to read storagePath directory: %s (%s)\n", storagePath, err)
 		os.Exit(1)
 	}
 
@@ -132,30 +135,35 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
-	vcfg, err := ParseConfigFile(conf)
+	config, err := ParseConfigFile(confPath)
 	if err != nil {
-		fmt.Printf("parsing config file (%s) failed: %s\n", conf, err)
+		fmt.Printf("parsing config file (%s) failed: %s\n", confPath, err)
 		os.Exit(1)
 	}
 
-	lerr := os.Link(conf, storagePath+"/"+historystorage.StorageConfigPath)
-	if lerr != nil {
-		fmt.Printf("creating link of config file (%s) failed (%s)\n", conf, lerr)
+	// conf may be JSON/YAML/TOML, but always converted to JSON
+	err = config.DumpToJsonFile(path.Join(storagePath, historystorage.StorageConfigPath))
+	if err != nil {
+		fmt.Printf("placing config file (%s) failed (%s)\n", confPath, err)
 		os.Exit(1)
 	}
 
-	materialDir := storagePath + "/" + storageMaterialsPath
-	derr = os.Mkdir(materialDir, 0777)
-	if derr != nil {
+	materialDir := path.Join(storagePath, storageMaterialsPath)
+	err = os.Mkdir(materialDir, 0777)
+	if err != nil {
 		fmt.Printf("creating a directory for materials (%s) failed (%s)\n",
-			storagePath+"/"+storageMaterialsPath, derr)
+			materialDir, err)
 		os.Exit(1)
 		// TODO: cleaning conf file
 	}
 
-	recursiveHardLink(materials, materialDir)
+	err = recursiveHardLink(materials, materialDir)
+	if err != nil {
+		fmt.Printf("%s", err)
+		os.Exit(1)
+	}
 
-	storage := historystorage.New(vcfg.GetString("storageType"), storagePath)
+	storage := historystorage.New(config.GetString("storageType"), storagePath)
 	storage.CreateStorage()
 
 	fmt.Printf("ok\n")
