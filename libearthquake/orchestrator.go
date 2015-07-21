@@ -47,8 +47,11 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 			} else  {
 				// run script ended, accept event immediately without passing to the policy
 				// FIXME: wrap action type string
-				act := Action{ActionType: "Accept", Evt: event}
-				readyEntity.ActionFromMain <- &act
+				act, err := event.MakeAcceptAction()
+				if err != nil {
+					panic(err)
+				}
+				readyEntity.ActionFromMain <- act
 			}
 		case nextAction := <-nextActionChan:
 			Log("main loop received action (type=\"%s\") from the policy. " +

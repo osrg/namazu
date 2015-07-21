@@ -20,6 +20,7 @@ import (
 	"net"
 	"reflect"
 	"time"
+	"github.com/satori/go.uuid"
 )
 
 // TODO: use viper, which enables aliasing for keeping compatibility
@@ -80,7 +81,25 @@ func (this *Event) MakeAcceptAction() (act *Action, err error) {
 		act = &Action{ActionType: "Accept", Evt: this}
 	} else {
 		// JSON events (for REST inspector handler)
-		err = fmt.Errorf("_JSON not supported yet")
+		if ! this.EventParam["deferred"].(bool) {
+			err = fmt.Errorf("Cannot accept an event of which \"deferred\" is false")
+			return
+		}
+		act = &Action {
+			ActionType: "_JSON",
+			ActionParam: EAParam{
+				// TODO: wrap me
+				// please refer to JSON schema file for this format
+				"type": "action",
+				"class": "AcceptDeferredEventAction",
+				"process": this.ProcId,
+				"uuid": uuid.NewV4().String(),
+				"option": map[string]interface{} {
+					"event_uuid": this.EventParam["uuid"].(string),
+				},
+			},
+			Evt: this,
+		}
 	}
 	return
 }
