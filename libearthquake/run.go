@@ -37,6 +37,7 @@ func createCmd(scriptPath, workingDirPath, materialsDirPath string) *exec.Cmd {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
+	cmd.Env = os.Environ() // this line is needed to extend current envs
 	cmd.Env = append(cmd.Env, "EQ_WORKING_DIR="+workingDirPath)
 	cmd.Env = append(cmd.Env, "EQ_MATERIALS_DIR="+materialsDirPath)
 
