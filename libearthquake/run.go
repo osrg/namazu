@@ -152,6 +152,10 @@ func run(args []string) {
 			os.Exit(1)
 		}
 	}
+
+	if !succeed {
+		os.Exit(1)
+	}
 }
 
 type runCmd struct {
