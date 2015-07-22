@@ -6,8 +6,7 @@ BIND argMap = new java.util.HashMap()
 AT EXIT
 IF $# == 1
 DO
-argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
-eventFuncReturn("Learner.readPacket", argMap);
+eventFuncReturn("Learner.readPacket");
 ENDRULE
 
 RULE quorum packet receive in Leader
@@ -32,9 +31,10 @@ BIND argMap = new java.util.HashMap()
 AT ENTRY
 IF $# == 2
 DO
-argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
-argMap.put("flush", $2);
-eventFuncReturn("Learner.writePacket", argMap);
+# argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+# argMap.put("flush", $2);
+# eventFuncReturn("Learner.writePacket", argMap);
+eventFuncReturn("Learner.writePacket");
 ENDRULE
 
 RULE quorum packet send in Leader
@@ -45,8 +45,9 @@ BIND argMap = new java.util.HashMap()
 AT ENTRY
 IF $# == 1
 DO
-argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
-eventFuncReturn("LearnerHandler.queuePacket", argMap);
+# argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+# eventFuncReturn("LearnerHandler.queuePacket", argMap);
+eventFuncReturn("LearnerHandler.queuePacket");
 ENDRULE
 
 RULE Quorum connection manager send
