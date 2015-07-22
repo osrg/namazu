@@ -367,7 +367,7 @@ public class PBInspector implements Inspector {
                         sock.setSoTimeout(0);
                     } catch (IOException e) {
                         LOGGER.severe("failed to connect to guest agent: " + e);
-                        System.exit(1);
+                        return null;
                     }
 
                     return sock;
@@ -377,14 +377,22 @@ public class PBInspector implements Inspector {
             ThreadLocal<DataOutputStream> tlsOutputStream = new ThreadLocal<DataOutputStream>() {
                 protected DataOutputStream initialValue() {
                     DataOutputStream stream = null;
+                    if (tlsSocket == null) {
+                        LOGGER.severe("tlsSocket is null");
+                        return null;
+                    }
                     Socket sock = tlsSocket.get();
+                    if (sock == null) {
+                        LOGGER.severe("sock is null");
+                        return null;
+                    }
 
                     try {
                         OutputStream out = sock.getOutputStream();
                         stream = new DataOutputStream(out);
                     } catch (IOException e) {
                         LOGGER.severe("failed to get DataOutputStream: " + e);
-                        System.exit(1);
+                        return null;
                     }
 
                     return stream;
@@ -394,23 +402,37 @@ public class PBInspector implements Inspector {
             ThreadLocal<DataInputStream> tlsInputStream = new ThreadLocal<DataInputStream>() {
                 protected DataInputStream initialValue() {
                     DataInputStream stream = null;
+                     if (tlsSocket == null) {
+                        LOGGER.severe("tlsSocket is null");
+                        return null;
+                    }
                     Socket sock = tlsSocket.get();
+                    if (sock == null) {
+                        LOGGER.severe("sock is null");
+                        return null;
+                    }
 
-                    try {
+                     try {
                         InputStream in = sock.getInputStream();
                         stream = new DataInputStream(in);
                     } catch (IOException e) {
                         LOGGER.severe("failed to get DataOutputStream: " + e);
-                        System.exit(1);
+                        return null;
                     }
 
                     return stream;
                 }
             };
 
-            SendReq(tlsOutputStream.get(), req);
-            InspectorMessage.InspectorMsgRsp rsp = RecvRsp(tlsInputStream.get());
-            LOGGER.fine("response message: " + rsp.toString());
+            if (tlsInputStream != null && tlsOutputStream.get() != null) {
+                SendReq(tlsOutputStream.get(), req);
+                InspectorMessage.InspectorMsgRsp rsp = RecvRsp(tlsInputStream.get());
+                if (rsp != null) {
+                    LOGGER.fine("response message: " + rsp.toString());
+                }
+            } else {
+                LOGGER.warning("socket ins't ready");
+            }
         } else {
             SendReq(req);
 
