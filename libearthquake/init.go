@@ -24,11 +24,24 @@ import (
 
 	"./historystorage"
 	"github.com/mitchellh/cli"
+	"flag"
 )
 
 const (
 	storageMaterialsPath string = "materials"
 )
+type initFlags struct {
+	Force bool
+}
+
+var (
+	initFlagset = flag.NewFlagSet("init", flag.ExitOnError)
+	_initFlags  = initFlags{}
+)
+
+func init() {
+	initFlagset.BoolVar(&_initFlags.Force, "force", false, "forcibly (re-)create storage dir")
+}
 
 func recursiveHardLink(srcPath, dstPath string) error {
 	// TODO: write error to stderr with some logging library
@@ -87,14 +100,19 @@ func recursiveHardLink(srcPath, dstPath string) error {
 }
 
 func _init(args []string) {
-	if len(args) != 3 {
+	if err := initFlagset.Parse(args); err != nil {
+		fmt.Printf("%s", err.Error())
+		os.Exit(1)
+	}
+
+	if initFlagset.NArg() != 3 {
 		fmt.Printf("specify <config file path> <materials dir path> <storage dir path>\n")
 		os.Exit(1)
 	}
 
-	confPath := args[0]
-	materials := args[1]
-	storagePath := args[2]
+	confPath := initFlagset.Arg(0)
+	materials := initFlagset.Arg(1)
+	storagePath := initFlagset.Arg(2)
 
 	cfi, err := os.Stat(confPath)
 	if err != nil {
@@ -105,6 +123,24 @@ func _init(args []string) {
 	if !cfi.Mode().IsRegular() {
 		fmt.Printf("config file (%s) must be a regular file\n", confPath)
 		os.Exit(1)
+	}
+	if _initFlags.Force {
+		// avoid catastrophe caused by a typo
+		wellKnownDirs := map[string] bool {
+			".": true, "..": true, "/":true, "/home":true, "/tmp":true, "/dummyWellKnownDir":true }
+		if wellKnownDirs[storagePath] {
+			fmt.Printf("storage dir(%s) typo?\n", storagePath)
+			os.Exit(1)
+		}
+		if err = os.RemoveAll(storagePath); err != nil {
+			// NOTE: if storagePath does not exist, RemoveAll returns nil
+			fmt.Printf("could not remove %s (%s)\n", storagePath, err)
+			os.Exit(1)
+		}
+		if err = os.Mkdir(storagePath, 0777); err != nil {
+			fmt.Printf("could not create %s (%s)\n", storagePath, err)
+			os.Exit(1)
+		}
 	}
 
 	sfi, err := os.Stat(storagePath)
