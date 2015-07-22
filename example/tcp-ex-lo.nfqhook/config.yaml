@@ -1,2 +1,3 @@
+init: init.sh
 run: run.sh
 explorePolicy: random
