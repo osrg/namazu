@@ -38,7 +38,9 @@ func createCmd(scriptPath, workingDirPath, materialsDirPath string) *exec.Cmd {
 	cmd.Stderr = os.Stderr
 
 	cmd.Env = os.Environ() // this line is needed to extend current envs
-	cmd.Env = append(cmd.Env, "EQ_WORKING_DIR="+workingDirPath)
+	if workingDirPath != "" { // can be empty for "init"
+		cmd.Env = append(cmd.Env, "EQ_WORKING_DIR="+workingDirPath)
+	}
 	cmd.Env = append(cmd.Env, "EQ_MATERIALS_DIR="+materialsDirPath)
 
 	return cmd
@@ -53,21 +55,21 @@ func run(args []string) {
 	storagePath := args[0]
 	confPath := storagePath + "/" + historystorage.StorageConfigPath
 
-	vcfg, err := ParseConfigFile(confPath)
+	config, err := ParseConfigFile(confPath)
 	if err != nil {
 		fmt.Printf("failed to parse config file %s: %s\n", confPath, err)
 		os.Exit(1)
 	}
 
-	storage := historystorage.New(vcfg.GetString("storageType"), storagePath)
+	storage := historystorage.New(config.GetString("storageType"), storagePath)
 	storage.Init()
 
-	policy := explorepolicy.CreatePolicy(vcfg.GetString("explorePolicy"))
+	policy := explorepolicy.CreatePolicy(config.GetString("explorePolicy"))
 	if policy == nil {
-		fmt.Printf("invalid policy name: %s", vcfg.GetString("explorePolicy"))
+		fmt.Printf("invalid policy name: %s", config.GetString("explorePolicy"))
 		os.Exit(1)
 	}
-	policy.Init(storage, vcfg.GetStringMap("explorePolicyParam"))
+	policy.Init(storage, config.GetStringMap("explorePolicyParam"))
 
 	nextDir := storage.CreateNewWorkingDir()
 	InitLog(nextDir + "/earthquake.log")
@@ -79,16 +81,16 @@ func run(args []string) {
 	go orchestrate(end, policy, newTraceCh)
 
 	materialsDir := storagePath + "/" + storageMaterialsPath
-	runScriptPath := materialsDir + "/" + vcfg.GetString("run")
+	runScriptPath := materialsDir + "/" + config.GetString("run")
 
 	cleanScriptPath := ""
-	if vcfg.GetString("clean") != "" {
-		cleanScriptPath = materialsDir + "/" + vcfg.GetString("clean")
+	if config.GetString("clean") != "" {
+		cleanScriptPath = materialsDir + "/" + config.GetString("clean")
 	}
 
 	validateScriptPath := ""
-	if vcfg.GetString("validate") != "" {
-		validateScriptPath = materialsDir + "/" + vcfg.GetString("validate")
+	if config.GetString("validate") != "" {
+		validateScriptPath = materialsDir + "/" + config.GetString("validate")
 	}
 
 	runCmd := createCmd(runScriptPath, nextDir, materialsDir)

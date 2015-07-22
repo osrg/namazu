@@ -31,9 +31,10 @@ type Config struct {
 func ParseConfigFile(filePath string) (*Config, error) {
 	v := viper.New()
 	cfg := &Config{v}
-	cfg.SetDefault("run", "")
-	cfg.SetDefault("clean", "")
-	cfg.SetDefault("validate", "")
+	cfg.SetDefault("init", "") // e.g. "init.sh"
+	cfg.SetDefault("run", "") // e.g. "run.sh"
+	cfg.SetDefault("clean", "") // e.g. "clean.sh"
+	cfg.SetDefault("validate", "") // e.g. "validate.sh"
 	cfg.SetDefault("explorePolicy", "dumb")
 	cfg.SetDefault("explorePolicyParam", map[string]interface{}{})
 	cfg.SetDefault("storageType", "naive")

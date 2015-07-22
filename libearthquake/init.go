@@ -184,16 +184,16 @@ func _init(args []string) {
 		os.Exit(1)
 	}
 
-	materialDir := path.Join(storagePath, storageMaterialsPath)
-	err = os.Mkdir(materialDir, 0777)
+	materialsDir := path.Join(storagePath, storageMaterialsPath)
+	err = os.Mkdir(materialsDir, 0777)
 	if err != nil {
 		fmt.Printf("creating a directory for materials (%s) failed (%s)\n",
-			materialDir, err)
+			materialsDir, err)
 		os.Exit(1)
 		// TODO: cleaning conf file
 	}
 
-	err = recursiveHardLink(materials, materialDir)
+	err = recursiveHardLink(materials, materialsDir)
 	if err != nil {
 		fmt.Printf("%s", err)
 		os.Exit(1)
@@ -202,6 +202,14 @@ func _init(args []string) {
 	storage := historystorage.New(config.GetString("storageType"), storagePath)
 	storage.CreateStorage()
 
+	if config.GetString("init") != "" {
+		initScriptPath := materialsDir + "/" + config.GetString("init")
+		runCmd := createCmd(initScriptPath, "", materialsDir)
+		if err = runCmd.Run(); err != nil {
+			fmt.Printf("could not run %s (%s)\n", initScriptPath, err)
+			os.Exit(1)
+		}
+	}
 	fmt.Printf("ok\n")
 }
 
