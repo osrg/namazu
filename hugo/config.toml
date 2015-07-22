@@ -1,12 +1,12 @@
 baseurl = "http://osrg.github.io/earthquake/"
 languageCode = "en-us"
 title = "Earthquake"
-theme = "bootie-docs"
+## NOTE: the theme has been significantly modified for Earthquake.
+theme = "bootie-docs-custom"
 copyright = "Copyright© 2015 Nippon Telegraph and Telephone Corporation"
 [params]
   description = "A framework of implementation level distributed system model checkers"
-  withSitePosts = true
-  mainMenu = ["about", "usage"]
+  mainMenu = ["about", "gettingStarted"]
   #noCategoryLink = true
   repositoryUrl = "https://github.com/osrg/earthquake/"
   

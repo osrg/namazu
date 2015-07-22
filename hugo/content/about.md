@@ -30,6 +30,7 @@ We hope it will make your life a little bit easier.
 [2]: http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf "Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014."
 [3]: https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf "Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI '09."
 
+## References
 1. [Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14.][1]
 2. [Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.][2]
 3. [Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI '09.][3]

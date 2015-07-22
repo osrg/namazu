@@ -1,7 +1,8 @@
 {{ partial "header.html" . }}
 
 <div class="row">
-	<div class="col-sm-8 doc-main">
+  	{{ partial "sidebar-single.html" . }}
+	<div class="col-sm-6 doc-main">
 		<main role="main">
 			<article>
 				<a id="title"></a>
@@ -15,8 +16,7 @@
 			</article>
 		</main>
 	</div> <!-- /.doc-main -->
-
-	{{ partial "sidebar-single.html" . }}
+        {{ partial "sidebar-posts.html" . }}
 
 </div> <!-- /.row -->
 

@@ -29,11 +29,11 @@ h2, .h2 {
  * Override Bootstrap's default container.
  */
 
-@media (min-width: 1200px) {
-  .container {
-    width: 970px;
-  }
-}
+/* @media (min-width: 1200px) { */
+/*   .container { */
+/*     width: 970px; */
+/*   } */
+/* } */
 
 /*
  * Main column and sidebar layout

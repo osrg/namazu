@@ -1,0 +1,17 @@
+{{ $baseUrl := .Site.BaseURL }}
+<div class="col-sm-3 col-sm-offset-0 doc-sidebar">
+  <div class="sidebar-module">
+    <h4><a href="{{ $baseUrl }}/post">Recent Posts</a></h4>
+    <ul>
+      {{ range first 5 (where .Site.Pages.ByDate "Section" "post") }}
+      <li><a href="{{.RelPermalink}}">{{.Title}}({{.Date.Format "2006-01-02"}})</a></li>
+      {{ end }}
+    </ul>
+  </div>
+  <div class="sidebar-module">
+    <div id="twitter-timeline-container">
+      <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/EarthquakeDMCK" data-widget-id="608816516100837376" width="180">Tweets by @EarthquakeDMCK</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </div>  
+</div>

@@ -44,3 +44,5 @@ The project is managed on [github](https://github.com/osrg/earthquake).
 [Pull requests](https://github.com/osrg/earthquake/pulls) and [issues](https://github.com/osrg/earthquake/issues) are welcome.
 We are using [gitter](https://gitter.im/osrg/earthquake) for discussion.
 Feel free to join.
+
+[![Join the chat at https://gitter.im/osrg/earthquake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
