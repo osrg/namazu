@@ -27,12 +27,15 @@ import (
 type RandomParam struct {
 	prioritize string
 	interval   time.Duration // in millisecond
+
+	timeBound bool
+	maxBound  int // in millisecond
 }
 
 type Random struct {
 	nextActionChan chan *Action
-	randGen       *rand.Rand
-	queueMutex    *sync.Mutex
+	randGen        *rand.Rand
+	queueMutex     *sync.Mutex
 
 	// todo: more than just two levels
 	highEventQueue []*Event // high priority
@@ -54,11 +57,25 @@ func constrRandomParam(rawParam map[string]interface{}) *RandomParam {
 		param.interval = time.Duration(100) // default: 100ms
 	}
 
+	if _, ok := rawParam["timeBound"]; ok {
+		param.timeBound = rawParam["timeBound"].(bool)
+	}
+
+	if _, ok := rawParam["maxBound"]; ok {
+		param.maxBound = int(rawParam["maxBound"].(float64))
+	} else {
+		param.maxBound = 100 // default: 100ms
+	}
+
 	return &param
 }
 
 func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 	r.param = constrRandomParam(param)
+
+	if r.param.timeBound {
+		return
+	}
 
 	go func() {
 		for {
@@ -88,7 +105,9 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 			r.queueMutex.Unlock()
 
 			act, err := next.MakeAcceptAction()
-			if err != nil { panic(err) }			
+			if err != nil {
+				panic(err)
+			}
 			r.nextActionChan <- act
 		}
 	}()
@@ -102,7 +121,7 @@ func (r *Random) GetNextActionChan() chan *Action {
 	return r.nextActionChan
 }
 
-func (r *Random) QueueNextEvent(procId string, ev *Event) {
+func (r *Random) defaultQueueNextEvent(procId string, ev *Event) {
 	r.queueMutex.Lock()
 
 	if r.param != nil && procId == r.param.prioritize {
@@ -112,6 +131,28 @@ func (r *Random) QueueNextEvent(procId string, ev *Event) {
 		r.lowEventQueue = append(r.lowEventQueue, ev)
 	}
 	r.queueMutex.Unlock()
+}
+
+func (r *Random) timeBoundQueueNextEvent(procId string, ev *Event) {
+	go func(e *Event) {
+		sleepMS := r.randGen.Int() % r.param.maxBound
+		time.Sleep(time.Duration(sleepMS) * time.Millisecond)
+
+		act, err := ev.MakeAcceptAction()
+		if err != nil {
+			panic(err)
+		}
+
+		r.nextActionChan <- act
+	}(ev)
+}
+
+func (r *Random) QueueNextEvent(procId string, ev *Event) {
+	if r.param.timeBound {
+		r.timeBoundQueueNextEvent(procId, ev)
+	} else {
+		r.defaultQueueNextEvent(procId, ev)
+	}
 }
 
 func RandomNew() *Random {
