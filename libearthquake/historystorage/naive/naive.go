@@ -300,8 +300,11 @@ func (n *Naive) Search(prefix []Event) []int {
 }
 
 func (n *Naive) Init() {
-	// required for JSON event and actions
+	// gob.Register required for JSON event and actions
 	gob.Register(map[string]interface{}{})
 	gob.Register([]map[string]interface{}{})
 	n.info = n.readSearchModeInfo()
+}
+
+func (n *Naive) Close() {
 }

@@ -1,0 +1,15 @@
+run = "run.sh"
+
+storageType = "mongodb"
+
+[inspectorHandler.pb]
+  emulateREST = true
+
+# MongoDB Usage:
+#
+#   $ earthquake run /tmp/foo
+#   $ mongo earthquake
+#   MongoDB shell> db.action.find()
+#   MongoDB shell> db.event.find()
+#   MongoDB shell> db.action.find({trace_id: 42})
+#

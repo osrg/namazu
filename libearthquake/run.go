@@ -143,6 +143,8 @@ func run(args []string) {
 		}
 	}
 
+	storage.Close()
+
 	if succeed && cleanScriptPath != "" {
 		cleanCmd := createCmd(cleanScriptPath, nextDir, materialsDir)
 

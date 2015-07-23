@@ -20,6 +20,14 @@ def is_privileged_mode():
         raise RuntimeError('EQ_DOCKER_PRIVILEGED is set, but SYS_ADMIN cap is missing')
     return has_env
 
+def run_daemons(l):
+    for elem in l:
+        log('Starting daemon: %s' % elem)
+        rc = subprocess.call(elem)
+        if rc != 0:
+            log('Exiting with status %d..(%s)' % (rc, elem))
+            sys.exit(rc)
+
 def run_command_and_exit(l):
     log('Starting command: %s' % l)
     rc = subprocess.call(l)
@@ -30,6 +38,10 @@ def get_remaining_args():
     return sys.argv[1:]
 
 if __name__ == '__main__':
+    daemons = [
+        ['service', 'mongodb', 'start']
+    ]
+    run_daemons(daemons)
     com = ['/bin/bash', '--login', '-i']
     if is_privileged_mode():
         log('Running with privileged mode. Enabling DinD, OVS, and Ryu')

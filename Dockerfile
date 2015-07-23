@@ -8,6 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     protobuf-compiler default-jdk maven \
     ## Install useful stuffs
     sudo \
+    ## (Optional) Install MongoDB storage
+    mongodb \
     ## (Optional) Install pyearthquake deps
     python-flask python-scapy python-zmq \
     ## (Optional) Install pyearthquake nfqhook deps
