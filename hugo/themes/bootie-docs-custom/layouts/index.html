@@ -1,0 +1,26 @@
+{{ $baseUrl := .Site.BaseURL }}
+{{ partial "header.html" . }}
+
+<div class="row">
+  <!-- Main jumbotron for a primary marketing message or call to action -->
+  <div class="jumbotron">
+    <h1>{{ .Site.Title }}</h1>
+    <p>{{ if isset .Site.Params "description" }}{{ .Site.Params.description }}{{ else }}You can customize this text by params "description" in your <code>config.toml</code>.{{ end }}</p>
+    {{ with .Site.Params.repositoryUrl }}<a href="{{ . }}"><strong>{{ . }}</strong></a>{{ end }}
+  </div> <!-- /jumbotron -->
+</div> <!-- / row -->
+
+<div class="row">
+  <div class="col-sm-9 doc-main">
+    <main role="main">
+      {{ range where .Site.Pages "Title" "_index" }}
+      <div class="row doc-main">
+	{{ .Content }}
+      </div>
+      {{ end }}
+    </main>
+  </div> <!-- / col-sm-9 doc-main -->
+  {{ partial "sidebar-posts.html" . }} {{/* col-sm-3 */}}
+</div> <!-- / row -->
+
+{{ partial "footer.html" . }}

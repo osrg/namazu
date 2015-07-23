@@ -1,0 +1,48 @@
++++
+date = "2015-07-22T14:19:19+09:00"
+tags = ["document"]
+title = "_index"
+
++++
+
+# What is this?
+
+In short, the goal of earthquake project is providing a foundation of debugger for distributed systems.
+
+Developing and maintaining distributed systems is difficult. 
+The difficulty comes from many factors, 
+but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.
+
+What are the distributed systems specific bugs?
+The bugs caused by hardware faults, non determinism of message ordering, and mix of them
+(non distributed systems does not need to handle them).
+Some researchers point out that real world systems (e.g. Hadoop) have such bugs, 
+which can cause terrible failures like data loss [\[1\]][1] [\[3\]][3]. 
+They showed the existence of the bugs by building implementation level distributed system model checkers (DMCK).
+The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
+In addition, they can work with actual implementation (not formal model [\[2\]][2]) directly.
+
+earthquake is a framework for such DMCKs.
+Its design does not depend on programming languages and opearting systems.
+You can write your own state space search policy for your system.
+We hope it will make your life a little bit easier.
+
+[1]: https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa "Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14."
+[2]: http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf "Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014."
+[3]: https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf "Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI '09."
+
+1. [Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14.][1]
+2. [Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.][2]
+3. [Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI '09.][3]
+
+
+# How to use?
+[README file](https://github.com/osrg/earthquake/blob/master/README.md) is a good start point.
+
+# Contact
+The project is managed on [github](https://github.com/osrg/earthquake).
+[Pull requests](https://github.com/osrg/earthquake/pulls) and [issues](https://github.com/osrg/earthquake/issues) are welcome.
+We are using [gitter](https://gitter.im/osrg/earthquake) for discussion.
+Feel free to join.
+
+[![Join the chat at https://gitter.im/osrg/earthquake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
