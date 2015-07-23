@@ -1,0 +1,8 @@
+{
+    "run": "run.sh",
+    "inspectorHandler": {
+	"pb": {
+	    "emulateREST": true
+	}
+    }
+}

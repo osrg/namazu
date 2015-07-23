@@ -255,6 +255,6 @@ func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionE
 	}
 }
 
-func NewRESTInspectorHanlder() *RESTInspectorHandler {
+func NewRESTInspectorHanlder(config *Config) *RESTInspectorHandler {
 	return &RESTInspectorHandler{}
 }

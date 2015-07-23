@@ -24,6 +24,8 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
+	"encoding/json"
+	"path"
 )
 
 // functions that provides basic functionalities of native history storage
@@ -51,6 +53,36 @@ func (n *Naive) updateSearchModeInfo() {
 	}
 }
 
+func recordAsJSONFile(v interface{}, fileName string) error {
+	js, err := json.MarshalIndent(v, "", "\t")
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(fileName, js, 0644)
+}
+
+func recordJSONAction(i int, act *Action, dir string) {
+	if ( act.ActionType != "_JSON") {
+		panic(fmt.Errorf("bad action %s", act))
+	}
+
+	actJsonName := path.Join(dir, fmt.Sprintf("%d.action.json", i))
+	if err := recordAsJSONFile(act.ActionParam, actJsonName); err != nil {
+		panic(err)
+	}
+	evtJsonName := path.Join(dir, fmt.Sprintf("%d.event.json", i))
+	if err := recordAsJSONFile(act.Evt.EventParam, evtJsonName); err != nil {
+		panic(err)
+	}
+}
+
+func recordAction(i int, act *Action, dir string) {
+	if (act.ActionType == "_JSON") {
+		recordJSONAction(i, act, dir)
+		return
+	}
+}
+
 func (n *Naive) RecordNewTrace(newTrace *SingleTrace) {
 	var traceBuf bytes.Buffer
 	enc := gob.NewEncoder(&traceBuf)
@@ -71,6 +103,15 @@ func (n *Naive) RecordNewTrace(newTrace *SingleTrace) {
 	if werr != nil {
 		Log("writing new trace to file failed: %s", werr)
 		os.Exit(1)
+	}
+
+	actionTraceDir := path.Join(n.nextWorkingDir, "actions")
+	if err := os.Mkdir(actionTraceDir, 0777); err != nil {
+		Log("%s", err)
+		os.Exit(1)
+	}
+	for i, act := range newTrace.ActionSequence {
+		recordAction(i, &act, actionTraceDir)
 	}
 }
 
@@ -259,6 +300,8 @@ func (n *Naive) Search(prefix []Event) []int {
 }
 
 func (n *Naive) Init() {
+	// required for JSON event and actions
 	gob.Register(map[string]interface{}{})
+	gob.Register([]map[string]interface{}{})
 	n.info = n.readSearchModeInfo()
 }
