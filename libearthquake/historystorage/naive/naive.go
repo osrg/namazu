@@ -53,7 +53,8 @@ func (n *Naive) updateSearchModeInfo() {
 	}
 }
 
-func recordAsJSONFile(v interface{}, fileName string) error {
+func recordJSONToFile(v interface{}, fileName string) error {
+	// Should we split this from "naive" and move to another storage like "jsonfiles"?
 	js, err := json.MarshalIndent(v, "", "\t")
 	if err != nil {
 		return err
@@ -61,27 +62,20 @@ func recordAsJSONFile(v interface{}, fileName string) error {
 	return ioutil.WriteFile(fileName, js, 0644)
 }
 
-func recordJSONAction(i int, act *Action, dir string) {
-	if ( act.ActionType != "_JSON") {
-		panic(fmt.Errorf("bad action %s", act))
-	}
-
-	actJsonName := path.Join(dir, fmt.Sprintf("%d.action.json", i))
-	if err := recordAsJSONFile(act.ActionParam, actJsonName); err != nil {
-		panic(err)
-	}
-	evtJsonName := path.Join(dir, fmt.Sprintf("%d.event.json", i))
-	if err := recordAsJSONFile(act.Evt.EventParam, evtJsonName); err != nil {
-		panic(err)
-	}
-}
-
 func recordAction(i int, act *Action, dir string) {
-	if (act.ActionType == "_JSON") {
-		recordJSONAction(i, act, dir)
-		return
+	actJSON := act.ToJSONMap()
+	actJSONName := path.Join(dir, fmt.Sprintf("%d.action.json", i))
+	if err := recordJSONToFile(actJSON, actJSONName); err != nil {
+		panic(err)
+	}
+
+	evtJSON := act.Evt.ToJSONMap()
+	evtJSONName := path.Join(dir, fmt.Sprintf("%d.event.json", i))
+	if err := recordJSONToFile(evtJSON, evtJSONName); err != nil {
+		panic(err)
 	}
 }
+
 
 func (n *Naive) RecordNewTrace(newTrace *SingleTrace) {
 	var traceBuf bytes.Buffer

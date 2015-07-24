@@ -42,7 +42,10 @@ func ParseConfigFile(filePath string) (*Config, error) {
 	cfg.SetDefault("inspectorHandler",
 		map[string]interface{}{
 			"pb": map[string]interface{}{
-				"emulateREST": false,
+				// TODO: port
+			},
+			"rest": map[string]interface{}{
+				// TODO: port
 			},
 		})
 	// viper supports JSON, YAML, and TOML

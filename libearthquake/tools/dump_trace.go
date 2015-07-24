@@ -18,9 +18,9 @@ package tools
 import (
 	. "../equtils"
 	"encoding/gob"
+	"encoding/json"
 	"flag"
 	"fmt"
-	"encoding/json"
 	"os"
 	"time"
 	"github.com/mitchellh/cli"
@@ -46,14 +46,14 @@ func dumpJSONAction(i int, act *Action) {
 	ev := act.Evt
 	fmt.Printf("%d %s for @ %s: %s, %s\n",
 		i,
-		act.ActionParam["class"],
-		ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.EventParam["class"])
-	actJson, err := json.MarshalIndent(act.ActionParam, "", "\t")
+		act.ToJSONMap()["class"],
+		ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.ToJSONMap()["class"])
+	actJson, err := json.MarshalIndent(act.ToJSONMap(), "", "\t")
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("%s\n", actJson)
-	evJson, err := json.MarshalIndent(ev.EventParam, "", "\t")
+	evJson, err := json.MarshalIndent(ev.ToJSONMap(), "", "\t")
 	if err != nil {
 		panic(err)
 	}

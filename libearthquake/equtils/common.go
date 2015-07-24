@@ -62,10 +62,29 @@ type Event struct {
 
 	ProcId string
 
+	EventId string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
 	EventType  string // e.g., "FuncCall", "_JSON"
 	EventParam EAParam
 
 	JavaSpecific *Event_JavaSpecific
+}
+
+func (this Event) Validate() error {
+	if this.EventType == "_JSON" {
+		// TODO: check JSON schema
+	} else {
+		if this.EventType == "FuncCall" {
+			// nop
+		} else if this.EventType == "FuncReturn" {
+			// nop
+		} else {
+			return fmt.Errorf("Unknown EventType %s", this.EventType)
+		}
+	}
+	if this.EventId == "" {
+		return fmt.Errorf("EventId not set")
+	}
+	return nil
 }
 
 func (this Event) String() string {
@@ -77,11 +96,85 @@ func (this Event) String() string {
 	}
 }
 
+func (this *Event) ToJSONMap () map[string]interface{} {
+	if this.EventType == "_JSON" {
+		return this.EventParam
+	}
+	m := 	 map[string]interface{} {
+		// please refer to JSON schema file for this format
+		"type": "event",
+		"class": "",
+		"deferred": true,
+		"process": this.ProcId,
+		"uuid": this.EventId,
+		"option": map[string]interface{} {
+		},
+	}
+	if this.EventType == "FuncCall" {
+		m["class"] = "FunctionCallEvent"
+		m["option"].(map[string]interface{})["func_name"] = this.EventParam["name"]
+	} else if this.EventType == "FuncReturn" {
+		m["class"] = "FunctionReturnEvent"
+		m["option"].(map[string]interface{})["func_name"] = this.EventParam["name"]
+	} else {
+		Panic("invalid type of event: %d", this.EventType)
+	}
+	if this.JavaSpecific != nil {
+		m["option"].(map[string]interface{})["thread_name"] = this.JavaSpecific.ThreadName
+		stackTrace := make([]map[string]interface{}, 0)
+		for _, stackTraceElement := range this.JavaSpecific.StackTraceElements {
+			element := map[string]interface{}{
+				"line_number": stackTraceElement.LineNumber,
+				"class_name":  stackTraceElement.ClassName,
+				"method_name": stackTraceElement.MethodName,
+				"file_name":   stackTraceElement.FileName,
+			}
+			stackTrace = append(stackTrace, element)
+		}
+		m["option"].(map[string]interface{})["stack"] = stackTrace
+		for _, param := range this.JavaSpecific.Params {
+			m["option"].(map[string]interface{})[param.Name] = param.Value
+		}
+	}
+	return m
+}
+
+func EventFromJSONMap(m map[string]interface{}, arrivedTime time.Time, processId string) (ev Event, err error) {
+	ev = Event{
+		ArrivedTime: arrivedTime,
+		ProcId:      processId,
+		EventId: m["uuid"].(string),
+		EventType:  "_JSON",
+		EventParam: m,
+	}
+	err = ev.Validate()
+	return
+}
+
 type Action struct {
+	ActionId string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
 	ActionType  string // e.g., "Accept", "_JSON"
 	ActionParam EAParam
 
 	Evt *Event
+}
+
+func (this Action) Validate() error {
+	if this.ActionType == "_JSON" {
+		// TODO: check JSON schema
+	} else {
+		if this.ActionType == "Accept" {
+			if this.Evt == nil {
+				return fmt.Errorf("No event tied")
+			}
+		} else {
+			return fmt.Errorf("Unknown ActionType %s", this.ActionType)
+		}
+	}
+	if this.ActionId == "" {
+		return fmt.Errorf("ActionId not set")
+	}
+	return nil
 }
 
 func (this Action) String() string {
@@ -93,10 +186,32 @@ func (this Action) String() string {
 	}
 }
 
+func (this *Action) ToJSONMap () map[string]interface{} {
+	if this.ActionType == "_JSON" {
+		return this.ActionParam
+	} else if this.ActionType == "Accept" {
+		// NOTE: this.Evt: PB Event, jsonEvent: JSON Event
+		jsonEvent, err := EventFromJSONMap(this.Evt.ToJSONMap(), this.Evt.ArrivedTime, this.Evt.ProcId)
+		if err != nil {
+			Panic("%s", err)
+		}
+		jsonAction, err := jsonEvent.MakeAcceptAction()
+		if err != nil {
+			Panic("%s", err)
+		}
+		return jsonAction.ToJSONMap()
+	} else {
+		// FIXME: return an error
+		Panic("Unknown type %s", this.ActionType)
+		return nil
+	}
+}
+
 func (this *Event) MakeAcceptAction() (act *Action, err error) {
+	actionId := uuid.NewV4().String()
 	if this.EventType != "_JSON" {
 		// plain old events (e.g., "FuncCall")
-		act = &Action{ActionType: "Accept", Evt: this}
+		act = &Action{ActionId: actionId, ActionType: "Accept", Evt: this}
 	} else {
 		// JSON events (for REST inspector handler)
 		if ! this.EventParam["deferred"].(bool) {
@@ -104,6 +219,7 @@ func (this *Event) MakeAcceptAction() (act *Action, err error) {
 			return
 		}
 		act = &Action {
+			ActionId: actionId,
 			ActionType: "_JSON",
 			ActionParam: EAParam{
 				// TODO: wrap me
@@ -111,7 +227,7 @@ func (this *Event) MakeAcceptAction() (act *Action, err error) {
 				"type": "action",
 				"class": "AcceptDeferredEventAction",
 				"process": this.ProcId,
-				"uuid": uuid.NewV4().String(),
+				"uuid": actionId,
 				"option": map[string]interface{} {
 					"event_uuid": this.EventParam["uuid"].(string),
 				},
@@ -119,6 +235,7 @@ func (this *Event) MakeAcceptAction() (act *Action, err error) {
 			Evt: this,
 		}
 	}
+	err = act.Validate()
 	return
 }
 
@@ -172,6 +289,8 @@ func AreEventsEqual(a, b *Event) bool {
 	if a.JavaSpecific != nil && b.JavaSpecific != nil{
 		return compareJavaSpecificFields(a, b)
 	}
+
+	// we don't have to care about EventId, right?
 
 	return true
 }

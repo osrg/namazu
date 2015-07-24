@@ -26,7 +26,6 @@ import (
 )
 
 type PBInspectorHandler struct {
-	EmulateREST bool
 }
 
 func recvPBMsgViaChan(entity *TransitionEntity, eventReqRecv chan *InspectorMsgReq) {
@@ -64,57 +63,8 @@ func sendPBMsgViaChan(entity *TransitionEntity, eventRspSend chan *InspectorMsgR
 	}
 }
 
-func (handler *PBInspectorHandler) makeEmulatedRESTEventFromPBMsg (entity *TransitionEntity, req *InspectorMsgReq) *Event {
-	evParam := 	 EAParam{
-		// please refer to JSON schema file for this format
-		"type": "event",
-		"class": "",
-		"deferred": true,
-		"process": entity.Id,
-		"uuid": uuid.NewV4().String(),
-		"option": map[string]interface{} {
-		},
-	}
-	if *req.Event.Type == InspectorMsgReq_Event_FUNC_CALL {
-		evParam["class"] = "FunctionCallEvent"
-		evParam["option"].(map[string]interface{})["func_name"] = *req.Event.FuncCall.Name
-	} else if *req.Event.Type == InspectorMsgReq_Event_FUNC_RETURN {
-		evParam["class"] = "FunctionReturnEvent"
-		evParam["option"].(map[string]interface{})["func_name"] = *req.Event.FuncReturn.Name
-	} else {
-		Panic("invalid type of event: %d", *req.Event.Type)
-	}
-	if *req.HasJavaSpecificFields == 1 {
-		evParam["option"].(map[string]interface{})["thread_name"] = *req.JavaSpecificFields.ThreadName
-		stackTrace := make([]map[string]interface{}, 0)
-		for _, stackTraceElement := range req.JavaSpecificFields.StackTraceElements {
-			element := map[string]interface{}{
-				"line_number": int(*stackTraceElement.LineNumber),
-				"class_name":  *stackTraceElement.ClassName,
-				"method_name": *stackTraceElement.MethodName,
-				"file_name":   *stackTraceElement.FileName,
-			}
-			stackTrace = append(stackTrace, element)
-		}
-		evParam["option"].(map[string]interface{})["stack"] = stackTrace
-		for _, param := range req.JavaSpecificFields.Params {
-			evParam["option"].(map[string]interface{})[*param.Name] = *param.Value
-		}
-	}
-	e := &Event{
-		ArrivedTime: time.Now(),
-		ProcId:      entity.Id,
-
-		EventType:   "_JSON",
-		EventParam: evParam,
-	}
-	return e
-}
-
 func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity, req *InspectorMsgReq) *Event {
-	if ( handler.EmulateREST) {
-		return handler.makeEmulatedRESTEventFromPBMsg(entity, req)
-	}
+
 	evType := ""
 	evParam := NewEAParam()
 	if *req.Event.Type == InspectorMsgReq_Event_FUNC_CALL {
@@ -131,6 +81,8 @@ func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity,
 		ArrivedTime: time.Now(),
 		ProcId:      entity.Id,
 
+		// eventId: used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
+		EventId: uuid.NewV4().String(),
 		EventType:  evType,
 		EventParam: evParam,
 	}
@@ -165,13 +117,17 @@ func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity,
 
 		e.JavaSpecific = &ejs
 	}
+	if err := e.Validate(); err != nil {
+		Panic("Event.Validate() returned an error %s", err)
+	}
 	return e
 }
 
 func (handler *PBInspectorHandler) makePBMsgFromAction (entity *TransitionEntity, req *InspectorMsgReq, action *Action) *InspectorMsgRsp {
-	if (action.ActionType == "Accept") ||
-	((action.ActionType == "_JSON") &&
-	(action.ActionParam["class"] == "AcceptDeferredEventAction")) {
+	if err := action.Validate(); err != nil {
+		Panic("%s", err)
+	}
+	if (action.ActionType == "Accept") {
 		result := InspectorMsgRsp_ACK
 		req_msg_id := *req.MsgId
 		rsp := &InspectorMsgRsp{
@@ -254,11 +210,5 @@ func (handler *PBInspectorHandler) StartAccept(readyEntityCh chan *TransitionEnt
 }
 
 func NewPBInspectorHanlder(config *Config) *PBInspectorHandler {
-	emulateREST := config.GetBool("inspectorhandler.pb.emulateREST")
-	if emulateREST {
-		Log("Emulating REST Inspector Handler")
-	}
-	return &PBInspectorHandler{
-		EmulateREST: emulateREST,
-	}
+	return &PBInspectorHandler{}
 }

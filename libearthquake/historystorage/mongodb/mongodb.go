@@ -16,7 +16,6 @@
 package mongodb
 
 import (
-	"fmt"
 	"time"
 	mgo "gopkg.in/mgo.v2"
 	naive "../naive"
@@ -35,6 +34,7 @@ const (
 // type that implements interface HistoryStorage
 type MongoDB struct {
 	Naive *naive.Naive
+	dirPath string
 	Session *mgo.Session
 	DB *mgo.Database
 }
@@ -52,6 +52,7 @@ func New(dirPath string) *MongoDB {
 
 	return &MongoDB{
 		Naive: naive.New(dirPath),
+		dirPath: dirPath,
 		Session: session,
 		DB: db,
 	}
@@ -86,24 +87,23 @@ func (this *MongoDB) RecordNewTrace(newTrace *SingleTrace) {
 
 	traceDoc := map[string] interface{} {
 		// FIXME: use something like this.Naive.GetCurrentTraceID()
-		"trace_id": this.Naive.NrStoredHistories(),
+		"trace_id": this.Naive.NrStoredHistories() - 1,
+		"dir": this.dirPath,
 	}
 	actionSequence := make([]map[string] interface{}, 0)
 	for _, act := range newTrace.ActionSequence {
-		if (act.ActionType != "_JSON" || act.ActionParam["type"] != "action" ||
-			act.Evt.EventType != "_JSON" || act.Evt.EventParam["type"] != "event" ) {
-			panic(fmt.Errorf("bad action %s", act))
-		}
-		this.DB.C(actionColName).Insert(&act.ActionParam)
-		this.DB.C(eventColName).Insert(&act.Evt.EventParam)
+		actJSON := act.ToJSONMap()
+		evtJSON := act.Evt.ToJSONMap()
+		this.DB.C(actionColName).Insert(&actJSON)
+		this.DB.C(eventColName).Insert(&evtJSON)
 		actionSequence = append(actionSequence, map[string]interface{}{
 			// TODO: consider mongodb ObjectID
-			"uuid": act.ActionParam["uuid"],
+			"uuid": actJSON["uuid"],
 			// TODO: use ActionParam["digest"] if set (digest computation can be off-loaded to pyearthquake)
 			"digest": map[string]interface{}{
-				"class": act.ActionParam["class"],
-				"event_class": act.Evt.EventParam["class"],
-				"event_option": act.Evt.EventParam["option"],
+				"class": actJSON["class"],
+				"event_class": evtJSON["class"],
+				"event_option": evtJSON["option"],
 			},
 		})
 	}
