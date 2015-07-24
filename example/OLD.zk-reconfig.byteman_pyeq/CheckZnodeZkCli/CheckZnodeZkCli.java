@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class CheckZnodeZkCli {
 
@@ -35,35 +37,34 @@ public class CheckZnodeZkCli {
             System.err.println("usage: CheckZnodeZkCli <server address:serverport,server address:serverport ...>");
             System.exit(1);
         }
-        
-        HashMap<String, Map<String, String>> maps = new HashMap<String, Map<String, String>>();
+
+        HashMap<String, Map<String, String>> serverZnodeMaps = new HashMap<String, Map<String, String>>();
         String[] servers = args[0].split(",");
-        
+
         for (String server : servers) {
             List<String> childrens = new ArrayList<String>();
-            
+
             MyWatcher watcher = new MyWatcher();
-            ZooKeeper zk;
+
             try {
-                zk = new ZooKeeper(server, 30000, new MyWatcher());
+                ZooKeeper zk = new ZooKeeper(server, 30000, new MyWatcher());
 
                 childrens = zk.getChildren("/", watcher);
-                
+                HashMap<String, String> znodesAndVlues = new HashMap<String, String>();
+
                 for (String children : childrens) {
-                    if (children == null) {
+                    if (children == null ||
+                        children.equals("zookeeper")) {
                         continue;
                     }
-                    if (children.equals("zookeeper")) {
-                        continue;
-                    }
-                   
-                    String value = zk.getData("/" + children , watcher, new Stat()).toString();
-                    HashMap<String, String> znodeMap = new HashMap<String, String>();
-                    znodeMap.put(children, value);
-                    maps.put(server, znodeMap);
+
+                    byte[] byteValue = zk.getData("/" + children , watcher, new Stat());
+                    String value = new String(byteValue);
+
+                    znodesAndVlues.put(children, value);
                 }
-                    
-                System.out.println(childrens);
+                serverZnodeMaps.put(server, znodesAndVlues);
+
             } catch (InterruptedException e) {
                 System.err.println("InterruptedException: " + e);
                 System.exit(1);
@@ -75,21 +76,35 @@ public class CheckZnodeZkCli {
                 System.exit(1);
             }
         }
-        
-        Map<String, String> forDiff = new HashMap<String, String>();
-        forDiff = maps.get(servers[0]);
-        for (int i = 0 ; i < servers.length; i++) {
-            if (i == 0) {
-                continue;
-            }
-            if (!forDiff.keySet().equals(maps.get(servers[i]).keySet())) {
-                System.out.println("znode key diffrent");
-                System.exit(1);
-            }
-            if (!forDiff.values().equals(maps.get(servers[i]).values())) {
-                System.out.println("znode value diffrent");
-                System.exit(1);
+
+        String forDiffServerName = new String();
+        Map<String, String> forDiffServerZnode = new HashMap<String, String>();
+
+        for (Entry<String, Map<String, String>> forDiffServerZnodeEntry : serverZnodeMaps.entrySet()) {
+            forDiffServerName = forDiffServerZnodeEntry.getKey();
+            forDiffServerZnode = forDiffServerZnodeEntry.getValue();
+
+            for (Entry<String, Map<String, String>> serverZnode : serverZnodeMaps.entrySet()) {
+                if (forDiffServerName.equals(serverZnode.getKey())) {
+                    continue;
+                }
+
+                for (String znodeName : serverZnode.getValue().keySet()) {
+                    if (!forDiffServerZnode.containsKey(znodeName)) {
+                        String error = String.format("znode(%s) of server(%s) is not exist in server(%s)", znodeName, serverZnode.getKey(), forDiffServerName);
+                        System.out.println(error);
+                        System.exit(1);
+                    }
+                }
+                for (String znodeValue : serverZnode.getValue().values()) {
+                    if (!forDiffServerZnode.containsValue(znodeValue)) {
+                        String error = String.format("znodeValue(%s) of server(%s) is not exist in server(%s)", znodeValue, serverZnode.getKey(), forDiffServerName);
+                        System.out.println(error);
+                        System.exit(1);
+                    }
+                }
             }
         }
+        System.out.println("Znodes check success!");
     }
 }

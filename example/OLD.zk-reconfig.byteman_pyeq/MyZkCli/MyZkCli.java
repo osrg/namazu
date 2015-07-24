@@ -26,7 +26,7 @@ public class MyZkCli {
 
             String testdata = "fubar";
             for (int i = 0; i < 2; i++) {
-             zk.create("/test-", testdata.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL);
+                zk.create("/test-", testdata.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT_SEQUENTIAL);
             }
         } catch (IOException e) {
             System.err.println("IOException: " + e);
