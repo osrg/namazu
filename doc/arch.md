@@ -15,7 +15,7 @@
     +----------+     +---------------+     +--------------------------------------------------+
                   ^                     ^
                   |                     |
-                  |                     +--- JSON over HTTP (Inspectors POSTs events, then GETs actions)
+                  |                     +--- Protocol Buffers, or REST (Inspectors POSTs events, then GETs actions)
                   |
                   +--- Inspectors (for Java) are embedded in testee programs using byteman
 
@@ -23,17 +23,50 @@
 Please also refer to [figs/eq-redesign.pdf](figs/eq-redesign.pdf) for planned archtecture-level changes.
 
 ## Inspectors
-### Implemented Inspectors:
+
  * Java: byteman
  * Ethernet (ryu): Open vSwitch + ryu
  * Ethernet (nfqhook): iptables + NFQUEUE
+
  
 ## Orchestrator
-### Implemented Backend and Bindings:
- * `libearthquake`: backend library for recording execution history.
- * `pyearthquake`: python binding for `libearthquake`
 
-### Implemented Plug-ins:
+Explore Policy: explores state space
+
+  * `Dumb`: reorder nothing
+  * `Random`: reorder actions randomly
+  * `DFS`,`BFS`: (WIP)
+  * `DPOR`: (WIP) enables dynamic partial order reduction
+
+History Storage
+
+ * `naive`
+ * `mongodb`
+
+### REST API
+
+ * `POST /api/v2/events/<process_id>/<event_uuid>` (Non-blocking): send an event to the orchestrator
+ * `GET /api/v2/actions/<process_id>` (Blocking): receive an action for <process_id> from the orchestrator.
+ * `DELETE /api/v2/actions/<process_id>/<action_uuid>` (Non-blocking): ack for get
+
+Events:
+
+ * `FunctionCallEvent`: inspected and deferred function calls
+ * `FunctionReturnEvent`: inspected and deferred function calls
+ * `PacketEvent`: inspected and deferred Ethernet packets
+ * `LogEvent`: (planned) inspected syslog
+
+Actions:
+
+ * `NopAction`: nop
+ * `AcceptDeferredEventAction`: for `FunctionCallEvent`, `FunctionReturnEvent`, and `PacketEvent`
+ * `DropDeferredEventAction`: (planned)
+ * `ExecuteCommandOnInspectorAction`: (planned)
+ * `ExecuteCommandOnOrchestratorAction`: (planned)
+
+
+### pyearthquake plug-ins (was available in v0.1, but not under active development)
+
  * Orchestrator Plug-in: manages Explorer and so on.
   * `BasicOrchestrator`: a basic orchestrator
   
@@ -41,7 +74,7 @@ Please also refer to [figs/eq-redesign.pdf](figs/eq-redesign.pdf) for planned ar
   * `DumbExplorer`: reorder nothing
   * `RandomExplorer`: reorder actions randomly
   * `TimeBoundedRandomExplorer`: similar to `RandomExplorer`, but maximum deferred time is bounded
-  * `GreedyExplorer`: (WIP, but this must be the most effective exploration policy)
+  * `GreedyExplorer`: DFS-like policy using NetworkX graph processing library
   
  * Process Watcher Plug-in: watches events from processes, maps event->action, and execute actions. You can check safety properties (i.e. assertion) in Process Watcher.
   * `BasicProcessWatcher`: a basic process watcher
@@ -49,28 +82,4 @@ Please also refer to [figs/eq-redesign.pdf](figs/eq-redesign.pdf) for planned ar
  * Termination Detector Plug-in:  detects termination of one-shot execution. Execution histories are recorded to storage on such terminations.
   * `InspectionEndDetector`: detects termination when `InspectionEndEvent`s are observed from all processes
   * `IdleForWhileDetector`: detects termination when no event are observed for several milliseconds.
-
-### Implemented API
- * Orchestartor provides RESTful (JSON over HTTP) API.
-  * HTTP enables simplification of connection handling and proxying
-   * Even if inspectors crashed unexpectedly, you can send `InspectionEndEvent`s to the orchestrator manually with `curl`/`wget`.
-  * JSON enables flexible structuralization. Some JSON-friendly tools (e.g., JQ, MongoDB, ..) can be used with execution history JSONs.
- * `POST /api/v2/events/<process_id>/<event_uuid>` (Non-blocking): send an event to the orchestrator
- * `GET /api/v2/actions/<process_id>` (Blocking): receive an action for <process_id> from the orchestrator.
- * `DELETE /api/v2/actions/<process_id>/<action_uuid>` (Non-blocking): ack for get
- * `GET /api/v2/visualizers/csv`: GET CSV statistics. You may use `gnuplot` to visualize CSV.
-
-### Implemented Entities
- * Events:
-  * `FunctionCallEvent`: inspected and deferred function calls
-  * `PacketEvent`: inspected and deferred ethernet packets
-  * `LogEvent`: inspected syslog (WIP)
-  * `InspectionEndEvent`: termination of inspectors. usable for the `InspectionEndDetector` plug-in.
-  
- * Actions:
-  * `NopAction`: nop
-  * `AcceptDeferredEventAction`: for `FunctionCallEvent` and `PacketEvent`
-  * `DropDeferredEventAction`: (WIP)
-  * `ExecuteCommandOnInspectorAction`: (WIP)
-  * `ExecuteCommandOnOrchestratorAction`: usable for fault-injection that kills inspectors
 
