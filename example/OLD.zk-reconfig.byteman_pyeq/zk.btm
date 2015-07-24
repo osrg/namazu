@@ -6,7 +6,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("FinalRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -18,7 +18,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("PrepRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -30,7 +30,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("SyncRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -42,7 +42,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("AckRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -54,7 +54,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("CommitProcessor.processRequest", argMap);
 ENDRULE
 
@@ -66,7 +66,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("FollowerRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -78,7 +78,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("LeaderRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -90,7 +90,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("ObserverRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -102,7 +102,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("ProposalRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -114,7 +114,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("ReadOnlyRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -126,7 +126,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("SendAckRequestProcessor.processRequest", argMap);
 ENDRULE
 
@@ -138,7 +138,7 @@ BIND argMap = new java.util.HashMap(), this=$0, request=$1
 AT ENTRY
 IF true
 DO
-argMap.put("request", request.toString());
+argMap.put("request", request.toString().replaceAll("sessionid:\S+\s", "").replaceAll("cxid:\S+\s", "").replaceAll("zxid:\S+\s", ""));
 eventFuncCall("Leader.ToBeAppliedRequestProcessor.processRequest", argMap);
 ENDRULE
 

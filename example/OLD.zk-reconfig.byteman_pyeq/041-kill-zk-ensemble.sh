@@ -27,5 +27,5 @@ do
     $ZKDIR/bin/zkServer.sh --config /tmp/eq/zk-conf/$i stop
 done
 
-
+rm -rf /tmp/eq/removeServer.id
 rm -rf /tmp/eq/zk*   #NOTE: you must keep /tmp/eq/search
