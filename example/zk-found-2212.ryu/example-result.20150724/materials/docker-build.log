@@ -1,0 +1,228 @@
+Sending build context to Docker daemon 557.1 kBSending build context to Docker daemon 1.114 MBSending build context to Docker daemon 1.671 MBSending build context to Docker daemon 2.228 MBSending build context to Docker daemon 2.785 MBSending build context to Docker daemon 3.342 MBSending build context to Docker daemon 3.899 MBSending build context to Docker daemon 4.456 MBSending build context to Docker daemon 5.014 MBSending build context to Docker daemon 5.571 MBSending build context to Docker daemon 6.128 MBSending build context to Docker daemon 6.685 MBSending build context to Docker daemon 7.242 MBSending build context to Docker daemon 7.799 MBSending build context to Docker daemon 8.356 MBSending build context to Docker daemon 8.913 MBSending build context to Docker daemon  9.47 MBSending build context to Docker daemon 10.03 MBSending build context to Docker daemon 10.58 MBSending build context to Docker daemon 11.14 MBSending build context to Docker daemon  11.7 MBSending build context to Docker daemon 12.26 MBSending build context to Docker daemon 12.81 MBSending build context to Docker daemon 13.37 MBSending build context to Docker daemon 13.93 MBSending build context to Docker daemon 14.48 MBSending build context to Docker daemon 15.04 MBSending build context to Docker daemon  15.6 MBSending build context to Docker daemon 16.15 MBSending build context to Docker daemon 16.71 MBSending build context to Docker daemon 17.27 MBSending build context to Docker daemon 17.83 MBSending build context to Docker daemon 18.38 MBSending build context to Docker daemon 18.94 MBSending build context to Docker daemon  19.5 MBSending build context to Docker daemon 20.05 MBSending build context to Docker daemon 20.61 MBSending build context to Docker daemon 21.17 MBSending build context to Docker daemon 21.73 MBSending build context to Docker daemon 22.28 MBSending build context to Docker daemon 22.84 MBSending build context to Docker daemon  23.4 MBSending build context to Docker daemon 23.95 MBSending build context to Docker daemon 24.51 MBSending build context to Docker daemon 25.07 MBSending build context to Docker daemon 25.62 MBSending build context to Docker daemon 26.18 MBSending build context to Docker daemon 26.74 MBSending build context to Docker daemon  27.3 MBSending build context to Docker daemon 27.85 MBSending build context to Docker daemon 28.41 MBSending build context to Docker daemon 28.97 MBSending build context to Docker daemon 29.52 MBSending build context to Docker daemon 30.08 MBSending build context to Docker daemon 30.64 MBSending build context to Docker daemon  31.2 MBSending build context to Docker daemon 31.75 MBSending build context to Docker daemon 32.31 MBSending build context to Docker daemon 32.87 MBSending build context to Docker daemon 33.42 MBSending build context to Docker daemon 33.98 MBSending build context to Docker daemon 34.54 MBSending build context to Docker daemon 35.09 MBSending build context to Docker daemon 35.65 MBSending build context to Docker daemon 36.21 MBSending build context to Docker daemon 36.77 MBSending build context to Docker daemon 37.32 MBSending build context to Docker daemon 37.88 MBSending build context to Docker daemon 38.44 MBSending build context to Docker daemon 38.99 MBSending build context to Docker daemon 39.55 MBSending build context to Docker daemon 40.11 MBSending build context to Docker daemon 40.67 MBSending build context to Docker daemon 41.22 MBSending build context to Docker daemon 41.78 MBSending build context to Docker daemon 42.34 MBSending build context to Docker daemon 42.89 MBSending build context to Docker daemon 43.45 MBSending build context to Docker daemon 43.61 MB
+Sending build context to Docker daemon 
+Step 0 : FROM java:7
+ ---> beabd1eef902
+Step 1 : MAINTAINER akihirosuda
+ ---> Using cache
+ ---> 9eb32e19e141
+Step 2 : ENV ZOO_LOG4J_PROP DEBUG,CONSOLE,SYSLOG
+ ---> Using cache
+ ---> 04ac514bf13f
+Step 3 : ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
+ ---> Using cache
+ ---> c67f6db27a1a
+Step 4 : RUN apt-get update && apt-get install -y ant telnet netcat less lv
+ ---> Using cache
+ ---> 8bec62b8786b
+Step 5 : RUN mkdir /zk /zk_data
+ ---> Using cache
+ ---> 3bd3134dc549
+Step 6 : ADD zookeeper /zk
+ ---> 5bf409ef20f1
+Removing intermediate container 5dd837cc3cfb
+Step 7 : ADD init.py /
+ ---> b2454705157b
+Removing intermediate container 81b5b0ca8ccc
+Step 8 : ADD log4j.properties /zk/conf/
+ ---> 8db6c4fe02f4
+Removing intermediate container 54a2e1d19777
+Step 9 : WORKDIR /zk
+ ---> Running in 38ba19d6a1aa
+ ---> 66c2e3dc5442
+Removing intermediate container 38ba19d6a1aa
+Step 10 : RUN ant
+ ---> Running in 17c528dab5b7
+[91mPicked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+[0mBuildfile: /zk/build.xml
+
+init:
+    [mkdir] Created dir: /zk/build/classes
+    [mkdir] Created dir: /zk/build/lib
+    [mkdir] Created dir: /zk/build/package/lib
+    [mkdir] Created dir: /zk/build/test/lib
+
+ivy-download:
+      [get] Getting: http://repo2.maven.org/maven2/org/apache/ivy/ivy/2.2.0/ivy-2.2.0.jar
+      [get] To: /zk/src/java/lib/ivy-2.2.0.jar
+
+ivy-taskdef:
+
+ivy-init:
+
+ivy-retrieve:
+[ivy:retrieve] :: Ivy 2.2.0 - 20100923230623 :: http://ant.apache.org/ivy/ ::
+[ivy:retrieve] :: loading settings :: file = /zk/ivysettings.xml
+[ivy:retrieve] :: resolving dependencies :: org.apache.zookeeper#zookeeper;3.6.0-SNAPSHOT
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	found jline#jline;2.11 in maven2
+[ivy:retrieve] 	found org.mortbay.jetty#jetty;6.1.26 in maven2
+[ivy:retrieve] 	found org.mortbay.jetty#jetty-util;6.1.26 in maven2
+[ivy:retrieve] 	found org.mortbay.jetty#servlet-api;2.5-20081211 in maven2
+[ivy:retrieve] 	found org.codehaus.jackson#jackson-mapper-asl;1.9.11 in maven2
+[ivy:retrieve] 	found org.codehaus.jackson#jackson-core-asl;1.9.11 in maven2
+[ivy:retrieve] 	found org.slf4j#slf4j-api;1.7.5 in maven2
+[ivy:retrieve] 	found org.slf4j#slf4j-log4j12;1.7.5 in maven2
+[ivy:retrieve] 	found commons-cli#commons-cli;1.2 in maven2
+[ivy:retrieve] 	found log4j#log4j;1.2.16 in maven2
+[ivy:retrieve] 	found io.netty#netty;3.7.0.Final in maven2
+[ivy:retrieve] 	found net.java.dev.javacc#javacc;5.0 in maven2
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/jline/jline/2.11/jline-2.11.jar ...
+[ivy:retrieve] ............................................. (203kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] jline#jline;2.11!jline.jar (1063ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar ...
+[ivy:retrieve] ...................................................................................................... (527kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#jetty;6.1.26!jetty.jar (1074ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/codehaus/jackson/jackson-mapper-asl/1.9.11/jackson-mapper-asl-1.9.11.jar ...
+[ivy:retrieve] ..................................................................................................................................................................................... (762kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.codehaus.jackson#jackson-mapper-asl;1.9.11!jackson-mapper-asl.jar (1339ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar ...
+[ivy:retrieve] ............................................... (172kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#jetty-util;6.1.26!jetty-util.jar (662ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/mortbay/jetty/servlet-api/2.5-20081211/servlet-api-2.5-20081211.jar ...
+[ivy:retrieve] ............................................... (130kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.mortbay.jetty#servlet-api;2.5-20081211!servlet-api.jar (554ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/codehaus/jackson/jackson-core-asl/1.9.11/jackson-core-asl-1.9.11.jar ...
+[ivy:retrieve] ............................................................ (226kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.codehaus.jackson#jackson-core-asl;1.9.11!jackson-core-asl.jar (666ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar ...
+[ivy:retrieve] ...... (25kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.slf4j#slf4j-api;1.7.5!slf4j-api.jar (524ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar ...
+[ivy:retrieve] ..... (8kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] org.slf4j#slf4j-log4j12;1.7.5!slf4j-log4j12.jar (528ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/commons-cli/commons-cli/1.2/commons-cli-1.2.jar ...
+[ivy:retrieve] ......... (40kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] commons-cli#commons-cli;1.2!commons-cli.jar (530ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/log4j/log4j/1.2.16/log4j-1.2.16.jar ...
+[ivy:retrieve] ......................................................................................... (470kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] log4j#log4j;1.2.16!log4j.jar(bundle) (922ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/io/netty/netty/3.7.0.Final/netty-3.7.0.Final.jar ...
+[ivy:retrieve] ............................................................................................................................................................................................................................................................................................................................. (1180kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] io.netty#netty;3.7.0.Final!netty.jar (1464ms)
+[ivy:retrieve] downloading http://repo1.maven.org/maven2/net/java/dev/javacc/javacc/5.0/javacc-5.0.jar ...
+[ivy:retrieve] ........................................................................ (291kB)
+[ivy:retrieve] .. (0kB)
+[ivy:retrieve] 	[SUCCESSFUL ] net.java.dev.javacc#javacc;5.0!javacc.jar (670ms)
+[ivy:retrieve] :: resolution report :: resolve 26334ms :: artifacts dl 10010ms
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   12  |   12  |   12  |   0   ||   12  |   12  |
+	---------------------------------------------------------------------
+[ivy:retrieve] :: retrieving :: org.apache.zookeeper#zookeeper
+[ivy:retrieve] 	confs: [default]
+[ivy:retrieve] 	12 artifacts copied, 0 already retrieved (4040kB/14ms)
+
+clover.setup:
+
+clover.info:
+
+clover:
+
+generate_jute_parser:
+    [mkdir] Created dir: /zk/build/jute_compiler/org/apache/jute/compiler/generated
+[ivy:artifactproperty] DEPRECATED: 'ivy.conf.file' is deprecated, use 'ivy.settings.file' instead
+[ivy:artifactproperty] :: loading settings :: file = /zk/ivysettings.xml
+     [move] Moving 1 file to /zk/build/lib
+   [javacc] Java Compiler Compiler Version 5.0 (Parser Generator)
+   [javacc] (type "javacc" with no arguments for help)
+   [javacc] Reading from file /zk/src/java/main/org/apache/jute/compiler/generated/rcc.jj . . .
+[91m   [javacc] Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+[0m   [javacc] File "TokenMgrError.java" does not exist.  Will create one.
+   [javacc] File "ParseException.java" does not exist.  Will create one.
+   [javacc] File "Token.java" does not exist.  Will create one.
+   [javacc] File "SimpleCharStream.java" does not exist.  Will create one.
+   [javacc] Parser generated successfully.
+
+jute:
+    [javac] Compiling 39 source files to /zk/build/classes
+
+compile_jute_uptodate:
+
+compile_jute:
+    [mkdir] Created dir: /zk/src/java/generated
+    [mkdir] Created dir: /zk/src/c/generated
+     [java] ../../zookeeper.jute Parsed Successfully
+     [java] Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+     [java] ../../zookeeper.jute Parsed Successfully
+     [java] Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+    [touch] Creating /zk/src/java/generated/.generated
+
+ver-gen:
+    [javac] Compiling 1 source file to /zk/build/classes
+
+svn-revision:
+    [mkdir] Created dir: /zk/.revision
+     [exec] svn: E155007: '/zk' is not a working copy
+
+version-info:
+     [java] Unknown REVISION number, using -1
+     [java] Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+
+process-template:
+
+build-generated:
+    [javac] Compiling 59 source files to /zk/build/classes
+
+compile:
+    [javac] Compiling 210 source files to /zk/build/classes
+    [javac] /zk/src/java/main/org/apache/zookeeper/jmx/ManagedUtil.java:62: warning: [rawtypes] found raw type: Enumeration
+    [javac]         Enumeration enumer = r.getCurrentLoggers();
+    [javac]         ^
+    [javac]   missing type arguments for generic class Enumeration<E>
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface Enumeration
+    [javac] /zk/src/java/main/org/apache/zookeeper/server/admin/AdminServer.java:33: warning: [serial] serializable class AdminServerException has no definition of serialVersionUID
+    [javac]     public class AdminServerException extends Exception {
+    [javac]            ^
+    [javac] /zk/src/java/main/org/apache/zookeeper/server/admin/JettyAdminServer.java:129: warning: [serial] serializable class JettyAdminServer.CommandServlet has no definition of serialVersionUID
+    [javac]     private class CommandServlet extends HttpServlet {
+    [javac]             ^
+    [javac] /zk/src/java/main/org/apache/zookeeper/server/util/KerberosUtil.java:39: warning: [rawtypes] found raw type: Class
+    [javac]     getInstanceMethod = classRef.getMethod("getInstance", new Class[0]);
+    [javac]                                                               ^
+    [javac]   missing type arguments for generic class Class<T>
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in class Class
+    [javac] /zk/src/java/main/org/apache/zookeeper/server/util/KerberosUtil.java:42: warning: [rawtypes] found raw type: Class
+    [javac]          new Class[0]);
+    [javac]              ^
+    [javac]   missing type arguments for generic class Class<T>
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in class Class
+    [javac] /zk/src/java/main/org/apache/zookeeper/server/util/OSMXBean.java:89: warning: [rawtypes] found raw type: Class
+    [javac]                 new Class[0]);
+    [javac]                     ^
+    [javac]   missing type arguments for generic class Class<T>
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in class Class
+    [javac] 6 warnings
+
+jar:
+      [jar] Building jar: /zk/build/zookeeper-3.6.0-SNAPSHOT.jar
+
+BUILD SUCCESSFUL
+Total time: 47 seconds
+ ---> 0ae8a7874582
+Removing intermediate container 17c528dab5b7
+Step 11 : CMD python /init.py
+ ---> Running in 461237c5840d
+ ---> 7ec31a4a99ff
+Removing intermediate container 461237c5840d
+Step 12 : EXPOSE 2181 2888 3888
+ ---> Running in 77518b6b109e
+ ---> 3c673dedc4b9
+Removing intermediate container 77518b6b109e
+Successfully built 3c673dedc4b9

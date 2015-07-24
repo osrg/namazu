@@ -14,7 +14,7 @@ Basically, Earthquake permutes events in a random order, but you can write your 
 
 ## News
 We have successfully found a distributed race condition bug of ZooKeeper using Earthquake.
-Please refer to [example/zk-found-bug.ryu\_pyeq](example/zk-found-bug.ryu_pyeq) for further information.
+Please refer to [example/zk-found-2212.ryu](example/zk-found-2212.ryu) for further information.
 
 ## Quick Start
 NOTE: the master branch is currently under a major refactoring. [v0.1](https://github.com/osrg/earthquake/releases/tag/v0.1) is stable.
