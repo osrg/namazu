@@ -4,7 +4,7 @@ set -x
 EQDIR=$(pwd)/../..
 ZKDIR=$(pwd)/zookeeper
 
-export ZOOBINDIR=$ZKDIR/bin/
+export ZOOBINDIR=$ZKDIR/bin
 . $ZKDIR/bin/zkEnv.sh
 
 AGENT_CP=$EQDIR/bin/earthquake-inspector.jar

@@ -27,7 +27,7 @@ jars=$(find . -name '*.jar' | perl -pe 's/\n/:/g')
 i=1
 while :
 do
-    sleep 5
+    sleep 3
     P=$((2180 + $i))
     java $AGENT -cp ReconfigZkCli:$jars ReconfigZkCli localhost $P &
     i=$((i + 1))

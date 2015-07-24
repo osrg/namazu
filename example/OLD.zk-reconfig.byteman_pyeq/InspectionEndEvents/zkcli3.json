@@ -1,0 +1,7 @@
+{
+    "type": "event",
+    "class": "InspectionEndEvent",
+    "process": "zkcli3",
+    "uuid": "1f13eaa6-4b92-45f0-a4de-1236081dc654",
+    "option": {}
+}
