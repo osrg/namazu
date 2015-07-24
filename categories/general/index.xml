@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>General on Earthquake</title>
+    <link>http://osrg.github.io/earthquake/categories/general/</link>
+    <description>Recent content in General on Earthquake</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
+    <lastBuildDate>Wed, 22 Jul 2015 14:19:19 +0900</lastBuildDate>
+    <atom:link href="http://osrg.github.io/earthquake/categories/general/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting Started</title>
+      <link>http://osrg.github.io/earthquake/gettingStarted/</link>
+      <pubDate>Wed, 22 Jul 2015 14:19:19 +0900</pubDate>
+      
+      <guid>http://osrg.github.io/earthquake/gettingStarted/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/README.md&#34;&gt;README file&lt;/a&gt; is a good start point.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>About Earthquake</title>
+      <link>http://osrg.github.io/earthquake/about/</link>
+      <pubDate>Wed, 22 Jul 2015 14:18:43 +0900</pubDate>
+      
+      <guid>http://osrg.github.io/earthquake/about/</guid>
+      <description>
+
+&lt;p&gt;In short, the goal of earthquake project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
+
+&lt;p&gt;Developing and maintaining distributed systems is difficult.
+The difficulty comes from many factors,
+but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
+
+&lt;p&gt;What are the distributed systems specific bugs?
+The bugs caused by hardware faults, non determinism of message ordering, and mix of them
+(non distributed systems does not need to handle them).
+Some researchers point out that real world systems (e.g. Hadoop) have such bugs,
+which can cause terrible failures like data loss &lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;[1]&lt;/a&gt; &lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;[3]&lt;/a&gt;.
+They showed the existence of the bugs by building implementation level distributed system model checkers (DMCK).
+The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
+In addition, they can work with actual implementation (not formal model &lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;[2]&lt;/a&gt;) directly.&lt;/p&gt;
+
+&lt;p&gt;earthquake is a framework for such DMCKs.
+Its design does not depend on programming languages and opearting systems.
+You can write your own state space search policy for your system.
+We hope it will make your life a little bit easier.&lt;/p&gt;
+
+&lt;h2 id=&#34;references:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;References&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &amp;lsquo;14.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &amp;lsquo;09.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
