@@ -26,9 +26,9 @@ type InspectorHandler interface {
 	StartAccept(readyEntityCh chan *TransitionEntity)
 }
 
-func StartAllInspectorHandler(readyEntityCh chan *TransitionEntity) {
-	pbInspectorHandler := pbinspectorhandler.NewPBInspectorHanlder()
+func StartAllInspectorHandler(readyEntityCh chan *TransitionEntity, config *Config) {
+	pbInspectorHandler := pbinspectorhandler.NewPBInspectorHanlder(config)
 	go pbInspectorHandler.StartAccept(readyEntityCh)
-	restInspectorHandler := restinspectorhandler.NewRESTInspectorHanlder()
+	restInspectorHandler := restinspectorhandler.NewRESTInspectorHanlder(config)
 	go restInspectorHandler.StartAccept(readyEntityCh)
 }

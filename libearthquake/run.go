@@ -92,7 +92,7 @@ func run(args []string) {
 	end := make(chan interface{})
 	newTraceCh := make(chan *SingleTrace)
 
-	go orchestrate(end, policy, newTraceCh)
+	go orchestrate(end, policy, newTraceCh, config)
 
 	materialsDir := storagePath + "/" + storageMaterialsPath
 	runScriptPath := materialsDir + "/" + config.GetString("run")
@@ -142,6 +142,8 @@ func run(args []string) {
 			storage.RecordResult(true, requiredTime)
 		}
 	}
+
+	storage.Close()
 
 	if succeed && cleanScriptPath != "" {
 		cleanCmd := createCmd(cleanScriptPath, nextDir, materialsDir)

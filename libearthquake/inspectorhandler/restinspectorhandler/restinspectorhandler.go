@@ -90,18 +90,13 @@ func RootOnGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func makeEventStruct(processId string, reader io.Reader) (ev Event, err error) {
-	var evParam EAParam
+	var m map[string] interface{}
 	decoder := json.NewDecoder(reader)
-	err = decoder.Decode(&evParam)
+	err = decoder.Decode(&m)
 	if err != nil {
 		return
 	}
-	ev = Event{
-		ArrivedTime: time.Now(),
-		ProcId:      processId,
-		EventType:  "_JSON",
-		EventParam: evParam,
-	}
+	ev, err = EventFromJSONMap(m, time.Now(), processId)
 	return
 }
 
@@ -187,7 +182,7 @@ func ActionsOnGet(w http.ResponseWriter, r *http.Request) {
 	//       because HTTP DELETE must be idempotent (RFC 7231)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(act.ActionParam); err != nil {
+	if err := json.NewEncoder(w).Encode(act.ToJSONMap()); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -211,7 +206,7 @@ func ActionsOnDelete(w http.ResponseWriter, r *http.Request) {
 	// DELETE the action
 	// NOTE: newActions == Actions is expected, as DELETE must be idempotent (RFC 7231)
 	newActions, err := From(proc.Actions).Where(func(s T) (bool, error){
-		return s.(*Action).ActionParam["uuid"].(string) != actionUuid, nil
+		return s.(*Action).ToJSONMap()["uuid"].(string) != actionUuid, nil
 	}).Results()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -255,6 +250,6 @@ func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionE
 	}
 }
 
-func NewRESTInspectorHanlder() *RESTInspectorHandler {
+func NewRESTInspectorHanlder(config *Config) *RESTInspectorHandler {
 	return &RESTInspectorHandler{}
 }

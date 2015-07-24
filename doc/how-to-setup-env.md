@@ -44,6 +44,10 @@ If you want to set up your own environment manually, please follow this instruct
 
 NOTE: Go 1.5 or later is required to build libearthquake.so.
 
+### (Optional) Install Dependencies for MongoDB history storage
+    
+    $ sudo apt-get install -y --no-install-recommends mongodb
+    
 ### (Optional) Install Dependencies for pyearthquake
     
 	$ sudo apt-get install -y --no-install-recommends python-{flask,scapy,zmq}

@@ -1,0 +1,12 @@
+run = "run.sh"
+
+storageType = "mongodb"
+
+# MongoDB Usage:
+#
+#   $ earthquake run /tmp/foo
+#   $ mongo earthquake
+#   MongoDB shell> db.action.find()
+#   MongoDB shell> db.event.find()
+#   MongoDB shell> db.trace.find({trace_id: 42, dir: "/tmp/foo"})
+#

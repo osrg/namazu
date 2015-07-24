@@ -21,6 +21,7 @@ import (
 
 	. "../equtils"
 	"./naive"
+	"./mongodb"
 )
 
 const (
@@ -32,6 +33,7 @@ type HistoryStorage interface {
 	CreateStorage()
 
 	Init()
+	Close()
 	Name() string
 
 	CreateNewWorkingDir() string
@@ -52,6 +54,8 @@ func New(name, dirPath string) HistoryStorage {
 	switch name {
 	case "naive":
 		return naive.New(dirPath)
+	case "mongodb":
+		return mongodb.New(dirPath)
 	default:
 		fmt.Printf("unknown history storage: %s\n", name)
 	}
@@ -62,6 +66,7 @@ func New(name, dirPath string) HistoryStorage {
 func LoadStorage(dirPath string) HistoryStorage {
 	confPath := dirPath + "/" + StorageConfigPath
 
+	// TODO: we should not parse config twice. (run should have already parsed the config)
 	vcfg, err := ParseConfigFile(confPath)
 	if err != nil {
 		fmt.Printf("error: %s\n", err)

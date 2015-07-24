@@ -21,10 +21,10 @@ import (
 	"./inspectorhandler"
 )
 
-func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *SingleTrace) {
+func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *SingleTrace, config *Config) {
 	readyEntityCh := make(chan *TransitionEntity)
 
-	inspectorhandler.StartAllInspectorHandler(readyEntityCh)
+	inspectorhandler.StartAllInspectorHandler(readyEntityCh, config)
 
 	actionSeq := make([]Action, 0)
 

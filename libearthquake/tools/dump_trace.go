@@ -18,11 +18,11 @@ package tools
 import (
 	. "../equtils"
 	"encoding/gob"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
 	"time"
-
 	"github.com/mitchellh/cli"
 )
 
@@ -39,33 +39,62 @@ func init() {
 	dumpTraceFlagset.StringVar(&_dumpTraceFlags.TracePath, "trace-path", "", "path of trace data file")
 }
 
+func dumpJSONAction(i int, act *Action) {
+	if ( act.ActionType != "_JSON") {
+		panic(fmt.Errorf("bad action %s", act))
+	}
+	ev := act.Evt
+	fmt.Printf("%d %s for @ %s: %s, %s\n",
+		i,
+		act.ToJSONMap()["class"],
+		ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.ToJSONMap()["class"])
+	actJson, err := json.MarshalIndent(act.ToJSONMap(), "", "\t")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%s\n", actJson)
+	evJson, err := json.MarshalIndent(ev.ToJSONMap(), "", "\t")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%s\n", evJson)
+}
+
+func dumpAction(i int, act *Action) {
+	if (act.ActionType == "_JSON") {
+		dumpJSONAction(i, act)
+		return
+	}
+	ev := act.Evt
+	fmt.Printf("%d %s(%s) for @ %s: %s, %s(%s)\n",
+		i,
+		act.ActionType, act.ActionParam,
+		ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.EventType, ev.EventParam)
+
+	if ev.JavaSpecific != nil {
+		js := ev.JavaSpecific
+
+		fmt.Printf("\tThread: %s\n", js.ThreadName)
+
+		fmt.Printf("\tparams:\n")
+		for _, param := range js.Params {
+			fmt.Printf("\t\t%s: %s\n", param.Name, param.Value)
+		}
+
+		fmt.Printf("\tstack trace:\n")
+		for _, stackTraceElement := range js.StackTraceElements {
+			fmt.Printf("\t\t%s %s %s %d\n",
+				stackTraceElement.FileName,
+				stackTraceElement.ClassName,
+				stackTraceElement.MethodName,
+				stackTraceElement.LineNumber)
+		}
+	}
+}
+
 func doDumpTrace(trace *SingleTrace) {
 	for i, act := range trace.ActionSequence {
-		ev := act.Evt
-		fmt.Printf("%d %s(%s) for @ %s: %s, %s(%s)\n",
-			i,
-			act.ActionType, act.ActionParam,
-			ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.EventType, ev.EventParam)
-
-		if ev.JavaSpecific != nil {
-			js := ev.JavaSpecific
-
-			fmt.Printf("\tThread: %s\n", js.ThreadName)
-
-			fmt.Printf("\tparams:\n")
-			for _, param := range js.Params {
-				fmt.Printf("\t\t%s: %s\n", param.Name, param.Value)
-			}
-
-			fmt.Printf("\tstack trace:\n")
-			for _, stackTraceElement := range js.StackTraceElements {
-				fmt.Printf("\t\t%s %s %s %d\n",
-					stackTraceElement.FileName,
-					stackTraceElement.ClassName,
-					stackTraceElement.MethodName,
-					stackTraceElement.LineNumber)
-			}
-		}
+		dumpAction(i, &act)
 	}
 }
 
@@ -83,6 +112,7 @@ func dumpTrace(args []string) {
 		os.Exit(1)
 	}
 	gob.Register(map[string]interface{}{})
+	gob.Register([]map[string]interface{}{})
 	dec := gob.NewDecoder(file)
 	var trace SingleTrace
 	derr := dec.Decode(&trace)

@@ -24,6 +24,8 @@ import (
 	"io/ioutil"
 	"os"
 	"time"
+	"encoding/json"
+	"path"
 )
 
 // functions that provides basic functionalities of native history storage
@@ -51,6 +53,30 @@ func (n *Naive) updateSearchModeInfo() {
 	}
 }
 
+func recordJSONToFile(v interface{}, fileName string) error {
+	// Should we split this from "naive" and move to another storage like "jsonfiles"?
+	js, err := json.MarshalIndent(v, "", "\t")
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(fileName, js, 0644)
+}
+
+func recordAction(i int, act *Action, dir string) {
+	actJSON := act.ToJSONMap()
+	actJSONName := path.Join(dir, fmt.Sprintf("%d.action.json", i))
+	if err := recordJSONToFile(actJSON, actJSONName); err != nil {
+		panic(err)
+	}
+
+	evtJSON := act.Evt.ToJSONMap()
+	evtJSONName := path.Join(dir, fmt.Sprintf("%d.event.json", i))
+	if err := recordJSONToFile(evtJSON, evtJSONName); err != nil {
+		panic(err)
+	}
+}
+
+
 func (n *Naive) RecordNewTrace(newTrace *SingleTrace) {
 	var traceBuf bytes.Buffer
 	enc := gob.NewEncoder(&traceBuf)
@@ -71,6 +97,15 @@ func (n *Naive) RecordNewTrace(newTrace *SingleTrace) {
 	if werr != nil {
 		Log("writing new trace to file failed: %s", werr)
 		os.Exit(1)
+	}
+
+	actionTraceDir := path.Join(n.nextWorkingDir, "actions")
+	if err := os.Mkdir(actionTraceDir, 0777); err != nil {
+		Log("%s", err)
+		os.Exit(1)
+	}
+	for i, act := range newTrace.ActionSequence {
+		recordAction(i, &act, actionTraceDir)
 	}
 }
 
@@ -259,6 +294,11 @@ func (n *Naive) Search(prefix []Event) []int {
 }
 
 func (n *Naive) Init() {
+	// gob.Register required for JSON event and actions
 	gob.Register(map[string]interface{}{})
+	gob.Register([]map[string]interface{}{})
 	n.info = n.readSearchModeInfo()
+}
+
+func (n *Naive) Close() {
 }
