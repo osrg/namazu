@@ -1,0 +1,17 @@
+{
+	"class": "PacketEvent",
+	"deferred": true,
+	"option": {
+		"dst_process": "zk3",
+		"message": {
+			"class": "UpToDate",
+			"class_group": "ZAB",
+			"zxid_hi": -1,
+			"zxid_low": 65535
+		},
+		"src_process": "zk1"
+	},
+	"process": "_earthquake_ether_inspector",
+	"type": "event",
+	"uuid": "8de47214-4e20-410f-b1d0-ec68a2051e14"
+}

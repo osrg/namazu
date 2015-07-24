@@ -233,7 +233,6 @@ func ActionsOnDelete(w http.ResponseWriter, r *http.Request) {
 }
 
 func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionEntity) {
-	Log("***** RESTInspectorHandler: UNDER WORK-IN-PROGRESS, YOU SHOULD NOT USE THIS (please try v0.1 pyearthquake instead) *****")
 	ReadyEntityCh = readyEntityCh
 	sport := fmt.Sprintf(":%d", 10080) // FIXME
 	apiRoot := "/api/v2"

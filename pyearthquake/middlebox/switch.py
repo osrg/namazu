@@ -20,7 +20,7 @@ class RyuZMQC(ZMQClientBase):
         self.ryu = ryu
         self.datapath = datapath
 
-    def on_accept(self, packet_id, eth_bytes, metadata=None):
+    def on_accept(self, packet_id_IGNORED, eth_bytes, metadata=None):
         ofp = self.datapath.ofproto
         parser = self.datapath.ofproto_parser
         in_port, out_port = self.ryu.determine_ports(self.datapath, eth_bytes)
@@ -51,6 +51,7 @@ class RyuOF13SwitchBase(SimpleSwitch13):
         self.matches = matches
         self.zmq_client = None
         self.zmq_addr = inspector_zmq_addr
+        self.current_packet_id = 0
 
     def determine_ports(self, datapath, data):
         ofp = datapath.ofproto
@@ -112,7 +113,9 @@ class RyuOF13SwitchBase(SimpleSwitch13):
         else:
             self.logger.debug('PKT-IN: inject, msg.reason=%d', msg.reason)
             assert self.zmq_client, 'PKT-IN handler called before configuration'
-            self.zmq_client.send(hash(ev), msg.data)
+            ### NOTE: packet_id can conflict when packet_id = hash(ev)
+            self.zmq_client.send(self.current_packet_id, msg.data)
+            self.current_packet_id += 1
 
 
 import socket

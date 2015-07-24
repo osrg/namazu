@@ -1,0 +1,17 @@
+{
+	"class": "PacketEvent",
+	"deferred": true,
+	"option": {
+		"dst_process": "zk1",
+		"message": {
+			"class": "Initial",
+			"class_group": "FLE",
+			"election_addr": "192.168.42.3:3888",
+			"server_id": 3
+		},
+		"src_process": "zk3"
+	},
+	"process": "_earthquake_ether_inspector",
+	"type": "event",
+	"uuid": "4d661650-cc1b-4b28-905b-2c74e495936a"
+}

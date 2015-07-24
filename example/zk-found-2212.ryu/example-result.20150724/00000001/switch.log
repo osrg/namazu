@@ -1,0 +1,1899 @@
+loading app /tmp/zk-2212/materials/zk_switch.py
+loading app ryu.controller.ofp_handler
+instantiating app ryu.controller.ofp_handler of OFPHandler
+instantiating app /tmp/zk-2212/materials/zk_switch.py of Zk2212Switch
+BRICK Zk2212Switch
+  CONSUMES EventOFPPacketIn
+  CONSUMES EventOFPSwitchFeatures
+BRICK ofp_event
+  PROVIDES EventOFPPacketIn TO {'Zk2212Switch': set(['main'])}
+  PROVIDES EventOFPSwitchFeatures TO {'Zk2212Switch': set(['config'])}
+  CONSUMES EventOFPSwitchFeatures
+  CONSUMES EventOFPErrorMsg
+  CONSUMES EventOFPPortDescStatsReply
+  CONSUMES EventOFPHello
+  CONSUMES EventOFPEchoRequest
+connected socket:<eventlet.greenio.base.GreenSocket object at 0x7f95376f1d90> address:('127.0.0.1', 50706)
+hello ev <ryu.controller.ofp_event.EventOFPHello object at 0x7f953726f390>
+move onto config mode
+EVENT ofp_event->Zk2212Switch EventOFPSwitchFeatures
+switch features ev version: 0x4 msg_type 0x6 xid 0x6fce9920 OFPSwitchFeatures(auxiliary_id=0,capabilities=71,datapath_id=235942576840259,n_buffers=256,n_tables=254)
+[INFO]zmqclient.py:20: Connecting to ZMQ: ipc:///tmp/zk-2212/00000001/ether_inspector
+Connecting to ZMQ: ipc:///tmp/zk-2212/00000001/ether_inspector
+Setup done for datapath 235942576840259
+move onto main mode
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d 33:33:ff:d5:d6:2d 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d 33:33:00:00:00:16 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d 33:33:00:00:00:16 139
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d 33:33:00:00:00:02 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b 33:33:00:00:00:16 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b ff:ff:ff:ff:ff:ff 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b 33:33:ff:6d:25:3b 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d 33:33:00:00:00:16 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b 33:33:00:00:00:16 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 33:33:00:00:00:16 141
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 ff:ff:ff:ff:ff:ff 141
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b 33:33:00:00:00:16 140
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b 33:33:00:00:00:02 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b 33:33:00:00:00:16 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 33:33:00:00:00:16 141
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 33:33:ff:cc:19:84 141
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d ff:ff:ff:ff:ff:ff 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 d6:96:a9:7a:de:43 26:d8:2d:d5:d6:2d 4294967294
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d d6:96:a9:7a:de:43 139
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d d6:96:a9:7a:de:43 139
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d d6:96:a9:7a:de:43 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b ff:ff:ff:ff:ff:ff 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 d6:96:a9:7a:de:43 b2:c4:c1:6d:25:3b 4294967294
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b d6:96:a9:7a:de:43 140
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b d6:96:a9:7a:de:43 140
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b d6:96:a9:7a:de:43 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 ff:ff:ff:ff:ff:ff 141
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 d6:96:a9:7a:de:43 32:82:a1:cc:19:84 4294967294
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 d6:96:a9:7a:de:43 141
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 d6:96:a9:7a:de:43 141
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 d6:96:a9:7a:de:43 141
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 ff:ff:ff:ff:ff:ff 141
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d 32:82:a1:cc:19:84 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=0): 0->1
+Pendings+(id=0): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=0,op=accept): 1->0
+Pendings-(id=0,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=1): 0->1
+Pendings+(id=1): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=1,op=accept): 1->0
+Pendings-(id=1,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=2): 0->1
+Pendings+(id=2): 0->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=3): 1->2
+Pendings+(id=3): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=2,op=accept): 2->1
+Pendings-(id=2,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=4): 1->2
+Pendings+(id=4): 1->2
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=5): 2->3
+Pendings+(id=5): 2->3
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=6): 3->4
+Pendings+(id=6): 3->4
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=7): 4->5
+Pendings+(id=7): 4->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=8): 5->6
+Pendings+(id=8): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=4,op=accept): 6->5
+Pendings-(id=4,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=9): 5->6
+Pendings+(id=9): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=5,op=accept): 6->5
+Pendings-(id=5,op=accept): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=6,op=accept): 5->4
+Pendings-(id=6,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=10): 4->5
+Pendings+(id=10): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=7,op=accept): 5->4
+Pendings-(id=7,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=11): 4->5
+Pendings+(id=11): 4->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=12): 5->6
+Pendings+(id=12): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=9,op=accept): 6->5
+Pendings-(id=9,op=accept): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=10,op=drop): 5->4
+Pendings-(id=10,op=drop): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=11,op=drop): 4->3
+Pendings-(id=11,op=drop): 4->3
+[DEBUG]zmqclient.py:36: Pendings-(id=12,op=drop): 3->2
+Pendings-(id=12,op=drop): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b ff:ff:ff:ff:ff:ff 140
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d b2:c4:c1:6d:25:3b 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=13): 2->3
+Pendings+(id=13): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=13,op=accept): 3->2
+Pendings-(id=13,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=14): 2->3
+Pendings+(id=14): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=3,op=accept): 3->2
+Pendings-(id=3,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=15): 2->3
+Pendings+(id=15): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=14,op=accept): 3->2
+Pendings-(id=14,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=15,op=accept): 2->1
+Pendings-(id=15,op=accept): 2->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=16): 1->2
+Pendings+(id=16): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=16,op=accept): 2->1
+Pendings-(id=16,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=17): 1->2
+Pendings+(id=17): 1->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=18): 2->3
+Pendings+(id=18): 2->3
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=19): 3->4
+Pendings+(id=19): 3->4
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=20): 4->5
+Pendings+(id=20): 4->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=21): 5->6
+Pendings+(id=21): 5->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=22): 6->7
+Pendings+(id=22): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=18,op=accept): 7->6
+Pendings-(id=18,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=23): 6->7
+Pendings+(id=23): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=19,op=accept): 7->6
+Pendings-(id=19,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=24): 6->7
+Pendings+(id=24): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=20,op=accept): 7->6
+Pendings-(id=20,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=25): 6->7
+Pendings+(id=25): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=21,op=accept): 7->6
+Pendings-(id=21,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=26): 6->7
+Pendings+(id=26): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=23,op=accept): 7->6
+Pendings-(id=23,op=accept): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=24,op=drop): 6->5
+Pendings-(id=24,op=drop): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=25,op=drop): 5->4
+Pendings-(id=25,op=drop): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=26,op=drop): 4->3
+Pendings-(id=26,op=drop): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 33:33:00:00:00:16 141
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 33:33:00:00:00:02 141
+[DEBUG]zmqclient.py:36: Pendings-(id=17,op=accept): 3->2
+Pendings-(id=17,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=27): 2->3
+Pendings+(id=27): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=27,op=accept): 3->2
+Pendings-(id=27,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=28): 2->3
+Pendings+(id=28): 2->3
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=29): 3->4
+Pendings+(id=29): 3->4
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=30): 4->5
+Pendings+(id=30): 4->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=31): 5->6
+Pendings+(id=31): 5->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=32): 6->7
+Pendings+(id=32): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=28,op=accept): 7->6
+Pendings-(id=28,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=33): 6->7
+Pendings+(id=33): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=29,op=accept): 7->6
+Pendings-(id=29,op=accept): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=30,op=accept): 6->5
+Pendings-(id=30,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=34): 5->6
+Pendings+(id=34): 5->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=31,op=accept): 6->5
+Pendings-(id=31,op=accept): 6->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=35): 5->6
+Pendings+(id=35): 5->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=36): 6->7
+Pendings+(id=36): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=33,op=drop): 7->6
+Pendings-(id=33,op=drop): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=34,op=drop): 6->5
+Pendings-(id=34,op=drop): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=35,op=drop): 5->4
+Pendings-(id=35,op=drop): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=36,op=drop): 4->3
+Pendings-(id=36,op=drop): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=37): 3->4
+Pendings+(id=37): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=37,op=drop): 4->3
+Pendings-(id=37,op=drop): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=38): 3->4
+Pendings+(id=38): 3->4
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=39): 4->5
+Pendings+(id=39): 4->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=40): 5->6
+Pendings+(id=40): 5->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=41): 6->7
+Pendings+(id=41): 6->7
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=42): 7->8
+Pendings+(id=42): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=38,op=accept): 8->7
+Pendings-(id=38,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=43): 7->8
+Pendings+(id=43): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=39,op=accept): 8->7
+Pendings-(id=39,op=accept): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=40,op=accept): 7->6
+Pendings-(id=40,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=44): 6->7
+Pendings+(id=44): 6->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=45): 7->8
+Pendings+(id=45): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=41,op=accept): 8->7
+Pendings-(id=41,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=46): 7->8
+Pendings+(id=46): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=43,op=drop): 8->7
+Pendings-(id=43,op=drop): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=44,op=drop): 7->6
+Pendings-(id=44,op=drop): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=45,op=drop): 6->5
+Pendings-(id=45,op=drop): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=46,op=drop): 5->4
+Pendings-(id=46,op=drop): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=22,op=accept): 4->3
+Pendings-(id=22,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=47): 3->4
+Pendings+(id=47): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=47,op=accept): 4->3
+Pendings-(id=47,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=48): 3->4
+Pendings+(id=48): 3->4
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=49): 4->5
+Pendings+(id=49): 4->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=50): 5->6
+Pendings+(id=50): 5->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=51): 6->7
+Pendings+(id=51): 6->7
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=52): 7->8
+Pendings+(id=52): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=48,op=accept): 8->7
+Pendings-(id=48,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=53): 7->8
+Pendings+(id=53): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=49,op=accept): 8->7
+Pendings-(id=49,op=accept): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=50,op=accept): 7->6
+Pendings-(id=50,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=54): 6->7
+Pendings+(id=54): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=51,op=accept): 7->6
+Pendings-(id=51,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=55): 6->7
+Pendings+(id=55): 6->7
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=56): 7->8
+Pendings+(id=56): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=53,op=accept): 8->7
+Pendings-(id=53,op=accept): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=54,op=accept): 7->6
+Pendings-(id=54,op=accept): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=55,op=accept): 6->5
+Pendings-(id=55,op=accept): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=56,op=accept): 5->4
+Pendings-(id=56,op=accept): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=42,op=accept): 4->3
+Pendings-(id=42,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=57): 3->4
+Pendings+(id=57): 3->4
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=58): 4->5
+Pendings+(id=58): 4->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=59): 5->6
+Pendings+(id=59): 5->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=60): 6->7
+Pendings+(id=60): 6->7
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=61): 7->8
+Pendings+(id=61): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=57,op=accept): 8->7
+Pendings-(id=57,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=62): 7->8
+Pendings+(id=62): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=58,op=accept): 8->7
+Pendings-(id=58,op=accept): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=59,op=accept): 7->6
+Pendings-(id=59,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=63): 6->7
+Pendings+(id=63): 6->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=60,op=accept): 7->6
+Pendings-(id=60,op=accept): 7->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=64): 6->7
+Pendings+(id=64): 6->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=65): 7->8
+Pendings+(id=65): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=62,op=drop): 8->7
+Pendings-(id=62,op=drop): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=63,op=drop): 7->6
+Pendings-(id=63,op=drop): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=64,op=drop): 6->5
+Pendings-(id=64,op=drop): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=65,op=drop): 5->4
+Pendings-(id=65,op=drop): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=66): 4->5
+Pendings+(id=66): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=66,op=drop): 5->4
+Pendings-(id=66,op=drop): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=32,op=accept): 4->3
+Pendings-(id=32,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=67): 3->4
+Pendings+(id=67): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=67,op=drop): 4->3
+Pendings-(id=67,op=drop): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=68): 3->4
+Pendings+(id=68): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=68,op=accept): 4->3
+Pendings-(id=68,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=69): 3->4
+Pendings+(id=69): 3->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=70): 4->5
+Pendings+(id=70): 4->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=71): 5->6
+Pendings+(id=71): 5->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=72): 6->7
+Pendings+(id=72): 6->7
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=73): 7->8
+Pendings+(id=73): 7->8
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=74): 8->9
+Pendings+(id=74): 8->9
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=75): 9->10
+Pendings+(id=75): 9->10
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=76): 10->11
+Pendings+(id=76): 10->11
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=77): 11->12
+Pendings+(id=77): 11->12
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=78): 12->13
+Pendings+(id=78): 12->13
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=79): 13->14
+Pendings+(id=79): 13->14
+[DEBUG]zmqclient.py:36: Pendings-(id=69,op=accept): 14->13
+Pendings-(id=69,op=accept): 14->13
+[DEBUG]zmqclient.py:36: Pendings-(id=70,op=accept): 13->12
+Pendings-(id=70,op=accept): 13->12
+[DEBUG]zmqclient.py:36: Pendings-(id=71,op=accept): 12->11
+Pendings-(id=71,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=80): 11->12
+Pendings+(id=80): 11->12
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=81): 12->13
+Pendings+(id=81): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=72,op=accept): 13->12
+Pendings-(id=72,op=accept): 13->12
+[DEBUG]zmqclient.py:36: Pendings-(id=73,op=accept): 12->11
+Pendings-(id=73,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=82): 11->12
+Pendings+(id=82): 11->12
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=83): 12->13
+Pendings+(id=83): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=75,op=accept): 13->12
+Pendings-(id=75,op=accept): 13->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=84): 12->13
+Pendings+(id=84): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=76,op=accept): 13->12
+Pendings-(id=76,op=accept): 13->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=85): 12->13
+Pendings+(id=85): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=77,op=accept): 13->12
+Pendings-(id=77,op=accept): 13->12
+[DEBUG]zmqclient.py:36: Pendings-(id=78,op=accept): 12->11
+Pendings-(id=78,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=86): 11->12
+Pendings+(id=86): 11->12
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=87): 12->13
+Pendings+(id=87): 12->13
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=88): 13->14
+Pendings+(id=88): 13->14
+[DEBUG]zmqclient.py:36: Pendings-(id=80,op=accept): 14->13
+Pendings-(id=80,op=accept): 14->13
+[DEBUG]zmqclient.py:36: Pendings-(id=81,op=accept): 13->12
+Pendings-(id=81,op=accept): 13->12
+[DEBUG]zmqclient.py:36: Pendings-(id=82,op=accept): 12->11
+Pendings-(id=82,op=accept): 12->11
+[DEBUG]zmqclient.py:36: Pendings-(id=83,op=accept): 11->10
+Pendings-(id=83,op=accept): 11->10
+[DEBUG]zmqclient.py:36: Pendings-(id=84,op=drop): 10->9
+Pendings-(id=84,op=drop): 10->9
+[DEBUG]zmqclient.py:36: Pendings-(id=85,op=drop): 9->8
+Pendings-(id=85,op=drop): 9->8
+[DEBUG]zmqclient.py:36: Pendings-(id=86,op=drop): 8->7
+Pendings-(id=86,op=drop): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=87,op=drop): 7->6
+Pendings-(id=87,op=drop): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=88,op=drop): 6->5
+Pendings-(id=88,op=drop): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=74,op=accept): 5->4
+Pendings-(id=74,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=89): 4->5
+Pendings+(id=89): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=89,op=accept): 5->4
+Pendings-(id=89,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=90): 4->5
+Pendings+(id=90): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=90,op=accept): 5->4
+Pendings-(id=90,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=91): 4->5
+Pendings+(id=91): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=91,op=accept): 5->4
+Pendings-(id=91,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=92): 4->5
+Pendings+(id=92): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=92,op=accept): 5->4
+Pendings-(id=92,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=93): 4->5
+Pendings+(id=93): 4->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=94): 5->6
+Pendings+(id=94): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=93,op=accept): 6->5
+Pendings-(id=93,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=95): 5->6
+Pendings+(id=95): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=94,op=accept): 6->5
+Pendings-(id=94,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=96): 5->6
+Pendings+(id=96): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=95,op=accept): 6->5
+Pendings-(id=95,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=97): 5->6
+Pendings+(id=97): 5->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=96,op=accept): 6->5
+Pendings-(id=96,op=accept): 6->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=98): 5->6
+Pendings+(id=98): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=97,op=accept): 6->5
+Pendings-(id=97,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=99): 5->6
+Pendings+(id=99): 5->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=100): 6->7
+Pendings+(id=100): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=99,op=accept): 7->6
+Pendings-(id=99,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=101): 6->7
+Pendings+(id=101): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=100,op=accept): 7->6
+Pendings-(id=100,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=102): 6->7
+Pendings+(id=102): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=101,op=accept): 7->6
+Pendings-(id=101,op=accept): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=102,op=accept): 6->5
+Pendings-(id=102,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=103): 5->6
+Pendings+(id=103): 5->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=103,op=accept): 6->5
+Pendings-(id=103,op=accept): 6->5
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=104): 5->6
+Pendings+(id=104): 5->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=105): 6->7
+Pendings+(id=105): 6->7
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=106): 7->8
+Pendings+(id=106): 7->8
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=107): 8->9
+Pendings+(id=107): 8->9
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=108): 9->10
+Pendings+(id=108): 9->10
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=109): 10->11
+Pendings+(id=109): 10->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=110): 11->12
+Pendings+(id=110): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=105,op=accept): 12->11
+Pendings-(id=105,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=111): 11->12
+Pendings+(id=111): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=106,op=accept): 12->11
+Pendings-(id=106,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=112): 11->12
+Pendings+(id=112): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=107,op=accept): 12->11
+Pendings-(id=107,op=accept): 12->11
+[DEBUG]zmqclient.py:36: Pendings-(id=108,op=accept): 11->10
+Pendings-(id=108,op=accept): 11->10
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=113): 10->11
+Pendings+(id=113): 10->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=114): 11->12
+Pendings+(id=114): 11->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=110,op=accept): 12->11
+Pendings-(id=110,op=accept): 12->11
+[DEBUG]zmqclient.py:36: Pendings-(id=111,op=accept): 11->10
+Pendings-(id=111,op=accept): 11->10
+[DEBUG]zmqclient.py:36: Pendings-(id=112,op=drop): 10->9
+Pendings-(id=112,op=drop): 10->9
+[DEBUG]zmqclient.py:36: Pendings-(id=113,op=drop): 9->8
+Pendings-(id=113,op=drop): 9->8
+[DEBUG]zmqclient.py:36: Pendings-(id=114,op=drop): 8->7
+Pendings-(id=114,op=drop): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=52,op=accept): 7->6
+Pendings-(id=52,op=accept): 7->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=115): 6->7
+Pendings+(id=115): 6->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=115,op=drop): 7->6
+Pendings-(id=115,op=drop): 7->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=116): 6->7
+Pendings+(id=116): 6->7
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=117): 7->8
+Pendings+(id=117): 7->8
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=116,op=accept): 8->7
+Pendings-(id=116,op=accept): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=117,op=drop): 7->6
+Pendings-(id=117,op=drop): 7->6
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=118): 6->7
+Pendings+(id=118): 6->7
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=119): 7->8
+Pendings+(id=119): 7->8
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=120): 8->9
+Pendings+(id=120): 8->9
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=121): 9->10
+Pendings+(id=121): 9->10
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=122): 10->11
+Pendings+(id=122): 10->11
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=123): 11->12
+Pendings+(id=123): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=118,op=accept): 12->11
+Pendings-(id=118,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=124): 11->12
+Pendings+(id=124): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=119,op=accept): 12->11
+Pendings-(id=119,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=125): 11->12
+Pendings+(id=125): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=120,op=accept): 12->11
+Pendings-(id=120,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=126): 11->12
+Pendings+(id=126): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=121,op=accept): 12->11
+Pendings-(id=121,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=127): 11->12
+Pendings+(id=127): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=123,op=accept): 12->11
+Pendings-(id=123,op=accept): 12->11
+[DEBUG]zmqclient.py:36: Pendings-(id=124,op=accept): 11->10
+Pendings-(id=124,op=accept): 11->10
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=128): 10->11
+Pendings+(id=128): 10->11
+[DEBUG]zmqclient.py:36: Pendings-(id=125,op=accept): 11->10
+Pendings-(id=125,op=accept): 11->10
+[DEBUG]zmqclient.py:36: Pendings-(id=126,op=accept): 10->9
+Pendings-(id=126,op=accept): 10->9
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=129): 9->10
+Pendings+(id=129): 9->10
+[DEBUG]zmqclient.py:36: Pendings-(id=127,op=accept): 10->9
+Pendings-(id=127,op=accept): 10->9
+[DEBUG]zmqclient.py:36: Pendings-(id=128,op=accept): 9->8
+Pendings-(id=128,op=accept): 9->8
+[DEBUG]zmqclient.py:36: Pendings-(id=129,op=drop): 8->7
+Pendings-(id=129,op=drop): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 26:d8:2d:d5:d6:2d 33:33:00:00:00:02 139
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=130): 7->8
+Pendings+(id=130): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=130,op=accept): 8->7
+Pendings-(id=130,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=131): 7->8
+Pendings+(id=131): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=131,op=accept): 8->7
+Pendings-(id=131,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=132): 7->8
+Pendings+(id=132): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=132,op=accept): 8->7
+Pendings-(id=132,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=133): 7->8
+Pendings+(id=133): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=133,op=accept): 8->7
+Pendings-(id=133,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=134): 7->8
+Pendings+(id=134): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=134,op=accept): 8->7
+Pendings-(id=134,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=135): 7->8
+Pendings+(id=135): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=135,op=accept): 8->7
+Pendings-(id=135,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=136): 7->8
+Pendings+(id=136): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=79,op=accept): 8->7
+Pendings-(id=79,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=137): 7->8
+Pendings+(id=137): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=137,op=accept): 8->7
+Pendings-(id=137,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=138): 7->8
+Pendings+(id=138): 7->8
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=139): 8->9
+Pendings+(id=139): 8->9
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=140): 9->10
+Pendings+(id=140): 9->10
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=141): 10->11
+Pendings+(id=141): 10->11
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=142): 11->12
+Pendings+(id=142): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=138,op=accept): 12->11
+Pendings-(id=138,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=143): 11->12
+Pendings+(id=143): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=139,op=accept): 12->11
+Pendings-(id=139,op=accept): 12->11
+[DEBUG]zmqclient.py:36: Pendings-(id=140,op=accept): 11->10
+Pendings-(id=140,op=accept): 11->10
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=144): 10->11
+Pendings+(id=144): 10->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=141,op=accept): 11->10
+Pendings-(id=141,op=accept): 11->10
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=145): 10->11
+Pendings+(id=145): 10->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=146): 11->12
+Pendings+(id=146): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=143,op=drop): 12->11
+Pendings-(id=143,op=drop): 12->11
+[DEBUG]zmqclient.py:36: Pendings-(id=144,op=drop): 11->10
+Pendings-(id=144,op=drop): 11->10
+[DEBUG]zmqclient.py:36: Pendings-(id=145,op=drop): 10->9
+Pendings-(id=145,op=drop): 10->9
+[DEBUG]zmqclient.py:36: Pendings-(id=146,op=drop): 9->8
+Pendings-(id=146,op=drop): 9->8
+[DEBUG]zmqclient.py:36: Pendings-(id=142,op=accept): 8->7
+Pendings-(id=142,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=147): 7->8
+Pendings+(id=147): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=147,op=drop): 8->7
+Pendings-(id=147,op=drop): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=148): 7->8
+Pendings+(id=148): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=148,op=accept): 8->7
+Pendings-(id=148,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=149): 7->8
+Pendings+(id=149): 7->8
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=150): 8->9
+Pendings+(id=150): 8->9
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=151): 9->10
+Pendings+(id=151): 9->10
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=152): 10->11
+Pendings+(id=152): 10->11
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=153): 11->12
+Pendings+(id=153): 11->12
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=154): 12->13
+Pendings+(id=154): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=149,op=accept): 13->12
+Pendings-(id=149,op=accept): 13->12
+[DEBUG]zmqclient.py:36: Pendings-(id=150,op=accept): 12->11
+Pendings-(id=150,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=155): 11->12
+Pendings+(id=155): 11->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=151,op=accept): 12->11
+Pendings-(id=151,op=accept): 12->11
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=156): 11->12
+Pendings+(id=156): 11->12
+[DEBUG]zmqclient.py:36: Pendings-(id=152,op=accept): 12->11
+Pendings-(id=152,op=accept): 12->11
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=157): 11->12
+Pendings+(id=157): 11->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=153,op=accept): 12->11
+Pendings-(id=153,op=accept): 12->11
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=158): 11->12
+Pendings+(id=158): 11->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=159): 12->13
+Pendings+(id=159): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=155,op=accept): 13->12
+Pendings-(id=155,op=accept): 13->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=160): 12->13
+Pendings+(id=160): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=156,op=accept): 13->12
+Pendings-(id=156,op=accept): 13->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=161): 12->13
+Pendings+(id=161): 12->13
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=162): 13->14
+Pendings+(id=162): 13->14
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=163): 14->15
+Pendings+(id=163): 14->15
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=164): 15->16
+Pendings+(id=164): 15->16
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=165): 16->17
+Pendings+(id=165): 16->17
+[DEBUG]zmqclient.py:36: Pendings-(id=157,op=accept): 17->16
+Pendings-(id=157,op=accept): 17->16
+[DEBUG]zmqclient.py:36: Pendings-(id=158,op=accept): 16->15
+Pendings-(id=158,op=accept): 16->15
+[DEBUG]zmqclient.py:36: Pendings-(id=159,op=accept): 15->14
+Pendings-(id=159,op=accept): 15->14
+[DEBUG]zmqclient.py:36: Pendings-(id=160,op=accept): 14->13
+Pendings-(id=160,op=accept): 14->13
+[DEBUG]zmqclient.py:36: Pendings-(id=161,op=accept): 13->12
+Pendings-(id=161,op=accept): 13->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=166): 12->13
+Pendings+(id=166): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=162,op=accept): 13->12
+Pendings-(id=162,op=accept): 13->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=167): 12->13
+Pendings+(id=167): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=163,op=accept): 13->12
+Pendings-(id=163,op=accept): 13->12
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=168): 12->13
+Pendings+(id=168): 12->13
+[DEBUG]zmqclient.py:36: Pendings-(id=164,op=accept): 13->12
+Pendings-(id=164,op=accept): 13->12
+[DEBUG]zmqclient.py:36: Pendings-(id=166,op=drop): 12->11
+Pendings-(id=166,op=drop): 12->11
+[DEBUG]zmqclient.py:36: Pendings-(id=167,op=drop): 11->10
+Pendings-(id=167,op=drop): 11->10
+[DEBUG]zmqclient.py:36: Pendings-(id=168,op=drop): 10->9
+Pendings-(id=168,op=drop): 10->9
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=169): 9->10
+Pendings+(id=169): 9->10
+[DEBUG]zmqclient.py:36: Pendings-(id=169,op=drop): 10->9
+Pendings-(id=169,op=drop): 10->9
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=170): 9->10
+Pendings+(id=170): 9->10
+[DEBUG]zmqclient.py:36: Pendings-(id=170,op=drop): 10->9
+Pendings-(id=170,op=drop): 10->9
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=171): 9->10
+Pendings+(id=171): 9->10
+[DEBUG]zmqclient.py:36: Pendings-(id=171,op=drop): 10->9
+Pendings-(id=171,op=drop): 10->9
+[DEBUG]zmqclient.py:36: Pendings-(id=8,op=accept): 9->8
+Pendings-(id=8,op=accept): 9->8
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=172): 8->9
+Pendings+(id=172): 8->9
+[DEBUG]zmqclient.py:36: Pendings-(id=172,op=accept): 9->8
+Pendings-(id=172,op=accept): 9->8
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 33:33:00:00:00:16 141
+[DEBUG]zmqclient.py:36: Pendings-(id=165,op=accept): 8->7
+Pendings-(id=165,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=173): 7->8
+Pendings+(id=173): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=173,op=drop): 8->7
+Pendings-(id=173,op=drop): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=174): 7->8
+Pendings+(id=174): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=174,op=accept): 8->7
+Pendings-(id=174,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=175): 7->8
+Pendings+(id=175): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=175,op=accept): 8->7
+Pendings-(id=175,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=176): 7->8
+Pendings+(id=176): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=176,op=accept): 8->7
+Pendings-(id=176,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=177): 7->8
+Pendings+(id=177): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=177,op=accept): 8->7
+Pendings-(id=177,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=178): 7->8
+Pendings+(id=178): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=178,op=accept): 8->7
+Pendings-(id=178,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=179): 7->8
+Pendings+(id=179): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=122,op=accept): 8->7
+Pendings-(id=122,op=accept): 8->7
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=180): 7->8
+Pendings+(id=180): 7->8
+[DEBUG]zmqclient.py:36: Pendings-(id=180,op=accept): 8->7
+Pendings-(id=180,op=accept): 8->7
+[DEBUG]zmqclient.py:36: Pendings-(id=98,op=accept): 7->6
+Pendings-(id=98,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=181): 6->7
+Pendings+(id=181): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=181,op=accept): 7->6
+Pendings-(id=181,op=accept): 7->6
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=182): 6->7
+Pendings+(id=182): 6->7
+[DEBUG]zmqclient.py:36: Pendings-(id=182,op=drop): 7->6
+Pendings-(id=182,op=drop): 7->6
+[DEBUG]zmqclient.py:36: Pendings-(id=154,op=accept): 6->5
+Pendings-(id=154,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=183): 5->6
+Pendings+(id=183): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=183,op=drop): 6->5
+Pendings-(id=183,op=drop): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=136,op=accept): 5->4
+Pendings-(id=136,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=184): 4->5
+Pendings+(id=184): 4->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=185): 5->6
+Pendings+(id=185): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=184,op=accept): 6->5
+Pendings-(id=184,op=accept): 6->5
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=186): 5->6
+Pendings+(id=186): 5->6
+[DEBUG]zmqclient.py:36: Pendings-(id=186,op=drop): 6->5
+Pendings-(id=186,op=drop): 6->5
+[DEBUG]zmqclient.py:36: Pendings-(id=185,op=accept): 5->4
+Pendings-(id=185,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=187): 4->5
+Pendings+(id=187): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=187,op=accept): 5->4
+Pendings-(id=187,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=188): 4->5
+Pendings+(id=188): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=104,op=accept): 5->4
+Pendings-(id=104,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=189): 4->5
+Pendings+(id=189): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=189,op=accept): 5->4
+Pendings-(id=189,op=accept): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=179,op=accept): 4->3
+Pendings-(id=179,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=190): 3->4
+Pendings+(id=190): 3->4
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=191): 4->5
+Pendings+(id=191): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=190,op=accept): 5->4
+Pendings-(id=190,op=accept): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=109,op=accept): 4->3
+Pendings-(id=109,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=192): 3->4
+Pendings+(id=192): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=192,op=drop): 4->3
+Pendings-(id=192,op=drop): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=193): 3->4
+Pendings+(id=193): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=193,op=drop): 4->3
+Pendings-(id=193,op=drop): 4->3
+[DEBUG]zmqclient.py:36: Pendings-(id=188,op=accept): 3->2
+Pendings-(id=188,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=194): 2->3
+Pendings+(id=194): 2->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=195): 3->4
+Pendings+(id=195): 3->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=196): 4->5
+Pendings+(id=196): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=195,op=accept): 5->4
+Pendings-(id=195,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=197): 4->5
+Pendings+(id=197): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=197,op=accept): 5->4
+Pendings-(id=197,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=198): 4->5
+Pendings+(id=198): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=198,op=accept): 5->4
+Pendings-(id=198,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=199): 4->5
+Pendings+(id=199): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=199,op=accept): 5->4
+Pendings-(id=199,op=accept): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=61,op=accept): 4->3
+Pendings-(id=61,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=200): 3->4
+Pendings+(id=200): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=200,op=drop): 4->3
+Pendings-(id=200,op=drop): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=201): 3->4
+Pendings+(id=201): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=201,op=drop): 4->3
+Pendings-(id=201,op=drop): 4->3
+[DEBUG]zmqclient.py:36: Pendings-(id=196,op=accept): 3->2
+Pendings-(id=196,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=202): 2->3
+Pendings+(id=202): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=202,op=drop): 3->2
+Pendings-(id=202,op=drop): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=203): 2->3
+Pendings+(id=203): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=203,op=accept): 3->2
+Pendings-(id=203,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=204): 2->3
+Pendings+(id=204): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=204,op=accept): 3->2
+Pendings-(id=204,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=205): 2->3
+Pendings+(id=205): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=205,op=accept): 3->2
+Pendings-(id=205,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=206): 2->3
+Pendings+(id=206): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=194,op=accept): 3->2
+Pendings-(id=194,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=207): 2->3
+Pendings+(id=207): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=207,op=accept): 3->2
+Pendings-(id=207,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=208): 2->3
+Pendings+(id=208): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=208,op=accept): 3->2
+Pendings-(id=208,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=209): 2->3
+Pendings+(id=209): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=209,op=drop): 3->2
+Pendings-(id=209,op=drop): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=210): 2->3
+Pendings+(id=210): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=210,op=drop): 3->2
+Pendings-(id=210,op=drop): 3->2
+[DEBUG]zmqclient.py:36: Pendings-(id=191,op=accept): 2->1
+Pendings-(id=191,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=211): 1->2
+Pendings+(id=211): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=211,op=accept): 2->1
+Pendings-(id=211,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=212): 1->2
+Pendings+(id=212): 1->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 b2:c4:c1:6d:25:3b 33:33:00:00:00:02 140
+[DEBUG]zmqclient.py:36: Pendings-(id=212,op=accept): 2->1
+Pendings-(id=212,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=213): 1->2
+Pendings+(id=213): 1->2
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=214): 2->3
+Pendings+(id=214): 2->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=215): 3->4
+Pendings+(id=215): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=214,op=accept): 4->3
+Pendings-(id=214,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=216): 3->4
+Pendings+(id=216): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=216,op=accept): 4->3
+Pendings-(id=216,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=217): 3->4
+Pendings+(id=217): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=217,op=accept): 4->3
+Pendings-(id=217,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=218): 3->4
+Pendings+(id=218): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=218,op=accept): 4->3
+Pendings-(id=218,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=219): 3->4
+Pendings+(id=219): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=219,op=accept): 4->3
+Pendings-(id=219,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=220): 3->4
+Pendings+(id=220): 3->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=221): 4->5
+Pendings+(id=221): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=220,op=accept): 5->4
+Pendings-(id=220,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=222): 4->5
+Pendings+(id=222): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=222,op=accept): 5->4
+Pendings-(id=222,op=accept): 5->4
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=223): 4->5
+Pendings+(id=223): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=223,op=accept): 5->4
+Pendings-(id=223,op=accept): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=213,op=accept): 4->3
+Pendings-(id=213,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=224): 3->4
+Pendings+(id=224): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=224,op=drop): 4->3
+Pendings-(id=224,op=drop): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=225): 3->4
+Pendings+(id=225): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=225,op=accept): 4->3
+Pendings-(id=225,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=226): 3->4
+Pendings+(id=226): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=226,op=accept): 4->3
+Pendings-(id=226,op=accept): 4->3
+[DEBUG]zmqclient.py:36: Pendings-(id=221,op=accept): 3->2
+Pendings-(id=221,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=227): 2->3
+Pendings+(id=227): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=227,op=drop): 3->2
+Pendings-(id=227,op=drop): 3->2
+[DEBUG]zmqclient.py:36: Pendings-(id=206,op=accept): 2->1
+Pendings-(id=206,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=228): 1->2
+Pendings+(id=228): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=228,op=accept): 2->1
+Pendings-(id=228,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=215,op=accept): 1->0
+Pendings-(id=215,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=229): 0->1
+Pendings+(id=229): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=229,op=drop): 1->0
+Pendings-(id=229,op=drop): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=230): 0->1
+Pendings+(id=230): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=230,op=accept): 1->0
+Pendings-(id=230,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=231): 0->1
+Pendings+(id=231): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=231,op=accept): 1->0
+Pendings-(id=231,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=232): 0->1
+Pendings+(id=232): 0->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=233): 1->2
+Pendings+(id=233): 1->2
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=234): 2->3
+Pendings+(id=234): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=233,op=accept): 3->2
+Pendings-(id=233,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=235): 2->3
+Pendings+(id=235): 2->3
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=236): 3->4
+Pendings+(id=236): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=234,op=accept): 4->3
+Pendings-(id=234,op=accept): 4->3
+[DEBUG]zmqclient.py:36: Pendings-(id=235,op=accept): 3->2
+Pendings-(id=235,op=accept): 3->2
+[DEBUG]zmqclient.py:36: Pendings-(id=236,op=accept): 2->1
+Pendings-(id=236,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=237): 1->2
+Pendings+(id=237): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=237,op=accept): 2->1
+Pendings-(id=237,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=238): 1->2
+Pendings+(id=238): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=238,op=accept): 2->1
+Pendings-(id=238,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=232,op=accept): 1->0
+Pendings-(id=232,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=239): 0->1
+Pendings+(id=239): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=239,op=accept): 1->0
+Pendings-(id=239,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=240): 0->1
+Pendings+(id=240): 0->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=241): 1->2
+Pendings+(id=241): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=240,op=accept): 2->1
+Pendings-(id=240,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=241,op=accept): 1->0
+Pendings-(id=241,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=242): 0->1
+Pendings+(id=242): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=242,op=accept): 1->0
+Pendings-(id=242,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: NOT inject, msg.reason=0
+packet in 235942576840259 32:82:a1:cc:19:84 33:33:00:00:00:02 141
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=243): 0->1
+Pendings+(id=243): 0->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=244): 1->2
+Pendings+(id=244): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=243,op=accept): 2->1
+Pendings-(id=243,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=245): 1->2
+Pendings+(id=245): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=244,op=accept): 2->1
+Pendings-(id=244,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=246): 1->2
+Pendings+(id=246): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=245,op=accept): 2->1
+Pendings-(id=245,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=247): 1->2
+Pendings+(id=247): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=246,op=accept): 2->1
+Pendings-(id=246,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=248): 1->2
+Pendings+(id=248): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=247,op=accept): 2->1
+Pendings-(id=247,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=248,op=accept): 1->0
+Pendings-(id=248,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=249): 0->1
+Pendings+(id=249): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=249,op=accept): 1->0
+Pendings-(id=249,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=250): 0->1
+Pendings+(id=250): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=250,op=accept): 1->0
+Pendings-(id=250,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=251): 0->1
+Pendings+(id=251): 0->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=252): 1->2
+Pendings+(id=252): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=251,op=accept): 2->1
+Pendings-(id=251,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=252,op=accept): 1->0
+Pendings-(id=252,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=253): 0->1
+Pendings+(id=253): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=253,op=accept): 1->0
+Pendings-(id=253,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=254): 0->1
+Pendings+(id=254): 0->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=255): 1->2
+Pendings+(id=255): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=254,op=accept): 2->1
+Pendings-(id=254,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=256): 1->2
+Pendings+(id=256): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=255,op=accept): 2->1
+Pendings-(id=255,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=257): 1->2
+Pendings+(id=257): 1->2
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=258): 2->3
+Pendings+(id=258): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=256,op=accept): 3->2
+Pendings-(id=256,op=accept): 3->2
+[DEBUG]zmqclient.py:36: Pendings-(id=257,op=accept): 2->1
+Pendings-(id=257,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=259): 1->2
+Pendings+(id=259): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=258,op=accept): 2->1
+Pendings-(id=258,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=260): 1->2
+Pendings+(id=260): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=259,op=accept): 2->1
+Pendings-(id=259,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=260,op=accept): 1->0
+Pendings-(id=260,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=261): 0->1
+Pendings+(id=261): 0->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=262): 1->2
+Pendings+(id=262): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=261,op=accept): 2->1
+Pendings-(id=261,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=262,op=accept): 1->0
+Pendings-(id=262,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=263): 0->1
+Pendings+(id=263): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=263,op=accept): 1->0
+Pendings-(id=263,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=264): 0->1
+Pendings+(id=264): 0->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=265): 1->2
+Pendings+(id=265): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=264,op=accept): 2->1
+Pendings-(id=264,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=265,op=accept): 1->0
+Pendings-(id=265,op=accept): 1->0
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=266): 0->1
+Pendings+(id=266): 0->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=267): 1->2
+Pendings+(id=267): 1->2
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=268): 2->3
+Pendings+(id=268): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=266,op=accept): 3->2
+Pendings-(id=266,op=accept): 3->2
+[DEBUG]zmqclient.py:36: Pendings-(id=267,op=accept): 2->1
+Pendings-(id=267,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=269): 1->2
+Pendings+(id=269): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=268,op=accept): 2->1
+Pendings-(id=268,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=270): 1->2
+Pendings+(id=270): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=269,op=accept): 2->1
+Pendings-(id=269,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=270,op=accept): 1->0
+Pendings-(id=270,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=271): 0->1
+Pendings+(id=271): 0->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=272): 1->2
+Pendings+(id=272): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=271,op=accept): 2->1
+Pendings-(id=271,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=272,op=accept): 1->0
+Pendings-(id=272,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=273): 0->1
+Pendings+(id=273): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=273,op=accept): 1->0
+Pendings-(id=273,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=274): 0->1
+Pendings+(id=274): 0->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=275): 1->2
+Pendings+(id=275): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=274,op=accept): 2->1
+Pendings-(id=274,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=276): 1->2
+Pendings+(id=276): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=275,op=accept): 2->1
+Pendings-(id=275,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=277): 1->2
+Pendings+(id=277): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=276,op=accept): 2->1
+Pendings-(id=276,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=277,op=accept): 1->0
+Pendings-(id=277,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=278): 0->1
+Pendings+(id=278): 0->1
+[DEBUG]zmqclient.py:36: Pendings-(id=278,op=accept): 1->0
+Pendings-(id=278,op=accept): 1->0
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=279): 0->1
+Pendings+(id=279): 0->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=280): 1->2
+Pendings+(id=280): 1->2
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=281): 2->3
+Pendings+(id=281): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=279,op=accept): 3->2
+Pendings-(id=279,op=accept): 3->2
+[DEBUG]zmqclient.py:36: Pendings-(id=280,op=accept): 2->1
+Pendings-(id=280,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=282): 1->2
+Pendings+(id=282): 1->2
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=283): 2->3
+Pendings+(id=283): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=281,op=accept): 3->2
+Pendings-(id=281,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=284): 2->3
+Pendings+(id=284): 2->3
+[DEBUG]zmqclient.py:36: Pendings-(id=282,op=accept): 3->2
+Pendings-(id=282,op=accept): 3->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+[DEBUG]zmqclient.py:36: Pendings-(id=283,op=accept): 2->1
+Pendings-(id=283,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=284,op=accept): 1->0
+Pendings-(id=284,op=accept): 1->0
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=285): 0->1
+Pendings+(id=285): 0->1
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=286): 1->2
+Pendings+(id=286): 1->2
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=287): 2->3
+Pendings+(id=287): 2->3
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=288): 3->4
+Pendings+(id=288): 3->4
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=289): 4->5
+Pendings+(id=289): 4->5
+[DEBUG]zmqclient.py:36: Pendings-(id=285,op=accept): 5->4
+Pendings-(id=285,op=accept): 5->4
+[DEBUG]zmqclient.py:36: Pendings-(id=286,op=accept): 4->3
+Pendings-(id=286,op=accept): 4->3
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=290): 3->4
+Pendings+(id=290): 3->4
+[DEBUG]zmqclient.py:36: Pendings-(id=287,op=accept): 4->3
+Pendings-(id=287,op=accept): 4->3
+[DEBUG]zmqclient.py:36: Pendings-(id=288,op=accept): 3->2
+Pendings-(id=288,op=accept): 3->2
+[DEBUG]zmqclient.py:36: Pendings-(id=289,op=accept): 2->1
+Pendings-(id=289,op=accept): 2->1
+EVENT ofp_event->Zk2212Switch EventOFPPacketIn
+PKT-IN: inject, msg.reason=1
+[DEBUG]zmqclient.py:50: Pendings+(id=291): 1->2
+Pendings+(id=291): 1->2
+[DEBUG]zmqclient.py:36: Pendings-(id=290,op=accept): 2->1
+Pendings-(id=290,op=accept): 2->1
+[DEBUG]zmqclient.py:36: Pendings-(id=291,op=accept): 1->0
+Pendings-(id=291,op=accept): 1->0

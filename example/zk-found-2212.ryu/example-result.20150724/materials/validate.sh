@@ -1,0 +1,1 @@
+../../materials/validate.sh

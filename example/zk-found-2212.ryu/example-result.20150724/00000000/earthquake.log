@@ -1,0 +1,730 @@
+Fri Jul 24 19:40:51 JST 2015 ...uake/orchestrator.go(34): start execution loop body
+Fri Jul 24 19:40:51 JST 2015 ...tinspectorhandler.go(239): REST API root=:10080/api/v2
+Fri Jul 24 19:40:51 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:51 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:51 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:51 JST 2015 ...tinspectorhandler.go(70): Registered process: _earthquake_ether_inspector
+Fri Jul 24 19:40:51 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:51 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:52 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:53 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:54 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:55 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:56 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:57 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:57 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:57 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:57 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:57 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:57 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:57 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=06a591bf-7167-4cd3-92f5-14d759932144
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:06a591bf-7167-4cd3-92f5-14d759932144 option:map[dst_process:zk1 message:map[server_id:%!s(float64=2) election_addr:192.168.42.2:3888 class:Initial class_group:FLE] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[election_addr:192.168.42.2:3888 class:Initial class_group:FLE server_id:%!s(float64=2)] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:06a591bf-7167-4cd3-92f5-14d759932144]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[uuid:8ea571a4-da90-405a-adef-3c4ca25f5641 option:map[event_uuid:06a591bf-7167-4cd3-92f5-14d759932144] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[uuid:8ea571a4-da90-405a-adef-3c4ca25f5641 option:map[event_uuid:06a591bf-7167-4cd3-92f5-14d759932144] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=8ea571a4-da90-405a-adef-3c4ca25f5641
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=3fa6906f-aca6-49cf-a942-47d7a358c6b6
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:3fa6906f-aca6-49cf-a942-47d7a358c6b6 option:map[dst_process:zk1 message:map[election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+server.2=192.168.42.2:2888:3888:observer;0.0.0.0:2181
+version=0 class:Notification class_group:FLE zxid_hi:%!s(float64=-2.147483648e+09) leader:%!s(float64=-9.223372036854776e+18) state:looking peer_epoch:%!s(float64=-9.223372036854776e+18)] src_process:zk2] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+server.2=192.168.42.2:2888:3888:observer;0.0.0.0:2181
+version=0 zxid_hi:%!s(float64=-2.147483648e+09) leader:%!s(float64=-9.223372036854776e+18) state:looking peer_epoch:%!s(float64=-9.223372036854776e+18) class:Notification class_group:FLE] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:3fa6906f-aca6-49cf-a942-47d7a358c6b6]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=0a899b92-ad86-484c-a0b6-5956174e2dc5
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:0a899b92-ad86-484c-a0b6-5956174e2dc5 option:map[dst_process:zk1 message:map[server_id:%!s(float64=3) election_addr:192.168.42.3:3888 class:Initial class_group:FLE] src_process:zk3] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[server_id:%!s(float64=3) election_addr:192.168.42.3:3888 class:Initial class_group:FLE] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:0a899b92-ad86-484c-a0b6-5956174e2dc5]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=6259cd35-617f-426e-979c-eaff8ee05c8c
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk1 message:map[zxid_hi:%!s(float64=-2.147483648e+09) state:looking config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+server.3=192.168.42.3:2888:3888:observer;0.0.0.0:2181
+version=0 class_group:FLE election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) version:%!s(float64=2) peer_epoch:%!s(float64=-9.223372036854776e+18) class:Notification] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:6259cd35-617f-426e-979c-eaff8ee05c8c]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:6259cd35-617f-426e-979c-eaff8ee05c8c option:map[dst_process:zk1 message:map[version:%!s(float64=2) peer_epoch:%!s(float64=-9.223372036854776e+18) class:Notification election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) class_group:FLE zxid_hi:%!s(float64=-2.147483648e+09) state:looking config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+server.3=192.168.42.3:2888:3888:observer;0.0.0.0:2181
+version=0] src_process:zk3] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:6bccfc4d-c8d8-413b-806f-9d6740fe45f4 option:map[event_uuid:6259cd35-617f-426e-979c-eaff8ee05c8c] type:action]}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:6259cd35-617f-426e-979c-eaff8ee05c8c] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:6bccfc4d-c8d8-413b-806f-9d6740fe45f4]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=6bccfc4d-c8d8-413b-806f-9d6740fe45f4
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=e38fb932-4c7b-4728-b300-ef69a9495e0c
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[uuid:e38fb932-4c7b-4728-b300-ef69a9495e0c option:map[src_process:zk2 dst_process:zk1 message:map[class_group:FLE election_epoch:%!s(float64=1) zxid_hi:%!s(float64=-2.147483648e+09) leader:%!s(float64=-9.223372036854776e+18) state:looking peer_epoch:%!s(float64=-9.223372036854776e+18) zxid_low:%!s(float64=0) version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+server.2=192.168.42.2:2888:3888:observer;0.0.0.0:2181
+version=0 class:Notification]] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:e38fb932-4c7b-4728-b300-ef69a9495e0c option:map[src_process:zk2 dst_process:zk1 message:map[class_group:FLE election_epoch:%!s(float64=1) zxid_hi:%!s(float64=-2.147483648e+09) leader:%!s(float64=-9.223372036854776e+18) state:looking peer_epoch:%!s(float64=-9.223372036854776e+18) zxid_low:%!s(float64=0) version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+server.2=192.168.42.2:2888:3888:observer;0.0.0.0:2181
+version=0 class:Notification]]]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:442b5e9f-fc01-4d92-a0c5-8c0ca217f3bc option:map[event_uuid:e38fb932-4c7b-4728-b300-ef69a9495e0c] type:action]}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:e38fb932-4c7b-4728-b300-ef69a9495e0c] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:442b5e9f-fc01-4d92-a0c5-8c0ca217f3bc]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=442b5e9f-fc01-4d92-a0c5-8c0ca217f3bc
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=c4bcff51-56b9-47ce-b90a-fcafbbba90fd
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:c4bcff51-56b9-47ce-b90a-fcafbbba90fd option:map[dst_process:zk1 message:map[leader:%!s(float64=-9.223372036854776e+18) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+server.3=192.168.42.3:2888:3888:observer;0.0.0.0:2181
+version=0 class:Notification class_group:FLE version:%!s(float64=2) peer_epoch:%!s(float64=-9.223372036854776e+18) election_epoch:%!s(float64=1) zxid_hi:%!s(float64=-2.147483648e+09) zxid_low:%!s(float64=0) state:looking] src_process:zk3] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[uuid:c4bcff51-56b9-47ce-b90a-fcafbbba90fd option:map[src_process:zk3 dst_process:zk1 message:map[leader:%!s(float64=-9.223372036854776e+18) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+server.3=192.168.42.3:2888:3888:observer;0.0.0.0:2181
+version=0 class:Notification class_group:FLE peer_epoch:%!s(float64=-9.223372036854776e+18) election_epoch:%!s(float64=1) zxid_hi:%!s(float64=-2.147483648e+09) zxid_low:%!s(float64=0) state:looking version:%!s(float64=2)]] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=b2fadd8d-0928-4fd8-b593-dd0b52c5e18c
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:b2fadd8d-0928-4fd8-b593-dd0b52c5e18c option:map[dst_process:zk3 message:map[election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) leader:%!s(float64=1) state:leading version:%!s(float64=2) peer_epoch:%!s(float64=0) zxid_low:%!s(float64=0) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[uuid:b2fadd8d-0928-4fd8-b593-dd0b52c5e18c option:map[dst_process:zk3 message:map[zxid_low:%!s(float64=0) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE peer_epoch:%!s(float64=0) election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) leader:%!s(float64=1) state:leading version:%!s(float64=2)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:57 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:f7849fda-c7da-4901-8c7d-a268bb70b7ce option:map[event_uuid:3fa6906f-aca6-49cf-a942-47d7a358c6b6]]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[uuid:f7849fda-c7da-4901-8c7d-a268bb70b7ce option:map[event_uuid:3fa6906f-aca6-49cf-a942-47d7a358c6b6] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=f7849fda-c7da-4901-8c7d-a268bb70b7ce
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=bb85a823-7e22-42f6-a155-097eb60cd04f
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk2 message:map[zxid_hi:%!s(float64=0) leader:%!s(float64=1) class:Notification election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) state:leading version:%!s(float64=2) peer_epoch:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class_group:FLE] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:bb85a823-7e22-42f6-a155-097eb60cd04f]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk2 message:map[zxid_hi:%!s(float64=0) leader:%!s(float64=1) class:Notification election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) state:leading version:%!s(float64=2) peer_epoch:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class_group:FLE] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:bb85a823-7e22-42f6-a155-097eb60cd04f]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=ac0ccb25-e42d-47eb-8d73-dbaf46b2072c
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[type:event class:PacketEvent uuid:ac0ccb25-e42d-47eb-8d73-dbaf46b2072c option:map[message:map[leader:%!s(float64=1) state:leading peer_epoch:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) version:%!s(float64=2)] src_process:zk1 dst_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[uuid:ac0ccb25-e42d-47eb-8d73-dbaf46b2072c option:map[src_process:zk1 dst_process:zk2 message:map[class_group:FLE leader:%!s(float64=1) state:leading peer_epoch:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) version:%!s(float64=2)]] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[process:_earthquake_ether_inspector uuid:cc09648e-e40b-4c06-87d5-0156d6755d96 option:map[event_uuid:0a899b92-ad86-484c-a0b6-5956174e2dc5] type:action class:AcceptDeferredEventAction]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:cc09648e-e40b-4c06-87d5-0156d6755d96 option:map[event_uuid:0a899b92-ad86-484c-a0b6-5956174e2dc5]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=cc09648e-e40b-4c06-87d5-0156d6755d96
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=8828a8ca-bbaa-4f12-9639-c2b0c814f821
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:8828a8ca-bbaa-4f12-9639-c2b0c814f821 option:map[dst_process:zk3 message:map[leader:%!s(float64=1) state:leading config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) version:%!s(float64=2) peer_epoch:%!s(float64=1)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[class:PacketEvent uuid:8828a8ca-bbaa-4f12-9639-c2b0c814f821 option:map[dst_process:zk3 message:map[election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) version:%!s(float64=2) peer_epoch:%!s(float64=1) leader:%!s(float64=1) state:leading config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:f4c6ead7-e142-491b-a391-b383e5436177 option:map[event_uuid:b2fadd8d-0928-4fd8-b593-dd0b52c5e18c]]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:f4c6ead7-e142-491b-a391-b383e5436177 option:map[event_uuid:b2fadd8d-0928-4fd8-b593-dd0b52c5e18c] type:action]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=f4c6ead7-e142-491b-a391-b383e5436177
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:9651b3a2-ea69-4c43-b78f-9b3153862901 option:map[event_uuid:ac0ccb25-e42d-47eb-8d73-dbaf46b2072c]]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:9651b3a2-ea69-4c43-b78f-9b3153862901 option:map[event_uuid:ac0ccb25-e42d-47eb-8d73-dbaf46b2072c]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=9651b3a2-ea69-4c43-b78f-9b3153862901
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=f0a59efa-44a6-411f-a1e7-a7871245aebb
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:f0a59efa-44a6-411f-a1e7-a7871245aebb option:map[dst_process:zk1 message:map[server_id:%!s(float64=3) election_addr:192.168.42.3:3888 class:Initial class_group:FLE] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[type:event class:PacketEvent uuid:f0a59efa-44a6-411f-a1e7-a7871245aebb option:map[dst_process:zk1 message:map[server_id:%!s(float64=3) election_addr:192.168.42.3:3888 class:Initial class_group:FLE] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=3eddbcf1-41a4-4836-87a1-43fc2ac0a17a
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[uuid:3eddbcf1-41a4-4836-87a1-43fc2ac0a17a option:map[dst_process:zk1 message:map[class:Initial class_group:FLE server_id:%!s(float64=2) election_addr:192.168.42.2:3888] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[type:event class:PacketEvent uuid:3eddbcf1-41a4-4836-87a1-43fc2ac0a17a option:map[dst_process:zk1 message:map[server_id:%!s(float64=2) election_addr:192.168.42.2:3888 class:Initial class_group:FLE] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=4d661650-cc1b-4b28-905b-2c74e495936a
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[type:event class:PacketEvent uuid:4d661650-cc1b-4b28-905b-2c74e495936a option:map[message:map[class:Initial class_group:FLE server_id:%!s(float64=3) election_addr:192.168.42.3:3888] src_process:zk3 dst_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[type:event class:PacketEvent uuid:4d661650-cc1b-4b28-905b-2c74e495936a option:map[message:map[server_id:%!s(float64=3) election_addr:192.168.42.3:3888 class:Initial class_group:FLE] src_process:zk3 dst_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=f1adcf23-c01c-456f-8ea8-ce90ad6eb3e7
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk1 message:map[election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) state:looking version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 peer_epoch:%!s(float64=0) class:Notification class_group:FLE] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:f1adcf23-c01c-456f-8ea8-ce90ad6eb3e7]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[peer_epoch:%!s(float64=0) class:Notification class_group:FLE state:looking version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18)] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:f1adcf23-c01c-456f-8ea8-ce90ad6eb3e7]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=b907d6ba-d3c1-44be-a4f9-47f4a83281c2
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:b907d6ba-d3c1-44be-a4f9-47f4a83281c2 option:map[dst_process:zk1 message:map[election_addr:192.168.42.2:3888 class:Initial class_group:FLE server_id:%!s(float64=2)] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[uuid:b907d6ba-d3c1-44be-a4f9-47f4a83281c2 option:map[src_process:zk2 dst_process:zk1 message:map[class_group:FLE server_id:%!s(float64=2) election_addr:192.168.42.2:3888 class:Initial]] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=ae6dbc22-f36f-458a-84e6-4d14aa2a5e75
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[type:event class:PacketEvent uuid:ae6dbc22-f36f-458a-84e6-4d14aa2a5e75 option:map[message:map[leader:%!s(float64=1) version:%!s(float64=2) peer_epoch:%!s(float64=1) election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) state:leading config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE zxid_hi:%!s(float64=0)] src_process:zk1 dst_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[class:PacketEvent uuid:ae6dbc22-f36f-458a-84e6-4d14aa2a5e75 option:map[dst_process:zk2 message:map[zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) state:leading config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE election_epoch:%!s(float64=1) leader:%!s(float64=1) version:%!s(float64=2) peer_epoch:%!s(float64=1)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=cb45684f-6eda-47da-bec9-2e0c46acdab1
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk1 message:map[election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 zxid_low:%!s(float64=0) state:looking version:%!s(float64=2) peer_epoch:%!s(float64=0) class:Notification class_group:FLE] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:cb45684f-6eda-47da-bec9-2e0c46acdab1]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 zxid_low:%!s(float64=0) state:looking version:%!s(float64=2) peer_epoch:%!s(float64=0) class:Notification class_group:FLE] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:cb45684f-6eda-47da-bec9-2e0c46acdab1]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[process:_earthquake_ether_inspector uuid:c8cf2c60-e118-4f4e-bdd5-366c35849678 option:map[event_uuid:4d661650-cc1b-4b28-905b-2c74e495936a] type:action class:AcceptDeferredEventAction]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:c8cf2c60-e118-4f4e-bdd5-366c35849678 option:map[event_uuid:4d661650-cc1b-4b28-905b-2c74e495936a]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=c8cf2c60-e118-4f4e-bdd5-366c35849678
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=47d1ae16-137b-4587-86b7-232eac0d825d
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk3 message:map[election_epoch:%!s(float64=1) state:leading config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class_group:FLE zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) leader:%!s(float64=1) version:%!s(float64=2) peer_epoch:%!s(float64=1) class:Notification] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:47d1ae16-137b-4587-86b7-232eac0d825d]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk3 message:map[zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) leader:%!s(float64=1) version:%!s(float64=2) peer_epoch:%!s(float64=1) class:Notification class_group:FLE election_epoch:%!s(float64=1) state:leading config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:47d1ae16-137b-4587-86b7-232eac0d825d]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:fd866db0-363d-4ffc-bf4b-50995059faa6 option:map[event_uuid:bb85a823-7e22-42f6-a155-097eb60cd04f]]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:fd866db0-363d-4ffc-bf4b-50995059faa6 option:map[event_uuid:bb85a823-7e22-42f6-a155-097eb60cd04f]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=fd866db0-363d-4ffc-bf4b-50995059faa6
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=f0281df7-6a69-4a4c-a5e3-3f831289b1ca
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:f0281df7-6a69-4a4c-a5e3-3f831289b1ca option:map[dst_process:zk1 message:map[leader:%!s(float64=-9.223372036854776e+18) version:%!s(float64=2) class_group:FLE election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) state:looking peer_epoch:%!s(float64=0) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[state:looking peer_epoch:%!s(float64=0) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) version:%!s(float64=2) class_group:FLE] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:f0281df7-6a69-4a4c-a5e3-3f831289b1ca]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=112289fd-6d01-463e-b893-b38a084a18a7
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:112289fd-6d01-463e-b893-b38a084a18a7 option:map[dst_process:zk1 message:map[version:%!s(float64=2) election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE zxid_low:%!s(float64=0) state:looking peer_epoch:%!s(float64=0)] src_process:zk2] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[type:event class:PacketEvent uuid:112289fd-6d01-463e-b893-b38a084a18a7 option:map[dst_process:zk1 message:map[election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) version:%!s(float64=2) zxid_low:%!s(float64=0) state:looking peer_epoch:%!s(float64=0) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification class_group:FLE] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:7976d36b-88a1-46dd-8f93-39e079d0ff1c option:map[event_uuid:f0281df7-6a69-4a4c-a5e3-3f831289b1ca]]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:7976d36b-88a1-46dd-8f93-39e079d0ff1c option:map[event_uuid:f0281df7-6a69-4a4c-a5e3-3f831289b1ca]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=7976d36b-88a1-46dd-8f93-39e079d0ff1c
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=0dc06520-441e-4071-ba54-a05360e41227
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:0dc06520-441e-4071-ba54-a05360e41227 option:map[dst_process:zk3 message:map[election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) state:leading version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class_group:FLE leader:%!s(float64=1) peer_epoch:%!s(float64=1) class:Notification] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[type:event class:PacketEvent uuid:0dc06520-441e-4071-ba54-a05360e41227 option:map[message:map[leader:%!s(float64=1) peer_epoch:%!s(float64=1) class:Notification class_group:FLE election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) state:leading version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000] src_process:zk1 dst_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=b367321c-0eea-4169-84ca-07018ed39299
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk3 message:map[zxid_low:%!s(float64=0) state:leading version:%!s(float64=2) peer_epoch:%!s(float64=1) class:Notification class_group:FLE election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) leader:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:b367321c-0eea-4169-84ca-07018ed39299]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[type:event class:PacketEvent uuid:b367321c-0eea-4169-84ca-07018ed39299 option:map[dst_process:zk3 message:map[zxid_hi:%!s(float64=0) leader:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 election_epoch:%!s(float64=1) state:leading version:%!s(float64=2) peer_epoch:%!s(float64=1) class:Notification class_group:FLE zxid_low:%!s(float64=0)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=306b4e9e-59e6-4f5d-99ff-a84092c762bf
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:306b4e9e-59e6-4f5d-99ff-a84092c762bf option:map[dst_process:zk1 message:map[zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) sid:%!s(float64=3) protocol_version:%!s(float64=65536) class:FollowerInfo class_group:ZAB config_version:%!s(float64=4.294967296e+09)] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:306b4e9e-59e6-4f5d-99ff-a84092c762bf option:map[dst_process:zk1 message:map[config_version:%!s(float64=4.294967296e+09) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) sid:%!s(float64=3) protocol_version:%!s(float64=65536) class:FollowerInfo class_group:ZAB] src_process:zk3] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:8fd36cc6-5799-4805-8bc8-720ed9e53dc3 option:map[event_uuid:b907d6ba-d3c1-44be-a4f9-47f4a83281c2]]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:8fd36cc6-5799-4805-8bc8-720ed9e53dc3 option:map[event_uuid:b907d6ba-d3c1-44be-a4f9-47f4a83281c2]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=8fd36cc6-5799-4805-8bc8-720ed9e53dc3
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=a7ac3013-7f2f-4dc7-8eb0-124cf09e3e7a
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:a7ac3013-7f2f-4dc7-8eb0-124cf09e3e7a option:map[dst_process:zk2 message:map[class_group:FLE zxid_low:%!s(float64=0) leader:%!s(float64=1) version:%!s(float64=2) peer_epoch:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) state:leading] src_process:zk1] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk2 message:map[zxid_low:%!s(float64=0) leader:%!s(float64=1) version:%!s(float64=2) class_group:FLE config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) state:leading peer_epoch:%!s(float64=1)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:a7ac3013-7f2f-4dc7-8eb0-124cf09e3e7a]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=6777f1da-31c2-421d-916e-86fcb467bc1c
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk2 message:map[zxid_hi:%!s(float64=0) version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) leader:%!s(float64=1) state:leading peer_epoch:%!s(float64=1) class:Notification class_group:FLE] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:6777f1da-31c2-421d-916e-86fcb467bc1c]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:6777f1da-31c2-421d-916e-86fcb467bc1c option:map[dst_process:zk2 message:map[class:Notification class_group:FLE election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) leader:%!s(float64=1) state:leading peer_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000] src_process:zk1]]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[uuid:8f6e54c0-4caa-4942-8164-1470617c5b82 option:map[event_uuid:47d1ae16-137b-4587-86b7-232eac0d825d] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[process:_earthquake_ether_inspector uuid:8f6e54c0-4caa-4942-8164-1470617c5b82 option:map[event_uuid:47d1ae16-137b-4587-86b7-232eac0d825d] type:action class:AcceptDeferredEventAction]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=8f6e54c0-4caa-4942-8164-1470617c5b82
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[option:map[event_uuid:f1adcf23-c01c-456f-8ea8-ce90ad6eb3e7] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:337a68c7-21e5-44e5-9897-992b3f794d7e]}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:337a68c7-21e5-44e5-9897-992b3f794d7e option:map[event_uuid:f1adcf23-c01c-456f-8ea8-ce90ad6eb3e7]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=337a68c7-21e5-44e5-9897-992b3f794d7e
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=6c07aba5-58b3-4318-9a6d-97699167a108
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:6c07aba5-58b3-4318-9a6d-97699167a108 option:map[dst_process:zk1 message:map[election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) version:%!s(float64=2) peer_epoch:%!s(float64=0) class_group:FLE state:looking config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[type:event class:PacketEvent uuid:6c07aba5-58b3-4318-9a6d-97699167a108 option:map[dst_process:zk1 message:map[class_group:FLE election_epoch:%!s(float64=1) zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) leader:%!s(float64=-9.223372036854776e+18) version:%!s(float64=2) peer_epoch:%!s(float64=0) state:looking config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 class:Notification] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=242bb0d4-445f-40e5-b12d-bdb17aafed79
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk2 message:map[election_epoch:%!s(float64=1) zxid_low:%!s(float64=0) version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 zxid_hi:%!s(float64=0) leader:%!s(float64=1) state:leading peer_epoch:%!s(float64=1) class:Notification class_group:FLE] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:242bb0d4-445f-40e5-b12d-bdb17aafed79]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk2 message:map[leader:%!s(float64=1) state:leading peer_epoch:%!s(float64=1) class:Notification class_group:FLE zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) version:%!s(float64=2) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 election_epoch:%!s(float64=1)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:242bb0d4-445f-40e5-b12d-bdb17aafed79]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=283018bc-24b2-434e-bc54-e8d0a61f5e34
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[type:event class:PacketEvent uuid:283018bc-24b2-434e-bc54-e8d0a61f5e34 option:map[message:map[zxid_low:%!s(float64=0) sid:%!s(float64=2) protocol_version:%!s(float64=65536) class:FollowerInfo class_group:ZAB config_version:%!s(float64=4.294967296e+09) zxid_hi:%!s(float64=0)] src_process:zk2 dst_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[type:event class:PacketEvent uuid:283018bc-24b2-434e-bc54-e8d0a61f5e34 option:map[message:map[zxid_low:%!s(float64=0) sid:%!s(float64=2) protocol_version:%!s(float64=65536) class:FollowerInfo class_group:ZAB config_version:%!s(float64=4.294967296e+09) zxid_hi:%!s(float64=0)] src_process:zk2 dst_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:58 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:d84f2889-93ee-4d51-9915-0e12a65a406a option:map[event_uuid:0dc06520-441e-4071-ba54-a05360e41227]]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[uuid:d84f2889-93ee-4d51-9915-0e12a65a406a option:map[event_uuid:0dc06520-441e-4071-ba54-a05360e41227] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=d84f2889-93ee-4d51-9915-0e12a65a406a
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:a837994f-f1bf-4d7e-9b34-8556b38a8a9e option:map[event_uuid:f0a59efa-44a6-411f-a1e7-a7871245aebb] type:action]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:f0a59efa-44a6-411f-a1e7-a7871245aebb] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:a837994f-f1bf-4d7e-9b34-8556b38a8a9e]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=a837994f-f1bf-4d7e-9b34-8556b38a8a9e
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:1ad40b85-b751-4897-ad69-50a327ee77af option:map[event_uuid:ae6dbc22-f36f-458a-84e6-4d14aa2a5e75]]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[uuid:1ad40b85-b751-4897-ad69-50a327ee77af option:map[event_uuid:ae6dbc22-f36f-458a-84e6-4d14aa2a5e75] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=1ad40b85-b751-4897-ad69-50a327ee77af
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=d8503b29-d6c8-4b78-889e-d60b86382f8a
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk2 message:map[zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0) peer_epoch:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 election_epoch:%!s(float64=1) leader:%!s(float64=1) state:leading version:%!s(float64=2) class:Notification class_group:FLE] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:d8503b29-d6c8-4b78-889e-d60b86382f8a]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[uuid:d8503b29-d6c8-4b78-889e-d60b86382f8a option:map[src_process:zk1 dst_process:zk2 message:map[state:leading version:%!s(float64=2) class:Notification class_group:FLE election_epoch:%!s(float64=1) leader:%!s(float64=1) peer_epoch:%!s(float64=1) config:server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181
+version=100000000 zxid_hi:%!s(float64=0) zxid_low:%!s(float64=0)]] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:4acb2792-ca43-454b-ac53-0f2b12d99f82 option:map[event_uuid:242bb0d4-445f-40e5-b12d-bdb17aafed79]]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:242bb0d4-445f-40e5-b12d-bdb17aafed79] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:4acb2792-ca43-454b-ac53-0f2b12d99f82]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=4acb2792-ca43-454b-ac53-0f2b12d99f82
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:c55189a7-d0a8-4ca9-a8be-5faa7cb4526f option:map[event_uuid:a7ac3013-7f2f-4dc7-8eb0-124cf09e3e7a] type:action]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:a7ac3013-7f2f-4dc7-8eb0-124cf09e3e7a] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:c55189a7-d0a8-4ca9-a8be-5faa7cb4526f]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=c55189a7-d0a8-4ca9-a8be-5faa7cb4526f
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:d6a21b6e-8358-47c5-8a5b-96ea6fec3f34 option:map[event_uuid:d8503b29-d6c8-4b78-889e-d60b86382f8a]]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:d6a21b6e-8358-47c5-8a5b-96ea6fec3f34 option:map[event_uuid:d8503b29-d6c8-4b78-889e-d60b86382f8a]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=d6a21b6e-8358-47c5-8a5b-96ea6fec3f34
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[process:_earthquake_ether_inspector uuid:5f7c4011-9eab-4744-9114-a34bf9d1d92d option:map[event_uuid:b367321c-0eea-4169-84ca-07018ed39299] type:action class:AcceptDeferredEventAction]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:5f7c4011-9eab-4744-9114-a34bf9d1d92d option:map[event_uuid:b367321c-0eea-4169-84ca-07018ed39299]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=5f7c4011-9eab-4744-9114-a34bf9d1d92d
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:c8458439-64f7-4ab9-ada2-e5fbf553c687 option:map[event_uuid:6777f1da-31c2-421d-916e-86fcb467bc1c] type:action]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[uuid:c8458439-64f7-4ab9-ada2-e5fbf553c687 option:map[event_uuid:6777f1da-31c2-421d-916e-86fcb467bc1c] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=c8458439-64f7-4ab9-ada2-e5fbf553c687
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[process:_earthquake_ether_inspector uuid:342ff6c2-2d15-4f9f-a4ed-3eac60f98cce option:map[event_uuid:283018bc-24b2-434e-bc54-e8d0a61f5e34] type:action class:AcceptDeferredEventAction]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:342ff6c2-2d15-4f9f-a4ed-3eac60f98cce option:map[event_uuid:283018bc-24b2-434e-bc54-e8d0a61f5e34]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=342ff6c2-2d15-4f9f-a4ed-3eac60f98cce
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=47f146f0-ef13-455e-a0fb-d76f050ca7db
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk2 message:map[class_group:ZAB protocol_version:%!s(float64=65536) zxid_low:%!s(float64=0) class:LeaderInfo zxid_hi:%!s(float64=1)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:47f146f0-ef13-455e-a0fb-d76f050ca7db]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk2 message:map[zxid_hi:%!s(float64=1) class_group:ZAB protocol_version:%!s(float64=65536) zxid_low:%!s(float64=0) class:LeaderInfo] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:47f146f0-ef13-455e-a0fb-d76f050ca7db]} to _earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:40:59 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:8ca1848f-379c-41d4-af44-03133cce8e8d option:map[event_uuid:3eddbcf1-41a4-4836-87a1-43fc2ac0a17a]]}
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:3eddbcf1-41a4-4836-87a1-43fc2ac0a17a] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:8ca1848f-379c-41d4-af44-03133cce8e8d]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=8ca1848f-379c-41d4-af44-03133cce8e8d
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:40:59 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:ae85376c-71ab-44e4-a43a-5dbf665ab386 option:map[event_uuid:cb45684f-6eda-47da-bec9-2e0c46acdab1] type:action]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:ae85376c-71ab-44e4-a43a-5dbf665ab386 option:map[event_uuid:cb45684f-6eda-47da-bec9-2e0c46acdab1]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=ae85376c-71ab-44e4-a43a-5dbf665ab386
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[option:map[event_uuid:c4bcff51-56b9-47ce-b90a-fcafbbba90fd] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:dea30b3c-4396-43b4-b6c0-16b132a3567b]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:dea30b3c-4396-43b4-b6c0-16b132a3567b option:map[event_uuid:c4bcff51-56b9-47ce-b90a-fcafbbba90fd]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=dea30b3c-4396-43b4-b6c0-16b132a3567b
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[uuid:4a8eb36c-c22e-4462-8f89-61698ab41bc0 option:map[event_uuid:306b4e9e-59e6-4f5d-99ff-a84092c762bf] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[uuid:4a8eb36c-c22e-4462-8f89-61698ab41bc0 option:map[event_uuid:306b4e9e-59e6-4f5d-99ff-a84092c762bf] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=4a8eb36c-c22e-4462-8f89-61698ab41bc0
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=d04fd4c1-3c26-4cc3-8330-d82388284d39
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:d04fd4c1-3c26-4cc3-8330-d82388284d39 option:map[dst_process:zk3 message:map[protocol_version:%!s(float64=65536) zxid_low:%!s(float64=0) class:LeaderInfo zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk1] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[deferred:%!s(bool=true) type:event class:PacketEvent uuid:d04fd4c1-3c26-4cc3-8330-d82388284d39 option:map[dst_process:zk3 message:map[protocol_version:%!s(float64=65536) zxid_low:%!s(float64=0) class:LeaderInfo zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk1] process:_earthquake_ether_inspector]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:145f23c9-1c32-4673-bd09-e9c95aba8839 option:map[event_uuid:8828a8ca-bbaa-4f12-9639-c2b0c814f821]]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:145f23c9-1c32-4673-bd09-e9c95aba8839 option:map[event_uuid:8828a8ca-bbaa-4f12-9639-c2b0c814f821]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=145f23c9-1c32-4673-bd09-e9c95aba8839
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:06dec91d-2023-4e76-9c25-a1d897033fd0 option:map[event_uuid:6c07aba5-58b3-4318-9a6d-97699167a108]]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:06dec91d-2023-4e76-9c25-a1d897033fd0 option:map[event_uuid:6c07aba5-58b3-4318-9a6d-97699167a108]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=06dec91d-2023-4e76-9c25-a1d897033fd0
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:54b052af-fd36-45d1-acbd-b306146241ba option:map[event_uuid:d04fd4c1-3c26-4cc3-8330-d82388284d39]]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:d04fd4c1-3c26-4cc3-8330-d82388284d39] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:54b052af-fd36-45d1-acbd-b306146241ba]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=54b052af-fd36-45d1-acbd-b306146241ba
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=23a92852-482e-40f0-81ac-87170474df4f
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:23a92852-482e-40f0-81ac-87170474df4f option:map[dst_process:zk1 message:map[epoch:%!s(float64=0) zxid_low:%!s(float64=0) class:AckEpoch zxid_hi:%!s(float64=0) class_group:ZAB] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[class:PacketEvent uuid:23a92852-482e-40f0-81ac-87170474df4f option:map[dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:AckEpoch zxid_hi:%!s(float64=0) class_group:ZAB epoch:%!s(float64=0)] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:0b3895c3-13c8-470b-b791-daed70b71ad1 option:map[event_uuid:47f146f0-ef13-455e-a0fb-d76f050ca7db]]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[process:_earthquake_ether_inspector uuid:0b3895c3-13c8-470b-b791-daed70b71ad1 option:map[event_uuid:47f146f0-ef13-455e-a0fb-d76f050ca7db] type:action class:AcceptDeferredEventAction]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=0b3895c3-13c8-470b-b791-daed70b71ad1
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=ea1dc6ec-99e4-4707-8863-92590b02bec9
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[uuid:ea1dc6ec-99e4-4707-8863-92590b02bec9 option:map[src_process:zk2 dst_process:zk1 message:map[zxid_hi:%!s(float64=0) class_group:ZAB epoch:%!s(float64=0) zxid_low:%!s(float64=0) class:AckEpoch]] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:ea1dc6ec-99e4-4707-8863-92590b02bec9 option:map[src_process:zk2 dst_process:zk1 message:map[class_group:ZAB epoch:%!s(float64=0) zxid_low:%!s(float64=0) class:AckEpoch zxid_hi:%!s(float64=0)]]]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[option:map[event_uuid:ea1dc6ec-99e4-4707-8863-92590b02bec9] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:ec7a5607-a486-4686-b8e0-0bda6dcd9093]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:ec7a5607-a486-4686-b8e0-0bda6dcd9093 option:map[event_uuid:ea1dc6ec-99e4-4707-8863-92590b02bec9] type:action]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=ec7a5607-a486-4686-b8e0-0bda6dcd9093
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=cf823363-97ea-4654-ad60-72b6b8067eed
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:cf823363-97ea-4654-ad60-72b6b8067eed option:map[dst_process:zk2 message:map[zxid_low:%!s(float64=0) class:QuorumPacket zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk2 message:map[zxid_low:%!s(float64=0) class:QuorumPacket zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:cf823363-97ea-4654-ad60-72b6b8067eed]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=9a1e83f5-4b04-460e-ac0e-fd0240f44d40
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[class:PacketEvent uuid:9a1e83f5-4b04-460e-ac0e-fd0240f44d40 option:map[dst_process:zk2 message:map[zxid_low:%!s(float64=0) class:NewLeader zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk2 message:map[class:NewLeader zxid_hi:%!s(float64=1) class_group:ZAB zxid_low:%!s(float64=0)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:9a1e83f5-4b04-460e-ac0e-fd0240f44d40]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:88b5afb0-4413-40fd-9f41-dc97aebf75f8 option:map[event_uuid:23a92852-482e-40f0-81ac-87170474df4f]]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:88b5afb0-4413-40fd-9f41-dc97aebf75f8 option:map[event_uuid:23a92852-482e-40f0-81ac-87170474df4f] type:action]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=88b5afb0-4413-40fd-9f41-dc97aebf75f8
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=3d4daa24-5d72-49af-b60f-11625bc2b1ea
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk3 message:map[class_group:ZAB zxid_low:%!s(float64=0) class:QuorumPacket zxid_hi:%!s(float64=1)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:3d4daa24-5d72-49af-b60f-11625bc2b1ea]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk3 message:map[zxid_low:%!s(float64=0) class:QuorumPacket zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:3d4daa24-5d72-49af-b60f-11625bc2b1ea]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=299b0c62-52c5-466a-879e-e3265b47506c
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk3 message:map[zxid_low:%!s(float64=0) class:NewLeader zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:299b0c62-52c5-466a-879e-e3265b47506c]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[message:map[zxid_hi:%!s(float64=1) class_group:ZAB zxid_low:%!s(float64=0) class:NewLeader] src_process:zk1 dst_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:299b0c62-52c5-466a-879e-e3265b47506c]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:00 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[option:map[event_uuid:112289fd-6d01-463e-b893-b38a084a18a7] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:a503f54d-b14b-46f7-868a-91c36c4bf3c4]}
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:a503f54d-b14b-46f7-868a-91c36c4bf3c4 option:map[event_uuid:112289fd-6d01-463e-b893-b38a084a18a7] type:action]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=a503f54d-b14b-46f7-868a-91c36c4bf3c4
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:00 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:74ca464d-2fcd-416c-b6fb-471b82c59c7b option:map[event_uuid:cf823363-97ea-4654-ad60-72b6b8067eed]]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:cf823363-97ea-4654-ad60-72b6b8067eed] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:74ca464d-2fcd-416c-b6fb-471b82c59c7b]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=74ca464d-2fcd-416c-b6fb-471b82c59c7b
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[uuid:c574dd05-c4b8-46ca-a957-d05c4c88851f option:map[event_uuid:9a1e83f5-4b04-460e-ac0e-fd0240f44d40] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[process:_earthquake_ether_inspector uuid:c574dd05-c4b8-46ca-a957-d05c4c88851f option:map[event_uuid:9a1e83f5-4b04-460e-ac0e-fd0240f44d40] type:action class:AcceptDeferredEventAction]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=c574dd05-c4b8-46ca-a957-d05c4c88851f
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=bdd9cb3a-7fb0-41dd-b6bd-68773bcd50b7
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:Ack zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:bdd9cb3a-7fb0-41dd-b6bd-68773bcd50b7]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:Ack zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:bdd9cb3a-7fb0-41dd-b6bd-68773bcd50b7]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[process:_earthquake_ether_inspector uuid:5c000226-f623-4ae2-ac9b-32d27362ddbe option:map[event_uuid:bdd9cb3a-7fb0-41dd-b6bd-68773bcd50b7] type:action class:AcceptDeferredEventAction]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:5c000226-f623-4ae2-ac9b-32d27362ddbe option:map[event_uuid:bdd9cb3a-7fb0-41dd-b6bd-68773bcd50b7]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=5c000226-f623-4ae2-ac9b-32d27362ddbe
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=574d420b-723b-4ec5-800a-6b5b8f15f612
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[type:event class:PacketEvent uuid:574d420b-723b-4ec5-800a-6b5b8f15f612 option:map[dst_process:zk3 message:map[zxid_low:%!s(float64=65535) class:UpToDate zxid_hi:%!s(float64=-1) class_group:ZAB] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk3 message:map[class_group:ZAB zxid_low:%!s(float64=65535) class:UpToDate zxid_hi:%!s(float64=-1)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:574d420b-723b-4ec5-800a-6b5b8f15f612]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[uuid:a6e97393-c9d7-40a9-8411-b416ddeb9757 option:map[event_uuid:3d4daa24-5d72-49af-b60f-11625bc2b1ea] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[process:_earthquake_ether_inspector uuid:a6e97393-c9d7-40a9-8411-b416ddeb9757 option:map[event_uuid:3d4daa24-5d72-49af-b60f-11625bc2b1ea] type:action class:AcceptDeferredEventAction]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=a6e97393-c9d7-40a9-8411-b416ddeb9757
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:a4eb3abc-1437-4151-a7fd-3c149fc7f7b8 option:map[event_uuid:574d420b-723b-4ec5-800a-6b5b8f15f612]]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:a4eb3abc-1437-4151-a7fd-3c149fc7f7b8 option:map[event_uuid:574d420b-723b-4ec5-800a-6b5b8f15f612]]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=a4eb3abc-1437-4151-a7fd-3c149fc7f7b8
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=dc1d28b0-0560-48f7-8747-15c32b91edaf
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:Ack zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:dc1d28b0-0560-48f7-8747-15c32b91edaf]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:Ack zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk3] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:dc1d28b0-0560-48f7-8747-15c32b91edaf]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:80b57ff4-4a7e-4ff5-a336-fb7474f13caa option:map[event_uuid:dc1d28b0-0560-48f7-8747-15c32b91edaf]]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[process:_earthquake_ether_inspector uuid:80b57ff4-4a7e-4ff5-a336-fb7474f13caa option:map[event_uuid:dc1d28b0-0560-48f7-8747-15c32b91edaf] type:action class:AcceptDeferredEventAction]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=80b57ff4-4a7e-4ff5-a336-fb7474f13caa
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[uuid:ce184c5b-c99c-4e85-8354-89823072e2f0 option:map[event_uuid:299b0c62-52c5-466a-879e-e3265b47506c] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[option:map[event_uuid:299b0c62-52c5-466a-879e-e3265b47506c] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:ce184c5b-c99c-4e85-8354-89823072e2f0]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=ce184c5b-c99c-4e85-8354-89823072e2f0
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=aedcfa50-365b-4186-ad62-c370cb073ef9
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[option:map[dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:Ack zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:aedcfa50-365b-4186-ad62-c370cb073ef9]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:Ack zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:aedcfa50-365b-4186-ad62-c370cb073ef9]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:8b640f07-578a-4330-ab53-51daa8c13a46 option:map[event_uuid:aedcfa50-365b-4186-ad62-c370cb073ef9] type:action]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[uuid:8b640f07-578a-4330-ab53-51daa8c13a46 option:map[event_uuid:aedcfa50-365b-4186-ad62-c370cb073ef9] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=8b640f07-578a-4330-ab53-51daa8c13a46
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=48af20b7-818b-4c93-a29c-7a6b36ee5a40
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[type:event class:PacketEvent uuid:48af20b7-818b-4c93-a29c-7a6b36ee5a40 option:map[dst_process:zk2 message:map[class_group:ZAB zxid_low:%!s(float64=65535) class:UpToDate zxid_hi:%!s(float64=-1)] src_process:zk1] process:_earthquake_ether_inspector deferred:%!s(bool=true)]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:48af20b7-818b-4c93-a29c-7a6b36ee5a40 option:map[dst_process:zk2 message:map[zxid_low:%!s(float64=65535) class:UpToDate zxid_hi:%!s(float64=-1) class_group:ZAB] src_process:zk1]]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:886e6e72-4f90-4146-b30c-f725457c7bc1 option:map[event_uuid:48af20b7-818b-4c93-a29c-7a6b36ee5a40] type:action]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[uuid:886e6e72-4f90-4146-b30c-f725457c7bc1 option:map[event_uuid:48af20b7-818b-4c93-a29c-7a6b36ee5a40] type:action class:AcceptDeferredEventAction process:_earthquake_ether_inspector]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=886e6e72-4f90-4146-b30c-f725457c7bc1
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(108): EventsOnPost: processId=_earthquake_ether_inspector, eventUuid=38d397e0-6177-4c3c-b0f7-78b410ed410f
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(132): *EventsOnPost: notifying _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(134): *EventsOnPost: notified _earthquake_ether_inspector to main
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(40): ready process &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(125): *EventsOnPost: sending JSONEvent{map[process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:38d397e0-6177-4c3c-b0f7-78b410ed410f option:map[src_process:zk2 dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:Ack zxid_hi:%!s(float64=1) class_group:ZAB]]]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(127): *EventsOnPost: sent JSONEvent{map[option:map[dst_process:zk1 message:map[zxid_low:%!s(float64=0) class:Ack zxid_hi:%!s(float64=1) class_group:ZAB] src_process:zk2] process:_earthquake_ether_inspector deferred:%!s(bool=true) type:event class:PacketEvent uuid:38d397e0-6177-4c3c-b0f7-78b410ed410f]} to _earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(42): recieved message from &{_earthquake_ether_inspector <nil> 0xc82001cb40 0xc82001cae0}
+Fri Jul 24 19:41:01 JST 2015 ...uake/orchestrator.go(57): main loop received action (type="_JSON") from the policy. passing to the inspector handler
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(75): (From Main)Received action: JSONAction{map[class:AcceptDeferredEventAction process:_earthquake_ether_inspector uuid:be1dbe01-92a6-4ff8-b406-33df6fae004c option:map[event_uuid:38d397e0-6177-4c3c-b0f7-78b410ed410f] type:action]}
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(180): Action JSONAction{map[process:_earthquake_ether_inspector uuid:be1dbe01-92a6-4ff8-b406-33df6fae004c option:map[event_uuid:38d397e0-6177-4c3c-b0f7-78b410ed410f] type:action class:AcceptDeferredEventAction]} ready for processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(196): ActionsOnDelete: processId=_earthquake_ether_inspector, actionUuid=be1dbe01-92a6-4ff8-b406-33df6fae004c
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(216): Deleted 1 actions
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(165): ActionsOnGet: processId=_earthquake_ether_inspector
+Fri Jul 24 19:41:01 JST 2015 ...tinspectorhandler.go(149): Waiting for action (processId=_earthquake_ether_inspector)
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:02 JST 2015 ...ndom/randompolicy.go(88): no event is queued
+Fri Jul 24 19:41:03 JST 2015 ...uake/orchestrator.go(70): main loop end
+Fri Jul 24 19:41:03 JST 2015 ...orage/naive/naive.go(90): new trace path: /tmp/zk-2212/00000000/history
+Fri Jul 24 19:41:03 JST 2015 ...ndom/randompolicy.go(88): no event is queued

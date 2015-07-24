@@ -28,9 +28,9 @@ class ZMQClientBase(object):
             metadata_str, eth_ignored = self.zs.recv_multipart()
             metadata = json.loads(metadata_str)
             op = metadata['op']
-            assert op in ('accept', 'drop'), 'Invalid op metadata: %s' % (metadata)
+            assert op in ('accept', 'drop'), 'Invalid op packet metadata: %s (pendings=%s)' %(metadata, self.pendings)
             packet_id = metadata['id']
-            assert packet_id in self.pendings, 'Unknown packet metadata: %s' %(metadata)
+            assert packet_id in self.pendings, 'Unknown packet metadata: %s (pendings=%s)' %(metadata, self.pendings)
             eth_bytes = self.pendings[packet_id]
             del self.pendings[packet_id]
             LOG.debug('Pendings-(id=%d,op=%s): %d->%d', packet_id, op, len(self.pendings) + 1, len(self.pendings))
@@ -45,7 +45,7 @@ class ZMQClientBase(object):
         metadata = {'id': packet_id}
         metadata_str = json.dumps(metadata)
         self.zs.send_multipart((metadata_str, eth_bytes))
-        assert not packet_id in self.pendings
+        assert not packet_id in self.pendings, 'Bad packet metadata: %s (pendings=%s)' %(metadata, self.pendings)
         self.pendings[packet_id] = eth_bytes
         LOG.debug('Pendings+(id=%d): %d->%d', packet_id, len(self.pendings) - 1, len(self.pendings))
 
