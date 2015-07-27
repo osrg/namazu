@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 import six
 
 from .. import LOG as _LOG
-from ..entity.entity import EventBase, ActionBase
+from ..signal.signal import EventBase, ActionBase
 
 LOG = _LOG.getChild('orchestrator.digestible')
 

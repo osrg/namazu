@@ -57,11 +57,11 @@ func createTracesPerEntity(trace []Event) map[string][]Event {
 	perEntity := make(map[string][]Event)
 
 	for _, ev := range trace {
-		if _, ok := perEntity[ev.ProcId]; !ok {
-			perEntity[ev.ProcId] = make([]Event, 0)
+		if _, ok := perEntity[ev.EntityId]; !ok {
+			perEntity[ev.EntityId] = make([]Event, 0)
 		}
 
-		perEntity[ev.ProcId] = append(perEntity[ev.ProcId], ev)
+		perEntity[ev.EntityId] = append(perEntity[ev.EntityId], ev)
 	}
 
 	return perEntity

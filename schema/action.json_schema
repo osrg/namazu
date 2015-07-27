@@ -5,7 +5,7 @@
     "additionalProperties": true,
     "required": [
 	"class",
-	"process",
+	"entity",
 	"type",
 	"uuid"
     ],
@@ -14,7 +14,7 @@
 	"option": {
 	    "type": "object"
 	},
-	"process": {
+	"entity": {
 	    "type": "string"
 	},
 	"type": {

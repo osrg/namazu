@@ -2,20 +2,20 @@ from abc import ABCMeta, abstractmethod
 import six
 import uuid
 from .. import LOG as _LOG
-LOG = _LOG.getChild('entity.entity')
+LOG = _LOG.getChild('signal.signal')
 
 @six.add_metaclass(ABCMeta)
-class EntityBase(object):
+class SignalBase(object):
     # included in json ('type')
     type_name = '_meta'
 
     # these are included in json
-    process = '_earthquake_invalid_process_id'
+    entity = '_earthquake_invalid_entity_id'
     uuid = '00000000-0000-0000-0000-000000000000'
     option = {}
 
     # extra variables can be included in json (e.g. 'deferred')
-    var_names = ['process', 'uuid', 'option']
+    var_names = ['entity', 'uuid', 'option']
 
     # used for dispatching
     _children = {}
@@ -89,14 +89,14 @@ class EntityBase(object):
 
             
 @six.add_metaclass(ABCMeta)
-class EventBase(EntityBase):
+class EventBase(SignalBase):
     """
     Event:  Target System --> Orchestrator
     Action: Target System <-- Orchestrator
     """
     type_name = 'event'
     deferred = False
-    var_names = EntityBase.var_names + ['deferred']
+    var_names = SignalBase.var_names + ['deferred']
     # orchestrator sets recv_timestamp
     recv_timestamp = -1
 
@@ -104,7 +104,7 @@ event_class = EventBase.deco
 
 
 @six.add_metaclass(ABCMeta)
-class ActionBase(EntityBase):
+class ActionBase(SignalBase):
     """
     Event:  Target System --> Orchestrator
     Action: Target System <-- Orchestrator

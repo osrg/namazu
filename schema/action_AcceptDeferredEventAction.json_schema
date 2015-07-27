@@ -6,7 +6,7 @@
     "required": [
 	"class",
 	"option",
-	"process",
+	"entity",
 	"type",
 	"uuid"
     ],
@@ -23,7 +23,7 @@
 		}
 	    }
 	},
-	"process": {
+	"entity": {
 	    "type": "string"
 	},
 	"type": {

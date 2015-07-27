@@ -9,9 +9,9 @@ import scapy.all
 import six
 
 from .. import LOG as _LOG
-from ..entity.entity import ActionBase
-from ..entity.event import PacketEvent
-from ..entity.action import AcceptDeferredEventAction, NopAction
+from ..signal.signal import ActionBase
+from ..signal.event import PacketEvent
+from ..signal.action import AcceptDeferredEventAction, NopAction
 from pyearthquake.inspector.internal.ether_tcp_watcher import TCPWatcher
 
 LOG = _LOG.getChild(__name__)
@@ -26,7 +26,7 @@ class EtherInspectorBase(object):
     pkt_recv_handler_table = {}
 
     def __init__(self, zmq_addr, orchestrator_rest_url='http://localhost:10080/api/v2',
-                 process_id='_earthquake_ether_inspector'):
+                 entity_id='_earthquake_ether_inspector'):
         if ENABLE_TCP_WATCHER:
             LOG.info('Using TCPWatcher')
             self.tcp_watcher = TCPWatcher()
@@ -38,8 +38,8 @@ class EtherInspectorBase(object):
         self.zmq_addr = zmq_addr
         LOG.info('Orchestrator REST URL: %s', orchestrator_rest_url)
         self.orchestrator_rest_url = orchestrator_rest_url
-        LOG.info('Inspector System Process ID: %s', process_id)
-        self.process_id = process_id
+        LOG.info('Inspector System Entity ID: %s', entity_id)
+        self.entity_id = entity_id
 
     def start(self):
         zmq_worker_handle = self.start_zmq_worker()
@@ -125,7 +125,7 @@ class EtherInspectorBase(object):
 
     def on_packet_event(self, metadata, event, buffer_if_not_sent=False):
         assert isinstance(event, PacketEvent)
-        event.process = self.process_id
+        event.entity = self.entity_id
         sent = self.send_event_to_orchestrator(event)
         if not sent:
             if buffer_if_not_sent:
@@ -163,7 +163,7 @@ class EtherInspectorBase(object):
         try:
             event_jsdict = event.to_jsondict()
             headers = {'content-type': 'application/json'}
-            post_url = self.orchestrator_rest_url + '/events/' + self.process_id + '/' + event.uuid
+            post_url = self.orchestrator_rest_url + '/events/' + self.entity_id + '/' + event.uuid
             LOG.debug('POST %s', post_url)
             r = requests.post(post_url, data=json.dumps(event_jsdict), headers=headers)
             return True
@@ -187,7 +187,7 @@ class EtherInspectorBase(object):
         got = None
         while True:
             try:
-                get_url = self.orchestrator_rest_url + '/actions/' + self.process_id
+                get_url = self.orchestrator_rest_url + '/actions/' + self.entity_id
                 LOG.debug('GET %s', get_url)
                 got = requests.get(get_url)
                 got_jsdict = got.json()

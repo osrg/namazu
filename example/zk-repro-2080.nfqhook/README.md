@@ -2,7 +2,9 @@
 
 
 ## How to Reproduce the Bug with Earthquake
-    
+   
+NOTE: this test scenario is under work-in-progress. (Only `FLE.Initial` can be inspected at the moment)
+   
 ### Start Earthquake
 Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for how to setup the environment.
 

@@ -72,11 +72,11 @@ func createTracesPerEntity(_trace *uniqueTraceUnit) {
 
 	for _, act := range trace.ActionSequence {
 		ev := act.Evt
-		if _, ok := perEntity[ev.ProcId]; !ok {
-			perEntity[ev.ProcId] = make([]*Event, 0)
+		if _, ok := perEntity[ev.EntityId]; !ok {
+			perEntity[ev.EntityId] = make([]*Event, 0)
 		}
 
-		perEntity[ev.ProcId] = append(perEntity[ev.ProcId], ev)
+		perEntity[ev.EntityId] = append(perEntity[ev.EntityId], ev)
 	}
 
 	_trace.tracesPerTransitionEntity = perEntity

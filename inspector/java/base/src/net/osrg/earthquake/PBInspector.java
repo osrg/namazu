@@ -36,7 +36,7 @@ public class PBInspector implements Inspector {
     private boolean Disabled = false;
     private boolean NoInitiation = false;
     private boolean Dryrun = false;
-    private String ProcessID;
+    private String EntityID;
     private int GATCPPort = 10000;
 
     private Logger LOGGER;
@@ -168,12 +168,12 @@ public class PBInspector implements Inspector {
             LOGGER.info("run in non direct mode");
         }
 
-        ProcessID = System.getenv("EQ_ENV_PROCESS_ID");
-        if (ProcessID == null) {
-            LOGGER.severe("process id required but not given (EQ_ENV_PROCESS_ID");
+        EntityID = System.getenv("EQ_ENV_ENTITY_ID");
+        if (EntityID == null) {
+            LOGGER.severe("entity id required but not given (EQ_ENV_ENTITY_ID");
             System.exit(1);
         }
-        LOGGER.info("Process ID: " + ProcessID);
+        LOGGER.info("Entity ID: " + EntityID);
 
         String _GATCPPort = System.getenv("EQ_GA_TCP_PORT");
         if (_GATCPPort != null) {
@@ -273,14 +273,14 @@ public class PBInspector implements Inspector {
         }
 
         InspectorMessage.InspectorMsgReq_Initiation.Builder initiationReqBuilder = InspectorMessage.InspectorMsgReq_Initiation.newBuilder();
-        InspectorMessage.InspectorMsgReq_Initiation initiationReq = initiationReqBuilder.setProcessId(ProcessID).build();
+        InspectorMessage.InspectorMsgReq_Initiation initiationReq = initiationReqBuilder.setEntityId(EntityID).build();
 
         InspectorMessage.InspectorMsgReq.Builder reqBuilder = InspectorMessage.InspectorMsgReq.newBuilder();
         InspectorMessage.InspectorMsgReq req = reqBuilder.setPid(0 /* FIXME */)
                 .setTid((int) Thread.currentThread().getId())
                 .setType(InspectorMessage.InspectorMsgReq.Type.INITIATION)
                 .setMsgId(0)
-                .setProcessId(ProcessID)
+                .setEntityId(EntityID)
                 .setInitiation(initiationReq).build();
 
         if (Dryrun) {
@@ -345,7 +345,7 @@ public class PBInspector implements Inspector {
                 .setTid((int) Thread.currentThread().getId())
                 .setType(InspectorMessage.InspectorMsgReq.Type.EVENT)
                 .setMsgId(msgID)
-                .setProcessId(ProcessID)
+                .setEntityId(EntityID)
                 .setHasJavaSpecificFields(1)
                 .setJavaSpecificFields(javaSpecificField)
                 .setEvent(ev).build();

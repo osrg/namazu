@@ -79,7 +79,7 @@ func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity,
 
 	e := &Event{
 		ArrivedTime: time.Now(),
-		ProcId:      entity.Id,
+		EntityId:      entity.Id,
 
 		// eventId: used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
 		EventId: uuid.NewV4().String(),
@@ -155,13 +155,13 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 			}
 
 			if *req.Event.Type == InspectorMsgReq_Event_EXIT {
-				Log("process %v is exiting", entity)
+				Log("entity %v is exiting", entity)
 				continue
 			}
 
 			if entity.Id == "uninitialized" {
 				// initialize id with a member of event
-				entity.Id = *req.ProcessId
+				entity.Id = *req.EntityId
 			}
 			Log("event message received from transition entity %s", entity.Id)
 
@@ -176,7 +176,7 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 				Log("execute action (type=\"%s\")", act.ActionType)
 				rsp := handler.makePBMsgFromAction(entity, req, act)
 				eventRspSend <- rsp
-				Log("accepted the event message from process %v", entity)
+				Log("accepted the event message from entity %v", entity)
 			}
 		} // select
 	} // for

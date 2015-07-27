@@ -9,9 +9,9 @@ ZMQ_ADDR=os.getenv('EQ_ETHER_ZMQ_ADDR')
 from scapy.all import *
 import pyearthquake
 from pyearthquake.inspector.ether import *
-from pyearthquake.entity.entity import *
-from pyearthquake.entity.event import *
-from pyearthquake.entity.action import *
+from pyearthquake.signal.signal import *
+from pyearthquake.signal.event import *
+from pyearthquake.signal.action import *
 import hexdump
 
 LOG = pyearthquake.LOG.getChild(__name__)
@@ -30,9 +30,9 @@ class SamplePacket(Packet):
             msg = {'w_no': int(m.group(1), 10),
                    'msg_no': int(m.group(2), 10),
                    'is_res': 'RES' in self.type}
-            src_process = 'server' if msg['is_res'] else 'client-w%d' % msg['w_no']
-            dst_process =  'client-w%d' % msg['w_no'] if msg['is_res'] else 'server'
-            self.event = PacketEvent.from_message(src_process, dst_process, msg)
+            src_entity = 'server' if msg['is_res'] else 'client-w%d' % msg['w_no']
+            dst_entity =  'client-w%d' % msg['w_no'] if msg['is_res'] else 'server'
+            self.event = PacketEvent.from_message(src_entity, dst_entity, msg)
         except Exception as e:
             LOG.exception(e)
             
@@ -42,10 +42,10 @@ class SamplePacket(Packet):
         """
         try:
             msg = self.event.option['message']
-            src_process = self.event.option['src_process']
-            dst_process = self.event.option['dst_process']
+            src_entity = self.event.option['src_entity']
+            dst_entity = self.event.option['dst_entity']
             return self.sprintf('%s ==> %s SamplePacket w%d,msg%d' % \
-                                (src_process, dst_process,
+                                (src_entity, dst_entity,
                                  msg['w_no'], msg['msg_no']))
         except Exception as e:
             LOG.exception(e)

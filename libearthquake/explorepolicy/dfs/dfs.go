@@ -127,7 +127,7 @@ func (this *DFS) GetNextActionChan() chan *Action {
 	return this.nextActionChan
 }
 
-func (this *DFS) QueueNextEvent(procId string, ev *Event) {
+func (this *DFS) QueueNextEvent(entityId string, ev *Event) {
 	this.queueMutex.Lock()
 
 	if !this.dumb {

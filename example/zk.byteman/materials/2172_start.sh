@@ -57,13 +57,13 @@ rm -rf $EQ_WORKING_DIR/zookeeper2/version-2/
 
 # run actual test
 
-EQ_MODE_DIRECT=1 EQ_ENV_PROCESS_ID=zksrv1 EQ_NO_INITIATION=1 SERVER_JVMFLAGS="-javaagent:$AGENT_CP=script:$EQ_MATERIALS_DIR/server.btm" ZOO_LOG_DIR=$EQ_WORKING_DIR/zookeeper1/logs/1/ $EQ_MATERIALS_DIR/bin/zkServer.sh --config $EQ_WORKING_DIR/quorumconf/1 start
+EQ_MODE_DIRECT=1 EQ_ENV_ENTITY_ID=zksrv1 EQ_NO_INITIATION=1 SERVER_JVMFLAGS="-javaagent:$AGENT_CP=script:$EQ_MATERIALS_DIR/server.btm" ZOO_LOG_DIR=$EQ_WORKING_DIR/zookeeper1/logs/1/ $EQ_MATERIALS_DIR/bin/zkServer.sh --config $EQ_WORKING_DIR/quorumconf/1 start
 
-EQ_MODE_DIRECT=1 EQ_ENV_PROCESS_ID=zksrv2 EQ_NO_INITIATION=1 SERVER_JVMFLAGS="-javaagent:$AGENT_CP=script:$EQ_MATERIALS_DIR/server.btm" ZOO_LOG_DIR=$EQ_WORKING_DIR/zookeeper2/logs/2/ $EQ_MATERIALS_DIR/bin/zkServer.sh --config $EQ_WORKING_DIR/quorumconf/2 start
+EQ_MODE_DIRECT=1 EQ_ENV_ENTITY_ID=zksrv2 EQ_NO_INITIATION=1 SERVER_JVMFLAGS="-javaagent:$AGENT_CP=script:$EQ_MATERIALS_DIR/server.btm" ZOO_LOG_DIR=$EQ_WORKING_DIR/zookeeper2/logs/2/ $EQ_MATERIALS_DIR/bin/zkServer.sh --config $EQ_WORKING_DIR/quorumconf/2 start
 
 RECONFIG_ADD_SERVER 2 10 5
 
-EQ_MODE_DIRECT=1 EQ_ENV_PROCESS_ID=zksrv3 EQ_NO_INITIATION=1 SERVER_JVMFLAGS="-javaagent:$AGENT_CP=script:$EQ_MATERIALS_DIR/server.btm" ZOO_LOG_DIR=$EQ_WORKING_DIR/zookeeper3/logs/3/ $EQ_MATERIALS_DIR/bin/zkServer.sh --config $EQ_WORKING_DIR/quorumconf/3 start
+EQ_MODE_DIRECT=1 EQ_ENV_ENTITY_ID=zksrv3 EQ_NO_INITIATION=1 SERVER_JVMFLAGS="-javaagent:$AGENT_CP=script:$EQ_MATERIALS_DIR/server.btm" ZOO_LOG_DIR=$EQ_WORKING_DIR/zookeeper3/logs/3/ $EQ_MATERIALS_DIR/bin/zkServer.sh --config $EQ_WORKING_DIR/quorumconf/3 start
 
 RECONFIG_ADD_SERVER 3 5 5
 

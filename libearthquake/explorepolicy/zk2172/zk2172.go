@@ -124,9 +124,9 @@ func (this *ZK2172) GetNextActionChan() chan *Action {
 	return this.nextActionChan
 }
 
-func (this *ZK2172) QueueNextEvent(procId string, ev *Event) {
+func (this *ZK2172) QueueNextEvent(entityId string, ev *Event) {
 	newEv := &zkEvent{
-		procId,
+		entityId,
 		ev,
 		0,
 	}
@@ -135,7 +135,7 @@ func (this *ZK2172) QueueNextEvent(procId string, ev *Event) {
 		panic(fmt.Errorf("Unsupported event type %s", ev.EventType))
 	}
 
-	if ev.EventParam["name"].(string) == "deserializeSnapshot" && procId == "zksrv3" {
+	if ev.EventParam["name"].(string) == "deserializeSnapshot" && entityId == "zksrv3" {
 		newEv.tick = 1000
 	}
 

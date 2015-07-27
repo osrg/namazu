@@ -4,7 +4,7 @@ import six
 import time
 
 from .. import LOG as _LOG
-from ..entity.event import InspectionEndEvent
+from ..signal.event import InspectionEndEvent
 
 LOG = _LOG.getChild('orchestrator.detector')
 
@@ -58,7 +58,7 @@ class InspectionEndDetector(TerminationDetectorBase):
 
         for d in state.digestible_sequence:
             if isinstance(d.event, InspectionEndEvent):
-                pid = d.event.process
+                pid = d.event.entity
                 process_ended[pid] = True
 
         terminated = process_ended.values() == [True] * len(process_ended)
