@@ -17,10 +17,10 @@ package equtils
 
 import (
 	"fmt"
+	"github.com/satori/go.uuid"
 	"net"
 	"reflect"
 	"time"
-	"github.com/satori/go.uuid"
 )
 
 // TODO: use viper, which enables aliasing for keeping compatibility
@@ -62,7 +62,7 @@ type Event struct {
 
 	EntityId string
 
-	EventId string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
+	EventId    string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
 	EventType  string // e.g., "FuncCall", "_JSON"
 	EventParam EAParam
 
@@ -96,19 +96,18 @@ func (this Event) String() string {
 	}
 }
 
-func (this *Event) ToJSONMap () map[string]interface{} {
+func (this *Event) ToJSONMap() map[string]interface{} {
 	if this.EventType == "_JSON" {
 		return this.EventParam
 	}
-	m := 	 map[string]interface{} {
+	m := map[string]interface{}{
 		// please refer to JSON schema file for this format
-		"type": "event",
-		"class": "",
+		"type":     "event",
+		"class":    "",
 		"deferred": true,
-		"entity": this.EntityId,
-		"uuid": this.EventId,
-		"option": map[string]interface{} {
-		},
+		"entity":   this.EntityId,
+		"uuid":     this.EventId,
+		"option":   map[string]interface{}{},
 	}
 	if this.EventType == "FuncCall" {
 		m["class"] = "FunctionCallEvent"
@@ -142,21 +141,36 @@ func (this *Event) ToJSONMap () map[string]interface{} {
 func EventFromJSONMap(m map[string]interface{}, arrivedTime time.Time, entityId string) (ev Event, err error) {
 	ev = Event{
 		ArrivedTime: arrivedTime,
-		EntityId:      entityId,
-		EventId: m["uuid"].(string),
-		EventType:  "_JSON",
-		EventParam: m,
+		EntityId:    entityId,
+		EventId:     m["uuid"].(string),
+		EventType:   "_JSON",
+		EventParam:  m,
 	}
 	err = ev.Validate()
 	return
 }
 
+func (this *FaultEvent) ToJSONMap() map[string]interface{} {
+	return map[string]interface{}{
+		"entity":  this.EntityId,
+		"uuid":    this.uuid,
+		"EventId": this.uuid,
+	}
+}
+
+type FaultEvent struct {
+	EntityId      string
+	TriggeredTime time.Time
+	uuid          string
+}
+
 type Action struct {
-	ActionId string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
+	ActionId    string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
 	ActionType  string // e.g., "Accept", "_JSON"
 	ActionParam EAParam
 
-	Evt *Event
+	Evt      *Event
+	FaultEvt *FaultEvent
 }
 
 func (this Action) Validate() error {
@@ -186,12 +200,22 @@ func (this Action) String() string {
 	}
 }
 
-func (this *Action) ToJSONMap () map[string]interface{} {
+func (this *Action) ToJSONMap() map[string]interface{} {
 	if this.ActionType == "_JSON" {
 		return this.ActionParam
 	} else if this.ActionType == "Accept" {
 		// NOTE: this.Evt: PB Event, jsonEvent: JSON Event
 		jsonEvent, err := EventFromJSONMap(this.Evt.ToJSONMap(), this.Evt.ArrivedTime, this.Evt.EntityId)
+		if err != nil {
+			Panic("%s", err)
+		}
+		jsonAction, err := jsonEvent.MakeAcceptAction()
+		if err != nil {
+			Panic("%s", err)
+		}
+		return jsonAction.ToJSONMap()
+	} else if this.ActionType == "Kill" {
+		jsonEvent, err := EventFromJSONMap(this.FaultEvt.ToJSONMap(), this.FaultEvt.TriggeredTime, this.FaultEvt.EntityId)
 		if err != nil {
 			Panic("%s", err)
 		}
@@ -214,21 +238,21 @@ func (this *Event) MakeAcceptAction() (act *Action, err error) {
 		act = &Action{ActionId: actionId, ActionType: "Accept", Evt: this}
 	} else {
 		// JSON events (for REST inspector handler)
-		if ! this.EventParam["deferred"].(bool) {
+		if !this.EventParam["deferred"].(bool) {
 			err = fmt.Errorf("Cannot accept an event of which \"deferred\" is false")
 			return
 		}
-		act = &Action {
-			ActionId: actionId,
+		act = &Action{
+			ActionId:   actionId,
 			ActionType: "_JSON",
 			ActionParam: EAParam{
 				// TODO: wrap me
 				// please refer to JSON schema file for this format
-				"type": "action",
-				"class": "AcceptDeferredEventAction",
+				"type":   "action",
+				"class":  "AcceptDeferredEventAction",
 				"entity": this.EntityId,
-				"uuid": actionId,
-				"option": map[string]interface{} {
+				"uuid":   actionId,
+				"option": map[string]interface{}{
 					"event_uuid": this.EventParam["uuid"].(string),
 				},
 			},
@@ -247,8 +271,8 @@ type TransitionEntity struct {
 	Id   string
 	Conn net.Conn
 
-	EventToMain chan *Event
-	ActionFromMain chan  *Action
+	EventToMain    chan *Event
+	ActionFromMain chan *Action
 }
 
 func compareJavaSpecificFields(a, b *Event) bool {
@@ -282,11 +306,11 @@ func AreEventsEqual(a, b *Event) bool {
 		return false
 	}
 
-	if ! a.EventParam.Equals(b.EventParam) {
+	if !a.EventParam.Equals(b.EventParam) {
 		return false
 	}
 
-	if a.JavaSpecific != nil && b.JavaSpecific != nil{
+	if a.JavaSpecific != nil && b.JavaSpecific != nil {
 		return compareJavaSpecificFields(a, b)
 	}
 
@@ -295,7 +319,7 @@ func AreEventsEqual(a, b *Event) bool {
 	return true
 }
 
-func AreEventsSliceEqual(a, b []Event) bool{
+func AreEventsSliceEqual(a, b []Event) bool {
 	aLen := len(a)
 	bLen := len(b)
 	if aLen != bLen {
@@ -311,7 +335,7 @@ func AreEventsSliceEqual(a, b []Event) bool{
 	return true
 }
 
-func AreActionsSliceEqual(a, b []Action) bool{
+func AreActionsSliceEqual(a, b []Action) bool {
 	aLen := len(a)
 	bLen := len(b)
 	if aLen != bLen {
@@ -328,5 +352,30 @@ func AreActionsSliceEqual(a, b []Action) bool{
 }
 
 func AreTracesEqual(a, b *SingleTrace) bool {
-	return  AreActionsSliceEqual(a.ActionSequence, b.ActionSequence)
+	return AreActionsSliceEqual(a.ActionSequence, b.ActionSequence)
+}
+
+func MakeFaultInjectionAction(entityId string) *Action {
+	actionId := uuid.NewV4().String()
+	// plain old events (e.g., "FuncCall")
+	return &Action{
+		ActionId:   actionId,
+		ActionType: "Kill",
+		ActionParam: EAParam{
+			"type":   "action",
+			"class":  "KillDeferredEventAction",
+			"entity": entityId,
+			"uuid":   actionId,
+			"option": map[string]interface{}{
+				"event_uuid": actionId,
+			},
+		},
+		Evt: nil,
+		FaultEvt: &FaultEvent{
+			uuid:          actionId,
+			EntityId:      entityId,
+			TriggeredTime: time.Now(),
+		},
+	}
+	// TODO: json events
 }

@@ -46,7 +46,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 				// TODO: replace ev2entity with Action.EntityId
 				ev2entity[event] = readyEntity
 				policy.QueueNextEvent(readyEntity.Id, event)
-			} else  {
+			} else {
 				// run script ended, accept event immediately without passing to the policy
 				act, err := event.MakeAcceptAction()
 				if err != nil {
@@ -55,20 +55,32 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 				readyEntity.ActionFromMain <- act
 			}
 		case nextAction := <-nextActionChan:
-			Log("main loop received action (type=\"%s\") from the policy. " +
+			Log("main loop received action (type=\"%s\") from the policy. "+
 				"passing to the inspector handler", nextAction.ActionType)
 			// find corresponding entity
 			// TODO: replace ev2entity with Action.EntityId
-			nextEvent := nextAction.Evt
-			readyEntity := ev2entity[nextEvent]
-			delete(ev2entity, nextEvent)
+			if nextAction.FaultEvt != nil {
+				killCmd := CreateKillCmd(nextAction.FaultEvt.EntityId)
+				if killCmd == nil {
+					panic("failed to create kill command")
+				}
+
+				rerr := killCmd.Run()
+				if rerr != nil {
+					panic("failed to run kill command")
+				}
+			} else {
+				nextEvent := nextAction.Evt
+				readyEntity := ev2entity[nextEvent]
+				delete(ev2entity, nextEvent)
+
+				// pass to the inspector handler.
+				// inspector handler should verify action.
+				readyEntity.ActionFromMain <- nextAction
+			}
 
 			// make sequence for tracing
 			actionSeq = append(actionSeq, *nextAction)
-
-			// pass to the inspector handler.
-			// inspector handler should verify action.
-			readyEntity.ActionFromMain <- nextAction
 		case <-endCh:
 			Log("main loop end")
 			running = false

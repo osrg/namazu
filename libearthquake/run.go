@@ -30,6 +30,13 @@ import (
 	"github.com/mitchellh/cli"
 )
 
+var (
+	workingDirPath   string
+	materialsDirPath string
+
+	config *Config
+)
+
 func init() {
 	var rLimit syscall.Rlimit
 	err := syscall.Getrlimit(syscall.RLIMIT_NOFILE, &rLimit)
@@ -45,19 +52,32 @@ func init() {
 	}
 }
 
-func createCmd(scriptPath, workingDirPath, materialsDirPath string) *exec.Cmd {
+func __createCmd(scriptPath, workingDir, materialsDir string) *exec.Cmd {
 	cmd := exec.Command("sh", "-c", scriptPath)
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
-	cmd.Env = os.Environ() // this line is needed to extend current envs
-	if workingDirPath != "" { // can be empty for "init"
-		cmd.Env = append(cmd.Env, "EQ_WORKING_DIR="+workingDirPath)
+	cmd.Env = os.Environ()    // this line is needed to extend current envs
+	if workingDir != "" { // can be empty for "init"
+		cmd.Env = append(cmd.Env, "EQ_WORKING_DIR="+workingDir)
 	}
-	cmd.Env = append(cmd.Env, "EQ_MATERIALS_DIR="+materialsDirPath)
+	cmd.Env = append(cmd.Env, "EQ_MATERIALS_DIR="+materialsDir)
 
 	return cmd
+}
+
+func createCmd(scriptPath string) *exec.Cmd {
+	return __createCmd(scriptPath, workingDirPath, materialsDirPath)
+}
+
+func CreateKillCmd(entityId string) *exec.Cmd {
+	if config.GetString("kill") == "" {
+		return nil
+	}
+
+	killScriptPath := "\"" + materialsDirPath + "/" + config.GetString("kill") + "\"" + " " + entityId
+	return createCmd(killScriptPath)
 }
 
 func run(args []string) {
@@ -69,7 +89,8 @@ func run(args []string) {
 	storagePath := args[0]
 	confPath := storagePath + "/" + historystorage.StorageConfigPath
 
-	config, err := ParseConfigFile(confPath)
+	err := error(nil)
+	config, err = ParseConfigFile(confPath)
 	if err != nil {
 		fmt.Printf("failed to parse config file %s: %s\n", confPath, err)
 		os.Exit(1)
@@ -85,8 +106,8 @@ func run(args []string) {
 	}
 	policy.Init(storage, config.GetStringMap("explorePolicyParam"))
 
-	nextDir := storage.CreateNewWorkingDir()
-	InitLog(nextDir + "/earthquake.log")
+	workingDirPath = storage.CreateNewWorkingDir()
+	InitLog(workingDirPath + "/earthquake.log")
 	AddLogTee(os.Stdout)
 
 	end := make(chan interface{})
@@ -94,20 +115,20 @@ func run(args []string) {
 
 	go orchestrate(end, policy, newTraceCh, config)
 
-	materialsDir := storagePath + "/" + storageMaterialsPath
-	runScriptPath := materialsDir + "/" + config.GetString("run")
+	materialsDirPath = storagePath + "/" + storageMaterialsPath
+	runScriptPath := materialsDirPath + "/" + config.GetString("run")
 
 	cleanScriptPath := ""
 	if config.GetString("clean") != "" {
-		cleanScriptPath = materialsDir + "/" + config.GetString("clean")
+		cleanScriptPath = materialsDirPath + "/" + config.GetString("clean")
 	}
 
 	validateScriptPath := ""
 	if config.GetString("validate") != "" {
-		validateScriptPath = materialsDir + "/" + config.GetString("validate")
+		validateScriptPath = materialsDirPath + "/" + config.GetString("validate")
 	}
 
-	runCmd := createCmd(runScriptPath, nextDir, materialsDir)
+	runCmd := createCmd(runScriptPath)
 
 	startTime := time.Now()
 
@@ -128,7 +149,7 @@ func run(args []string) {
 	succeed := true
 
 	if validateScriptPath != "" {
-		validateCmd := createCmd(validateScriptPath, nextDir, materialsDir)
+		validateCmd := createCmd(validateScriptPath)
 
 		rerr = validateCmd.Run()
 		if rerr != nil {
@@ -146,7 +167,7 @@ func run(args []string) {
 	storage.Close()
 
 	if succeed && cleanScriptPath != "" {
-		cleanCmd := createCmd(cleanScriptPath, nextDir, materialsDir)
+		cleanCmd := createCmd(cleanScriptPath)
 
 		rerr = cleanCmd.Run()
 		if rerr != nil {
