@@ -60,7 +60,7 @@ type Event_JavaSpecific struct {
 type Event struct {
 	ArrivedTime time.Time
 
-	ProcId string
+	EntityId string
 
 	EventId string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
 	EventType  string // e.g., "FuncCall", "_JSON"
@@ -92,7 +92,7 @@ func (this Event) String() string {
 		return fmt.Sprintf("JSONEvent{%s}", this.EventParam)
 	} else {
 		return fmt.Sprintf("Event{PID=%s, Type=%s, Param=%s}",
-			this.ProcId, this.EventType, this.EventParam)
+			this.EntityId, this.EventType, this.EventParam)
 	}
 }
 
@@ -105,7 +105,7 @@ func (this *Event) ToJSONMap () map[string]interface{} {
 		"type": "event",
 		"class": "",
 		"deferred": true,
-		"process": this.ProcId,
+		"entity": this.EntityId,
 		"uuid": this.EventId,
 		"option": map[string]interface{} {
 		},
@@ -139,10 +139,10 @@ func (this *Event) ToJSONMap () map[string]interface{} {
 	return m
 }
 
-func EventFromJSONMap(m map[string]interface{}, arrivedTime time.Time, processId string) (ev Event, err error) {
+func EventFromJSONMap(m map[string]interface{}, arrivedTime time.Time, entityId string) (ev Event, err error) {
 	ev = Event{
 		ArrivedTime: arrivedTime,
-		ProcId:      processId,
+		EntityId:      entityId,
 		EventId: m["uuid"].(string),
 		EventType:  "_JSON",
 		EventParam: m,
@@ -191,7 +191,7 @@ func (this *Action) ToJSONMap () map[string]interface{} {
 		return this.ActionParam
 	} else if this.ActionType == "Accept" {
 		// NOTE: this.Evt: PB Event, jsonEvent: JSON Event
-		jsonEvent, err := EventFromJSONMap(this.Evt.ToJSONMap(), this.Evt.ArrivedTime, this.Evt.ProcId)
+		jsonEvent, err := EventFromJSONMap(this.Evt.ToJSONMap(), this.Evt.ArrivedTime, this.Evt.EntityId)
 		if err != nil {
 			Panic("%s", err)
 		}
@@ -226,7 +226,7 @@ func (this *Event) MakeAcceptAction() (act *Action, err error) {
 				// please refer to JSON schema file for this format
 				"type": "action",
 				"class": "AcceptDeferredEventAction",
-				"process": this.ProcId,
+				"entity": this.EntityId,
 				"uuid": actionId,
 				"option": map[string]interface{} {
 					"event_uuid": this.EventParam["uuid"].(string),
@@ -274,7 +274,7 @@ func compareJavaSpecificFields(a, b *Event) bool {
 }
 
 func AreEventsEqual(a, b *Event) bool {
-	if a.ProcId != b.ProcId {
+	if a.EntityId != b.EntityId {
 		return false
 	}
 

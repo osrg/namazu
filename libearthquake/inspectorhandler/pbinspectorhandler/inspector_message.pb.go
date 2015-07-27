@@ -223,7 +223,7 @@ func (m *InspectorMsgReq_Event) GetExit() *InspectorMsgReq_Event_Exit {
 }
 
 type InspectorMsgReq_Initiation struct {
-	ProcessId        *string `protobuf:"bytes,1,req,name=processId" json:"processId,omitempty"`
+	EntityId         *string `protobuf:"bytes,1,req,name=entityId" json:"entityId,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
 
@@ -231,9 +231,9 @@ func (m *InspectorMsgReq_Initiation) Reset()         { *m = InspectorMsgReq_Init
 func (m *InspectorMsgReq_Initiation) String() string { return proto.CompactTextString(m) }
 func (*InspectorMsgReq_Initiation) ProtoMessage()    {}
 
-func (m *InspectorMsgReq_Initiation) GetProcessId() string {
-	if m != nil && m.ProcessId != nil {
-		return *m.ProcessId
+func (m *InspectorMsgReq_Initiation) GetEntityId() string {
+	if m != nil && m.EntityId != nil {
+		return *m.EntityId
 	}
 	return ""
 }
@@ -357,7 +357,7 @@ func (m *InspectorMsgReq_JavaSpecificFields) GetParams() []*InspectorMsgReq_Java
 }
 
 type InspectorMsgReq struct {
-	ProcessId             *string                             `protobuf:"bytes,1,req,name=process_id" json:"process_id,omitempty"`
+	EntityId              *string                             `protobuf:"bytes,1,req,name=entity_id" json:"entity_id,omitempty"`
 	Type                  *InspectorMsgReq_Type               `protobuf:"varint,2,req,name=type,enum=pbinspectorhandler.InspectorMsgReq_Type" json:"type,omitempty"`
 	Pid                   *int32                              `protobuf:"varint,3,req,name=pid" json:"pid,omitempty"`
 	Tid                   *int32                              `protobuf:"varint,4,req,name=tid" json:"tid,omitempty"`
@@ -374,9 +374,9 @@ func (m *InspectorMsgReq) Reset()         { *m = InspectorMsgReq{} }
 func (m *InspectorMsgReq) String() string { return proto.CompactTextString(m) }
 func (*InspectorMsgReq) ProtoMessage()    {}
 
-func (m *InspectorMsgReq) GetProcessId() string {
-	if m != nil && m.ProcessId != nil {
-		return *m.ProcessId
+func (m *InspectorMsgReq) GetEntityId() string {
+	if m != nil && m.EntityId != nil {
+		return *m.EntityId
 	}
 	return ""
 }

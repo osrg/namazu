@@ -29,6 +29,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 	actionSeq := make([]Action, 0)
 
 	nextActionChan := policy.GetNextActionChan()
+	// TODO: replace ev2entity with Action.EntityId
 	ev2entity := make(map[*Event]*TransitionEntity)
 
 	Log("start execution loop body")
@@ -37,11 +38,12 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 	for {
 		select {
 		case readyEntity := <-readyEntityCh:
-			Log("ready process %v", readyEntity)
+			Log("ready entity %v", readyEntity)
 			event := <-readyEntity.EventToMain
 			Log("recieved message from %v", readyEntity)
 
 			if running {
+				// TODO: replace ev2entity with Action.EntityId
 				ev2entity[event] = readyEntity
 				policy.QueueNextEvent(readyEntity.Id, event)
 			} else  {
@@ -56,6 +58,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 			Log("main loop received action (type=\"%s\") from the policy. " +
 				"passing to the inspector handler", nextAction.ActionType)
 			// find corresponding entity
+			// TODO: replace ev2entity with Action.EntityId
 			nextEvent := nextAction.Evt
 			readyEntity := ev2entity[nextEvent]
 			delete(ev2entity, nextEvent)

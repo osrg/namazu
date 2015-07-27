@@ -33,7 +33,7 @@ type RESTInspectorHandler struct {
 }
 
 
-type Process struct {
+type RESTEntity struct {
 	ActionsLock       sync.RWMutex
 	Actions           []*Action
 	HttpActionReadyCh chan bool
@@ -42,41 +42,41 @@ type Process struct {
 
 //TODO: move global vars to RESTInspectorHandler struct
 var (
-	Procs = map[string]*Process{}
+	RESTEntities = map[string]*RESTEntity{}
 	ReadyEntityCh chan *TransitionEntity
 )
 
-func isProcessRegistered(processId string) bool {
-	_, alreadyRegistered := Procs[processId]
+func isEntityRegistered(entityId string) bool {
+	_, alreadyRegistered := RESTEntities[entityId]
 	return alreadyRegistered
 }
 
-func registerProcess(processId string) error {
-	if isProcessRegistered(processId) {
-		return fmt.Errorf("process %s has been already registered", processId)
+func registerEntity(entityId string) error {
+	if isEntityRegistered(entityId) {
+		return fmt.Errorf("entity %s has been already registered", entityId)
 	}
-	process := Process{
+	restEntity := RESTEntity{
 		ActionsLock: sync.RWMutex{},
 		Actions: make([]*Action, 0),
 		HttpActionReadyCh: make(chan bool),
 		Entity : TransitionEntity{
-			Id : processId,
+			Id : entityId,
 			Conn: nil,
 			ActionFromMain: make(chan *Action),
 			EventToMain: make(chan *Event),
 		},
 	}
-	Procs[processId] = &process
-	Log("Registered process: %s", processId)
+	RESTEntities[entityId] = &restEntity
+	Log("Registered entity: %s", entityId)
 	go func() {
 		for {
 			// TODO: how to shutdown this goroutine
-			act := <-process.Entity.ActionFromMain
+			act := <-restEntity.Entity.ActionFromMain
 			Log("(From Main)Received action: %s", act)
-			process.ActionsLock.Lock()
-			process.Actions = append(process.Actions, act)
-			process.ActionsLock.Unlock()
-			process.HttpActionReadyCh <- true
+			restEntity.ActionsLock.Lock()
+			restEntity.Actions = append(restEntity.Actions, act)
+			restEntity.ActionsLock.Unlock()
+			restEntity.HttpActionReadyCh <- true
 		}
 	}()
 	return nil
@@ -89,49 +89,49 @@ func RootOnGet(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello Earthquake! -- RESTInspectorHandler(pid=%d)\n", os.Getpid())
 }
 
-func makeEventStruct(processId string, reader io.Reader) (ev Event, err error) {
+func makeEventStruct(entityId string, reader io.Reader) (ev Event, err error) {
 	var m map[string] interface{}
 	decoder := json.NewDecoder(reader)
 	err = decoder.Decode(&m)
 	if err != nil {
 		return
 	}
-	ev, err = EventFromJSONMap(m, time.Now(), processId)
+	ev, err = EventFromJSONMap(m, time.Now(), entityId)
 	return
 }
 
-// @app.route(api_root + '/events/<process_id>/<event_uuid>', methods=['POST'])
+// @app.route(api_root + '/events/<entity_id>/<event_uuid>', methods=['POST'])
 func EventsOnPost(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	processId := vars["process_id"]
+	entityId := vars["entity_id"]
 	eventUuid := vars["event_uuid"]
-	Log("EventsOnPost: processId=%s, eventUuid=%s", processId, eventUuid)
-	if ! isProcessRegistered(processId) {
-		if err := registerProcess(processId); err != nil {
+	Log("EventsOnPost: entityId=%s, eventUuid=%s", entityId, eventUuid)
+	if ! isEntityRegistered(entityId) {
+		if err := registerEntity(entityId); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 	}
 	// parse event
-	e, err := makeEventStruct(processId, r.Body)
+	e, err := makeEventStruct(entityId, r.Body)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	// send event to entity
-	entity := &Procs[processId].Entity
+	entity := &RESTEntities[entityId].Entity
 	go func() {
-		Log("*EventsOnPost: sending %s to %s", e, processId)
+		Log("*EventsOnPost: sending %s to %s", e, entityId)
 		entity.EventToMain <- &e
-		Log("*EventsOnPost: sent %s to %s", e, processId)
+		Log("*EventsOnPost: sent %s to %s", e, entityId)
 
 	}()
 
 	go func() {
-		Log("*EventsOnPost: notifying %s to main", processId)
+		Log("*EventsOnPost: notifying %s to main", entityId)
 		ReadyEntityCh <- entity
-		Log("*EventsOnPost: notified %s to main", processId)
+		Log("*EventsOnPost: notified %s to main", entityId)
 	}()
 
 	// return empty json
@@ -140,13 +140,13 @@ func EventsOnPost(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "{}")
 }
 
-func (this *Process) WaitForAction() (act *Action) {
+func (this *RESTEntity) WaitForAction() (act *Action) {
 	for {
 		this.ActionsLock.RLock()
 		l := len(this.Actions)
 		this.ActionsLock.RUnlock()
 		if l > 0 { break; }
-		Log("Waiting for action (processId=%s)", this.Entity.Id)
+		Log("Waiting for action (entityId=%s)", this.Entity.Id)
 		<-this.HttpActionReadyCh
 	}
 	this.ActionsLock.RLock()
@@ -158,13 +158,13 @@ func (this *Process) WaitForAction() (act *Action) {
 	return
 }
 
-// @app.route(api_root + '/actions/<process_id>', methods=['GET'])
+// @app.route(api_root + '/actions/<entity_id>', methods=['GET'])
 func ActionsOnGet(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	processId := vars["process_id"]
-	Log("ActionsOnGet: processId=%s", processId)
-	if ! isProcessRegistered(processId) {
-		if err := registerProcess(processId); err != nil {
+	entityId := vars["entity_id"]
+	Log("ActionsOnGet: entityId=%s", entityId)
+	if ! isEntityRegistered(entityId) {
+		if err := registerEntity(entityId); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
@@ -173,11 +173,11 @@ func ActionsOnGet(w http.ResponseWriter, r *http.Request) {
 	// TODO: refactor this logic
 	ch := make(chan *Action)
 	go func() {
-		ch <- Procs[processId].WaitForAction()
+		ch <- RESTEntities[entityId].WaitForAction()
 	}()
 	act := <-ch
 
-	Log("Action %s ready for processId=%s", act, processId)
+	Log("Action %s ready for entityId=%s", act, entityId)
 	// NOTE: an inspector has responsibility to DELETE the action,
 	//       because HTTP DELETE must be idempotent (RFC 7231)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -188,42 +188,42 @@ func ActionsOnGet(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// @app.route(api_root + '/actions/<process_id>/<action_uuid>', methods=['DELETE'])
+// @app.route(api_root + '/actions/<entity_id>/<action_uuid>', methods=['DELETE'])
 func ActionsOnDelete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	processId := vars["process_id"]
+	entityId := vars["entity_id"]
 	actionUuid := vars["action_uuid"]
-	Log("ActionsOnDelete: processId=%s, actionUuid=%s", processId, actionUuid)
-	if ! isProcessRegistered(processId) {
-		err := fmt.Errorf("Unknown process %s", processId)
+	Log("ActionsOnDelete: entityId=%s, actionUuid=%s", entityId, actionUuid)
+	if ! isEntityRegistered(entityId) {
+		err := fmt.Errorf("Unknown entity %s", entityId)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	proc := Procs[processId]
-	proc.ActionsLock.Lock()
-	defer proc.ActionsLock.Unlock()
+	restEntity := RESTEntities[entityId]
+	restEntity.ActionsLock.Lock()
+	defer restEntity.ActionsLock.Unlock()
 
 	// DELETE the action
 	// NOTE: newActions == Actions is expected, as DELETE must be idempotent (RFC 7231)
-	newActions, err := From(proc.Actions).Where(func(s T) (bool, error){
+	newActions, err := From(restEntity.Actions).Where(func(s T) (bool, error){
 		return s.(*Action).ToJSONMap()["uuid"].(string) != actionUuid, nil
 	}).Results()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	deletedActions := len(proc.Actions) - len(newActions)
+	deletedActions := len(restEntity.Actions) - len(newActions)
 	Log("Deleted %d actions", deletedActions)
 	if ! ( deletedActions == 0 || deletedActions == 1 ) {
 		panic(fmt.Errorf("this should not happen. deletedActions=%d", deletedActions))
 	}
 
 	// this fails:
-	//  proc.Actions = newActions.([]*Action)
+	//  restEntity.Actions = newActions.([]*Action)
 	//  --> invalid type assertion: newActions.([]*equtils.Action) (non-interface type []linq.T on left)
-	proc.Actions = make([]*Action, len(newActions))
+	restEntity.Actions = make([]*Action, len(newActions))
 	for i, _ := range newActions {
-		proc.Actions[i] = newActions[i].(*Action)
+		restEntity.Actions[i] = newActions[i].(*Action)
 	}
 
 	// return empty json
@@ -239,9 +239,9 @@ func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionE
 	Log("REST API root=%s%s", sport, apiRoot)
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", RootOnGet).Methods("GET")
-	router.HandleFunc(path.Join(apiRoot, "/events/{process_id}/{event_uuid}"), EventsOnPost).Methods("POST")
-	router.HandleFunc(path.Join(apiRoot, "/actions/{process_id}"), ActionsOnGet).Methods("GET")
-	router.HandleFunc(path.Join(apiRoot, "/actions/{process_id}/{action_uuid}"), ActionsOnDelete).Methods("DELETE")
+	router.HandleFunc(path.Join(apiRoot, "/events/{entity_id}/{event_uuid}"), EventsOnPost).Methods("POST")
+	router.HandleFunc(path.Join(apiRoot, "/actions/{entity_id}"), ActionsOnGet).Methods("GET")
+	router.HandleFunc(path.Join(apiRoot, "/actions/{entity_id}/{action_uuid}"), ActionsOnDelete).Methods("DELETE")
 
 	err := http.ListenAndServe(sport, router)
 	if err != nil {

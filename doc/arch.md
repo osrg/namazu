@@ -45,9 +45,9 @@ History Storage
 
 ### REST API
 
- * `POST /api/v2/events/<process_id>/<event_uuid>` (Non-blocking): send an event to the orchestrator
- * `GET /api/v2/actions/<process_id>` (Blocking): receive an action for <process_id> from the orchestrator.
- * `DELETE /api/v2/actions/<process_id>/<action_uuid>` (Non-blocking): ack for get
+ * `POST /api/v2/events/<entity_id>/<event_uuid>` (Non-blocking): send an event to the orchestrator
+ * `GET /api/v2/actions/<entity_id>` (Blocking): receive an action for <entity_id> from the orchestrator.
+ * `DELETE /api/v2/actions/<entity_id>/<action_uuid>` (Non-blocking): ack for get
 
 Events:
 
@@ -76,7 +76,7 @@ Actions:
   * `TimeBoundedRandomExplorer`: similar to `RandomExplorer`, but maximum deferred time is bounded
   * `GreedyExplorer`: DFS-like policy using NetworkX graph processing library
   
- * Process Watcher Plug-in: watches events from processes, maps event->action, and execute actions. You can check safety properties (i.e. assertion) in Process Watcher.
+ * Process (now called "Entity") Watcher Plug-in: watches events from processes, maps event->action, and execute actions. You can check safety properties (i.e. assertion) in Process Watcher.
   * `BasicProcessWatcher`: a basic process watcher
   
  * Termination Detector Plug-in:  detects termination of one-shot execution. Execution histories are recorded to storage on such terminations.

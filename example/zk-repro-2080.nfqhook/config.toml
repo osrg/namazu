@@ -1,0 +1,13 @@
+init = "init.sh"
+run = "run.sh"
+validate = "validate.sh"
+clean = "clean.sh"
+
+
+# storageType = "mongodb"
+
+explorePolicy = "random"
+[explorePolicyParam]
+  interval = 10
+  timeBound = true
+  maxBound = 100

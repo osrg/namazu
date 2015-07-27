@@ -1,6 +1,6 @@
-from .entity import EventBase, event_class
+from .signal import EventBase, event_class
 from .. import LOG as _LOG
-LOG = _LOG.getChild('entity.event')
+LOG = _LOG.getChild('signal.event')
 
 @event_class()
 class FunctionCallEvent(EventBase):
@@ -21,12 +21,12 @@ class PacketEvent(EventBase):
     deferred = True
 
     @classmethod
-    def from_message(cls, src_process, dst_process, message):
+    def from_message(cls, src_entity, dst_entity, message):
         inst = cls()
-        # we do not set inst.process here
+        # we do not set inst.entity here
         inst.option = {
-            'src_process': src_process,
-            'dst_process': dst_process,
+            'src_entity': src_entity,
+            'dst_entity': dst_entity,
             'message': message
         }                
         return inst

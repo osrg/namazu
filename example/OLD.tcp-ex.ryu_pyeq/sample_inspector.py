@@ -8,9 +8,9 @@ ZMQ_ADDR='ipc:///tmp/eq/ether_inspector'
 from scapy.all import *
 import pyearthquake
 from pyearthquake.inspector.ether import *
-from pyearthquake.entity.entity import *
-from pyearthquake.entity.event import *
-from pyearthquake.entity.action import *
+from pyearthquake.signal.signal import *
+from pyearthquake.signal.event import *
+from pyearthquake.signal.action import *
 import hexdump
 
 LOG = pyearthquake.LOG.getChild(__name__)

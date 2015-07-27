@@ -44,7 +44,7 @@ message InspectorMsgReq_Event {
 };
 
 message InspectorMsgReq_Initiation {
-  required string processId = 1;
+  required string entityId = 1;
 };
 
 message InspectorMsgReq_JavaSpecificFields_StackTraceElement {
@@ -75,7 +75,7 @@ message InspectorMsgReq {
     INITIATION = 2;
   };
 
-  required string process_id = 1;
+  required string entity_id = 1;
   required Type type = 2;
 
   required int32 pid = 3;

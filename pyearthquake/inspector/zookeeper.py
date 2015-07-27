@@ -14,7 +14,7 @@ from zktraffic.omni.omni_sniffer import OmniSniffer
 
 import pyearthquake
 from pyearthquake.inspector.ether import EtherInspectorBase
-from pyearthquake.entity.event import PacketEvent
+from pyearthquake.signal.event import PacketEvent
 
 LOG = pyearthquake.LOG.getChild(__name__)
 
@@ -46,13 +46,13 @@ class ZkEtherInspector(EtherInspectorBase):
             dump_bad_packet=False,
             start=False)
 
-    def map_zktraffic_message_to_process_ids(self, zt_msg):
+    def map_zktraffic_message_to_entity_ids(self, zt_msg):
         """
         you should override this, if possible
         """
-        src_process = 'proc-%s' % zt_msg.src
-        dst_process = 'proc-%s' % zt_msg.dst
-        return (src_process, dst_process)
+        src_entity = 'entity-%s' % zt_msg.src
+        dst_entity = 'entity-%s' % zt_msg.dst
+        return (src_entity, dst_entity)
 
     def map_zktraffic_message_to_dict(self, zt_msg):
         class_group = '_unknown'
@@ -95,9 +95,9 @@ class ZkEtherInspector(EtherInspectorBase):
         return d
 
     def map_zktraffic_message_to_event(self, zt_msg):
-        src_process, dst_process = self.map_zktraffic_message_to_process_ids(zt_msg)
+        src_entity, dst_entity = self.map_zktraffic_message_to_entity_ids(zt_msg)
         d = self.map_zktraffic_message_to_dict(zt_msg)
-        event = PacketEvent.from_message(src_process, dst_process, d)
+        event = PacketEvent.from_message(src_entity, dst_entity, d)
 
         if isinstance(zt_msg, FLE.Message):
             LOG.debug(colorama.Back.CYAN + colorama.Fore.BLACK + 'FLE: %s' + colorama.Style.RESET_ALL, event)

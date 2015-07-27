@@ -47,7 +47,7 @@ func dumpJSONAction(i int, act *Action) {
 	fmt.Printf("%d %s for @ %s: %s, %s\n",
 		i,
 		act.ToJSONMap()["class"],
-		ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.ToJSONMap()["class"])
+		ev.ArrivedTime.Local().Format(time.UnixDate), ev.EntityId, ev.ToJSONMap()["class"])
 	actJson, err := json.MarshalIndent(act.ToJSONMap(), "", "\t")
 	if err != nil {
 		panic(err)
@@ -69,7 +69,7 @@ func dumpAction(i int, act *Action) {
 	fmt.Printf("%d %s(%s) for @ %s: %s, %s(%s)\n",
 		i,
 		act.ActionType, act.ActionParam,
-		ev.ArrivedTime.Local().Format(time.UnixDate), ev.ProcId, ev.EventType, ev.EventParam)
+		ev.ArrivedTime.Local().Format(time.UnixDate), ev.EntityId, ev.EventType, ev.EventParam)
 
 	if ev.JavaSpecific != nil {
 		js := ev.JavaSpecific

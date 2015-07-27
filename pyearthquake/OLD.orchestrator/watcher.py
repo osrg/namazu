@@ -6,7 +6,7 @@ import time
 import uuid
 
 from .. import LOG as _LOG
-from ..entity.action import AcceptDeferredEventAction, NopAction
+from ..signal.action import AcceptDeferredEventAction, NopAction
 
 LOG = _LOG.getChild('orchestrator.watcher')
 

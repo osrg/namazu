@@ -15,7 +15,7 @@ import time
 import uuid
 
 from .. import LOG as _LOG
-from ..entity.entity import EventBase, ActionBase
+from ..signal.signal import EventBase, ActionBase
 from .detector import TerminationDetectorBase
 from .digestible import BasicDigestible
 from .explorer import ExplorerBase
@@ -168,7 +168,7 @@ class OrchestratorBase(object):
             return Response(csv, mimetype='text/csv')
 
 
-        @app.route(api_root + '/events/<process_id>/<event_uuid>', methods=['POST'])
+        @app.route(api_root + '/events/<entity_id>/<event_uuid>', methods=['POST'])
         def POST_events(process_id, event_uuid):
             ## get event
             ## NOTE: get_json(force=True): ignore mimetype('application/json')
@@ -182,7 +182,7 @@ class OrchestratorBase(object):
             self.explorer.send_event(event)
             return jsonify({})
 
-        @app.route(api_root + '/actions/<process_id>', methods=['GET'])
+        @app.route(api_root + '/actions/<entity_id>', methods=['GET'])
         def GET_actions(process_id):
             ## regist process, if not registed
             if not process_id in self.processes:
@@ -204,7 +204,7 @@ class OrchestratorBase(object):
             LOG.debug('API <== %s', action_jsdict)
             return jsonify(action_jsdict)
 
-        @app.route(api_root + '/actions/<process_id>/<action_uuid>', methods=['DELETE'])
+        @app.route(api_root + '/actions/<entity_id>/<action_uuid>', methods=['DELETE'])
         def DELETE_actions(process_id, action_uuid):
             assert process_id in self.processes
             actions = [(i, x) for i, x in enumerate(self.processes[process_id]['actions']) if x.uuid == action_uuid]

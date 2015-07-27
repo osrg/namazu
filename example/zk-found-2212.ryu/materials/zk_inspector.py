@@ -15,21 +15,21 @@ class Zk2212Inspector(ZkEtherInspector):
         super(Zk2212Inspector, self).__init__(zmq_addr, ignore_pings=True)
 
     # @Override
-    def map_zktraffic_message_to_process_ids(self, zt_msg):
-        src, dst = super(Zk2212Inspector, self).map_zktraffic_message_to_process_ids(zt_msg)
+    def map_zktraffic_message_to_entity_ids(self, zt_msg):
+        src, dst = super(Zk2212Inspector, self).map_zktraffic_message_to_entity_ids(zt_msg)
 
         def try_map(s):
             ## FIXME: move these ones to the config file
-            if s.startswith('proc-192.168.42.1:'):
+            if s.startswith('entity-192.168.42.1:'):
                 return 'zk1'
-            elif s.startswith('proc-192.168.42.2:'):
+            elif s.startswith('entity-192.168.42.2:'):
                 return 'zk2'
-            elif s.startswith('proc-192.168.42.3:'):
+            elif s.startswith('entity-192.168.42.3:'):
                 return 'zk3'
             return s
 
         new_src, new_dst = try_map(src), try_map(dst)
-        LOG.debug('map_zktraffic_message_to_process_ids: src=%s->%s, dst=%s->%s',
+        LOG.debug('map_zktraffic_message_to_entity_ids: src=%s->%s, dst=%s->%s',
                   src, new_src, dst, new_dst)
         return new_src, new_dst
 

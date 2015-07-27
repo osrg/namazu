@@ -1,7 +1,7 @@
 {
     "type": "event",
-    "class": "InspectionEndEvent",
-    "process": "dummy",
+    "class": "DummyEvent",
+    "entity": "dummy",
     "uuid": "dummy-uuid",
     "option": {}
 }

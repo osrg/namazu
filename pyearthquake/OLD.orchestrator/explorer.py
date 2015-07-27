@@ -10,7 +10,7 @@ import six
 import time
 
 from .. import LOG as _LOG
-from ..entity.entity import EventBase, ActionBase
+from ..signal.signal import EventBase, ActionBase
 from .digestible import DigestibleBase
 
 LOG = _LOG.getChild('orchestrator.explorer')

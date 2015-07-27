@@ -7,9 +7,9 @@ import colorama
 from scapy.all import *
 import pyearthquake
 from pyearthquake.inspector.ether import *
-from pyearthquake.entity.entity import *
-from pyearthquake.entity.event import *
-from pyearthquake.entity.action import *
+from pyearthquake.signal.signal import *
+from pyearthquake.signal.event import *
+from pyearthquake.signal.action import *
 import hexdump as hd # hexdump conflict with scapy.all.hexdump
 
 import zktraffic # tested with b3e9dd0 (Jun 4 2015)

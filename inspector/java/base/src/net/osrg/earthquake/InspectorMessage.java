@@ -2494,18 +2494,18 @@ public final class InspectorMessage {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string processId = 1;</code>
+     * <code>required string entityId = 1;</code>
      */
-    boolean hasProcessId();
+    boolean hasEntityId();
     /**
-     * <code>required string processId = 1;</code>
+     * <code>required string entityId = 1;</code>
      */
-    java.lang.String getProcessId();
+    java.lang.String getEntityId();
     /**
-     * <code>required string processId = 1;</code>
+     * <code>required string entityId = 1;</code>
      */
     com.google.protobuf.ByteString
-        getProcessIdBytes();
+        getEntityIdBytes();
   }
   /**
    * Protobuf type {@code pbinspectorhandler.InspectorMsgReq_Initiation}
@@ -2562,7 +2562,7 @@ public final class InspectorMessage {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              processId_ = bs;
+              entityId_ = bs;
               break;
             }
           }
@@ -2605,19 +2605,19 @@ public final class InspectorMessage {
     }
 
     private int bitField0_;
-    public static final int PROCESSID_FIELD_NUMBER = 1;
-    private java.lang.Object processId_;
+    public static final int ENTITYID_FIELD_NUMBER = 1;
+    private java.lang.Object entityId_;
     /**
-     * <code>required string processId = 1;</code>
+     * <code>required string entityId = 1;</code>
      */
-    public boolean hasProcessId() {
+    public boolean hasEntityId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string processId = 1;</code>
+     * <code>required string entityId = 1;</code>
      */
-    public java.lang.String getProcessId() {
-      java.lang.Object ref = processId_;
+    public java.lang.String getEntityId() {
+      java.lang.Object ref = entityId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -2625,22 +2625,22 @@ public final class InspectorMessage {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          processId_ = s;
+          entityId_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string processId = 1;</code>
+     * <code>required string entityId = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getProcessIdBytes() {
-      java.lang.Object ref = processId_;
+        getEntityIdBytes() {
+      java.lang.Object ref = entityId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        processId_ = b;
+        entityId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -2648,7 +2648,7 @@ public final class InspectorMessage {
     }
 
     private void initFields() {
-      processId_ = "";
+      entityId_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -2656,7 +2656,7 @@ public final class InspectorMessage {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasProcessId()) {
+      if (!hasEntityId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -2668,7 +2668,7 @@ public final class InspectorMessage {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getProcessIdBytes());
+        output.writeBytes(1, getEntityIdBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -2681,7 +2681,7 @@ public final class InspectorMessage {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getProcessIdBytes());
+          .computeBytesSize(1, getEntityIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2800,7 +2800,7 @@ public final class InspectorMessage {
 
       public Builder clear() {
         super.clear();
-        processId_ = "";
+        entityId_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -2833,7 +2833,7 @@ public final class InspectorMessage {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.processId_ = processId_;
+        result.entityId_ = entityId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2850,9 +2850,9 @@ public final class InspectorMessage {
 
       public Builder mergeFrom(net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation other) {
         if (other == net.osrg.earthquake.InspectorMessage.InspectorMsgReq_Initiation.getDefaultInstance()) return this;
-        if (other.hasProcessId()) {
+        if (other.hasEntityId()) {
           bitField0_ |= 0x00000001;
-          processId_ = other.processId_;
+          entityId_ = other.entityId_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -2860,7 +2860,7 @@ public final class InspectorMessage {
       }
 
       public final boolean isInitialized() {
-        if (!hasProcessId()) {
+        if (!hasEntityId()) {
           
           return false;
         }
@@ -2886,24 +2886,24 @@ public final class InspectorMessage {
       }
       private int bitField0_;
 
-      private java.lang.Object processId_ = "";
+      private java.lang.Object entityId_ = "";
       /**
-       * <code>required string processId = 1;</code>
+       * <code>required string entityId = 1;</code>
        */
-      public boolean hasProcessId() {
+      public boolean hasEntityId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string processId = 1;</code>
+       * <code>required string entityId = 1;</code>
        */
-      public java.lang.String getProcessId() {
-        java.lang.Object ref = processId_;
+      public java.lang.String getEntityId() {
+        java.lang.Object ref = entityId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            processId_ = s;
+            entityId_ = s;
           }
           return s;
         } else {
@@ -2911,53 +2911,53 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>required string processId = 1;</code>
+       * <code>required string entityId = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getProcessIdBytes() {
-        java.lang.Object ref = processId_;
+          getEntityIdBytes() {
+        java.lang.Object ref = entityId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          processId_ = b;
+          entityId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>required string processId = 1;</code>
+       * <code>required string entityId = 1;</code>
        */
-      public Builder setProcessId(
+      public Builder setEntityId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        processId_ = value;
+        entityId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string processId = 1;</code>
+       * <code>required string entityId = 1;</code>
        */
-      public Builder clearProcessId() {
+      public Builder clearEntityId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        processId_ = getDefaultInstance().getProcessId();
+        entityId_ = getDefaultInstance().getEntityId();
         onChanged();
         return this;
       }
       /**
-       * <code>required string processId = 1;</code>
+       * <code>required string entityId = 1;</code>
        */
-      public Builder setProcessIdBytes(
+      public Builder setEntityIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        processId_ = value;
+        entityId_ = value;
         onChanged();
         return this;
       }
@@ -5927,18 +5927,18 @@ public final class InspectorMessage {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string process_id = 1;</code>
+     * <code>required string entity_id = 1;</code>
      */
-    boolean hasProcessId();
+    boolean hasEntityId();
     /**
-     * <code>required string process_id = 1;</code>
+     * <code>required string entity_id = 1;</code>
      */
-    java.lang.String getProcessId();
+    java.lang.String getEntityId();
     /**
-     * <code>required string process_id = 1;</code>
+     * <code>required string entity_id = 1;</code>
      */
     com.google.protobuf.ByteString
-        getProcessIdBytes();
+        getEntityIdBytes();
 
     /**
      * <code>required .pbinspectorhandler.InspectorMsgReq.Type type = 2;</code>
@@ -6096,7 +6096,7 @@ public final class InspectorMessage {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              processId_ = bs;
+              entityId_ = bs;
               break;
             }
             case 16: {
@@ -6296,19 +6296,19 @@ public final class InspectorMessage {
     }
 
     private int bitField0_;
-    public static final int PROCESS_ID_FIELD_NUMBER = 1;
-    private java.lang.Object processId_;
+    public static final int ENTITY_ID_FIELD_NUMBER = 1;
+    private java.lang.Object entityId_;
     /**
-     * <code>required string process_id = 1;</code>
+     * <code>required string entity_id = 1;</code>
      */
-    public boolean hasProcessId() {
+    public boolean hasEntityId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string process_id = 1;</code>
+     * <code>required string entity_id = 1;</code>
      */
-    public java.lang.String getProcessId() {
-      java.lang.Object ref = processId_;
+    public java.lang.String getEntityId() {
+      java.lang.Object ref = entityId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -6316,22 +6316,22 @@ public final class InspectorMessage {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          processId_ = s;
+          entityId_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>required string process_id = 1;</code>
+     * <code>required string entity_id = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getProcessIdBytes() {
-      java.lang.Object ref = processId_;
+        getEntityIdBytes() {
+      java.lang.Object ref = entityId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        processId_ = b;
+        entityId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -6500,7 +6500,7 @@ public final class InspectorMessage {
     }
 
     private void initFields() {
-      processId_ = "";
+      entityId_ = "";
       type_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type.EVENT;
       pid_ = 0;
       tid_ = 0;
@@ -6517,7 +6517,7 @@ public final class InspectorMessage {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasProcessId()) {
+      if (!hasEntityId()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -6567,7 +6567,7 @@ public final class InspectorMessage {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getProcessIdBytes());
+        output.writeBytes(1, getEntityIdBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeEnum(2, type_.getNumber());
@@ -6607,7 +6607,7 @@ public final class InspectorMessage {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getProcessIdBytes());
+          .computeBytesSize(1, getEntityIdBytes());
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -6765,7 +6765,7 @@ public final class InspectorMessage {
 
       public Builder clear() {
         super.clear();
-        processId_ = "";
+        entityId_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
         type_ = net.osrg.earthquake.InspectorMessage.InspectorMsgReq.Type.EVENT;
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -6828,7 +6828,7 @@ public final class InspectorMessage {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.processId_ = processId_;
+        result.entityId_ = entityId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
@@ -6893,9 +6893,9 @@ public final class InspectorMessage {
 
       public Builder mergeFrom(net.osrg.earthquake.InspectorMessage.InspectorMsgReq other) {
         if (other == net.osrg.earthquake.InspectorMessage.InspectorMsgReq.getDefaultInstance()) return this;
-        if (other.hasProcessId()) {
+        if (other.hasEntityId()) {
           bitField0_ |= 0x00000001;
-          processId_ = other.processId_;
+          entityId_ = other.entityId_;
           onChanged();
         }
         if (other.hasType()) {
@@ -6930,7 +6930,7 @@ public final class InspectorMessage {
       }
 
       public final boolean isInitialized() {
-        if (!hasProcessId()) {
+        if (!hasEntityId()) {
           
           return false;
         }
@@ -6994,24 +6994,24 @@ public final class InspectorMessage {
       }
       private int bitField0_;
 
-      private java.lang.Object processId_ = "";
+      private java.lang.Object entityId_ = "";
       /**
-       * <code>required string process_id = 1;</code>
+       * <code>required string entity_id = 1;</code>
        */
-      public boolean hasProcessId() {
+      public boolean hasEntityId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string process_id = 1;</code>
+       * <code>required string entity_id = 1;</code>
        */
-      public java.lang.String getProcessId() {
-        java.lang.Object ref = processId_;
+      public java.lang.String getEntityId() {
+        java.lang.Object ref = entityId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
           if (bs.isValidUtf8()) {
-            processId_ = s;
+            entityId_ = s;
           }
           return s;
         } else {
@@ -7019,53 +7019,53 @@ public final class InspectorMessage {
         }
       }
       /**
-       * <code>required string process_id = 1;</code>
+       * <code>required string entity_id = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getProcessIdBytes() {
-        java.lang.Object ref = processId_;
+          getEntityIdBytes() {
+        java.lang.Object ref = entityId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          processId_ = b;
+          entityId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>required string process_id = 1;</code>
+       * <code>required string entity_id = 1;</code>
        */
-      public Builder setProcessId(
+      public Builder setEntityId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        processId_ = value;
+        entityId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string process_id = 1;</code>
+       * <code>required string entity_id = 1;</code>
        */
-      public Builder clearProcessId() {
+      public Builder clearEntityId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        processId_ = getDefaultInstance().getProcessId();
+        entityId_ = getDefaultInstance().getEntityId();
         onChanged();
         return this;
       }
       /**
-       * <code>required string process_id = 1;</code>
+       * <code>required string entity_id = 1;</code>
        */
-      public Builder setProcessIdBytes(
+      public Builder setEntityIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000001;
-        processId_ = value;
+        entityId_ = value;
         onChanged();
         return this;
       }
@@ -8445,36 +8445,36 @@ public final class InspectorMessage {
       "MsgReq_Event_FuncReturn\022<\n\004Exit\030\004 \001(\0132.." +
       "pbinspectorhandler.InspectorMsgReq_Event" +
       "_Exit\"0\n\004Type\022\r\n\tFUNC_CALL\020\001\022\017\n\013FUNC_RET" +
-      "URN\020\002\022\010\n\004EXIT\020\003\"/\n\032InspectorMsgReq_Initi" +
-      "ation\022\021\n\tprocessId\030\001 \002(\t\"\203\001\n4InspectorMs" +
-      "gReq_JavaSpecificFields_StackTraceElemen" +
-      "t\022\020\n\010fileName\030\001 \002(\t\022\021\n\tclassName\030\002 \002(\t\022\022" +
-      "\n\nmethodName\030\003 \002(\t\022\022\n\nlineNumber\030\004 \002(\005\"H" +
-      "\n)InspectorMsgReq_JavaSpecificFields_Par" +
-      "ams\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"\235\002\n\"Ins",
-      "pectorMsgReq_JavaSpecificFields\022\022\n\nthrea" +
-      "dName\030\001 \002(\t\022\034\n\024nrStackTraceElements\030\002 \002(" +
-      "\005\022d\n\022stackTraceElements\030\003 \003(\0132H.pbinspec" +
-      "torhandler.InspectorMsgReq_JavaSpecificF" +
-      "ields_StackTraceElement\022\020\n\010nrParams\030\004 \002(" +
-      "\005\022M\n\006params\030\005 \003(\0132=.pbinspectorhandler.I" +
-      "nspectorMsgReq_JavaSpecificFields_Params" +
-      "\"\256\003\n\017InspectorMsgReq\022\022\n\nprocess_id\030\001 \002(\t" +
-      "\0226\n\004type\030\002 \002(\0162(.pbinspectorhandler.Insp" +
-      "ectorMsgReq.Type\022\013\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002",
-      "(\005\022\016\n\006msg_id\030\005 \002(\005\022\021\n\tga_msg_id\030\006 \001(\005\0228\n" +
-      "\005Event\030\007 \001(\0132).pbinspectorhandler.Inspec" +
-      "torMsgReq_Event\022B\n\nInitiation\030\010 \001(\0132..pb" +
-      "inspectorhandler.InspectorMsgReq_Initiat" +
-      "ion\022\035\n\025HasJavaSpecificFields\030\t \002(\005\022R\n\022Ja" +
-      "vaSpecificFields\030\n \001(\01326.pbinspectorhand" +
-      "ler.InspectorMsgReq_JavaSpecificFields\"!" +
-      "\n\004Type\022\t\n\005EVENT\020\001\022\016\n\nINITIATION\020\002\"\224\001\n\017In" +
-      "spectorMsgRsp\0227\n\003res\030\001 \002(\0162*.pbinspector" +
-      "handler.InspectorMsgRsp.Result\022\016\n\006msg_id",
-      "\030\002 \001(\005\022\021\n\tga_msg_id\030\003 \001(\005\"%\n\006Result\022\007\n\003A" +
-      "CK\020\001\022\t\n\005ERROR\020\002\022\007\n\003END\020\003B\025\n\023net.osrg.ear" +
-      "thquake"
+      "URN\020\002\022\010\n\004EXIT\020\003\".\n\032InspectorMsgReq_Initi" +
+      "ation\022\020\n\010entityId\030\001 \002(\t\"\203\001\n4InspectorMsg" +
+      "Req_JavaSpecificFields_StackTraceElement" +
+      "\022\020\n\010fileName\030\001 \002(\t\022\021\n\tclassName\030\002 \002(\t\022\022\n" +
+      "\nmethodName\030\003 \002(\t\022\022\n\nlineNumber\030\004 \002(\005\"H\n" +
+      ")InspectorMsgReq_JavaSpecificFields_Para" +
+      "ms\022\014\n\004name\030\001 \002(\t\022\r\n\005value\030\002 \002(\t\"\235\002\n\"Insp",
+      "ectorMsgReq_JavaSpecificFields\022\022\n\nthread" +
+      "Name\030\001 \002(\t\022\034\n\024nrStackTraceElements\030\002 \002(\005" +
+      "\022d\n\022stackTraceElements\030\003 \003(\0132H.pbinspect" +
+      "orhandler.InspectorMsgReq_JavaSpecificFi" +
+      "elds_StackTraceElement\022\020\n\010nrParams\030\004 \002(\005" +
+      "\022M\n\006params\030\005 \003(\0132=.pbinspectorhandler.In" +
+      "spectorMsgReq_JavaSpecificFields_Params\"" +
+      "\255\003\n\017InspectorMsgReq\022\021\n\tentity_id\030\001 \002(\t\0226" +
+      "\n\004type\030\002 \002(\0162(.pbinspectorhandler.Inspec" +
+      "torMsgReq.Type\022\013\n\003pid\030\003 \002(\005\022\013\n\003tid\030\004 \002(\005",
+      "\022\016\n\006msg_id\030\005 \002(\005\022\021\n\tga_msg_id\030\006 \001(\005\0228\n\005E" +
+      "vent\030\007 \001(\0132).pbinspectorhandler.Inspecto" +
+      "rMsgReq_Event\022B\n\nInitiation\030\010 \001(\0132..pbin" +
+      "spectorhandler.InspectorMsgReq_Initiatio" +
+      "n\022\035\n\025HasJavaSpecificFields\030\t \002(\005\022R\n\022Java" +
+      "SpecificFields\030\n \001(\01326.pbinspectorhandle" +
+      "r.InspectorMsgReq_JavaSpecificFields\"!\n\004" +
+      "Type\022\t\n\005EVENT\020\001\022\016\n\nINITIATION\020\002\"\224\001\n\017Insp" +
+      "ectorMsgRsp\0227\n\003res\030\001 \002(\0162*.pbinspectorha" +
+      "ndler.InspectorMsgRsp.Result\022\016\n\006msg_id\030\002",
+      " \001(\005\022\021\n\tga_msg_id\030\003 \001(\005\"%\n\006Result\022\007\n\003ACK" +
+      "\020\001\022\t\n\005ERROR\020\002\022\007\n\003END\020\003B\025\n\023net.osrg.earth" +
+      "quake"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -8517,7 +8517,7 @@ public final class InspectorMessage {
     internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_Initiation_descriptor,
-        new java.lang.String[] { "ProcessId", });
+        new java.lang.String[] { "EntityId", });
     internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_pbinspectorhandler_InspectorMsgReq_JavaSpecificFields_StackTraceElement_fieldAccessorTable = new
@@ -8541,7 +8541,7 @@ public final class InspectorMessage {
     internal_static_pbinspectorhandler_InspectorMsgReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_pbinspectorhandler_InspectorMsgReq_descriptor,
-        new java.lang.String[] { "ProcessId", "Type", "Pid", "Tid", "MsgId", "GaMsgId", "Event", "Initiation", "HasJavaSpecificFields", "JavaSpecificFields", });
+        new java.lang.String[] { "EntityId", "Type", "Pid", "Tid", "MsgId", "GaMsgId", "Event", "Initiation", "HasJavaSpecificFields", "JavaSpecificFields", });
     internal_static_pbinspectorhandler_InspectorMsgRsp_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_pbinspectorhandler_InspectorMsgRsp_fieldAccessorTable = new

@@ -121,11 +121,11 @@ func (r *Random) GetNextActionChan() chan *Action {
 	return r.nextActionChan
 }
 
-func (r *Random) defaultQueueNextEvent(procId string, ev *Event) {
+func (r *Random) defaultQueueNextEvent(entityId string, ev *Event) {
 	r.queueMutex.Lock()
 
-	if r.param != nil && procId == r.param.prioritize {
-		Log("**************** process %s alives, prioritizing\n", procId)
+	if r.param != nil && entityId == r.param.prioritize {
+		Log("**************** entity %s alives, prioritizing\n", entityId)
 		r.highEventQueue = append(r.highEventQueue, ev)
 	} else {
 		r.lowEventQueue = append(r.lowEventQueue, ev)
@@ -133,7 +133,7 @@ func (r *Random) defaultQueueNextEvent(procId string, ev *Event) {
 	r.queueMutex.Unlock()
 }
 
-func (r *Random) timeBoundQueueNextEvent(procId string, ev *Event) {
+func (r *Random) timeBoundQueueNextEvent(entityId string, ev *Event) {
 	go func(e *Event) {
 		sleepMS := r.randGen.Int() % r.param.maxBound
 		time.Sleep(time.Duration(sleepMS) * time.Millisecond)
@@ -147,11 +147,11 @@ func (r *Random) timeBoundQueueNextEvent(procId string, ev *Event) {
 	}(ev)
 }
 
-func (r *Random) QueueNextEvent(procId string, ev *Event) {
+func (r *Random) QueueNextEvent(entityId string, ev *Event) {
 	if r.param.timeBound {
-		r.timeBoundQueueNextEvent(procId, ev)
+		r.timeBoundQueueNextEvent(entityId, ev)
 	} else {
-		r.defaultQueueNextEvent(procId, ev)
+		r.defaultQueueNextEvent(entityId, ev)
 	}
 }
 
