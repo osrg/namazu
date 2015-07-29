@@ -37,8 +37,12 @@ function CHECK_PREREQUISITES() {
     hash ant
     INFO "Checking whether zktraffic is installed"
     python -c "from zktraffic.omni.omni_sniffer import OmniSniffer"
+    if [ -f /proc/sys/net/ipv4/tcp_autocorking ]; then
+	INFO "Checking whether tcp_autocorking (introduced in Linux 3.14) is disabled"
+	test $(cat /proc/sys/net/ipv4/tcp_autocorking) = 0
+    fi
     INFO "Checking existence of user \"nfqhooked\""
-    id -u nfqhooked    
+    id -u nfqhooked
     if [ -z $EQ_DISABLE ]; then
 	INFO "Checking whether NFQUEUE 42 is configured for a user \"nfqhooked\""
 	iptables -n -L -v | grep "owner UID match $(id -u nfqhooked) NFQUEUE num 42"

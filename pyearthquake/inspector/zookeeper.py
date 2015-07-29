@@ -20,9 +20,10 @@ LOG = pyearthquake.LOG.getChild(__name__)
 
 
 class ZkEtherInspector(EtherInspectorBase):
-    def __init__(self, zmq_addr, ignore_pings=True):
+    def __init__(self, zmq_addr, ignore_pings=True, dump_bad_packet=False):
         super(ZkEtherInspector, self).__init__(zmq_addr)
         self.ignore_pings = ignore_pings
+        self.dump_bad_packet = dump_bad_packet
         self._init_sniffer()
 
     def _init_sniffer(self):
@@ -43,7 +44,7 @@ class ZkEtherInspector(EtherInspectorBase):
             fle_sniffer_factory,
             zab_sniffer_factory,
             zk_sniffer_factory,
-            dump_bad_packet=False,
+            dump_bad_packet=False, # ignored ,as we don't use sniffer.handle_packet()
             start=False)
 
     def map_zktraffic_message_to_entity_ids(self, zt_msg):
@@ -66,8 +67,11 @@ class ZkEtherInspector(EtherInspectorBase):
             class_group = 'ServerMessage'
         d = {'class_group': class_group, 'class': zt_msg.__class__.__name__}
         ignored_keys = (
-        'type', 'timestr', 'src', 'dst', 'length', 'session_id', 'client_id', 'txn_time', 'txn_zxid', 'timeout',
-        'timestamp', 'ip', 'port', 'session', 'client')  # because client port may differ
+            'type', 'timestr', 'src', 'dst', 'length', 'session_id', 'client_id', 'txn_time', 'txn_zxid', 'timeout',
+            'timestamp', 'ip', 'port', 'session',
+            'client',  # because client port may differ
+            'passwd',  # may include non-ascii chars
+        )
 
         def gen():
             for k in dir(zt_msg):
@@ -121,15 +125,18 @@ class ZkEtherInspector(EtherInspectorBase):
             raw_packet = scapy.all.Raw(str(packet))
             # NOTE: zktraffic expects this raw_packet rather than packet
             zt_msg = self.sniffer.message_from_packet(raw_packet)
+            zt_msg.src = '%s:%d' % (packet[scapy.all.IP].src, packet[scapy.all.TCP].sport)
+            zt_msg.dst = '%s:%d' % (packet[scapy.all.IP].dst, packet[scapy.all.TCP].dport)
             if self.ignore_pings:
                 is_zab_ping  = isinstance(zt_msg, ZAB.Ping)
-                is_client_ping = isinstance(zt_msg, ClientMessage) and zt_msg.is_ping()
-                is_server_ping = isinstance(zt_msg, ServerMessage) and zt_msg.is_ping()
+                is_client_ping = isinstance(zt_msg, ClientMessage) and zt_msg.is_ping
+                is_server_ping = isinstance(zt_msg, ServerMessage) and zt_msg.is_ping
                 if is_zab_ping or is_client_ping or is_server_ping:
                     return None
             event = self.map_zktraffic_message_to_event(zt_msg)
             return event
         except (BadPacket, struct.error) as ex:
             # NOTE: ex happens on TCP SYN, RST and so on
-            # LOG.exception(ex)
+            if self.dump_bad_packet:
+                raise ex # the upper caller should print this
             return None

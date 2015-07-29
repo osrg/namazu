@@ -4,7 +4,6 @@ import sys
 import eventlet
 
 from eventlet.green import socket
-import scapy.all
 
 from .. import LOG as _LOG
 from pyearthquake.middlebox.internal.nfq import NFQ
@@ -77,5 +76,11 @@ class NFQHook(object):
 
     def send_ip_packet_to_inspector(self, packet_id, ip_bytes):
         LOG.debug('Sending packet %d to inspector', packet_id)
-        dummy_eth = scapy.all.Ether() / scapy.all.IP(ip_bytes)
-        self.zmq_client.send(packet_id, str(dummy_eth))
+
+        # from hexdump import hexdump
+        # for l in hexdump(ip_bytes, result='generator'):
+        #     LOG.debug(l)
+
+        # TODO: eliminate dummy eth header
+        dummy_eth = '\xff\xff\xff\xff\xff\xff' + '\x00\x00\x00\x00\x00\x00' + '\x08\x00' + ip_bytes
+        self.zmq_client.send(packet_id, dummy_eth)
