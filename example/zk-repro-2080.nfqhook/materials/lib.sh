@@ -97,13 +97,11 @@ function START_INSPECTOR() {
 
 function START_ZK_TEST() {
     INFO "Starting ZooKeeper testing (${ZK_TEST_COMMAND})"
-    result=0
     if [ -z $EQ_DISABLE ]; then    
-	(cd ${EQ_MATERIALS_DIR}/zookeeper; sudo -E -u nfqhooked sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${EQ_WORKING_DIR}/zk-test.log) || result=$?
+	(cd ${EQ_MATERIALS_DIR}/zookeeper; sudo -E -u nfqhooked sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${EQ_WORKING_DIR}/zk-test.log)
     else
-	(cd ${EQ_MATERIALS_DIR}/zookeeper; sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${EQ_WORKING_DIR}/zk-test.log) || result=$?
+	(cd ${EQ_MATERIALS_DIR}/zookeeper; sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${EQ_WORKING_DIR}/zk-test.log)
     fi
-    echo ${result} > ${EQ_WORKING_DIR}/zk-test.result
 }
 
 ## FUNCS (SHUTDOWN)
