@@ -2,7 +2,7 @@
 
 ## CONFIG
 # EQ_DISABLE=1 # set to disable earthquake
-ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-32fc1417dc649f8a3bb32a224eb6cca3181eb39f} #(Fri Jul 10 06:19:22 2015 +0000) # TODO: support other local ZK tree
+ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-32fc1417dc649f8a3bb32a224eb6cca3181eb39f} #(Fri Jul 10 06:19:22 2015 +0000)
 ZK_TEST_COMMAND=${ZK_TEST_COMMAND:-ant -Dtestcase=ReconfigRecoveryTest -Dtest.method=testCurrentObserverIsParticipantInNewConfig -Dtest.output=true test-core-java}
 
 
@@ -52,11 +52,18 @@ function CHECK_PREREQUISITES() {
 function FETCH_ZK() {
     ( cd ${EQ_MATERIALS_DIR};
       INFO "Fetching ZooKeeper"
-      git clone https://github.com/apache/zookeeper.git
-      INFO "Checking out ZooKeeper@${ZK_GIT_COMMIT}"
-      INFO "You can change the ZooKeeper version by setting ZK_GIT_COMMIT"
-      cd zookeeper
-      git checkout ${ZK_GIT_COMMIT}
+      if [ -z $ZK_SOURCE_DIR ]; then
+	  git clone https://github.com/apache/zookeeper.git
+	  INFO "Checking out ZooKeeper@${ZK_GIT_COMMIT}"
+	  INFO "You can change the ZooKeeper version by setting ZK_GIT_COMMIT"
+	  cd zookeeper
+	  git checkout ${ZK_GIT_COMMIT}
+      else
+	  INFO "Copying from ${ZK_SOURCE_DIR}"
+	  cp -R ${ZK_SOURCE_DIR} .
+	  cd zookeeper
+	  ant clean
+      fi
     )
 }
 

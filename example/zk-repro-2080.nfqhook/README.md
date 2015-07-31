@@ -22,6 +22,8 @@ Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for ho
 
 ### Environment Variables
 
- * `EQ_DISABLE`: disable the substantial part of Earthquake if set
- * `ZK_GIT_COMMIT`: use another ZooKeeper version
+ * `EQ_DISABLE`(default: (unset)): disable the substantial part of Earthquake if set
+ * `ZK_GIT_COMMIT`(default:32fc14..) : use another ZooKeeper version
+ * `ZK_SOURCE_DIR`(default: (unset)) : use another ZooKeeper source directory if set
+
 
