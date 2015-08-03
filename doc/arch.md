@@ -54,12 +54,11 @@ Events:
  * `FunctionCallEvent`: inspected and deferred function calls
  * `FunctionReturnEvent`: inspected and deferred function calls
  * `PacketEvent`: inspected and deferred Ethernet packets
- * `LogEvent`: (planned) inspected syslog
+ * `LogEvent`: inspected syslog
 
 Actions:
 
- * `NopAction`: nop
- * `AcceptDeferredEventAction`: for `FunctionCallEvent`, `FunctionReturnEvent`, and `PacketEvent`
+ * `AcceptEventAction`: accept an event
  * `DropDeferredEventAction`: (planned)
  * `ExecuteCommandOnInspectorAction`: (planned)
  * `ExecuteCommandOnOrchestratorAction`: (planned)

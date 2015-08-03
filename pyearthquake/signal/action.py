@@ -11,7 +11,7 @@ class NopAction(ActionBase):
         return inst
 
 @action_class()
-class AcceptDeferredEventAction(ActionBase):
+class AcceptEventAction(ActionBase):
     @classmethod
     def from_event(cls, event):
         assert event.deferred

@@ -67,12 +67,15 @@ func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity,
 
 	evType := ""
 	evParam := NewEAParam()
+	evDeferred := false
 	if *req.Event.Type == InspectorMsgReq_Event_FUNC_CALL {
 		evType = "FuncCall"
 		evParam["name"] = *req.Event.FuncCall.Name
+		evDeferred = true
 	} else if *req.Event.Type == InspectorMsgReq_Event_FUNC_RETURN {
 		evType = "FuncReturn"
 		evParam["name"] = *req.Event.FuncReturn.Name
+		evDeferred = true
 	} else {
 		Panic("invalid type of event: %d", *req.Event.Type)
 	}
@@ -85,6 +88,7 @@ func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity,
 		EventId: uuid.NewV4().String(),
 		EventType:  evType,
 		EventParam: evParam,
+		Deferred: evDeferred,
 	}
 
 	if *req.HasJavaSpecificFields == 1 {

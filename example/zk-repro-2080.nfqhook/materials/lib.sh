@@ -4,7 +4,7 @@
 # EQ_DISABLE=1 # set to disable earthquake
 ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-32fc1417dc649f8a3bb32a224eb6cca3181eb39f} #(Fri Jul 10 06:19:22 2015 +0000)
 ZK_TEST_COMMAND=${ZK_TEST_COMMAND:-ant -Dtestcase=ReconfigRecoveryTest -Dtest.method=testCurrentObserverIsParticipantInNewConfig -Dtest.output=true test-core-java}
-
+# SYSLOG_DISABLE=1 # set to disable syslog
 
 ## GENERIC FUNCS
 function INFO(){
@@ -74,6 +74,10 @@ function BUILD_ZK() {
       ant test-init
       chown -R nfqhooked .
     )
+    if [ -z $EQ_DISABLE -a -z $SYSLOG_DISABLE ]; then
+      INFO "Using log4j_with_syslog.properties"
+      cp ${EQ_MATERIALS_DIR}/log4j_with_syslog.properties ${EQ_MATERIALS_DIR}/zookeeper/conf/log4j.properties
+    fi
 }
 
 
@@ -102,6 +106,15 @@ function START_INSPECTOR() {
     echo ${pid} > ${EQ_WORKING_DIR}/inspector.pid
 }
 
+function START_SYSLOG_INSPECTOR() {
+    INFO "Starting Earthquake Syslog Inspector"
+    python ${EQ_MATERIALS_DIR}/zk_syslog_inspector.py > ${EQ_WORKING_DIR}/syslog_inspector.log 2>&1 &
+    pid=$!
+    INFO "Syslog Inspector PID: ${pid}"
+    echo ${pid} > ${EQ_WORKING_DIR}/syslog_inspector.pid
+}
+
+
 function START_ZK_TEST() {
     INFO "Starting ZooKeeper testing (${ZK_TEST_COMMAND})"
     if [ -z $EQ_DISABLE ]; then    
@@ -121,5 +134,11 @@ function KILL_NFQHOOK() {
 function KILL_INSPECTOR() {
     pid=$(cat ${EQ_WORKING_DIR}/inspector.pid)
     INFO "Killing Inspector, PID: ${pid}"
+    kill -9 ${pid}
+}
+
+function KILL_SYSLOG_INSPECTOR() {
+    pid=$(cat ${EQ_WORKING_DIR}/syslog_inspector.pid)
+    INFO "Killing Syslog Inspector, PID: ${pid}"
     kill -9 ${pid}
 }
