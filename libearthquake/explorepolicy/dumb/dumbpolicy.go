@@ -18,13 +18,18 @@ package dumb
 import (
 	. "../../equtils"
 	. "../../historystorage"
+	"time"
 )
 
 type Dumb struct {
 	nextActionChan chan *Action
+	sleep time.Duration
 }
 
 func (d *Dumb) Init(storage HistoryStorage, param map[string]interface{}) {
+	if v, ok := param["sleep"]; ok {
+		d.sleep = time.Duration(int(v.(float64)))
+	}
 }
 
 func (d *Dumb) Name() string {
@@ -37,6 +42,9 @@ func (d *Dumb) GetNextActionChan() chan *Action {
 
 func (d *Dumb) QueueNextEvent(id string, ev *Event) {
 	go func(e *Event) {
+		if d.sleep > 0 {
+			time.Sleep(d.sleep * time.Millisecond)
+		}
 		act, err := e.MakeAcceptAction()
 		if err != nil { panic(err) }
 		d.nextActionChan <- act
@@ -47,6 +55,7 @@ func DumbNew() *Dumb {
 	nextActionChan := make(chan *Action)
 
 	return &Dumb{
-		nextActionChan,
+		nextActionChan: nextActionChan,
+		sleep: time.Duration(0), // default: 0ms
 	}
 }
