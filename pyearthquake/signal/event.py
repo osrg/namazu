@@ -39,6 +39,16 @@ class LogEvent(EventBase):
     """
     deferred = False
 
+    @classmethod
+    def from_message(cls, src_entity, message):
+        inst = cls()
+        # we do not set inst.entity here
+        inst.option = {
+            'src_entity': src_entity,
+            'message': message
+        }
+        return inst
+
 
 @event_class()
 class InspectionEndEvent(EventBase):

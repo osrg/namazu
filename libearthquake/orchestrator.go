@@ -29,12 +29,34 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 	actionSeq := make([]Action, 0)
 
 	nextActionChan := policy.GetNextActionChan()
-	// TODO: replace ev2entity with Action.EntityId
-	ev2entity := make(map[*Event]*TransitionEntity)
+
+	knownEntities := make(map[string]*TransitionEntity)
 
 	Log("start execution loop body")
 
 	running := true
+
+	handleAction := func(nextAction *Action) {
+		if nextAction.OrchestratorLocal {
+			Log("main loop received action (type=\"%s\") from the policy. " +
+			"NOT passing to the inspector handler", nextAction.ActionType)
+		} else {
+			Log("main loop received action (type=\"%s\") from the policy. " +
+			"passing to the inspector handler", nextAction.ActionType)
+		}
+		// find corresponding entity
+		readyEntity := knownEntities[nextAction.EntityId]
+
+		// make sequence for tracing
+		actionSeq = append(actionSeq, *nextAction)
+
+		// pass to the inspector handler.
+		// inspector handler should verify action.
+		if ! nextAction.OrchestratorLocal {
+			readyEntity.ActionFromMain <- nextAction
+		}
+	}
+
 	for {
 		select {
 		case readyEntity := <-readyEntityCh:
@@ -42,33 +64,30 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 			event := <-readyEntity.EventToMain
 			Log("recieved message from %v", readyEntity)
 
-			if running {
-				// TODO: replace ev2entity with Action.EntityId
-				ev2entity[event] = readyEntity
-				policy.QueueNextEvent(readyEntity.Id, event)
-			} else  {
-				// run script ended, accept event immediately without passing to the policy
+			acceptEventImmediately := func(event *Event) {
 				act, err := event.MakeAcceptAction()
 				if err != nil {
 					panic(err)
 				}
-				readyEntity.ActionFromMain <- act
+				handleAction(act)
 			}
+
+			if running {
+				knownEntities[readyEntity.Id] = readyEntity
+				if event.Deferred {
+					policy.QueueNextEvent(readyEntity.Id, event)
+				} else {
+					// not deferred events: e.g. syslog
+					acceptEventImmediately(event)
+				}
+			} else  {
+				// run script ended, accept event immediately without passing to the policy
+				acceptEventImmediately(event)
+			}
+
 		case nextAction := <-nextActionChan:
-			Log("main loop received action (type=\"%s\") from the policy. " +
-				"passing to the inspector handler", nextAction.ActionType)
-			// find corresponding entity
-			// TODO: replace ev2entity with Action.EntityId
-			nextEvent := nextAction.Evt
-			readyEntity := ev2entity[nextEvent]
-			delete(ev2entity, nextEvent)
+			handleAction(nextAction)
 
-			// make sequence for tracing
-			actionSeq = append(actionSeq, *nextAction)
-
-			// pass to the inspector handler.
-			// inspector handler should verify action.
-			readyEntity.ActionFromMain <- nextAction
 		case <-endCh:
 			Log("main loop end")
 			running = false

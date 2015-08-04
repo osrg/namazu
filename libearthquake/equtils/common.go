@@ -66,6 +66,8 @@ type Event struct {
 	EventType  string // e.g., "FuncCall", "_JSON"
 	EventParam EAParam
 
+	Deferred bool // Function Calls and Packets are deferred, however syslogs are not deferred
+
 	JavaSpecific *Event_JavaSpecific
 }
 
@@ -96,6 +98,7 @@ func (this Event) String() string {
 	}
 }
 
+
 func (this *Event) ToJSONMap () map[string]interface{} {
 	if this.EventType == "_JSON" {
 		return this.EventParam
@@ -104,7 +107,7 @@ func (this *Event) ToJSONMap () map[string]interface{} {
 		// please refer to JSON schema file for this format
 		"type": "event",
 		"class": "",
-		"deferred": true,
+		"deferred": this.Deferred,
 		"entity": this.EntityId,
 		"uuid": this.EventId,
 		"option": map[string]interface{} {
@@ -146,15 +149,18 @@ func EventFromJSONMap(m map[string]interface{}, arrivedTime time.Time, entityId 
 		EventId: m["uuid"].(string),
 		EventType:  "_JSON",
 		EventParam: m,
+		Deferred: m["deferred"].(bool),
 	}
 	err = ev.Validate()
 	return
 }
 
 type Action struct {
+	EntityId string
 	ActionId string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
 	ActionType  string // e.g., "Accept", "_JSON"
 	ActionParam EAParam
+	OrchestratorLocal bool // if true, the action will not  be propagated to inspectors. this field exists mainly for syslog events.
 
 	Evt *Event
 }
@@ -209,29 +215,29 @@ func (this *Action) ToJSONMap () map[string]interface{} {
 
 func (this *Event) MakeAcceptAction() (act *Action, err error) {
 	actionId := uuid.NewV4().String()
+	// if the event has not been deferred, the action will not be sent to the inspector
+	orchestratorLocal := ! this.Deferred
 	if this.EventType != "_JSON" {
 		// plain old events (e.g., "FuncCall")
-		act = &Action{ActionId: actionId, ActionType: "Accept", Evt: this}
+		act = &Action{EntityId: this.EntityId, ActionId: actionId, ActionType: "Accept", OrchestratorLocal: orchestratorLocal, Evt: this}
 	} else {
 		// JSON events (for REST inspector handler)
-		if ! this.EventParam["deferred"].(bool) {
-			err = fmt.Errorf("Cannot accept an event of which \"deferred\" is false")
-			return
-		}
 		act = &Action {
+			EntityId: this.EntityId,
 			ActionId: actionId,
 			ActionType: "_JSON",
 			ActionParam: EAParam{
 				// TODO: wrap me
 				// please refer to JSON schema file for this format
 				"type": "action",
-				"class": "AcceptDeferredEventAction",
+				"class": "AcceptEventAction",
 				"entity": this.EntityId,
 				"uuid": actionId,
 				"option": map[string]interface{} {
 					"event_uuid": this.EventParam["uuid"].(string),
 				},
 			},
+			OrchestratorLocal: orchestratorLocal,
 			Evt: this,
 		}
 	}

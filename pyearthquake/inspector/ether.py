@@ -11,7 +11,7 @@ import six
 from .. import LOG as _LOG
 from ..signal.signal import ActionBase
 from ..signal.event import PacketEvent
-from ..signal.action import AcceptDeferredEventAction, NopAction
+from ..signal.action import AcceptEventAction, NopAction
 from pyearthquake.inspector.internal.ether_tcp_watcher import TCPWatcher
 
 LOG = _LOG.getChild(__name__)
@@ -174,7 +174,7 @@ class EtherInspectorBase(object):
 
     def on_recv_action_from_orchestrator(self, action):
         LOG.debug('Received action: %s', action)
-        if isinstance(action, AcceptDeferredEventAction):
+        if isinstance(action, AcceptEventAction):
             ev_uuid = action.option['event_uuid']
             self.accept_deferred_event_uuid(ev_uuid)
         elif isinstance(action, NopAction):
