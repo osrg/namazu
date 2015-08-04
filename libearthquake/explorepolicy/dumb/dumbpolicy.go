@@ -23,12 +23,16 @@ import (
 
 type Dumb struct {
 	nextActionChan chan *Action
-	sleep time.Duration
+	sleep          time.Duration
+	sleepAsync     time.Duration
 }
 
 func (d *Dumb) Init(storage HistoryStorage, param map[string]interface{}) {
 	if v, ok := param["sleep"]; ok {
 		d.sleep = time.Duration(int(v.(float64)))
+	}
+	if v, ok := param["sleepAsync"]; ok {
+		d.sleepAsync = time.Duration(int(v.(float64)))
 	}
 }
 
@@ -41,12 +45,17 @@ func (d *Dumb) GetNextActionChan() chan *Action {
 }
 
 func (d *Dumb) QueueNextEvent(id string, ev *Event) {
+	if d.sleep > 0 {
+		time.Sleep(d.sleep * time.Millisecond)
+	}
 	go func(e *Event) {
-		if d.sleep > 0 {
-			time.Sleep(d.sleep * time.Millisecond)
+		if d.sleepAsync > 0 {
+			time.Sleep(d.sleepAsync * time.Millisecond)
 		}
 		act, err := e.MakeAcceptAction()
-		if err != nil { panic(err) }
+		if err != nil {
+			panic(err)
+		}
 		d.nextActionChan <- act
 	}(ev)
 }
@@ -56,6 +65,7 @@ func DumbNew() *Dumb {
 
 	return &Dumb{
 		nextActionChan: nextActionChan,
-		sleep: time.Duration(0), // default: 0ms
+		sleep:          time.Duration(0), // default: 0ms
+		sleepAsync:     time.Duration(0), // default: 0ms
 	}
 }

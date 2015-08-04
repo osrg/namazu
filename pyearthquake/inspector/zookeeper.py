@@ -137,6 +137,13 @@ class ZkEtherInspector(EtherInspectorBase):
             return event
         except (BadPacket, struct.error) as ex:
             # NOTE: ex happens on TCP SYN, RST and so on
+
+            if len(ex.args) > 0:
+                if 'Four letter request' in ex.args[0]:
+                    return PacketEvent.from_message('_unknown', '_unknown', {'class_group': 'FourLetter', 'class': 'FourLetterRequest', 'data': packet.load})
+                elif 'Four letter response' in ex.args[0]:
+                    return PacketEvent.from_message('_unknown', '_unknown', {'class_group': 'FourLetter', 'class': 'FourLetterResponse', 'data': packet.load})
+
             if self.dump_bad_packet:
                 raise ex # the upper caller should print this
             return None

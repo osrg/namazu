@@ -2,7 +2,7 @@
 
 ## CONFIG
 # EQ_DISABLE=1 # set to disable earthquake
-ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-32fc1417dc649f8a3bb32a224eb6cca3181eb39f} #(Fri Jul 10 06:19:22 2015 +0000)
+ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-5b1b668d33ccf7d93c31db2a53728177393fea90} #(Aug 6, 2015)
 ZK_TEST_COMMAND=${ZK_TEST_COMMAND:-ant -Dtestcase=ReconfigRecoveryTest -Dtest.method=testCurrentObserverIsParticipantInNewConfig -Dtest.output=true test-core-java}
 # SYSLOG_DISABLE=1 # set to disable syslog
 
@@ -35,8 +35,6 @@ function CHECK_PREREQUISITES() {
     hash javac
     INFO "Checking whether Ant is installed"
     hash ant
-    INFO "Checking whether zktraffic is installed"
-    python -c "from zktraffic.omni.omni_sniffer import OmniSniffer"
     if [ -f /proc/sys/net/ipv4/tcp_autocorking ]; then
 	INFO "Checking whether tcp_autocorking (introduced in Linux 3.14) is disabled"
 	test $(cat /proc/sys/net/ipv4/tcp_autocorking) = 0
@@ -74,9 +72,11 @@ function BUILD_ZK() {
       ant test-init
       chown -R nfqhooked .
     )
-    if [ -z $EQ_DISABLE -a -z $SYSLOG_DISABLE ]; then
-      INFO "Using log4j_with_syslog.properties"
-      cp ${EQ_MATERIALS_DIR}/log4j_with_syslog.properties ${EQ_MATERIALS_DIR}/zookeeper/conf/log4j.properties
+    if [ -z ${EQ_DISABLE} ]; then
+	if [ -z ${SYSLOG_DISABLE} ]; then
+	    INFO "Using log4j_with_syslog.properties"
+	    cp ${EQ_MATERIALS_DIR}/log4j_with_syslog.properties ${EQ_MATERIALS_DIR}/zookeeper/conf/log4j.properties
+	fi
     fi
 }
 

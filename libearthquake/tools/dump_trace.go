@@ -44,20 +44,25 @@ func dumpJSONAction(i int, act *Action) {
 		panic(fmt.Errorf("bad action %s", act))
 	}
 	ev := act.Evt
+	actJSONMap := act.ToJSONMap()
+	evJSONMap := ev.ToJSONMap()
 	fmt.Printf("%d %s for @ %s: %s, %s\n",
 		i,
-		act.ToJSONMap()["class"],
-		ev.ArrivedTime.Local().Format(time.UnixDate), ev.EntityId, ev.ToJSONMap()["class"])
-	actJson, err := json.MarshalIndent(act.ToJSONMap(), "", "\t")
+		actJSONMap["class"],
+		ev.ArrivedTime.Local().Format(time.UnixDate), ev.EntityId, evJSONMap["class"])
+	if actJSONMap["class"] != "AcceptEventAction" {
+		// printing AcceptEventAction is too verbose
+		actPrettyStr, err := json.MarshalIndent(actJSONMap, "", "\t")
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("%s\n", actPrettyStr)
+	}
+	evPrettyStr, err := json.MarshalIndent(evJSONMap, "", "\t")
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("%s\n", actJson)
-	evJson, err := json.MarshalIndent(ev.ToJSONMap(), "", "\t")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("%s\n", evJson)
+	fmt.Printf("%s\n", evPrettyStr)
 }
 
 func dumpAction(i int, act *Action) {
