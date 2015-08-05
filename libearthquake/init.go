@@ -204,7 +204,7 @@ func _init(args []string) {
 
 	if config.GetString("init") != "" {
 		initScriptPath := materialsDir + "/" + config.GetString("init")
-		runCmd := createCmd(initScriptPath, "", materialsDir)
+		runCmd := __createCmd(initScriptPath, "", materialsDir)
 		if err = runCmd.Run(); err != nil {
 			fmt.Printf("could not run %s (%s)\n", initScriptPath, err)
 			os.Exit(1)

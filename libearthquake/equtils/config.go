@@ -35,6 +35,8 @@ func ParseConfigFile(filePath string) (*Config, error) {
 	cfg.SetDefault("run", "") // e.g. "run.sh"
 	cfg.SetDefault("clean", "") // e.g. "clean.sh"
 	cfg.SetDefault("validate", "") // e.g. "validate.sh"
+	cfg.SetDefault("kill", "") // e.g. "kill.sh", unexpected death
+	cfg.SetDefault("shutdown", "") // e.g. "shutdown.sh", graceful shutdown
 	cfg.SetDefault("explorePolicy", "dumb")
 	cfg.SetDefault("explorePolicyParam", map[string]interface{}{})
 	cfg.SetDefault("storageType", "naive")
