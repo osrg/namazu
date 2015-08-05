@@ -1,0 +1,23 @@
+{
+	"class": "PacketEvent",
+	"deferred": true,
+	"entity": "_earthquake_ether_inspector",
+	"option": {
+		"dst_entity": "zk1",
+		"message": {
+			"class": "Notification",
+			"class_group": "FLE",
+			"config": "server.1=192.168.42.1:2888:3888:participant;0.0.0.0:2181\nserver.3=192.168.42.3:2888:3888:observer;0.0.0.0:2181\nversion=0",
+			"election_epoch": 1,
+			"leader": 1,
+			"peer_epoch": 0,
+			"state": "looking",
+			"version": 2,
+			"zxid_hi": 0,
+			"zxid_low": 0
+		},
+		"src_entity": "zk3"
+	},
+	"type": "event",
+	"uuid": "47fee097-7b31-497b-9fcc-59994723a252"
+}

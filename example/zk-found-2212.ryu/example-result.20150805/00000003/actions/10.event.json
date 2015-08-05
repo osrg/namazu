@@ -1,0 +1,20 @@
+{
+	"class": "PacketEvent",
+	"deferred": true,
+	"entity": "_earthquake_ether_inspector",
+	"option": {
+		"dst_entity": "zk1",
+		"message": {
+			"class": "ObserverInfo",
+			"class_group": "ZAB",
+			"config_version": 0,
+			"protocol_version": 65536,
+			"sid": 2,
+			"zxid_hi": 0,
+			"zxid_low": 0
+		},
+		"src_entity": "zk2"
+	},
+	"type": "event",
+	"uuid": "92ca58eb-57d3-4ee1-a920-a58e112c4737"
+}

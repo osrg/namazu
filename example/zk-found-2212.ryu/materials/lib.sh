@@ -5,7 +5,8 @@
 ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-98a3cabfa279833b81908d72f1c10ee9f598a045} #(Tue Jun 2 19:17:09 2015 +0000)
 DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME:-zk_testbed}
 
-ZK_START_WAIT_SECS=${ZK_START_WAIT_SECS:-5}
+ZK_START_WAIT_SECS=${ZK_START_WAIT_SECS:-10}
+PAUSE_ON_FAILURE=${PAUSE_ON_FAILURE:-0}
 
 ## GENERIC FUNCS
 function INFO(){
@@ -117,8 +118,12 @@ function CHECK_FLE_STATES() {
     (python ${EQ_MATERIALS_DIR}/check-fle-states.py > ${EQ_WORKING_DIR}/check-fle-states.log) || result=$?
     echo ${result} > ${EQ_WORKING_DIR}/check-fle-states.result
     if [ ${result} != 0 ]; then
-	    IMPORTANT "Failure: ${result} (${EQ_WORKING_DIR}/check-fle-states.log)"
-	    # do not return $(false) here
+	IMPORTANT "Failure: ${result} (${EQ_WORKING_DIR}/check-fle-states.log)"
+	if [ ${PAUSE_ON_FAILURE} != 0 ]; then
+	    IMPORTANT "Pausing.. please check whether this is a false-positive or not"
+	    PAUSE
+	fi
+	# do not return $(false) here
     fi
 }
 

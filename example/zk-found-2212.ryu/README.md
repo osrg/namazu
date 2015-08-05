@@ -85,19 +85,71 @@ You can check which experiment reproduced the bug as follows:
 
 ### Example Result
 
-[example-result.20150724](example-result.20150724) is an example of `/tmp/zk-2212` in the above scenario.
+[example-result.20150805](example-result.20150805) is an example result of `/tmp/zk-2212` in the above scenario.
 
- * [00000000](example-result.20150724/00000000): the 1st experimental result (could *not* reproduced the bug)
- * [00000001](example-result.20150724/00000001): the 2nd experimental result (could *not* reproduced the bug) 
- * [00000002](example-result.20150724/00000002): the 3rd experimental result ( *reproduced* the bug) 
-  * [00000002/actions/*.json](example-result.20150724/00000002/actions): Earthquake events and corresponding actions
-  * [00000002/zk{1,2,3}/log](example-result.20150724/00000002/zk1/log): ZooKeeper console logs
-  * [00000002/earthquake.log](example-result.20150724/00000002/earthquake.log): Earthquake console log
+#### [00000000](example-result.20150805/00000000): *not* reproduced the bug
+zk2 was successfully promoted to an observer to a follower, because it received `UpToDate` before `Notification(config.version=100000000)`
 
+* [32](example-result.20150805/00000000/actions/32.event.json): zk1->zk2: `UpToDate`
+* [36](example-result.20150805/00000000/actions/36.event.json): zk1<-zk2: `FollowerInfo`
+* [37](example-result.20150805/00000000/actions/37.event.json): zk1<-zk2: `Notification(config.version=100000000)`
+* [39](example-result.20150805/00000000/actions/39.event.json): zk1->zk2: `Notification(config.version=100000000)`
+
+
+zk3 was successfully promoted to an observer to a follower, because it received `UpToDate` before `Notification(config.version=100000000)`
+
+* [20](example-result.20150805/00000000/actions/20.event.json): zk1->zk3: `UpToDate`
+* [21](example-result.20150805/00000000/actions/21.event.json): zk1<-zk3: `Notification(config.version=100000000)`
+* [23](example-result.20150805/00000000/actions/23.event.json): zk1->zk3: `Notification(config.version=100000000)`
+* [25](example-result.20150805/00000000/actions/25.event.json): zk1<-zk3: `FollowerInfo`
+
+#### [00000001](example-result.20150805/00000001): *not* reproduced the bug
+zk2 was already a follower when it received `UpToDate`
+
+* [19](example-result.20150805/00000001/actions/19.event.json): zk1<-zk2: `FollowerInfo`
+* [31](example-result.20150805/00000001/actions/31.event.json): zk1->zk2: `UpToDate`
+
+zk3 was successfully promoted to an observer to a follower, because it received `UpToDate` before `Notification(config.version=100000000)`
+
+* [26](example-result.20150805/00000001/actions/26.event.json): zk1->zk3: `UpToDate`
+* [29](example-result.20150805/00000001/actions/29.event.json): zk1<-zk3: `FollowerInfo`
+* [34](example-result.20150805/00000001/actions/34.event.json): zk1->zk3: `Notification(config.version=100000000)`
+* [37](example-result.20150805/00000001/actions/37.event.json): zk1<-zk3: `Notification(config.version=100000000)`
+
+#### [00000002](example-result.20150805/00000002): *reproduced* the bug (zk2, zk3)
+zk2 was not able to be promoted (please see above for the reason)
+
+* [12](example-result.20150805/00000002/actions/12.event.json): zk1->zk2: `Notification(config.version=100000000)`
+* [19](example-result.20150805/00000002/actions/19.event.json): zk1->zk2: `UpToDate`
+* No `FollowerInfo` (zk1<-zk2)
+
+zk3 was not able to be promoted (please see above for the reason)
+
+* [10](example-result.20150805/00000002/actions/10.event.json): zk1->zk3: `Notification(config.version=100000000)`
+* [24](example-result.20150805/00000002/actions/24.event.json): zk1->zk3: `UpToDate`
+* No `FollowerInfo` (zk1<-zk3)
+
+#### [00000003](example-result.20150805/00000003): *reproduced* the bug (zk3)
+zk2 was successfully promoted to an observer to a follower, because it received `UpToDate` before `Notification(config.version=100000000)`
+
+* [24](example-result.20150805/00000003/actions/24.event.json): zk1->zk2: `UpToDate`
+* [25](example-result.20150805/00000003/actions/25.event.json): zk1<-zk2: `Notification(config.version=100000000)`
+* [27](example-result.20150805/00000003/actions/27.event.json): zk1->zk2: `Notification(config.version=100000000)`
+* [29](example-result.20150805/00000003/actions/29.event.json): zk1<-zk2: `FollowerInfo`
+
+zk3 was not able to be promoted (please see above for the reason)
+
+* [7](example-result.20150805/00000003/actions/7.event.json): zk1->zk3: `Notification(config.version=100000000)`
+* [20](example-result.20150805/00000003/actions/20.event.json): zk1->zk3: `UpToDate`
+* No `FollowerInfo` (zk1<-zk3)
+
+### config.toml
 Experimental feature: You can also store the result in MongoDB by setting `storageType` to `mongodb` in `config.toml`.
 
 ### Environment Variables
 
- * `EQ_DISABLE`: disable the substantial part of Earthquake if set. When Earthquake is disabled, we could not reproduced the bug in 3 days.
- * `ZK_GIT_COMMIT`: use another ZooKeeper version
- * `ZK_START_WAIT_SECS`: should be increased if the bug could not be reproduced
+ * `EQ_DISABLE`(default:(unset)): disable the substantial part of Earthquake if set. When Earthquake is disabled, we could not reproduced the bug in 3 days.
+ * `ZK_GIT_COMMIT`(default:98a3ca..): use another ZooKeeper version
+ * `ZK_START_WAIT_SECS`(default:10): should be increased if there is false-positive
+ * `PAUSE_ON_FAILURE`(default:0): pause on a possible failure for interactive verification if set to 1
+

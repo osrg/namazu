@@ -1,0 +1,17 @@
+{
+	"class": "PacketEvent",
+	"deferred": true,
+	"entity": "_earthquake_ether_inspector",
+	"option": {
+		"dst_entity": "zk3",
+		"message": {
+			"class": "NewLeader",
+			"class_group": "ZAB",
+			"zxid_hi": 1,
+			"zxid_low": 0
+		},
+		"src_entity": "zk1"
+	},
+	"type": "event",
+	"uuid": "c431ba96-402c-4a93-bb67-498ef118d3ab"
+}

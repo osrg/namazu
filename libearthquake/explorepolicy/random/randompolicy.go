@@ -150,7 +150,7 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 			highLen := len(r.highEventQueue)
 			lowLen := len(r.lowEventQueue)
 			if highLen == 0 && lowLen == 0 {
-				Log("no event is queued")
+				// Log("no event is queued")
 				r.queueMutex.Unlock()
 				continue
 			}

@@ -1,0 +1,18 @@
+{
+	"class": "PacketEvent",
+	"deferred": true,
+	"entity": "_earthquake_ether_inspector",
+	"option": {
+		"dst_entity": "zk1",
+		"message": {
+			"class": "AckEpoch",
+			"class_group": "ZAB",
+			"epoch": 0,
+			"zxid_hi": 0,
+			"zxid_low": 0
+		},
+		"src_entity": "zk2"
+	},
+	"type": "event",
+	"uuid": "cef39a50-d3d1-45bd-87e1-17f32af99b98"
+}
