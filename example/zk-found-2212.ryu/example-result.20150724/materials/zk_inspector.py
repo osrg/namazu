@@ -1,1 +1,0 @@
-../../materials/zk_inspector.py

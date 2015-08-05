@@ -1,0 +1,42 @@
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 08/05/2015 08:58 GMT
+Clients:
+ /192.168.42.254:34828[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: leader
+Node count: 5
+: 
+Parsed {'zxid': '0x100000000', 'mode': 'leader'}: 
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 08/05/2015 08:58 GMT
+Clients:
+ /192.168.42.254:41073[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: observer
+Node count: 5
+: 
+Parsed {'zxid': '0x100000000', 'mode': 'observer'}: 
+Parsing Zookeeper version: 3.6.0-SNAPSHOT--1, built on 08/05/2015 08:58 GMT
+Clients:
+ /192.168.42.254:35897[0](queued=0,recved=1,sent=0)
+
+Latency min/avg/max: 0/0/0
+Received: 1
+Sent: 0
+Connections: 1
+Outstanding: 0
+Zxid: 0x100000000
+Mode: observer
+Node count: 5
+: 
+Parsed {'zxid': '0x100000000', 'mode': 'observer'}: 

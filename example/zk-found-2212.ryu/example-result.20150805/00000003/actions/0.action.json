@@ -1,0 +1,9 @@
+{
+	"class": "AcceptEventAction",
+	"entity": "_earthquake_ether_inspector",
+	"option": {
+		"event_uuid": "7edec9c0-4888-4169-b4a5-6c940bbb6201"
+	},
+	"type": "action",
+	"uuid": "8ffdbfef-d17e-4e1b-b7d6-ce2d828d30fa"
+}
