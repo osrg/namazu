@@ -69,10 +69,12 @@ func recordAction(i int, act *Action, dir string) {
 		panic(err)
 	}
 
-	evtJSON := act.Evt.ToJSONMap()
-	evtJSONName := path.Join(dir, fmt.Sprintf("%d.event.json", i))
-	if err := recordJSONToFile(evtJSON, evtJSONName); err != nil {
-		panic(err)
+	if act.Evt != nil {
+		evtJSON := act.Evt.ToJSONMap()
+		evtJSONName := path.Join(dir, fmt.Sprintf("%d.event.json", i))
+		if err := recordJSONToFile(evtJSON, evtJSONName); err != nil {
+			panic(err)
+		}
 	}
 }
 

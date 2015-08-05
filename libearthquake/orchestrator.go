@@ -19,6 +19,7 @@ import (
 	. "./equtils"
 	. "./explorepolicy"
 	"./inspectorhandler"
+	"fmt"
 )
 
 func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *SingleTrace, config *Config) {
@@ -30,7 +31,9 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 
 	nextActionChan := policy.GetNextActionChan()
 
-	knownEntities := make(map[string]*TransitionEntity)
+	// FIXME: Currently, ev2entity cannot be looked up by EntityId string
+	// This is because a TransitionEntity is created by each of StartAccept().
+	ev2entity := make(map[*Event]*TransitionEntity)
 
 	Log("start execution loop body")
 
@@ -38,22 +41,46 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 
 	handleAction := func(nextAction *Action) {
 		if nextAction.OrchestratorLocal {
-			Log("main loop received action (type=\"%s\") from the policy. " +
-			"NOT passing to the inspector handler", nextAction.ActionType)
+			Log("main loop received action (type=\"%s\") from the policy. "+
+				"NOT passing to the inspector handler", nextAction.ActionType)
 		} else {
-			Log("main loop received action (type=\"%s\") from the policy. " +
-			"passing to the inspector handler", nextAction.ActionType)
+			Log("main loop received action (type=\"%s\") from the policy. "+
+				"passing to the inspector handler", nextAction.ActionType)
 		}
-		// find corresponding entity
-		readyEntity := knownEntities[nextAction.EntityId]
+
+		if nextAction.ActionType == "Kill" {
+			killCmd := CreateKillCmd(nextAction.EntityId)
+			if killCmd == nil {
+				panic("failed to create kill command")
+			}
+
+			// TODO: support async run?
+			Log("Starting killCmd %s %s", killCmd.Path, killCmd.Args)
+			rerr := killCmd.Run()
+			Log("Finished killCmd %s %s", killCmd.Path, killCmd.Args)
+			if rerr != nil {
+				panic("failed to run kill command")
+			}
+		}
 
 		// make sequence for tracing
 		actionSeq = append(actionSeq, *nextAction)
 
-		// pass to the inspector handler.
-		// inspector handler should verify action.
-		if ! nextAction.OrchestratorLocal {
-			readyEntity.ActionFromMain <- nextAction
+		if !nextAction.OrchestratorLocal {
+			// pass to the inspector handler.
+			// inspector handler should verify action.
+
+			if nextAction.Evt != nil {
+				readyEntity, ok := ev2entity[nextAction.Evt]
+				if !ok {
+					panic(fmt.Errorf("entity not found for %s", nextAction.Evt))
+				}
+				delete(ev2entity, nextAction.Evt)
+				readyEntity.ActionFromMain <- nextAction
+			} else {
+				// entity cannot be looked up by nextAction.EntityId right now
+				panic(fmt.Errorf("FIXME: this action %s not supported: because OrchestratorLocal=true and Evt=nil", nextAction))
+			}
 		}
 	}
 
@@ -72,22 +99,28 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 				handleAction(act)
 			}
 
+			if x, ok := ev2entity[event]; ok {
+				if x != readyEntity {
+					panic(fmt.Errorf("entity for %s dup, %s vs %s", event, x, readyEntity))
+				}
+			} else {
+				ev2entity[event] = readyEntity
+				Log("registered %s for %s", readyEntity, event)
+			}
+
 			if running {
-				knownEntities[readyEntity.Id] = readyEntity
 				if event.Deferred {
 					policy.QueueNextEvent(readyEntity.Id, event)
 				} else {
 					// not deferred events: e.g. syslog
 					acceptEventImmediately(event)
 				}
-			} else  {
+			} else {
 				// run script ended, accept event immediately without passing to the policy
 				acceptEventImmediately(event)
 			}
-
 		case nextAction := <-nextActionChan:
 			handleAction(nextAction)
-
 		case <-endCh:
 			Log("main loop end")
 			running = false

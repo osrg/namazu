@@ -17,10 +17,10 @@ package equtils
 
 import (
 	"fmt"
+	"github.com/satori/go.uuid"
 	"net"
 	"reflect"
 	"time"
-	"github.com/satori/go.uuid"
 )
 
 // TODO: use viper, which enables aliasing for keeping compatibility
@@ -62,7 +62,7 @@ type Event struct {
 
 	EntityId string
 
-	EventId string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
+	EventId    string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
 	EventType  string // e.g., "FuncCall", "_JSON"
 	EventParam EAParam
 
@@ -98,20 +98,18 @@ func (this Event) String() string {
 	}
 }
 
-
-func (this *Event) ToJSONMap () map[string]interface{} {
+func (this *Event) ToJSONMap() map[string]interface{} {
 	if this.EventType == "_JSON" {
 		return this.EventParam
 	}
-	m := 	 map[string]interface{} {
+	m := map[string]interface{}{
 		// please refer to JSON schema file for this format
-		"type": "event",
-		"class": "",
+		"type":     "event",
+		"class":    "",
 		"deferred": this.Deferred,
-		"entity": this.EntityId,
-		"uuid": this.EventId,
-		"option": map[string]interface{} {
-		},
+		"entity":   this.EntityId,
+		"uuid":     this.EventId,
+		"option":   map[string]interface{}{},
 	}
 	if this.EventType == "FuncCall" {
 		m["class"] = "FunctionCallEvent"
@@ -145,24 +143,29 @@ func (this *Event) ToJSONMap () map[string]interface{} {
 func EventFromJSONMap(m map[string]interface{}, arrivedTime time.Time, entityId string) (ev Event, err error) {
 	ev = Event{
 		ArrivedTime: arrivedTime,
-		EntityId:      entityId,
-		EventId: m["uuid"].(string),
-		EventType:  "_JSON",
-		EventParam: m,
-		Deferred: m["deferred"].(bool),
+		EntityId:    entityId,
+		EventId:     m["uuid"].(string),
+		EventType:   "_JSON",
+		EventParam:  m,
+		Deferred:    m["deferred"].(bool),
 	}
 	err = ev.Validate()
 	return
 }
 
+type Fault struct {
+	TriggeredTime time.Time
+}
+
 type Action struct {
-	EntityId string
-	ActionId string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
-	ActionType  string // e.g., "Accept", "_JSON"
-	ActionParam EAParam
+	EntityId          string
+	ActionId          string // used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
+	ActionType        string // e.g., "Accept", "_JSON"
+	ActionParam       EAParam
 	OrchestratorLocal bool // if true, the action will not  be propagated to inspectors. this field exists mainly for syslog events.
 
-	Evt *Event
+	Evt   *Event
+	Fault *Fault
 }
 
 func (this Action) Validate() error {
@@ -172,6 +175,10 @@ func (this Action) Validate() error {
 		if this.ActionType == "Accept" {
 			if this.Evt == nil {
 				return fmt.Errorf("No event tied")
+			}
+		} else if this.ActionType == "Kill" {
+			if this.Evt != nil {
+				return fmt.Errorf("Evt must be nil")
 			}
 		} else {
 			return fmt.Errorf("Unknown ActionType %s", this.ActionType)
@@ -192,7 +199,7 @@ func (this Action) String() string {
 	}
 }
 
-func (this *Action) ToJSONMap () map[string]interface{} {
+func (this *Action) ToJSONMap() map[string]interface{} {
 	if this.ActionType == "_JSON" {
 		return this.ActionParam
 	} else if this.ActionType == "Accept" {
@@ -206,6 +213,19 @@ func (this *Action) ToJSONMap () map[string]interface{} {
 			Panic("%s", err)
 		}
 		return jsonAction.ToJSONMap()
+	} else if this.ActionType == "Kill" {
+		m := map[string]interface{}{
+			// TODO: wrap me
+			// please refer to JSON schema file for this format
+			"type":   "action",
+			"class":  "ExecuteCommandOnOrchestratorAction",
+			"entity": this.EntityId,
+			"uuid":   this.ActionId,
+			"option": map[string]interface{}{
+				"command": "_not_available", //FIXME
+			},
+		}
+		return m
 	} else {
 		// FIXME: return an error
 		Panic("Unknown type %s", this.ActionType)
@@ -216,29 +236,29 @@ func (this *Action) ToJSONMap () map[string]interface{} {
 func (this *Event) MakeAcceptAction() (act *Action, err error) {
 	actionId := uuid.NewV4().String()
 	// if the event has not been deferred, the action will not be sent to the inspector
-	orchestratorLocal := ! this.Deferred
+	orchestratorLocal := !this.Deferred
 	if this.EventType != "_JSON" {
 		// plain old events (e.g., "FuncCall")
 		act = &Action{EntityId: this.EntityId, ActionId: actionId, ActionType: "Accept", OrchestratorLocal: orchestratorLocal, Evt: this}
 	} else {
 		// JSON events (for REST inspector handler)
-		act = &Action {
-			EntityId: this.EntityId,
-			ActionId: actionId,
+		act = &Action{
+			EntityId:   this.EntityId,
+			ActionId:   actionId,
 			ActionType: "_JSON",
 			ActionParam: EAParam{
 				// TODO: wrap me
 				// please refer to JSON schema file for this format
-				"type": "action",
-				"class": "AcceptEventAction",
+				"type":   "action",
+				"class":  "AcceptEventAction",
 				"entity": this.EntityId,
-				"uuid": actionId,
-				"option": map[string]interface{} {
+				"uuid":   actionId,
+				"option": map[string]interface{}{
 					"event_uuid": this.EventParam["uuid"].(string),
 				},
 			},
 			OrchestratorLocal: orchestratorLocal,
-			Evt: this,
+			Evt:               this,
 		}
 	}
 	err = act.Validate()
@@ -253,8 +273,8 @@ type TransitionEntity struct {
 	Id   string
 	Conn net.Conn
 
-	EventToMain chan *Event
-	ActionFromMain chan  *Action
+	EventToMain    chan *Event
+	ActionFromMain chan *Action
 }
 
 func compareJavaSpecificFields(a, b *Event) bool {
@@ -280,6 +300,12 @@ func compareJavaSpecificFields(a, b *Event) bool {
 }
 
 func AreEventsEqual(a, b *Event) bool {
+	if a == nil && b == nil {
+		return true
+	}
+	if (a == nil && b != nil) || (a != nil && b == nil) {
+		return false
+	}
 	if a.EntityId != b.EntityId {
 		return false
 	}
@@ -288,11 +314,11 @@ func AreEventsEqual(a, b *Event) bool {
 		return false
 	}
 
-	if ! a.EventParam.Equals(b.EventParam) {
+	if !a.EventParam.Equals(b.EventParam) {
 		return false
 	}
 
-	if a.JavaSpecific != nil && b.JavaSpecific != nil{
+	if a.JavaSpecific != nil && b.JavaSpecific != nil {
 		return compareJavaSpecificFields(a, b)
 	}
 
@@ -301,7 +327,7 @@ func AreEventsEqual(a, b *Event) bool {
 	return true
 }
 
-func AreEventsSliceEqual(a, b []Event) bool{
+func AreEventsSliceEqual(a, b []Event) bool {
 	aLen := len(a)
 	bLen := len(b)
 	if aLen != bLen {
@@ -317,7 +343,7 @@ func AreEventsSliceEqual(a, b []Event) bool{
 	return true
 }
 
-func AreActionsSliceEqual(a, b []Action) bool{
+func AreActionsSliceEqual(a, b []Action) bool {
 	aLen := len(a)
 	bLen := len(b)
 	if aLen != bLen {
@@ -334,5 +360,26 @@ func AreActionsSliceEqual(a, b []Action) bool{
 }
 
 func AreTracesEqual(a, b *SingleTrace) bool {
-	return  AreActionsSliceEqual(a.ActionSequence, b.ActionSequence)
+	return AreActionsSliceEqual(a.ActionSequence, b.ActionSequence)
+}
+
+func MakeFaultInjectionAction(entityId string) *Action {
+	actionId := uuid.NewV4().String()
+	act := &Action{
+		EntityId:    entityId,
+		ActionId:    actionId,
+		ActionType:  "Kill",
+		ActionParam: EAParam{
+		// TODO: script name here (i.e. support multiple fault scripts)
+		},
+		OrchestratorLocal: true,
+		Evt:               nil,
+		Fault: &Fault{
+			TriggeredTime: time.Now(),
+		},
+	}
+	if err := act.Validate(); err != nil {
+		panic(err)
+	}
+	return act
 }
