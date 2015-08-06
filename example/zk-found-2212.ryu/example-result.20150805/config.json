@@ -1,0 +1,1 @@
+{"clean":"clean.sh","explorepolicy":"random","explorepolicyparam":{"interval":50},"init":"init.sh","inspectorhandler":{"pb":{},"rest":{}},"kill":"","run":"run.sh","shutdown":"","storagetype":"naive","validate":"validate.sh"}

@@ -1,9 +1,0 @@
-{
-	"class": "AcceptDeferredEventAction",
-	"option": {
-		"event_uuid": "88911503-29a8-46b7-9fbf-f977e1d545de"
-	},
-	"process": "_earthquake_ether_inspector",
-	"type": "action",
-	"uuid": "30822db7-cb19-49a6-bac9-b8b9d8d34c38"
-}

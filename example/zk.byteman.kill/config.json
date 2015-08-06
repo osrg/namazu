@@ -1,0 +1,15 @@
+{
+    "run":"2172_run.sh",
+    "validate":"2172_validate.sh",
+    "clean":"quorumStop.sh",
+    "kill":"kill.sh",
+
+    "explorePolicy":"random",
+    "explorePolicyParam": {
+	"killRatePerEntity": {
+	    "zksrv1": 90
+	}
+    },
+
+    "storageType":"naive"
+}

@@ -1,0 +1,240 @@
+PING 192.168.42.1 (192.168.42.1): 56 data bytes
+--- 192.168.42.1 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max/stddev = 0.042/0.042/0.042/0.000 ms
+ZooKeeper JMX enabled by default
+/usr/bin/java
+Using config: /zk/bin/../conf/zoo.cfg
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF8
+2015-08-05 08:59:45,018 [myid:] - INFO  [main:QuorumPeerConfig@114] - Reading configuration from: /zk/bin/../conf/zoo.cfg
+2015-08-05 08:59:45,024 [myid:] - INFO  [main:QuorumPeerConfig@306] - clientPort is not set
+2015-08-05 08:59:45,024 [myid:] - INFO  [main:QuorumPeerConfig@320] - secureClientPort is not set
+2015-08-05 08:59:45,026 [myid:] - WARN  [main:QuorumPeerConfig@555] - No server failure will be tolerated. You need at least 3 servers.
+2015-08-05 08:59:45,076 [myid:1] - INFO  [main:DatadirCleanupManager@78] - autopurge.snapRetainCount set to 3
+2015-08-05 08:59:45,077 [myid:1] - INFO  [main:DatadirCleanupManager@79] - autopurge.purgeInterval set to 0
+2015-08-05 08:59:45,077 [myid:1] - INFO  [main:DatadirCleanupManager@101] - Purge task is not scheduled.
+2015-08-05 08:59:45,080 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:hiearchy=default
+2015-08-05 08:59:45,080 [myid:1] - DEBUG [main:HierarchyDynamicMBean@260] - postRegister is called.
+2015-08-05 08:59:45,081 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=root
+2015-08-05 08:59:45,082 [myid:1] - DEBUG [main:LoggerDynamicMBean@258] - Adding AppenderMBean for appender named CONSOLE
+2015-08-05 08:59:45,083 [myid:1] - DEBUG [main:AppenderDynamicMBean@158] - getMBeanInfo called.
+2015-08-05 08:59:45,083 [myid:1] - DEBUG [main:AppenderDynamicMBean@337] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:appender=CONSOLE
+2015-08-05 08:59:45,083 [myid:1] - DEBUG [main:AppenderDynamicMBean@197] - Adding LayoutMBean:CONSOLE,layout=org.apache.log4j.PatternLayout
+2015-08-05 08:59:45,084 [myid:1] - DEBUG [main:LayoutDynamicMBean@140] - getMBeanInfo called.
+2015-08-05 08:59:45,084 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:appender=CONSOLE,layout=org.apache.log4j.PatternLayout
+2015-08-05 08:59:45,086 [myid:1] - DEBUG [main:LoggerDynamicMBean@258] - Adding AppenderMBean for appender named SYSLOG
+2015-08-05 08:59:45,086 [myid:1] - DEBUG [main:AppenderDynamicMBean@158] - getMBeanInfo called.
+2015-08-05 08:59:45,086 [myid:1] - DEBUG [main:AppenderDynamicMBean@337] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:appender=SYSLOG
+2015-08-05 08:59:45,086 [myid:1] - DEBUG [main:AppenderDynamicMBean@197] - Adding LayoutMBean:SYSLOG,layout=org.apache.log4j.PatternLayout
+2015-08-05 08:59:45,086 [myid:1] - DEBUG [main:LayoutDynamicMBean@140] - getMBeanInfo called.
+2015-08-05 08:59:45,086 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:appender=SYSLOG,layout=org.apache.log4j.PatternLayout
+2015-08-05 08:59:45,087 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [root] as listener.
+2015-08-05 08:59:45,087 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.zookeeper.common.AtomicFileOutputStream
+2015-08-05 08:59:45,088 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.zookeeper.common.AtomicFileOutputStream] as listener.
+2015-08-05 08:59:45,088 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.log4j.jmx.LoggerDynamicMBean
+2015-08-05 08:59:45,088 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.log4j.jmx.LoggerDynamicMBean] as listener.
+2015-08-05 08:59:45,088 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.zookeeper.jmx.MBeanRegistry
+2015-08-05 08:59:45,088 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.zookeeper.jmx.MBeanRegistry] as listener.
+2015-08-05 08:59:45,088 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.zookeeper.server.quorum.QuorumPeerConfig
+2015-08-05 08:59:45,089 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.zookeeper.server.quorum.QuorumPeerConfig] as listener.
+2015-08-05 08:59:45,089 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.log4j.jmx.AppenderDynamicMBean
+2015-08-05 08:59:45,089 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.log4j.jmx.AppenderDynamicMBean] as listener.
+2015-08-05 08:59:45,089 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.zookeeper.server.quorum.QuorumPeerMain
+2015-08-05 08:59:45,089 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.zookeeper.server.quorum.QuorumPeerMain] as listener.
+2015-08-05 08:59:45,089 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.log4j.jmx.HierarchyDynamicMBean
+2015-08-05 08:59:45,089 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.log4j.jmx.HierarchyDynamicMBean] as listener.
+2015-08-05 08:59:45,090 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.zookeeper.server.DatadirCleanupManager
+2015-08-05 08:59:45,090 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.zookeeper.server.DatadirCleanupManager] as listener.
+2015-08-05 08:59:45,090 [myid:1] - DEBUG [main:AbstractDynamicMBean@148] - preRegister called. Server=com.sun.jmx.mbeanserver.JmxMBeanServer@2b67d3c4, name=log4j:logger=org.apache.log4j.jmx.LayoutDynamicMBean
+2015-08-05 08:59:45,090 [myid:1] - DEBUG [main:HierarchyDynamicMBean@128] - ---Adding logger [org.apache.log4j.jmx.LayoutDynamicMBean] as listener.
+2015-08-05 08:59:45,090 [myid:1] - INFO  [main:QuorumPeerMain@136] - Starting quorum peer
+2015-08-05 08:59:45,097 [myid:1] - INFO  [main:NIOServerCnxnFactory@673] - Configuring NIO connection handler with 10s sessionless connection timeout, 1 selector thread(s), 8 worker threads, and 64 kB direct buffers.
+2015-08-05 08:59:45,100 [myid:1] - INFO  [main:NIOServerCnxnFactory@686] - binding to port /0.0.0.0:2181
+2015-08-05 08:59:45,119 [myid:1] - INFO  [main:Slf4jLog@67] - Logging to org.slf4j.impl.Log4jLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+2015-08-05 08:59:45,119 [myid:1] - DEBUG [main:Slf4jLog@40] - Container Server@616a37dc + SocketConnector@0.0.0.0:8080 as connector
+2015-08-05 08:59:45,127 [myid:1] - DEBUG [main:Slf4jLog@40] - Container Server@616a37dc + org.mortbay.jetty.servlet.Context@573757ec{/,null} as handler
+2015-08-05 08:59:45,128 [myid:1] - DEBUG [main:Slf4jLog@40] - Container org.mortbay.jetty.servlet.Context@573757ec{/,null} + ServletHandler@726d73af as handler
+2015-08-05 08:59:45,135 [myid:1] - DEBUG [main:Slf4jLog@40] - Container ServletHandler@726d73af + org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605 as servlet
+2015-08-05 08:59:45,135 [myid:1] - DEBUG [main:Slf4jLog@40] - Container ServletHandler@726d73af + (S=org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605,[/commands/*]) as servletMapping
+2015-08-05 08:59:45,138 [myid:1] - DEBUG [main:Slf4jLog@40] - filterNameMap=null
+2015-08-05 08:59:45,138 [myid:1] - DEBUG [main:Slf4jLog@40] - pathFilters=null
+2015-08-05 08:59:45,138 [myid:1] - DEBUG [main:Slf4jLog@40] - servletFilterMap=null
+2015-08-05 08:59:45,138 [myid:1] - DEBUG [main:Slf4jLog@40] - servletPathMap={/commands/*=org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605}
+2015-08-05 08:59:45,138 [myid:1] - DEBUG [main:Slf4jLog@40] - servletNameMap={org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605=org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605}
+2015-08-05 08:59:45,140 [myid:1] - DEBUG [main:FileTxnSnapLog@84] - Opening datadir:/zk_data snapDir:/zk_data
+2015-08-05 08:59:45,142 [myid:1] - INFO  [main:QuorumPeer@1239] - Local sessions disabled
+2015-08-05 08:59:45,142 [myid:1] - INFO  [main:QuorumPeer@1250] - Local session upgrading disabled
+2015-08-05 08:59:45,142 [myid:1] - INFO  [main:QuorumPeer@1217] - tickTime set to 2000
+2015-08-05 08:59:45,142 [myid:1] - INFO  [main:QuorumPeer@1261] - minSessionTimeout set to 4000
+2015-08-05 08:59:45,143 [myid:1] - INFO  [main:QuorumPeer@1272] - maxSessionTimeout set to 40000
+2015-08-05 08:59:45,143 [myid:1] - INFO  [main:QuorumPeer@1287] - initLimit set to 10
+2015-08-05 08:59:45,151 [myid:1] - INFO  [main:QuorumPeer@703] - currentEpoch not found! Creating with a reasonable default of 0. This should only happen when you are upgrading your installation
+2015-08-05 08:59:45,176 [myid:1] - INFO  [main:QuorumPeer@718] - acceptedEpoch not found! Creating with a reasonable default of 0. This should only happen when you are upgrading your installation
+2015-08-05 08:59:45,228 [myid:1] - INFO  [main:Slf4jLog@67] - jetty-6.1.26
+2015-08-05 08:59:45,235 [myid:1] - DEBUG [main:Slf4jLog@40] - Container Server@616a37dc + org.mortbay.thread.QueuedThreadPool@793077ec as threadpool
+2015-08-05 08:59:45,236 [myid:1] - DEBUG [main:Slf4jLog@40] - started org.mortbay.thread.QueuedThreadPool@793077ec
+2015-08-05 08:59:45,246 [myid:1] - DEBUG [main:Slf4jLog@40] - Container org.mortbay.jetty.servlet.Context@573757ec{/,null} + ErrorHandler@1a8ed249 as errorHandler
+2015-08-05 08:59:45,246 [myid:1] - DEBUG [main:Slf4jLog@40] - filterNameMap=null
+2015-08-05 08:59:45,247 [myid:1] - DEBUG [main:Slf4jLog@40] - pathFilters=null
+2015-08-05 08:59:45,247 [myid:1] - DEBUG [main:Slf4jLog@40] - servletFilterMap=null
+2015-08-05 08:59:45,247 [myid:1] - DEBUG [main:Slf4jLog@40] - servletPathMap={/commands/*=org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605}
+2015-08-05 08:59:45,247 [myid:1] - DEBUG [main:Slf4jLog@40] - servletNameMap={org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605=org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605}
+2015-08-05 08:59:45,247 [myid:1] - DEBUG [main:Slf4jLog@40] - starting ServletHandler@726d73af
+2015-08-05 08:59:45,247 [myid:1] - DEBUG [main:Slf4jLog@40] - started ServletHandler@726d73af
+2015-08-05 08:59:45,247 [myid:1] - DEBUG [main:Slf4jLog@40] - starting org.mortbay.jetty.servlet.Context@573757ec{/,null}
+2015-08-05 08:59:45,247 [myid:1] - DEBUG [main:Slf4jLog@40] - starting ErrorHandler@1a8ed249
+2015-08-05 08:59:45,248 [myid:1] - DEBUG [main:Slf4jLog@40] - started ErrorHandler@1a8ed249
+2015-08-05 08:59:45,248 [myid:1] - DEBUG [main:Slf4jLog@40] - started org.apache.zookeeper.server.admin.JettyAdminServer$CommandServlet-1790119605
+2015-08-05 08:59:45,248 [myid:1] - DEBUG [main:Slf4jLog@40] - started org.mortbay.jetty.servlet.Context@573757ec{/,null}
+2015-08-05 08:59:45,249 [myid:1] - DEBUG [main:Slf4jLog@40] - starting Server@616a37dc
+2015-08-05 08:59:45,249 [myid:1] - INFO  [main:Slf4jLog@67] - Started SocketConnector@0.0.0.0:8080
+2015-08-05 08:59:45,249 [myid:1] - DEBUG [main:Slf4jLog@40] - started SocketConnector@0.0.0.0:8080
+2015-08-05 08:59:45,249 [myid:1] - DEBUG [main:Slf4jLog@40] - started Server@616a37dc
+2015-08-05 08:59:45,253 [myid:1] - INFO  [main:JettyAdminServer@93] - Started AdminServer on port 8080, command URL /commands
+2015-08-05 08:59:45,257 [myid:1] - DEBUG [QuorumPeerListener:QuorumPeer$QuorumServer@170] - Resolved address for 192.168.42.1: /192.168.42.1
+2015-08-05 08:59:45,257 [myid:1] - DEBUG [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):QuorumPeer@909] - Starting quorum peer
+2015-08-05 08:59:45,257 [myid:1] - DEBUG [QuorumPeerListener:QuorumPeer$QuorumServer@170] - Resolved address for 192.168.42.1: /192.168.42.1
+2015-08-05 08:59:45,257 [myid:1] - INFO  [QuorumPeerListener:QuorumCnxManager$Listener@631] - My election bind port: /192.168.42.1:3888
+2015-08-05 08:59:45,260 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):QuorumPeer@945] - LOOKING
+2015-08-05 08:59:45,260 [myid:1] - DEBUG [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):QuorumPeer@874] - Initializing leader election protocol...
+2015-08-05 08:59:45,261 [myid:1] - DEBUG [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):FastLeaderElection@790] - Updating proposal: 1 (newleader), 0x0 (newzxid), -1 (oldleader), 0xffffffffffffffff (oldzxid)
+2015-08-05 08:59:45,261 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):FastLeaderElection@889] - New election. My id =  1, proposed zxid=0x0
+2015-08-05 08:59:45,262 [myid:1] - DEBUG [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):FastLeaderElection@673] - Sending Notification: 1 (n.leader), 0x0 (n.zxid), 0x1 (n.round), 1 (recipient), 1 (myid), 0x0 (n.peerEpoch)
+2015-08-05 08:59:45,263 [myid:1] - DEBUG [WorkerReceiver[myid=1]:FastLeaderElection$Messenger$WorkerReceiver@336] - Receive new notification message. My id = 1
+2015-08-05 08:59:45,263 [myid:1] - INFO  [WorkerReceiver[myid=1]:FastLeaderElection@683] - Notification: 2 (message format version), 1 (n.leader), 0x0 (n.zxid), 0x1 (n.round), LOOKING (n.state), 1 (n.sid), 0x0 (n.peerEPoch), LOOKING (my state)0 (n.config version)
+2015-08-05 08:59:45,264 [myid:1] - DEBUG [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):FastLeaderElection@703] - id: 1, proposed id: 1, zxid: 0x0, proposed zxid: 0x0
+2015-08-05 08:59:45,264 [myid:1] - DEBUG [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):FastLeaderElection@959] - Adding vote: from=1, proposed leader=1, proposed zxid=0x0, proposed election epoch=0x1
+2015-08-05 08:59:45,336 [myid:1] - INFO  [/192.168.42.1:3888:QuorumCnxManager$Listener@637] - Received connection request /192.168.42.2:43910
+2015-08-05 08:59:45,414 [myid:1] - DEBUG [/192.168.42.1:3888:QuorumCnxManager$SendWorker@725] - Address of remote peer: 2
+2015-08-05 08:59:45,416 [myid:1] - INFO  [/192.168.42.1:3888:QuorumCnxManager$Listener@637] - Received connection request /192.168.42.3:48667
+2015-08-05 08:59:45,463 [myid:1] - DEBUG [/192.168.42.1:3888:QuorumCnxManager$SendWorker@725] - Address of remote peer: 3
+2015-08-05 08:59:45,464 [myid:1] - DEBUG [WorkerSender[myid=1]:QuorumCnxManager@475] - There is a connection already for server 3
+2015-08-05 08:59:45,465 [myid:1] - DEBUG [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):FastLeaderElection@637] - About to leave FLE instance: leader=1, zxid=0x0, my id=1, my state=LEADING
+2015-08-05 08:59:45,465 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):MBeanRegistry@119] - Unregister MBean [org.apache.ZooKeeperService:name0=ReplicatedServer_id1,name1=replica.1,name2=LeaderElection]
+2015-08-05 08:59:45,465 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):QuorumPeer@1033] - LEADING
+2015-08-05 08:59:45,467 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Leader@63] - TCP NoDelay set to: true
+2015-08-05 08:59:45,467 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Leader@83] - zookeeper.leader.maxConcurrentSnapshots = 10
+2015-08-05 08:59:45,467 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Leader@85] - zookeeper.leader.maxConcurrentSnapshotTimeout = 5
+2015-08-05 08:59:45,472 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:zookeeper.version=3.6.0-SNAPSHOT--1, built on 08/05/2015 08:58 GMT
+2015-08-05 08:59:45,472 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:host.name=zk1
+2015-08-05 08:59:45,472 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:java.version=1.7.0_79
+2015-08-05 08:59:45,472 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:java.vendor=Oracle Corporation
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:java.home=/usr/lib/jvm/java-7-openjdk-amd64/jre
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:java.class.path=/zk/bin/../build/classes:/zk/bin/../build/lib/slf4j-log4j12-1.7.5.jar:/zk/bin/../build/lib/slf4j-api-1.7.5.jar:/zk/bin/../build/lib/servlet-api-2.5-20081211.jar:/zk/bin/../build/lib/netty-3.7.0.Final.jar:/zk/bin/../build/lib/log4j-1.2.16.jar:/zk/bin/../build/lib/jline-2.11.jar:/zk/bin/../build/lib/jetty-util-6.1.26.jar:/zk/bin/../build/lib/jetty-6.1.26.jar:/zk/bin/../build/lib/javacc.jar:/zk/bin/../build/lib/jackson-mapper-asl-1.9.11.jar:/zk/bin/../build/lib/jackson-core-asl-1.9.11.jar:/zk/bin/../build/lib/commons-cli-1.2.jar:/zk/bin/../lib/*.jar:/zk/bin/../zookeeper-*.jar:/zk/bin/../src/java/lib/ivy-2.2.0.jar:/zk/bin/../conf:
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:java.io.tmpdir=/tmp
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:java.compiler=<NA>
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:os.name=Linux
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:os.arch=amd64
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:os.version=3.19.0-25-generic
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:user.name=root
+2015-08-05 08:59:45,473 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:user.home=/root
+2015-08-05 08:59:45,474 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:user.dir=/zk
+2015-08-05 08:59:45,474 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:os.memory.free=214MB
+2015-08-05 08:59:45,474 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:os.memory.max=889MB
+2015-08-05 08:59:45,474 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Environment@109] - Server environment:os.memory.total=239MB
+2015-08-05 08:59:45,475 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):ZooKeeperServer@825] - minSessionTimeout set to 4000
+2015-08-05 08:59:45,475 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):ZooKeeperServer@834] - maxSessionTimeout set to 40000
+2015-08-05 08:59:45,475 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):ZooKeeperServer@156] - Created server with tickTime 2000 minSessionTimeout 4000 maxSessionTimeout 40000 datadir /zk_data/version-2 snapdir /zk_data/version-2
+2015-08-05 08:59:45,476 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Leader@412] - LEADING - LEADER ELECTION TOOK - 11
+2015-08-05 08:59:45,478 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):FileTxnSnapLog@298] - Snapshotting: 0x0 to /zk_data/version-2/snapshot.0
+2015-08-05 08:59:45,563 [myid:1] - DEBUG [WorkerSender[myid=1]:QuorumCnxManager@475] - There is a connection already for server 2
+2015-08-05 08:59:45,663 [myid:1] - DEBUG [WorkerSender[myid=1]:QuorumCnxManager@475] - There is a connection already for server 3
+2015-08-05 08:59:45,713 [myid:1] - INFO  [LearnerHandler-/192.168.42.2:39659:LearnerHandler@364] - Follower sid: 2 not in the current config 0
+2015-08-05 08:59:45,814 [myid:1] - DEBUG [WorkerSender[myid=1]:QuorumCnxManager@475] - There is a connection already for server 2
+2015-08-05 08:59:45,898 [myid:1] - INFO  [LearnerHandler-/192.168.42.3:55191:LearnerHandler@364] - Follower sid: 3 not in the current config 0
+2015-08-05 08:59:46,448 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):Leader@1245] - Have quorum of supporters, sids: [ [1],[1] ]; starting up and setting last processed zxid: 0x100000000
+2015-08-05 08:59:46,516 [myid:1] - INFO  [LearnerHandler-/192.168.42.3:55191:LearnerHandler@659] - Synchronizing with Follower sid: 3 maxCommittedLog=0x0 minCommittedLog=0x0 lastProcessedZxid=0x0 peerLastZxid=0x0
+2015-08-05 08:59:46,516 [myid:1] - INFO  [LearnerHandler-/192.168.42.3:55191:LearnerHandler@703] - Sending DIFF zxid=0x0 for peer sid: 3
+2015-08-05 08:59:46,516 [myid:1] - DEBUG [LearnerHandler-/192.168.42.3:55191:LearnerHandler@753] - Start forwarding 0x0 for peer sid: 3
+2015-08-05 08:59:46,534 [myid:1] - INFO  [QuorumPeer[myid=1](plain=/0:0:0:0:0:0:0:0:2181)(secure=disabled):CommitProcessor@252] - Configuring CommitProcessor with 4 worker threads.
+2015-08-05 08:59:46,540 [myid:1] - DEBUG [LearnerHandler-/192.168.42.3:55191:LearnerHandler@408] - Sending NEWLEADER message to 3
+2015-08-05 08:59:46,616 [myid:1] - INFO  [LearnerHandler-/192.168.42.2:39659:LearnerHandler@659] - Synchronizing with Follower sid: 2 maxCommittedLog=0x0 minCommittedLog=0x0 lastProcessedZxid=0x100000000 peerLastZxid=0x0
+2015-08-05 08:59:46,617 [myid:1] - DEBUG [LearnerHandler-/192.168.42.2:39659:LearnerHandler@753] - Start forwarding 0x0 for peer sid: 2
+2015-08-05 08:59:46,617 [myid:1] - DEBUG [LearnerHandler-/192.168.42.2:39659:LearnerHandler@408] - Sending NEWLEADER message to 2
+2015-08-05 08:59:46,618 [myid:1] - INFO  [LearnerHandler-/192.168.42.2:39659:LearnerHandler@434] - Sending snapshot last zxid of peer is 0x0, zxid of leader is 0x100000000, send zxid of db as 0x100000000, 1 concurrent snapshots, snapshot was not exempt from throttle
+2015-08-05 08:59:46,766 [myid:1] - DEBUG [LearnerHandler-/192.168.42.3:55191:LearnerHandler@467] - Received NEWLEADER-ACK message from 3
+2015-08-05 08:59:46,766 [myid:1] - DEBUG [LearnerHandler-/192.168.42.3:55191:LearnerHandler@488] - Sending UPTODATE message to 3
+2015-08-05 08:59:46,914 [myid:1] - WARN  [RecvWorker:3:QuorumCnxManager$RecvWorker@917] - Connection broken for id 3, my id = 1, error = 
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager$RecvWorker.run(QuorumCnxManager.java:902)
+2015-08-05 08:59:46,916 [myid:1] - WARN  [RecvWorker:3:QuorumCnxManager$RecvWorker@920] - Interrupting SendWorker
+2015-08-05 08:59:46,916 [myid:1] - DEBUG [RecvWorker:3:QuorumCnxManager$SendWorker@743] - Calling finish for 3
+2015-08-05 08:59:46,916 [myid:1] - DEBUG [RecvWorker:3:QuorumCnxManager$SendWorker@763] - Removing entry from senderWorkerMap sid=3
+2015-08-05 08:59:46,916 [myid:1] - WARN  [SendWorker:3:QuorumCnxManager$SendWorker@834] - Interrupted while waiting for message on queue
+java.lang.InterruptedException
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.reportInterruptAfterWait(AbstractQueuedSynchronizer.java:2017)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2095)
+	at java.util.concurrent.ArrayBlockingQueue.poll(ArrayBlockingQueue.java:389)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.pollSendQueue(QuorumCnxManager.java:986)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.access$500(QuorumCnxManager.java:63)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager$SendWorker.run(QuorumCnxManager.java:822)
+2015-08-05 08:59:46,916 [myid:1] - DEBUG [SendWorker:3:QuorumCnxManager$SendWorker@743] - Calling finish for 3
+2015-08-05 08:59:46,916 [myid:1] - WARN  [SendWorker:3:QuorumCnxManager$SendWorker@843] - Send worker leaving thread  id 3 my id = 1
+2015-08-05 08:59:46,918 [myid:1] - ERROR [LearnerHandler-/192.168.42.3:55191:LearnerHandler@580] - Unexpected exception causing shutdown while sock still open
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.jute.BinaryInputArchive.readInt(BinaryInputArchive.java:63)
+	at org.apache.zookeeper.server.quorum.QuorumPacket.deserialize(QuorumPacket.java:83)
+	at org.apache.jute.BinaryInputArchive.readRecord(BinaryInputArchive.java:99)
+	at org.apache.zookeeper.server.quorum.LearnerHandler.run(LearnerHandler.java:493)
+2015-08-05 08:59:46,918 [myid:1] - WARN  [LearnerHandler-/192.168.42.3:55191:LearnerHandler@595] - ******* GOODBYE /192.168.42.3:55191 ********
+2015-08-05 08:59:46,924 [myid:1] - INFO  [/192.168.42.1:3888:QuorumCnxManager$Listener@637] - Received connection request /192.168.42.3:48733
+2015-08-05 08:59:47,016 [myid:1] - DEBUG [/192.168.42.1:3888:QuorumCnxManager$SendWorker@725] - Address of remote peer: 3
+2015-08-05 08:59:47,017 [myid:1] - DEBUG [SendWorker:3:QuorumCnxManager$SendWorker@805] - Attempting to send lastMessage to sid=3
+2015-08-05 08:59:47,017 [myid:1] - DEBUG [WorkerSender[myid=1]:QuorumCnxManager@475] - There is a connection already for server 3
+2015-08-05 08:59:47,166 [myid:1] - INFO  [LearnerHandler-/192.168.42.3:55243:LearnerHandler@364] - Follower sid: 3 not in the current config 100000000
+2015-08-05 08:59:47,217 [myid:1] - DEBUG [LearnerHandler-/192.168.42.2:39659:LearnerHandler@467] - Received NEWLEADER-ACK message from 2
+2015-08-05 08:59:47,217 [myid:1] - DEBUG [LearnerHandler-/192.168.42.2:39659:LearnerHandler@488] - Sending UPTODATE message to 2
+2015-08-05 08:59:47,317 [myid:1] - INFO  [LearnerHandler-/192.168.42.3:55243:LearnerHandler@659] - Synchronizing with Follower sid: 3 maxCommittedLog=0x0 minCommittedLog=0x0 lastProcessedZxid=0x100000000 peerLastZxid=0x0
+2015-08-05 08:59:47,318 [myid:1] - DEBUG [LearnerHandler-/192.168.42.3:55243:LearnerHandler@753] - Start forwarding 0x0 for peer sid: 3
+2015-08-05 08:59:47,318 [myid:1] - DEBUG [LearnerHandler-/192.168.42.3:55243:LearnerHandler@408] - Sending NEWLEADER message to 3
+2015-08-05 08:59:47,318 [myid:1] - INFO  [LearnerHandler-/192.168.42.3:55243:LearnerHandler@434] - Sending snapshot last zxid of peer is 0x0, zxid of leader is 0x100000000, send zxid of db as 0x100000000, 1 concurrent snapshots, snapshot was exempt from throttle
+2015-08-05 08:59:47,418 [myid:1] - DEBUG [WorkerSender[myid=1]:QuorumCnxManager@475] - There is a connection already for server 3
+2015-08-05 08:59:47,593 [myid:1] - WARN  [RecvWorker:2:QuorumCnxManager$RecvWorker@917] - Connection broken for id 2, my id = 1, error = 
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager$RecvWorker.run(QuorumCnxManager.java:902)
+2015-08-05 08:59:47,593 [myid:1] - WARN  [RecvWorker:2:QuorumCnxManager$RecvWorker@920] - Interrupting SendWorker
+2015-08-05 08:59:47,593 [myid:1] - DEBUG [RecvWorker:2:QuorumCnxManager$SendWorker@743] - Calling finish for 2
+2015-08-05 08:59:47,594 [myid:1] - DEBUG [RecvWorker:2:QuorumCnxManager$SendWorker@763] - Removing entry from senderWorkerMap sid=2
+2015-08-05 08:59:47,594 [myid:1] - WARN  [SendWorker:2:QuorumCnxManager$SendWorker@834] - Interrupted while waiting for message on queue
+java.lang.InterruptedException
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.reportInterruptAfterWait(AbstractQueuedSynchronizer.java:2017)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2095)
+	at java.util.concurrent.ArrayBlockingQueue.poll(ArrayBlockingQueue.java:389)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.pollSendQueue(QuorumCnxManager.java:986)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager.access$500(QuorumCnxManager.java:63)
+	at org.apache.zookeeper.server.quorum.QuorumCnxManager$SendWorker.run(QuorumCnxManager.java:822)
+2015-08-05 08:59:47,594 [myid:1] - DEBUG [SendWorker:2:QuorumCnxManager$SendWorker@743] - Calling finish for 2
+2015-08-05 08:59:47,594 [myid:1] - WARN  [SendWorker:2:QuorumCnxManager$SendWorker@843] - Send worker leaving thread  id 2 my id = 1
+2015-08-05 08:59:47,599 [myid:1] - ERROR [LearnerHandler-/192.168.42.2:39659:LearnerHandler@580] - Unexpected exception causing shutdown while sock still open
+java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:196)
+	at java.net.SocketInputStream.read(SocketInputStream.java:122)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:235)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:254)
+	at java.io.DataInputStream.readInt(DataInputStream.java:387)
+	at org.apache.jute.BinaryInputArchive.readInt(BinaryInputArchive.java:63)
+	at org.apache.zookeeper.server.quorum.QuorumPacket.deserialize(QuorumPacket.java:83)
+	at org.apache.jute.BinaryInputArchive.readRecord(BinaryInputArchive.java:99)
+	at org.apache.zookeeper.server.quorum.LearnerHandler.run(LearnerHandler.java:493)
+2015-08-05 08:59:47,599 [myid:1] - WARN  [LearnerHandler-/192.168.42.2:39659:LearnerHandler@595] - ******* GOODBYE /192.168.42.2:39659 ********
+2015-08-05 08:59:47,603 [myid:1] - INFO  [/192.168.42.1:3888:QuorumCnxManager$Listener@637] - Received connection request /192.168.42.2:44018
+2015-08-05 08:59:47,617 [myid:1] - DEBUG [/192.168.42.1:3888:QuorumCnxManager$SendWorker@725] - Address of remote peer: 2
+2015-08-05 08:59:47,618 [myid:1] - DEBUG [SendWorker:2:QuorumCnxManager$SendWorker@805] - Attempting to send lastMessage to sid=2
+2015-08-05 08:59:47,718 [myid:1] - INFO  [LearnerHandler-/192.168.42.2:39754:LearnerHandler@364] - Follower sid: 2 not in the current config 100000000
+2015-08-05 08:59:47,769 [myid:1] - DEBUG [WorkerSender[myid=1]:QuorumCnxManager@475] - There is a connection already for server 2
+2015-08-05 08:59:47,819 [myid:1] - DEBUG [LearnerHandler-/192.168.42.3:55243:LearnerHandler@467] - Received NEWLEADER-ACK message from 3
+2015-08-05 08:59:47,819 [myid:1] - DEBUG [LearnerHandler-/192.168.42.3:55243:LearnerHandler@488] - Sending UPTODATE message to 3
+2015-08-05 08:59:48,069 [myid:1] - INFO  [LearnerHandler-/192.168.42.2:39754:LearnerHandler@659] - Synchronizing with Follower sid: 2 maxCommittedLog=0x0 minCommittedLog=0x0 lastProcessedZxid=0x100000000 peerLastZxid=0x100000000
+2015-08-05 08:59:48,070 [myid:1] - INFO  [LearnerHandler-/192.168.42.2:39754:LearnerHandler@703] - Sending DIFF zxid=0x100000000 for peer sid: 2
+2015-08-05 08:59:48,070 [myid:1] - DEBUG [LearnerHandler-/192.168.42.2:39754:LearnerHandler@753] - Start forwarding 0x100000000 for peer sid: 2
+2015-08-05 08:59:48,070 [myid:1] - DEBUG [LearnerHandler-/192.168.42.2:39754:LearnerHandler@408] - Sending NEWLEADER message to 2
+2015-08-05 08:59:48,170 [myid:1] - DEBUG [LearnerHandler-/192.168.42.2:39754:LearnerHandler@467] - Received NEWLEADER-ACK message from 2
+2015-08-05 08:59:48,170 [myid:1] - DEBUG [LearnerHandler-/192.168.42.2:39754:LearnerHandler@488] - Sending UPTODATE message to 2
+2015-08-05 08:59:54,823 [myid:1] - INFO  [NIOServerCxnFactory.AcceptThread:/0.0.0.0:2181:NIOServerCnxnFactory$AcceptThread@296] - Accepted socket connection from /192.168.42.254:34597
+2015-08-05 08:59:54,828 [myid:1] - INFO  [NIOWorkerThread-1:NIOServerCnxn@836] - Processing stat command from /192.168.42.254:34597
+2015-08-05 08:59:54,830 [myid:1] - INFO  [NIOWorkerThread-1:NIOServerCnxn$StatCommand@685] - Stat command output
+2015-08-05 08:59:54,831 [myid:1] - INFO  [NIOWorkerThread-1:NIOServerCnxn@1007] - Closed socket connection for client /192.168.42.254:34597 (no session established for client)

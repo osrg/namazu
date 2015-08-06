@@ -24,12 +24,25 @@ import (
 	. "../../historystorage"
 )
 
+type killRatePerEntity struct {
+	entityId string
+	rate     int // 0 - 100
+}
+
+type shutdownRatePerEntity struct {
+	entityId string
+	rate     int // 0 - 100
+}
+
 type RandomParam struct {
 	prioritize string
 	interval   time.Duration // in millisecond
 
 	timeBound bool
 	maxBound  int // in millisecond
+
+	killRates     []killRatePerEntity
+	shutdownRates []shutdownRatePerEntity
 }
 
 type Random struct {
@@ -42,6 +55,38 @@ type Random struct {
 	lowEventQueue  []*Event // low priority
 
 	param *RandomParam
+}
+
+func constrKillRatePerEntity(rawRates map[string]interface{}) []killRatePerEntity {
+	rates := make([]killRatePerEntity, 0)
+
+	for entityId, _rate := range rawRates {
+		rate := int(_rate.(float64))
+		newRate := killRatePerEntity{
+			entityId: entityId,
+			rate:     rate,
+		}
+
+		rates = append(rates, newRate)
+	}
+
+	return rates
+}
+
+func constrShutdownRatePerEntity(rawRates map[string]interface{}) []shutdownRatePerEntity {
+	rates := make([]shutdownRatePerEntity, 0)
+
+	for entityId, _rate := range rawRates {
+		rate := _rate.(int)
+		newRate := shutdownRatePerEntity{
+			entityId: entityId,
+			rate:     rate,
+		}
+
+		rates = append(rates, newRate)
+	}
+
+	return rates
 }
 
 func constrRandomParam(rawParam map[string]interface{}) *RandomParam {
@@ -67,7 +112,27 @@ func constrRandomParam(rawParam map[string]interface{}) *RandomParam {
 		param.maxBound = 100 // default: 100ms
 	}
 
+	if _, ok := rawParam["killRatePerEntity"]; ok {
+		param.killRates = constrKillRatePerEntity(rawParam["killRatePerEntity"].(map[string]interface{}))
+	}
+
+	if _, ok := rawParam["shutdownRatePerEntity"]; ok {
+		param.shutdownRates = constrShutdownRatePerEntity(rawParam["shutdownRatePerEntity"].(map[string]interface{}))
+	}
+
 	return &param
+}
+
+func (r *Random) shouldInjectFault(entityId string) bool {
+	for _, rate := range r.param.killRates {
+		if rate.entityId != entityId {
+			continue
+		}
+
+		return rate.rate < r.randGen.Int() % 100
+	}
+
+	return false
 }
 
 func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
@@ -85,7 +150,7 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 			highLen := len(r.highEventQueue)
 			lowLen := len(r.lowEventQueue)
 			if highLen == 0 && lowLen == 0 {
-				Log("no event is queued")
+				// Log("no event is queued")
 				r.queueMutex.Unlock()
 				continue
 			}
@@ -104,9 +169,16 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			r.queueMutex.Unlock()
 
-			act, err := next.MakeAcceptAction()
-			if err != nil {
-				panic(err)
+			var act *Action
+			if r.shouldInjectFault(next.EntityId) {
+				Log("injecting fault to entity %s", next.EntityId)
+				act = MakeFaultInjectionAction(next.EntityId)
+			} else {
+				a, err := next.MakeAcceptAction()
+				if err != nil {
+					panic(err)
+				}
+				act = a
 			}
 			r.nextActionChan <- act
 		}
