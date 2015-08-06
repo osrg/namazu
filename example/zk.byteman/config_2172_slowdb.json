@@ -3,9 +3,11 @@
     "validate": "2172_validate.sh",
     "clean": "quorumStop.sh",
 
-    "explorePolicy" : "ZK2172",
+    "explorePolicy" : "random",
 
     "explorePolicyParam" : {
-	"interval": 100
+	"timeBound": true,
+	"minBound": 0,
+	"maxBound": 1
     }
 }

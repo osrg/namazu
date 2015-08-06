@@ -1,61 +1,32 @@
-# RULE load db
-# CLASS FileTxnSnapLog
-# METHOD restore
-# HELPER net.osrg.earthquake.PBEQHelper
-# AT ENTRY
-# IF true
-# DO
-# eventFuncCall("FileTxnSnapLog.restore");
-# ENDRULE
 
-# RULE load db
-# CLASS QuorumPeer
-# METHOD setQuorumVerifier
-# HELPER net.osrg.earthquake.PBEQHelper
-# AT ENTRY
-# IF true
-# DO
-# eventFuncCall("QuorumPeer.setQuorumVerifier");
-# ENDRULE
-
-# RULE load db
-# CLASS LearnerHandler
-# METHOD syncFollower
-# HELPER net.osrg.earthquake.PBEQHelper
-# AT ENTRY
-# IF true
-# DO
-# eventFuncCall("LearnerHandler.syncFollower");
-# ENDRULE
-
-# RULE load db
-# CLASS DataTree
-# METHOD processTxn
-# HELPER net.osrg.earthquake.PBEQHelper
-# AT ENTRY
-# IF true
-# DO
-# eventFuncCall("DataTree.processTxn");
-# ENDRULE
-
-# RULE load db
-# CLASS Learner
-# METHOD syncWithLeader
-# HELPER net.osrg.earthquake.PBEQHelper
-# AT ENTRY
-# IF true
-# DO
-# eventFuncCall("syncWithLeader");
-# ENDRULE
-
-RULE store db
-CLASS ZKDatabase
-METHOD deserializeSnapshot
+RULE write db
+CLASS Util
+METHOD writeTxnBytes
 HELPER net.osrg.earthquake.PBEQHelper
 AT ENTRY
 IF true
 DO
-eventFuncCall("deserializeSnapshot");
+eventFuncCall("writeTxnBytes");
+ENDRULE
+
+RULE read db
+CLASS Util
+METHOD readTxnBytes
+HELPER net.osrg.earthquake.PBEQHelper
+AT ENTRY
+IF true
+DO
+eventFuncCall("readTxnBytes");
+ENDRULE
+
+RULE commit
+CLASS FileTxnLog
+METHOD commit
+HELPER net.osrg.earthquake.PBEQHelper
+AT ENTRY
+IF true
+DO
+eventFuncCall("commit");
 ENDRULE
 
 RULE invoke initiation, call static constructor of EQHelper

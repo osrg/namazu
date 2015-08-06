@@ -39,6 +39,7 @@ type RandomParam struct {
 	interval   time.Duration // in millisecond
 
 	timeBound bool
+	minBound  int // in millisecond
 	maxBound  int // in millisecond
 
 	killRates     []killRatePerEntity
@@ -110,6 +111,12 @@ func constrRandomParam(rawParam map[string]interface{}) *RandomParam {
 		param.maxBound = int(rawParam["maxBound"].(float64))
 	} else {
 		param.maxBound = 100 // default: 100ms
+	}
+
+	if _, ok := rawParam["minBound"]; ok {
+		param.minBound = int(rawParam["minBound"].(float64))
+	} else {
+		param.minBound = 0 // default: 0ms
 	}
 
 	if _, ok := rawParam["killRatePerEntity"]; ok {
@@ -208,6 +215,10 @@ func (r *Random) defaultQueueNextEvent(entityId string, ev *Event) {
 func (r *Random) timeBoundQueueNextEvent(entityId string, ev *Event) {
 	go func(e *Event) {
 		sleepMS := r.randGen.Int() % r.param.maxBound
+		if sleepMS <  r.param.minBound {
+			sleepMS = r.param.minBound
+		}
+
 		time.Sleep(time.Duration(sleepMS) * time.Millisecond)
 
 		act, err := ev.MakeAcceptAction()
