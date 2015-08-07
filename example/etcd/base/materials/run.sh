@@ -14,16 +14,5 @@ SET_PIPEWORK
 START_ETCD
 #PAUSE
 SLEEP ${ETCD_START_WAIT_SECS} # the user should increase this, if could not reproduce the bug
-# NOTE: we don't finish running "run.sh" here, as we need to validate the living ensemble, not dead one.
-
-########## Validation ##########
-# CHECK_FLE_STATES # see also validate.sh
-
-########## Shutdown ##########
-KILL_DOCKER
-if [ -z $EQ_DISABLE ]; then
-    KILL_SWITCH
-    KILL_INSPECTOR
-fi
 
 exit 0
