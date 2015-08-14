@@ -134,7 +134,12 @@ class EtherInspectorBase(object):
                 LOG.debug('Accepting an event (could not sent to orchestrator): %s', event)
                 self._send_to_middlebox(metadata)
                 return
-        self.defer_packet_event(metadata, event)
+        if event.deferred:
+            self.defer_packet_event(metadata, event)
+        else:
+            # NOTE: non-deferred packet events are useful for logging
+            LOG.debug('Accepting an event (not deferred): %s', event)
+            self._send_to_middlebox(metadata)            
 
     def defer_packet_event(self, metadata, event):
         """

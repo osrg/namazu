@@ -3,13 +3,9 @@ run = "run.sh"
 validate = "validate.sh"
 clean = "clean.sh"
 
-storageType = "mongodb"
+#storageType = "mongodb"
 
-explorePolicy = "random"
+explorePolicy = "dumb"
 
 [explorePolicyParam]
-  interval = 180
-  timeBound = false
-
-## interval=180, 200, 300 seems reproductive, but too long interval?
-## interval<=150 seems not reproductive?
+  sleep = 80

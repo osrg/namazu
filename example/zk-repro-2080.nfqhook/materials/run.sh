@@ -2,6 +2,10 @@
 set -e # exit on an error
 . ${EQ_MATERIALS_DIR}/lib.sh
 
+## some bad hack: allows modifying materials for interactive experiments
+cp ${EQ_MATERIALS_DIR}/../config.json ${EQ_WORKING_DIR}/config.json.BAK
+cp ${EQ_MATERIALS_DIR}/zk_inspector.py ${EQ_WORKING_DIR}/zk_inspector.py.BAK
+
 ########## Boot ##########
 if [ -z ${EQ_DISABLE} ]; then
     CHECK_PYTHONPATH
