@@ -1,0 +1,5 @@
+init = "init.sh"
+run = "run.sh"
+validate = "validate.sh"
+
+explorePolicy = "random"
