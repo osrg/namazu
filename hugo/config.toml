@@ -6,7 +6,5 @@ theme = "bootie-docs-custom"
 copyright = "Copyright© 2015 Nippon Telegraph and Telephone Corporation"
 [params]
   description = "A framework of implementation level distributed system model checkers"
-  mainMenu = ["about", "gettingStarted"]
-  #noCategoryLink = true
+  mainMenu = ["about", "gettingStarted", "categories/blog"]
   repositoryUrl = "https://github.com/osrg/earthquake/"
-  

@@ -37,7 +37,7 @@
 				{{ $url := .Permalink }}
 				{{ range $item := .Site.Params.mainMenu }}
 					{{ $itemUrl := printf "%s/%s/" $baseUrl $item }}
-					<li {{ if eq $url $itemUrl }}class="active"{{ end }}><a href="{{ $baseUrl }}/{{ $item }}">{{ title $item }}</a></li>
+					<li {{ if eq $url $itemUrl }}class="active"{{ end }}><a href="{{ $baseUrl }}/{{ $item }}">{{replace (title $item) "Categories/" ""}}</a></li>
 				{{ end }}
 			{{ end }}
 				{{ if isset .Site.Params "noCategoryLink" }}{{ else }}
@@ -46,6 +46,16 @@
 						<ul class="dropdown-menu" role="menu">
 						{{ range $name, $taxonomy := .Site.Taxonomies.categories }}
 							<li><a href="{{ $baseUrl }}/categories/{{ $name | urlize }}">{{ title $name }}</a></li>
+						{{ end }}
+						</ul>
+					</li>
+				{{ end }}
+				{{ if isset .Site.Params "noTagLink" }}{{ else }}
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tags<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						{{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+							<li><a href="{{ $baseUrl }}/tags/{{ $name | urlize }}">{{ title $name }}</a></li>
 						{{ end }}
 						</ul>
 					</li>
