@@ -7,8 +7,210 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
-    <lastBuildDate>Fri, 24 Jul 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2015 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://osrg.github.io/earthquake/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ZOOKEEPER-2212: distributed race condition</title>
+      <link>http://osrg.github.io/earthquake/post/zookeeper-2212/</link>
+      <pubDate>Thu, 20 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/earthquake/post/zookeeper-2212/</guid>
+      <description>
+
+&lt;h2 id=&#34;introduction:6404b3763f3a9572f2be258882d8c375&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://zookeeper.apache.org/&#34;&gt;Apache Zookeeper&lt;/a&gt; is a highly available coordination service that is used by distributed systems such as &lt;a href=&#34;https://hadoop.apache.org/&#34;&gt;Hadoop(via YARN)&lt;/a&gt;, &lt;a href=&#34;http://spark.apache.org/&#34;&gt;Spark&lt;/a&gt;,  &lt;a href=&#34;http://mesos.apache.org/&#34;&gt;Mesos&lt;/a&gt;, &lt;a href=&#34;http://kafka.apache.org/&#34;&gt;Kafka&lt;/a&gt;, &lt;a href=&#34;http://hbase.apache.org/&#34;&gt;HBase&lt;/a&gt;, and many others.&lt;/p&gt;
+
+&lt;p&gt;Using Earthquake, we found a distributed race-condition bug of ZooKeeper, which can lead to service unavailability.&lt;/p&gt;
+
+&lt;p&gt;We reported the bug to ZooKeeper community (&lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;), and the bug is fixed in &lt;a href=&#34;https://github.com/apache/zookeeper/commit/ec056d3c3a18b862d0cd83296b7d4319652b0b1c&#34;&gt;commit ec056d (Jun 15, 2015)&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;The Bug&lt;/h2&gt;
+
+&lt;p&gt;We found a race-condition situation where an &amp;ldquo;observer&amp;rdquo; server keeps being an observer and cannot become a &amp;ldquo;participant&amp;rdquo;. &lt;a href=&#34;http://zookeeper.apache.org/doc/trunk/zookeeperReconfig.html#sc_reconfig_general&#34;&gt;(Document)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This race condition happens when an observer receives an &lt;code&gt;UPTODATE&lt;/code&gt; ZAB (ZooKeeper Atomic Broadcast protocl) packet from the leader:2888/tcp &lt;em&gt;after&lt;/em&gt; receiving a &lt;code&gt;Notification&lt;/code&gt; FLE (Fast Leader Election protocol) packet of which n.config version is larger than the observer&amp;rsquo;s one from leader:3888/tcp.&lt;/p&gt;
+
+&lt;p&gt;Without Earthquake, we could not reproduce the bug in 5,000 experiments. (took about 60 hours)&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake:6404b3763f3a9572f2be258882d8c375&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
+
+&lt;h3 id=&#34;set-up-earthquake-v0-1-1:6404b3763f3a9572f2be258882d8c375&#34;&gt;Set up Earthquake (v0.1.1)&lt;/h3&gt;
+
+&lt;p&gt;Please see &lt;a href=&#34;https://github.com/osrg/earthquake/blob/v0.1.1/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt; for how to setup the environment.&lt;/p&gt;
+
+&lt;p&gt;The use of pre-built Docker image &lt;code&gt;osrg/earthquake:v0.1.1&lt;/code&gt; is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo modprobe openvswitch # tested with Ubuntu 15.04 host (Linux kernel 3.19)
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, build ZooKeeper &amp;ldquo;Docker-in-Docker&amp;rdquo; containers, and initialize Earthquake as follows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker$ pip install git+https://github.com/twitter/zktraffic@68d9f85d8508e01f5d2f6657666c04e444e6423c  #(Jul 18, 2015)
+docker$ export PYTHONPATH=/earthquake
+docker$ cd /earthquake/example/zk-found-2212.ryu
+docker$ ../../bin/earthquake init --force config.toml materials /tmp/zk-2212
+[INFO] Checking whether Docker is installed
+[INFO] Checking whether pipework is installed
+[INFO] Checking whether ryu is installed
+[INFO] Checking whether ovsbr0 is configured as 192.168.42.254
+[INFO] Fetching ZooKeeper
+[INFO] Checking out ZooKeeper@98a3cabfa279833b81908d72f1c10ee9f598a045
+[INFO] You can change the ZooKeeper version by setting ZK_GIT_COMMIT
+[INFO] Building Docker Image zk_testbed
+ok
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Figure:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+-------------------------------------------------------------+
+|                                                             |
+|  +---------------+   +---------------+   +---------------+  |
+|  | Docker  (zk1) |   | Docker  (zk2) |   | Docker  (zk3) |  |
+|  +---------------+   +---------------+   +---------------+  |
+|          |                   |                   |          |
+|  +-------------------------------------------------------+  |
+|  |                Open vSwitch (and Ryu)                 |  |
+|  +-------------------------------------------------------+  | 
+|                              |                              |
+|  +-------------------------------------------------------+  |
+|  |                       Earthquake                      |  |
+|  +-------------------------------------------------------+  | 
+|                                                             |
+|                  Docker  (osrg/earthquake)                  |
++-------------------------------------------------------------+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;run-experiments:6404b3763f3a9572f2be258882d8c375&#34;&gt;Run Experiments&lt;/h3&gt;
+
+&lt;p&gt;After you have set up the environment, you can run experiments as follows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker$ ../../bin/earthquake run /tmp/zk-2212
+[INFO] Checking PYTHONPATH
+[INFO] Starting Earthquake Ethernet Switch
+[INFO] Switch PID: 28893
+[INFO] Starting Earthquake Ethernet Inspector
+[INFO] Inspector PID: 28894
+[INFO] Starting Docker container zk1 from zk_testbed
+[INFO] Starting Docker container zk2 from zk_testbed
+[INFO] Starting Docker container zk3 from zk_testbed
+[INFO] Assigning 192.168.42.1/24 (ovsbr0) to zk1
+[INFO] Assigning 192.168.42.2/24 (ovsbr0) to zk2
+[INFO] Assigning 192.168.42.3/24 (ovsbr0) to zk3
+[INFO] Starting ZooKeeper(sid=1) in Docker container zk1
+[INFO] Starting ZooKeeper(sid=2) in Docker container zk2
+[INFO] Starting ZooKeeper(sid=3) in Docker container zk3
+[INFO] Sleeping(5 secs)..
+[INFO] Checking FLE states
+[IMPORTANT] Failure: 1 (/tmp/zk-2212/00000002/check-fle-states.log) # this failure means that the bug is reproduced
+[INFO] Killing Docker container zk1 (log:/tmp/zk-2212/00000002/zk1)
+[INFO] Killing Docker container zk2 (log:/tmp/zk-2212/00000002/zk2)
+[INFO] Killing Docker container zk3 (log:/tmp/zk-2212/00000002/zk3)
+[INFO] Killing Switch, PID: 28893
+[INFO] Killing Inspector, PID: 28894
+[INFO] result: 1
+validation failed: exit status 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may have to run the experiments for 3 or 5 times.&lt;/p&gt;
+
+&lt;p&gt;You can check which experiment reproduced the bug as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker$ ../../bin/earthquake tools summary /tmp/zk-2212
+Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected traces: 3
+00000002 caused failure
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;experiment-0-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+
+&lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json&#34;&gt;32&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json&#34;&gt;36&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json&#34;&gt;39&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;zk3 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json&#34;&gt;21&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json&#34;&gt;23&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;experiment-1-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+
+&lt;p&gt;zk2 was already a participant when it received &lt;code&gt;UpToDate&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json&#34;&gt;31&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;zk3 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json&#34;&gt;26&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json&#34;&gt;34&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;experiment-2-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
+
+&lt;p&gt;zk2 was not able to be promoted (please see above for the reason)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json&#34;&gt;12&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk2)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;zk3 was not able to be promoted (please see above for the reason)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json&#34;&gt;10&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;experiment-3-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
+
+&lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json&#34;&gt;27&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;zk3 was not able to be promoted (please see above for the reason)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json&#34;&gt;7&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;conclusion:6404b3763f3a9572f2be258882d8c375&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;We found a distributed race condition bug of ZooKeeper, and identified its cause using Earthquake.&lt;/p&gt;
+
+&lt;p&gt;Through the experiments, we learned that the following points are important for implementing testing tool:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Avoid false-positives&lt;/strong&gt;: i.e., the testing tool itself should not be bug-prone. False-positives complicates debugging. The authors of &lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang_html/&#34;&gt;MODIST&lt;/a&gt; [nsdi09] also alert this point.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Don&amp;rsquo;t modify the target software&lt;/strong&gt;: Modification complicates testing multiple versions of the target software. Hence it is hard to check whether the bug got fixed in new releases. Earthquake realizes non-invasive test by inspecting and reordering packets at Ethernet switch side.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Support identifying the root cause of bugs&lt;/strong&gt;: Just finding bugs is not enough for improving quality of the target software. The quality gets improved only after identifying the root cause of bugs, and fixing them. Earthquake provides event history storage for estimating bug causes. We are also planning to add support for analyzing branch-coverage data (e.g. using JaCoCo) so as to pick up suspicious branch patterns.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Hello, world!</title>

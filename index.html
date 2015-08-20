@@ -43,6 +43,9 @@
 					
 					<li ><a href="http://osrg.github.io/earthquake//gettingStarted">GettingStarted</a></li>
 				
+					
+					<li ><a href="http://osrg.github.io/earthquake//categories/blog">Blog</a></li>
+				
 			
 				
 					<li class="dropdown">
@@ -52,6 +55,20 @@
 							<li><a href="http://osrg.github.io/earthquake//categories/blog">Blog</a></li>
 						
 							<li><a href="http://osrg.github.io/earthquake//categories/general">General</a></li>
+						
+						</ul>
+					</li>
+				
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tags<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://osrg.github.io/earthquake//tags/document">Document</a></li>
+						
+							<li><a href="http://osrg.github.io/earthquake//tags/found-bug">Found-Bug</a></li>
+						
+							<li><a href="http://osrg.github.io/earthquake//tags/zookeeper">Zookeeper</a></li>
 						
 						</ul>
 					</li>
@@ -82,35 +99,22 @@
 
 <h1 id="what-is-this:3976528693a0108357f4928017600865">What is this?</h1>
 
-<p>In short, the goal of earthquake project is providing a foundation of debugger for distributed systems.</p>
+<p>In short, the goal of Earthquake project is providing a foundation of debugger for distributed systems.</p>
 
 <p>Developing and maintaining distributed systems is difficult.
 The difficulty comes from many factors,
 but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.</p>
 
-<p>What are the distributed systems specific bugs?
-The bugs caused by hardware faults, non determinism of message ordering, and mix of them
-(non distributed systems does not need to handle them).
-Some researchers point out that real world systems (e.g. Hadoop) have such bugs,
-which can cause terrible failures like data loss <a href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" title="Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14.">[1]</a> <a href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" title="Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI '09.">[3]</a>.
-They showed the existence of the bugs by building implementation level distributed system model checkers (DMCK).
-The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
-In addition, they can work with actual implementation (not formal model <a href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" title="Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.">[2]</a>) directly.</p>
+<p><a href="/earthquake/about/">Read more..</a>..</p>
 
-<p>earthquake is a framework for such DMCKs.
-Its design does not depend on programming languages and opearting systems.
-You can write your own state space search policy for your system.
-We hope it will make your life a little bit easier.</p>
-
-<ol>
-<li><a href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" title="Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14.">Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &lsquo;14.</a></li>
-<li><a href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" title="Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.">Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.</a></li>
-<li><a href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" title="Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI '09.">Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &lsquo;09.</a></li>
-</ol>
+<p><img src="/earthquake/images/overview.png" alt="Overview" />
+</p>
 
 <h1 id="how-to-use:3976528693a0108357f4928017600865">How to use?</h1>
 
-<p><a href="https://github.com/osrg/earthquake/blob/master/README.md">README file</a> is a good start point.</p>
+<p>Please refer to <a href="/earthquake/gettingStarted/">Getting Started</a>.</p>
+
+<p><a href="https://github.com/osrg/earthquake/blob/master/README.md">README file</a> and <a href="/earthquake/post/zookeeper-2212/">this article</a> are also good start points.</p>
 
 <h1 id="contact:3976528693a0108357f4928017600865">Contact</h1>
 
@@ -119,7 +123,8 @@ We hope it will make your life a little bit easier.</p>
 We are using <a href="https://gitter.im/osrg/earthquake">gitter</a> for discussion.
 Feel free to join.</p>
 
-<p><a href="https://gitter.im/osrg/earthquake?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/osrg/earthquake" /></a></p>
+<p><a href="https://gitter.im/osrg/earthquake?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/osrg/earthquake" />
+</a></p>
 
       </div>
       
@@ -130,6 +135,8 @@ Feel free to join.</p>
   <div class="sidebar-module">
     <h4><a href="http://osrg.github.io/earthquake//post">Recent Posts</a></h4>
     <ul>
+      
+      <li><a href="/earthquake/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
       
       <li><a href="/earthquake/post/first/">Hello, world!(2015-07-24)</a></li>
       
