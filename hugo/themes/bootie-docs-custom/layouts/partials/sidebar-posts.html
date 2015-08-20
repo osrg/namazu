@@ -3,7 +3,7 @@
   <div class="sidebar-module">
     <h4><a href="{{ $baseUrl }}/post">Recent Posts</a></h4>
     <ul>
-      {{ range first 5 (where .Site.Pages.ByDate "Section" "post") }}
+      {{ range first 5 (where .Site.Pages.ByDate.Reverse "Section" "post") }}
       <li><a href="{{.RelPermalink}}">{{.Title}}({{.Date.Format "2006-01-02"}})</a></li>
       {{ end }}
     </ul>
