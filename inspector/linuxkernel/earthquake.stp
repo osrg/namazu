@@ -1,0 +1,74 @@
+/**
+ * earthquake.stp: injects random delay/fault to syscalls for flaky testcases
+ *
+ * Usage: $ sudo stap earthquake.stp -g -G NET_FI_PERMIL=0 -G NET_MAX_DELAY=0 -G VFS_MAX_DELAY=0 -G VFS_FI_PERMIL=0 -G TARGET_EXECNAME=java
+ */
+
+/*
+ * earthquake.stp is self-orchestrated. i.e., it not depend on Earthquake Orchestrator.
+ */
+
+/*
+ * ATTENTION: SystemTap does NOT support interruptible sleeps.
+ * Note that delays are non-interruptible.
+ */
+
+/****************************** PARAM ******************************/
+global NET_MAX_DELAY = 100000; /* max delay usecs */
+global NET_FI_PERMIL = 0; /* fault injection permil */
+global VFS_MAX_DELAY = 0; /* max delay usecs */
+global VFS_FI_PERMIL = 0; /* fault injection permil */
+global TARGET_EXECNAME = "java"; //TODO: support uid, docker container name, ..
+
+
+/****************************** CONST ******************************/
+global EIO = 5;
+
+/****************************** FUNCS ******************************/
+/* TODO: provide a user-friendly script that generates is_target() function automatically */
+function is_target() {
+  if (target() == 0) {
+    return execname() == TARGET_EXECNAME;
+  } else {
+    return pid() == target();    
+  }
+}
+
+function rand_delay(max_usecs:long) {
+  usecs = randint(max_usecs);
+  if ( usecs > 0 ) {
+    printf("%s:%s:%d, usecs=%d\n", execname(), ppfunc(), tid(), usecs);
+  }
+  udelay(usecs);
+}
+
+/****************************** NET ******************************/
+probe tcp.recvmsg.return, tcp.sendmsg,
+  udp.recvmsg.return, udp.sendmsg {
+  if (is_target()) {
+    rand_delay(NET_MAX_DELAY);
+  }
+}
+
+probe tcp.recvmsg.return, udp.recvmsg.return {
+  if (is_target() && randint(1000) < NET_FI_PERMIL && $return >= 0) {
+    /* TODO: dump EIP on injected fault */
+    printf("%s:%s:%d, return EIO, not %d\n", execname(), ppfunc(), tid(), $return);
+    $return = -EIO;
+  }
+}
+
+/****************************** DISK ******************************/
+probe vfs.read.return, vfs.write {
+  if (is_target()) {
+    rand_delay(VFS_MAX_DELAY);
+  }
+}
+
+probe vfs.read.return {
+  if (is_target() && randint(1000) < VFS_FI_PERMIL && $return >= 0) {
+    /* TODO: dump EIP on injected fault */
+    printf("%s:%s:%d, return EIO, not %d\n", execname(), ppfunc(), tid(), $return);
+    $return = -EIO;
+  }
+}
