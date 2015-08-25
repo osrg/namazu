@@ -39,7 +39,7 @@ This mode might be useful for Ethernet Inspector.
 If you want to set up your own environment manually, please follow this instruction.
 
 	$ sudo apt-get install -y --no-install-recommends protobuf-compiler default-jdk maven
-    $ curl https://storage.googleapis.com/golang/go1.5beta2.linux-amd64.tar.gz | sudo tar Cxz /usr/local 
+    $ curl https://storage.googleapis.com/golang/go1.5.linux-amd64.tar.gz | sudo tar Cxz /usr/local
     $ export PATH=/usr/local/go/bin:$PATH 
 
 NOTE: Go 1.5 or later is required to build libearthquake.so.

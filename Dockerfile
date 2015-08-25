@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libnetfilter-queue1 python-prctl
 
 ## Install Go 1.5
-RUN curl https://storage.googleapis.com/golang/go1.5beta2.linux-amd64.tar.gz | tar Cxz /usr/local
+RUN curl https://storage.googleapis.com/golang/go1.5.linux-amd64.tar.gz | tar Cxz /usr/local
 ENV PATH /usr/local/go/bin:$PATH
 
 ## (Optional) Install pyearthquake deps
