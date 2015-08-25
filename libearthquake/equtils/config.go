@@ -40,6 +40,7 @@ func ParseConfigFile(filePath string) (*Config, error) {
 	cfg.SetDefault("explorePolicy", "dumb")
 	cfg.SetDefault("explorePolicyParam", map[string]interface{}{})
 	cfg.SetDefault("storageType", "naive")
+	cfg.SetDefault("notCleanIfValidationFail", false)
 	// Viper Issue: Default value for nested key #71 (https://github.com/spf13/viper/issues/71)
 	cfg.SetDefault("inspectorHandler",
 		map[string]interface{}{

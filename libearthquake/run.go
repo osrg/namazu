@@ -58,8 +58,8 @@ func __createCmd(scriptPath, workingDir, materialsDir string) *exec.Cmd {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
-	cmd.Env = os.Environ()    // this line is needed to extend current envs
-	if workingDir != "" { // can be empty for "init"
+	cmd.Env = os.Environ() // this line is needed to extend current envs
+	if workingDir != "" {  // can be empty for "init"
 		cmd.Env = append(cmd.Env, "EQ_WORKING_DIR="+workingDir)
 	}
 	cmd.Env = append(cmd.Env, "EQ_MATERIALS_DIR="+materialsDir)
@@ -171,17 +171,17 @@ func run(args []string) {
 
 	storage.Close()
 
-	if succeed && cleanScriptPath != "" {
-		cleanCmd := createCmd(cleanScriptPath)
+	if !config.GetBool("notCleanIfValidationFail") || succeed {
+		if cleanScriptPath != "" {
+			cleanCmd := createCmd(cleanScriptPath)
 
-		rerr = cleanCmd.Run()
-		if rerr != nil {
-			fmt.Printf("failed to execute clean script %s: %s\n", cleanScriptPath, rerr)
-			os.Exit(1)
+			rerr = cleanCmd.Run()
+			if rerr != nil {
+				fmt.Printf("failed to execute clean script %s: %s\n", cleanScriptPath, rerr)
+				os.Exit(1)
+			}
 		}
-	}
 
-	if !succeed {
 		os.Exit(1)
 	}
 }
