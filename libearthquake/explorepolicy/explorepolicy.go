@@ -28,6 +28,7 @@ import (
 	"./random"
 
 	"./zk2172"
+	"./etcd"
 )
 
 type ExplorePolicy interface {
@@ -52,6 +53,8 @@ func CreatePolicy(name string) ExplorePolicy {
 		return bfs.BFSNew()
 	case "DPOR":
 		return dpor.DPORNew()
+	case "etcd":
+		return etcd.EtcdNew()
 	default:
 		fmt.Printf("unknown search policy: %s\n", name)
 	}

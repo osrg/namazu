@@ -2,7 +2,7 @@ init = "init.sh"
 run = "run.sh"
 validate = "validate.sh"
 clean = "clean.sh"
-explorePolicy = "random"
+explorePolicy = "etcd"
 
 [explorePolicyParam]
  interval = 50
