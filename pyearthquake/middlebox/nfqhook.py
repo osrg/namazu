@@ -47,6 +47,7 @@ class NFQHook(object):
 
     def __init__(self, nfq_number, zmq_addr):
         LOG.info('NFQ Number: %s', nfq_number)
+        assert isinstance(nfq_number, int)
         self.self_id = id(self)
         self.nfq = NFQ(nfq_number,
                        nfq_hook_cb_c,
