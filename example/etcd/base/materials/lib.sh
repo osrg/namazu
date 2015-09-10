@@ -51,7 +51,8 @@ function FETCH_ETCD() {
       INFO "Checking out etcd@${ETCD_GIT_COMMIT}"
       INFO "You can change the etcd version by setting ETCD_GIT_COMMIT"
       cd etcd
-      git checkout ${ETCD_GIT_COMMIT} )
+      git checkout ${ETCD_GIT_COMMIT}
+      ./build )
 }
 
 function BUILD_DOCKER_IMAGE() {
@@ -104,7 +105,7 @@ function SET_PIPEWORK() {
 function START_ETCD() {
     for f in $(seq 1 3); do 
 	  INFO "Starting etcd(id: ${f}) in Docker container etcd${f}"
-	  docker exec -d etcd${f} /bin/bash -c '/init.sh > /log 2>&1';
+	  docker exec -d etcd${f} /bin/bash -c 'bash /init.sh > /log 2>&1';
     done
 }
 

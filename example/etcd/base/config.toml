@@ -4,6 +4,8 @@ validate = "validate.sh"
 clean = "clean.sh"
 explorePolicy = "etcd"
 
+notCleanIfValidationFail= "true"
+
 [explorePolicyParam]
  interval = 50
 
