@@ -12,10 +12,14 @@ When Earthquake finds a bug, Earthquake automatically records [the event history
 
 Basically, Earthquake permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Go or Python) for finding deep bugs efficiently.
 
-## News
- * Earthquake will be presented at the poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/). (August 27-29, 2015, Hawaii)
- * We have successfully found a distributed race condition bug of ZooKeeper using Earthquake.
-Please refer to [example/zk-found-2212.ryu](example/zk-found-2212.ryu) for further information.
+## Found/Reproduced Bugs
+ * ZooKeeper:
+  * Found [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212)
+  * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080)
+ * Etcd:
+  * Found [#3518](https://github.com/coreos/etcd/pulls/3518)
+
+Please see [example/README.md](example/README.md).
 
 ## Quick Start
 NOTE: [v0.1.1](https://github.com/osrg/earthquake/releases/tag/v0.1.1) might be stabler than the master branch.
@@ -25,6 +29,9 @@ NOTE: [v0.1.1](https://github.com/osrg/earthquake/releases/tag/v0.1.1) might be 
 
 ## Archtecture
 Please see [doc/arch.md](doc/arch.md).
+
+## Talks
+ * Earthquake was presented at the poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/). (August 27-29, 2015, Hawaii)
 
 ## How to Contribute
 We welcome your contribution to Earthquake.
