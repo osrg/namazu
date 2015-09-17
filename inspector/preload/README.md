@@ -13,5 +13,5 @@ Although we are considering implementing orchestration API client, self-orchestr
 
 TODO: support much more syscalls
 
-Bug: some apps are not working (e.g., curl, GTK apps)
+Bug: some apps are not working due to [a bug of Go runtime](https://github.com/golang/go/issues/12465).
 

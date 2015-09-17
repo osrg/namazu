@@ -37,7 +37,7 @@ func NewConfig(jsonString string) (*Config, error) {
 
 func (this *Config) ToMap() map[string]interface{} {
 	var m map[string]interface{}
-	err := this.Marshal(&m)
+	err := this.Unmarshal(&m)
 	if err != nil {
 		log.WithField("error", err).Error("this should not really happen")
 		return nil

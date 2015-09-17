@@ -23,10 +23,12 @@ It has these top-level messages:
 package pbinspectorhandler
 
 import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
 import math "math"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
+var _ = fmt.Errorf
 var _ = math.Inf
 
 type InspectorMsgReq_Event_Type int32
@@ -184,9 +186,9 @@ func (m *InspectorMsgReq_Event_Exit) GetExitCode() int32 {
 
 type InspectorMsgReq_Event struct {
 	Type             *InspectorMsgReq_Event_Type       `protobuf:"varint,1,req,name=type,enum=pbinspectorhandler.InspectorMsgReq_Event_Type" json:"type,omitempty"`
-	FuncCall         *InspectorMsgReq_Event_FuncCall   `protobuf:"bytes,2,opt" json:"FuncCall,omitempty"`
-	FuncReturn       *InspectorMsgReq_Event_FuncReturn `protobuf:"bytes,3,opt" json:"FuncReturn,omitempty"`
-	Exit             *InspectorMsgReq_Event_Exit       `protobuf:"bytes,4,opt" json:"Exit,omitempty"`
+	FuncCall         *InspectorMsgReq_Event_FuncCall   `protobuf:"bytes,2,opt,name=FuncCall" json:"FuncCall,omitempty"`
+	FuncReturn       *InspectorMsgReq_Event_FuncReturn `protobuf:"bytes,3,opt,name=FuncReturn" json:"FuncReturn,omitempty"`
+	Exit             *InspectorMsgReq_Event_Exit       `protobuf:"bytes,4,opt,name=Exit" json:"Exit,omitempty"`
 	XXX_unrecognized []byte                            `json:"-"`
 }
 
@@ -363,10 +365,10 @@ type InspectorMsgReq struct {
 	Tid                   *int32                              `protobuf:"varint,4,req,name=tid" json:"tid,omitempty"`
 	MsgId                 *int32                              `protobuf:"varint,5,req,name=msg_id" json:"msg_id,omitempty"`
 	GaMsgId               *int32                              `protobuf:"varint,6,opt,name=ga_msg_id" json:"ga_msg_id,omitempty"`
-	Event                 *InspectorMsgReq_Event              `protobuf:"bytes,7,opt" json:"Event,omitempty"`
-	Initiation            *InspectorMsgReq_Initiation         `protobuf:"bytes,8,opt" json:"Initiation,omitempty"`
-	HasJavaSpecificFields *int32                              `protobuf:"varint,9,req" json:"HasJavaSpecificFields,omitempty"`
-	JavaSpecificFields    *InspectorMsgReq_JavaSpecificFields `protobuf:"bytes,10,opt" json:"JavaSpecificFields,omitempty"`
+	Event                 *InspectorMsgReq_Event              `protobuf:"bytes,7,opt,name=Event" json:"Event,omitempty"`
+	Initiation            *InspectorMsgReq_Initiation         `protobuf:"bytes,8,opt,name=Initiation" json:"Initiation,omitempty"`
+	HasJavaSpecificFields *int32                              `protobuf:"varint,9,req,name=HasJavaSpecificFields" json:"HasJavaSpecificFields,omitempty"`
+	JavaSpecificFields    *InspectorMsgReq_JavaSpecificFields `protobuf:"bytes,10,opt,name=JavaSpecificFields" json:"JavaSpecificFields,omitempty"`
 	XXX_unrecognized      []byte                              `json:"-"`
 }
 
