@@ -38,12 +38,12 @@ type HistoryStorage interface {
 
 	CreateNewWorkingDir() string
 	RecordNewTrace(newTrace *SingleTrace)
-	RecordResult(succeed bool, requiredTime time.Duration) error
+	RecordResult(successful bool, requiredTime time.Duration) error
 
 	NrStoredHistories() int
 	GetStoredHistory(id int) (*SingleTrace, error)
 
-	IsSucceed(id int) (bool, error)
+	IsSuccessful(id int) (bool, error)
 	GetRequiredTime(id int) (time.Duration, error)
 
 	Search(prefix []Event) []int

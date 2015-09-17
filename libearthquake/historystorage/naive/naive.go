@@ -189,35 +189,22 @@ func (n *Naive) GetStoredHistory(id int) (*SingleTrace, error) {
 	return &ret, nil
 }
 
-func (n *Naive) RecordResult(succeed bool, requiredTime time.Duration) error {
+func (n *Naive) RecordResult(successful bool, requiredTime time.Duration) error {
 	path := fmt.Sprintf("%s/%s", n.nextWorkingDir, resultPath)
 
 	result := testResult{
-		succeed,
+		successful,
 		requiredTime,
+		map[string] interface{}{},
 	}
-
-	var resultBuf bytes.Buffer
-	enc := gob.NewEncoder(&resultBuf)
-	eerr := enc.Encode(&result)
-	if eerr != nil {
-		return eerr
+	js, err := json.MarshalIndent(result, "", "\t")
+	if err != nil {
+		return err
 	}
-
-	resultFile, oerr := os.Create(path)
-	if oerr != nil {
-		return oerr
-	}
-
-	_, werr := resultFile.Write(resultBuf.Bytes())
-	if werr != nil {
-		return werr
-	}
-
-	return nil
+	return ioutil.WriteFile(path, js, 0644)
 }
 
-func (n *Naive) IsSucceed(id int) (bool, error) {
+func (n *Naive) IsSuccessful(id int) (bool, error) {
 	path := fmt.Sprintf("%s/%08x/%s", n.dir, id, resultPath)
 
 	encoded, err := ioutil.ReadFile(path)
@@ -226,15 +213,13 @@ func (n *Naive) IsSucceed(id int) (bool, error) {
 	}
 
 	byteBuf := bytes.NewBuffer(encoded)
-	dec := gob.NewDecoder(byteBuf)
+
 	var ret testResult
-	derr := dec.Decode(&ret)
-	if derr != nil {
-		return false, derr
+	err = json.Unmarshal(byteBuf.Bytes(), &ret)
+	if err != nil {
+		return false, err
 	}
-
-	return ret.Succeed, nil
-
+	return ret.Successful, nil
 }
 
 func (n *Naive) GetRequiredTime(id int) (time.Duration, error) {
@@ -246,15 +231,14 @@ func (n *Naive) GetRequiredTime(id int) (time.Duration, error) {
 	}
 
 	byteBuf := bytes.NewBuffer(encoded)
-	dec := gob.NewDecoder(byteBuf)
+
 	var ret testResult
-	derr := dec.Decode(&ret)
-	if derr != nil {
-		return 0, derr
+	err = json.Unmarshal(byteBuf.Bytes(), &ret)
+	if err != nil {
+		return 0, err
 	}
 
 	return ret.RequiredTime, nil
-
 }
 
 func (n *Naive) SearchWithConverter(prefix []Event, converter func(events []Event) []Event) []int {

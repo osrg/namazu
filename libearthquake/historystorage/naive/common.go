@@ -23,7 +23,7 @@ import (
 
 const (
 	searchModeInfoPath = "SearchModeInfo" // relative path of metadata
-	resultPath         = "result"
+	resultPath         = "result.json"
 )
 
 // type of metadata
@@ -32,9 +32,11 @@ type searchModeInfo struct {
 }
 
 // type of result, per history
+// you have to also update analyzers, if you want to modify this structure
 type testResult struct {
-	Succeed      bool
-	RequiredTime time.Duration
+	Successful   bool `json:"successful"`
+	RequiredTime time.Duration `json:"required_time"`
+	Metadata map[string] interface{} `json:"metadata"` // not yet really supported. intended for tags and so on.
 }
 
 // type that implements interface HistoryStorage

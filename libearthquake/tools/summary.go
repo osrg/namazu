@@ -49,7 +49,7 @@ func doSummary(historyStoragePath string) {
 	nrStored := storage.NrStoredHistories()
 
 	for i := 0; i < nrStored; i++ {
-		succeed, err := storage.IsSucceed(i)
+		succeed, err := storage.IsSuccessful(i)
 		if err != nil {
 			fmt.Printf("failed to open history %08x, %s\n", i, err)
 			continue
