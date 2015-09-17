@@ -33,7 +33,22 @@ Currently zktraffic does not work well with ZOOKEEPER-2080 scenario, because som
 If the bug could not be reproduced, you might have to modify the `sleep` parameter in `config.toml`. (about 30 msecs to 80 msecs)
 
 ## Analyze
-TBD
+Unlike [ZOOKEEPER-2212](../zk-found-2212.ryu/README.md), you cannot use the Earthquake event history for analysis.
+
+Instead, you can estimate the cause of the bug using Earthquake branch analyzer for Java.
+
+	
+	$ java -jar ../../bin/earthquake-analyzer.jar /tmp/zk-2080/ --classes-path /tmp/zk-2080/materials/zookeeper/build/classes
+	[DEBUG] net.osrg.earthquake.ExperimentAnalyzer - Scanning /tmp/zk-2080/00000000: experiment successful=false
+	[DEBUG] net.osrg.earthquake.ExperimentAnalyzer - Scanning /tmp/zk-2080/00000001: experiment successful=true
+	..
+	Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::connectAll
+		- at line 511: branch on success=0, on failure=4
+	..
+	Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::receiveConnection
+		- at line 358: branch on success=0, on failure=4
+	..
+	
 
 ### Environment Variables
 
