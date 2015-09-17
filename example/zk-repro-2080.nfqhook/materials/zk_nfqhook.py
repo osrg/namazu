@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 import os
 ZMQ_ADDR = os.getenv('EQ_ETHER_ZMQ_ADDR')
-## FIXME: move to the config file
-NFQ_NUMBER=42
+NFQ_NUMBER = int(os.getenv('EQ_NFQ_NUMBER'))
 
 from pyearthquake.middlebox.nfqhook import NFQHook
 

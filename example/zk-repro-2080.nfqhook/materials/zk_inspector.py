@@ -23,6 +23,8 @@ class Zk2080Inspector(EtherInspectorBase):
         if (sport in fle_ports or dport in fle_ports) and payload:
             src_entity = 'entity-%s:%d' % (src, sport)
             dst_entity = 'entity-%s:%d' % (dst, dport)
+            ## TODO: use zktraffic to parse the payload
+            ## Currently zktraffic does not work well, because some packets get corked when the delay is injected.
             d = {'payload': hexdump(str(payload), result='return')}
             deferred_event = PacketEvent.from_message(src_entity, dst_entity, d)
 

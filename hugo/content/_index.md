@@ -18,6 +18,14 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 ![Overview](/earthquake/images/overview.png)
 
+# Found/Reproduced Bugs
+* ZooKeeper:
+ * Found [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212): [(blog article)]({{< relref "post/zookeeper-2212.md" >}})
+ * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080): TBD
+
+* Etcd:
+ * Found [#3518](https://github.com/coreos/etcd/pulls/3518): TBD
+
 # How to use?
 Please refer to [Getting Started]({{< relref "gettingStarted.md" >}}).
 

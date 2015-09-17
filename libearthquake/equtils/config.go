@@ -68,7 +68,7 @@ func (this *Config) DumpToJsonFile(filePath string) error {
 	defer f.Close()
 	enc := json.NewEncoder(f)
 	var m map[string]interface{}
-	err = this.Marshal(&m)
+	err = this.Unmarshal(&m)
 	if err != nil { return err }
 	enc.Encode(m)
 	return err

@@ -1,5 +1,5 @@
 #!/bin/sh
 set -x
 set -e
-rm -rf bin inspector/java/base/target gopath
+rm -rf bin inspector/java/base/target analyzer/java/base/target gopath
 

@@ -111,8 +111,8 @@ func (this *MongoDB) RecordNewTrace(newTrace *SingleTrace) {
 	this.DB.C(traceColName).Insert(&traceDoc)
 }
 
-func (this *MongoDB) RecordResult(succeed bool, requiredTime time.Duration) error {
-	return this.Naive.RecordResult(succeed, requiredTime)
+func (this *MongoDB) RecordResult(successful bool, requiredTime time.Duration) error {
+	return this.Naive.RecordResult(successful, requiredTime)
 }
 
 func (this *MongoDB) NrStoredHistories() int {
@@ -125,8 +125,8 @@ func (this *MongoDB) GetStoredHistory(id int) (*SingleTrace, error) {
 	return trace, err
 }
 
-func (this *MongoDB) IsSucceed(id int) (bool, error) {
-	succ, err := this.Naive.IsSucceed(id)
+func (this *MongoDB) IsSuccessful(id int) (bool, error) {
+	succ, err := this.Naive.IsSuccessful(id)
 	return succ, err
 }
 

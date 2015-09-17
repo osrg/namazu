@@ -2,9 +2,11 @@
 
 ## CONFIG
 # EQ_DISABLE=1 # set to disable earthquake
-ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-5b1b668d33ccf7d93c31db2a53728177393fea90} #(Aug 6, 2015)
+ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-35e45512b5602eddbde9bb4ca0ef118d2fed7464} #(Sep 11, 2015)
+# ZK_SKIP_JACOCO_PATCH=1 # set to skip applying ZOOKEEPER-2266-v2.patch (required only if already applied)
 ZK_TEST_COMMAND=${ZK_TEST_COMMAND:-ant -Dtestcase=ReconfigRecoveryTest -Dtest.method=testCurrentObserverIsParticipantInNewConfig -Dtest.output=true test-core-java}
-# SYSLOG_DISABLE=1 # set to disable syslog
+NFQ_USER=${NFQ_USER:-nfqhooked}
+NFQ_NUMBER=${NFQ_NUMBER:-42}
 
 ## GENERIC FUNCS
 function INFO(){
@@ -33,24 +35,30 @@ function PAUSE(){
 function CHECK_PREREQUISITES() {
     INFO "Checking whether JDK is installed"
     hash javac
+
     INFO "Checking whether Ant is installed"
     hash ant
+
     if [ -f /proc/sys/net/ipv4/tcp_autocorking ]; then
 	INFO "Checking whether tcp_autocorking (introduced in Linux 3.14) is disabled"
 	test $(cat /proc/sys/net/ipv4/tcp_autocorking) = 0
     fi
-    INFO "Checking existence of user \"nfqhooked\""
-    id -u nfqhooked
-    if [ -z $EQ_DISABLE ]; then
-	INFO "Checking whether NFQUEUE 42 is configured for a user \"nfqhooked\""
-	iptables -n -L -v | grep "owner UID match $(id -u nfqhooked) NFQUEUE num 42"
-    fi
+
+    INFO "Checking existence of user \"${NFQ_USER}\""
+    id -u ${NFQ_USER}
+
+    INFO "Checking whether NFQUEUE ${NFQ_NUMBER} is available"
+    test $(iptables -n -L -v | grep "NFQUEUE num ${NFQ_NUMBER}" | wc -l) = 0
+
+    INFO "Checking PYTHONPATH"
+    ## used for zk_nfqhook and zk_inspector
+    python -c "import pyearthquake"
 }
 
 function FETCH_ZK() {
     ( cd ${EQ_MATERIALS_DIR};
       INFO "Fetching ZooKeeper"
-      if [ -z $ZK_SOURCE_DIR ]; then
+      if [ -z ${ZK_SOURCE_DIR} ]; then
 	  git clone https://github.com/apache/zookeeper.git
 	  INFO "Checking out ZooKeeper@${ZK_GIT_COMMIT}"
 	  INFO "You can change the ZooKeeper version by setting ZK_GIT_COMMIT"
@@ -68,27 +76,25 @@ function FETCH_ZK() {
 function BUILD_ZK() {
     ( cd ${EQ_MATERIALS_DIR}/zookeeper;
       INFO "Building ZooKeeper"
+      cp -f ${EQ_MATERIALS_DIR}/log4j.properties conf
+      if [ -z ${ZK_SKIP_JACOCO_PATCH} ]; then
+	  patch -p0 < ${EQ_MATERIALS_DIR}/ZOOKEEPER-2266-v2.patch
+      fi
       ant
       ant test-init
-      chown -R nfqhooked .
+      chown -R ${NFQ_USER} .
     )
-    if [ -z ${EQ_DISABLE} ]; then
-	if [ -z ${SYSLOG_DISABLE} ]; then
-	    INFO "Using log4j_with_syslog.properties"
-	    cp ${EQ_MATERIALS_DIR}/log4j_with_syslog.properties ${EQ_MATERIALS_DIR}/zookeeper/conf/log4j.properties
-	fi
-    fi
 }
 
 
 ## FUNCS (BOOT)
 export EQ_ETHER_ZMQ_ADDR="ipc://${EQ_WORKING_DIR}/ether_inspector"
+export EQ_NFQ_NUMBER=${NFQ_NUMBER}
 
-function CHECK_PYTHONPATH() {
-    INFO "Checking PYTHONPATH(=${PYTHONPATH})"
-    ## used for zk_nfqhook and zk_inspector
-    python -c "import pyearthquake"
-}    
+function INSTALL_IPTABLES_RULE() {
+    INFO "Installing iptables rule for user=${NFQ_USER}, nfqueue=${NFQ_NUMBER}"
+    iptables -A OUTPUT -p tcp -m owner --uid-owner $(id -u ${NFQ_USER}) -j NFQUEUE --queue-num ${NFQ_NUMBER}
+}
 
 function START_NFQHOOK() {
     INFO "Starting Earthquake Ethernet NFQHook"
@@ -106,25 +112,23 @@ function START_INSPECTOR() {
     echo ${pid} > ${EQ_WORKING_DIR}/inspector.pid
 }
 
-function START_SYSLOG_INSPECTOR() {
-    INFO "Starting Earthquake Syslog Inspector"
-    python ${EQ_MATERIALS_DIR}/zk_syslog_inspector.py > ${EQ_WORKING_DIR}/syslog_inspector.log 2>&1 &
-    pid=$!
-    INFO "Syslog Inspector PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/syslog_inspector.pid
-}
-
-
 function START_ZK_TEST() {
     INFO "Starting ZooKeeper testing (${ZK_TEST_COMMAND})"
-    if [ -z $EQ_DISABLE ]; then    
-	(cd ${EQ_MATERIALS_DIR}/zookeeper; sudo -E -u nfqhooked sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${EQ_WORKING_DIR}/zk-test.log)
-    else
-	(cd ${EQ_MATERIALS_DIR}/zookeeper; sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${EQ_WORKING_DIR}/zk-test.log)
-    fi
+    rm -rf ${EQ_MATERIALS_DIR}/zookeeper/build/test/jacoco # this is important to avoid unexpected merging
+    (cd ${EQ_MATERIALS_DIR}/zookeeper; sudo -E -u ${NFQ_USER} sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${EQ_WORKING_DIR}/zk-test.log)
+}
+
+function COLLECT_COVERAGE() {
+    ( cd ${EQ_MATERIALS_DIR}/zookeeper; ant jacoco-report || INFO "no jacoco support.. (see ZOOKEEPER-2266)" )
+    cp -r ${EQ_MATERIALS_DIR}/zookeeper/build/test/jacoco ${EQ_WORKING_DIR} || true
 }
 
 ## FUNCS (SHUTDOWN)
+function UNINSTALL_IPTABLES_RULE() {
+    INFO "Uninstalling iptables rule for user=${NFQ_USER}, nfqueue=${NFQ_NUMBER}"
+    iptables -D OUTPUT -p tcp -m owner --uid-owner $(id -u ${NFQ_USER}) -j NFQUEUE --queue-num ${NFQ_NUMBER}
+}
+
 function KILL_NFQHOOK() {
     pid=$(cat ${EQ_WORKING_DIR}/nfqhook.pid)
     INFO "Killing NFQHook, PID: ${pid}"
