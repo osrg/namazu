@@ -281,6 +281,23 @@ but we believe that one of the most important reasons is lacking of a good debug
 &lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/overview.png&#34; alt=&#34;Overview&#34; /&gt;
 &lt;/p&gt;
 
+&lt;h1 id=&#34;found-reproduced-bugs:3976528693a0108357f4928017600865&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ZooKeeper:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;: &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt;: TBD&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Found &lt;a href=&#34;https://github.com/coreos/etcd/pulls/3518&#34;&gt;#3518&lt;/a&gt;: TBD&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
 
 &lt;p&gt;Please refer to &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/gettingStarted/&#34;&gt;Getting Started&lt;/a&gt;.&lt;/p&gt;
