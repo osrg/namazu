@@ -17,13 +17,14 @@ SLEEP ${ETCD_START_WAIT_SECS} # the user should increase this, if could not repr
 
 export ETCDCTL_PEERS="http://192.168.42.1:4001,http://192.168.42.2:4001,http://192.168.42.3:4001"
 echo "writing k1"
-etcdctl --no-sync --timeout 10s set /k1 v1
+etcdctl --no-sync --timeout 10s set /k1 v1 &
 echo "result: $?"
 echo "writing k2"
-etcdctl --no-sync --timeout 10s set /k2 v2
+etcdctl --no-sync --timeout 10s set /k2 v2 &
 echo "result: $?"
 echo "writing k3"
-etcdctl --no-sync --timeout 10s set /k3 v3
+etcdctl --no-sync --timeout 10s set /k3 v3 &
 echo "result: $?"
 
+etcdctl --no-sync --timeout 10s member add etcd4 http://192.168.42.4:4001 # dummy
 exit 0

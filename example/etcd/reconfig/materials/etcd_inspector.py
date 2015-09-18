@@ -48,16 +48,15 @@ class EtcdInspector(EtherInspectorBase):
         self.regist_layer_on_tcp(EtcdPacket, 7001)
 
     def map_packet_to_event(self, pkt):
-        return PacketEvent.from_message(src_entity="dummy", dst_entity="dummy", message=base64.b64encode(str((pkt))))
-        # if pkt.haslayer(EtcdPacket):
-        #     LOG.info('%s packet: %s', self.__class__.__name__, pkt[EtcdPacket].mysummary())            
-        #     event = pkt[EtcdPacket].event
-        #     LOG.info('mapped event=%s', event)
-        #     return event
-        # else:
-        #     LOG.info('%s unknown packet: %s', self.__class__.__name__, pkt.mysummary())
-        #     # hexdump.hexdump(str(pkt))
-        #     return None
+        if pkt.haslayer(EtcdPacket):
+            LOG.info('%s packet: %s', self.__class__.__name__, pkt[EtcdPacket].mysummary())            
+            event = pkt[EtcdPacket].event
+            LOG.info('mapped event=%s', event)
+            return event
+        else:
+            LOG.info('%s unknown packet: %s', self.__class__.__name__, pkt.mysummary())
+            # hexdump.hexdump(str(pkt))
+            return None
         # return PacketEvent.from_message(src_entity="dummy", dst_entity="dummy", message=base64.b64encode(str(pkt)))
 
 if __name__ == '__main__':
