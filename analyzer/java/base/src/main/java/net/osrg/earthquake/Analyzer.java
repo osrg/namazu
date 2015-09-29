@@ -25,17 +25,18 @@ import org.jacoco.core.analysis.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
-public class ExperimentAnalyzer {
-    static final Logger LOG = LogManager.getLogger(ExperimentAnalyzer.class);
+public class Analyzer {
+    static final Logger LOG = LogManager.getLogger(Analyzer.class);
     private File storageDir;
     private File classesDir;
-    // TODO: use 3D table (klazzName, methodName, lineNumber)
-    Table<String, String, Map<Integer, EQAnalysis>> analysisTable;
 
-    public ExperimentAnalyzer(String storagePath, String classesPath) {
+    // TODO: use 3D table (klazzName, methodName, lineNumber)
+    private Table<String, String, SortedMap<Integer, Analysis>> analysisTable;
+
+    public Analyzer(String storagePath, String classesPath) {
         this.storageDir = new File(storagePath);
         this.classesDir = new File(classesPath);
         this.analysisTable = TreeBasedTable.create();
@@ -43,7 +44,7 @@ public class ExperimentAnalyzer {
 
     private static IBundleCoverage getBundleCoverage(Experiment experiment, File classesDir) throws IOException {
         final CoverageBuilder coverageBuilder = new CoverageBuilder();
-        final Analyzer analyzer = new Analyzer(
+        final org.jacoco.core.analysis.Analyzer analyzer = new org.jacoco.core.analysis.Analyzer(
                 experiment.getExecFileLoader().getExecutionDataStore(), coverageBuilder);
         analyzer.analyzeAll(classesDir);
         return coverageBuilder.getBundle(experiment.getDirPath());
@@ -87,8 +88,8 @@ public class ExperimentAnalyzer {
         int last = method.getLastLine();
         for (int i = first; i <= last; i++) {
             ILine l = method.getLine(i);
-            EQAnalysis analysis = this.prepareAnalysis(klazz.getName(), method.getName(), i);
-            int coveredCount = l.getBranchCounter().getCoveredCount();
+            Analysis analysis = this.prepareAnalysis(klazz.getName(), method.getName(), i);
+            int coveredCount = l.getInstructionCounter().getCoveredCount();
             if (experiment.isSuccessful()) {
                 analysis.addBranchOnSuccess(coveredCount);
             } else {
@@ -97,92 +98,24 @@ public class ExperimentAnalyzer {
         }
     }
 
-    private EQAnalysis prepareAnalysis(String klazzName,
-                                       String methodName,
-                                       int line) {
-        Map<Integer, EQAnalysis> m = this.analysisTable.get(klazzName, methodName);
+    private Analysis prepareAnalysis(String klazzName,
+                                     String methodName,
+                                     int line) {
+        SortedMap<Integer, Analysis> m = this.analysisTable.get(klazzName, methodName);
         if (m == null) {
             m = new TreeMap<>();
             this.analysisTable.put(klazzName, methodName, m);
         }
-        EQAnalysis analysis = m.get(line);
+        Analysis analysis = m.get(line);
         if (analysis == null) {
-            analysis = new EQAnalysis(klazzName, methodName, line);
+            analysis = new Analysis(klazzName, methodName, line);
             m.put(line, analysis);
         }
         return analysis;
     }
 
-    public void report() {
-        for (Map<Integer, EQAnalysis> mapPerLine : this.analysisTable.values()) {
-            boolean hit = false;
-            for (EQAnalysis analysis : mapPerLine.values()) {
-                // TODO: improve heuristic
-                boolean cond = analysis.getBranchOnFailure() > analysis.getBranchOnSuccess() * 10;
-                if (cond) {
-                    if (!hit) {
-                        System.out.printf("Suspicious: %s::%s\n",
-                                analysis.getKlazzName().replace("/", "."),
-                                analysis.getMethodName());
-                        hit = true;
-                    }
-                    System.out.printf(" - at line %d: branch on success=%d, on failure=%d\n",
-                            analysis.getLine(),
-                            analysis.getBranchOnSuccess(),
-                            analysis.getBranchOnFailure());
-                }
-            }
-        }
+    public Table<String, String, SortedMap<Integer, Analysis>> getAnalysisTable() {
+        return analysisTable;
     }
 
-
-    class EQAnalysis {
-        private String klazzName = null;
-        private String methodName = null;
-        private int line = 0;
-        private int branchOnSuccess = 0;
-        private int branchOnFailure = 0;
-
-        EQAnalysis(String klazzName, String methodName, int line) {
-            this.klazzName = klazzName;
-            this.methodName = methodName;
-            this.line = line;
-        }
-
-        public String getKlazzName() {
-            return klazzName;
-        }
-
-        public String getMethodName() {
-            return methodName;
-        }
-
-        public int getLine() {
-            return line;
-        }
-
-        public int getBranchOnSuccess() {
-            return branchOnSuccess;
-        }
-
-        public void setBranchOnSuccess(int branchOnSuccess) {
-            this.branchOnSuccess = branchOnSuccess;
-        }
-
-        public void addBranchOnSuccess(int branchOnSuccess) {
-            this.branchOnSuccess += branchOnSuccess;
-        }
-
-        public int getBranchOnFailure() {
-            return branchOnFailure;
-        }
-
-        public void setBranchOnFailure(int branchOnFailure) {
-            this.branchOnFailure = branchOnFailure;
-        }
-
-        public void addBranchOnFailure(int branchOnFailure) {
-            this.branchOnFailure += branchOnFailure;
-        }
-    }
 }

@@ -6,10 +6,6 @@ pushd libearthquake
 ./build
 popd
 
-pushd inspector/preload
-./build
-popd
-
 pushd inspector/java/base
 mvn package
 popd

@@ -40,12 +40,13 @@ public class Main {
             System.exit(1);
         }
 
-        ExperimentAnalyzer analyzer = new ExperimentAnalyzer(inst.storagePath, inst.classesPath);
+        Analyzer analyzer = new Analyzer(inst.storagePath, inst.classesPath);
         try {
             analyzer.analyze();
-            analyzer.report();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        AnalysisReporter reporter = new AnalysisReporter(analyzer);
+        reporter.report();
     }
 }

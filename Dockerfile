@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ## Install Earthquake deps (protoc, JDK)
     protobuf-compiler default-jdk maven \
     ## Install useful stuffs
-    sudo \
+    sudo ant \
     ## (Optional) Install MongoDB storage
     mongodb \
     ## (Optional) Install pyearthquake deps
@@ -26,6 +26,9 @@ RUN pip install hexdump
 RUN pip uninstall -y ryu && pip install ryu==3.20.2
 RUN curl https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework -o /usr/local/bin/pipework
 RUN chmod +x /usr/local/bin/pipework
+
+## (Optional) Create a user for nfqueue sandbox
+RUN useradd -m nfqhooked
 
 ## Copy Earthquake to /earthquake
 ADD . /earthquake
