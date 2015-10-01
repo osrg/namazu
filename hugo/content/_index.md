@@ -24,7 +24,9 @@ but we believe that one of the most important reasons is lacking of a good debug
  * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080): TBD
 
 * Etcd:
- * Found [#3518](https://github.com/coreos/etcd/pulls/3518): TBD
+ * [#3517](https://github.com/coreos/etcd/issues/3517), fixed in [#3530](https://github.com/coreos/etcd/pull/3530): TBD
+
+The repro codes are located on [earthquake/example](https://github.com/osrg/earthquake/tree/master/example).
 
 # How to use?
 Please refer to [Getting Started]({{< relref "gettingStarted.md" >}}).
