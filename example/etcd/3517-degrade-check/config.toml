@@ -1,0 +1,12 @@
+init = "init.sh"
+run = "run.sh"
+validate = "validate.sh"
+clean = "clean.sh"
+explorePolicy = "etcd"
+
+notCleanIfValidationFail= "true"
+
+[explorePolicyParam]
+ interval = 5
+
+# storageType = "mongodb"

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e # exit on an error
+. ${EQ_MATERIALS_DIR}/lib.sh
+
+export ETCD_GIT_COMMIT=c645ac23c0093e2b0a93fa5f07a947344d7ef779
+
+CHECK_PREREQUISITES
+FETCH_ETCD
+BUILD_DOCKER_IMAGE
+
+exit 0
