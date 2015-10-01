@@ -294,9 +294,11 @@ but we believe that one of the most important reasons is lacking of a good debug
 &lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Found &lt;a href=&#34;https://github.com/coreos/etcd/pulls/3518&#34;&gt;#3518&lt;/a&gt;: TBD&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/coreos/etcd/issues/3517&#34;&gt;#3517&lt;/a&gt;, fixed in &lt;a href=&#34;https://github.com/coreos/etcd/pull/3530&#34;&gt;#3530&lt;/a&gt;: TBD&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;The repro codes are located on &lt;a href=&#34;https://github.com/osrg/earthquake/tree/master/example&#34;&gt;earthquake/example&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
 
