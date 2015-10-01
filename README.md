@@ -16,8 +16,8 @@ Basically, Earthquake permutes events in a random order, but you can write your 
  * ZooKeeper:
   * Found [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212)
   * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080)
- * Etcd:
-  * Found [#3518](https://github.com/coreos/etcd/pulls/3518)
+ * etcd:
+  * Found [#3517](https://github.com/coreos/etcd/issues/3517), fixed in [#3530](https://github.com/coreos/etcd/pull/3530)
 
 Please see [example/README.md](example/README.md).
 
