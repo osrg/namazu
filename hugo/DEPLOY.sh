@@ -8,6 +8,8 @@ set -e
 
 
 # Note: you can check hugo output before deployment by running `hugo server --watch`
+rm -rf public
+
 hugo
 
 ghp-import public
