@@ -204,7 +204,7 @@ but we believe that one of the most important reasons is lacking of a good debug
 &lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;Found &lt;a href=&#34;https://github.com/coreos/etcd/issues/3517&#34;&gt;#3517&lt;/a&gt;, fixed in &lt;a href=&#34;https://github.com/coreos/etcd/pull/3530&#34;&gt;#3530&lt;/a&gt;: To Be Documented&lt;/li&gt;
+&lt;li&gt;Found an etcd command line client (etcdctl) bug &lt;a href=&#34;https://github.com/coreos/etcd/issues/3517&#34;&gt;#3517&lt;/a&gt;, fixed in &lt;a href=&#34;https://github.com/coreos/etcd/pull/3530&#34;&gt;#3530&lt;/a&gt;: To Be Documented&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
