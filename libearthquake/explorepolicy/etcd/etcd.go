@@ -18,7 +18,12 @@
 package etcd
 
 import (
+	"encoding/base64"
 	"math/rand"
+	"os"
+	"regexp"
+	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -39,8 +44,8 @@ type shutdownRatePerEntity struct {
 type EtcdParam struct {
 	prioritize string
 
-	minBound  int // in millisecond
-	maxBound  int // in millisecond
+	minBound int // in millisecond
+	maxBound int // in millisecond
 
 	killRates     []killRatePerEntity
 	shutdownRates []shutdownRatePerEntity
@@ -52,6 +57,52 @@ type Etcd struct {
 	queueMutex     *sync.Mutex
 
 	param *EtcdParam
+}
+
+type etcdReq struct {
+	method string
+	path   string
+
+	body []byte
+
+	orig string
+}
+
+func parseEtcdReq(stringReq []byte) *etcdReq {
+	// I don't know why but http.ReadResponse of go cannot parse etcd's request
+
+	methodRe, merr := regexp.Compile("^(.+)")
+	if merr != nil {
+		Log("failed to parse regex: %s", merr)
+		os.Exit(1)
+	}
+
+	method := methodRe.Find(stringReq)
+	Log("method: %s", method)
+
+	pathRe, perr := regexp.Compile("Path: (.+)")
+	if perr != nil {
+		Log("failed to parse regex: %s", perr)
+		os.Exit(1)
+	}
+
+	path := pathRe.Find(stringReq)
+	Log("path: %s", path)
+
+	bodyIdx := strings.Index(string(stringReq), "\r\n\r\n")
+
+	Log("bodyIdx: %d", bodyIdx)
+	var body []byte
+	if bodyIdx != -1 {
+		body = stringReq[bodyIdx + 1:]
+	}
+
+	return &etcdReq{
+		string(method),
+		string(path),
+		body,
+		string(stringReq),
+	}
 }
 
 func constrKillRatePerEntity(rawRates map[string]interface{}) []killRatePerEntity {
@@ -118,7 +169,7 @@ func (policy *Etcd) shouldInjectFault(entityId string) bool {
 			continue
 		}
 
-		return rate.rate < policy.randGen.Int() % 100
+		return rate.rate < policy.randGen.Int()%100
 	}
 
 	return false
@@ -137,12 +188,57 @@ func (policy *Etcd) GetNextActionChan() chan *Action {
 }
 
 func (policy *Etcd) QueueNextEvent(entityId string, ev *Event) {
-	// option := ev.EventParam["option"].(map[string]interface{})
-	// msg := option["message"].(string)
+	option := ev.EventParam["option"].(map[string]interface{})
+	srcEntity := option["src_entity"].(string)
+	dstEntity := option["dst_entity"].(string)
+	msg := option["message"].(string)
+
+	sep := strings.Index(srcEntity, ":")
+	srcAddr := srcEntity[:sep]
+	srcPortStr := srcEntity[sep+1:]
+	srcPort, cerr := strconv.Atoi(srcPortStr)
+	if cerr != nil {
+		Log("converting src port (%s) failed: %s", srcPortStr, cerr)
+		os.Exit(1)
+	}
+
+	sep = strings.Index(dstEntity, ":")
+	dstAddr := dstEntity[:sep]
+	dstPortStr := dstEntity[sep+1:]
+	dstPort, cerr2 := strconv.Atoi(dstPortStr)
+	if cerr2 != nil {
+		Log("converting dst port (%s) failed: %s", dstPortStr, cerr2)
+		os.Exit(1)
+	}
+
+	Log("src addr: %s, src port: %d, dst addr: %s, dst port: %d", srcAddr, srcPort, dstAddr, dstPort)
+	if srcPort == 7001 { // response
+		// TODO: correspondence between request and response
+
+		go func() {
+			act, err := ev.MakeAcceptAction()
+			if err != nil {
+				panic(err)
+			}
+
+			policy.nextActionChan <- act
+		}()
+
+		return
+	}
+
+	msgData, err := base64.StdEncoding.DecodeString(msg)
+	if err != nil {
+		Log("fatal: decoding message (base64) failed: %s", err)
+		os.Exit(1)
+	}
+
+	req := parseEtcdReq(msgData)
+	Log("req: %v", req)
 
 	go func(e *Event) {
 		sleepMS := policy.randGen.Int() % policy.param.maxBound
-		if sleepMS <  policy.param.minBound {
+		if sleepMS < policy.param.minBound {
 			sleepMS = policy.param.minBound
 		}
 

@@ -24,11 +24,16 @@ class EtcdInspector(EtherInspectorBase):
             return None
         ipPayload = pkt['IP']
 
+        if not "TCP" in pkt:
+            return None
+        tcpPayload = pkt['TCP']
+
         if not "HTTP" in pkt:
             return None
 
-        httpPaylod = str(pkt['HTTP'])
-        return PacketEvent.from_message(src_entity=ipPayload.src, dst_entity=ipPayload.dst, message=base64.b64encode(str((httpPaylod))))
+        httpPayload = str(pkt['HTTP'])
+        LOG.info("http payload: %s\n", httpPayload)
+        return PacketEvent.from_message(src_entity=(ipPayload.src + (':%d' % tcpPayload.sport)), dst_entity=(ipPayload.dst + (':%d' % tcpPayload.dport)), message=base64.b64encode(str((httpPayload))))
 
 if __name__ == '__main__':
     print ''
