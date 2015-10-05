@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Earthquake">
+		
+		<title>ZOOKEEPER-2080: flaky JUnit test - Earthquake</title>
+		
+		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/theme.css">
+		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootie-docs.css">
+	</head>
+
+<body role="document">
+
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="http://osrg.github.io/earthquake//">Earthquake</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li ><a href="http://osrg.github.io/earthquake//">Home</a></li>
+			
+				
+				
+					
+					<li ><a href="http://osrg.github.io/earthquake//about">About</a></li>
+				
+					
+					<li ><a href="http://osrg.github.io/earthquake//gettingStarted">GettingStarted</a></li>
+				
+					
+					<li ><a href="http://osrg.github.io/earthquake//categories/blog">Blog</a></li>
+				
+			
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://osrg.github.io/earthquake//categories/blog">Blog</a></li>
+						
+							<li><a href="http://osrg.github.io/earthquake//categories/general">General</a></li>
+						
+						</ul>
+					</li>
+				
+				
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tags<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+						
+							<li><a href="http://osrg.github.io/earthquake//tags/document">Document</a></li>
+						
+							<li><a href="http://osrg.github.io/earthquake//tags/found-bug">Found-Bug</a></li>
+						
+							<li><a href="http://osrg.github.io/earthquake//tags/reproduced-bug">Reproduced-Bug</a></li>
+						
+							<li><a href="http://osrg.github.io/earthquake//tags/zookeeper">Zookeeper</a></li>
+						
+						</ul>
+					</li>
+				
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<div class="container">
+
+
+<div class="row">
+	<div class="col-sm-9 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">ZOOKEEPER-2080: flaky JUnit test</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2015-10-02">October 02, 2015</time></span>
+				</div>
+				<section>
+					
+
+<h2 id="introduction:76efb5c48a34481fa50b4c096fa9081f">Introduction</h2>
+
+<p><a href="https://zookeeper.apache.org/">Apache Zookeeper</a> is a highly available coordination service that is used by many distributed systems.
+(See also <a href="/earthquake/post/zookeeper-2212/">our previous post about ZOOKEEPER-2212</a>)</p>
+
+<p>ZooKeeper is comparatively matured, and well-tested with many JUnit scenarios.
+However, due to its high non-determinism, some test scenarios are still flaky, plus it is very hard to identify the cause of such flaky bugs.</p>
+
+<p>Using Earthquake, we successfully reproduced the bug <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2080">ZOOKEEPER-2080</a> and analyzed its cause.</p>
+
+<h2 id="the-bug:76efb5c48a34481fa50b4c096fa9081f">The Bug</h2>
+
+<p><a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2080">ZOOKEEPER-2080</a> reports that the JUnit test <code>ReconfigRecoveryTest.testCurrentObserverIsParticipantInNewConfig</code> fails intermittently.</p>
+
+<p>However, to the best of our knowledge, no one had successfully reproduced nor analyzed the bug for almost 2 years (since 2013), until we reproduced and analyzed with Earthquake.</p>
+
+<p>We found that the bug has been caused by a race condition in the <code>QuorumCnxManager</code> class, which manages TCP sockets for leader election.</p>
+
+<p>Unfortunately, to fix the bug gracefully, drastic changes to <code>QuorumCnxManager</code> (suggested since 2010: <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-901">ZOOKEEPER-901</a>) might be needed.
+We continue to look on the progress of ZOOKEEPER-901 and several related tickets such as <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-900">ZOOKEEPER-900</a>, <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2164">2164</a> and <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2246">2246</a>.</p>
+
+<h2 id="how-to-reproduce-the-bug-with-earthquake:76efb5c48a34481fa50b4c096fa9081f">How to Reproduce the Bug with Earthquake</h2>
+
+<p>The bug can be easily reproduced by injecting several tens of millisecs sleeps to FLE (Fast Leader Election protocol) packets.
+We did not have to permute packets explicitly.</p>
+
+<p>NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as <a href="https://github.com/osrg/hookswitch/">osrg/hookswitch</a>. HookSwitch can also hook OpenFlow packets, as <a href="/earthquake/post/zookeeper-2212/">we used in ZOOKEEPER-2212</a>.</p>
+
+<h3 id="set-up-earthquake-v0-1-2:76efb5c48a34481fa50b4c096fa9081f">Set up Earthquake (v0.1.2)</h3>
+
+<p>For more information about setting up Earthquake, please refer to <a href="https://github.com/osrg/earthquake/blob/v0.1.2/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a>.</p>
+
+<pre><code>$ sudo sh -c 'echo 0 &gt; /proc/sys/net/ipv4/tcp_autocorking' #recommended if Linux &gt;= 3.14
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.2
+docker$ export PYTHONPATH=/earthquake #BUG(Dockerfile): should be predefined in &gt; v0.1.2
+docker$ apt-get install ant-optional #BUG(Dockerfile): should be preinstalled in &gt; v0.1.2
+docker$ cd /earthquake/example/zk-repro-2080.nfqhook
+docker$ ../../bin/earthquake init --force config.toml materials /tmp-zk-2080 #BUG(Dockerfile): in some envs, you may be unable to write in /tmp.
+</code></pre>
+
+<h3 id="run-experiments:76efb5c48a34481fa50b4c096fa9081f">Run Experiments</h3>
+
+<p>First, confirm that ZooKeeper works fine with<em>out</em> Earthquake (by setting <code>EQ_DISABLE</code>).</p>
+
+<pre><code>docker$ EQ_DISABLE=1 ../../bin/earthquake run /tmp-zk-2080
+..
+[junit] 2015-10-02 14:28:58,587 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testCurrentObserverIsParticipantInNewConfig
+..
+validation succeed
+</code></pre>
+
+<p>Then you can see that ZooKeeper almost always fails <em>with</em> Earthquake.</p>
+
+<pre><code>docker$ ../../bin/earthquake run /tmp-zk-2080
+..
+[junit] 2015-10-02 14:36:49,863 [myid:] - INFO  [main:ZKTestCase$1@70] - FAILED testCurrentObserverIsParticipantInNewConfig
+[junit] java.lang.AssertionError: waiting for server 2 being up
+..
+validation failed: exit status 1
+</code></pre>
+
+<p>If the bug could not be reproduced, you might have to modify the <code>sleep</code> parameter in <code>config.toml</code>. (about 30 msecs to 80 msecs)</p>
+
+<h3 id="analyze:76efb5c48a34481fa50b4c096fa9081f">Analyze</h3>
+
+<p>Unlike we experienced in <a href="/earthquake/post/zookeeper-2212/">ZOOKEEPER-2212</a>, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.</p>
+
+<p>Instead, we compared branch patterns of Java codes using our new Earthquake Analyzer.</p>
+
+<pre><code>docker$ java -jar ../../bin/earthquake-analyzer.jar /tmp-zk-2080/ --classes-path /tmp-zk-2080/materials/zookeeper/build/classes
+[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
+[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
+..
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::getVote line 805-805
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 919-919
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 939-941
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 945-945
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 949-949
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 951-952
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection$Messenger$WorkerReceiver::run line 393-395
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection$Messenger$WorkerReceiver::run line 403-404
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 808-809
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 812-814
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 816-816
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 818-818
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 823-825
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 830-830
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 833-834
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 837-839
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 870-870
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 878-880
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 882-882
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 884-884
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 895-895
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::syncFollower line 744-746
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::syncFollower line 748-748
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::connectAll line 510-513
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::connectAll line 515-515
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::haveDelivered line 527-527
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::haveDelivered line 529-529
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::receiveConnection line 382-382
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager$Listener::run line 657-657
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager$SendWorker::run line 809-811
+</code></pre>
+
+<p>Earthquake Analyzer picks up some branch patterns peculiar to failed experiments, and marks them &ldquo;suspicious&rdquo;.
+Although the suspicious set can contain some misleading information, it is enough for approximation.</p>
+
+<p>As mentioned above, the bug seems caused by a race condition between a TCP packet arrival and <code>SendWorker</code>/<code>RecvWorker</code> lifecycle.</p>
+
+<p>Failed experiments tend to have a peculiar pattern of callling <code>SendWorker::finish()</code> (and also <code>RecvWorker::finish()</code>), e.g., calls from the branch <a href="https://github.com/apache/zookeeper/blob/df7d56d25d38f872b5793af365ef732c4478eb1d/src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java#L382"><code>QuorumCnxManager::receiveConnection line 382-382</code></a>.</p>
+
+<p>When these peculiar calls to <code>SendWorker::finish()</code> are commented out, the bug gets hard to be reproduced. It suggests that <code>SendWorker</code>/<code>RecvWorker</code> lifecycles matters.</p>
+
+<p>To fix the bug gracefully, using non-blocking TCP sockets (suggested in <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-901">ZOOKEEPER-901</a>) might be needed.</p>
+
+<h2 id="conclusion:76efb5c48a34481fa50b4c096fa9081f">Conclusion</h2>
+
+<p>We reproduced the flaky JUnit test bug <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2080">ZOOKEEPER-2080</a> and analyzed its cause using Earthquake.</p>
+
+<p>Lessons we learned:</p>
+
+<ul>
+<li>Just delaying packets is sometimes effective to reproduce flaky testcases.</li>
+<li>Branch pattern analysis is an easy and general method for narrowing bug-cause candidates, although we still need much more improvements to this.</li>
+</ul>
+
+				</section>
+			</article>
+		</main>
+
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+		   
+		  var disqus_shortname = 'osrg-earthquake';
+		  
+		   
+		  (function() {
+		  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		  })();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+		
+	</div> 
+        
+<div class="col-sm-3 col-sm-offset-0 doc-sidebar">
+  <div class="sidebar-module">
+    <h4><a href="http://osrg.github.io/earthquake//post">Recent Posts</a></h4>
+    <ul>
+      
+      <li><a href="/earthquake/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
+      
+      <li><a href="/earthquake/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
+      
+      <li><a href="/earthquake/post/first/">Hello, world!(2015-07-24)</a></li>
+      
+    </ul>
+  </div>
+  <div class="sidebar-module">
+    <div id="twitter-timeline-container">
+      <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/EarthquakeDMCK" data-widget-id="608816516100837376" width="180">Tweets by @EarthquakeDMCK</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </div>  
+</div>
+
+
+</div> 
+
+
+<hr />
+
+<div class="row">
+	<div class="col-sm-2 col-sm-offset-10">
+		<p class="doc-footer-em"><a href="#">Back to TOP</a></p>
+	</div>
+</div>
+
+</div> 
+
+<footer class="doc-footer">
+	<p class="doc-footer-em">Browse <strong><a href="https://github.com/osrg/earthquake/">Repository</a></strong></p>
+	<p>Copyright© 2015 Nippon Telegraph and Telephone Corporation</p>
+	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
+</footer>
+
+
+
+<script src="http://osrg.github.io/earthquake//js/jquery-1.11.2.min.js"></script>
+<script src="http://osrg.github.io/earthquake//js/bootstrap.min.js"></script>
+
+<script src="http://osrg.github.io/earthquake//js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script src="http://osrg.github.io/earthquake//js/ie10-viewport-bug-workaround.js"></script>
+
+</body>
+</html>
+

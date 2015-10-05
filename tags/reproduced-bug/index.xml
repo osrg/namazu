@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reproduced Bug on Earthquake</title>
+    <link>http://osrg.github.io/earthquake/tags/reproduced-bug/</link>
+    <description>Recent content in Reproduced Bug on Earthquake</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
+    <lastBuildDate>Fri, 02 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://osrg.github.io/earthquake/tags/reproduced-bug/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ZOOKEEPER-2080: flaky JUnit test</title>
+      <link>http://osrg.github.io/earthquake/post/zookeeper-2080/</link>
+      <pubDate>Fri, 02 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/earthquake/post/zookeeper-2080/</guid>
+      <description>
+
+&lt;h2 id=&#34;introduction:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://zookeeper.apache.org/&#34;&gt;Apache Zookeeper&lt;/a&gt; is a highly available coordination service that is used by many distributed systems.
+(See also &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;our previous post about ZOOKEEPER-2212&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;ZooKeeper is comparatively matured, and well-tested with many JUnit scenarios.
+However, due to its high non-determinism, some test scenarios are still flaky, plus it is very hard to identify the cause of such flaky bugs.&lt;/p&gt;
+
+&lt;p&gt;Using Earthquake, we successfully reproduced the bug &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; and analyzed its cause.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-bug:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;The Bug&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; reports that the JUnit test &lt;code&gt;ReconfigRecoveryTest.testCurrentObserverIsParticipantInNewConfig&lt;/code&gt; fails intermittently.&lt;/p&gt;
+
+&lt;p&gt;However, to the best of our knowledge, no one had successfully reproduced nor analyzed the bug for almost 2 years (since 2013), until we reproduced and analyzed with Earthquake.&lt;/p&gt;
+
+&lt;p&gt;We found that the bug has been caused by a race condition in the &lt;code&gt;QuorumCnxManager&lt;/code&gt; class, which manages TCP sockets for leader election.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, to fix the bug gracefully, drastic changes to &lt;code&gt;QuorumCnxManager&lt;/code&gt; (suggested since 2010: &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-901&#34;&gt;ZOOKEEPER-901&lt;/a&gt;) might be needed.
+We continue to look on the progress of ZOOKEEPER-901 and several related tickets such as &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-900&#34;&gt;ZOOKEEPER-900&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2164&#34;&gt;2164&lt;/a&gt; and &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2246&#34;&gt;2246&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
+
+&lt;p&gt;The bug can be easily reproduced by injecting several tens of millisecs sleeps to FLE (Fast Leader Election protocol) packets.
+We did not have to permute packets explicitly.&lt;/p&gt;
+
+&lt;p&gt;NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as &lt;a href=&#34;https://github.com/osrg/hookswitch/&#34;&gt;osrg/hookswitch&lt;/a&gt;. HookSwitch can also hook OpenFlow packets, as &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;we used in ZOOKEEPER-2212&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;set-up-earthquake-v0-1-2:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Set up Earthquake (v0.1.2)&lt;/h3&gt;
+
+&lt;p&gt;For more information about setting up Earthquake, please refer to &lt;a href=&#34;https://github.com/osrg/earthquake/blob/v0.1.2/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo sh -c &#39;echo 0 &amp;gt; /proc/sys/net/ipv4/tcp_autocorking&#39; #recommended if Linux &amp;gt;= 3.14
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.2
+docker$ export PYTHONPATH=/earthquake #BUG(Dockerfile): should be predefined in &amp;gt; v0.1.2
+docker$ apt-get install ant-optional #BUG(Dockerfile): should be preinstalled in &amp;gt; v0.1.2
+docker$ cd /earthquake/example/zk-repro-2080.nfqhook
+docker$ ../../bin/earthquake init --force config.toml materials /tmp-zk-2080 #BUG(Dockerfile): in some envs, you may be unable to write in /tmp.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;run-experiments:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Run Experiments&lt;/h3&gt;
+
+&lt;p&gt;First, confirm that ZooKeeper works fine with&lt;em&gt;out&lt;/em&gt; Earthquake (by setting &lt;code&gt;EQ_DISABLE&lt;/code&gt;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker$ EQ_DISABLE=1 ../../bin/earthquake run /tmp-zk-2080
+..
+[junit] 2015-10-02 14:28:58,587 [myid:] - INFO  [main:ZKTestCase$1@65] - SUCCEEDED testCurrentObserverIsParticipantInNewConfig
+..
+validation succeed
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then you can see that ZooKeeper almost always fails &lt;em&gt;with&lt;/em&gt; Earthquake.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker$ ../../bin/earthquake run /tmp-zk-2080
+..
+[junit] 2015-10-02 14:36:49,863 [myid:] - INFO  [main:ZKTestCase$1@70] - FAILED testCurrentObserverIsParticipantInNewConfig
+[junit] java.lang.AssertionError: waiting for server 2 being up
+..
+validation failed: exit status 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the bug could not be reproduced, you might have to modify the &lt;code&gt;sleep&lt;/code&gt; parameter in &lt;code&gt;config.toml&lt;/code&gt;. (about 30 msecs to 80 msecs)&lt;/p&gt;
+
+&lt;h3 id=&#34;analyze:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Analyze&lt;/h3&gt;
+
+&lt;p&gt;Unlike we experienced in &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.&lt;/p&gt;
+
+&lt;p&gt;Instead, we compared branch patterns of Java codes using our new Earthquake Analyzer.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker$ java -jar ../../bin/earthquake-analyzer.jar /tmp-zk-2080/ --classes-path /tmp-zk-2080/materials/zookeeper/build/classes
+[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
+[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
+..
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::getVote line 805-805
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 919-919
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 939-941
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 945-945
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 949-949
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 951-952
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection$Messenger$WorkerReceiver::run line 393-395
+Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection$Messenger$WorkerReceiver::run line 403-404
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 808-809
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 812-814
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 816-816
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 818-818
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 823-825
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 830-830
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 833-834
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 837-839
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 870-870
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 878-880
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 882-882
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 884-884
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::queueCommittedProposals line 895-895
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::syncFollower line 744-746
+Suspicious: org.apache.zookeeper.server.quorum.LearnerHandler::syncFollower line 748-748
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::connectAll line 510-513
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::connectAll line 515-515
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::haveDelivered line 527-527
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::haveDelivered line 529-529
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::receiveConnection line 382-382
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager$Listener::run line 657-657
+Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager$SendWorker::run line 809-811
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Earthquake Analyzer picks up some branch patterns peculiar to failed experiments, and marks them &amp;ldquo;suspicious&amp;rdquo;.
+Although the suspicious set can contain some misleading information, it is enough for approximation.&lt;/p&gt;
+
+&lt;p&gt;As mentioned above, the bug seems caused by a race condition between a TCP packet arrival and &lt;code&gt;SendWorker&lt;/code&gt;/&lt;code&gt;RecvWorker&lt;/code&gt; lifecycle.&lt;/p&gt;
+
+&lt;p&gt;Failed experiments tend to have a peculiar pattern of callling &lt;code&gt;SendWorker::finish()&lt;/code&gt; (and also &lt;code&gt;RecvWorker::finish()&lt;/code&gt;), e.g., calls from the branch &lt;a href=&#34;https://github.com/apache/zookeeper/blob/df7d56d25d38f872b5793af365ef732c4478eb1d/src/java/main/org/apache/zookeeper/server/quorum/QuorumCnxManager.java#L382&#34;&gt;&lt;code&gt;QuorumCnxManager::receiveConnection line 382-382&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;When these peculiar calls to &lt;code&gt;SendWorker::finish()&lt;/code&gt; are commented out, the bug gets hard to be reproduced. It suggests that &lt;code&gt;SendWorker&lt;/code&gt;/&lt;code&gt;RecvWorker&lt;/code&gt; lifecycles matters.&lt;/p&gt;
+
+&lt;p&gt;To fix the bug gracefully, using non-blocking TCP sockets (suggested in &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-901&#34;&gt;ZOOKEEPER-901&lt;/a&gt;) might be needed.&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;We reproduced the flaky JUnit test bug &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; and analyzed its cause using Earthquake.&lt;/p&gt;
+
+&lt;p&gt;Lessons we learned:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Just delaying packets is sometimes effective to reproduce flaky testcases.&lt;/li&gt;
+&lt;li&gt;Branch pattern analysis is an easy and general method for narrowing bug-cause candidates, although we still need much more improvements to this.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

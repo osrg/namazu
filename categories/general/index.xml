@@ -7,8 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
-    <lastBuildDate>Thu, 20 Aug 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Oct 2015 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://osrg.github.io/earthquake/categories/general/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Subprojects</title>
+      <link>http://osrg.github.io/earthquake/subprojects/</link>
+      <pubDate>Mon, 05 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/earthquake/subprojects/</guid>
+      <description>
+
+&lt;p&gt;These subprojects were originally developed for Earthquake, but we believe they can be also used for other purposes.&lt;/p&gt;
+
+&lt;h3 id=&#34;hookswitch-a-usermode-packet-injection-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookSwitch: A Usermode Packet Injection Library&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://badge.fury.io/py/hookswitch&#34;&gt;&lt;img src=&#34;https://badge.fury.io/py/hookswitch.svg&#34; alt=&#34;PyPI version&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookswitch&#34;&gt;https://github.com/osrg/hookswitch&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;hookfs-a-usermode-hookable-filesystem-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookFS: A Usermode Hookable Filesystem Library&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookfs&#34;&gt;https://github.com/osrg/hookfs&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Getting Started</title>
