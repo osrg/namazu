@@ -24,7 +24,7 @@ but we believe that one of the most important reasons is lacking of a good debug
  * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080): [(blog article)]({{< relref "post/zookeeper-2080.md" >}})
 
 * Etcd:
- * Found [#3517](https://github.com/coreos/etcd/issues/3517), fixed in [#3530](https://github.com/coreos/etcd/pull/3530): To Be Documented
+ * Found an etcd command line client (etcdctl) bug [#3517](https://github.com/coreos/etcd/issues/3517), fixed in [#3530](https://github.com/coreos/etcd/pull/3530): To Be Documented
 
 The repro codes are located on [earthquake/example](https://github.com/osrg/earthquake/tree/master/example).
 
