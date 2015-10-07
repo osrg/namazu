@@ -52,7 +52,13 @@ NOTE: Go 1.5 or later is required to build libearthquake.so.
     
 	$ sudo apt-get install -y --no-install-recommends python-{flask,scapy,zmq}
     $ sudo pip install hexdump
-    
+
+### (Optional) Install Dependencies for Ethernet inspector
+
+    $ sudo pip install git+https://github.com/osrg/hookswitch@2b4e673e15b04664b07bce876981bc21ba1eb9e3
+
+This should also install ryu.
+
 ### (Optional) Install Dependencies for Ethernet inspector (ryu)
 #### Install Open vSwitch
     
@@ -60,12 +66,7 @@ NOTE: Go 1.5 or later is required to build libearthquake.so.
     
 Earthquake is tested with Open vSwitch 2.3.1 (Ubuntu 15.04).
 
-#### Install ryu
     
-    $ sudo pip install ryu
-    
-Earthquake is tested with ryu 3.20.2
-
 #### Install pipework
     
     $ sudo apt-get install -y --no-install-recommends arping

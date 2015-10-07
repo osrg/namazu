@@ -39,6 +39,9 @@ function CHECK_PREREQUISITES() {
     INFO "Checking whether Ant is installed"
     hash ant
 
+    INFO "Checking whether HookSwitch is installed"
+    hash hookswitch-nfq
+
     if [ -f /proc/sys/net/ipv4/tcp_autocorking ]; then
 	INFO "Checking whether tcp_autocorking (introduced in Linux 3.14) is disabled"
 	test $(cat /proc/sys/net/ipv4/tcp_autocorking) = 0
@@ -51,7 +54,7 @@ function CHECK_PREREQUISITES() {
     test $(iptables -n -L -v | grep "NFQUEUE num ${NFQ_NUMBER}" | wc -l) = 0
 
     INFO "Checking PYTHONPATH"
-    ## used for zk_nfqhook and zk_inspector
+    ## used for zk_inspector
     python -c "import pyearthquake"
 }
 
@@ -89,7 +92,6 @@ function BUILD_ZK() {
 
 ## FUNCS (BOOT)
 export EQ_ETHER_ZMQ_ADDR="ipc://${EQ_WORKING_DIR}/ether_inspector"
-export EQ_NFQ_NUMBER=${NFQ_NUMBER}
 
 function INSTALL_IPTABLES_RULE() {
     INFO "Installing iptables rule for user=${NFQ_USER}, nfqueue=${NFQ_NUMBER}"
@@ -97,10 +99,10 @@ function INSTALL_IPTABLES_RULE() {
 }
 
 function START_NFQHOOK() {
-    INFO "Starting Earthquake Ethernet NFQHook"
-    python ${EQ_MATERIALS_DIR}/zk_nfqhook.py > ${EQ_WORKING_DIR}/nfqhook.log 2>&1 &
+    INFO "Starting NFQ HookSwitch"
+    hookswitch-nfq --nfq-number ${NFQ_NUMBER} --debug ${EQ_ETHER_ZMQ_ADDR} > ${EQ_WORKING_DIR}/nfqhook.log 2>&1 &
     pid=$!
-    INFO "NFQHook PID: ${pid}"
+    INFO "NFQ HookSwitch PID: ${pid}"
     echo ${pid} > ${EQ_WORKING_DIR}/nfqhook.pid
 }
 
