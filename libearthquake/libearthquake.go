@@ -17,9 +17,8 @@ package main
 
 import (
 	"C"
-	. "./equtils"
+	"fmt"
 )
-
 
 type libExecution struct {
 }
@@ -29,8 +28,8 @@ var (
 )
 
 func init() {
-	Log("***** libearthquake.so: UNDER REFACTORING, YOU SHOULD NOT USE THIS (please try v0.1 instead) *****")
-	Log("libearthquake is planned for exposing some DB-lookup functions to external plugins")
+	fmt.Println("***** libearthquake.so: UNDER REFACTORING, YOU SHOULD NOT USE THIS (please try v0.1 instead) *****")
+	fmt.Println("libearthquake is planned for exposing some DB-lookup functions to external plugins")
 }
 
 //export EQInitCtx
@@ -38,14 +37,11 @@ func EQInitCtx(configCString *C.char) int {
 	return -1
 }
 
-
 //export EQFreeCtx
 func EQFreeCtx() int {
 	return 0
 }
 
-
-
 func main() {
-	Log("this dummy main() is required: http://qiita.com/yanolab/items/1e0dd7fd27f19f697285")
+	fmt.Println("this dummy main() is required: http://qiita.com/yanolab/items/1e0dd7fd27f19f697285")
 }

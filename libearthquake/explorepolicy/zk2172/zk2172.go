@@ -18,13 +18,13 @@
 package zk2172
 
 import (
-	"math/rand"
-	"sync"
-	"time"
-
 	. "../../equtils"
 	. "../../historystorage"
 	"fmt"
+	log "github.com/cihub/seelog"
+	"math/rand"
+	"sync"
+	"time"
 )
 
 type ZK2172Param struct {
@@ -40,8 +40,8 @@ type zkEvent struct {
 
 type ZK2172 struct {
 	nextActionChan chan *Action
-	randGen       *rand.Rand
-	queueMutex    *sync.Mutex
+	randGen        *rand.Rand
+	queueMutex     *sync.Mutex
 
 	eventQueue []*zkEvent // high priority
 
@@ -99,7 +99,7 @@ func (this *ZK2172) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			qlen := len(this.eventQueue)
 			if qlen == 0 {
-				Log("no event is queued")
+				log.Debug("no event is queued")
 				this.queueMutex.Unlock()
 				continue
 			}
@@ -109,7 +109,9 @@ func (this *ZK2172) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			if nextEvent != nil {
 				act, err := nextEvent.MakeAcceptAction()
-				if err != nil { panic(err) }			
+				if err != nil {
+					panic(err)
+				}
 				this.nextActionChan <- act
 			}
 		}
@@ -131,7 +133,7 @@ func (this *ZK2172) QueueNextEvent(entityId string, ev *Event) {
 		0,
 	}
 
-	if ! ( ev.EventType == "FuncCall" || ev.EventType == "FuncReturn" ) {
+	if !(ev.EventType == "FuncCall" || ev.EventType == "FuncReturn") {
 		panic(fmt.Errorf("Unsupported event type %s", ev.EventType))
 	}
 

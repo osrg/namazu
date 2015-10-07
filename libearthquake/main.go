@@ -26,7 +26,7 @@ func main() {
 	c := cli.NewCLI("earthquake", "0.1.2")
 	c.Args = os.Args[1:]
 	c.Commands = map[string]cli.CommandFactory{
-		"tools":  toolsCommandFactory,
+		"tools": toolsCommandFactory,
 
 		"init": initCommandFactory,
 		"run":  runCommandFactory,

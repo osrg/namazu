@@ -17,6 +17,7 @@ package equtils
 
 import (
 	"fmt"
+	log "github.com/cihub/seelog"
 	"github.com/satori/go.uuid"
 	"net"
 	"reflect"
@@ -118,7 +119,7 @@ func (this *Event) ToJSONMap() map[string]interface{} {
 		m["class"] = "FunctionReturnEvent"
 		m["option"].(map[string]interface{})["func_name"] = this.EventParam["name"]
 	} else {
-		Panic("invalid type of event: %d", this.EventType)
+		panic(log.Criticalf("invalid type of event: %d", this.EventType))
 	}
 	if this.JavaSpecific != nil {
 		m["option"].(map[string]interface{})["thread_name"] = this.JavaSpecific.ThreadName
@@ -206,11 +207,11 @@ func (this *Action) ToJSONMap() map[string]interface{} {
 		// NOTE: this.Evt: PB Event, jsonEvent: JSON Event
 		jsonEvent, err := EventFromJSONMap(this.Evt.ToJSONMap(), this.Evt.ArrivedTime, this.Evt.EntityId)
 		if err != nil {
-			Panic("%s", err)
+			panic(log.Critical(err))
 		}
 		jsonAction, err := jsonEvent.MakeAcceptAction()
 		if err != nil {
-			Panic("%s", err)
+			panic(log.Critical(err))
 		}
 		return jsonAction.ToJSONMap()
 	} else if this.ActionType == "Kill" {
@@ -228,7 +229,7 @@ func (this *Action) ToJSONMap() map[string]interface{} {
 		return m
 	} else {
 		// FIXME: return an error
-		Panic("Unknown type %s", this.ActionType)
+		panic(log.Criticalf("Unknown type %s", this.ActionType))
 		return nil
 	}
 }

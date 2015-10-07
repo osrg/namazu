@@ -16,13 +16,14 @@
 package pbinspectorhandler
 
 import (
+	. "../../equtils"
 	"fmt"
+	log "github.com/cihub/seelog"
+	"github.com/satori/go.uuid"
 	"io"
 	"net"
 	"os"
 	"time"
-	"github.com/satori/go.uuid"
-	. "../../equtils"
 )
 
 type PBInspectorHandler struct {
@@ -35,15 +36,15 @@ func recvPBMsgViaChan(entity *TransitionEntity, eventReqRecv chan *InspectorMsgR
 		rerr := RecvMsg(entity.Conn, req)
 		if rerr != nil {
 			if rerr == io.EOF {
-				Log("received EOF from transition entity :%s", entity.Id)
+				log.Debugf("received EOF from transition entity :%s", entity.Id)
 				return
 			} else {
-				Log("failed to recieve request (transition entity: %s): %s", entity.Id, rerr)
+				log.Debugf("failed to recieve request (transition entity: %s): %s", entity.Id, rerr)
 				return // TODO: error handling
 			}
 		}
 
-		Log("received message from transition entity :%s", entity.Id)
+		log.Debugf("received message from transition entity :%s", entity.Id)
 		eventReqRecv <- req
 	}
 }
@@ -53,17 +54,17 @@ func sendPBMsgViaChan(entity *TransitionEntity, eventRspSend chan *InspectorMsgR
 		rsp := <-eventRspSend
 		serr := SendMsg(entity.Conn, rsp)
 		if serr != nil {
-			Log("failed to send response (transition entity: %s): %s", entity.Id, serr)
+			log.Debugf("failed to send response (transition entity: %s): %s", entity.Id, serr)
 			return // TODO: error handling
 		}
 		if *rsp.Res == InspectorMsgRsp_END {
-			Log("send routine end (transition entity :%s)", entity.Id)
+			log.Debugf("send routine end (transition entity :%s)", entity.Id)
 			return
 		}
 	}
 }
 
-func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity, req *InspectorMsgReq) *Event {
+func (handler *PBInspectorHandler) makeEventFromPBMsg(entity *TransitionEntity, req *InspectorMsgReq) *Event {
 
 	evType := ""
 	evParam := NewEAParam()
@@ -77,18 +78,18 @@ func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity,
 		evParam["name"] = *req.Event.FuncReturn.Name
 		evDeferred = true
 	} else {
-		Panic("invalid type of event: %d", *req.Event.Type)
+		panic(log.Criticalf("invalid type of event: %d", *req.Event.Type))
 	}
 
 	e := &Event{
 		ArrivedTime: time.Now(),
-		EntityId:      entity.Id,
+		EntityId:    entity.Id,
 
 		// eventId: used by MongoDB and so on. expected to compliant with RFC 4122 UUID string format
-		EventId: uuid.NewV4().String(),
+		EventId:    uuid.NewV4().String(),
 		EventType:  evType,
 		EventParam: evParam,
-		Deferred: evDeferred,
+		Deferred:   evDeferred,
 	}
 
 	if *req.HasJavaSpecificFields == 1 {
@@ -122,16 +123,16 @@ func (handler *PBInspectorHandler) makeEventFromPBMsg (entity *TransitionEntity,
 		e.JavaSpecific = &ejs
 	}
 	if err := e.Validate(); err != nil {
-		Panic("Event.Validate() returned an error %s", err)
+		panic(log.Criticalf("Event.Validate() returned an error %s", err))
 	}
 	return e
 }
 
-func (handler *PBInspectorHandler) makePBMsgFromAction (entity *TransitionEntity, req *InspectorMsgReq, action *Action) *InspectorMsgRsp {
+func (handler *PBInspectorHandler) makePBMsgFromAction(entity *TransitionEntity, req *InspectorMsgReq, action *Action) *InspectorMsgRsp {
 	if err := action.Validate(); err != nil {
-		Panic("%s", err)
+		panic(log.Critical(err))
 	}
-	if (action.ActionType == "Accept") {
+	if action.ActionType == "Accept" {
 		result := InspectorMsgRsp_ACK
 		req_msg_id := *req.MsgId
 		rsp := &InspectorMsgRsp{
@@ -140,7 +141,7 @@ func (handler *PBInspectorHandler) makePBMsgFromAction (entity *TransitionEntity
 		}
 		return rsp
 	}
-	Panic("unsupported action %s", action)
+	panic(log.Criticalf("unsupported action %s", action))
 	return nil
 }
 
@@ -154,12 +155,12 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 		select {
 		case req := <-eventReqRecv:
 			if *req.Type != InspectorMsgReq_EVENT {
-				Log("invalid message from transition entity %s, type: %d", entity.Id, *req.Type)
+				log.Debugf("invalid message from transition entity %s, type: %d", entity.Id, *req.Type)
 				os.Exit(1)
 			}
 
 			if *req.Event.Type == InspectorMsgReq_Event_EXIT {
-				Log("entity %v is exiting", entity)
+				log.Debugf("entity %v is exiting", entity)
 				continue
 			}
 
@@ -167,7 +168,7 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 				// initialize id with a member of event
 				entity.Id = *req.EntityId
 			}
-			Log("event message received from transition entity %s", entity.Id)
+			log.Debugf("event message received from transition entity %s", entity.Id)
 
 			e := handler.makeEventFromPBMsg(entity, req)
 			go func(ev *Event) {
@@ -177,10 +178,10 @@ func (handler *PBInspectorHandler) handleEntity(entity *TransitionEntity, readyE
 
 			if *req.Event.Type != InspectorMsgReq_Event_EXIT {
 				act := <-entity.ActionFromMain
-				Log("execute action (type=\"%s\")", act.ActionType)
+				log.Debugf("execute action (type=\"%s\")", act.ActionType)
 				rsp := handler.makePBMsgFromAction(entity, req, act)
 				eventRspSend <- rsp
-				Log("accepted the event message from entity %v", entity)
+				log.Debugf("accepted the event message from entity %v", entity)
 			}
 		} // select
 	} // for
@@ -190,18 +191,16 @@ func (handler *PBInspectorHandler) StartAccept(readyEntityCh chan *TransitionEnt
 	sport := fmt.Sprintf(":%d", 10000) // FIXME (config.GetInt("inspectorHandler.pb.port"))
 	ln, lerr := net.Listen("tcp", sport)
 	if lerr != nil {
-		Log("failed to listen on port %d: %s", 10000, lerr)
-		os.Exit(1)
+		panic(log.Criticalf("failed to listen on port %d: %s", 10000, lerr))
 	}
 
 	for {
 		conn, aerr := ln.Accept()
 		if aerr != nil {
-			Log("failed to accept on %v: %s", ln, aerr)
-			os.Exit(1)
+			panic(log.Criticalf("failed to accept on %v: %s", ln, aerr))
 		}
 
-		Log("accepted new connection: %v", conn)
+		log.Debugf("accepted new connection: %v", conn)
 
 		entity := new(TransitionEntity)
 		entity.Id = "uninitialized"

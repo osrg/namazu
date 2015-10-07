@@ -15,80 +15,43 @@
 
 package equtils
 
+// Note: Log library comparison:
+//  - standard log: lacks log.Debug()
+//  - glog: ditto
+//  - logrus: lacks __FILE__, __LINE__
+
 import (
 	"fmt"
-	"os"
-	"runtime"
-	"time"
+	log "github.com/cihub/seelog"
+	"strings"
 )
-
-// is log level needed?
-type logLevel int
-
-const (
-	LOGLEVEL_INFO logLevel = 1
-	LOGLEVEL_DBG  logLevel = 2
-)
-
-var (
-	use_stdout = false
-	dstFiles   []*os.File
-)
-
-func Log(format string, v ...interface{}) {
-	formatted := fmt.Sprintf(format, v...)
-
-	_, file, line, _ := runtime.Caller(1)
-	head := len(file) - 20
-	prefix := "..."
-	if head < 0 {
-		head = 0
-		prefix = ""
-	}
-	file = file[head:len(file)]
-	timestr := time.Now().Local().Format(time.UnixDate)
-
-	if len(dstFiles) != 0 {
-		for _, dst := range dstFiles {
-			fmt.Fprintf(dst, "%s %s%s(%d): %s\n", timestr, prefix, file, line, formatted)
-		}
-	} else {
-		fmt.Printf("%s %s%s(%d): %s\n", timestr, prefix, file, line, formatted)
-	}
-}
 
 func InitLog(path string) {
-	if path == "" {
-		return
+
+	config := `
+<seelog type="sync" minlevel="debug">
+    <outputs formatid="main">
+        <console/>
+        <!-- ${extra} -->
+    </outputs>
+    <formats>
+        <format id="main" format="[EQ-%LEV] %Date(15:04:05.00): %Msg (at %File:%Line) %n"/>
+    </formats>
+</seelog>`
+
+	if path != "" {
+		extra := fmt.Sprintf("<file path=\"%s\"/>", path)
+		config = strings.Replace(config, "<!-- ${extra} -->",
+			extra, -1)
 	}
 
-	file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, os.ModeAppend)
+	logger, err := log.LoggerFromConfigAsBytes([]byte(config))
 	if err != nil {
-		fmt.Printf("failed to open file %s for logging: %s\n", path, err)
-		os.Exit(1)
+		panic(err)
 	}
-
-	dstFiles = append(dstFiles, file)
-	file.Seek(0, 2)
+	log.ReplaceLogger(logger)
 }
 
-func AddLogTee(newDst *os.File) {
-	dstFiles = append(dstFiles, newDst)
-}
-
-func Panic(format string, v ...interface{}) {
-	formatted := fmt.Sprintf("PANIC "+format, v...)
-
-	_, file, line, _ := runtime.Caller(1)
-	timestr := time.Now().String()
-
-	if len(dstFiles) != 0 {
-		for _, dst := range dstFiles {
-			fmt.Fprintf(dst, "%s %s(%d): %s\n", timestr, file, line, formatted)
-		}
-	} else {
-		fmt.Printf("%s %s(%d): %s\n", timestr, file, line, formatted)
-	}
-
-	os.Exit(1)
+func init() {
+	InitLog("")
 }

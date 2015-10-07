@@ -21,6 +21,7 @@
 package dfs
 
 import (
+	log "github.com/cihub/seelog"
 	"math/rand"
 	"sync"
 	"time"
@@ -35,8 +36,8 @@ type DFSParam struct {
 
 type DFS struct {
 	nextActionChan chan *Action
-	randGen       *rand.Rand
-	queueMutex    *sync.Mutex
+	randGen        *rand.Rand
+	queueMutex     *sync.Mutex
 
 	eventQueue []*Event // high priority
 
@@ -67,7 +68,7 @@ func (this *DFS) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			this.queueMutex.Lock()
 			if len(this.eventQueue) == 0 {
-				Log("no event is queued")
+				log.Debug("no event is queued")
 				this.queueMutex.Unlock()
 				continue
 			}
@@ -86,7 +87,7 @@ func (this *DFS) Init(storage HistoryStorage, param map[string]interface{}) {
 			if nextIdx == -1 {
 				// no seen events in the past
 
-				Log("no matching histories")
+				log.Debug("no matching histories")
 
 				evQ := this.eventQueue
 				this.eventQueue = []*Event{}
@@ -96,7 +97,9 @@ func (this *DFS) Init(storage HistoryStorage, param map[string]interface{}) {
 				go func() {
 					for _, e := range evQ {
 						act, err := e.MakeAcceptAction()
-						if err != nil { panic(err) }
+						if err != nil {
+							panic(err)
+						}
 						this.nextActionChan <- act
 					}
 				}()
@@ -113,7 +116,9 @@ func (this *DFS) Init(storage HistoryStorage, param map[string]interface{}) {
 			prefix = append(prefix, *next)
 
 			act, err := next.MakeAcceptAction()
-			if err != nil { panic(err) }			
+			if err != nil {
+				panic(err)
+			}
 			this.nextActionChan <- act
 		}
 	}()
@@ -135,7 +140,9 @@ func (this *DFS) QueueNextEvent(entityId string, ev *Event) {
 	} else {
 		go func() {
 			act, err := ev.MakeAcceptAction()
-			if err != nil { panic(err) }
+			if err != nil {
+				panic(err)
+			}
 			this.nextActionChan <- act
 		}()
 	}

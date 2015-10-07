@@ -20,6 +20,7 @@ import (
 	. "./explorepolicy"
 	"./inspectorhandler"
 	"fmt"
+	log "github.com/cihub/seelog"
 )
 
 func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *SingleTrace, config *Config) {
@@ -35,16 +36,16 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 	// This is because a TransitionEntity is created by each of StartAccept().
 	ev2entity := make(map[*Event]*TransitionEntity)
 
-	Log("start execution loop body")
+	log.Debug("start execution loop body")
 
 	running := true
 
 	handleAction := func(nextAction *Action) {
 		if nextAction.OrchestratorLocal {
-			Log("main loop received action (type=\"%s\") from the policy. "+
+			log.Debugf("main loop received action (type=\"%s\") from the policy. "+
 				"NOT passing to the inspector handler", nextAction.ActionType)
 		} else {
-			Log("main loop received action (type=\"%s\") from the policy. "+
+			log.Debugf("main loop received action (type=\"%s\") from the policy. "+
 				"passing to the inspector handler", nextAction.ActionType)
 		}
 
@@ -55,11 +56,11 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 			}
 
 			// TODO: support async run?
-			Log("Starting killCmd %s %s", killCmd.Path, killCmd.Args)
+			log.Debugf("Starting killCmd %s %s", killCmd.Path, killCmd.Args)
 			rerr := killCmd.Run()
-			Log("Finished killCmd %s %s", killCmd.Path, killCmd.Args)
+			log.Debugf("Finished killCmd %s %s", killCmd.Path, killCmd.Args)
 			if rerr != nil {
-				panic("failed to run kill command")
+				panic(log.Critical("failed to run kill command"))
 			}
 		}
 
@@ -79,7 +80,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 				readyEntity.ActionFromMain <- nextAction
 			} else {
 				// entity cannot be looked up by nextAction.EntityId right now
-				panic(fmt.Errorf("FIXME: this action %s not supported: because OrchestratorLocal=true and Evt=nil", nextAction))
+				panic(log.Criticalf("FIXME: this action %s not supported: because OrchestratorLocal=true and Evt=nil", nextAction))
 			}
 		}
 	}
@@ -87,25 +88,26 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 	for {
 		select {
 		case readyEntity := <-readyEntityCh:
-			Log("ready entity %v", readyEntity)
+			log.Debugf("ready entity %v", readyEntity)
 			event := <-readyEntity.EventToMain
-			Log("recieved message from %v", readyEntity)
+			log.Debugf("recieved message from %v", readyEntity)
 
 			acceptEventImmediately := func(event *Event) {
 				act, err := event.MakeAcceptAction()
 				if err != nil {
-					panic(err)
+					panic(log.Critical(err))
 				}
 				handleAction(act)
 			}
 
 			if x, ok := ev2entity[event]; ok {
 				if x != readyEntity {
-					panic(fmt.Errorf("entity for %s dup, %s vs %s", event, x, readyEntity))
+					panic(log.Criticalf("entity for %s dup, %s vs %s", event, x, readyEntity))
+
 				}
 			} else {
 				ev2entity[event] = readyEntity
-				Log("registered %s for %s", readyEntity, event)
+				log.Debugf("registered %s for %s", readyEntity, event)
 			}
 
 			if running {
@@ -122,7 +124,7 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 		case nextAction := <-nextActionChan:
 			handleAction(nextAction)
 		case <-endCh:
-			Log("main loop end")
+			log.Debug("main loop end")
 			running = false
 
 			newTrace := &SingleTrace{
@@ -132,5 +134,5 @@ func orchestrate(endCh chan interface{}, policy ExplorePolicy, newTraceCh chan *
 		}
 	}
 
-	Log("end execution loop body")
+	log.Debug("end execution loop body")
 }
