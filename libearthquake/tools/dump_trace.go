@@ -21,9 +21,9 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"github.com/mitchellh/cli"
 	"os"
 	"time"
-	"github.com/mitchellh/cli"
 )
 
 type dumpTraceFlags struct {
@@ -40,7 +40,7 @@ func init() {
 }
 
 func dumpJSONAction(i int, act *Action) {
-	if ( act.ActionType != "_JSON") {
+	if act.ActionType != "_JSON" {
 		panic(fmt.Errorf("bad action %s", act))
 	}
 	ev := act.Evt
@@ -66,7 +66,7 @@ func dumpJSONAction(i int, act *Action) {
 }
 
 func dumpAction(i int, act *Action) {
-	if (act.ActionType == "_JSON") {
+	if act.ActionType == "_JSON" {
 		dumpJSONAction(i, act)
 		return
 	}

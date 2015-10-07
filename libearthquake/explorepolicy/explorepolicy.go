@@ -27,8 +27,8 @@ import (
 	"./dumb"
 	"./random"
 
-	"./zk2172"
 	"./etcd"
+	"./zk2172"
 )
 
 type ExplorePolicy interface {

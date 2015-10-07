@@ -16,22 +16,22 @@
 package restinspectorhandler
 
 import (
+	. "../../equtils"
 	"encoding/json"
 	"fmt"
+	. "github.com/ahmetalpbalkan/go-linq"
+	log "github.com/cihub/seelog"
+	"github.com/gorilla/mux"
 	"io"
 	"net/http"
 	"os"
 	"path"
 	"sync"
 	"time"
-	"github.com/gorilla/mux"
-	. "github.com/ahmetalpbalkan/go-linq"
-	. "../../equtils"
 )
 
 type RESTInspectorHandler struct {
 }
-
 
 type RESTEntity struct {
 	ActionsLock       sync.RWMutex
@@ -42,7 +42,7 @@ type RESTEntity struct {
 
 //TODO: move global vars to RESTInspectorHandler struct
 var (
-	RESTEntities = map[string]*RESTEntity{}
+	RESTEntities  = map[string]*RESTEntity{}
 	ReadyEntityCh chan *TransitionEntity
 )
 
@@ -56,23 +56,23 @@ func registerEntity(entityId string) error {
 		return fmt.Errorf("entity %s has been already registered", entityId)
 	}
 	restEntity := RESTEntity{
-		ActionsLock: sync.RWMutex{},
-		Actions: make([]*Action, 0),
+		ActionsLock:       sync.RWMutex{},
+		Actions:           make([]*Action, 0),
 		HttpActionReadyCh: make(chan bool),
-		Entity : TransitionEntity{
-			Id : entityId,
-			Conn: nil,
+		Entity: TransitionEntity{
+			Id:             entityId,
+			Conn:           nil,
 			ActionFromMain: make(chan *Action),
-			EventToMain: make(chan *Event),
+			EventToMain:    make(chan *Event),
 		},
 	}
 	RESTEntities[entityId] = &restEntity
-	Log("Registered entity: %s", entityId)
+	log.Debugf("Registered entity: %s", entityId)
 	go func() {
 		for {
 			// TODO: how to shutdown this goroutine
 			act := <-restEntity.Entity.ActionFromMain
-			Log("(From Main)Received action: %s", act)
+			log.Debugf("(From Main)Received action: %s", act)
 			restEntity.ActionsLock.Lock()
 			restEntity.Actions = append(restEntity.Actions, act)
 			restEntity.ActionsLock.Unlock()
@@ -82,7 +82,6 @@ func registerEntity(entityId string) error {
 	return nil
 }
 
-
 // @app.route('/', methods=['GET'])
 func RootOnGet(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -90,7 +89,7 @@ func RootOnGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func makeEventStruct(entityId string, reader io.Reader) (ev Event, err error) {
-	var m map[string] interface{}
+	var m map[string]interface{}
 	decoder := json.NewDecoder(reader)
 	err = decoder.Decode(&m)
 	if err != nil {
@@ -105,8 +104,8 @@ func EventsOnPost(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	entityId := vars["entity_id"]
 	eventUuid := vars["event_uuid"]
-	Log("EventsOnPost: entityId=%s, eventUuid=%s", entityId, eventUuid)
-	if ! isEntityRegistered(entityId) {
+	log.Debugf("EventsOnPost: entityId=%s, eventUuid=%s", entityId, eventUuid)
+	if !isEntityRegistered(entityId) {
 		if err := registerEntity(entityId); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -122,16 +121,16 @@ func EventsOnPost(w http.ResponseWriter, r *http.Request) {
 	// send event to entity
 	entity := &RESTEntities[entityId].Entity
 	go func() {
-		Log("*EventsOnPost: sending %s to %s", e, entityId)
+		log.Debugf("*EventsOnPost: sending %s to %s", e, entityId)
 		entity.EventToMain <- &e
-		Log("*EventsOnPost: sent %s to %s", e, entityId)
+		log.Debugf("*EventsOnPost: sent %s to %s", e, entityId)
 
 	}()
 
 	go func() {
-		Log("*EventsOnPost: notifying %s to main", entityId)
+		log.Debugf("*EventsOnPost: notifying %s to main", entityId)
 		ReadyEntityCh <- entity
-		Log("*EventsOnPost: notified %s to main", entityId)
+		log.Debugf("*EventsOnPost: notified %s to main", entityId)
 	}()
 
 	// return empty json
@@ -145,15 +144,17 @@ func (this *RESTEntity) WaitForAction() (act *Action) {
 		this.ActionsLock.RLock()
 		l := len(this.Actions)
 		this.ActionsLock.RUnlock()
-		if l > 0 { break; }
-		Log("Waiting for action (entityId=%s)", this.Entity.Id)
+		if l > 0 {
+			break
+		}
+		log.Debugf("Waiting for action (entityId=%s)", this.Entity.Id)
 		<-this.HttpActionReadyCh
 	}
 	this.ActionsLock.RLock()
 	act = this.Actions[0]
 	this.ActionsLock.RUnlock()
 	if act.ActionType != "_JSON" {
-		panic(fmt.Errorf("Invalid action type %s", act.ActionType))
+		panic(log.Criticalf("Invalid action type %s", act.ActionType))
 	}
 	return
 }
@@ -162,8 +163,8 @@ func (this *RESTEntity) WaitForAction() (act *Action) {
 func ActionsOnGet(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	entityId := vars["entity_id"]
-	Log("ActionsOnGet: entityId=%s", entityId)
-	if ! isEntityRegistered(entityId) {
+	log.Debugf("ActionsOnGet: entityId=%s", entityId)
+	if !isEntityRegistered(entityId) {
 		if err := registerEntity(entityId); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -177,7 +178,7 @@ func ActionsOnGet(w http.ResponseWriter, r *http.Request) {
 	}()
 	act := <-ch
 
-	Log("Action %s ready for entityId=%s", act, entityId)
+	log.Debugf("Action %s ready for entityId=%s", act, entityId)
 	// NOTE: an inspector has responsibility to DELETE the action,
 	//       because HTTP DELETE must be idempotent (RFC 7231)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -193,8 +194,8 @@ func ActionsOnDelete(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	entityId := vars["entity_id"]
 	actionUuid := vars["action_uuid"]
-	Log("ActionsOnDelete: entityId=%s, actionUuid=%s", entityId, actionUuid)
-	if ! isEntityRegistered(entityId) {
+	log.Debugf("ActionsOnDelete: entityId=%s, actionUuid=%s", entityId, actionUuid)
+	if !isEntityRegistered(entityId) {
 		err := fmt.Errorf("Unknown entity %s", entityId)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -205,7 +206,7 @@ func ActionsOnDelete(w http.ResponseWriter, r *http.Request) {
 
 	// DELETE the action
 	// NOTE: newActions == Actions is expected, as DELETE must be idempotent (RFC 7231)
-	newActions, err := From(restEntity.Actions).Where(func(s T) (bool, error){
+	newActions, err := From(restEntity.Actions).Where(func(s T) (bool, error) {
 		return s.(*Action).ToJSONMap()["uuid"].(string) != actionUuid, nil
 	}).Results()
 	if err != nil {
@@ -213,9 +214,9 @@ func ActionsOnDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	deletedActions := len(restEntity.Actions) - len(newActions)
-	Log("Deleted %d actions", deletedActions)
-	if ! ( deletedActions == 0 || deletedActions == 1 ) {
-		panic(fmt.Errorf("this should not happen. deletedActions=%d", deletedActions))
+	log.Debugf("Deleted %d actions", deletedActions)
+	if !(deletedActions == 0 || deletedActions == 1) {
+		panic(log.Criticalf("this should not happen. deletedActions=%d", deletedActions))
 	}
 
 	// this fails:
@@ -236,7 +237,7 @@ func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionE
 	ReadyEntityCh = readyEntityCh
 	sport := fmt.Sprintf(":%d", 10080) // FIXME
 	apiRoot := "/api/v2"
-	Log("REST API root=%s%s", sport, apiRoot)
+	log.Debugf("REST API root=%s%s", sport, apiRoot)
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", RootOnGet).Methods("GET")
 	router.HandleFunc(path.Join(apiRoot, "/events/{entity_id}/{event_uuid}"), EventsOnPost).Methods("POST")
@@ -245,7 +246,7 @@ func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionE
 
 	err := http.ListenAndServe(sport, router)
 	if err != nil {
-		panic(err)
+		panic(log.Critical(err))
 	}
 }
 

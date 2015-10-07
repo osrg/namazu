@@ -20,8 +20,8 @@ import (
 	"time"
 
 	. "../equtils"
-	"./naive"
 	"./mongodb"
+	"./naive"
 )
 
 const (
