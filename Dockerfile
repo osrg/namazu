@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ## Install Earthquake deps (protoc, JDK)
     protobuf-compiler default-jdk maven \
     ## Install useful stuffs
-    sudo ant \
+    sudo ant ant-optional \
     ## (Optional) Install MongoDB storage
     mongodb \
     ## (Optional) Install pyearthquake deps
@@ -16,14 +16,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libnetfilter-queue1 python-prctl
 
 ## Install Go 1.5
-RUN curl https://storage.googleapis.com/golang/go1.5.linux-amd64.tar.gz | tar Cxz /usr/local
+RUN curl https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz | tar Cxz /usr/local
 ENV PATH /usr/local/go/bin:$PATH
 
 ## (Optional) Install pyearthquake deps
 RUN pip install hexdump
 
-## (Optional) Install pyearthquake ryu deps
-RUN pip uninstall -y ryu && pip install ryu==3.20.2
+## (Optional) Install hookswitch
+RUN pip install git+https://github.com/osrg/hookswitch@2b4e673e15b04664b07bce876981bc21ba1eb9e3
+
+## (Optional) Install pipework for DinD
 RUN curl https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework -o /usr/local/bin/pipework
 RUN chmod +x /usr/local/bin/pipework
 
@@ -34,6 +36,7 @@ RUN useradd -m nfqhooked
 ADD . /earthquake
 WORKDIR /earthquake
 RUN ( git submodule init && git submodule update )
+ENV PYTHONPATH /earthquake:$PYTHONPATH
 
 ## Build Earthquake
 RUN ./build

@@ -34,7 +34,7 @@ class EtherInspectorBase(object):
             self.tcp_watcher = None
         self.deferred_events = {}  # key: string(event_uuid), value: {'event': PacketEvent, 'metadata`: dict}
 
-        LOG.info('Middlebox ZMQ Addr: %s', zmq_addr)
+        LOG.info('Hookswitch ZMQ Addr: %s', zmq_addr)
         self.zmq_addr = zmq_addr
         LOG.info('Orchestrator REST URL: %s', orchestrator_rest_url)
         self.orchestrator_rest_url = orchestrator_rest_url
@@ -82,10 +82,10 @@ class EtherInspectorBase(object):
 
                 if self.tcp_watcher:
                     self.tcp_watcher.on_recv(metadata, eth_bytes,
-                                             default_handler=self._on_recv_from_middlebox,
+                                             default_handler=self._on_recv_from_hookswitch,
                                              retrans_handler=self._on_tcp_retrans)
                 else:
-                    self._on_recv_from_middlebox(metadata, eth_bytes)
+                    self._on_recv_from_hookswitch(metadata, eth_bytes)
             except Exception as e:
                 LOG.error('Error in _zmq_worker()', exc_info=True)
                 try:
@@ -94,9 +94,9 @@ class EtherInspectorBase(object):
                         LOG.error(line)
                 except:
                     LOG.error('Error while hexdumping', exc_info=True)
-                self._send_to_middlebox(metadata)
+                self._send_to_hookswitch(metadata)
 
-    def _send_to_middlebox(self, metadata, op='accept'):
+    def _send_to_hookswitch(self, metadata, op='accept'):
         assert isinstance(metadata, dict)
         assert op in ('accept', 'drop')
         resp_metadata = metadata.copy()
@@ -104,17 +104,17 @@ class EtherInspectorBase(object):
         resp_metadata_str = json.dumps(resp_metadata)
         self.zs.send_multipart((resp_metadata_str, ''))
 
-    def _on_recv_from_middlebox(self, metadata, eth_bytes):
+    def _on_recv_from_hookswitch(self, metadata, eth_bytes):
         inspected_packet = self.inspect(eth_bytes)
         event = self.map_packet_to_event(inspected_packet)
         assert event is None or isinstance(event, PacketEvent)
         if not event:
-            self._send_to_middlebox(metadata, op='accept')
+            self._send_to_hookswitch(metadata, op='accept')
         else:
             self.on_packet_event(metadata, event)
 
     def _on_tcp_retrans(self, metadata, eth_bytes):
-        self._send_to_middlebox(metadata, op='drop')
+        self._send_to_hookswitch(metadata, op='drop')
 
     @abstractmethod
     def map_packet_to_event(self, pkt):
@@ -132,14 +132,14 @@ class EtherInspectorBase(object):
                 LOG.debug('Buffering an event: %s', event)
             else:
                 LOG.debug('Accepting an event (could not sent to orchestrator): %s', event)
-                self._send_to_middlebox(metadata)
+                self._send_to_hookswitch(metadata)
                 return
         if event.deferred:
             self.defer_packet_event(metadata, event)
         else:
             # NOTE: non-deferred packet events are useful for logging
             LOG.debug('Accepting an event (not deferred): %s', event)
-            self._send_to_middlebox(metadata)            
+            self._send_to_hookswitch(metadata)            
 
     def defer_packet_event(self, metadata, event):
         """
@@ -159,7 +159,7 @@ class EtherInspectorBase(object):
             metadata = self.deferred_events[event_uuid]['metadata']
             LOG.debug('Accept deferred event=%s, deferred-:%d->%d',
                       event, len(self.deferred_events), len(self.deferred_events)-1)
-            self._send_to_middlebox(metadata)
+            self._send_to_hookswitch(metadata)
             del self.deferred_events[event_uuid]
         except Exception as e:
             LOG.error('cannot pass this event: %s', event_uuid, exc_info=True)

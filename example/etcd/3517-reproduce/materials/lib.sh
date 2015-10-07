@@ -39,6 +39,8 @@ function CHECK_PREREQUISITES() {
     hash pipework
     INFO "Checking whether ryu is installed"
     hash ryu-manager
+    INFO "Checking whether hookswitch is installed"
+    hash hookswitch-of13
     INFO "Checking whether ovsbr0 is configured as 192.168.42.254"
     ip addr show ovsbr0
     test X$(ip addr show ovsbr0 | sed -nEe 's/^[ \t]*inet[ \t]*([0-9.]+)\/.*$/\1/p') = X192.168.42.254
@@ -68,13 +70,13 @@ export EQ_ETHER_ZMQ_ADDR="ipc://${EQ_WORKING_DIR}/ether_inspector"
 
 function CHECK_PYTHONPATH() {
     INFO "Checking PYTHONPATH(=${PYTHONPATH})"
-    ## used for etcd_switch and etcd_inspector
+    ## used for etcd_inspector
     python -c "import pyearthquake"
 }    
 
 function START_SWITCH() {
-    INFO "Starting Earthquake Ethernet Switch"
-    ryu-manager --verbose ${EQ_MATERIALS_DIR}/etcd_switch.py > ${EQ_WORKING_DIR}/switch.log 2>&1 &
+    INFO "Starting HookSwitch"
+    hookswitch-of13 ${EQ_ETHER_ZMQ_ADDR} --debug --tcp-ports=4001,7001 > ${EQ_WORKING_DIR}/switch.log 2>&1 &
     pid=$!
     INFO "Switch PID: ${pid}"
     echo ${pid} > ${EQ_WORKING_DIR}/switch.pid
