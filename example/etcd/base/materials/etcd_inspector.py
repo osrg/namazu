@@ -20,6 +20,7 @@ class EtcdInspector(EtherInspectorBase):
         self.regist_layer_on_tcp(scapy.layers.http.HTTP, 7001)
 
     def map_packet_to_event(self, pkt):
+        # FIXME: assuming one packet corresponds to one HTTP request/response
         if not "IP" in pkt:
             return None
         ipPayload = pkt['IP']

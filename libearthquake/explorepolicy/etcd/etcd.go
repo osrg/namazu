@@ -62,6 +62,7 @@ type Etcd struct {
 type etcdReq struct {
 	method string
 	path   string
+	host   string
 
 	body []byte
 
@@ -89,17 +90,27 @@ func parseEtcdReq(stringReq []byte) *etcdReq {
 	path := pathRe.Find(stringReq)
 	Log("path: %s", path)
 
+	hostRe, herr := regexp.Compile("Host: (.+)")
+	if herr != nil {
+		Log("failed to parse regex: %s", herr)
+		os.Exit(1)
+	}
+
+	host := hostRe.Find(stringReq)
+	Log("host: %s", host)
+
 	bodyIdx := strings.Index(string(stringReq), "\r\n\r\n")
 
 	Log("bodyIdx: %d", bodyIdx)
 	var body []byte
-	if bodyIdx != -1 {
-		body = stringReq[bodyIdx + 1:]
+	if bodyIdx != -1 && bodyIdx+4 != len(stringReq) {
+		body = stringReq[bodyIdx+4:]
 	}
 
 	return &etcdReq{
 		string(method),
 		string(path),
+		string(host),
 		body,
 		string(stringReq),
 	}
