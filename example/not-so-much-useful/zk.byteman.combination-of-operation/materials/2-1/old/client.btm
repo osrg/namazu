@@ -1,0 +1,31 @@
+RULE queuePacket
+CLASS ClientCnxn
+METHOD queuePacket
+HELPER net.osrg.earthquake.PBEQHelper
+AT ENTRY
+IF true
+DO
+System.out.println("BTM: inspecting queuePacket()");
+eventFuncCall("queuePacket");
+ENDRULE
+
+RULE invoke initiation, call static constructor of EQHelper
+CLASS MyZkCli
+HELPER net.osrg.earthquake.PBEQHelper
+METHOD main
+AT ENTRY
+IF true
+DO
+System.out.println("BTM: main");
+ENDRULE
+
+RULE exit
+CLASS MyZkCli
+HELPER net.osrg.earthquake.PBEQHelper
+METHOD main
+AT EXIT
+IF true
+DO
+System.out.println("BTM: exit");
+stopInspection();
+ENDRULE
