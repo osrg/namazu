@@ -22,8 +22,7 @@
 
 &lt;h3 id=&#34;hookswitch-a-usermode-packet-injection-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookSwitch: A Usermode Packet Injection Library&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://badge.fury.io/py/hookswitch&#34;&gt;&lt;img src=&#34;https://badge.fury.io/py/hookswitch.svg&#34; alt=&#34;PyPI version&#34; /&gt;
-&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://badge.fury.io/py/hookswitch&#34;&gt;&lt;img src=&#34;https://badge.fury.io/py/hookswitch.svg&#34; alt=&#34;PyPI version&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookswitch&#34;&gt;https://github.com/osrg/hookswitch&lt;/a&gt;&lt;/p&gt;
 
@@ -43,8 +42,7 @@
 
 &lt;p&gt;All you have to do is make Docker installed on your host and run the pre-built Docker image &lt;a href=&#34;https://registry.hub.docker.com/u/osrg/earthquake/&#34;&gt;osrg/earthquake&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/osrg/earthquake/&#34;&gt;&lt;img src=&#34;http://dockeri.co/image/osrg/earthquake&#34; alt=&#34;Docker Hub&#34; /&gt;
-&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/osrg/earthquake/&#34;&gt;&lt;img src=&#34;http://dockeri.co/image/osrg/earthquake&#34; alt=&#34;Docker Hub&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ docker run --rm --tty --interactive osrg/earthquake
 INIT: Running without privileged mode. Please set EQ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector
@@ -109,8 +107,7 @@ Its design does not depend on programming languages and opearting systems.
 You can write your own state space search policy for your system.
 We hope it will make your life a little bit easier.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/overview.png&#34; alt=&#34;Overview&#34; /&gt;
-&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/overview.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;references:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;References&lt;/h2&gt;
 
