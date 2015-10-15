@@ -1,0 +1,11 @@
+{
+    "run": "run.sh",
+    "validate": "validate.sh",
+    "clean": "clean.sh",
+
+    "explorePolicy" : "random",
+
+    "explorePolicyParam" : {
+        "interval": 100
+    }
+}

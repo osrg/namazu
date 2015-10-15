@@ -1,0 +1,53 @@
+RULE quorum packet receive in Follower
+CLASS Learner
+METHOD readPacket
+HELPER net.osrg.earthquake.PBEQHelper
+BIND argMap = new java.util.HashMap()
+AT EXIT
+IF $# == 1
+DO
+#argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+#eventFuncReturn("Learner.readPacket", argMap);
+eventFuncReturn("Learner.readPacket", "org.apache.zookeeper.server.quorum.LearnerHandler");
+ENDRULE
+
+RULE quorum packet receive in Leader
+CLASS BinaryInputArchive
+METHOD readRecord
+HELPER net.osrg.earthquake.PBEQHelper
+BIND argMap = new java.util.HashMap()
+AT EXIT
+IF $# == 2
+DO
+# argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+# argMap.put("tag", $2.toString());
+# eventFuncReturn("BinaryInputArchive.readRecord");
+eventFuncReturn("BinaryInputArchive.readRecord", "org.apache.zookeeper.server.quorum.LearnerHandler");
+ENDRULE
+
+RULE quorum packet send in Follower
+CLASS Learner
+METHOD writePacket
+HELPER net.osrg.earthquake.PBEQHelper
+BIND argMap = new java.util.HashMap()
+AT ENTRY
+IF $# == 2
+DO
+#argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+#argMap.put("flush", $2);
+#eventFuncReturn("Learner.writePacket", argMap);
+eventFuncReturn("Learner.writePacket", "org.apache.zookeeper.server.quorum.LearnerHandler");
+ENDRULE
+
+RULE quorum packet send in Leader
+CLASS LearnerHandler
+METHOD queuePacket
+HELPER net.osrg.earthquake.PBEQHelper
+BIND argMap = new java.util.HashMap()
+AT ENTRY
+IF $# == 1
+DO
+#argMap.put("quorumPacket", org.apache.zookeeper.server.quorum.LearnerHandler.packetToString($1));
+#eventFuncReturn("LearnerHandler.queuePacket", argMap);
+eventFuncReturn("LearnerHandler.queuePacket", "org.apache.zookeeper.server.quorum.LearnerHandler");
+ENDRULE
