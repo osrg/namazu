@@ -17,19 +17,20 @@ package main
 
 import (
 	// "encoding/gob"
+	. "./equtils"
 	"fmt"
 	"os"
 	"path"
-	. "./equtils"
 
 	"./historystorage"
-	"github.com/mitchellh/cli"
 	"flag"
+	"github.com/mitchellh/cli"
 )
 
 const (
 	storageMaterialsPath string = "materials"
 )
+
 type initFlags struct {
 	Force bool
 }
@@ -81,7 +82,7 @@ func recursiveHardLink(srcPath, dstPath string) error {
 			}
 		} else {
 			realPath := p
-			if fi.Mode() & os.ModeSymlink != 0 {
+			if fi.Mode()&os.ModeSymlink != 0 {
 				realPath, err = os.Readlink(p)
 				if err != nil {
 					fmt.Printf("could not read link %s", p)
@@ -126,8 +127,8 @@ func _init(args []string) {
 	}
 	if _initFlags.Force {
 		// avoid catastrophe caused by a typo
-		wellKnownDirs := map[string] bool {
-			".": true, "..": true, "/":true, "/home":true, "/tmp":true, "/dummyWellKnownDir":true }
+		wellKnownDirs := map[string]bool{
+			".": true, "..": true, "/": true, "/home": true, "/tmp": true, "/dummyWellKnownDir": true}
 		if wellKnownDirs[storagePath] {
 			fmt.Printf("storage dir(%s) typo?\n", storagePath)
 			os.Exit(1)

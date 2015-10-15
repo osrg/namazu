@@ -16,6 +16,7 @@
 package dpor
 
 import (
+	log "github.com/cihub/seelog"
 	"math/rand"
 	"sort"
 	"sync"
@@ -31,8 +32,8 @@ type DPORParam struct {
 
 type DPOR struct {
 	nextActionChan chan *Action
-	randGen       *rand.Rand
-	queueMutex    *sync.Mutex
+	randGen        *rand.Rand
+	queueMutex     *sync.Mutex
 
 	eventQueue []*Event // high priority
 
@@ -101,7 +102,7 @@ func (this *DPOR) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			this.queueMutex.Lock()
 			if len(this.eventQueue) == 0 {
-				Log("no event is queued")
+				log.Debug("no event is queued")
 				this.queueMutex.Unlock()
 				continue
 			}
@@ -130,7 +131,9 @@ func (this *DPOR) Init(storage HistoryStorage, param map[string]interface{}) {
 			prefix = append(prefix, *next)
 
 			act, err := next.MakeAcceptAction()
-			if err != nil { panic(err) }			
+			if err != nil {
+				panic(err)
+			}
 			this.nextActionChan <- act
 		}
 	}()

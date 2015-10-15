@@ -16,8 +16,8 @@
 package equtils
 
 import (
-	"github.com/golang/protobuf/proto"
 	"encoding/binary"
+	"github.com/golang/protobuf/proto"
 )
 
 // http://golang.org/doc/effective_go.html#interfaces

@@ -39,8 +39,8 @@ type shutdownRatePerEntity struct {
 type EtcdParam struct {
 	prioritize string
 
-	minBound  int // in millisecond
-	maxBound  int // in millisecond
+	minBound int // in millisecond
+	maxBound int // in millisecond
 
 	killRates     []killRatePerEntity
 	shutdownRates []shutdownRatePerEntity
@@ -118,7 +118,7 @@ func (policy *Etcd) shouldInjectFault(entityId string) bool {
 			continue
 		}
 
-		return rate.rate < policy.randGen.Int() % 100
+		return rate.rate < policy.randGen.Int()%100
 	}
 
 	return false
@@ -142,7 +142,7 @@ func (policy *Etcd) QueueNextEvent(entityId string, ev *Event) {
 
 	go func(e *Event) {
 		sleepMS := policy.randGen.Int() % policy.param.maxBound
-		if sleepMS <  policy.param.minBound {
+		if sleepMS < policy.param.minBound {
 			sleepMS = policy.param.minBound
 		}
 

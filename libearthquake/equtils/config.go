@@ -18,8 +18,8 @@ package equtils
 import (
 	"encoding/json"
 	"errors"
-	"os"
 	"github.com/spf13/viper"
+	"os"
 )
 
 type Config struct {
@@ -31,11 +31,11 @@ type Config struct {
 func ParseConfigFile(filePath string) (*Config, error) {
 	v := viper.New()
 	cfg := &Config{v}
-	cfg.SetDefault("init", "") // e.g. "init.sh"
-	cfg.SetDefault("run", "") // e.g. "run.sh"
-	cfg.SetDefault("clean", "") // e.g. "clean.sh"
+	cfg.SetDefault("init", "")     // e.g. "init.sh"
+	cfg.SetDefault("run", "")      // e.g. "run.sh"
+	cfg.SetDefault("clean", "")    // e.g. "clean.sh"
 	cfg.SetDefault("validate", "") // e.g. "validate.sh"
-	cfg.SetDefault("kill", "") // e.g. "kill.sh", unexpected death
+	cfg.SetDefault("kill", "")     // e.g. "kill.sh", unexpected death
 	cfg.SetDefault("shutdown", "") // e.g. "shutdown.sh", graceful shutdown
 	cfg.SetDefault("explorePolicy", "dumb")
 	cfg.SetDefault("explorePolicyParam", map[string]interface{}{})
@@ -45,10 +45,10 @@ func ParseConfigFile(filePath string) (*Config, error) {
 	cfg.SetDefault("inspectorHandler",
 		map[string]interface{}{
 			"pb": map[string]interface{}{
-				// TODO: port
+			// TODO: port
 			},
 			"rest": map[string]interface{}{
-				// TODO: port
+			// TODO: port
 			},
 		})
 	// viper supports JSON, YAML, and TOML
@@ -64,12 +64,16 @@ func ParseConfigFile(filePath string) (*Config, error) {
 
 func (this *Config) DumpToJsonFile(filePath string) error {
 	f, err := os.Create(filePath)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	defer f.Close()
 	enc := json.NewEncoder(f)
 	var m map[string]interface{}
 	err = this.Unmarshal(&m)
-	if err != nil { return err }
+	if err != nil {
+		return err
+	}
 	enc.Encode(m)
 	return err
 }

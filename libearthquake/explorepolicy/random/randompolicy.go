@@ -16,12 +16,12 @@
 package random
 
 import (
+	. "../../equtils"
+	. "../../historystorage"
+	log "github.com/cihub/seelog"
 	"math/rand"
 	"sync"
 	"time"
-
-	. "../../equtils"
-	. "../../historystorage"
 )
 
 type killRatePerEntity struct {
@@ -136,7 +136,7 @@ func (r *Random) shouldInjectFault(entityId string) bool {
 			continue
 		}
 
-		return rate.rate < r.randGen.Int() % 100
+		return rate.rate < r.randGen.Int()%100
 	}
 
 	return false
@@ -157,7 +157,7 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 			highLen := len(r.highEventQueue)
 			lowLen := len(r.lowEventQueue)
 			if highLen == 0 && lowLen == 0 {
-				// Log("no event is queued")
+				// log.Debug("no event is queued")
 				r.queueMutex.Unlock()
 				continue
 			}
@@ -178,7 +178,7 @@ func (r *Random) Init(storage HistoryStorage, param map[string]interface{}) {
 
 			var act *Action
 			if r.shouldInjectFault(next.EntityId) {
-				Log("injecting fault to entity %s", next.EntityId)
+				log.Debugf("injecting fault to entity %s", next.EntityId)
 				act = MakeFaultInjectionAction(next.EntityId)
 			} else {
 				a, err := next.MakeAcceptAction()
@@ -204,7 +204,7 @@ func (r *Random) defaultQueueNextEvent(entityId string, ev *Event) {
 	r.queueMutex.Lock()
 
 	if r.param != nil && entityId == r.param.prioritize {
-		Log("**************** entity %s alives, prioritizing\n", entityId)
+		log.Debugf("**************** entity %s alives, prioritizing\n", entityId)
 		r.highEventQueue = append(r.highEventQueue, ev)
 	} else {
 		r.lowEventQueue = append(r.lowEventQueue, ev)
@@ -215,7 +215,7 @@ func (r *Random) defaultQueueNextEvent(entityId string, ev *Event) {
 func (r *Random) timeBoundQueueNextEvent(entityId string, ev *Event) {
 	go func(e *Event) {
 		sleepMS := r.randGen.Int() % r.param.maxBound
-		if sleepMS <  r.param.minBound {
+		if sleepMS < r.param.minBound {
 			sleepMS = r.param.minBound
 		}
 

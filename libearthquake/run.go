@@ -27,6 +27,7 @@ import (
 	"./explorepolicy"
 	"./historystorage"
 
+	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 )
 
@@ -82,8 +83,8 @@ func CreateKillCmd(entityId string) *exec.Cmd {
 
 func run(args []string) {
 	if len(args) != 1 {
-		fmt.Printf("specify <storage dir path>\n")
-		os.Exit(1)
+		log.Critical("specify <storage dir path>")
+		os.Exit(1) // panic() looks ugly for such an error
 	}
 
 	storagePath := args[0]
@@ -92,7 +93,7 @@ func run(args []string) {
 	err := error(nil)
 	config, err = ParseConfigFile(confPath)
 	if err != nil {
-		fmt.Printf("failed to parse config file %s: %s\n", confPath, err)
+		log.Criticalf("failed to parse config file %s: %s", confPath, err)
 		os.Exit(1)
 	}
 
@@ -101,14 +102,13 @@ func run(args []string) {
 
 	policy := explorepolicy.CreatePolicy(config.GetString("explorePolicy"))
 	if policy == nil {
-		fmt.Printf("invalid policy name: %s", config.GetString("explorePolicy"))
+		log.Criticalf("invalid policy name: %s", config.GetString("explorePolicy"))
 		os.Exit(1)
 	}
 	policy.Init(storage, config.GetStringMap("explorePolicyParam"))
 
 	workingDirPath = storage.CreateNewWorkingDir()
 	InitLog(workingDirPath + "/earthquake.log")
-	AddLogTee(os.Stdout)
 
 	end := make(chan interface{})
 	newTraceCh := make(chan *SingleTrace)
@@ -132,19 +132,18 @@ func run(args []string) {
 
 	startTime := time.Now()
 
-	fmt.Printf("Starting %s %s\n", runCmd.Path, runCmd.Args)
+	log.Infof("Starting %s %s", runCmd.Path, runCmd.Args)
 	rerr := runCmd.Run()
-	fmt.Printf("Finished %s %s\n", runCmd.Path, runCmd.Args)
+	log.Infof("Finished %s %s", runCmd.Path, runCmd.Args)
 	if rerr != nil {
-		fmt.Printf("failed to execute run script %s: %s\n", runScriptPath, rerr)
-		os.Exit(1)
+		panic(log.Criticalf("failed to execute run script %s: %s\n", runScriptPath, rerr))
 	}
 
-	fmt.Printf("Notifying finish to orchestrator\n")
+	log.Debug("Notifying finish to orchestrator")
 	end <- true
-	fmt.Printf("Waiting for trace from orchestrator\n")
+	log.Debug("Waiting for trace from orchestrator")
 	newTrace := <-newTraceCh
-	fmt.Printf("Got the trace from orchestrator\n")
+	log.Debug("Got the trace from orchestrator")
 
 	endTime := time.Now()
 	requiredTime := endTime.Sub(startTime)
@@ -158,13 +157,13 @@ func run(args []string) {
 
 		rerr = validateCmd.Run()
 		if rerr != nil {
-			fmt.Printf("validation failed: %s\n", rerr)
+			log.Infof("validation failed: %s", rerr)
 			// TODO: detailed check of error
 			// e.g. handle a case like permission denied, noent, etc
 			storage.RecordResult(false, requiredTime)
 			succeed = false
 		} else {
-			fmt.Printf("validation succeed\n")
+			log.Info("validation succeed")
 			storage.RecordResult(true, requiredTime)
 		}
 	}
@@ -177,8 +176,7 @@ func run(args []string) {
 
 			rerr = cleanCmd.Run()
 			if rerr != nil {
-				fmt.Printf("failed to execute clean script %s: %s\n", cleanScriptPath, rerr)
-				os.Exit(1)
+				panic(log.Criticalf("failed to execute clean script %s: %s", cleanScriptPath, rerr))
 			}
 		}
 

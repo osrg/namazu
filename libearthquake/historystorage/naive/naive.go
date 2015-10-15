@@ -17,7 +17,7 @@ package naive
 
 import (
 	. "../../equtils"
-
+	log "github.com/cihub/seelog"
 	"bytes"
 	"encoding/gob"
 	"fmt"
@@ -34,22 +34,19 @@ import (
 func (n *Naive) updateSearchModeInfo() {
 	infoFile, err := os.OpenFile(n.dir+"/"+searchModeInfoPath, os.O_WRONLY, 0666)
 	if err != nil {
-		Log("failed to open file: %s", err)
-		os.Exit(1)
+		panic(log.Criticalf("failed to open file: %s", err))
 	}
 
 	var infoBuf bytes.Buffer
 	enc := gob.NewEncoder(&infoBuf)
 	eerr := enc.Encode(n.info)
 	if eerr != nil {
-		Log("encode failed: %s", eerr)
-		os.Exit(1)
+		panic(log.Criticalf("encode failed: %s", eerr))
 	}
 
 	_, werr := infoFile.Write(infoBuf.Bytes())
 	if werr != nil {
-		Log("updating info file failed: %s", werr)
-		os.Exit(1)
+		panic(log.Criticalf("updating info file failed: %s", werr))
 	}
 }
 
@@ -84,27 +81,24 @@ func (n *Naive) RecordNewTrace(newTrace *SingleTrace) {
 	enc := gob.NewEncoder(&traceBuf)
 	eerr := enc.Encode(&newTrace)
 	if eerr != nil {
-		Log("encoding trace failed: %s", eerr)
-		os.Exit(1)
+		panic(log.Criticalf("encoding trace failed: %s", eerr))
 	}
 
 	tracePath := fmt.Sprintf("%s/history", n.nextWorkingDir)
-	Log("new trace path: %s", tracePath)
+	log.Debugf("new trace path: %s", tracePath)
 	traceFile, oerr := os.Create(tracePath)
 	if oerr != nil {
-		Log("fialed to create a file for new trace: %s", oerr)
+		panic(log.Criticalf("failed to create a file for new trace: %s", oerr))
 	}
 
 	_, werr := traceFile.Write(traceBuf.Bytes())
 	if werr != nil {
-		Log("writing new trace to file failed: %s", werr)
-		os.Exit(1)
+		panic(log.Criticalf("writing new trace to file failed: %s", werr))
 	}
 
 	actionTraceDir := path.Join(n.nextWorkingDir, "actions")
 	if err := os.Mkdir(actionTraceDir, 0777); err != nil {
-		Log("%s", err)
-		os.Exit(1)
+		panic(log.Criticalf("%s", err))
 	}
 	for i, act := range newTrace.ActionSequence {
 		recordAction(i, &act, actionTraceDir)
@@ -115,21 +109,18 @@ func (n *Naive) readSearchModeInfo() *searchModeInfo {
 	path := n.dir + "/" + searchModeInfoPath
 	file, err := os.Open(path)
 	if err != nil {
-		Log("failed to open search mode info: %s", err)
-		os.Exit(1)
+		panic(log.Criticalf("failed to open search mode info: %s", err))
 	}
 
 	fi, serr := file.Stat()
 	if serr != nil {
-		Log("failed to stat: %s", err)
-		os.Exit(1)
+		panic(log.Criticalf("failed to stat: %s", err))
 	}
 
 	buf := make([]byte, fi.Size())
 	_, rerr := file.Read(buf)
 	if rerr != nil {
-		Log("failed to read: %s", rerr)
-		os.Exit(1)
+		panic(log.Criticalf("failed to read: %s", rerr))
 	}
 
 	byteBuf := bytes.NewBuffer(buf)
@@ -137,26 +128,23 @@ func (n *Naive) readSearchModeInfo() *searchModeInfo {
 	var ret searchModeInfo
 	derr := dec.Decode(&ret)
 	if derr != nil {
-		Log("decode error; %s", derr)
-		os.Exit(1)
+		panic(log.Criticalf("decode error; %s", derr))
 	}
 
-	Log("a number of collected traces: %d", ret.NrCollectedTraces)
+	log.Debugf("a number of collected traces: %d", ret.NrCollectedTraces)
 	return &ret
 }
 
 func (n *Naive) CreateNewWorkingDir() string {
 	if n.nextWorkingDir != "" {
-		fmt.Printf("creating working directory twice\n")
-		os.Exit(1)
+		panic(log.Critical("creating working directory twice"))
 	}
 
 	newDirPath := fmt.Sprintf("%s/%08x", n.dir, n.info.NrCollectedTraces)
 
 	err := os.Mkdir(newDirPath, 0777)
 	if err != nil {
-		fmt.Printf("failed to create directory %s: %s\n", newDirPath, err)
-		os.Exit(1)
+		panic(log.Criticalf("failed to create directory %s: %s", newDirPath, err))
 	}
 
 	n.info.NrCollectedTraces++
@@ -250,8 +238,7 @@ func (n *Naive) SearchWithConverter(prefix []Event, converter func(events []Even
 	for i := 0; i < n.info.NrCollectedTraces-1; i++ { // FIXME: need to - 1 because the latest trace isn't recorded yet
 		history, err := n.GetStoredHistory(i)
 		if err != nil {
-			Log("failed to get history %i: %s", i, err)
-			os.Exit(1)
+			panic(log.Criticalf("failed to get history %i: %s", i, err))
 		}
 
 		if len(history.ActionSequence) < prefixLen {

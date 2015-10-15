@@ -17,6 +17,7 @@ go get github.com/gorilla/mux
 go get github.com/satori/go.uuid
 go get github.com/ahmetalpbalkan/go-linq
 go get gopkg.in/mgo.v2
+go get github.com/cihub/seelog
 
 EQUTILS_PATH=`pwd`/equtils
 protoc --go_out=$BUILDROOT/libearthquake/inspectorhandler/pbinspectorhandler -I$BUILDROOT/inspector $BUILDROOT/inspector/*.proto
