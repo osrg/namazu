@@ -1,0 +1,5 @@
+{
+    "run": "run.sh",
+    "validate": "validate.sh",
+    "clean": "clean.sh"
+}
