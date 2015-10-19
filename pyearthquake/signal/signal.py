@@ -1,8 +1,12 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 import six
 import uuid
 from .. import LOG as _LOG
 LOG = _LOG.getChild('signal.signal')
+
+
+API_ROOT = '/api/v3'
+DEFAULT_ORCHESTRATOR_URL = 'http://localhost:10080' + API_ROOT
 
 @six.add_metaclass(ABCMeta)
 class SignalBase(object):
@@ -21,7 +25,7 @@ class SignalBase(object):
     _children = {}
 
     def __init__(self):
-        self.uuid = str(uuid.uuid4()) # random uuid
+        self.uuid = str(uuid.uuid4())  # random uuid
 
     def __str__(self):
         return self.__repr__()
@@ -42,18 +46,21 @@ class SignalBase(object):
     def parse_jsondict(self, jsdict):
         assert jsdict['type'] == self.type_name
         for var_name in self.var_names:
-            try: var_val = jsdict[var_name]
-            except KeyError: var_val = None
+            try:
+                var_val = jsdict[var_name]
+            except KeyError:
+                var_val = None
             setattr(self, var_name, var_val)
-            
+
     @classmethod
     def from_jsondict(cls, jsdict):
         if jsdict['class'] != cls.__name__:
-            raise ValueError('%s != %s' %(jsdict['class'], cls.__name__))
+            raise ValueError('%s != %s' % (jsdict['class'], cls.__name__))
         try:
             inst = cls()
         except TypeError, e:
-            LOG.error('%s() should not take any mandatory arg other than self', cls)
+            LOG.error(
+                '%s() should not take any mandatory arg other than self', cls)
             raise e
         inst.parse_jsondict(jsdict)
         return inst
@@ -67,11 +74,13 @@ class SignalBase(object):
         try:
             class_name = jsdict['class']
         except KeyError as e:
-            raise cls.RegistryError('Registry not found for type_name %s. (%s)' % (cls.type_name, jsdict))
+            raise cls.RegistryError(
+                'Registry not found for type_name %s. (%s)' % (cls.type_name, jsdict))
         try:
             klazz = cls._children[class_name]
         except KeyError as e:
-            raise cls.RegistryError('Registry not found for class %s. (%s)' % (class_name, jsdict))
+            raise cls.RegistryError(
+                'Registry not found for class %s. (%s)' % (class_name, jsdict))
         return klazz.from_jsondict(jsdict)
 
     class RegistryError(Exception):
@@ -84,15 +93,11 @@ class SignalBase(object):
             return klazz
         return f
 
-    def digest(self):    
-        return (self.__class__.__name__,  self.option)
 
-            
 @six.add_metaclass(ABCMeta)
 class EventBase(SignalBase):
     """
-    Event:  Target System --> Orchestrator
-    Action: Target System <-- Orchestrator
+    Event:  Inspector --> Orchestrator
     """
     type_name = 'event'
     deferred = False
@@ -106,12 +111,11 @@ event_class = EventBase.deco
 @six.add_metaclass(ABCMeta)
 class ActionBase(SignalBase):
     """
-    Event:  Target System --> Orchestrator
-    Action: Target System <-- Orchestrator
+    Action:  Inspector <-- Orchestrator
     """
     type_name = 'action'
-
-    def call(self, orchestrator):
-        orchestrator.send_action(self)
+    # event_uuid is not mandatory
+    event_uuid = None
+    var_names = SignalBase.var_names + ['event_uuid']
 
 action_class = ActionBase.deco

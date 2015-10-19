@@ -4,9 +4,9 @@
 
     +----------+     +---------------+     +--------------------------------------------------+
     |  Testee  | --- | EQ Inspector  | --- |                                                  |
-    +----------+     +---------------+     |                  EQ Orchestrator                 |				 
+    +----------+     +---------------+     |                  EQ Orchestrator                 |
                                            |                                                  |
-    +----------+     +---------------+     |   * Receives events from the inspectors	      |
+    +----------+     +---------------+     |   * Receives events from the inspectors          |
     |  Testee  | --- | EQ Inspector  | --- |   * Generate action set from events              |
     +----------+     +---------------+     |     (Including injected fault actions)           |
                                            |   * Send actions to the inspectors               |
@@ -20,13 +20,12 @@
                   +--- Inspectors (for Java) are embedded in testee programs using byteman
 
 
-Please also refer to [figs/eq-redesign.pdf](figs/eq-redesign.pdf) for planned archtecture-level changes.
-
 ## Inspectors
 
  * Java: byteman
  * Ethernet (ryu): Open vSwitch + ryu
  * Ethernet (nfqhook): iptables + NFQUEUE
+ * Filesystem: FUSE
 
  
 ## Orchestrator
@@ -35,36 +34,33 @@ Explore Policy: explores state space
 
   * `Dumb`: reorder nothing
   * `Random`: reorder actions randomly
-  * `DFS`,`BFS`: (WIP)
-  * `DPOR`: (WIP) enables dynamic partial order reduction
 
 History Storage
 
- * `naive`
- * `mongodb`
+ * `naive`: single gob-encoded file
+ * `mongodb`: MongoDB
 
 ### REST API
 
- * `POST /api/v2/events/<entity_id>/<event_uuid>` (Non-blocking): send an event to the orchestrator
- * `GET /api/v2/actions/<entity_id>` (Blocking): receive an action for <entity_id> from the orchestrator.
- * `DELETE /api/v2/actions/<entity_id>/<action_uuid>` (Non-blocking): ack for get
+ * `POST /api/v3/events/<entity_id>/<event_uuid>` (Non-blocking): send an event to the orchestrator
+ * `GET /api/v3/actions/<entity_id>` (Blocking): receive an action for <entity_id> from the orchestrator.
+ * `DELETE /api/v3/actions/<entity_id>/<action_uuid>` (Non-blocking): ack for get
 
 Events:
 
- * `FunctionCallEvent`: inspected and deferred function calls
- * `FunctionReturnEvent`: inspected and deferred function calls
+ * `JavaFunctionEvent`: inspected and deferred function calls / returns
  * `PacketEvent`: inspected and deferred Ethernet packets
+ * `FilesystemEvent`: inspected and deferred FUSE filesystem event
  * `LogEvent`: inspected syslog
 
 Actions:
 
- * `AcceptEventAction`: accept an event
- * `DropDeferredEventAction`: (planned)
- * `ExecuteCommandOnInspectorAction`: (planned)
- * `ExecuteCommandOnOrchestratorAction`: (planned)
+ * `NopAction`: nop. just used for action history storage.
+ * `EventAcceptanceAction`: accept an event
+ * `FilesystemFaultAction`: fault for a `FilesystemEvent`
 
 
-### pyearthquake plug-ins (was available in v0.1, but not under active development)
+### pyearthquake plug-ins (was available in v0.1, but removed since v0.1.3)
 
  * Orchestrator Plug-in: manages Explorer and so on.
   * `BasicOrchestrator`: a basic orchestrator

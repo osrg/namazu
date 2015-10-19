@@ -2,11 +2,11 @@ init = "init.sh"
 run = "run.sh"
 validate = "validate.sh"
 clean = "clean.sh"
-explorePolicy = "etcd"
+explorePolicy = "random"
 
 notCleanIfValidationFail= "true"
 
 [explorePolicyParam]
- interval = 5
+ minInterval = 5
 
 # storageType = "mongodb"

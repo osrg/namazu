@@ -1,0 +1,14 @@
+run = "run.sh"
+# init = "init.sh"
+# validate = "validate.sh"
+# clean = "clean.sh"
+
+explorePolicy = "random"
+
+[explorePolicyParam]
+  minInterval = 80
+  maxInterval = 3000
+  shellActionInterval = 5000
+  shellActionCommand = "echo hello $(date)"
+  faultActionProbability = 0.5
+

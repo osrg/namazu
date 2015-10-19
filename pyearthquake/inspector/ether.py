@@ -9,10 +9,10 @@ import scapy.all
 import six
 
 from .. import LOG as _LOG
-from ..signal.signal import ActionBase
+from ..signal.signal import ActionBase, DEFAULT_ORCHESTRATOR_URL
 from ..signal.event import PacketEvent
-from ..signal.action import AcceptEventAction, NopAction
-from pyearthquake.inspector.internal.ether_tcp_watcher import TCPWatcher
+from ..signal.action import EventAcceptanceAction, PacketFaultAction, NopAction
+from .internal.ether_tcp_watcher import TCPWatcher
 
 LOG = _LOG.getChild(__name__)
 
@@ -25,14 +25,17 @@ eventlet.monkey_patch()  # for requests
 class EtherInspectorBase(object):
     pkt_recv_handler_table = {}
 
-    def __init__(self, zmq_addr, orchestrator_rest_url='http://localhost:10080/api/v2',
+    def __init__(
+        self, zmq_addr, orchestrator_rest_url=DEFAULT_ORCHESTRATOR_URL,
                  entity_id='_earthquake_ether_inspector'):
         if ENABLE_TCP_WATCHER:
             LOG.info('Using TCPWatcher')
             self.tcp_watcher = TCPWatcher()
         else:
             self.tcp_watcher = None
-        self.deferred_events = {}  # key: string(event_uuid), value: {'event': PacketEvent, 'metadata`: dict}
+        self.deferred_events = {}
+            # key: string(event_uuid), value: {'event': PacketEvent,
+            # 'metadata`: dict}
 
         LOG.info('Hookswitch ZMQ Addr: %s', zmq_addr)
         self.zmq_addr = zmq_addr
@@ -131,7 +134,8 @@ class EtherInspectorBase(object):
             if buffer_if_not_sent:
                 LOG.debug('Buffering an event: %s', event)
             else:
-                LOG.debug('Accepting an event (could not sent to orchestrator): %s', event)
+                LOG.debug(
+                    'Accepting an event (could not sent to orchestrator): %s', event)
                 self._send_to_hookswitch(metadata)
                 return
         if event.deferred:
@@ -139,7 +143,7 @@ class EtherInspectorBase(object):
         else:
             # NOTE: non-deferred packet events are useful for logging
             LOG.debug('Accepting an event (not deferred): %s', event)
-            self._send_to_hookswitch(metadata)            
+            self._send_to_hookswitch(metadata)
 
     def defer_packet_event(self, metadata, event):
         """
@@ -148,18 +152,19 @@ class EtherInspectorBase(object):
         assert isinstance(event, PacketEvent)
         assert event.deferred
         LOG.debug('Defer event=%s, deferred+:%d->%d',
-                  event, len(self.deferred_events), len(self.deferred_events)+1)
-        self.deferred_events[event.uuid] = {'event': event, 'metadata': metadata, 'time': time.time()}
+                  event, len(self.deferred_events), len(self.deferred_events) + 1)
+        self.deferred_events[event.uuid] = {
+            'event': event, 'metadata': metadata, 'time': time.time()}
 
-    def accept_deferred_event_uuid(self, event_uuid):
+    def complete_deferred_event_uuid(self, event_uuid, op='accept'):
         try:
             event = self.deferred_events[event_uuid]['event']
             assert isinstance(event, PacketEvent)
             assert event.deferred
             metadata = self.deferred_events[event_uuid]['metadata']
             LOG.debug('Accept deferred event=%s, deferred-:%d->%d',
-                      event, len(self.deferred_events), len(self.deferred_events)-1)
-            self._send_to_hookswitch(metadata)
+                      event, len(self.deferred_events), len(self.deferred_events) - 1)
+            self._send_to_hookswitch(metadata, op)
             del self.deferred_events[event_uuid]
         except Exception as e:
             LOG.error('cannot pass this event: %s', event_uuid, exc_info=True)
@@ -168,20 +173,23 @@ class EtherInspectorBase(object):
         try:
             event_jsdict = event.to_jsondict()
             headers = {'content-type': 'application/json'}
-            post_url = self.orchestrator_rest_url + '/events/' + self.entity_id + '/' + event.uuid
+            post_url = self.orchestrator_rest_url + \
+                '/events/' + self.entity_id + '/' + event.uuid
             LOG.debug('POST %s', post_url)
-            r = requests.post(post_url, data=json.dumps(event_jsdict), headers=headers)
+            r = requests.post(
+                post_url, data=json.dumps(event_jsdict), headers=headers)
             return True
         except Exception as e:
             LOG.error('cannot send event: %s', event, exc_info=True)
-            ## do not re-raise the exception to continue processing
+            # do not re-raise the exception to continue processing
             return False
 
     def on_recv_action_from_orchestrator(self, action):
         LOG.debug('Received action: %s', action)
-        if isinstance(action, AcceptEventAction):
-            ev_uuid = action.option['event_uuid']
-            self.accept_deferred_event_uuid(ev_uuid)
+        if isinstance(action, EventAcceptanceAction):
+            self.complete_deferred_event_uuid(action.event_uuid, op='accept')
+        if isinstance(action, PacketFaultAction):
+            self.complete_deferred_event_uuid(action.event_uuid, op='drop')
         elif isinstance(action, NopAction):
             LOG.debug('nop action: %s', action)
         else:
@@ -192,7 +200,8 @@ class EtherInspectorBase(object):
         got = None
         while True:
             try:
-                get_url = self.orchestrator_rest_url + '/actions/' + self.entity_id
+                get_url = self.orchestrator_rest_url + \
+                    '/actions/' + self.entity_id
                 LOG.debug('GET %s', get_url)
                 got = requests.get(get_url)
                 got_jsdict = got.json()

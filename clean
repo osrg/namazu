@@ -1,5 +1,8 @@
 #!/bin/sh
 set -x
 set -e
-rm -rf bin inspector/java/base/target analyzer/java/base/target gopath
+cd $(dirname $0)
+rm -rf bin inspector/java/base/target analyzer/java/base/target
+echo "Please clean GOPATH($GOPATH) manually"
+
 

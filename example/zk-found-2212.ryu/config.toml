@@ -5,6 +5,6 @@ clean = "clean.sh"
 explorePolicy = "random"
 
 [explorePolicyParam]
- interval = 50
+ minInterval = 50
 
 # storageType = "mongodb"

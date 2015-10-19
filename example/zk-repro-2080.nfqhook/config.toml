@@ -8,4 +8,4 @@ clean = "clean.sh"
 explorePolicy = "dumb"
 
 [explorePolicyParam]
-  sleep = 80
+  interval = 80

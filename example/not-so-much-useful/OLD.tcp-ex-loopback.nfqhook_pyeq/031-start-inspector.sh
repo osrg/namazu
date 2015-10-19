@@ -1,1 +1,0 @@
-../tcp-ex.ryu_pyeq/031-start-inspector.sh

@@ -1,0 +1,31 @@
+{
+    "id": "http://github.com/osrg/earthquake/schema/EventAcceptanceAction.json#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "schema for an EventAcceptanceAction",
+    "additionalProperties": true,
+    "required": [
+	"uuid",
+	"entity",
+	"type",
+	"class",
+	"event_uuid"
+    ],
+    "type": "object",
+    "properties": {
+	"uuid": {
+	    "type": "string"
+	},
+	"entity": {
+	    "type": "string"
+	},
+	"type": {
+	    "type": "string"
+	},
+	"class": {
+	    "type": "string"
+	},
+	"event_uuid": {
+	    "type": "string"
+	}
+    }
+}
