@@ -1,7 +1,0 @@
-{
-    "type": "event",
-    "class": "InspectionEndEvent",
-    "process": "zk2",
-    "uuid": "2f13eaa6-4b92-45f0-a4de-1236081dc659",
-    "option": {}
-}

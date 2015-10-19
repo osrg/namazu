@@ -1,0 +1,11 @@
+{
+    "type": "event",
+    "class": "LogEvent",
+    "entity": "_earthquake_syslog_inspector",
+    "uuid": "1f13eaa6-4b92-45f0-a4de-1236081ec142",
+    "deferred": false,
+    "option": {
+        "src": "zksrv1",
+        "message": "foo bar"
+    }
+}

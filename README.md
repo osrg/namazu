@@ -1,14 +1,15 @@
 # Earthquake: Dynamic Model Checker for Distributed Systems
 
 [![Release](http://github-release-version.herokuapp.com/github/osrg/earthquake/release.svg?style=flat)](https://github.com/osrg/earthquake/releases/latest)
-[![Join the chat at https://gitter.im/osrg/earthquake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Circle CI](https://circleci.com/gh/osrg/earthquake.svg?style=svg)](https://circleci.com/gh/osrg/earthquake)
+[![Join the chat at https://gitter.im/osrg/earthquake](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![GoDoc](https://godoc.org/github.com/osrg/earthquake/earthquake?status.svg)](https://godoc.org/github.com/osrg/earthquake/earthquake)
+[![Build Status](https://travis-ci.org/osrg/earthquake.svg?branch=master)](https://travis-ci.org/osrg/earthquake)
 
 Earthquake is a dynamic model checker (DMCK) for real implementations of distributed system (such as ZooKeeper).
 
 Blog: [http://osrg.github.io/earthquake/](http://osrg.github.io/earthquake/)
 
-Earthquakes permutes C/Java function calls, Ethernet packets, and injected fault events in various orders so as to find implementation-level bugs of the distributed system.
+Earthquakes permutes C/Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
 When Earthquake finds a bug, Earthquake automatically records [the event history](example/zk-found-2212.ryu) and helps you to analyze which permutation of events triggers the bug.
 
 Basically, Earthquake permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Go or Python) for finding deep bugs efficiently.
@@ -37,3 +38,49 @@ Please feel free to send your pull requests on github!
 Copyright (C) 2015 [Nippon Telegraph and Telephone Corporation](http://www.ntt.co.jp/index_e.html).
 
 Released under [Apache License 2.0](LICENSE).
+
+---------------------------------------
+
+## API Overview
+```go
+type MyPolicy struct {
+	actionCh chan Action
+}
+
+func (p *MyPolicy) GetNextActionChan() chan Action {
+	return p.actionCh
+}
+
+func (p *MyPolicy) QueueNextEvent(event Event) {
+	// Possible events:
+	//  - JavaFunctionEvent
+	//  - PacketEvent
+	//  - FilesystemEvent
+	//  - LogEvent
+	fmt.Printf("Event: %s\n", event)
+	// You can also inject fault actions
+	//  - PacketFaultAction
+	//  - FilesystemFaultAction
+	//  - ShellAction
+	action, err := event.DefaultAction()
+	if err != nil {
+		panic(err)
+	}
+	// send in a goroutine so as to make the function non-blocking.
+	go func() {
+		fmt.Printf("Action ready: %s\n", action)
+		p.actionCh <- action
+		fmt.Printf("Action passed: %s\n", action)
+	}()
+}
+
+func NewMyPolicy() ExplorePolicy {
+	return &MyPolicy{actionCh: make(chan Action)}
+}
+
+func main(){
+	RegisterPolicy("mypolicy", NewMyPolicy)
+	os.Exit(CLIMain(os.Args))
+}
+```
+Please refer to [example/template](example/template) for further information.

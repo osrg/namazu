@@ -1,18 +1,17 @@
-gopath
-
+# Earthquake binary
+bin/
 
 # backups
 *.bak
 *.old
 
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
 
 # C extensions
 *.so
 
-bin/
-
+# IntelliJ
 .idea
 *.iml

@@ -12,16 +12,20 @@ from zktraffic.base.network import BadPacket
 from zktraffic.base.sniffer import Sniffer as ZKSniffer, SnifferConfig as ZKSnifferConfig
 from zktraffic.omni.omni_sniffer import OmniSniffer
 
-import pyearthquake
-from pyearthquake.inspector.ether import EtherInspectorBase
-from pyearthquake.signal.event import PacketEvent
+from .. import LOG as _LOG
+from .ether import EtherInspectorBase
+from ..signal.signal import ActionBase, DEFAULT_ORCHESTRATOR_URL
+from ..signal.event import PacketEvent
 
-LOG = pyearthquake.LOG.getChild(__name__)
+LOG = _LOG.getChild(__name__)
 
 
 class ZkEtherInspector(EtherInspectorBase):
-    def __init__(self, zmq_addr, ignore_pings=True, dump_bad_packet=False):
-        super(ZkEtherInspector, self).__init__(zmq_addr)
+
+    def __init__(self, zmq_addr, orchestrator_rest_url=DEFAULT_ORCHESTRATOR_URL,
+                 entity_id='_earthquake_ether_inspector',
+                 ignore_pings=True, dump_bad_packet=False):
+        super(ZkEtherInspector, self).__init__(zmq_addr, orchestrator_rest_url, entity_id)
         self.ignore_pings = ignore_pings
         self.dump_bad_packet = dump_bad_packet
         self._init_sniffer()
@@ -44,7 +48,8 @@ class ZkEtherInspector(EtherInspectorBase):
             fle_sniffer_factory,
             zab_sniffer_factory,
             zk_sniffer_factory,
-            dump_bad_packet=False, # ignored ,as we don't use sniffer.handle_packet()
+            dump_bad_packet=False,
+                # ignored ,as we don't use sniffer.handle_packet()
             start=False)
 
     def map_zktraffic_message_to_entity_ids(self, zt_msg):
@@ -76,8 +81,10 @@ class ZkEtherInspector(EtherInspectorBase):
         def gen():
             for k in dir(zt_msg):
                 v = getattr(zt_msg, k)
-                cond1 = isinstance(v, int) or isinstance(v, basestring)  # int or string
-                cond2 = not k.isupper() and not k.startswith('_')  # not something like "FOO" or "_foo"
+                cond1 = isinstance(v, int) or isinstance(
+                    v, basestring)  # int or string
+                cond2 = not k.isupper() and not k.startswith(
+                    '_')  # not something like "FOO" or "_foo"
                 cond3 = not '_literal' in k  # not something like "foo_literal"
                 cond4 = not k in ignored_keys
                 cond = cond1 and cond2 and cond3 and cond4
@@ -99,18 +106,23 @@ class ZkEtherInspector(EtherInspectorBase):
         return d
 
     def map_zktraffic_message_to_event(self, zt_msg):
-        src_entity, dst_entity = self.map_zktraffic_message_to_entity_ids(zt_msg)
+        src_entity, dst_entity = self.map_zktraffic_message_to_entity_ids(
+            zt_msg)
         d = self.map_zktraffic_message_to_dict(zt_msg)
         event = PacketEvent.from_message(src_entity, dst_entity, d)
 
         if isinstance(zt_msg, FLE.Message):
-            LOG.debug(colorama.Back.CYAN + colorama.Fore.BLACK + 'FLE: %s' + colorama.Style.RESET_ALL, event)
+            LOG.debug(colorama.Back.CYAN + colorama.Fore.BLACK +
+                      'FLE: %s' + colorama.Style.RESET_ALL, event)
         elif isinstance(zt_msg, ZAB.QuorumPacket):
-            LOG.debug(colorama.Back.WHITE + colorama.Fore.BLACK + 'ZAB: %s' + colorama.Style.RESET_ALL, event)
+            LOG.debug(colorama.Back.WHITE + colorama.Fore.BLACK +
+                      'ZAB: %s' + colorama.Style.RESET_ALL, event)
         elif isinstance(zt_msg, ClientMessage):
-            LOG.debug(colorama.Back.BLUE + colorama.Fore.WHITE + 'CM: %s' + colorama.Style.RESET_ALL, event)
+            LOG.debug(colorama.Back.BLUE + colorama.Fore.WHITE +
+                      'CM: %s' + colorama.Style.RESET_ALL, event)
         elif isinstance(zt_msg, ServerMessage):
-            LOG.debug(colorama.Back.RED + colorama.Fore.WHITE + 'SM: %s' + colorama.Style.RESET_ALL, event)
+            LOG.debug(colorama.Back.RED + colorama.Fore.WHITE +
+                      'SM: %s' + colorama.Style.RESET_ALL, event)
         else:
             LOG.debug('Unknown event %s', event)
 
@@ -125,12 +137,16 @@ class ZkEtherInspector(EtherInspectorBase):
             raw_packet = scapy.all.Raw(str(packet))
             # NOTE: zktraffic expects this raw_packet rather than packet
             zt_msg = self.sniffer.message_from_packet(raw_packet)
-            zt_msg.src = '%s:%d' % (packet[scapy.all.IP].src, packet[scapy.all.TCP].sport)
-            zt_msg.dst = '%s:%d' % (packet[scapy.all.IP].dst, packet[scapy.all.TCP].dport)
+            zt_msg.src = '%s:%d' % (
+                packet[scapy.all.IP].src, packet[scapy.all.TCP].sport)
+            zt_msg.dst = '%s:%d' % (
+                packet[scapy.all.IP].dst, packet[scapy.all.TCP].dport)
             if self.ignore_pings:
-                is_zab_ping  = isinstance(zt_msg, ZAB.Ping)
-                is_client_ping = isinstance(zt_msg, ClientMessage) and zt_msg.is_ping
-                is_server_ping = isinstance(zt_msg, ServerMessage) and zt_msg.is_ping
+                is_zab_ping = isinstance(zt_msg, ZAB.Ping)
+                is_client_ping = isinstance(
+                    zt_msg, ClientMessage) and zt_msg.is_ping
+                is_server_ping = isinstance(
+                    zt_msg, ServerMessage) and zt_msg.is_ping
                 if is_zab_ping or is_client_ping or is_server_ping:
                     return None
             event = self.map_zktraffic_message_to_event(zt_msg)
@@ -145,5 +161,5 @@ class ZkEtherInspector(EtherInspectorBase):
                     return PacketEvent.from_message('_unknown', '_unknown', {'class_group': 'FourLetter', 'class': 'FourLetterResponse', 'data': packet.load})
 
             if self.dump_bad_packet:
-                raise ex # the upper caller should print this
+                raise ex  # the upper caller should print this
             return None

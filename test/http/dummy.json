@@ -1,7 +1,0 @@
-{
-    "type": "event",
-    "class": "DummyEvent",
-    "entity": "dummy",
-    "uuid": "dummy-uuid",
-    "option": {}
-}

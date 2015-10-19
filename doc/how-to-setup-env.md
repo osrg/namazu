@@ -6,11 +6,11 @@ All you have to do is make Docker installed on your host and run the pre-built D
 
     
     $ docker run --rm --tty --interactive osrg/earthquake
-	INIT: Running without privileged mode. Please set EQ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector
-	INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
-	INIT: Starting command: ['/bin/bash', '--login', '-i']
-	root@a0c2e4413483:/earthquake# ^D
-	INIT: Exiting with status 0..(['/bin/bash', '--login', '-i'])
+    INIT: Running without privileged mode. Please set EQ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector
+    INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
+    INIT: Starting command: ['/bin/bash', '--login', '-i']
+    root@a0c2e4413483:/earthquake# ^D
+    INIT: Exiting with status 0..(['/bin/bash', '--login', '-i'])
 	
 Then, you can do the things what you want in `/earthquake` directory.
 You might want to try several [examples](../example).
@@ -32,25 +32,30 @@ This mode might be useful for Ethernet Inspector.
     * Enabling remote OVSDB managers
     Assigned 192.168.42.254 to ovsbr0
     root@907529be8b21:/earthquake# ^D
-	INIT: Exiting with status 0..(['wrapdocker', '/init.dind-ovs-ryu.sh'])
+    INIT: Exiting with status 0..(['wrapdocker', '/init.dind-ovs-ryu.sh'])
     
 
 ## Set up the environment manually (You might NOT need to read this section)
 If you want to set up your own environment manually, please follow this instruction.
 
-	$ sudo apt-get install -y --no-install-recommends protobuf-compiler default-jdk maven
-    $ curl https://storage.googleapis.com/golang/go1.5.linux-amd64.tar.gz | sudo tar Cxz /usr/local
-    $ export PATH=/usr/local/go/bin:$PATH 
+    $ sudo apt-get install -y --no-install-recommends protobuf-compiler default-jdk maven
+    $ curl https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz | sudo tar Cxz /usr/local
+    $ export PATH=/usr/local/go/bin:$PATH
+    $ mkdir ~/gopath
+    $ export GOPATH=~/gopath
 
-NOTE: Go 1.5 or later is required to build libearthquake.so.
 
 ### (Optional) Install Dependencies for MongoDB history storage
     
     $ sudo apt-get install -y --no-install-recommends mongodb
+
+### (Optional) Install Dependencies for FS inspector
     
+    $ sudo apt-get install -y --no-install-recommends fuse
+
 ### (Optional) Install Dependencies for pyearthquake
     
-	$ sudo apt-get install -y --no-install-recommends python-{flask,scapy,zmq}
+    $ sudo apt-get install -y --no-install-recommends python-{flask,scapy,zmq}
     $ sudo pip install hexdump
 
 ### (Optional) Install Dependencies for Ethernet inspector
@@ -65,6 +70,8 @@ This should also install ryu.
     $ sudo apt-get install -y --no-install-recommends openvswitch-switch
     
 Earthquake is tested with Open vSwitch 2.3.1 (Ubuntu 15.04).
+
+Note that Open vSwitch <= 2.0 is known *not* to work due to [a bug](http://git.openvswitch.org/cgi-bin/gitweb.cgi?p=openvswitch;a=commitdiff;h=cfa955b083c5617212a29a03423).
 
     
 #### Install pipework

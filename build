@@ -1,17 +1,67 @@
-#! /bin/bash
+#!/bin/bash
 set -e # exit on an error
-set -x
+# set -x
 
-pushd libearthquake
-./build
-popd
+function INFO(){
+    echo -e "\e[104m\e[97m[INFO]\e[49m\e[39m $@"
+}
 
-pushd inspector/java/base
-mvn package
-popd
-cp -f inspector/java/base/target/earthquake-inspector.jar ./bin/
+########## Set up ##########
+cd $(dirname $0)
+[ -z $GOPATH ] && (echo "GOPATH is not set"; exit 1)
+[[ $GOPATH = $(pwd)* ]] && (echo "GOPATH(${GOPATH}) should be *outside* of $(pwd). otherwise some tools like IntelliJ can get stuck."; exit 1)
+export GOBIN=$GOPATH/bin
+export PATH=$GOBIN:$PATH
+mkdir -p $GOPATH/src/github.com/osrg
+rm -f $GOPATH/src/github.com/osrg/earthquake
+INFO "Linking $(pwd) to $GOPATH/src/github.com/osrg/earthquake"
+ln -sf $(pwd) $GOPATH/src/github.com/osrg/earthquake
 
-pushd analyzer/java/base
-mvn package
-popd
-cp -f analyzer/java/base/target/earthquake-analyzer.jar ./bin/
+########## ProtocolBuffers ##########
+INFO "Installing protoc to $GOBIN"
+go get github.com/golang/protobuf/proto
+go get github.com/golang/protobuf/protoc-gen-go
+INFO "Generating PB files"
+protoc --go_out=earthquake/util/pb -Iinspector inspector/inspector_message.proto
+
+########## Go ##########
+INFO "Fetching Earthquake deps"
+go get -t github.com/osrg/earthquake/earthquake
+
+INFO "Building Earthquake (bin/earthquake)"
+go build -o bin/earthquake github.com/osrg/earthquake/earthquake
+
+(
+    cd earthquake
+    INFO "Testing Earthquake"
+    go get -t github.com/stretchr/testify/assert
+    go test ./...
+
+    INFO "Running \`go vet\` for  Earthquake"
+    go vet ./...
+
+    INFO "Running \`go fmt\` for Earthquake"
+    go fmt ./...
+)
+
+INFO "Building example/template/mypolicy.go"
+(
+    cd example/template
+    go build -o mypolicy mypolicy.go
+)
+
+########## Python ##########
+#INFO "Checking whether pyearthquake deps are installed"
+#INFO "Running \`autopep8 -r --diff\` for pyearthquake"
+#autopep8 -r --diff pyearthquake
+#INFO "Testing pyearthquake"
+
+########## Java ##########
+INFO "Building Java Inspector (bin/earthquake-inspector.jar)"
+( cd inspector/java/base; mvn package > /dev/null ) && cp -f inspector/java/base/target/earthquake-inspector.jar bin
+
+INFO "Building Java Analyzer (bin/earthquake-analyzer.jar)"
+( cd analyzer/java/base; mvn package > /dev/null ) && cp -f analyzer/java/base/target/earthquake-analyzer.jar bin
+
+########## C ##########
+#INFO "Building C Inspector" #FIXME: still broken?

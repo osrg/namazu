@@ -10,14 +10,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo ant ant-optional \
     ## (Optional) Install MongoDB storage
     mongodb \
+    ## (Optional) Install FUSE inspector deps
+    fuse \
     ## (Optional) Install pyearthquake deps
     python-flask python-scapy python-zmq \
     ## (Optional) Install pyearthquake nfqhook deps
     libnetfilter-queue1 python-prctl
 
 ## Install Go 1.5
-RUN curl https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz | tar Cxz /usr/local
+RUN curl https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz | tar Cxz /usr/local && mkdir /gopath
 ENV PATH /usr/local/go/bin:$PATH
+ENV GOPATH /gopath
 
 ## (Optional) Install pyearthquake deps
 RUN pip install hexdump

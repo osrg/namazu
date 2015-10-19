@@ -1,9 +1,0 @@
-$ curl http://localhost:10080/api/v2/actions/dummy
-^C (== KILL PROCESS)
-
-$ curl --data @dummy.json http://localhost:10080/api/v2/events/dummy/dummy-uuid
-$ curl http://localhost:10080/api/v2/actions/dummy
-SHOULD GET SOME ACTION
-$ curl -X DELETE http://localhost:10080/api/v2/actions/${ACTION_UUID}
-
-
