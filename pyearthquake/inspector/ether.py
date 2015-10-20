@@ -162,7 +162,8 @@ class EtherInspectorBase(object):
             assert isinstance(event, PacketEvent)
             assert event.deferred
             metadata = self.deferred_events[event_uuid]['metadata']
-            LOG.debug('Accept deferred event=%s, deferred-:%d->%d',
+            LOG.debug('Complete(%s) deferred event=%s, deferred-:%d->%d',
+                      op,
                       event, len(self.deferred_events), len(self.deferred_events) - 1)
             self._send_to_hookswitch(metadata, op)
             del self.deferred_events[event_uuid]
@@ -188,7 +189,7 @@ class EtherInspectorBase(object):
         LOG.debug('Received action: %s', action)
         if isinstance(action, EventAcceptanceAction):
             self.complete_deferred_event_uuid(action.event_uuid, op='accept')
-        if isinstance(action, PacketFaultAction):
+        elif isinstance(action, PacketFaultAction):
             self.complete_deferred_event_uuid(action.event_uuid, op='drop')
         elif isinstance(action, NopAction):
             LOG.debug('nop action: %s', action)

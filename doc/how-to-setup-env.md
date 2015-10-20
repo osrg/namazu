@@ -60,7 +60,7 @@ If you want to set up your own environment manually, please follow this instruct
 
 ### (Optional) Install Dependencies for Ethernet inspector
 
-    $ sudo pip install git+https://github.com/osrg/hookswitch@2b4e673e15b04664b07bce876981bc21ba1eb9e3
+    $ sudo pip install hookswitch==0.0.2
 
 This should also install ryu.
 
