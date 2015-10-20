@@ -30,7 +30,7 @@ Currently zktraffic does not work well with ZOOKEEPER-2080 scenario, because som
 
 	$ sudo PYTHONPATH=$(pwd)/../.. ../../bin/earthquake run /tmp/zk-2080
 
-If the bug could not be reproduced, you might have to modify the `sleep` parameter in `config.toml`. (about 30 msecs to 80 msecs)
+If the bug could not be reproduced, you might have to modify the `interval` parameter in `config.toml`. (about 30 msecs to 80 msecs)
 
 ## Analyze
 Unlike [ZOOKEEPER-2212](../zk-found-2212.ryu/README.md), you cannot use the Earthquake event history for analysis.

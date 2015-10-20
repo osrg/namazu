@@ -21,6 +21,7 @@ import (
 	"time"
 
 	lane "github.com/oleiade/lane"
+	log "github.com/cihub/seelog"
 )
 
 // implements TimeBoundedQueueItem
@@ -35,6 +36,7 @@ func NewBasicTBQueueItem(value interface{}, minDuration, maxDuration time.Durati
 	if minDuration > maxDuration {
 		return nil, fmt.Errorf("minDuration %s > maxDuration%s", minDuration, maxDuration)
 	}
+	rand.Seed(time.Now().UnixNano())
 	return &BasicTBQueueItem{
 		value:        value,
 		enqueuedTime: time.Unix(0, 0), // UNIX epoch (Jan 1, 1970 UTC)
@@ -90,11 +92,9 @@ func NewBasicTBQueue() TimeBoundedQueue {
 }
 
 func determineDuration(minDuration, maxDuration time.Duration) time.Duration {
-	if minDuration == maxDuration {
-		return maxDuration
-	}
-	rand.Seed(time.Now().Unix())
-	r := time.Duration(rand.Int63n(int64(maxDuration-minDuration)) + int64(minDuration))
+	x := int64(maxDuration-minDuration)
+	y := int64(minDuration)
+	r := time.Duration(rand.Int63n(x) + y)
 
 	if r < minDuration {
 		panic(fmt.Errorf("logic bug: %s < maxDuration=%s", r, minDuration))
@@ -102,6 +102,8 @@ func determineDuration(minDuration, maxDuration time.Duration) time.Duration {
 	if r > maxDuration {
 		panic(fmt.Errorf("logic bug: %s > maxDuration=%s", r, maxDuration))
 	}
+	log.Debugf("determined duration %s (min:%s, max:%s)",
+		r, minDuration, maxDuration)
 	return r
 }
 

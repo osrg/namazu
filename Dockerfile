@@ -26,7 +26,7 @@ ENV GOPATH /gopath
 RUN pip install hexdump
 
 ## (Optional) Install hookswitch
-RUN pip install git+https://github.com/osrg/hookswitch@2b4e673e15b04664b07bce876981bc21ba1eb9e3
+RUN pip install hookswitch==0.0.2
 
 ## (Optional) Install pipework for DinD
 RUN curl https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework -o /usr/local/bin/pipework
