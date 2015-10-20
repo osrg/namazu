@@ -85,7 +85,7 @@ func TestTimeBoundedQueueWithSeveralDurationsConcurrent(t *testing.T) {
 	deqCh := queue.GetDequeueChan()
 
 	durations := map[int][]time.Duration{
-		42: {2000 * time.Millisecond, 4000 * time.Millisecond},
+		42: {2000 * time.Millisecond, 7000 * time.Millisecond},
 		43: {0 * time.Millisecond, 8000 * time.Millisecond},
 		44: {5000 * time.Millisecond, 9000 * time.Millisecond},
 	}
