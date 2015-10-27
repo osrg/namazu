@@ -22,11 +22,14 @@ type FilesystemEvent struct {
 	BasicEvent
 }
 
-type FilesystemOp int
+type FilesystemOp string
 
 const (
-	NilFilesystemOp FilesystemOp = iota
-	Read
+	Read = "read"
+	Write = "write"
+	Mkdir = "mkdir"
+	Rmdir = "rmdir"
+	OpenDir = "opendir"
 )
 
 func NewFilesystemEvent(entityID string, op FilesystemOp, path string, m map[string]interface{}) (Event, error) {

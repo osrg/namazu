@@ -31,8 +31,9 @@ func TestMain(m *testing.M) {
 
 func TestInterfaceImpl(t *testing.T) {
 	h := &EQFSHook{}
-	isHookWithInit := func(x hookfs.HookWithInit) {}
-	isHookWithInit(h)
-	isHookOnRead := func(x hookfs.HookOnRead) {}
-	isHookOnRead(h)
+	func(x hookfs.HookWithInit) {}(h)
+	func(x hookfs.HookOnRead) {}(h)
+	func(x hookfs.HookOnMkdir) {}(h)
+	func(x hookfs.HookOnRmdir) {}(h)
+	func(x hookfs.HookOnOpenDir) {}(h)
 }

@@ -48,6 +48,30 @@ func (this *EQFSHook) Init() error {
 	return nil
 }
 
+func commonHook(this *EQFSHook, op FilesystemOp, path string, m map[string]interface{}) (error, bool) {
+	event, err := NewFilesystemEvent(this.EntityID, op, path, m)
+	if err != nil {
+		return err, false
+	}
+	log.Debugf("Event %s", event)
+	actionChan, err := this.trans.SendEvent(event)
+	if err != nil {
+		return err, false
+	}
+	action := <-actionChan
+	log.Debugf("Action %s", action)
+	switch action.(type) {
+	case *EventAcceptanceAction:
+		return nil, false
+	case *FilesystemFaultAction:
+		// TODO: get alternative errno from the action
+		return syscall.EIO, true
+	default:
+		return fmt.Errorf("unknown action %s", action), false
+	}
+	// NOTREACHED
+}
+
 // implements hookfs.HookOnRead
 func (this *EQFSHook) PreRead(path string, length int64, offset int64) ([]byte, error, bool, hookfs.HookContext) {
 	ctx := EQFSHookContext{Path: path}
@@ -59,28 +83,83 @@ func (this *EQFSHook) PreRead(path string, length int64, offset int64) ([]byte, 
 func (this *EQFSHook) PostRead(realRetCode int32, realBuf []byte, ctx hookfs.HookContext) ([]byte, error, bool) {
 	log.Debugf("PostRead %s", ctx)
 	path := (ctx.(EQFSHookContext)).Path
-	onError := func(err error) ([]byte, error, bool) {
-		log.Error(err)
+	err, hooked := commonHook(this, Read, path, map[string]interface{}{})
+	if hooked {
+		return nil, err, true
+	} else {
+		if err != nil {
+			log.Error(err)
+		}
 		return nil, nil, false
 	}
-	event, err := NewFilesystemEvent(this.EntityID, Read, path, map[string]interface{}{})
-	if err != nil {
-		return onError(err)
+	// NOTREACHED
+}
+
+// implements hookfs.HookOnMkdir
+func (this *EQFSHook) PreMkdir(path string, mode uint32) (error, bool, hookfs.HookContext) {
+	ctx := EQFSHookContext{Path: path}
+	log.Debugf("PreMkdir %s", ctx)
+	return nil, false, ctx
+}
+
+// implements hookfs.HookOnMkdir
+func (this *EQFSHook) PostMkdir(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
+	log.Debugf("PostMkdir %s", ctx)
+	path := (ctx.(EQFSHookContext)).Path
+	err, hooked := commonHook(this, Mkdir, path, map[string]interface{}{})
+	if hooked {
+		return err, true
+	} else {
+		if err != nil {
+			log.Error(err)
+		}
+		return nil, false
 	}
-	log.Debugf("Event %s", event)
-	actionChan, err := this.trans.SendEvent(event)
-	if err != nil {
-		return onError(err)
+	// NOTREACHED
+}
+
+// implements hookfs.HookOnRmdir
+func (this *EQFSHook) PreRmdir(path string) (error, bool, hookfs.HookContext) {
+	ctx := EQFSHookContext{Path: path}
+	log.Debugf("PreMkdir %s", ctx)
+	return nil, false, ctx
+}
+
+// implements hookfs.HookOnRmdir
+func (this *EQFSHook) PostRmdir(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
+	log.Debugf("PostRmdir %s", ctx)
+	path := (ctx.(EQFSHookContext)).Path
+	err, hooked := commonHook(this, Rmdir, path, map[string]interface{}{})
+	if hooked {
+		return err, true
+	} else {
+		if err != nil {
+			log.Error(err)
+		}
+		return nil, false
 	}
-	action := <-actionChan
-	log.Debugf("Action %s", action)
-	switch action.(type) {
-	case *EventAcceptanceAction:
-		return nil, nil, false
-	case *FilesystemFaultAction:
-		return nil, syscall.EIO, true
-	default:
-		return onError(fmt.Errorf("unknown action %s", action))
+	// NOTREACHED
+}
+
+// implements hookfs.HookOnOpenDir
+func (this *EQFSHook) PreOpenDir(path string) (error, bool, hookfs.HookContext) {
+	ctx := EQFSHookContext{Path: path}
+	log.Debugf("PreOpenDir %s", ctx)
+	return nil, false, ctx
+}
+
+// implements hookfs.HookOnOpenDir
+func (this *EQFSHook) PostOpenDir(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
+	log.Debugf("PostOpenDir %s", ctx)
+	path := (ctx.(EQFSHookContext)).Path
+	err, hooked := commonHook(this, OpenDir, path, map[string]interface{}{})
+	if hooked {
+		return err, true
+	} else {
+		if err != nil {
+			log.Error(err)
+		}
+		return nil, false
 	}
 	// NOTREACHED
 }
