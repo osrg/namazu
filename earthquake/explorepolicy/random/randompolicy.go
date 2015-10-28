@@ -97,8 +97,11 @@ func (this *Random) Init(storage storage.HistoryStorage, param map[string]interf
 		this.ShellActionCommand = v
 	}
 	log.Debugf("shellActionInterval=%s, shellActionCommand=%s", this.ShellActionInterval, this.ShellActionCommand)
-	if this.ShellActionInterval <= 0 && this.ShellActionCommand != "" {
-		panic(log.Critical("shellFaultInterval must be positive value"))
+	if this.ShellActionInterval < 0 {
+		panic(log.Critical("shellActionInterval must be non-negative value"))
+	}
+	if this.ShellActionInterval == 0 && this.ShellActionCommand != "" {
+		log.Warn("shellActionCommand will be ignored, because shellActionInterval is zero.")
 	}
 
 	if v, ok := param["faultActionProbability"].(float64); ok {
