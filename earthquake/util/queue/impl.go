@@ -20,8 +20,8 @@ import (
 	"math/rand"
 	"time"
 
-	lane "github.com/oleiade/lane"
 	log "github.com/cihub/seelog"
+	lane "github.com/oleiade/lane"
 )
 
 // implements TimeBoundedQueueItem
@@ -92,7 +92,7 @@ func NewBasicTBQueue() TimeBoundedQueue {
 }
 
 func determineDuration(minDuration, maxDuration time.Duration) time.Duration {
-	x := int64(maxDuration-minDuration)
+	x := int64(maxDuration - minDuration)
 	y := int64(minDuration)
 	r := time.Duration(rand.Int63n(x) + y)
 

@@ -1,0 +1,12 @@
+<configuration>
+  <property>
+    <name>yarn.nodemanager.local-dirs</name>
+    <!-- default: ${hadoop.tmp.dir}/nm-local-dir -->
+    <value>/eqfs/nm-local-dir</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.disk-health-checker.interval-ms</name>
+    <!-- default: 120000 (2 minutes) -->
+    <value>30000</value>
+  </property>
+</configuration>

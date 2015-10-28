@@ -44,11 +44,14 @@ go build -o bin/earthquake github.com/osrg/earthquake/earthquake
     go fmt ./...
 )
 
-INFO "Building example/template/mypolicy.go"
-(
-    cd example/template
-    go build -o mypolicy mypolicy.go
-)
+EXAMPLES="example/template/mypolicy.go example/yarn/4301-reproduce/mypolicy.go"
+for f in $EXAMPLES; do
+    INFO "Building ${f}"
+    (
+	cd $(dirname $f)
+	go build -o $(basename -s .go $f) $(basename $f)
+    )
+done
 
 ########## Python ##########
 #INFO "Checking whether pyearthquake deps are installed"

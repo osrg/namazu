@@ -36,8 +36,8 @@ type fsFlags struct {
 }
 
 var (
-	fsFlagset = flag.NewFlagSet("fs", flag.ExitOnError)
-	_fsFlags  = fsFlags{}
+	fsFlagset              = flag.NewFlagSet("fs", flag.ExitOnError)
+	_fsFlags               = fsFlags{}
 	defaultOrchestratorURL = fmt.Sprintf("http://localhost:%d%s", restutil.DefaultPort, restutil.APIRoot)
 )
 

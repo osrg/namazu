@@ -17,9 +17,9 @@ package inspectors
 
 import (
 	log "github.com/cihub/seelog"
-	. "github.com/osrg/earthquake/earthquake/util/config"
-	. "github.com/osrg/earthquake/earthquake/orchestrator"
 	. "github.com/osrg/earthquake/earthquake/explorepolicy"
+	. "github.com/osrg/earthquake/earthquake/orchestrator"
+	. "github.com/osrg/earthquake/earthquake/util/config"
 )
 
 // instantiate new autopilot-mode orchestrator.
