@@ -36,6 +36,10 @@ type EQFSHook struct {
 	trans           *Transceiver
 }
 
+func (this *EQFSHook) String() string {
+	return "EQFSHook"
+}
+
 // implements hookfs.HookWithInit
 func (this *EQFSHook) Init() error {
 	log.Debugf("Initializing FS Inspector %#v", this)
@@ -48,7 +52,7 @@ func (this *EQFSHook) Init() error {
 	return nil
 }
 
-func commonHook(this *EQFSHook, op FilesystemOp, path string, m map[string]interface{}) (error, bool) {
+func (this *EQFSHook) commonHook(op FilesystemOp, path string, m map[string]interface{}) (error, bool) {
 	event, err := NewFilesystemEvent(this.EntityID, op, path, m)
 	if err != nil {
 		return err, false
@@ -83,7 +87,7 @@ func (this *EQFSHook) PreRead(path string, length int64, offset int64) ([]byte, 
 func (this *EQFSHook) PostRead(realRetCode int32, realBuf []byte, ctx hookfs.HookContext) ([]byte, error, bool) {
 	log.Debugf("PostRead %s", ctx)
 	path := (ctx.(EQFSHookContext)).Path
-	err, hooked := commonHook(this, Read, path, map[string]interface{}{})
+	err, hooked := this.commonHook(PostRead, path, map[string]interface{}{})
 	if hooked {
 		return nil, err, true
 	} else {
@@ -91,52 +95,6 @@ func (this *EQFSHook) PostRead(realRetCode int32, realBuf []byte, ctx hookfs.Hoo
 			log.Error(err)
 		}
 		return nil, nil, false
-	}
-	// NOTREACHED
-}
-
-// implements hookfs.HookOnMkdir
-func (this *EQFSHook) PreMkdir(path string, mode uint32) (error, bool, hookfs.HookContext) {
-	ctx := EQFSHookContext{Path: path}
-	log.Debugf("PreMkdir %s", ctx)
-	return nil, false, ctx
-}
-
-// implements hookfs.HookOnMkdir
-func (this *EQFSHook) PostMkdir(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
-	log.Debugf("PostMkdir %s", ctx)
-	path := (ctx.(EQFSHookContext)).Path
-	err, hooked := commonHook(this, Mkdir, path, map[string]interface{}{})
-	if hooked {
-		return err, true
-	} else {
-		if err != nil {
-			log.Error(err)
-		}
-		return nil, false
-	}
-	// NOTREACHED
-}
-
-// implements hookfs.HookOnRmdir
-func (this *EQFSHook) PreRmdir(path string) (error, bool, hookfs.HookContext) {
-	ctx := EQFSHookContext{Path: path}
-	log.Debugf("PreMkdir %s", ctx)
-	return nil, false, ctx
-}
-
-// implements hookfs.HookOnRmdir
-func (this *EQFSHook) PostRmdir(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
-	log.Debugf("PostRmdir %s", ctx)
-	path := (ctx.(EQFSHookContext)).Path
-	err, hooked := commonHook(this, Rmdir, path, map[string]interface{}{})
-	if hooked {
-		return err, true
-	} else {
-		if err != nil {
-			log.Error(err)
-		}
-		return nil, false
 	}
 	// NOTREACHED
 }
@@ -152,7 +110,7 @@ func (this *EQFSHook) PreOpenDir(path string) (error, bool, hookfs.HookContext) 
 func (this *EQFSHook) PostOpenDir(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
 	log.Debugf("PostOpenDir %s", ctx)
 	path := (ctx.(EQFSHookContext)).Path
-	err, hooked := commonHook(this, OpenDir, path, map[string]interface{}{})
+	err, hooked := this.commonHook(PostOpenDir, path, map[string]interface{}{})
 	if hooked {
 		return err, true
 	} else {
@@ -162,4 +120,48 @@ func (this *EQFSHook) PostOpenDir(realRetCode int32, ctx hookfs.HookContext) (er
 		return nil, false
 	}
 	// NOTREACHED
+}
+
+// implements hookfs.HookOnMkdir
+func (this *EQFSHook) PreMkdir(path string, mode uint32) (error, bool, hookfs.HookContext) {
+	ctx := EQFSHookContext{Path: path}
+	log.Debugf("PreMkdir %s", ctx)
+	err, hooked := this.commonHook(PreMkdir, path, map[string]interface{}{})
+	if hooked {
+		return err, true, ctx
+	} else {
+		if err != nil {
+			log.Error(err)
+		}
+		return nil, false, ctx
+	}
+	// NOTREACHED
+}
+
+// implements hookfs.HookOnMkdir
+func (this *EQFSHook) PostMkdir(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
+	log.Debugf("PostMkdir %s", ctx)
+	return nil, false
+}
+
+// implements hookfs.HookOnRmdir
+func (this *EQFSHook) PreRmdir(path string) (error, bool, hookfs.HookContext) {
+	ctx := EQFSHookContext{Path: path}
+	log.Debugf("PreMkdir %s", ctx)
+	err, hooked := this.commonHook(PreRmdir, path, map[string]interface{}{})
+	if hooked {
+		return err, true, ctx
+	} else {
+		if err != nil {
+			log.Error(err)
+		}
+		return nil, false, ctx
+	}
+	// NOTREACHED
+}
+
+// implements hookfs.HookOnRmdir
+func (this *EQFSHook) PostRmdir(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
+	log.Debugf("PostRmdir %s", ctx)
+	return nil, false
 }

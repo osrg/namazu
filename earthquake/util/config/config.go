@@ -17,7 +17,6 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 
 	"github.com/spf13/viper"
@@ -53,11 +52,6 @@ func ParseConfigFile(filePath string) (*Config, error) {
 	// viper supports JSON, YAML, and TOML
 	cfg.SetConfigFile(filePath)
 	err := cfg.ReadInConfig()
-	if err == nil {
-		if cfg.GetString("run") == "" {
-			err = fmt.Errorf("required field \"run\" is missing")
-		}
-	}
 	return cfg, err
 }
 

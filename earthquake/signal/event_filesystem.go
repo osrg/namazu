@@ -25,11 +25,13 @@ type FilesystemEvent struct {
 type FilesystemOp string
 
 const (
-	Read = "read"
-	Write = "write"
-	Mkdir = "mkdir"
-	Rmdir = "rmdir"
-	OpenDir = "opendir"
+	// read-only ops use posthooks
+	PostRead    = "post-read"
+	PostOpenDir = "post-opendir"
+	// write ops use prehooks
+	PreWrite = "pre-write"
+	PreMkdir = "pre-mkdir"
+	PreRmdir = "pre-rmdir"
 )
 
 func NewFilesystemEvent(entityID string, op FilesystemOp, path string, m map[string]interface{}) (Event, error) {
