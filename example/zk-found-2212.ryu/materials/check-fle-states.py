@@ -37,7 +37,13 @@ def get_stats():
 
 
 def main():
-    l = get_stats()
+    l = []
+    try:
+        l = get_stats()
+    except Exception as e:
+        print 'Unexpected exception while calling get_stats()'
+        print e
+        raise e
     leaders = filter(lambda d: d['mode'] == 'leader', l)
     observers = filter(lambda d: d['mode'] == 'observer', l)
     assert len(leaders) == 1, 'Bad leader election: %s' % l

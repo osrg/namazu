@@ -52,12 +52,13 @@ def main(zkid, zkensemble, overwrite):
     ip_ready = False
     while not ip_ready:
         ip = zkid2ip(zkid)
-        print('Waiting for configuration of %s', ip)
+        print('Waiting for configuration of %s' % ip)
         rc = subprocess.call(['ping', ip, '-c1','-w10','-q'])
         ip_ready = rc == 0
 
-    rc = subprocess.call(['bin/zkServer.sh', 'start-foreground'])
-    raise RuntimeError('zkServer.sh exited with status %d' % rc)
+    rc = subprocess.call(['bin/zkServer.sh', 'start'])
+    if rc != 0:
+        raise RuntimeError('zkServer.sh exited with status %d' % rc)
 
 
 zkid = -1
