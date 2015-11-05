@@ -1,0 +1,9 @@
+tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=<%= myzkdir %>
+standaloneEnabled=false
+server.1=localhost:2888:3888:participant;2181
+<% if myid > 1 then %>
+server.<%= myid %>=localhost:<%= 2887 + myid %>:<%= 3887 + myid %>:observer;<%= 2180 + myid %>
+<% end %>
