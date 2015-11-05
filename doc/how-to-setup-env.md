@@ -85,7 +85,7 @@ Note that Open vSwitch <= 2.0 is known *not* to work due to [a bug](http://git.o
 	
     $ sudo ovs-vsctl add-br ovsbr0
     $ sudo ovs-vsctl set bridge ovsbr0 protocols=OpenFlow13
-    $ sudo ovs-vsctl set-controller ovsbr0 tcp:127.0.0.1
+    $ sudo ovs-vsctl set-controller ovsbr0 tcp:127.0.0.1:6633
     $ sudo echo 'ip addr add 192.168.42.254/24 dev ovsbr0' > /etc/rc.local
     $ sudo sh /etc/rc.local
 

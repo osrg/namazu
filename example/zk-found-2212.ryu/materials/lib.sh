@@ -27,7 +27,7 @@ function PAUSE(){
     TMP=$(mktemp)
     IMPORTANT "PAUSING. remove ${TMP} to continue"
     while [ -e $TMP ]; do
-      sleep 3
+	sleep 3
     done
 }
 
@@ -61,7 +61,7 @@ function FETCH_ZK() {
 function BUILD_DOCKER_IMAGE() {
     ( cd ${EQ_MATERIALS_DIR}/zk_testbed;
       docker_build_log=${EQ_MATERIALS_DIR}/docker-build.log
-      INFO "Building Docker Image ${DOCKER_IMAGE_NAME} (${docker_build_log})";
+      INFO "Building Docker Image ${DOCKER_IMAGE_NAME} (${docker_build_log})"
       docker build -t ${DOCKER_IMAGE_NAME} . > ${docker_build_log} )
 }
 
@@ -77,7 +77,7 @@ function CHECK_PYTHONPATH() {
 
 function START_SWITCH() {
     INFO "Starting HookSwitch"
-    hookswitch-of13 ${EQ_ETHER_ZMQ_ADDR} --debug --tcp-ports=2181,2888,3888 > ${EQ_WORKING_DIR}/switch.log 2>&1 &
+    hookswitch-of13 ${EQ_ETHER_ZMQ_ADDR} --debug --tcp-ports=2888,3888 > ${EQ_WORKING_DIR}/switch.log 2>&1 &
     pid=$!
     INFO "Switch PID: ${pid}"
     echo ${pid} > ${EQ_WORKING_DIR}/switch.pid
@@ -93,22 +93,22 @@ function START_INSPECTOR() {
 
 function START_DOCKER() {
     for f in $(seq 1 3); do
-	    INFO "Starting Docker container zk${f} from ${DOCKER_IMAGE_NAME}"
-      docker run -i -t -d -e ZKID=${f} -e ZKENSEMBLE=1 -h zk${f} --name zk${f} ${DOCKER_IMAGE_NAME} /bin/bash;
+	INFO "Starting Docker container zk${f} from ${DOCKER_IMAGE_NAME}"
+	docker run -i -t -d -e ZKID=${f} -e ZKENSEMBLE=1 -h zk${f} --name zk${f} ${DOCKER_IMAGE_NAME} /bin/bash
     done
 }
 
 function SET_PIPEWORK() {
     for f in $(seq 1 3); do
-	    INFO "Assigning 192.168.42.${f}/24 (ovsbr0) to zk${f}"
-	    pipework ovsbr0 zk${f} 192.168.42.${f}/24;
+	INFO "Assigning 192.168.42.${f}/24 (ovsbr0) to zk${f}"
+	pipework ovsbr0 zk${f} 192.168.42.${f}/24
     done
 }
 
 function START_ZOOKEEPER() {
     for f in $(seq 1 3); do 
-	  INFO "Starting ZooKeeper(sid=${f}) in Docker container zk${f}"
-	  docker exec -d zk${f} /bin/bash -c '/init.py > /log 2>&1';
+	INFO "Starting ZooKeeper(sid=${f}) in Docker container zk${f}"
+	docker exec -d zk${f} python /init.py
     done
 }
 
@@ -143,17 +143,11 @@ function KILL_INSPECTOR() {
 }
 
 function KILL_DOCKER() {
-    docker stop zk1 zk2 zk3
     for f in $(seq 1 3); do
-	   INFO "Killing Docker container zk${f} (log:${EQ_WORKING_DIR}/zk${f})"
-	   docker cp zk${f}:/log ${EQ_WORKING_DIR}/zk${f}
-	   docker rm -f zk${f}
+	INFO "Killing Docker container zk${f} (log:${EQ_WORKING_DIR}/zk${f})"
+	docker exec zk${f} /zk/bin/zkServer.sh stop
+        docker cp zk${f}:/zk/jacoco.exec ${EQ_WORKING_DIR}/zk${f}
+	docker cp zk${f}:/zk/logs ${EQ_WORKING_DIR}/zk${f}
+	docker rm -f zk${f}
     done
-}
-
-function CLEAN_VETHS(){
-    INFO "Removing garbage veths"
-    IMPORTANT "CLEAN_VETHS() has not been tested well"
-    garbages=$(ip a | egrep -o 'veth.*:' | sed -e s/://g)
-    for f in $garbages; do ip link delete $f; done
 }

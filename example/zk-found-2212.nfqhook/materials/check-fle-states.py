@@ -1,8 +1,7 @@
 #!/usr/bin/python
-## FIXME: move these ones to the config file
-HOSTS = ['192.168.42.1', '192.168.42.2', '192.168.42.3']
 
 import telnetlib
+import traceback
 import re
 
 
@@ -30,26 +29,23 @@ def stat(host, port=2181):
 
 def get_stats():
     l = []
-    for host in HOSTS:
-        d = stat(host)
-        l.append(d)
+    l.append(stat('localhost', 2181))
+    l.append(stat('localhost', 2182))
+    l.append(stat('localhost', 2183))
     return l
 
 
 def main():
-    l = []
     try:
         l = get_stats()
+        leaders = filter(lambda d: d['mode'] == 'leader', l)
+        observers = filter(lambda d: d['mode'] == 'observer', l)
+        assert len(leaders) == 1, 'Bad leader election: %s' % l
+        assert len(observers) == 0, 'Bad observers: %s' % l
+        print('OK (%d leaders, %d observers): %s' % (len(leaders), len(observers), l))
     except Exception as e:
-        print 'Unexpected exception while calling get_stats()'
-        print e
+        print(traceback.format_exc())
         raise e
-    leaders = filter(lambda d: d['mode'] == 'leader', l)
-    observers = filter(lambda d: d['mode'] == 'observer', l)
-    assert len(leaders) == 1, 'Bad leader election: %s' % l
-    assert len(observers) == 0, 'Bad observers: %s' % l
-    print('OK (%d leaders, %d observers): %s' % (len(leaders), len(observers), l))
-
 
 if __name__ == '__main__':
     main()

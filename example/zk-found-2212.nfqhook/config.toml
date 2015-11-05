@@ -1,0 +1,9 @@
+init = "init.sh"
+run = "run.sh"
+validate = "validate.sh"
+clean = "clean.sh"
+explorePolicy = "random"
+
+[explorePolicyParam]
+ minInterval = 30
+ maxInterval = 100
