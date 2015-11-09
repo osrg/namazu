@@ -21,12 +21,11 @@ import com.google.common.collect.TreeBasedTable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jacoco.core.analysis.*;
+import org.jacoco.core.tools.ExecFileLoader;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Analyzer {
     static final Logger LOG = LogManager.getLogger(Analyzer.class);
@@ -42,38 +41,55 @@ public class Analyzer {
         this.analysisTable = TreeBasedTable.create();
     }
 
-    private static IBundleCoverage getBundleCoverage(Experiment experiment, File classesDir) throws IOException {
-        final CoverageBuilder coverageBuilder = new CoverageBuilder();
-        final org.jacoco.core.analysis.Analyzer analyzer = new org.jacoco.core.analysis.Analyzer(
-                experiment.getExecFileLoader().getExecutionDataStore(), coverageBuilder);
-        analyzer.analyzeAll(classesDir);
-        return coverageBuilder.getBundle(experiment.getDirPath());
+    private static IBundleCoverage[] getBundleCoverages(Experiment experiment, File classesDir) throws IOException {
+        List<IBundleCoverage> bundles = new ArrayList<IBundleCoverage>();
+        for (ExecFileLoader loader : experiment.getExecFileLoaders()) {
+            final CoverageBuilder coverageBuilder = new CoverageBuilder();
+            final org.jacoco.core.analysis.Analyzer jacocoAnalyzer =
+                    new org.jacoco.core.analysis.Analyzer(
+                            loader.getExecutionDataStore(),
+                            coverageBuilder);
+            jacocoAnalyzer.analyzeAll(classesDir);
+            bundles.add(coverageBuilder.getBundle(experiment.getDir().getPath()));
+        }
+        return bundles.toArray(new IBundleCoverage[0]);
+    }
+
+    private File[] listExperimentDirs() {
+        File[] dirs = this.storageDir.listFiles();
+        Arrays.sort(dirs);
+        return dirs;
     }
 
     public void analyze() throws IOException {
-        for (File dir : storageDir.listFiles()) {
-            if (!dir.isDirectory()) {
-                continue;
-            }
+        Set<String> hashSet = new TreeSet<String>();
+        int scannedExpCount = 0;
+        // TODO: parallelize
+        for (File dir : this.listExperimentDirs()) {
             Experiment experiment;
             try {
-                experiment = new Experiment(dir.getPath());
-            } catch (FileNotFoundException fileNotFoundEx) {
-                LOG.warn("Skipping {} ({})", dir, fileNotFoundEx);
+                experiment = new Experiment(dir);
+            } catch (Exception e) {
+                LOG.warn("Skipping {} ({})", dir, e);
                 continue;
             }
             LOG.debug("Scanning {}: experiment successful={}",
                     dir, experiment.isSuccessful());
-            IBundleCoverage bundle = this.getBundleCoverage(experiment, classesDir);
-            this.scanBundleCoverage(experiment, bundle);
+            IBundleCoverage[] bundles = this.getBundleCoverages(experiment, classesDir);
+            for (int nodeIDAsInt = 0; nodeIDAsInt < bundles.length; nodeIDAsInt++) {
+                this.scanBundleCoverage(experiment, bundles[nodeIDAsInt], String.format("%d", nodeIDAsInt));
+            }
+            hashSet.add(experiment.getPattern().computeHash().toString());
+            scannedExpCount++;
+            LOG.info("Patterns(at scanning {}): {} {}", dir.getName(), scannedExpCount, hashSet.size());
         }
     }
 
-    private void scanBundleCoverage(Experiment experiment, IBundleCoverage bundle) throws IOException {
+    private void scanBundleCoverage(Experiment experiment, IBundleCoverage bundle, String nodeID) throws IOException {
         for (IPackageCoverage pkg : bundle.getPackages()) {
             for (IClassCoverage klazz : pkg.getClasses()) {
                 for (IMethodCoverage method : klazz.getMethods()) {
-                    this.scanMethodCoverage(experiment, bundle, pkg, klazz, method);
+                    this.scanMethodCoverage(experiment, bundle, pkg, klazz, method, nodeID);
                 }
             }
         }
@@ -83,13 +99,20 @@ public class Analyzer {
                                     IBundleCoverage bundle,
                                     IPackageCoverage pkg,
                                     IClassCoverage klazz,
-                                    IMethodCoverage method) {
+                                    IMethodCoverage method,
+                                    String nodeID) {
         int first = method.getFirstLine();
         int last = method.getLastLine();
         for (int i = first; i <= last; i++) {
             ILine l = method.getLine(i);
-            Analysis analysis = this.prepareAnalysis(klazz.getName(), method.getName(), i);
             int coveredCount = l.getInstructionCounter().getCoveredCount();
+            experiment.getPattern().putCount(klazz.getName(), method.getName(), i,
+                    nodeID,
+                    experiment.isSuccessful(),
+                    coveredCount);
+
+            // FIXME: ExperimentPattern should obsolete Analysis
+            Analysis analysis = this.prepareAnalysis(klazz.getName(), method.getName(), i);
             if (experiment.isSuccessful()) {
                 analysis.addBranchOnSuccess(coveredCount);
             } else {
@@ -98,6 +121,7 @@ public class Analyzer {
         }
     }
 
+    // FIXME: ExperimentPattern should obsolete Analysis
     private Analysis prepareAnalysis(String klazzName,
                                      String methodName,
                                      int line) {
@@ -114,6 +138,7 @@ public class Analyzer {
         return analysis;
     }
 
+    // FIXME: ExperimentPattern should obsolete Analysis
     public Table<String, String, SortedMap<Integer, Analysis>> getAnalysisTable() {
         return analysisTable;
     }

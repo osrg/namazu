@@ -15,6 +15,7 @@
 
 package net.osrg.earthquake;
 
+// FIXME: ExperimentPattern should obsolete Analysis
 class Analysis {
     private String klazzName = null;
     private String methodName = null;

@@ -17,52 +17,74 @@ package net.osrg.earthquake;
 
 
 import net.arnx.jsonic.JSON;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jacoco.core.tools.ExecFileLoader;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+
 
 public class Experiment {
     public final static String DEFAULT_EQ_RESULT_JSON_PATH = "result.json";
-    public final static String DEFAULT_JACOCO_EXEC_PATH = "jacoco/jacoco.exec"; // TODO: support Windows path sep?
-
-    public Experiment(String dirPath) throws IOException {
-        this(dirPath, DEFAULT_EQ_RESULT_JSON_PATH, DEFAULT_JACOCO_EXEC_PATH);
-    }
-
-    public Experiment(String dirPath, String eqResultJsonPath, String jacocoExecPath) throws IOException {
-        this.dirPath = dirPath;
-        JSON json = new JSON();
-        this.resultJsonMap = json.parse(new FileReader(new File(dirPath, eqResultJsonPath)));
-        this.successful = (boolean) this.resultJsonMap.get("successful");
-        this.execFileLoader = new ExecFileLoader();
-        this.execFileLoader.load(new File(dirPath, jacocoExecPath));
-    }
-
+    public final static String DEFAULT_JACOCO_PATH_REGEX = "jacoco.exec";
+    static final Logger LOG = LogManager.getLogger(Experiment.class);
     /**
-     * Earthquake experiment dir path (e.g. "0000002a")
+     * Earthquake experiment dir (e.g. "0000002a")
      */
-    private String dirPath;
-
+    private File dir;
     /**
      * Equivalent to (boolean) this.resultJsonMap["successful"]
      */
     private boolean successful;
-
     /**
      * Earthquake result.json
      */
     private Map<String, Object> resultJsonMap;
-
     /**
      * JaCoCo execution file loader
      */
-    private ExecFileLoader execFileLoader;
+    private List<ExecFileLoader> execFileLoaders;
+    /**
+     * Pattern
+     */
+    private ExperimentPattern pattern;
 
-    public String getDirPath() {
-        return dirPath;
+    public Experiment(File dir) throws IOException {
+        this(dir, DEFAULT_EQ_RESULT_JSON_PATH, DEFAULT_JACOCO_PATH_REGEX);
+    }
+
+    public Experiment(File dir, String eqResultJsonPath, String jacocoPathRegex) throws IOException {
+        this.dir = dir;
+        this.resultJsonMap = new JSON().parse(new FileReader(new File(dir, eqResultJsonPath)));
+        this.successful = (boolean) this.resultJsonMap.get("successful");
+
+        this.execFileLoaders = new ArrayList<ExecFileLoader>();
+        File[] jacocoFiles = FileUtils.listFiles(
+                dir,
+                new RegexFileFilter(jacocoPathRegex),
+                DirectoryFileFilter.DIRECTORY).toArray(new File[0]);
+        Arrays.sort(jacocoFiles);
+        for (File jacocoFile : jacocoFiles) {
+            ExecFileLoader loader = new ExecFileLoader();
+            // LOG.debug("Loading {}", jacocoFile);
+            loader.load(jacocoFile);
+            this.execFileLoaders.add(loader);
+        }
+
+        this.pattern = new ExperimentPattern();
+    }
+
+    public File getDir() {
+        return dir;
     }
 
     public boolean isSuccessful() {
@@ -73,8 +95,11 @@ public class Experiment {
         return resultJsonMap;
     }
 
-    public ExecFileLoader getExecFileLoader() {
-        return execFileLoader;
+    public List<ExecFileLoader> getExecFileLoaders() {
+        return execFileLoaders;
     }
 
+    public ExperimentPattern getPattern() {
+        return pattern;
+    }
 }
