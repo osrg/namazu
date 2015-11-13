@@ -20,7 +20,7 @@ Unlike other experiments, we don't use `earthquake run` in this experiment, beca
 After started Earthquake, you can start the YARN testbed. The YARN uses `/eqfs/nm-local-dir` as the `yarn.nodemanager.local-dirs` property.
 
     $ docker build -t yarn_testbed yarn_testbed
-    $ docker run -i -t --rm -p 8042:8042 -v /eqfs:/tmp/eqfs-mnt yarn_testbed
+    $ docker run -i -t --rm -p 8042:8042 -v /tmp/eqfs-mnt:/eqfs yarn_testbed
 
 Open [http://localhost:8042/node](http://localhost:8042) in a web browser, and make sure that `NodeHealthyStatus` is `true`, and `LastNodeHealthTime` is updated per 30 seconds.
 
