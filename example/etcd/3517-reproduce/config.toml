@@ -7,6 +7,7 @@ explorePolicy = "etcd"
 notCleanIfValidationFail= "true"
 
 [explorePolicyParam]
- interval = 5
+ minBound = 100
+ maxBound = 1000
 
 # storageType = "mongodb"
