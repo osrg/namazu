@@ -26,6 +26,10 @@ Basically, Earthquake permutes events in a random order, but you can write your 
   * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): ([repro code](example/yarn/4301-reproduce))
 
 ## Quick Start
+
+    $ go get github.com/osrg/earthquake/earthquake-container
+    $ sudo earthquake-container run -it --rm --eq-config config.toml ubuntu bash
+
  * How to set up the environment: [GettingStarted](http://osrg.github.io/earthquake/gettingStarted/) ([some extra info](doc/how-to-setup-env.md))
  * Example: Finding a distributed race condition bug of ZooKeeper([ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212)): [blog article](http://osrg.github.io/earthquake/post/zookeeper-2212/) ([repro code](example/zk-found-2212.ryu))
 

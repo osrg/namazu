@@ -15,9 +15,30 @@
 
 package signal
 
+import "github.com/satori/go.uuid"
+
 // implements Event
 type PacketEvent struct {
 	BasicEvent
+}
+
+func NewPacketEvent(entityID, srcEntityID, dstEntityID string, m map[string]interface{}) (Event, error) {
+	action := &PacketEvent{}
+	action.InitSignal()
+	action.SetID(uuid.NewV4().String())
+	action.SetEntityID(entityID)
+	action.SetType("event")
+	action.SetClass("PacketEvent")
+	action.SetDeferred(true)
+	opt := map[string]interface{}{
+		"src_entity": srcEntityID,
+		"dst_entity": dstEntityID,
+	}
+	for k, v := range m {
+		opt[k] = v
+	}
+	action.SetOption(opt)
+	return action, nil
 }
 
 // implements Event

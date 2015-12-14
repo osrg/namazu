@@ -17,22 +17,10 @@ package cli
 
 import (
 	"fmt"
-	"os"
-
 	log "github.com/cihub/seelog"
-	mcli "github.com/mitchellh/cli"
-	. "github.com/osrg/earthquake/earthquake/explorepolicy"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/log"
+	eqcli "github.com/osrg/earthquake/earthquake/cli"
+	"os"
 )
-
-func CLIInit(debug bool) {
-	InitLog("", debug)
-	RegisterKnownSignals()
-	RegisterKnownExplorePolicies()
-}
-
-const EarthquakeVersion = "0.1.2"
 
 func recoverer(debug bool) {
 	if r := recover(); r != nil {
@@ -48,19 +36,22 @@ func recoverer(debug bool) {
 
 func CLIMain(args []string) int {
 	debug := os.Getenv("EQ_DEBUG") != ""
-	CLIInit(debug)
+	eqcli.CLIInit(debug)
 	defer recoverer(debug)
-	c := mcli.NewCLI(args[0], EarthquakeVersion)
-	c.Args = args[1:]
-	c.Commands = map[string]mcli.CommandFactory{
-		"init":       initCommandFactory,
-		"run":        runCommandFactory,
-		"tools":      toolsCommandFactory,
-		"inspectors": inspectorsCommandFactory,
+	if len(args) < 2 {
+		fmt.Printf("Usage: %s [OPTIONS] COMMAND [arg...]\n", args[0])
+		fmt.Printf("\n")
+		fmt.Printf("Docker Container + Earthquake Testing Framework\n")
+		fmt.Printf("\n")
+		fmt.Printf("Commands:\n")
+		fmt.Printf("\trun\tRun a command in a new container\n")
+		fmt.Printf("\n")
+		return 0
 	}
-	exitStatus, err := c.Run()
-	if err != nil {
-		fmt.Printf("failed to execute command: %s\n", err)
+	switch args[1] {
+	case "run":
+		return run(args[1:])
 	}
-	return exitStatus
+	fmt.Fprintf(os.Stderr, "'%s' is not a earthquake-container command.", args[1])
+	return 1
 }

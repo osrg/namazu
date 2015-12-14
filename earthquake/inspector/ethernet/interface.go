@@ -13,27 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package fs
+package ethernet
 
-import (
-	"flag"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/osrg/hookfs/hookfs"
-	"os"
-	"testing"
-)
-
-func TestMain(m *testing.M) {
-	flag.Parse()
-	logutil.InitLog("", true)
-	os.Exit(m.Run())
-}
-
-func TestInterfaceImpl(t *testing.T) {
-	h := &FilesystemInspector{}
-	func(x hookfs.HookWithInit) {}(h)
-	func(x hookfs.HookOnRead) {}(h)
-	func(x hookfs.HookOnMkdir) {}(h)
-	func(x hookfs.HookOnRmdir) {}(h)
-	func(x hookfs.HookOnOpenDir) {}(h)
+type EthernetInspector interface {
+	Start() error
 }

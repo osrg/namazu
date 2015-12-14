@@ -16,11 +16,15 @@
 package inspectors
 
 import (
+	"fmt"
 	log "github.com/cihub/seelog"
 	. "github.com/osrg/earthquake/earthquake/explorepolicy"
 	. "github.com/osrg/earthquake/earthquake/orchestrator"
 	. "github.com/osrg/earthquake/earthquake/util/config"
+	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 )
+
+var defaultOrchestratorURL = fmt.Sprintf("http://localhost:%d%s", restutil.DefaultPort, restutil.APIRoot)
 
 // instantiate new autopilot-mode orchestrator.
 //

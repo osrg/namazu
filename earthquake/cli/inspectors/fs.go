@@ -18,12 +18,11 @@ package inspectors
 import (
 	"flag"
 
-	"fmt"
+	//"fmt"
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 	inspector "github.com/osrg/earthquake/earthquake/inspector/fs"
 	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 	"github.com/osrg/hookfs/hookfs"
 )
 
@@ -36,9 +35,8 @@ type fsFlags struct {
 }
 
 var (
-	fsFlagset              = flag.NewFlagSet("fs", flag.ExitOnError)
-	_fsFlags               = fsFlags{}
-	defaultOrchestratorURL = fmt.Sprintf("http://localhost:%d%s", restutil.DefaultPort, restutil.APIRoot)
+	fsFlagset = flag.NewFlagSet("fs", flag.ExitOnError)
+	_fsFlags  = fsFlags{}
 )
 
 func init() {
@@ -106,7 +104,7 @@ func runFsInspector(args []string) int {
 		go autopilotOrchestrator.Start()
 	}
 
-	hook := &inspector.EQFSHook{
+	hook := &inspector.FilesystemInspector{
 		OrchestratorURL: _fsFlags.OrchestratorURL,
 		EntityID:        _fsFlags.EntityID,
 	}

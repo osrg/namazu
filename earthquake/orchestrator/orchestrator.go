@@ -13,6 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/*
+  Orchestrator manages inspectorhandlers, entities, and the policy.
+
+  Event:  inspector  --RPC-->  inspectorhandler -> entity -> orchestrator -> policy
+  Action: inspector <--RPC--   inspectorhandler <- entity <- orchestrator <- policy
+
+*/
 package orchestrator
 
 import (

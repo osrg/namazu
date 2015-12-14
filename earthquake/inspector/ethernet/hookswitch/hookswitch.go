@@ -13,27 +13,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package fs
+// see https://github.com/osrg/hookswitch
+package hookswitch
 
-import (
-	"flag"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/osrg/hookfs/hookfs"
-	"os"
-	"testing"
+type HookSwitchMeta struct {
+	// Ethernet frame ID
+	ID int `json:"id"`
+	// Op: {"accept", "drop", "modify"}
+	Op HookSwitchOp `json:"op"`
+}
+
+type HookSwitchOp string
+
+const (
+	Accept HookSwitchOp = "accept"
+	Drop   HookSwitchOp = "drop"
 )
-
-func TestMain(m *testing.M) {
-	flag.Parse()
-	logutil.InitLog("", true)
-	os.Exit(m.Run())
-}
-
-func TestInterfaceImpl(t *testing.T) {
-	h := &FilesystemInspector{}
-	func(x hookfs.HookWithInit) {}(h)
-	func(x hookfs.HookOnRead) {}(h)
-	func(x hookfs.HookOnMkdir) {}(h)
-	func(x hookfs.HookOnRmdir) {}(h)
-	func(x hookfs.HookOnOpenDir) {}(h)
-}

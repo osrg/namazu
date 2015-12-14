@@ -4,9 +4,11 @@ FROM osrg/dind-ovs-ryu
 MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ## Install Earthquake deps (protoc, JDK)
-    protobuf-compiler default-jdk maven \
-    ## Install useful stuffs
+    ## Install Earthquake deps
+    protobuf-compiler pkg-config libzmq3-dev libnetfilter-queue-dev \
+    ## (Optional) Install Java inspector deps
+    default-jdk maven \
+    ## (Optional) Install useful stuffs
     sudo ant ant-optional \
     ## (Optional) Install MongoDB storage
     mongodb \
