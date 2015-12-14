@@ -22,6 +22,7 @@ but we believe that one of the most important reasons is lacking of a good debug
 * ZooKeeper:
  * Found [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212) (race): [(blog article)]({{< relref "post/zookeeper-2212.md" >}})
  * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080) (race): [(blog article)]({{< relref "post/zookeeper-2080.md" >}})
+ * Reproduced [ZOOKEEPER-2251](https://issues.apache.org/jira/browse/ZOOKEEPER-2251) (race): To Be Documented
 
 * Etcd:
  * Found an etcd command line client (etcdctl) bug [#3517](https://github.com/coreos/etcd/issues/3517) (timing specification), fixed in [#3530](https://github.com/coreos/etcd/pull/3530). The fix also resulted a hint of [#3611](https://github.com/coreos/etcd/issues/3611): To Be Documented
