@@ -1,6 +1,6 @@
 +++
 categories = ["general"]
-date = "2015-07-22T14:18:43+09:00"
+date = "2015-12-14"
 tags = ["document"]
 title = "About Earthquake"
 
@@ -21,7 +21,7 @@ They showed the existence of the bugs by building implementation level distribut
 The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
 In addition, they can work with actual implementation (not formal model [\[2\]][2]) directly.
 
-earthquake is a framework for such DMCKs.
+earthquake is a programmable fuzz testing framework inspired by such DMCKs.
 Its design does not depend on programming languages and opearting systems.
 You can write your own state space search policy for your system.
 We hope it will make your life a little bit easier.
