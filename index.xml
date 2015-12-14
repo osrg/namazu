@@ -7,8 +7,48 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
-    <lastBuildDate>Mon, 05 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 14 Dec 2015 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://osrg.github.io/earthquake/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About Earthquake</title>
+      <link>http://osrg.github.io/earthquake/about/</link>
+      <pubDate>Mon, 14 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/earthquake/about/</guid>
+      <description>
+
+&lt;p&gt;In short, the goal of earthquake project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
+
+&lt;p&gt;Developing and maintaining distributed systems is difficult.
+The difficulty comes from many factors,
+but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
+
+&lt;p&gt;What are the distributed systems specific bugs?
+The bugs caused by hardware faults, non determinism of message ordering, and mix of them
+(non distributed systems does not need to handle them).
+Some researchers point out that real world systems (e.g. Hadoop) have such bugs,
+which can cause terrible failures like data loss &lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;[1]&lt;/a&gt; &lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;[3]&lt;/a&gt;.
+They showed the existence of the bugs by building implementation level distributed system model checkers (DMCK).
+The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
+In addition, they can work with actual implementation (not formal model &lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;[2]&lt;/a&gt;) directly.&lt;/p&gt;
+
+&lt;p&gt;earthquake is a programmable fuzz testing framework inspired by such DMCKs.
+Its design does not depend on programming languages and opearting systems.
+You can write your own state space search policy for your system.
+We hope it will make your life a little bit easier.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/overview.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;references:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;References&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &amp;lsquo;14.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &amp;lsquo;09.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>Subprojects</title>
@@ -166,62 +206,6 @@ Although the suspicious set can contain some misleading information, it is enoug
 &lt;li&gt;Just delaying packets is sometimes effective to reproduce flaky testcases.&lt;/li&gt;
 &lt;li&gt;Branch pattern analysis is an easy and general method for narrowing bug-cause candidates, although we still need much more improvements to this.&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>_index</title>
-      <link>http://osrg.github.io/earthquake/_index/</link>
-      <pubDate>Thu, 20 Aug 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://osrg.github.io/earthquake/_index/</guid>
-      <description>
-
-&lt;h1 id=&#34;what-is-this:3976528693a0108357f4928017600865&#34;&gt;What is this?&lt;/h1&gt;
-
-&lt;p&gt;In short, the goal of Earthquake project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
-
-&lt;p&gt;Developing and maintaining distributed systems is difficult.
-The difficulty comes from many factors,
-but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/about/&#34;&gt;Read more..&lt;/a&gt;..&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/overview.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;found-reproduced-bugs:3976528693a0108357f4928017600865&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;ZooKeeper:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;: &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt;: &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2080/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Found an etcd command line client (etcdctl) bug &lt;a href=&#34;https://github.com/coreos/etcd/issues/3517&#34;&gt;#3517&lt;/a&gt;, fixed in &lt;a href=&#34;https://github.com/coreos/etcd/pull/3530&#34;&gt;#3530&lt;/a&gt;. The fix also resulted a hint of &lt;a href=&#34;https://github.com/coreos/etcd/issues/3611&#34;&gt;#3611&lt;/a&gt;: To Be Documented&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The repro codes are located on &lt;a href=&#34;https://github.com/osrg/earthquake/tree/master/example&#34;&gt;earthquake/example&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
-
-&lt;p&gt;Please refer to &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/gettingStarted/&#34;&gt;Getting Started&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/README.md&#34;&gt;README file&lt;/a&gt; and &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;this article&lt;/a&gt; are also good start points.&lt;/p&gt;
-
-&lt;h1 id=&#34;contact:3976528693a0108357f4928017600865&#34;&gt;Contact&lt;/h1&gt;
-
-&lt;p&gt;The project is managed on &lt;a href=&#34;https://github.com/osrg/earthquake&#34;&gt;github&lt;/a&gt;.
-&lt;a href=&#34;https://github.com/osrg/earthquake/pulls&#34;&gt;Pull requests&lt;/a&gt; and &lt;a href=&#34;https://github.com/osrg/earthquake/issues&#34;&gt;issues&lt;/a&gt; are welcome.
-We are using &lt;a href=&#34;https://gitter.im/osrg/earthquake&#34;&gt;gitter&lt;/a&gt; for discussion.
-Feel free to join.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://gitter.im/osrg/earthquake?utm_source=badge&amp;amp;utm_medium=badge&amp;amp;utm_campaign=pr-badge&amp;amp;utm_content=badge&#34;&gt;&lt;img src=&#34;https://badges.gitter.im/Join%20Chat.svg&#34; alt=&#34;Join the chat at https://gitter.im/osrg/earthquake&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     
@@ -475,6 +459,69 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
     </item>
     
     <item>
+      <title>_index</title>
+      <link>http://osrg.github.io/earthquake/_index/</link>
+      <pubDate>Thu, 20 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/earthquake/_index/</guid>
+      <description>
+
+&lt;h1 id=&#34;what-is-this:3976528693a0108357f4928017600865&#34;&gt;What is this?&lt;/h1&gt;
+
+&lt;p&gt;In short, the goal of Earthquake project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
+
+&lt;p&gt;Developing and maintaining distributed systems is difficult.
+The difficulty comes from many factors,
+but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/about/&#34;&gt;Read more..&lt;/a&gt;..&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/overview.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;found-reproduced-bugs:3976528693a0108357f4928017600865&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ZooKeeper:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2080/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2251&#34;&gt;ZOOKEEPER-2251&lt;/a&gt; (race): To Be Documented&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Found an etcd command line client (etcdctl) bug &lt;a href=&#34;https://github.com/coreos/etcd/issues/3517&#34;&gt;#3517&lt;/a&gt; (timing specification), fixed in &lt;a href=&#34;https://github.com/coreos/etcd/pull/3530&#34;&gt;#3530&lt;/a&gt;. The fix also resulted a hint of &lt;a href=&#34;https://github.com/coreos/etcd/issues/3611&#34;&gt;#3611&lt;/a&gt;: To Be Documented&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;YARN:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4301&#34;&gt;YARN-4301&lt;/a&gt; (fault tolerance): To Be Documented&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The repro codes are located on &lt;a href=&#34;https://github.com/osrg/earthquake/tree/master/example&#34;&gt;earthquake/example&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
+
+&lt;p&gt;Please refer to &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/gettingStarted/&#34;&gt;Getting Started&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/README.md&#34;&gt;README file&lt;/a&gt; and &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;this article&lt;/a&gt; are also good start points.&lt;/p&gt;
+
+&lt;h1 id=&#34;contact:3976528693a0108357f4928017600865&#34;&gt;Contact&lt;/h1&gt;
+
+&lt;p&gt;The project is managed on &lt;a href=&#34;https://github.com/osrg/earthquake&#34;&gt;github&lt;/a&gt;.
+&lt;a href=&#34;https://github.com/osrg/earthquake/pulls&#34;&gt;Pull requests&lt;/a&gt; and &lt;a href=&#34;https://github.com/osrg/earthquake/issues&#34;&gt;issues&lt;/a&gt; are welcome.
+We are using &lt;a href=&#34;https://gitter.im/osrg/earthquake&#34;&gt;gitter&lt;/a&gt; for discussion.
+Feel free to join.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gitter.im/osrg/earthquake?utm_source=badge&amp;amp;utm_medium=badge&amp;amp;utm_campaign=pr-badge&amp;amp;utm_content=badge&#34;&gt;&lt;img src=&#34;https://badges.gitter.im/Join%20Chat.svg&#34; alt=&#34;Join the chat at https://gitter.im/osrg/earthquake&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Hello, world!</title>
       <link>http://osrg.github.io/earthquake/post/first/</link>
       <pubDate>Fri, 24 Jul 2015 00:00:00 +0000</pubDate>
@@ -539,46 +586,6 @@ their performance is good.&lt;/p&gt;
 to be debugged because of lacking good tools. In succeeding posts, we
 will describe the difficulties of the debugging, possible candidates
 of solutions, and a tool we are working on.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>About Earthquake</title>
-      <link>http://osrg.github.io/earthquake/about/</link>
-      <pubDate>Wed, 22 Jul 2015 14:18:43 +0900</pubDate>
-      
-      <guid>http://osrg.github.io/earthquake/about/</guid>
-      <description>
-
-&lt;p&gt;In short, the goal of earthquake project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
-
-&lt;p&gt;Developing and maintaining distributed systems is difficult.
-The difficulty comes from many factors,
-but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
-
-&lt;p&gt;What are the distributed systems specific bugs?
-The bugs caused by hardware faults, non determinism of message ordering, and mix of them
-(non distributed systems does not need to handle them).
-Some researchers point out that real world systems (e.g. Hadoop) have such bugs,
-which can cause terrible failures like data loss &lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;[1]&lt;/a&gt; &lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;[3]&lt;/a&gt;.
-They showed the existence of the bugs by building implementation level distributed system model checkers (DMCK).
-The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
-In addition, they can work with actual implementation (not formal model &lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;[2]&lt;/a&gt;) directly.&lt;/p&gt;
-
-&lt;p&gt;earthquake is a framework for such DMCKs.
-Its design does not depend on programming languages and opearting systems.
-You can write your own state space search policy for your system.
-We hope it will make your life a little bit easier.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/overview.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;references:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;References&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &amp;lsquo;14.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &amp;lsquo;09.&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
 </description>
     </item>
     
