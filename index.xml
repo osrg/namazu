@@ -7,8 +7,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
-    <lastBuildDate>Mon, 14 Dec 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 15 Dec 2015 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://osrg.github.io/earthquake/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Getting Started</title>
+      <link>http://osrg.github.io/earthquake/gettingStarted/</link>
+      <pubDate>Tue, 15 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/earthquake/gettingStarted/</guid>
+      <description>&lt;p&gt;For full-stack environment, please refer to &lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/doc/how-to-setup-env-full.md&#34;&gt;how-to-setup-env-full.md&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
+$ go get github.com/osrg/earthquake/earthquake-container
+$ sudo earthquake-container run -it --rm --eq-config config.toml ubuntu bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example configuration file (&lt;code&gt;config.toml&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;explorePolicy = &amp;quot;random&amp;quot;
+[explorePolicyParam]
+  minInterval = 80
+  maxInterval = 3000
+  #shellActionInterval = 5000
+  #shellActionCommand = &amp;quot;echo hello $(date)&amp;quot;
+  #faultActionProbability = 0.0
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>About Earthquake</title>
@@ -206,53 +232,6 @@ Although the suspicious set can contain some misleading information, it is enoug
 &lt;li&gt;Just delaying packets is sometimes effective to reproduce flaky testcases.&lt;/li&gt;
 &lt;li&gt;Branch pattern analysis is an easy and general method for narrowing bug-cause candidates, although we still need much more improvements to this.&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Getting Started</title>
-      <link>http://osrg.github.io/earthquake/gettingStarted/</link>
-      <pubDate>Thu, 20 Aug 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://osrg.github.io/earthquake/gettingStarted/</guid>
-      <description>
-
-&lt;p&gt;All you have to do is make Docker installed on your host and run the pre-built Docker image &lt;a href=&#34;https://registry.hub.docker.com/u/osrg/earthquake/&#34;&gt;osrg/earthquake&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/osrg/earthquake/&#34;&gt;&lt;img src=&#34;http://dockeri.co/image/osrg/earthquake&#34; alt=&#34;Docker Hub&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ docker run --rm --tty --interactive osrg/earthquake
-INIT: Running without privileged mode. Please set EQ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector
-INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
-INIT: Starting command: [&#39;/bin/bash&#39;, &#39;--login&#39;, &#39;-i&#39;]
-root@a0c2e4413483:/earthquake# ^D
-INIT: Exiting with status 0..([&#39;/bin/bash&#39;, &#39;--login&#39;, &#39;-i&#39;])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Then, you can do the things what you want in &lt;code&gt;/earthquake&lt;/code&gt; directory.
-You might want to try several &lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/example&#34;&gt;examples&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;privileged-mode-provides-docker-in-docker-open-vswitch-and-ryu:26fecfcca8d00993cd6180a70fec79aa&#34;&gt;Privileged Mode (provides Docker-in-Docker, Open vSwitch, and Ryu)&lt;/h2&gt;
-
-&lt;p&gt;This mode might be useful for Ethernet Inspector.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo modprobe openvswitch
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake 
-INIT: Running with privileged mode. Enabling DinD, OVS, and Ryu
-INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
-INIT: Starting command: [&#39;wrapdocker&#39;, &#39;/init.dind-ovs-ryu.sh&#39;]
-* /etc/openvswitch/conf.db does not exist
-* Creating empty database /etc/openvswitch/conf.db
-* Starting ovsdb-server
-* Configuring Open vSwitch system IDs
-* Starting ovs-vswitchd
-* Enabling remote OVSDB managers
-Assigned 192.168.42.254 to ovsbr0
-root@907529be8b21:/earthquake# ^D
-INIT: Exiting with status 0..([&#39;wrapdocker&#39;, &#39;/init.dind-ovs-ryu.sh&#39;])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/README.md&#34;&gt;README file&lt;/a&gt; and &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;this article&lt;/a&gt; are also good start points.&lt;/p&gt;
 </description>
     </item>
     

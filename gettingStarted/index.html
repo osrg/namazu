@@ -89,47 +89,26 @@
 				<a id="title"></a>
 				<h1 class="doc-entry-title">Getting Started</h1>
 				<div class="doc-entry-meta">
-					<span><time datetime="2015-08-20">August 20, 2015</time></span>
+					<span><time datetime="2015-12-15">December 15, 2015</time></span>
 				</div>
 				<section>
-					
+					<p>For full-stack environment, please refer to <a href="https://github.com/osrg/earthquake/blob/master/doc/how-to-setup-env-full.md">how-to-setup-env-full.md</a>.</p>
 
-<p>All you have to do is make Docker installed on your host and run the pre-built Docker image <a href="https://registry.hub.docker.com/u/osrg/earthquake/">osrg/earthquake</a>.</p>
-
-<p><a href="https://registry.hub.docker.com/u/osrg/earthquake/"><img src="http://dockeri.co/image/osrg/earthquake" alt="Docker Hub" /></a></p>
-
-<pre><code>$ docker run --rm --tty --interactive osrg/earthquake
-INIT: Running without privileged mode. Please set EQ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector
-INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
-INIT: Starting command: ['/bin/bash', '--login', '-i']
-root@a0c2e4413483:/earthquake# ^D
-INIT: Exiting with status 0..(['/bin/bash', '--login', '-i'])
+<pre><code>$ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
+$ go get github.com/osrg/earthquake/earthquake-container
+$ sudo earthquake-container run -it --rm --eq-config config.toml ubuntu bash
 </code></pre>
 
-<p>Then, you can do the things what you want in <code>/earthquake</code> directory.
-You might want to try several <a href="https://github.com/osrg/earthquake/blob/master/example">examples</a>.</p>
+<p>Example configuration file (<code>config.toml</code>):</p>
 
-<h2 id="privileged-mode-provides-docker-in-docker-open-vswitch-and-ryu:26fecfcca8d00993cd6180a70fec79aa">Privileged Mode (provides Docker-in-Docker, Open vSwitch, and Ryu)</h2>
-
-<p>This mode might be useful for Ethernet Inspector.</p>
-
-<pre><code>$ sudo modprobe openvswitch
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake 
-INIT: Running with privileged mode. Enabling DinD, OVS, and Ryu
-INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
-INIT: Starting command: ['wrapdocker', '/init.dind-ovs-ryu.sh']
-* /etc/openvswitch/conf.db does not exist
-* Creating empty database /etc/openvswitch/conf.db
-* Starting ovsdb-server
-* Configuring Open vSwitch system IDs
-* Starting ovs-vswitchd
-* Enabling remote OVSDB managers
-Assigned 192.168.42.254 to ovsbr0
-root@907529be8b21:/earthquake# ^D
-INIT: Exiting with status 0..(['wrapdocker', '/init.dind-ovs-ryu.sh'])
+<pre><code>explorePolicy = &quot;random&quot;
+[explorePolicyParam]
+  minInterval = 80
+  maxInterval = 3000
+  #shellActionInterval = 5000
+  #shellActionCommand = &quot;echo hello $(date)&quot;
+  #faultActionProbability = 0.0
 </code></pre>
-
-<p><a href="https://github.com/osrg/earthquake/blob/master/README.md">README file</a> and <a href="/earthquake/post/zookeeper-2212/">this article</a> are also good start points.</p>
 
 				</section>
 			</article>
