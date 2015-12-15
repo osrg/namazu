@@ -29,7 +29,7 @@ import (
 	"github.com/osrg/earthquake/earthquake/historystorage"
 	"github.com/osrg/earthquake/earthquake/orchestrator"
 	"github.com/osrg/earthquake/earthquake/util/cmd"
-	. "github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/earthquake/earthquake/util/config"
 	logutil "github.com/osrg/earthquake/earthquake/util/log"
 )
 
@@ -53,7 +53,7 @@ type runner struct {
 	storageDirPath   string
 	workingDirPath   string
 	materialsDirPath string
-	config           *Config
+	config           config.Config
 	storage          historystorage.HistoryStorage
 	policy           explorepolicy.ExplorePolicy
 	runCmd           *exec.Cmd
@@ -64,8 +64,8 @@ type runner struct {
 // depends on this.storageDirPath
 func (this *runner) initConfig() error {
 	var err error
-	confPath := path.Join(this.storageDirPath, historystorage.StorageConfigPath)
-	this.config, err = ParseConfigFile(confPath)
+	confPath := path.Join(this.storageDirPath, historystorage.StorageTOMLConfigPath)
+	this.config, err = config.NewFromFile(confPath)
 	if err != nil {
 		return fmt.Errorf("failed to parse config file %s: %s", confPath, err)
 	}
@@ -74,7 +74,11 @@ func (this *runner) initConfig() error {
 
 // depends on initConfig()
 func (this *runner) initStorage() error {
-	this.storage = historystorage.New(this.config.GetString("storageType"), this.storageDirPath)
+	var err error
+	this.storage, err = historystorage.New(this.config.GetString("storageType"), this.storageDirPath)
+	if err != nil {
+		return err
+	}
 	this.storage.Init()
 	this.workingDirPath = this.storage.CreateNewWorkingDir()
 	this.materialsDirPath = path.Join(this.storageDirPath, storageMaterialsPath)
@@ -122,7 +126,12 @@ func (this *runner) initPolicy() error {
 	if err != nil {
 		return err
 	}
-	this.policy.Init(this.storage, this.config.GetStringMap("explorePolicyParam"))
+	if err = this.policy.LoadConfig(this.config); err != nil {
+		return err
+	}
+	if err = this.policy.SetHistoryStorage(this.storage); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -181,7 +190,7 @@ func run(args []string) int {
 
 	// Start orchestrator
 	log.Infof("Starting Orchestrator with exploration policy \"%s\"", runner.policy.Name())
-	orchestrator := orchestrator.NewOrchestrator(runner.config, runner.policy)
+	orchestrator := orchestrator.NewOrchestrator(runner.config, runner.policy, true)
 	go orchestrator.Start()
 	log.Infof("Started Orchestrator")
 

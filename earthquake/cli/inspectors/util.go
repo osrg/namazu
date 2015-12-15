@@ -17,10 +17,9 @@ package inspectors
 
 import (
 	"fmt"
-	log "github.com/cihub/seelog"
 	. "github.com/osrg/earthquake/earthquake/explorepolicy"
 	. "github.com/osrg/earthquake/earthquake/orchestrator"
-	. "github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/earthquake/earthquake/util/config"
 	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 )
 
@@ -30,18 +29,13 @@ var defaultOrchestratorURL = fmt.Sprintf("http://localhost:%d%s", restutil.Defau
 //
 // autopilot-mode is useful when you are not interested in non-determinism
 func NewAutopilotOrchestrator(configFilePath string) (*Orchestrator, error) {
-	config, err := ParseConfigFile(configFilePath)
+	cfg, err := config.NewFromFile(configFilePath)
 	if err != nil {
 		return nil, err
 	}
 
-	storageType := config.GetString("storageType")
-	if storageType != "" {
-		log.Warnf("ignoring storage type %s", storageType)
-	}
-
-	policy, err := CreatePolicy(config.GetString("explorePolicy"))
-	policy.Init(nil, config.GetStringMap("explorePolicyParam"))
-	orchestrator := NewOrchestrator(config, policy)
+	policy, err := CreatePolicy(cfg.GetString("explorePolicy"))
+	policy.LoadConfig(cfg)
+	orchestrator := NewOrchestrator(cfg, policy, false)
 	return orchestrator, nil
 }

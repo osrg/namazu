@@ -147,6 +147,6 @@ func (handler *PBInspectorHandler) StartAccept(readyEntityCh chan *TransitionEnt
 	}
 }
 
-func NewPBInspectorHanlder(config *Config) *PBInspectorHandler {
+func NewPBInspectorHanlder(cfg Config) *PBInspectorHandler {
 	return &PBInspectorHandler{}
 }

@@ -23,12 +23,12 @@ import (
 	"github.com/osrg/earthquake/earthquake/historystorage/naive"
 	. "github.com/osrg/earthquake/earthquake/signal"
 	. "github.com/osrg/earthquake/earthquake/trace"
-	. "github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/earthquake/earthquake/util/config"
 )
 
 const (
 	// TODO: we really need to eliminate hard-coded params (config can be yaml)
-	StorageConfigPath string = "config.json"
+	StorageTOMLConfigPath string = "config.toml"
 )
 
 type HistoryStorage interface {
@@ -52,29 +52,26 @@ type HistoryStorage interface {
 	SearchWithConverter(prefix []Action, converter func(actions []Action) []Action) []int
 }
 
-func New(name, dirPath string) HistoryStorage {
+func New(name, dirPath string) (HistoryStorage, error) {
 	switch name {
 	case "naive":
-		return naive.New(dirPath)
+		return naive.New(dirPath), nil
 	case "mongodb":
-		return mongodb.New(dirPath)
-	default:
-		fmt.Printf("unknown history storage: %s\n", name)
+		return mongodb.New(dirPath), nil
 	}
-
-	return nil
+	return nil, fmt.Errorf("unknown history storage: %s", name)
 }
 
 func LoadStorage(dirPath string) HistoryStorage {
-	confPath := dirPath + "/" + StorageConfigPath
+	confPath := dirPath + "/" + StorageTOMLConfigPath
 
 	// TODO: we should not parse config twice. (run should have already parsed the config)
-	vcfg, err := ParseConfigFile(confPath)
+	cfg, err := config.NewFromFile(confPath)
 	if err != nil {
 		fmt.Printf("error: %s\n", err)
 		return nil
 	}
-	storageType := vcfg.Get("storageType")
+	storageType := cfg.Get("storageType")
 
 	switch storageType {
 	case "naive":

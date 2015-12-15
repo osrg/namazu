@@ -11,9 +11,9 @@ Example configuration file (`config.toml`):
 ```toml
 explorePolicy = "random"
 [explorePolicyParam]
-  minInterval = 80
-  maxInterval = 3000
-  #shellActionInterval = 5000
+  minInterval = "80ms"
+  maxInterval = "3000ms"
+  #shellActionInterval = "5000ms"
   #shellActionCommand = "echo hello $(date)"
   #faultActionProbability = 0.0
 ```

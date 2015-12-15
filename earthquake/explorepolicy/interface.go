@@ -17,12 +17,24 @@ package explorepolicy
 
 import (
 	"github.com/osrg/earthquake/earthquake/historystorage"
-	. "github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/earthquake/earthquake/util/config"
 )
 
 type ExplorePolicy interface {
-	Init(storage historystorage.HistoryStorage, param map[string]interface{})
+	// name of the policy
 	Name() string
-	GetNextActionChan() chan Action
-	QueueNextEvent(Event)
+
+	// should support dynamic reloading
+	LoadConfig(cfg config.Config) error
+
+	// policy can read storage, but not expected to perform write ops.
+	// orchestrator should write history to the storage.
+	SetHistoryStorage(storage historystorage.HistoryStorage) error
+
+	// dequeue action
+	GetNextActionChan() chan signal.Action
+
+	// queue event
+	QueueNextEvent(signal.Event)
 }

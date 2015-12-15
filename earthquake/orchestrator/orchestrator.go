@@ -36,18 +36,20 @@ import (
 )
 
 type Orchestrator struct {
-	config         *Config
+	cfg            Config
 	policy         ExplorePolicy
+	collectTrace   bool
 	actionSequence []Action
 	running        bool
 	endCh          chan interface{}
 	newTraceCh     chan *SingleTrace
 }
 
-func NewOrchestrator(config *Config, policy ExplorePolicy) *Orchestrator {
+func NewOrchestrator(cfg Config, policy ExplorePolicy, collectTrace bool) *Orchestrator {
 	oc := Orchestrator{
-		config:         config,
+		cfg:            cfg,
 		policy:         policy,
+		collectTrace:   collectTrace,
 		actionSequence: make([]Action, 0),
 		running:        false,
 		endCh:          make(chan interface{}),
@@ -85,7 +87,9 @@ func (this *Orchestrator) handleAction(action Action) {
 	}
 
 	// make sequence for tracing
-	this.actionSequence = append(this.actionSequence, action)
+	if this.collectTrace {
+		this.actionSequence = append(this.actionSequence, action)
+	}
 }
 
 func (this *Orchestrator) doDefaultAction(event Event) {
@@ -99,7 +103,7 @@ func (this *Orchestrator) doDefaultAction(event Event) {
 
 func (this *Orchestrator) Start() {
 	readyEntityCh := make(chan *TransitionEntity)
-	StartAllInspectorHandler(readyEntityCh, this.config)
+	StartAllInspectorHandler(readyEntityCh, this.cfg)
 	policyNextActionChan := this.policy.GetNextActionChan()
 	this.running = true
 	log.Debugf("Main[running=%t]<-ExplorePolicy: receiving an action", this.running)
