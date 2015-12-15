@@ -29,10 +29,11 @@ func (cmd inspectorsCmd) Help() string {
 	return `
 	Earthquake Inspectors
 	- fs: Filesystem inspector
+	- ethernet: Ethernet inspector
 
 	NOTE: this binary does NOT include following inspectors:
-	- Ethernet Inspector: (included in pyearthquake)
-	- Java Inspector:     (included in Java module net.osrg.earthquake)
+	- Java Inspector:     (included in earthquake/inspector/java)
+	- C Inspector:        (included in earthquake/inspector/c)
 	`
 }
 
@@ -40,7 +41,8 @@ func (cmd inspectorsCmd) Run(args []string) int {
 	c := mcli.NewCLI("earthquake inspectors", EarthquakeVersion)
 	c.Args = args
 	c.Commands = map[string]mcli.CommandFactory{
-		"fs": inspectors.FsCommandFactory,
+		"fs":       inspectors.FsCommandFactory,
+		"ethernet": inspectors.EtherCommandFactory,
 	}
 
 	exitStatus, err := c.Run()

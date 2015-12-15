@@ -13,27 +13,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package fs
+package cli
 
 import (
-	"flag"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/osrg/hookfs/hookfs"
-	"os"
-	"testing"
+	"fmt"
+	cap "github.com/syndtr/gocapability/capability"
 )
 
-func TestMain(m *testing.M) {
-	flag.Parse()
-	logutil.InitLog("", true)
-	os.Exit(m.Run())
-}
-
-func TestInterfaceImpl(t *testing.T) {
-	h := &FilesystemInspector{}
-	func(x hookfs.HookWithInit) {}(h)
-	func(x hookfs.HookOnRead) {}(h)
-	func(x hookfs.HookOnMkdir) {}(h)
-	func(x hookfs.HookOnRmdir) {}(h)
-	func(x hookfs.HookOnOpenDir) {}(h)
+func checkPrerequisite() error {
+	c, err := cap.NewPid(0)
+	if err != nil {
+		return err
+	}
+	if !c.Get(cap.EFFECTIVE, cap.CAP_NET_ADMIN) {
+		return fmt.Errorf("CAP_NET_ADMIN is needed.")
+	}
+	if !c.Get(cap.EFFECTIVE, cap.CAP_SYS_ADMIN) {
+		return fmt.Errorf("CAP_SYS_ADMIN is needed.")
+	}
+	return nil
 }

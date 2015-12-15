@@ -25,6 +25,7 @@ import (
 
 	log "github.com/cihub/seelog"
 	. "github.com/osrg/earthquake/earthquake/signal"
+	"sync"
 )
 
 // idempotent (RFC 7231)
@@ -101,6 +102,7 @@ type Transceiver struct {
 	EntityID        string
 	Client          *http.Client
 	m               map[string]chan Action // key: event id
+	mMutex          sync.Mutex
 }
 
 func NewTransceiver(orchestratorURL string, entityID string) (*Transceiver, error) {
@@ -109,6 +111,7 @@ func NewTransceiver(orchestratorURL string, entityID string) (*Transceiver, erro
 		EntityID:        entityID,
 		Client:          http.DefaultClient,
 		m:               make(map[string]chan Action),
+		mMutex:          sync.Mutex{},
 	}
 	return &t, nil
 }
@@ -117,12 +120,19 @@ func (this *Transceiver) SendEvent(event Event) (chan Action, error) {
 	if event.EntityID() != this.EntityID {
 		return nil, fmt.Errorf("bad entity id for event %s (want %s)", event, this.EntityID)
 	}
+	ch := make(chan Action)
+	this.mMutex.Lock()
+	// put ch to m BEFORE calling SendEvent(), otherwise race may occur
+	this.m[event.ID()] = ch
+	this.mMutex.Unlock()
 	err := SendEvent(this.Client, this.OrchestratorURL, event)
 	if err != nil {
+		this.mMutex.Lock()
+		delete(this.m, event.ID())
+		this.mMutex.Unlock()
 		return nil, err
 	}
-	this.m[event.ID()] = make(chan Action)
-	return this.m[event.ID()], nil
+	return ch, nil
 }
 
 func (this *Transceiver) onAction(action Action) error {
@@ -130,7 +140,8 @@ func (this *Transceiver) onAction(action Action) error {
 	if event == nil {
 		return fmt.Errorf("No event found for action %s", action)
 	}
-	// NOTE: this event can be dummy nop event
+	this.mMutex.Lock()
+	defer this.mMutex.Unlock()
 	actionChan, ok := this.m[event.ID()]
 	if !ok {
 		return fmt.Errorf("No channel found for action %s (event id=%s)", action, event.ID())

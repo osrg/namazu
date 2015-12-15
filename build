@@ -27,22 +27,24 @@ protoc --go_out=earthquake/util/pb -Iinspector inspector/inspector_message.proto
 ########## Go ##########
 INFO "Fetching Earthquake deps"
 go get -t github.com/osrg/earthquake/earthquake
+go get -t github.com/osrg/earthquake/earthquake-container
+go get -t github.com/stretchr/testify/assert
 
-INFO "Building Earthquake (bin/earthquake)"
-go build -o bin/earthquake github.com/osrg/earthquake/earthquake
-
+for f in earthquake earthquake-container; do
+    INFO "Building $f"
+    go build -o bin/$f github.com/osrg/earthquake/$f
 (
-    cd earthquake
-    INFO "Testing Earthquake"
-    go get -t github.com/stretchr/testify/assert
+    cd $f
+    INFO "Testing $f"
     go test ./...
 
-    INFO "Running \`go vet\` for  Earthquake"
+    INFO "Running \`go vet\` for $f"
     go vet ./...
 
-    INFO "Running \`go fmt\` for Earthquake"
+    INFO "Running \`go fmt\` for $f"
     go fmt ./...
 )
+done
 
 EXAMPLES="example/template/mypolicy.go example/yarn/4301-reproduce/mypolicy.go"
 for f in $EXAMPLES; do
