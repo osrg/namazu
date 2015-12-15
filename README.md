@@ -26,14 +26,30 @@ Basically, Earthquake permutes events in a random order, but you can write your 
   * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): ([repro code](example/yarn/4301-reproduce))
 
 ## Quick Start
+The following instruction shows how you can start *Earthquake Container*, the simplified CLI for Earthquake.
+(For full-stack Earthquake environment, please refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md).)
 
+
+    $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
     $ go get github.com/osrg/earthquake/earthquake-container
     $ sudo earthquake-container run -it --rm --eq-config config.toml ubuntu bash
 
- * How to set up the environment: [GettingStarted](http://osrg.github.io/earthquake/gettingStarted/) ([some extra info](doc/how-to-setup-env.md))
- * Example: Finding a distributed race condition bug of ZooKeeper([ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212)): [blog article](http://osrg.github.io/earthquake/post/zookeeper-2212/) ([repro code](example/zk-found-2212.ryu))
+A typical configuration file (`config.toml`) is as follows:
 
-NOTE: [the latest release](https://github.com/osrg/earthquake/releases/latest) might be stabler than the master branch.
+```toml
+explorePolicy = "random"
+[explorePolicyParam]
+  minInterval = "80ms"
+  maxInterval = "3000ms"
+```
+
+In *Earthquake Container*, you can run arbitrary command that might be *flaky*.
+JUnit tests are interesting to try.
+
+    earthquake-container$ git clone something
+    earthquake-container$ cd something
+    earthquake-container$ for f in $(seq 1 1000);do mvn test; done
+
 
 ## Talks
  * Earthquake was presented at the poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/). (August 27-29, 2015, Hawaii)
@@ -62,10 +78,10 @@ func (p *MyPolicy) GetNextActionChan() chan Action {
 
 func (p *MyPolicy) QueueNextEvent(event Event) {
 	// Possible events:
-	//  - JavaFunctionEvent
-	//  - PacketEvent
-	//  - FilesystemEvent
-	//  - LogEvent
+	//  - JavaFunctionEvent (byteman)
+	//  - PacketEvent (Netfilter, Openflow)
+	//  - FilesystemEvent (FUSE)
+	//  - LogEvent (syslog)
 	fmt.Printf("Event: %s\n", event)
 	// You can also inject fault actions
 	//  - PacketFaultAction

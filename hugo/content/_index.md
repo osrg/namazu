@@ -33,9 +33,9 @@ but we believe that one of the most important reasons is lacking of a good debug
 The repro codes are located on [earthquake/example](https://github.com/osrg/earthquake/tree/master/example).
 
 # How to use?
-Please refer to [Getting Started]({{< relref "gettingStarted.md" >}}).
+Please refer to [README file](https://github.com/osrg/earthquake/blob/master/README.md).
 
-[README file](https://github.com/osrg/earthquake/blob/master/README.md) and [this article]({{< relref "post/zookeeper-2212.md" >}}) are also good start points.
+[This article]({{< relref "post/zookeeper-2212.md" >}}) is also a good start point.
 
 # Contact
 The project is managed on [github](https://github.com/osrg/earthquake).
