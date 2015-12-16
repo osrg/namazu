@@ -37,8 +37,7 @@ func parseRun(cmd *flag.FlagSet, args []string) (*docker.CreateContainerOptions,
 		// the caller should handle "-eq-config"
 		flEqConfig = cmd.String([]string{"-eq-config"}, "", "Earthquake configuration file")
 	)
-	cmd.Require(flag.Min, 2)
-	if err := cmd.ParseFlags(args, true); err != nil {
+	if err := cmd.Parse(args); err != nil {
 		return nil, err
 	}
 	if !*flStdin {
@@ -54,8 +53,11 @@ func parseRun(cmd *flag.FlagSet, args []string) (*docker.CreateContainerOptions,
 		return nil, fmt.Errorf("-eq-config is expected.")
 	}
 
-	image := cmd.Arg(0)
 	parsedArgs := cmd.Args()
+	if len(parsedArgs) < 2 {
+		return nil, fmt.Errorf("requires a minimum of 2 arguments")
+	}
+	image := parsedArgs[0]
 	execCmd := parsedArgs[1:]
 
 	dockerOpt := docker.CreateContainerOptions{
@@ -153,6 +155,10 @@ func run(args []string) int {
 	}
 	flagSet := flag.NewFlagSet("run", flag.ExitOnError)
 	dockerOpt, err := parseRun(flagSet, args[1:])
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+		return 1
+	}
 	removeOnExit := flagSet.IsSet("-rm")
 
 	nfqueueNum := 42 // FIXME

@@ -16,17 +16,17 @@
 package dumb
 
 import (
-	"time"
-
 	log "github.com/cihub/seelog"
-	storage "github.com/osrg/earthquake/earthquake/historystorage"
-	. "github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/earthquake/earthquake/historystorage"
+	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/earthquake/earthquake/util/config"
 	queue "github.com/osrg/earthquake/earthquake/util/queue"
+	"time"
 )
 
 type Dumb struct {
 	// channel
-	nextActionChan chan Action
+	nextActionChan chan signal.Action
 
 	// queue
 	queue      queue.TimeBoundedQueue
@@ -36,44 +36,50 @@ type Dumb struct {
 	Interval time.Duration
 }
 
-// Initialize the policy
-//
-// storage can be nil
-//
-// parameters:
-//
-//  - interval(int): interval in millisecs (default: 0 msecs)
-func (d *Dumb) Init(storage storage.HistoryStorage, param map[string]interface{}) {
-	log.Debugf("Parameter: %#v", param)
-	if v, ok := param["interval"].(float64); ok {
-		d.Interval = time.Duration(int(v)) * time.Millisecond
+func New() *Dumb {
+	q := queue.NewBasicTBQueue()
+	d := &Dumb{
+		nextActionChan: make(chan signal.Action),
+		queue:          q,
+		queueDeqCh:     q.GetDequeueChan(),
+		Interval:       time.Duration(0),
 	}
-	log.Debugf("interval=%s", d.Interval)
 	go d.dequeueEventRoutine()
+	return d
 }
+
+const Name = "dumb"
 
 // returns "dumb"
 func (d *Dumb) Name() string {
-	return "dumb"
+	return Name
 }
 
-func (d *Dumb) GetNextActionChan() chan Action {
+// parameters:
+//  - interval(duration): interval (default: 0 msecs)
+//
+// should support dynamic reloading
+func (d *Dumb) LoadConfig(cfg config.Config) error {
+	log.Debugf("CONFIG: %s", cfg.AllSettings())
+	paramInterval := "explorepolicyparam.interval"
+	if cfg.IsSet(paramInterval) {
+		d.Interval = cfg.GetDuration(paramInterval)
+		log.Infof("Set interval=%s", d.Interval)
+	} else {
+		log.Infof("Using default interval=%s", d.Interval)
+	}
+	return nil
+}
+
+func (d *Dumb) SetHistoryStorage(storage historystorage.HistoryStorage) error {
+	return nil
+}
+
+func (d *Dumb) GetNextActionChan() chan signal.Action {
 	return d.nextActionChan
 }
 
-func (d *Dumb) dequeueEventRoutine() {
-	for {
-		qItem := <-d.queueDeqCh
-		event := qItem.Value().(Event)
-		action, err := event.DefaultAction()
-		if err != nil {
-			panic(log.Critical(err))
-		}
-		d.nextActionChan <- action
-	}
-}
-
-func (d *Dumb) QueueNextEvent(event Event) {
+func (d *Dumb) QueueNextEvent(event signal.Event) {
 	item, err := queue.NewBasicTBQueueItem(event, d.Interval, d.Interval)
 	if err != nil {
 		panic(log.Critical(err))
@@ -81,12 +87,14 @@ func (d *Dumb) QueueNextEvent(event Event) {
 	d.queue.Enqueue(item)
 }
 
-func New() *Dumb {
-	q := queue.NewBasicTBQueue()
-	return &Dumb{
-		nextActionChan: make(chan Action),
-		queue:          q,
-		queueDeqCh:     q.GetDequeueChan(),
-		Interval:       time.Duration(0),
+func (d *Dumb) dequeueEventRoutine() {
+	for {
+		qItem := <-d.queueDeqCh
+		event := qItem.Value().(signal.Event)
+		action, err := event.DefaultAction()
+		if err != nil {
+			panic(log.Critical(err))
+		}
+		d.nextActionChan <- action
 	}
 }

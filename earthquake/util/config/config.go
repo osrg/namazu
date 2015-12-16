@@ -16,57 +16,59 @@
 package config
 
 import (
-	"encoding/json"
-	"os"
-
 	"github.com/spf13/viper"
+	"strings"
 )
 
 type Config struct {
 	*viper.Viper
 }
 
-// TODO: support env vars for overriding (https://github.com/spf13/viper#working-with-environment-variables)
-// TODO: validate config with JSON schema
-func ParseConfigFile(filePath string) (*Config, error) {
-	v := viper.New()
-	cfg := &Config{v}
-	cfg.SetDefault("init", "")     // e.g. "init.sh"
-	cfg.SetDefault("run", "")      // e.g. "run.sh"
-	cfg.SetDefault("clean", "")    // e.g. "clean.sh"
-	cfg.SetDefault("validate", "") // e.g. "validate.sh"
-	cfg.SetDefault("explorePolicy", "dumb")
-	cfg.SetDefault("explorePolicyParam", map[string]interface{}{})
-	cfg.SetDefault("storageType", "naive")
+func New() Config {
+	cfg := Config{viper.New()}
+
+	///// INIT and RUN
+	// Used for "init" command.
+	// e.g. "init.sh"
+	cfg.SetDefault("init", "")
+
+	// Used for "run" command.
+	// e.g. "run.sh"
+	cfg.SetDefault("run", "")
+
+	// Used for "run" command.
+	// e.g. "clean.sh"
+	cfg.SetDefault("clean", "")
+
+	// Used for "run" command.
+	// e.g. "validate.sh"
+	cfg.SetDefault("validate", "")
+
+	// if true, skip clean.sh when validate.sh failed.
 	cfg.SetDefault("notCleanIfValidationFail", false)
-	// Viper Issue: Default value for nested key #71 (https://github.com/spf13/viper/issues/71)
-	cfg.SetDefault("inspectorHandler",
-		map[string]interface{}{
-			"pb": map[string]interface{}{
-			// TODO: port
-			},
-			"rest": map[string]interface{}{
-			// TODO: port
-			},
-		})
-	// viper supports JSON, YAML, and TOML
-	cfg.SetConfigFile(filePath)
-	err := cfg.ReadInConfig()
+
+	///// STORAGE
+	// Used for "run" command
+	cfg.SetDefault("storageType", "naive")
+
+	///// EXPLORATION POLICY
+	// "earthquake-container" also uses these params
+	cfg.SetDefault("explorePolicy", "random")
+	cfg.SetDefault("explorePolicyParam", map[string]interface{}{})
+	return cfg
+}
+
+func NewFromString(s string, typ string) (Config, error) {
+	cfg := New()
+	cfg.SetConfigType(typ)
+	err := viper.ReadConfig(strings.NewReader(s))
 	return cfg, err
 }
 
-func (this *Config) DumpToJsonFile(filePath string) error {
-	f, err := os.Create(filePath)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	enc := json.NewEncoder(f)
-	var m map[string]interface{}
-	err = this.Unmarshal(&m)
-	if err != nil {
-		return err
-	}
-	enc.Encode(m)
-	return err
+func NewFromFile(filePath string) (Config, error) {
+	// viper supports JSON, YAML, and TOML
+	cfg := New()
+	cfg.SetConfigFile(filePath)
+	err := cfg.ReadInConfig()
+	return cfg, err
 }

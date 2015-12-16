@@ -21,6 +21,6 @@ import (
 )
 
 func RegisterKnownExplorePolicies() {
-	RegisterPolicy("dumb", func() ExplorePolicy { return dumb.New() })
-	RegisterPolicy("random", func() ExplorePolicy { return random.New() })
+	RegisterPolicy(dumb.Name, func() ExplorePolicy { return dumb.New() })
+	RegisterPolicy(random.Name, func() ExplorePolicy { return random.New() })
 }

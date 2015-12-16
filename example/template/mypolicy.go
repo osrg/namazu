@@ -6,6 +6,7 @@ import (
 	"github.com/osrg/earthquake/earthquake/explorepolicy"
 	"github.com/osrg/earthquake/earthquake/historystorage"
 	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/earthquake/earthquake/util/config"
 	"os"
 )
 
@@ -14,14 +15,25 @@ type MyPolicy struct {
 	nextActionChan chan signal.Action
 }
 
-// implements ExplorePolicy interface
-func (p *MyPolicy) Init(storage historystorage.HistoryStorage, param map[string]interface{}) {
-	fmt.Printf("Initializing, param=%#v\n", param)
+func NewMyPolicy() explorepolicy.ExplorePolicy {
+	return &MyPolicy{
+		nextActionChan: make(chan signal.Action),
+	}
 }
 
 // implements ExplorePolicy interface
 func (p *MyPolicy) Name() string {
 	return "mypolicy"
+}
+
+// implements ExplorePolicy interface
+func (p *MyPolicy) LoadConfig(cfg config.Config) error {
+	return nil
+}
+
+// implements ExplorePolicy interface
+func (p *MyPolicy) SetHistoryStorage(storage historystorage.HistoryStorage) error {
+	return nil
 }
 
 // implements ExplorePolicy interface
@@ -53,12 +65,6 @@ func (p *MyPolicy) QueueNextEvent(event signal.Event) {
 		p.nextActionChan <- action
 		fmt.Printf("Action passed: %s\n", action)
 	}()
-}
-
-func NewMyPolicy() explorepolicy.ExplorePolicy {
-	return &MyPolicy{
-		nextActionChan: make(chan signal.Action),
-	}
 }
 
 func main() {

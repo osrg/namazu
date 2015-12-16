@@ -22,6 +22,7 @@ import (
 	. "github.com/osrg/earthquake/earthquake/explorepolicy"
 	. "github.com/osrg/earthquake/earthquake/historystorage"
 	. "github.com/osrg/earthquake/earthquake/signal"
+	config "github.com/osrg/earthquake/earthquake/util/config"
 	"os"
 	"os/signal"
 	"syscall"
@@ -36,9 +37,25 @@ type MyPolicy struct {
 	sleep          time.Duration
 }
 
-func (p *MyPolicy) Init(storage HistoryStorage, param map[string]interface{}) {
-	log.Debugf("ignoring param: %#v", param)
+func NewMyPolicy() ExplorePolicy {
+	p := &MyPolicy{
+		nextActionChan: make(chan Action),
+		sleep:          0,
+	}
 	go p.signalHandler()
+	return p
+}
+
+func (p *MyPolicy) Name() string {
+	return MyPolicyName
+}
+
+func (p *MyPolicy) LoadConfig(cfg config.Config) error {
+	return nil
+}
+
+func (p *MyPolicy) SetHistoryStorage(storage HistoryStorage) error {
+	return nil
 }
 
 func (p *MyPolicy) signalHandler() {
@@ -49,10 +66,6 @@ func (p *MyPolicy) signalHandler() {
 		log.Infof("Caught %s, injecting sleep %s", sig, FaultySleepDuration)
 		p.sleep = FaultySleepDuration
 	}
-}
-
-func (p *MyPolicy) Name() string {
-	return MyPolicyName
 }
 
 func (p *MyPolicy) GetNextActionChan() chan Action {
@@ -83,13 +96,6 @@ func (p *MyPolicy) QueueNextEvent(event Event) {
 		}
 		p.nextActionChan <- action
 	}()
-}
-
-func NewMyPolicy() ExplorePolicy {
-	return &MyPolicy{
-		nextActionChan: make(chan Action),
-		sleep:          0,
-	}
 }
 
 func main() {

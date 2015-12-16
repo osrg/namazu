@@ -7,6 +7,6 @@ explorePolicy = "random"
 notCleanIfValidationFail= "true"
 
 [explorePolicyParam]
- minInterval = 50
+ minInterval = "50ms"
 
 # storageType = "mongodb"

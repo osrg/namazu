@@ -5,5 +5,5 @@ clean = "clean.sh"
 explorePolicy = "random"
 
 [explorePolicyParam]
- minInterval = 30
- maxInterval = 100
+ minInterval = "30ms"
+ maxInterval = "100ms"

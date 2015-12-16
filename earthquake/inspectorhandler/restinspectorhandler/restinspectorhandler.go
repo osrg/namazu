@@ -28,7 +28,7 @@ import (
 	. "github.com/osrg/earthquake/earthquake/entity"
 	. "github.com/osrg/earthquake/earthquake/inspectorhandler/restinspectorhandler/queue"
 	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/earthquake/earthquake/util/config"
 	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 	"runtime"
 )
@@ -157,6 +157,7 @@ func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionE
 	sport := fmt.Sprintf(":%d", restutil.DefaultPort) // FIXME
 	apiRoot := restutil.APIRoot
 	log.Debugf("REST API root=%s%s", sport, apiRoot)
+	// TODO: mux should be split from this class
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", rootOnGet).Methods("GET")
 	router.HandleFunc(path.Join(apiRoot, "/events/{entity_id}/{event_uuid}"), eventsOnPost).Methods("POST")
@@ -169,6 +170,6 @@ func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionE
 	}
 }
 
-func NewRESTInspectorHanlder(config *Config) *RESTInspectorHandler {
+func NewRESTInspectorHanlder(cfg config.Config) *RESTInspectorHandler {
 	return &RESTInspectorHandler{}
 }

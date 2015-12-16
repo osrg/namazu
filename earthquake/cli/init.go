@@ -24,7 +24,10 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/osrg/earthquake/earthquake/historystorage"
 	"github.com/osrg/earthquake/earthquake/util/cmd"
-	. "github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/earthquake/earthquake/util/config"
+	"io/ioutil"
+	"path/filepath"
+	"strings"
 )
 
 const (
@@ -100,6 +103,7 @@ func recursiveHardLink(srcPath, dstPath string) error {
 	return nil
 }
 
+// FIXME: refactor
 func _init(args []string) int {
 	if err := initFlagset.Parse(args); err != nil {
 		fmt.Printf("%s", err.Error())
@@ -172,14 +176,17 @@ func _init(args []string) int {
 		return 1
 	}
 
-	config, err := ParseConfigFile(confPath)
+	cfg, err := config.NewFromFile(confPath)
 	if err != nil {
 		fmt.Printf("parsing config file (%s) failed: %s\n", confPath, err)
 		return 1
 	}
 
-	// conf may be JSON/YAML/TOML, but always converted to JSON
-	err = config.DumpToJsonFile(path.Join(storagePath, historystorage.StorageConfigPath))
+	if !strings.EqualFold(filepath.Ext(confPath), ".toml") {
+		fmt.Printf("this version does not support non-TOML configs")
+		return 1
+	}
+	err = copyFile(path.Join(storagePath, historystorage.StorageTOMLConfigPath), confPath, 0644)
 	if err != nil {
 		fmt.Printf("placing config file (%s) failed (%s)\n", confPath, err)
 		return 1
@@ -197,15 +204,19 @@ func _init(args []string) int {
 
 	err = recursiveHardLink(materials, materialsDir)
 	if err != nil {
-		fmt.Printf("%s", err)
+		fmt.Printf("%s\n", err)
 		return 1
 	}
 
-	storage := historystorage.New(config.GetString("storageType"), storagePath)
+	storage, err := historystorage.New(cfg.GetString("storageType"), storagePath)
+	if err != nil {
+		fmt.Printf("%s\n", err)
+		return 1
+	}
 	storage.CreateStorage()
 
-	if config.GetString("init") != "" {
-		initScriptPath := materialsDir + "/" + config.GetString("init")
+	if cfg.GetString("init") != "" {
+		initScriptPath := path.Join(materialsDir, cfg.GetString("init"))
 		runCmd := cmd.DefaultFactory.CreateCmd(initScriptPath)
 		if err = runCmd.Run(); err != nil {
 			fmt.Printf("could not run %s (%s)\n", initScriptPath, err)
@@ -214,6 +225,18 @@ func _init(args []string) int {
 	}
 	fmt.Printf("ok\n")
 	return 0
+}
+
+func copyFile(dst, src string, perm os.FileMode) error {
+	content, err := ioutil.ReadFile(src)
+	if err != nil {
+		return err
+	}
+	err = ioutil.WriteFile(dst, content, perm)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 type initCmd struct {

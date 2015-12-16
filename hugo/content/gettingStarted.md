@@ -5,20 +5,4 @@ tags = ["document"]
 title = "Getting Started"
 
 +++
-For full-stack environment, please refer to [how-to-setup-env-full.md](https://github.com/osrg/earthquake/blob/master/doc/how-to-setup-env-full.md).
-
-    $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
-    $ go get github.com/osrg/earthquake/earthquake-container
-    $ sudo earthquake-container run -it --rm --eq-config config.toml ubuntu bash
-
-Example configuration file (`config.toml`):
-
-
-    explorePolicy = "random"
-    [explorePolicyParam]
-      minInterval = 80
-      maxInterval = 3000
-      #shellActionInterval = 5000
-      #shellActionCommand = "echo hello $(date)"
-      #faultActionProbability = 0.0
-    
+Please refer to [README.md](https://github.com/osrg/earthquake/blob/master/README.md).
