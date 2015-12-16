@@ -16,23 +16,7 @@
       <pubDate>Tue, 15 Dec 2015 00:00:00 +0000</pubDate>
       
       <guid>http://osrg.github.io/earthquake/gettingStarted/</guid>
-      <description>&lt;p&gt;For full-stack environment, please refer to &lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/doc/how-to-setup-env-full.md&#34;&gt;how-to-setup-env-full.md&lt;/a&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
-$ go get github.com/osrg/earthquake/earthquake-container
-$ sudo earthquake-container run -it --rm --eq-config config.toml ubuntu bash
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Example configuration file (&lt;code&gt;config.toml&lt;/code&gt;):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;explorePolicy = &amp;quot;random&amp;quot;
-[explorePolicyParam]
-  minInterval = 80
-  maxInterval = 3000
-  #shellActionInterval = 5000
-  #shellActionCommand = &amp;quot;echo hello $(date)&amp;quot;
-  #faultActionProbability = 0.0
-&lt;/code&gt;&lt;/pre&gt;
+      <description>&lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/README.md&#34;&gt;README.md&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
