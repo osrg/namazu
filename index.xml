@@ -449,7 +449,6 @@ but we believe that one of the most important reasons is lacking of a good debug
 &lt;ul&gt;
 &lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2080/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2251&#34;&gt;ZOOKEEPER-2251&lt;/a&gt; (race): To Be Documented&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 
 &lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
