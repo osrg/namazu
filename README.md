@@ -51,7 +51,9 @@ JUnit tests are interesting to try.
 
 
 ## Talks
- * Earthquake was presented at the poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/). (August 27-29, 2015, Hawaii)
+
+ * [FOSDEM](https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/) (January 30-31, 2016, Brussels)
+ * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii)
 
 ## How to Contribute
 We welcome your contribution to Earthquake.
@@ -110,3 +112,9 @@ func main(){
 }
 ```
 Please refer to [example/template](example/template) for further information.
+
+---------------------------------------
+
+# On-going Work
+
+We are also working on a method to control the non-deternimism in the kernel task scheduler. Preview is available at [here](https://github.com/AkihiroSuda/MicroEarthquake).
