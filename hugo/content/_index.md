@@ -16,7 +16,7 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 [Read more..]({{< relref "about.md" >}})..
 
-![Overview](/earthquake/images/overview.png)
+{{< slideshare key="MzuiqJw0xFIpo8" slide="10" >}}
 
 # Found/Reproduced Bugs
 * ZooKeeper:
@@ -25,9 +25,12 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 * Etcd:
  * Found an etcd command line client (etcdctl) bug [#3517](https://github.com/coreos/etcd/issues/3517) (timing specification), fixed in [#3530](https://github.com/coreos/etcd/pull/3530). The fix also resulted a hint of [#3611](https://github.com/coreos/etcd/issues/3611): To Be Documented
+ * Reproduced flaky tests {[#4006](https://github.com/coreos/etcd/pull/4006), [#4039](https://github.com/coreos/etcd/issues/4039)}
+
 
 * YARN:
  * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): To Be Documented
+ * Reproduced flaky tests YARN-{[1978](https://issues.apache.org/jira/browse/YARN-1978), [4168](https://issues.apache.org/jira/browse/YARN-4168), [4543](https://issues.apache.org/jira/browse/YARN-4543), [4548](https://issues.apache.org/jira/browse/YARN-4548), [4556](https://issues.apache.org/jira/browse/YARN-4556)}
 
 The repro codes are located on [earthquake/example](https://github.com/osrg/earthquake/tree/master/example).
 
@@ -35,6 +38,8 @@ The repro codes are located on [earthquake/example](https://github.com/osrg/eart
 Please refer to [README file](https://github.com/osrg/earthquake/blob/master/README.md).
 
 [This article]({{< relref "post/zookeeper-2212.md" >}}) is also a good start point.
+
+[The slides for the presentation at FOSDEM](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42) might be also helpful.
 
 # Contact
 The project is managed on [github](https://github.com/osrg/earthquake).
