@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Earthquake">
 		
-		<title>Blog - Earthquake</title>
+		<title>FOSDEM: Thank you for attending our presentation! - Earthquake</title>
 		
 		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/highlight.js.min.css">
 		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootstrap.min.css">
@@ -83,66 +83,60 @@
 
 
 <div class="row">
-	
-<div class="col-sm-3 doc-sidebar">
-	<div class="sidebar-module">
-		<h4>Categories</h4>
-		<ul class="list-unstyled">
-		
-			<li><a class="tag-item" href="http://osrg.github.io/earthquake//categories/blog">blog</a></li>
-		
-			<li><a class="tag-item" href="http://osrg.github.io/earthquake//categories/general">general</a></li>
-		
-		</ul>
-	</div>
-	<div class="sidebar-module">
-		<h4>Tags</h4>
-		<div class="tag-box">
-		
-			<a class="tag-item" href="http://osrg.github.io/earthquake//tags/document">document</a>
-		
-			<a class="tag-item" href="http://osrg.github.io/earthquake//tags/found-bug">found-bug</a>
-		
-			<a class="tag-item" href="http://osrg.github.io/earthquake//tags/reproduced-bug">reproduced-bug</a>
-		
-			<a class="tag-item" href="http://osrg.github.io/earthquake//tags/zookeeper">zookeeper</a>
-		
-		</div>
-	</div>
-</div>
-
-	<div class="col-sm-6 doc-main">
+	<div class="col-sm-9 doc-main">
 		<main role="main">
-			<div class="doc-list-header">
-				<h1>Blog</h1>
-			</div>
-			<div class="doc-list-entry">
-	
-				<a class="doc-entry" href="/earthquake/post/fosdem2016/">
-					<h3 class="doc-entry-title">FOSDEM: Thank you for attending our presentation!</h3>
-					<p class="doc-entry-meta"><time datetime="2016-02-05">February 05, 2016</time></p>
-				</a>
-	
-				<a class="doc-entry" href="/earthquake/post/zookeeper-2080/">
-					<h3 class="doc-entry-title">ZOOKEEPER-2080: flaky JUnit test</h3>
-					<p class="doc-entry-meta"><time datetime="2015-10-02">October 02, 2015</time></p>
-				</a>
-	
-				<a class="doc-entry" href="/earthquake/post/zookeeper-2212/">
-					<h3 class="doc-entry-title">ZOOKEEPER-2212: distributed race condition</h3>
-					<p class="doc-entry-meta"><time datetime="2015-08-20">August 20, 2015</time></p>
-				</a>
-	
-				<a class="doc-entry" href="/earthquake/post/first/">
-					<h3 class="doc-entry-title">Hello, world!</h3>
-					<p class="doc-entry-meta"><time datetime="2015-07-24">July 24, 2015</time></p>
-				</a>
-	
-			</div>
-		</main>
-	</div> 
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">FOSDEM: Thank you for attending our presentation!</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2016-02-05">February 05, 2016</time></span>
+				</div>
+				<section>
+					<p>On January 30, Brussels, we had a very good time at <a href="https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/">FOSDEM 2016</a>!</p>
 
-	
+<p>Thank you all for attending our presentation and discussing with us!</p>
+
+<p><img src="/earthquake/images/fosdem2016_01.jpg" alt="fosdem2016_01.jpg" /></p>
+
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/MzuiqJw0xFIpo8?startSlide=1" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+
+
+<p>At the presentation, we showed some issues we found or reproduced: ZOOKEEPER-{<a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2080">2080</a>,<a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2212">2212</a>}, YARN-{<a href="https://issues.apache.org/jira/browse/YARN-1978">1978</a>,<a href="https://issues.apache.org/jira/browse/YARN-4168">4168</a>,<a href="https://issues.apache.org/jira/browse/YARN-4543">4543</a>,<a href="https://issues.apache.org/jira/browse/YARN-4548">4548</a>,<a href="https://issues.apache.org/jira/browse/YARN-4556">4556</a>}, and etcd {<a href="https://github.com/coreos/etcd/pull/4006">#4006</a>, <a href="https://github.com/coreos/etcd/issues/4039">#4039</a>}.</p>
+
+<p>Recently, the number of these reproducible issues increased significantly due to the new feature we started to work on: <a href="http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/32"><strong>the thread scheduling fuzzer</strong></a>.</p>
+
+<p>This feature fuzzes the thread scheduling for a specific process tree by using Linux (&gt;= 3.14) <code>SCHED_DEADLINE</code> scheduler and calling <a href="http://man7.org/linux/man-pages/man2/sched_getattr.2.html"><code>sched_setattr(2)</code></a> with randomized parameters.</p>
+
+<p>The feature is planned to be included in the next release of Earthquake (v0.2.0). However, <a href="https://github.com/AkihiroSuda/MicroEarthquake/tree/v20160203">the early preview release is already available here</a>.</p>
+
+<p>Quick start slides are also available:
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/MzuiqJw0xFIpo8?startSlide=42" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+</p>
+
+				</section>
+			</article>
+		</main>
+
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+		   
+		  var disqus_shortname = 'osrg-earthquake';
+		  
+		   
+		  (function() {
+		  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		  })();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+		
+	</div> 
+        
 <div class="col-sm-3 col-sm-offset-0 doc-sidebar">
   <div class="sidebar-module">
     <h4><a href="http://osrg.github.io/earthquake//post">Recent Posts</a></h4>

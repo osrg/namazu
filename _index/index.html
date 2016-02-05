@@ -104,7 +104,10 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 <p><a href="/earthquake/about/">Read more..</a>..</p>
 
-<p><img src="/earthquake/images/overview.png" alt="Overview" /></p>
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/MzuiqJw0xFIpo8?startSlide=10" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+
 
 <h1 id="found-reproduced-bugs:3976528693a0108357f4928017600865">Found/Reproduced Bugs</h1>
 
@@ -120,12 +123,14 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 <ul>
 <li>Found an etcd command line client (etcdctl) bug <a href="https://github.com/coreos/etcd/issues/3517">#3517</a> (timing specification), fixed in <a href="https://github.com/coreos/etcd/pull/3530">#3530</a>. The fix also resulted a hint of <a href="https://github.com/coreos/etcd/issues/3611">#3611</a>: To Be Documented</li>
+<li>Reproduced flaky tests {<a href="https://github.com/coreos/etcd/pull/4006">#4006</a>, <a href="https://github.com/coreos/etcd/issues/4039">#4039</a>}</li>
 </ul></li>
 
 <li><p>YARN:</p>
 
 <ul>
 <li>Found <a href="https://issues.apache.org/jira/browse/YARN-4301">YARN-4301</a> (fault tolerance): To Be Documented</li>
+<li>Reproduced flaky tests YARN-{<a href="https://issues.apache.org/jira/browse/YARN-1978">1978</a>, <a href="https://issues.apache.org/jira/browse/YARN-4168">4168</a>, <a href="https://issues.apache.org/jira/browse/YARN-4543">4543</a>, <a href="https://issues.apache.org/jira/browse/YARN-4548">4548</a>, <a href="https://issues.apache.org/jira/browse/YARN-4556">4556</a>}</li>
 </ul></li>
 </ul>
 
@@ -136,6 +141,8 @@ but we believe that one of the most important reasons is lacking of a good debug
 <p>Please refer to <a href="https://github.com/osrg/earthquake/blob/master/README.md">README file</a>.</p>
 
 <p><a href="/earthquake/post/zookeeper-2212/">This article</a> is also a good start point.</p>
+
+<p><a href="http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42">The slides for the presentation at FOSDEM</a> might be also helpful.</p>
 
 <h1 id="contact:3976528693a0108357f4928017600865">Contact</h1>
 
@@ -170,6 +177,8 @@ Feel free to join.</p>
   <div class="sidebar-module">
     <h4><a href="http://osrg.github.io/earthquake//post">Recent Posts</a></h4>
     <ul>
+      
+      <li><a href="/earthquake/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
       
       <li><a href="/earthquake/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
       
