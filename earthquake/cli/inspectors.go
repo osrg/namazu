@@ -28,7 +28,8 @@ type inspectorsCmd struct {
 func (cmd inspectorsCmd) Help() string {
 	return `
 	Earthquake Inspectors
-	- fs: Filesystem inspector
+	- proc:     Process inspector
+	- fs:       Filesystem inspector
 	- ethernet: Ethernet inspector
 
 	NOTE: this binary does NOT include following inspectors:
@@ -41,6 +42,7 @@ func (cmd inspectorsCmd) Run(args []string) int {
 	c := mcli.NewCLI("earthquake inspectors", EarthquakeVersion)
 	c.Args = args
 	c.Commands = map[string]mcli.CommandFactory{
+		"proc":     inspectors.ProcCommandFactory,
 		"fs":       inspectors.FsCommandFactory,
 		"ethernet": inspectors.EtherCommandFactory,
 	}

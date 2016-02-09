@@ -21,6 +21,7 @@ func RegisterKnownSignals() {
 	RegisterSignalClass("PacketEvent", &PacketEvent{})
 	RegisterSignalClass("LogEvent", &LogEvent{})
 	RegisterSignalClass("FilesystemEvent", &FilesystemEvent{})
+	RegisterSignalClass("ProcSetEvent", &ProcSetEvent{})
 
 	// PB events
 	RegisterSignalClass("CFunctionEvent", &CFunctionEvent{})
@@ -32,4 +33,5 @@ func RegisterKnownSignals() {
 	RegisterSignalClass("ShellAction", &ShellAction{})
 	RegisterSignalClass("PacketFaultAction", &PacketFaultAction{})
 	RegisterSignalClass("FilesystemFaultAction", &FilesystemFaultAction{})
+	RegisterSignalClass("ProcSetSchedAction", &ProcSetSchedAction{})
 }

@@ -19,14 +19,16 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	"github.com/AkihiroSuda/go-linuxsched"
+	log "github.com/cihub/seelog"
 	"reflect"
 	"time"
-
-	log "github.com/cihub/seelog"
 )
 
 func init() {
 	gob.Register(map[string]interface{}{})
+	gob.Register(linuxsched.SchedAttr{})
+	gob.Register(map[int]linuxsched.SchedAttr{})
 	gob.Register(time.Time{})
 	gob.Register(BasicSignal{})
 	gob.Register(&BasicEvent{}) // NOTE: use a pointer!
