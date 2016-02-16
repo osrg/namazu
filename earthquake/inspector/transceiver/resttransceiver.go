@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rest
+package transceiver
 
 import (
 	"bytes"
@@ -31,7 +31,7 @@ import (
 // idempotent (RFC 7231)
 //
 // client can be http.DefaultClient in most cases
-func DeleteAction(client *http.Client, ocURL string, action Action) error {
+func deleteAction(client *http.Client, ocURL string, action Action) error {
 	url := ocURL + "/actions/" + action.EntityID() + "/" + action.ID()
 	log.Debugf("REST deleting action of %s", action, url)
 	req, err := http.NewRequest("DELETE", url, nil)
@@ -53,7 +53,7 @@ func DeleteAction(client *http.Client, ocURL string, action Action) error {
 }
 
 // client can be http.DefaultClient in most cases
-func SendEvent(client *http.Client, ocURL string, event Event) error {
+func sendEvent(client *http.Client, ocURL string, event Event) error {
 	jsonStr, err := json.Marshal(event.JSONMap())
 	if err != nil {
 		return err
@@ -75,7 +75,7 @@ func SendEvent(client *http.Client, ocURL string, event Event) error {
 }
 
 // client can be http.DefaultClient in most cases
-func GetAction(client *http.Client, ocURL string, entityID string) (Action, error) {
+func getAction(client *http.Client, ocURL string, entityID string) (Action, error) {
 	url := ocURL + "/actions/" + entityID
 	log.Debugf("REST getting action %s", url)
 	resp, err := client.Get(url)
@@ -96,8 +96,7 @@ func GetAction(client *http.Client, ocURL string, entityID string) (Action, erro
 	return action, nil
 }
 
-// util for SendEvent/GetAction/DeleteAction
-type Transceiver struct {
+type RESTTransceiver struct {
 	OrchestratorURL string
 	EntityID        string
 	Client          *http.Client
@@ -105,8 +104,8 @@ type Transceiver struct {
 	mMutex          sync.Mutex
 }
 
-func NewTransceiver(orchestratorURL string, entityID string) (*Transceiver, error) {
-	t := Transceiver{
+func NewRESTTransceiver(orchestratorURL string, entityID string) (Transceiver, error) {
+	t := RESTTransceiver{
 		OrchestratorURL: orchestratorURL,
 		EntityID:        entityID,
 		Client:          http.DefaultClient,
@@ -116,7 +115,7 @@ func NewTransceiver(orchestratorURL string, entityID string) (*Transceiver, erro
 	return &t, nil
 }
 
-func (this *Transceiver) SendEvent(event Event) (chan Action, error) {
+func (this *RESTTransceiver) SendEvent(event Event) (chan Action, error) {
 	if event.EntityID() != this.EntityID {
 		return nil, fmt.Errorf("bad entity id for event %s (want %s)", event, this.EntityID)
 	}
@@ -125,7 +124,7 @@ func (this *Transceiver) SendEvent(event Event) (chan Action, error) {
 	// put ch to m BEFORE calling SendEvent(), otherwise race may occur
 	this.m[event.ID()] = ch
 	this.mMutex.Unlock()
-	err := SendEvent(this.Client, this.OrchestratorURL, event)
+	err := sendEvent(this.Client, this.OrchestratorURL, event)
 	if err != nil {
 		this.mMutex.Lock()
 		delete(this.m, event.ID())
@@ -135,7 +134,7 @@ func (this *Transceiver) SendEvent(event Event) (chan Action, error) {
 	return ch, nil
 }
 
-func (this *Transceiver) onAction(action Action) error {
+func (this *RESTTransceiver) onAction(action Action) error {
 	event := action.Event()
 	if event == nil {
 		return fmt.Errorf("No event found for action %s", action)
@@ -153,7 +152,7 @@ func (this *Transceiver) onAction(action Action) error {
 	return nil
 }
 
-func (this *Transceiver) routine() {
+func (this *RESTTransceiver) routine() {
 	errors := 0
 	onHTTPError := func(err error) {
 		log.Error(err)
@@ -164,12 +163,12 @@ func (this *Transceiver) routine() {
 		log.Error(err)
 	}
 	for {
-		action, err := GetAction(this.Client, this.OrchestratorURL, this.EntityID)
+		action, err := getAction(this.Client, this.OrchestratorURL, this.EntityID)
 		if err != nil {
 			onHTTPError(err)
 			continue
 		}
-		err = DeleteAction(this.Client, this.OrchestratorURL, action)
+		err = deleteAction(this.Client, this.OrchestratorURL, action)
 		if err != nil {
 			onHTTPError(err)
 			continue
@@ -183,6 +182,6 @@ func (this *Transceiver) routine() {
 	}
 }
 
-func (this *Transceiver) Start() {
+func (this *RESTTransceiver) Start() {
 	go this.routine()
 }

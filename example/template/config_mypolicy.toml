@@ -1,2 +1,3 @@
 run = "run.sh"
+restPort = 10080
 explorePolicy = "mypolicy"

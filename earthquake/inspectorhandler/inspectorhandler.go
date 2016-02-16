@@ -16,7 +16,9 @@
 package inspectorhandler
 
 import (
+	log "github.com/cihub/seelog"
 	. "github.com/osrg/earthquake/earthquake/entity"
+	. "github.com/osrg/earthquake/earthquake/inspectorhandler/localinspectorhandler"
 	. "github.com/osrg/earthquake/earthquake/inspectorhandler/pbinspectorhandler"
 	. "github.com/osrg/earthquake/earthquake/inspectorhandler/restinspectorhandler"
 	. "github.com/osrg/earthquake/earthquake/util/config"
@@ -26,7 +28,29 @@ type InspectorHandler interface {
 	StartAccept(readyEntityCh chan *TransitionEntity)
 }
 
-func StartAllInspectorHandler(readyEntityCh chan *TransitionEntity, cfg Config) {
-	go NewPBInspectorHanlder(cfg).StartAccept(readyEntityCh)
-	go NewRESTInspectorHanlder(cfg).StartAccept(readyEntityCh)
+var (
+	GlobalLocalInspectorHandler = NewLocalInspectorHandler()
+)
+
+func StartInspectorHandlers(readyEntityCh chan *TransitionEntity, cfg Config) {
+	GlobalLocalInspectorHandler.StartAccept(readyEntityCh)
+
+	if cfg.IsSet("pbPort") {
+		pbPort := cfg.GetInt("pbPort")
+		if pbPort > 0 {
+			go NewPBInspectorHanlder(pbPort).StartAccept(readyEntityCh)
+		} else if pbPort < 0 {
+			log.Warnf("ignoring negative pbPort: %d", pbPort)
+		}
+	}
+
+	if cfg.IsSet("restPort") {
+		restPort := cfg.GetInt("restPort")
+		if restPort > 0 {
+			go NewRESTInspectorHanlder(restPort).StartAccept(readyEntityCh)
+		} else if restPort < 0 {
+			log.Warnf("ignoring restPort: %d", restPort)
+		}
+	}
+
 }

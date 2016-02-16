@@ -18,6 +18,7 @@ package cli
 import (
 	"fmt"
 	log "github.com/cihub/seelog"
+	"github.com/osrg/earthquake/earthquake-container/cli/run"
 	eqcli "github.com/osrg/earthquake/earthquake/cli"
 	"os"
 )
@@ -50,8 +51,8 @@ func CLIMain(args []string) int {
 	}
 	switch args[1] {
 	case "run":
-		return run(args[1:])
+		return run.Run(args[1:])
 	}
-	fmt.Fprintf(os.Stderr, "'%s' is not a earthquake-container command.", args[1])
+	fmt.Fprintf(os.Stderr, "'%s' is not a earthquake-container command.\n", args[1])
 	return 1
 }

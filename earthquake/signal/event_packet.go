@@ -23,13 +23,13 @@ type PacketEvent struct {
 }
 
 func NewPacketEvent(entityID, srcEntityID, dstEntityID string, m map[string]interface{}) (Event, error) {
-	action := &PacketEvent{}
-	action.InitSignal()
-	action.SetID(uuid.NewV4().String())
-	action.SetEntityID(entityID)
-	action.SetType("event")
-	action.SetClass("PacketEvent")
-	action.SetDeferred(true)
+	event := &PacketEvent{}
+	event.InitSignal()
+	event.SetID(uuid.NewV4().String())
+	event.SetEntityID(entityID)
+	event.SetType("event")
+	event.SetClass("PacketEvent")
+	event.SetDeferred(true)
 	opt := map[string]interface{}{
 		"src_entity": srcEntityID,
 		"dst_entity": dstEntityID,
@@ -37,8 +37,8 @@ func NewPacketEvent(entityID, srcEntityID, dstEntityID string, m map[string]inte
 	for k, v := range m {
 		opt[k] = v
 	}
-	action.SetOption(opt)
-	return action, nil
+	event.SetOption(opt)
+	return event, nil
 }
 
 // implements Event

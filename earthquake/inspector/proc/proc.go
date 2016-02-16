@@ -19,10 +19,9 @@ import (
 	"fmt"
 	"github.com/AkihiroSuda/go-linuxsched"
 	log "github.com/cihub/seelog"
-	"github.com/mitchellh/mapstructure"
+	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
 	procutil "github.com/osrg/earthquake/earthquake/util/proc"
-	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 	"strconv"
 	"time"
 )
@@ -32,14 +31,14 @@ type ProcInspector struct {
 	EntityID        string
 	RootPID         int
 	WatchInterval   time.Duration
-	trans           *restutil.Transceiver
+	trans           transceiver.Transceiver
 }
 
 func (this *ProcInspector) Start() error {
 	log.Debugf("Initializing Process Inspector %#v", this)
 	var err error
 
-	this.trans, err = restutil.NewTransceiver(this.OrchestratorURL, this.EntityID)
+	this.trans, err = transceiver.NewTransceiver(this.OrchestratorURL, this.EntityID)
 	if err != nil {
 		return err
 	}
@@ -49,7 +48,9 @@ func (this *ProcInspector) Start() error {
 		<-time.After(this.WatchInterval)
 		procs, err := procutil.DescendantLWPs(this.RootPID)
 		if err != nil {
-			log.Error(err)
+			// this happens frequently, but does not matter.
+			// e.g. "open /proc/11193/task/11193/children: no such file or directory"
+			log.Warn(err)
 			continue
 		}
 		if err = this.onWatch(procs); err != nil {
@@ -84,26 +85,25 @@ func (this *ProcInspector) onWatch(procs []int) error {
 }
 
 func (this *ProcInspector) onAction(action *signal.ProcSetSchedAction) error {
-	xattrs, ok := action.Option()["attrs"].(map[string]interface{})
+	// FIXME: this may not work with REST endpoint.
+	// we need to convert interface{} to linuxsched.SchedAttr here
+
+	attrs, ok := action.Option()["attrs"].(map[string]linuxsched.SchedAttr)
 	if !ok {
 		return fmt.Errorf("no attrs? this should be an implementation error. action=%#v", action)
 	}
 
-	for pidStr, xattr := range xattrs {
-		// due to JSON nature, we need to convert interface{} to linuxsched.SchedAttr here
-		var attr linuxsched.SchedAttr
-		err := mapstructure.Decode(xattr, &attr)
-		if err != nil {
-			return err
-		}
+	for pidStr, attr := range attrs {
+		// due to JSON nature, we use string for PID representation
 		pid, err := strconv.Atoi(pidStr)
 		if err != nil {
 			log.Warnf("Non PID string: %s", pidStr)
 			continue
 		}
 		if warn := linuxsched.SetAttr(pid, attr); warn != nil {
-			// this happens frequently, but does not matter
-			log.Warnf("could not apply %#v to %d: %s", attr, pid, warn)
+			// this happens frequently, but does not matter.
+			// so use log.Debugf rather than log.Warnf
+			log.Debugf("could not apply %#v to %d: %s", attr, pid, warn)
 		}
 	}
 	return nil

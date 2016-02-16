@@ -13,6 +13,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rest
+package transceiver
 
-const APIRoot = "/api/v3"
+import (
+	"fmt"
+	"github.com/osrg/earthquake/earthquake/signal"
+	"strings"
+)
+
+type Transceiver interface {
+	SendEvent(event signal.Event) (chan signal.Action, error)
+	Start()
+}
+
+func NewTransceiver(orchestratorURL string, entityID string) (Transceiver, error) {
+	if strings.HasPrefix(orchestratorURL, "local://") {
+		return NewLocalTransceiver(entityID)
+	} else if strings.HasPrefix(orchestratorURL, "http://") {
+		return NewRESTTransceiver(orchestratorURL, entityID)
+	} else {
+		return nil, fmt.Errorf("strange orchestrator url: %s", orchestratorURL)
+	}
+}

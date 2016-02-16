@@ -101,7 +101,7 @@ func (this *Orchestrator) doDefaultAction(event Event) {
 
 func (this *Orchestrator) Start() {
 	readyEntityCh := make(chan *TransitionEntity)
-	StartAllInspectorHandler(readyEntityCh, this.cfg)
+	StartInspectorHandlers(readyEntityCh, this.cfg)
 	policyNextActionChan := this.policy.GetNextActionChan()
 	running := true
 	log.Debugf("Main[running=%t]<-ExplorePolicy: receiving an action", running)

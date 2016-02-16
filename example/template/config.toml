@@ -3,6 +3,8 @@ run = "run.sh"
 # validate = "validate.sh"
 # clean = "clean.sh"
 
+restPort = 10080
+
 explorePolicy = "random"
 
 [explorePolicyParam]

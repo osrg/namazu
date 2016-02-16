@@ -47,11 +47,13 @@ func (p *MyPolicy) QueueNextEvent(event signal.Event) {
 	//  - JavaFunctionEvent
 	//  - PacketEvent
 	//  - FilesystemEvent
+	//  - ProcSetEvent (Linux procfs)
 	//  - LogEvent
 	fmt.Printf("Event: %s\n", event)
 	// You can also inject fault actions
 	//  - PacketFaultAction
 	//  - FilesystemFaultAction
+	//  - ProcSetSchedAction
 	//  - ShellAction
 	action, err := event.DefaultAction()
 	if err != nil {

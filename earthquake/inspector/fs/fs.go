@@ -18,8 +18,8 @@ package fs
 import (
 	"fmt"
 	log "github.com/cihub/seelog"
+	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/rest"
 	"github.com/osrg/hookfs/hookfs"
 	"syscall"
 )
@@ -33,7 +33,7 @@ type EQFSHookContext struct {
 type FilesystemInspector struct {
 	OrchestratorURL string
 	EntityID        string
-	trans           *Transceiver
+	trans           transceiver.Transceiver
 }
 
 func (this *FilesystemInspector) String() string {
@@ -44,7 +44,7 @@ func (this *FilesystemInspector) String() string {
 func (this *FilesystemInspector) Init() error {
 	log.Debugf("Initializing FS Inspector %#v", this)
 	var err error
-	this.trans, err = NewTransceiver(this.OrchestratorURL, this.EntityID)
+	this.trans, err = transceiver.NewTransceiver(this.OrchestratorURL, this.EntityID)
 	if err != nil {
 		return err
 	}
