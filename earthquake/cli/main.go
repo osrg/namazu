@@ -32,7 +32,7 @@ func CLIInit(debug bool) {
 	RegisterKnownExplorePolicies()
 }
 
-const EarthquakeVersion = "0.1.2"
+const EarthquakeVersion = "0.2.0-SNAPSHOT"
 
 func recoverer(debug bool) {
 	if r := recover(); r != nil {
