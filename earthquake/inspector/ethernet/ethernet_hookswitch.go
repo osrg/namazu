@@ -23,8 +23,8 @@ import (
 	"github.com/google/gopacket/layers"
 	"github.com/osrg/earthquake/earthquake/inspector/ethernet/hookswitch"
 	"github.com/osrg/earthquake/earthquake/inspector/ethernet/tcpwatcher"
+	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
-	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 	zmq "github.com/vaughan0/go-zmq"
 )
 
@@ -34,7 +34,7 @@ type HookSwitchInspector struct {
 	EntityID          string
 	HookSwitchZMQAddr string
 	EnableTCPWatcher  bool
-	trans             *restutil.Transceiver
+	trans             transceiver.Transceiver
 	zmqChannels       *zmq.Channels
 	tcpWatcher        *tcpwatcher.TCPWatcher
 }
@@ -47,7 +47,7 @@ func (this *HookSwitchInspector) Start() error {
 		this.tcpWatcher = tcpwatcher.New()
 	}
 
-	this.trans, err = restutil.NewTransceiver(this.OrchestratorURL, this.EntityID)
+	this.trans, err = transceiver.NewTransceiver(this.OrchestratorURL, this.EntityID)
 	if err != nil {
 		return err
 	}

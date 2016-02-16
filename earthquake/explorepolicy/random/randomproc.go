@@ -30,26 +30,27 @@ var (
 )
 
 func (r *Random) makeActionForProcSetEvent(event *signal.ProcSetEvent) (signal.Action, error) {
-	xprocs, ok := event.Option()["procs"].([]interface{})
-	if !ok {
-		return nil, fmt.Errorf("no procs? this should be an implementation error. event=%#v", event)
+	procs, err := r.parseProcSetEvent(event)
+	if err != nil {
+		return nil, err
 	}
-
-	// due to JSON nature, we need to convert []interface{} to []string here
-	procs := []string{}
-	for _, xproc := range xprocs {
-		proc, ok := xproc.(string)
-		if !ok {
-			return nil, fmt.Errorf("non-string %#v", xproc)
-		}
-		procs = append(procs, proc)
-	}
-
 	attrs := r.dirichletSchedDeadline(procs, time.Millisecond, 1.0)
 	for pidStr, attr := range attrs {
-		log.Infof("For PID=%s, setting Attr=%v", pidStr, attr)
+		log.Debugf("For PID=%s, setting Attr=%v", pidStr, attr)
 	}
 	return signal.NewProcSetSchedAction(event, attrs)
+}
+
+// due to JSON nature, we use string for PID representation
+func (r *Random) parseProcSetEvent(event *signal.ProcSetEvent) ([]string, error) {
+	option := event.Option()
+	procs, ok := option["procs"].([]string)
+	if !ok {
+		// FIXME: this may not work with REST endpoint.
+		// we need to convert []interface{} to []string here
+		return nil, fmt.Errorf("no procs? this should be an implementation error. event=%#v", event)
+	}
+	return procs, nil
 }
 
 // due to JSON nature, we use string for PID representation
@@ -57,6 +58,7 @@ func (r *Random) dirichletSchedDeadline(procs []string, base time.Duration, eff 
 	attrs := make(map[string]linuxsched.SchedAttr, len(procs))
 	ratios := drng.FlatDirichlet(len(procs))
 	for i, pidStr := range procs {
+		// FIXME: we should obtain actual available NumCPU for the PID rather than runtime.NumCPU()
 		numCPU := runtime.NumCPU()
 		runtime := time.Duration(int(float64(base) * ratios[i] * eff * float64(numCPU)))
 		deadline := base

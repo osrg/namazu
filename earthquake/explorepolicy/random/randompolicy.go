@@ -218,6 +218,7 @@ func (r *Random) dequeueEventRoutine() {
 		qItem := <-r.queueDeqCh
 		event := qItem.Value().(signal.Event)
 		action, err := r.makeActionForEvent(event)
+		log.Debugf("RANDOM: Determined action %#v for event %#v", action, event)
 		if err != nil {
 			panic(log.Critical(err))
 		}

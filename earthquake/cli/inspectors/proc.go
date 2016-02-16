@@ -20,6 +20,8 @@ import (
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 	inspector "github.com/osrg/earthquake/earthquake/inspector/proc"
+	"github.com/osrg/earthquake/earthquake/util/config"
+	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
 	"time"
 )
 
@@ -37,7 +39,7 @@ var (
 )
 
 func init() {
-	procFlagset.StringVar(&_procFlags.OrchestratorURL, "orchestrator-url", defaultOrchestratorURL, "orchestrator rest url")
+	procFlagset.StringVar(&_procFlags.OrchestratorURL, "orchestrator-url", ocutil.LocalOrchestratorURL, "orchestrator rest url")
 	procFlagset.StringVar(&_procFlags.EntityID, "entity-id", "_earthquake_proc_inspector", "Entity ID")
 	procFlagset.IntVar(&_procFlags.RootPID, "root-pid", -1, "PID for the target process tree")
 	procFlagset.DurationVar(&_procFlags.WatchInterval, "watch-interval", 1*time.Second, "Watching interval")
@@ -75,13 +77,17 @@ func runProcInspector(args []string) int {
 		return 1
 	}
 
-	if _procFlags.AutopilotConfig != "" && _procFlags.OrchestratorURL != defaultOrchestratorURL {
+	if _procFlags.AutopilotConfig != "" && _procFlags.OrchestratorURL != ocutil.LocalOrchestratorURL {
 		log.Critical("non-default orchestrator url set for autopilot orchestration mode")
 		return 1
 	}
 
 	if _procFlags.AutopilotConfig != "" {
-		autopilotOrchestrator, err := NewAutopilotOrchestrator(_procFlags.AutopilotConfig)
+		cfg, err := config.NewFromFile(_procFlags.AutopilotConfig)
+		if err != nil {
+			panic(log.Critical(err))
+		}
+		autopilotOrchestrator, err := ocutil.NewAutopilotOrchestrator(cfg)
 		if err != nil {
 			panic(log.Critical(err))
 		}

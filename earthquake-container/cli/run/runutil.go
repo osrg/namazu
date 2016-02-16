@@ -13,6 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rest
+package run
 
-const APIRoot = "/api/v3"
+import (
+	"github.com/osrg/earthquake/earthquake/util/config"
+)
+
+func newConfig(pathMaybeEmpty string) (config.Config, error) {
+	if pathMaybeEmpty == "" {
+		return config.New(), nil
+	} else {
+		return config.NewFromFile(pathMaybeEmpty)
+	}
+}

@@ -17,12 +17,11 @@ package inspectors
 
 import (
 	"flag"
-
-	// "fmt"
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 	inspector "github.com/osrg/earthquake/earthquake/inspector/ethernet"
-	//	restutil "github.com/osrg/earthquake/earthquake/util/rest"
+	"github.com/osrg/earthquake/earthquake/util/config"
+	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
 )
 
 type etherFlags struct {
@@ -40,7 +39,7 @@ var (
 
 func init() {
 	etherFlagset.StringVar(&_etherFlags.OrchestratorURL, "orchestrator-url",
-		defaultOrchestratorURL, "orchestrator rest url")
+		ocutil.LocalOrchestratorURL, "orchestrator rest url")
 	etherFlagset.StringVar(&_etherFlags.EntityID, "entity-id",
 		"_earthquake_ethernet_inspector", "Entity ID")
 	etherFlagset.StringVar(&_etherFlags.HookSwitchZMQAddr, "hookswitch",
@@ -87,13 +86,17 @@ func runEtherInspector(args []string) int {
 		return 1
 	}
 
-	if _etherFlags.AutopilotConfig != "" && _etherFlags.OrchestratorURL != defaultOrchestratorURL {
+	if _etherFlags.AutopilotConfig != "" && _etherFlags.OrchestratorURL != ocutil.LocalOrchestratorURL {
 		log.Critical("non-default orchestrator url set for autopilot orchestration mode")
 		return 1
 	}
 
 	if _etherFlags.AutopilotConfig != "" {
-		autopilotOrchestrator, err := NewAutopilotOrchestrator(_etherFlags.AutopilotConfig)
+		cfg, err := config.NewFromFile(_etherFlags.AutopilotConfig)
+		if err != nil {
+			panic(log.Critical(err))
+		}
+		autopilotOrchestrator, err := ocutil.NewAutopilotOrchestrator(cfg)
 		if err != nil {
 			panic(log.Critical(err))
 		}

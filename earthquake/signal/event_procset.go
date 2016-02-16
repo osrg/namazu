@@ -23,21 +23,21 @@ type ProcSetEvent struct {
 }
 
 func NewProcSetEvent(entityID string, procs []string, m map[string]interface{}) (Event, error) {
-	action := &FilesystemEvent{}
-	action.InitSignal()
-	action.SetID(uuid.NewV4().String())
-	action.SetEntityID(entityID)
-	action.SetType("event")
-	action.SetClass("ProcSetEvent")
-	action.SetDeferred(false)
+	event := &ProcSetEvent{}
+	event.InitSignal()
+	event.SetID(uuid.NewV4().String())
+	event.SetEntityID(entityID)
+	event.SetType("event")
+	event.SetClass("ProcSetEvent")
+	event.SetDeferred(false)
 	opt := map[string]interface{}{
 		"procs": procs,
 	}
 	for k, v := range m {
 		opt[k] = v
 	}
-	action.SetOption(opt)
-	return action, nil
+	event.SetOption(opt)
+	return event, nil
 }
 
 // implements Event

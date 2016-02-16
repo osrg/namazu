@@ -13,23 +13,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cli
+package container
 
 import (
-	"fmt"
-	cap "github.com/syndtr/gocapability/capability"
+	log "github.com/cihub/seelog"
+	docker "github.com/fsouza/go-dockerclient"
 )
 
-func checkPrerequisite() error {
-	c, err := cap.NewPid(0)
+func Remove(client *docker.Client, container *docker.Container) error {
+	log.Debugf("Removing container %s", container.ID)
+	err := client.RemoveContainer(docker.RemoveContainerOptions{
+		ID:    container.ID,
+		Force: true,
+	})
+	log.Debugf("Removed container %s", container.ID)
 	if err != nil {
-		return err
+		log.Error(err)
 	}
-	if !c.Get(cap.EFFECTIVE, cap.CAP_NET_ADMIN) {
-		return fmt.Errorf("CAP_NET_ADMIN is needed.")
-	}
-	if !c.Get(cap.EFFECTIVE, cap.CAP_SYS_ADMIN) {
-		return fmt.Errorf("CAP_SYS_ADMIN is needed.")
-	}
-	return nil
+	return err
 }

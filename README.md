@@ -10,8 +10,8 @@ Earthquake is a programmable fuzzy scheduler for testing real implementations of
 Blog: [http://osrg.github.io/earthquake/](http://osrg.github.io/earthquake/)
 
 Earthquakes permutes C/Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
-When Earthquake finds a bug, Earthquake automatically records [the event history](http://osrg.github.io/earthquake/post/zookeeper-2212/) and helps you to analyze which permutation of events triggers the bug.
-Earthquake also collects [branch patterns](http://osrg.github.io/earthquake/post/zookeeper-2080/) for deeper analysis.
+Earthquake can also control non-determinism of the thread interleaving (by calling `sched_setattr(2)` with randomized parameters).
+So Earthquake can be also used for testing standalone multi-threaded software.
 
 Basically, Earthquake permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Golang) for finding deep bugs efficiently.
 
@@ -28,21 +28,12 @@ Basically, Earthquake permutes events in a random order, but you can write your 
 
 ## Quick Start
 The following instruction shows how you can start *Earthquake Container*, the simplified CLI for Earthquake.
-(For full-stack Earthquake environment, please refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md).)
 
 
     $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
     $ go get github.com/osrg/earthquake/earthquake-container
-    $ sudo earthquake-container run -it --rm --eq-config config.toml ubuntu bash
+    $ sudo earthquake-container run -it --rm ubuntu bash
 
-A typical configuration file (`config.toml`) is as follows:
-
-```toml
-explorePolicy = "random"
-[explorePolicyParam]
-  minInterval = "80ms"
-  maxInterval = "3000ms"
-```
 
 In *Earthquake Container*, you can run arbitrary command that might be *flaky*.
 JUnit tests are interesting to try.
@@ -51,6 +42,38 @@ JUnit tests are interesting to try.
     earthquake-container$ cd something
     earthquake-container$ for f in $(seq 1 1000);do mvn test; done
 
+
+You can also specify a config file (`-eq-config` option for `earthquake-container`.)
+A typical configuration file (`config.toml`) is as follows:
+
+```toml
+# Policy for observing events and yielding actions
+# You can also implement your own policy.
+# Default: "random"
+explorePolicy = "random"
+
+[explorePolicyParam]
+  # for Ethernet/Filesystem/Java inspectors, event are non-deterministically delayed.
+  # minInterval and maxInterval are bounds for the non-deterministic delays
+  # Default: 0 and 0
+  minInterval = "80ms"
+  maxInterval = "3000ms"
+
+[containerParam]
+  # Default: false
+  enableEthernetInspector = true
+  # Default: true
+  enableProcInspector = true
+  # Default: "1s"
+  procWatchInterval = "1s"
+```
+
+If you don't want to use containers, you can also use Earthquake with an arbitrary process tree.
+
+    $ go get github.com/osrg/earthquake/earthquake
+    $ sudo earthquake inspectors proc -root-pid $TARGET_PID -watch-interval 1s -autopilot config.toml
+
+For full-stack (fully-distributed) Earthquake environment, please refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md).)
 
 [The slides for the presentation at FOSDEM](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42) might be also helpful.
 
@@ -86,11 +109,13 @@ func (p *MyPolicy) QueueNextEvent(event Event) {
 	//  - JavaFunctionEvent (byteman)
 	//  - PacketEvent (Netfilter, Openflow)
 	//  - FilesystemEvent (FUSE)
+	//  - ProcSetEvent (Linux procfs)
 	//  - LogEvent (syslog)
 	fmt.Printf("Event: %s\n", event)
 	// You can also inject fault actions
 	//  - PacketFaultAction
 	//  - FilesystemFaultAction
+	//  - ProcSetSchedAction
 	//  - ShellAction
 	action, err := event.DefaultAction()
 	if err != nil {
@@ -117,8 +142,6 @@ func main(){
 ```
 Please refer to [example/template](example/template) for further information.
 
----------------------------------------
-
-# On-going Work
-
-We are also working on a method to control the non-deternimism in the kernel task scheduler. Preview is available at [here](https://github.com/AkihiroSuda/MicroEarthquake).
+## Known Limitation
+After running Earthquake (process inspector) many times, `sched_setattr(2)` can fail with `EBUSY`.
+This seems to be a bug of kernel; We're looking into this.

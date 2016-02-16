@@ -35,13 +35,13 @@ const (
 )
 
 func NewFilesystemEvent(entityID string, op FilesystemOp, path string, m map[string]interface{}) (Event, error) {
-	action := &FilesystemEvent{}
-	action.InitSignal()
-	action.SetID(uuid.NewV4().String())
-	action.SetEntityID(entityID)
-	action.SetType("event")
-	action.SetClass("FilesystemEvent")
-	action.SetDeferred(true)
+	event := &FilesystemEvent{}
+	event.InitSignal()
+	event.SetID(uuid.NewV4().String())
+	event.SetEntityID(entityID)
+	event.SetType("event")
+	event.SetClass("FilesystemEvent")
+	event.SetDeferred(true)
 	opt := map[string]interface{}{
 		"op":   op,
 		"path": path,
@@ -49,8 +49,8 @@ func NewFilesystemEvent(entityID string, op FilesystemOp, path string, m map[str
 	for k, v := range m {
 		opt[k] = v
 	}
-	action.SetOption(opt)
-	return action, nil
+	event.SetOption(opt)
+	return event, nil
 }
 
 // implements Event

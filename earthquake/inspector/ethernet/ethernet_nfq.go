@@ -21,8 +21,8 @@ import (
 	log "github.com/cihub/seelog"
 	"github.com/google/gopacket/layers"
 	"github.com/osrg/earthquake/earthquake/inspector/ethernet/tcpwatcher"
+	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
-	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 )
 
 // TODO: support user-written MapPacketToEventFunc
@@ -31,7 +31,7 @@ type NFQInspector struct {
 	EntityID         string
 	NFQNumber        uint16
 	EnableTCPWatcher bool
-	trans            *restutil.Transceiver
+	trans            transceiver.Transceiver
 	tcpWatcher       *tcpwatcher.TCPWatcher
 }
 
@@ -43,7 +43,7 @@ func (this *NFQInspector) Start() error {
 		this.tcpWatcher = tcpwatcher.New()
 	}
 
-	this.trans, err = restutil.NewTransceiver(this.OrchestratorURL, this.EntityID)
+	this.trans, err = transceiver.NewTransceiver(this.OrchestratorURL, this.EntityID)
 	if err != nil {
 		return err
 	}

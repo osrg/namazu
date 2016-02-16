@@ -24,11 +24,12 @@ import (
 	log "github.com/cihub/seelog"
 	. "github.com/osrg/earthquake/earthquake/entity"
 	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/config"
 	. "github.com/osrg/earthquake/earthquake/util/pb"
 )
 
-type PBInspectorHandler struct{}
+type PBInspectorHandler struct {
+	Port int
+}
 
 func recvPBMsgViaChan(conn net.Conn, eventReqRecv chan *InspectorMsgReq) {
 	for {
@@ -130,7 +131,7 @@ func (handler *PBInspectorHandler) handleConn(conn net.Conn, readyEntityCh chan 
 } // func
 
 func (handler *PBInspectorHandler) StartAccept(readyEntityCh chan *TransitionEntity) {
-	sport := fmt.Sprintf(":%d", 10000) // FIXME (config.GetInt("inspectorHandler.pb.port"))
+	sport := fmt.Sprintf(":%d", handler.Port)
 	ln, err := net.Listen("tcp", sport)
 	if err != nil {
 		panic(log.Criticalf("failed to listen on port %s: %s", sport, err))
@@ -147,6 +148,8 @@ func (handler *PBInspectorHandler) StartAccept(readyEntityCh chan *TransitionEnt
 	}
 }
 
-func NewPBInspectorHanlder(cfg Config) *PBInspectorHandler {
-	return &PBInspectorHandler{}
+func NewPBInspectorHanlder(port int) *PBInspectorHandler {
+	return &PBInspectorHandler{
+		Port: port,
+	}
 }

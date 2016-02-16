@@ -16,25 +16,21 @@
 package inspectors
 
 import (
-	"fmt"
 	. "github.com/osrg/earthquake/earthquake/explorepolicy"
 	. "github.com/osrg/earthquake/earthquake/orchestrator"
 	"github.com/osrg/earthquake/earthquake/util/config"
-	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 )
 
-var defaultOrchestratorURL = fmt.Sprintf("http://localhost:%d%s", restutil.DefaultPort, restutil.APIRoot)
+const LocalOrchestratorURL = "local://"
 
 // instantiate new autopilot-mode orchestrator.
 //
-// autopilot-mode is useful when you are not interested in non-determinism
-func NewAutopilotOrchestrator(configFilePath string) (*Orchestrator, error) {
-	cfg, err := config.NewFromFile(configFilePath)
+// autopilot-mode is useful when you do not need PB/REST RPC
+func NewAutopilotOrchestrator(cfg config.Config) (*Orchestrator, error) {
+	policy, err := CreatePolicy(cfg.GetString("explorePolicy"))
 	if err != nil {
 		return nil, err
 	}
-
-	policy, err := CreatePolicy(cfg.GetString("explorePolicy"))
 	policy.LoadConfig(cfg)
 	orchestrator := NewOrchestrator(cfg, policy, false)
 	return orchestrator, nil

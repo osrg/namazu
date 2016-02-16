@@ -17,12 +17,12 @@ package inspectors
 
 import (
 	"flag"
-
-	//"fmt"
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 	inspector "github.com/osrg/earthquake/earthquake/inspector/fs"
+	"github.com/osrg/earthquake/earthquake/util/config"
 	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
 	"github.com/osrg/hookfs/hookfs"
 )
 
@@ -40,7 +40,7 @@ var (
 )
 
 func init() {
-	fsFlagset.StringVar(&_fsFlags.OrchestratorURL, "orchestrator-url", defaultOrchestratorURL, "orchestrator rest url")
+	fsFlagset.StringVar(&_fsFlags.OrchestratorURL, "orchestrator-url", ocutil.LocalOrchestratorURL, "orchestrator rest url")
 	fsFlagset.StringVar(&_fsFlags.EntityID, "entity-id", "_earthquake_fs_inspector", "Entity ID")
 	fsFlagset.StringVar(&_fsFlags.OriginalDir, "original-dir", "", "FUSE Original Directory")
 	fsFlagset.StringVar(&_fsFlags.Mountpoint, "mount-point", "", "FUSE Mount Point")
@@ -83,7 +83,7 @@ func runFsInspector(args []string) int {
 		return 1
 	}
 
-	if _fsFlags.AutopilotConfig != "" && _fsFlags.OrchestratorURL != defaultOrchestratorURL {
+	if _fsFlags.AutopilotConfig != "" && _fsFlags.OrchestratorURL != ocutil.LocalOrchestratorURL {
 		log.Critical("non-default orchestrator url set for autopilot orchestration mode")
 		return 1
 	}
@@ -96,7 +96,11 @@ func runFsInspector(args []string) int {
 	}
 
 	if _fsFlags.AutopilotConfig != "" {
-		autopilotOrchestrator, err := NewAutopilotOrchestrator(_fsFlags.AutopilotConfig)
+		cfg, err := config.NewFromFile(_fsFlags.AutopilotConfig)
+		if err != nil {
+			panic(log.Critical(err))
+		}
+		autopilotOrchestrator, err := ocutil.NewAutopilotOrchestrator(cfg)
 		if err != nil {
 			panic(log.Critical(err))
 		}
