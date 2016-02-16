@@ -26,7 +26,7 @@
  * Ethernet (ryu): Open vSwitch + ryu
  * Ethernet (nfqhook): iptables + NFQUEUE
  * Filesystem: FUSE
-
+ * Process: Linux procfs and `sched_setattr(2)`
  
 ## Orchestrator
 
@@ -52,15 +52,17 @@ Events:
  * `PacketEvent`: inspected and deferred Ethernet packets
  * `FilesystemEvent`: inspected and deferred FUSE filesystem event
  * `LogEvent`: inspected syslog
+ * `ProcSetEvent`: inspected procfs event
 
 Actions:
 
  * `NopAction`: nop. just used for action history storage.
  * `EventAcceptanceAction`: accept an event
  * `FilesystemFaultAction`: fault for a `FilesystemEvent`
+ * `ProcSetSchedAction`: set scheduling attribute (`sched_setattr(2)`)
 
 
-### pyearthquake plug-ins (was available in v0.1, but removed since v0.1.3)
+### pyearthquake plug-ins (was available in v0.1, but removed since v0.2.0)
 
  * Orchestrator Plug-in: manages Explorer and so on.
   * `BasicOrchestrator`: a basic orchestrator
