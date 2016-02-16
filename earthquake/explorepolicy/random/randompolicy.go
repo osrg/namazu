@@ -195,6 +195,10 @@ func (r *Random) shellFaultInjectionRoutine() {
 
 // for dequeueRoutine()
 func (r *Random) makeActionForEvent(event signal.Event) (signal.Action, error) {
+	switch event.(type) {
+	case *signal.ProcSetEvent:
+		return r.makeActionForProcSetEvent(event.(*signal.ProcSetEvent))
+	}
 	defaultAction, defaultActionErr := event.DefaultAction()
 	faultAction, faultActionErr := event.DefaultFaultAction()
 	if faultAction == nil {

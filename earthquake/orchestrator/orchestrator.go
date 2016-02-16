@@ -40,7 +40,6 @@ type Orchestrator struct {
 	policy         ExplorePolicy
 	collectTrace   bool
 	actionSequence []Action
-	running        bool
 	endCh          chan interface{}
 	newTraceCh     chan *SingleTrace
 }
@@ -51,7 +50,6 @@ func NewOrchestrator(cfg Config, policy ExplorePolicy, collectTrace bool) *Orche
 		policy:         policy,
 		collectTrace:   collectTrace,
 		actionSequence: make([]Action, 0),
-		running:        false,
 		endCh:          make(chan interface{}),
 		newTraceCh:     make(chan *SingleTrace),
 	}
@@ -105,28 +103,24 @@ func (this *Orchestrator) Start() {
 	readyEntityCh := make(chan *TransitionEntity)
 	StartAllInspectorHandler(readyEntityCh, this.cfg)
 	policyNextActionChan := this.policy.GetNextActionChan()
-	this.running = true
-	log.Debugf("Main[running=%t]<-ExplorePolicy: receiving an action", this.running)
+	running := true
+	log.Debugf("Main[running=%t]<-ExplorePolicy: receiving an action", running)
 	for {
 		select {
 		case readyEntity := <-readyEntityCh:
-			log.Debugf("Main[%s, running=%t]<-Handler: receiving an event", readyEntity.ID, this.running)
+			log.Debugf("Main[%s, running=%t]<-Handler: receiving an event", readyEntity.ID, running)
 			event := <-readyEntity.EventToMain
-			log.Debugf("Main[%s, running=%t]<-Handler: receiving an event %s", readyEntity.ID, this.running, event)
-			if this.running && event.Deferred() {
-				log.Debugf("Main[%s, running=%t]->ExplorePolicy: sending an event", readyEntity.ID, this.running)
-				this.policy.QueueNextEvent(event)
-				log.Debugf("Main[%s, running=%t]->ExplorePolicy: sent an event", readyEntity.ID, this.running)
-			} else {
-				// run script ended, accept event immediately without passing to the policy
-				this.doDefaultAction(event)
-			}
+			log.Debugf("Main[%s, running=%t]<-Handler: receiving an event %s", readyEntity.ID, running, event)
+			// NOTE: running can be false here. Policy should consider that.
+			log.Debugf("Main[%s, running=%t]->ExplorePolicy: sending an event", readyEntity.ID, running)
+			this.policy.QueueNextEvent(event)
+			log.Debugf("Main[%s, running=%t]->ExplorePolicy: sent an event", readyEntity.ID, running)
 		case nextAction := <-policyNextActionChan:
-			log.Debugf("Main[running=%t]<-ExplorePolicy: received an action %s", this.running, nextAction)
+			log.Debugf("Main[running=%t]<-ExplorePolicy: received an action %s", running, nextAction)
 			this.handleAction(nextAction)
-			log.Debugf("Main[running=%t]<-ExplorePolicy: receiving an action", this.running)
+			log.Debugf("Main[running=%t]<-ExplorePolicy: receiving an action", running)
 		case <-this.endCh:
-			this.running = false
+			running = false
 			newTrace := &SingleTrace{
 				this.actionSequence,
 			}
