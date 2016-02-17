@@ -16,10 +16,11 @@
 package container
 
 import (
+	"runtime"
+
 	log "github.com/cihub/seelog"
 	docker "github.com/fsouza/go-dockerclient"
 	"github.com/vishvananda/netns"
-	"runtime"
 )
 
 var origNs netns.NsHandle

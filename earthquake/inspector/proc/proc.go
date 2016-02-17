@@ -17,13 +17,14 @@ package proc
 
 import (
 	"fmt"
+	"strconv"
+	"time"
+
 	"github.com/AkihiroSuda/go-linuxsched"
 	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
 	procutil "github.com/osrg/earthquake/earthquake/util/proc"
-	"strconv"
-	"time"
 )
 
 type ProcInspector struct {

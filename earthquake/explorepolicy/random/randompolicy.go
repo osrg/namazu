@@ -17,13 +17,14 @@ package random
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
+
 	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/historystorage"
 	"github.com/osrg/earthquake/earthquake/signal"
 	"github.com/osrg/earthquake/earthquake/util/config"
 	queue "github.com/osrg/earthquake/earthquake/util/queue"
-	"math/rand"
-	"time"
 )
 
 type Random struct {

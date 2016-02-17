@@ -13,6 +13,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rest
+package core
 
-const APIRoot = "/api/v3"
+import (
+	"testing"
+
+	"github.com/osrg/earthquake/earthquake/explorepolicy"
+	"github.com/stretchr/testify/assert"
+)
+
+func TestInit(t *testing.T) {
+	Init()
+	policy, err := explorepolicy.CreatePolicy("random")
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.NotNil(t, policy)
+	t.Logf("Confirmed random policy is registered: %s", policy)
+}

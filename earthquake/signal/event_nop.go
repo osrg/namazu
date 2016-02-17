@@ -15,7 +15,25 @@
 
 package signal
 
+import "github.com/satori/go.uuid"
+
 // implements Event
 type NopEvent struct {
 	BasicEvent
+}
+
+func NewNopEvent(entityID string, m map[string]interface{}) (Event, error) {
+	event := &NopEvent{}
+	event.InitSignal()
+	event.SetID(uuid.NewV4().String())
+	event.SetEntityID(entityID)
+	event.SetType("event")
+	event.SetClass("NopEvent")
+	event.SetDeferred(false)
+	opt := map[string]interface{}{}
+	for k, v := range m {
+		opt[k] = v
+	}
+	event.SetOption(opt)
+	return event, nil
 }

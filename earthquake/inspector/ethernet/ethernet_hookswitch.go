@@ -19,6 +19,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+
 	log "github.com/cihub/seelog"
 	"github.com/google/gopacket/layers"
 	"github.com/osrg/earthquake/earthquake/inspector/ethernet/hookswitch"

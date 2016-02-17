@@ -17,17 +17,18 @@ package queue
 
 import (
 	"flag"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 	"time"
+
+	. "github.com/osrg/earthquake/earthquake/signal"
+	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMain(m *testing.M) {
 	flag.Parse()
-	InitLog("", true)
+	logutil.InitLog("", true)
 	RegisterKnownSignals()
 	os.Exit(m.Run())
 }

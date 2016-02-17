@@ -4,6 +4,7 @@
 [![Join the chat at https://gitter.im/osrg/earthquake](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![GoDoc](https://godoc.org/github.com/osrg/earthquake/earthquake?status.svg)](https://godoc.org/github.com/osrg/earthquake/earthquake)
 [![Build Status](https://travis-ci.org/osrg/earthquake.svg?branch=master)](https://travis-ci.org/osrg/earthquake)
+[![Coverage Status](https://coveralls.io/repos/github/osrg/earthquake/badge.svg?branch=master)](https://coveralls.io/github/osrg/earthquake?branch=master)
 
 Earthquake is a programmable fuzzy scheduler for testing real implementations of distributed system (such as ZooKeeper).
 

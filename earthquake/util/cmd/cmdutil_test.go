@@ -13,27 +13,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package rest
+package cmd
 
 import (
-	"encoding/json"
-	"net/http"
+	"testing"
 
-	log "github.com/cihub/seelog"
+	"github.com/stretchr/testify/assert"
 )
 
-func WriteError(w http.ResponseWriter, err error) {
-	log.Errorf("this error will be also written to http: %s", err)
-	http.Error(w, err.Error(), http.StatusInternalServerError)
-	w.(http.Flusher).Flush()
-}
-
-func WriteJSON(w http.ResponseWriter, value interface{}) error {
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	if err := json.NewEncoder(w).Encode(value); err != nil {
-		return err
-	}
-	w.(http.Flusher).Flush()
-	return nil
+func TestCmdFactory(t *testing.T) {
+	f := NewCmdFactory()
+	// there shouldn't any access to the file, actually
+	f.SetWorkingDir("/tmp/dummy1")
+	f.SetMaterialsDir("/tmp/dummy2")
+	cmd := f.CreateCmd("echo 42")
+	assert.Contains(t, cmd.Env, "EQ_WORKING_DIR=/tmp/dummy1")
 }

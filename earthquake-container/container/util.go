@@ -16,10 +16,11 @@
 package container
 
 import (
-	log "github.com/cihub/seelog"
-	docker "github.com/fsouza/go-dockerclient"
 	"os"
 	"strings"
+
+	log "github.com/cihub/seelog"
+	docker "github.com/fsouza/go-dockerclient"
 )
 
 func NewDockerClient() (*docker.Client, error) {

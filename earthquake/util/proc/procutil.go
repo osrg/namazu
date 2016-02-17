@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package proc provides utilities for inspecting Linux procfs
 package proc
 
 import (

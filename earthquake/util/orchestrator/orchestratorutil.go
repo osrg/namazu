@@ -13,25 +13,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package inspectors
+// Package orchestrator provides utilities for orchestrator
+package orchestrator
 
 import (
-	. "github.com/osrg/earthquake/earthquake/explorepolicy"
-	. "github.com/osrg/earthquake/earthquake/orchestrator"
+	"github.com/osrg/earthquake/earthquake/explorepolicy"
+	"github.com/osrg/earthquake/earthquake/orchestrator"
 	"github.com/osrg/earthquake/earthquake/util/config"
 )
 
+// URL used for in-binary local orchestrator
 const LocalOrchestratorURL = "local://"
 
 // instantiate new autopilot-mode orchestrator.
 //
 // autopilot-mode is useful when you do not need PB/REST RPC
-func NewAutopilotOrchestrator(cfg config.Config) (*Orchestrator, error) {
-	policy, err := CreatePolicy(cfg.GetString("explorePolicy"))
+func NewAutopilotOrchestrator(cfg config.Config) (*orchestrator.Orchestrator, error) {
+	policy, err := explorepolicy.CreatePolicy(cfg.GetString("explorePolicy"))
 	if err != nil {
 		return nil, err
 	}
 	policy.LoadConfig(cfg)
-	orchestrator := NewOrchestrator(cfg, policy, false)
-	return orchestrator, nil
+	oc := orchestrator.NewOrchestrator(cfg, policy, false)
+	return oc, nil
 }

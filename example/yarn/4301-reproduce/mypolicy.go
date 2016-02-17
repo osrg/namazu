@@ -17,16 +17,17 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
 	log "github.com/cihub/seelog"
 	. "github.com/osrg/earthquake/earthquake/cli"
 	. "github.com/osrg/earthquake/earthquake/explorepolicy"
 	. "github.com/osrg/earthquake/earthquake/historystorage"
 	. "github.com/osrg/earthquake/earthquake/signal"
 	config "github.com/osrg/earthquake/earthquake/util/config"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
 )
 
 const MyPolicyName = "mypolicy-yarn-4301"

@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package log provides the initializer for cihub/seelog
 package log
 
 // Note: Log library comparison:
@@ -29,9 +30,9 @@ import (
 
 var Debug = false
 
-// path can be ""
+// Initialize cihub/seelog.
+// Path can be an empty string.
 func InitLog(path string, debug bool) {
-
 	config := `
 <seelog type="sync" minlevel="${minlevel}">
     <outputs formatid="main">

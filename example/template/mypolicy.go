@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/osrg/earthquake/earthquake/cli"
 	"github.com/osrg/earthquake/earthquake/explorepolicy"
 	"github.com/osrg/earthquake/earthquake/historystorage"
 	"github.com/osrg/earthquake/earthquake/signal"
 	"github.com/osrg/earthquake/earthquake/util/config"
-	"os"
 )
 
 // implements ExplorePolicy interface

@@ -17,11 +17,12 @@ package core
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
+
 	log "github.com/cihub/seelog"
 	docker "github.com/fsouza/go-dockerclient"
 	"github.com/osrg/earthquake/earthquake-container/container"
-	"os"
-	"os/exec"
 )
 
 func SetupNFQUEUE(c *docker.Container, queueNum int, hookInput bool, disableBypass bool) error {

@@ -17,11 +17,12 @@ package fs
 
 import (
 	"fmt"
+	"syscall"
+
 	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	. "github.com/osrg/earthquake/earthquake/signal"
 	"github.com/osrg/hookfs/hookfs"
-	"syscall"
 )
 
 // implements hookfs.HookContext

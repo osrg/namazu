@@ -17,40 +17,15 @@ package cli
 
 import (
 	"fmt"
-	"os"
 
-	log "github.com/cihub/seelog"
 	mcli "github.com/mitchellh/cli"
-	. "github.com/osrg/earthquake/earthquake/explorepolicy"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/log"
+	coreutil "github.com/osrg/earthquake/earthquake/util/core"
 )
 
-func CLIInit(debug bool) {
-	InitLog("", debug)
-	RegisterKnownSignals()
-	RegisterKnownExplorePolicies()
-}
-
-const EarthquakeVersion = "0.2.0-SNAPSHOT"
-
-func recoverer(debug bool) {
-	if r := recover(); r != nil {
-		log.Criticalf("PANIC: %s", r)
-		if debug {
-			panic(r)
-		} else {
-			log.Info("Hint: For debug info, please set \"EQ_DEBUG\" to 1.")
-			os.Exit(1)
-		}
-	}
-}
-
 func CLIMain(args []string) int {
-	debug := os.Getenv("EQ_DEBUG") != ""
-	CLIInit(debug)
-	defer recoverer(debug)
-	c := mcli.NewCLI(args[0], EarthquakeVersion)
+	coreutil.Init()
+	defer coreutil.Recoverer()
+	c := mcli.NewCLI(args[0], coreutil.EarthquakeVersion)
 	c.Args = args[1:]
 	c.Commands = map[string]mcli.CommandFactory{
 		"init":       initCommandFactory,

@@ -16,13 +16,14 @@
 package core
 
 import (
+	"time"
+
 	docker "github.com/fsouza/go-dockerclient"
 	"github.com/osrg/earthquake/earthquake-container/container"
 	"github.com/osrg/earthquake/earthquake/inspector/ethernet"
 	"github.com/osrg/earthquake/earthquake/inspector/proc"
 	"github.com/osrg/earthquake/earthquake/util/config"
 	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
-	"time"
 )
 
 func StartOrchestrator(cfg config.Config) error {

@@ -17,6 +17,7 @@ package ethernet
 
 import (
 	"fmt"
+
 	netfilter "github.com/AkihiroSuda/go-netfilter-queue"
 	log "github.com/cihub/seelog"
 	"github.com/google/gopacket/layers"

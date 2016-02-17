@@ -17,10 +17,11 @@ package container
 
 import (
 	"fmt"
+	"time"
+
 	log "github.com/cihub/seelog"
 	dockerpty "github.com/fgrehm/go-dockerpty"
 	docker "github.com/fsouza/go-dockerclient"
-	"time"
 )
 
 func Boot(client *docker.Client, opt *docker.CreateContainerOptions,

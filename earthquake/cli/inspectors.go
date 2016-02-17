@@ -20,6 +20,7 @@ import (
 
 	mcli "github.com/mitchellh/cli"
 	"github.com/osrg/earthquake/earthquake/cli/inspectors"
+	coreutil "github.com/osrg/earthquake/earthquake/util/core"
 )
 
 type inspectorsCmd struct {
@@ -39,7 +40,7 @@ func (cmd inspectorsCmd) Help() string {
 }
 
 func (cmd inspectorsCmd) Run(args []string) int {
-	c := mcli.NewCLI("earthquake inspectors", EarthquakeVersion)
+	c := mcli.NewCLI("earthquake inspectors", coreutil.EarthquakeVersion)
 	c.Args = args
 	c.Commands = map[string]mcli.CommandFactory{
 		"proc":     inspectors.ProcCommandFactory,

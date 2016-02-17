@@ -16,21 +16,12 @@
 package queue
 
 import (
-	"flag"
-	"os"
+	"sync"
 	"testing"
 	"time"
 
-	"sync"
-
 	"github.com/stretchr/testify/assert"
 )
-
-// NOTE: you should run this test several times (`go test -count N`) so as to find timing-related bugs
-func TestMain(m *testing.M) {
-	flag.Parse()
-	os.Exit(m.Run())
-}
 
 func TestTimeBoundedQueueWithoutDurations(t *testing.T) {
 	// for type assertion testing, declare var explicitly here
@@ -57,7 +48,7 @@ func TestTimeBoundedQueueWithoutDurations(t *testing.T) {
 		var deq TimeBoundedQueueItem
 		deq = <-deqCh
 		t.Logf("%s: Dequeued item: %#v", time.Now(), deq)
-		assert.Equal(t, deq.Value(), 42+i)
+		assert.Equal(t, 42+i, deq.Value())
 	}
 }
 
@@ -76,7 +67,7 @@ func TestTimeBoundedQueueWithFixedDuration(t *testing.T) {
 	for i := 0; i < 3; i++ {
 		var deq TimeBoundedQueueItem
 		deq = <-deqCh
-		assert.Equal(t, deq.Value(), 42+i)
+		assert.Equal(t, 42+i, deq.Value())
 	}
 }
 

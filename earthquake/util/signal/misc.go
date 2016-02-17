@@ -13,10 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// can we remove this?
 package signal
 
 import . "github.com/osrg/earthquake/earthquake/signal"
 
+// can we remove this?
 func AreActionsSliceEqual(a, b []Action) bool {
 	aLen := len(a)
 	bLen := len(b)

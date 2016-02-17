@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package restinspectorhandler
+package rest
 
 import (
 	"fmt"
@@ -23,17 +23,13 @@ import (
 	"path"
 	"time"
 
+	"net"
+
 	log "github.com/cihub/seelog"
 	"github.com/gorilla/mux"
-	. "github.com/osrg/earthquake/earthquake/entity"
-	. "github.com/osrg/earthquake/earthquake/inspectorhandler/restinspectorhandler/queue"
+	. "github.com/osrg/earthquake/earthquake/endpoint/rest/queue"
 	. "github.com/osrg/earthquake/earthquake/signal"
 	restutil "github.com/osrg/earthquake/earthquake/util/rest"
-	"runtime"
-)
-
-var (
-	mainReadyEntityCh chan *TransitionEntity
 )
 
 func newEventFromHttpRequest(r *http.Request) (Event, error) {
@@ -48,22 +44,18 @@ func newEventFromHttpRequest(r *http.Request) (Event, error) {
 	return signal.(Event), nil
 }
 
-func entityFromHttpRequest(r *http.Request) (*TransitionEntity, *ActionQueue, error) {
+func queueFromHttpRequest(r *http.Request) (*ActionQueue, error) {
 	var err error
 	vars := mux.Vars(r)
 	entityID := vars["entity_id"]
-	entity := GetTransitionEntity(entityID)
-	if entity == nil {
-		entity, _, err = registerNewEntity(entityID)
+	queue := GetQueue(entityID)
+	if queue == nil {
+		queue, err = RegisterNewQueue(entityID)
 		if err != nil {
-			return nil, nil, err
+			return nil, err
 		}
 	}
-	queue := GetQueue(entityID)
-	if entity == nil || queue == nil {
-		return nil, nil, fmt.Errorf("unexpected nil for %s", entityID)
-	}
-	return entity, queue, nil
+	return queue, nil
 }
 
 // @app.route('/', methods=['GET'])
@@ -75,12 +67,6 @@ func rootOnGet(w http.ResponseWriter, r *http.Request) {
 
 // @app.route(api_root + '/events/<entity_id>/<event_uuid>', methods=['POST'])
 func eventsOnPost(w http.ResponseWriter, r *http.Request) {
-	// get entity structure
-	entity, _, err := entityFromHttpRequest(r)
-	if err != nil {
-		restutil.WriteError(w, err)
-		return
-	}
 	// instantiate event
 	event, err := newEventFromHttpRequest(r)
 	if err != nil {
@@ -94,7 +80,9 @@ func eventsOnPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// send event to orchestrator main
-	go sendEventToMain(entity, event)
+	go func() {
+		orchestratorEventCh <- event
+	}()
 	// return empty json
 	if err = restutil.WriteJSON(w, map[string]interface{}{}); err != nil {
 		restutil.WriteError(w, err)
@@ -108,15 +96,12 @@ func eventsOnPost(w http.ResponseWriter, r *http.Request) {
 // NOTE: there should not be any concurrent GETs for an entity_id
 func actionsOnGet(w http.ResponseWriter, r *http.Request) {
 	var err error
-	// get entity structure
-	_, queue, err := entityFromHttpRequest(r)
+	// get queue
+	queue, err := queueFromHttpRequest(r)
 	if err != nil {
 		restutil.WriteError(w, err)
 		return
 	}
-
-	// NOTE: if NumGoroutine() increases rapidly, something is going wrong.
-	log.Debugf("runtime.NumGoroutine()=%d", runtime.NumGoroutine())
 
 	// get action (this can take a while, depending on the exploration policy)
 	action := queue.Peek()
@@ -135,7 +120,7 @@ func actionsOnGet(w http.ResponseWriter, r *http.Request) {
 func actionsOnDelete(w http.ResponseWriter, r *http.Request) {
 	var err error
 	// get entity structure
-	_, queue, err := entityFromHttpRequest(r)
+	queue, err := queueFromHttpRequest(r)
 	if err != nil {
 		restutil.WriteError(w, err)
 		return
@@ -149,29 +134,60 @@ func actionsOnDelete(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-type RESTInspectorHandler struct {
-	Port int
+func actionPropagatorRoutine() {
+	for {
+		action := <-orchestratorActionCh
+		queue := GetQueue(action.EntityID())
+		if queue == nil {
+			log.Errorf("Ignored action for unknown entity %s."+
+				"You sent the action before registration done?", action.EntityID())
+			continue
+		}
+		queue.Put(action)
+	}
 }
 
-func (handler *RESTInspectorHandler) StartAccept(readyEntityCh chan *TransitionEntity) {
-	mainReadyEntityCh = readyEntityCh
-	sport := fmt.Sprintf(":%d", handler.Port)
-	apiRoot := restutil.APIRoot
-	log.Debugf("REST API root=%s%s", sport, apiRoot)
+type RESTEndpoint struct {
+}
+
+var (
+	// this is global so that eventsOnPost() can access this
+	orchestratorEventCh = make(chan Event)
+	// set by Start()
+	orchestratorActionCh chan Action
+	// set by Start(). Useful if config port is zero.
+	ActualPort int
+)
+
+func newRouter() http.Handler {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", rootOnGet).Methods("GET")
-	router.HandleFunc(path.Join(apiRoot, "/events/{entity_id}/{event_uuid}"), eventsOnPost).Methods("POST")
-	router.HandleFunc(path.Join(apiRoot, "/actions/{entity_id}"), actionsOnGet).Methods("GET")
-	router.HandleFunc(path.Join(apiRoot, "/actions/{entity_id}/{action_uuid}"), actionsOnDelete).Methods("DELETE")
+	router.HandleFunc(path.Join(restutil.APIRoot, "/events/{entity_id}/{event_uuid}"), eventsOnPost).Methods("POST")
+	router.HandleFunc(path.Join(restutil.APIRoot, "/actions/{entity_id}"), actionsOnGet).Methods("GET")
+	router.HandleFunc(path.Join(restutil.APIRoot, "/actions/{entity_id}/{action_uuid}"), actionsOnDelete).Methods("DELETE")
+	return router
+}
 
-	err := http.ListenAndServe(sport, router)
+// NOTE: no shutdown at the moment due to the net/http implementation issue
+func (ep *RESTEndpoint) Start(port int, actionCh chan Action) chan Event {
+	orchestratorActionCh = actionCh
+	router := newRouter()
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		panic(log.Critical(err))
 	}
+	ActualPort = listener.Addr().(*net.TCPAddr).Port
+	if port == 0 {
+		log.Infof("Automatically assigned port %d instead of 0", ActualPort)
+	}
+	go func() {
+		err := http.Serve(listener, router)
+		if err != nil {
+			panic(log.Critical(err))
+		}
+	}()
+	go actionPropagatorRoutine()
+	return orchestratorEventCh
 }
 
-func NewRESTInspectorHanlder(port int) *RESTInspectorHandler {
-	return &RESTInspectorHandler{
-		Port: port,
-	}
-}
+var SingletonRESTEndpoint = RESTEndpoint{}

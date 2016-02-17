@@ -13,6 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package queue provides TimeBoundedQueue
+//
+// the queue items are dequeued non-deterministically, but time bounds are set
 package queue
 
 import (

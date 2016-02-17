@@ -17,13 +17,14 @@ package run
 
 import (
 	"fmt"
+	"os"
+
 	log "github.com/cihub/seelog"
 	flag "github.com/docker/docker/pkg/mflag"
 	docker "github.com/fsouza/go-dockerclient"
 	"github.com/osrg/earthquake/earthquake-container/container"
 	"github.com/osrg/earthquake/earthquake-container/core"
 	"github.com/osrg/earthquake/earthquake/util/config"
-	"os"
 )
 
 func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnExit bool, eqCfg config.Config, err error) {

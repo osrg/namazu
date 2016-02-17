@@ -21,13 +21,14 @@ import (
 	"os"
 	"path"
 
+	"io/ioutil"
+	"path/filepath"
+	"strings"
+
 	"github.com/mitchellh/cli"
 	"github.com/osrg/earthquake/earthquake/historystorage"
 	"github.com/osrg/earthquake/earthquake/util/cmd"
 	"github.com/osrg/earthquake/earthquake/util/config"
-	"io/ioutil"
-	"path/filepath"
-	"strings"
 )
 
 const (

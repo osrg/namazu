@@ -20,6 +20,7 @@ import (
 
 	mcli "github.com/mitchellh/cli"
 	"github.com/osrg/earthquake/earthquake/cli/tools"
+	coreutil "github.com/osrg/earthquake/earthquake/util/core"
 )
 
 type toolsCmd struct {
@@ -30,7 +31,7 @@ func (cmd toolsCmd) Help() string {
 }
 
 func (cmd toolsCmd) Run(args []string) int {
-	c := mcli.NewCLI("earthquake search tools", EarthquakeVersion)
+	c := mcli.NewCLI("earthquake search tools", coreutil.EarthquakeVersion)
 	c.Args = args
 	c.Commands = map[string]mcli.CommandFactory{
 		"visualize":  tools.VisualizeCommandFactory,

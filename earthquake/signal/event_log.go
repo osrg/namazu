@@ -19,3 +19,5 @@ package signal
 type LogEvent struct {
 	BasicEvent
 }
+
+// TODO: NewLogEvent()
