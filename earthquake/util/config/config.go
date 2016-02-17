@@ -79,7 +79,7 @@ func New() Config {
 
 	///// CONTAINER
 	// used only in "earthquake-container"
-	cfg.SetDefault("containerParam", map[string]interface{}{
+	cfg.SetDefault("container", map[string]interface{}{
 		"enableEthernetInspector": false,
 		"enableProcInspector":     true,
 		"ethernetNFQNumber":       42,

@@ -59,7 +59,7 @@ explorePolicy = "random"
   minInterval = "80ms"
   maxInterval = "3000ms"
 
-[containerParam]
+[container]
   # Default: false
   enableEthernetInspector = true
   # Default: true
