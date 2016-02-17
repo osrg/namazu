@@ -28,7 +28,7 @@ func checkPrerequisite(cfg config.Config) error {
 		return err
 	}
 
-	if cfg.GetBool("containerParam.enableEthernetInspector") {
+	if cfg.GetBool("container.enableEthernetInspector") {
 		if !capInst.Get(cap.EFFECTIVE, cap.CAP_NET_ADMIN) {
 			return fmt.Errorf("CAP_NET_ADMIN is needed.")
 		}
@@ -37,7 +37,7 @@ func checkPrerequisite(cfg config.Config) error {
 		}
 	}
 
-	if cfg.GetBool("containerParam.enableProcInspector") {
+	if cfg.GetBool("container.enableProcInspector") {
 		if !capInst.Get(cap.EFFECTIVE, cap.CAP_SYS_NICE) {
 			return fmt.Errorf("CAP_SYS_NICE is needed.")
 		}

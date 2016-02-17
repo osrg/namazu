@@ -31,10 +31,10 @@ func StartEarthquakeRoutines(c *docker.Container, cfg config.Config) error {
 		}
 	}()
 
-	if cfg.GetBool("containerParam.enableEthernetInspector") {
-		nfqNum := cfg.GetInt("containerParam.ethernetNFQNumber")
+	if cfg.GetBool("container.enableEthernetInspector") {
+		nfqNum := cfg.GetInt("container.ethernetNFQNumber")
 		if nfqNum <= 0 {
-			return fmt.Errorf("strange containerParam.ethernetNFQNumber: %d", nfqNum)
+			return fmt.Errorf("strange container.ethernetNFQNumber: %d", nfqNum)
 		}
 		log.Debugf("Configuring NFQUEUE %d for container %s", nfqNum, c.ID)
 		err := SetupNFQUEUE(c, nfqNum, false, false)
@@ -50,10 +50,10 @@ func StartEarthquakeRoutines(c *docker.Container, cfg config.Config) error {
 		}()
 	}
 
-	if cfg.GetBool("containerParam.enableProcInspector") {
-		watchInterval := cfg.GetDuration("containerParam.procWatchInterval")
+	if cfg.GetBool("container.enableProcInspector") {
+		watchInterval := cfg.GetDuration("container.procWatchInterval")
 		if watchInterval <= 0 {
-			return fmt.Errorf("strange containerParam.procWatchInterval: %s", watchInterval)
+			return fmt.Errorf("strange container.procWatchInterval: %s", watchInterval)
 		}
 		log.Debugf("Starting Process Inspector")
 		go func() {
