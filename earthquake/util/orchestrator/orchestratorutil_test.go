@@ -13,26 +13,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd
+package orchestrator
 
 import (
 	"flag"
 	"os"
 	"testing"
 
+	"github.com/osrg/earthquake/earthquake/explorepolicy"
+	"github.com/osrg/earthquake/earthquake/util/config"
+	logutil "github.com/osrg/earthquake/earthquake/util/log"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMain(m *testing.M) {
 	flag.Parse()
+	logutil.InitLog("", true)
+	explorepolicy.RegisterKnownExplorePolicies()
 	os.Exit(m.Run())
 }
 
-func TestCmdFactory(t *testing.T) {
-	f := NewCmdFactory()
-	// there shouldn't any access to the file, actually
-	f.SetWorkingDir("/tmp/dummy1")
-	f.SetMaterialsDir("/tmp/dummy2")
-	cmd := f.CreateCmd("echo 42")
-	assert.Contains(t, cmd.Env, "EQ_WORKING_DIR=/tmp/dummy1")
+func TestNewAutopilotOrchestrator(t *testing.T) {
+	cfg := config.New()
+	oc, err := NewAutopilotOrchestrator(cfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	assert.NotNil(t, oc)
+}
+
+func TestNewBadAutopilotOrchestrator(t *testing.T) {
+	tomlString := `
+explorePolicy = "this_bad_policy_should_not_exist"
+	`
+	cfg, err := config.NewFromString(tomlString, "toml")
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = NewAutopilotOrchestrator(cfg)
+	t.Logf("error is expected here: %s", err)
+	assert.Error(t, err)
 }

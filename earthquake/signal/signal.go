@@ -19,10 +19,12 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
-	"github.com/AkihiroSuda/go-linuxsched"
-	log "github.com/cihub/seelog"
 	"reflect"
 	"time"
+
+	"github.com/AkihiroSuda/go-linuxsched"
+	log "github.com/cihub/seelog"
+	"github.com/kr/pretty"
 )
 
 func init() {
@@ -182,7 +184,7 @@ func (this *BasicSignal) EqualsSignal(o Signal) bool {
 
 // implements Signal
 func (this *BasicSignal) String() string {
-	return fmt.Sprintf("Signal{Class=%s, Entity=%s, Uuid=%s}", this.Class(), this.EntityID(), this.ID())
+	return pretty.Sprintf("Signal{%#v}", this.M)
 }
 
 func NewSignalFromJSONString(jsonString string, arrivedTime time.Time) (Signal, error) {

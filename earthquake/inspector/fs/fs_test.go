@@ -17,10 +17,11 @@ package fs
 
 import (
 	"flag"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/osrg/hookfs/hookfs"
 	"os"
 	"testing"
+
+	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/hookfs/hookfs"
 )
 
 func TestMain(m *testing.M) {

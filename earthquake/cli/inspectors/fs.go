@@ -17,6 +17,7 @@ package inspectors
 
 import (
 	"flag"
+
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 	inspector "github.com/osrg/earthquake/earthquake/inspector/fs"

@@ -17,18 +17,24 @@ package transceiver
 
 import (
 	"fmt"
-	"github.com/osrg/earthquake/earthquake/signal"
 	"strings"
+
+	log "github.com/cihub/seelog"
+	"github.com/osrg/earthquake/earthquake/signal"
 )
 
 type Transceiver interface {
 	SendEvent(event signal.Event) (chan signal.Action, error)
 	Start()
+	// TODO: there should be also "Shutdown()" (especially for testing)
 }
 
 func NewTransceiver(orchestratorURL string, entityID string) (Transceiver, error) {
 	if strings.HasPrefix(orchestratorURL, "local://") {
-		return NewLocalTransceiver(entityID)
+		if entityID != "" {
+			log.Debugf("entityID %s is ignored by the local transceiver", entityID)
+		}
+		return &SingletonLocalTransceiver, nil
 	} else if strings.HasPrefix(orchestratorURL, "http://") {
 		return NewRESTTransceiver(orchestratorURL, entityID)
 	} else {

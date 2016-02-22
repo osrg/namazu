@@ -23,7 +23,10 @@ import (
 	. "github.com/osrg/earthquake/earthquake/signal"
 )
 
-var queues = make(map[string]*ActionQueue, 0)
+var (
+	queues     = make(map[string]*ActionQueue, 0)
+	queuesLock = sync.RWMutex{}
+)
 
 // concurrent-safe, deletable queue
 type ActionQueue struct {
@@ -132,9 +135,11 @@ func (this *ActionQueue) Delete(actionUUID string) {
 }
 
 func RegisterNewQueue(entityID string) (*ActionQueue, error) {
+	queuesLock.Lock()
+	defer queuesLock.Unlock()
 	old, oldOk := queues[entityID]
 	if oldOk {
-		return nil, fmt.Errorf("overwriting an old entity %s(%#v)", entityID, old)
+		return nil, fmt.Errorf("entity exists %s(%#v)", entityID, old)
 	}
 	queue := ActionQueue{
 		EntityID:         entityID,
@@ -150,5 +155,12 @@ func RegisterNewQueue(entityID string) (*ActionQueue, error) {
 }
 
 func GetQueue(entityID string) *ActionQueue {
-	return queues[entityID]
+	queuesLock.RLock()
+	defer queuesLock.RUnlock()
+	queue, ok := queues[entityID]
+	if ok {
+		return queue
+	} else {
+		return nil
+	}
 }

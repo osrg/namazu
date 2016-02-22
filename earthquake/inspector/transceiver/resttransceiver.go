@@ -23,9 +23,10 @@ import (
 	"net/http"
 	"time"
 
+	"sync"
+
 	log "github.com/cihub/seelog"
 	. "github.com/osrg/earthquake/earthquake/signal"
-	"sync"
 )
 
 // idempotent (RFC 7231)
@@ -121,7 +122,7 @@ func (this *RESTTransceiver) SendEvent(event Event) (chan Action, error) {
 	}
 	ch := make(chan Action)
 	this.mMutex.Lock()
-	// put ch to m BEFORE calling SendEvent(), otherwise race may occur
+	// put ch to m BEFORE calling sendEvent(), otherwise race may occur
 	this.m[event.ID()] = ch
 	this.mMutex.Unlock()
 	err := sendEvent(this.Client, this.OrchestratorURL, event)
@@ -146,6 +147,8 @@ func (this *RESTTransceiver) onAction(action Action) error {
 		return fmt.Errorf("No channel found for action %s (event id=%s)", action, event.ID())
 	}
 	delete(this.m, event.ID())
+	// Earthquake doesn't guarantee any determinism,
+	// but can we make this more deterministic?
 	go func() {
 		actionChan <- action
 	}()

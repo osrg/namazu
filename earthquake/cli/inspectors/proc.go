@@ -17,12 +17,13 @@ package inspectors
 
 import (
 	"flag"
+	"time"
+
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 	inspector "github.com/osrg/earthquake/earthquake/inspector/proc"
 	"github.com/osrg/earthquake/earthquake/util/config"
 	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
-	"time"
 )
 
 type procFlags struct {

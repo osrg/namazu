@@ -17,6 +17,7 @@ package core
 
 import (
 	"fmt"
+
 	log "github.com/cihub/seelog"
 	docker "github.com/fsouza/go-dockerclient"
 	"github.com/osrg/earthquake/earthquake/util/config"

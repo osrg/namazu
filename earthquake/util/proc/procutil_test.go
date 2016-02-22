@@ -16,16 +16,9 @@
 package proc
 
 import (
-	"flag"
-	"os"
 	"sort"
 	"testing"
 )
-
-func TestMain(m *testing.M) {
-	flag.Parse()
-	os.Exit(m.Run())
-}
 
 func TestProcUtil(t *testing.T) {
 	// TODO: support argument as pid

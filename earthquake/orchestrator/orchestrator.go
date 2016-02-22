@@ -14,128 +14,140 @@
 // limitations under the License.
 
 /*
-  Orchestrator manages inspectorhandlers, entities, and the policy.
+  Orchestrator manages the endpoint and the policy.
 
-  Event:  inspector  --RPC-->  inspectorhandler -> entity -> orchestrator -> policy
-  Action: inspector <--RPC--   inspectorhandler <- entity <- orchestrator <- policy
+  Event:  inspector  --RPC-->  endpoint -> orchestrator -> policy
+  Action: inspector <--RPC--   endpoint <- orchestrator <- policy
 
 */
 package orchestrator
 
 import (
-	"fmt"
+	"runtime"
 	"time"
 
 	log "github.com/cihub/seelog"
-	. "github.com/osrg/earthquake/earthquake/entity"
+	"github.com/osrg/earthquake/earthquake/endpoint"
 	. "github.com/osrg/earthquake/earthquake/explorepolicy"
-	. "github.com/osrg/earthquake/earthquake/inspectorhandler"
 	. "github.com/osrg/earthquake/earthquake/signal"
 	. "github.com/osrg/earthquake/earthquake/trace"
 	. "github.com/osrg/earthquake/earthquake/util/config"
 )
 
 type Orchestrator struct {
-	cfg            Config
-	policy         ExplorePolicy
-	collectTrace   bool
+	// arguments
+	cfg          Config
+	policy       ExplorePolicy
+	collectTrace bool
+	// action sequence (can be so large)
 	actionSequence []Action
-	endCh          chan interface{}
-	newTraceCh     chan *SingleTrace
+	// communication channels
+	endpointEventCh  chan Event
+	endpointActionCh chan Action
+	policyActionCh   chan Action
+	// orchestrator control channels
+	stopCh    chan struct{}
+	stoppedCh chan struct{}
 }
 
 func NewOrchestrator(cfg Config, policy ExplorePolicy, collectTrace bool) *Orchestrator {
-	oc := Orchestrator{
+	orc := Orchestrator{
 		cfg:            cfg,
 		policy:         policy,
 		collectTrace:   collectTrace,
 		actionSequence: make([]Action, 0),
-		endCh:          make(chan interface{}),
-		newTraceCh:     make(chan *SingleTrace),
+		// endpoint makes this
+		endpointEventCh:  nil,
+		endpointActionCh: make(chan Action),
+		// policy makes this
+		policyActionCh: nil,
+		stopCh:         make(chan struct{}),
+		stoppedCh:      make(chan struct{}),
 	}
-	return &oc
+	return &orc
 }
 
-func (this *Orchestrator) handleAction(action Action) {
-	var err error = nil
-	ocSideOnly := false
-	ocSide, ocSideOk := action.(OrchestratorSideAction)
+func (orc *Orchestrator) handleEvent(event Event) {
+	log.Debugf("Orchestrator handling event %s", event)
+	orc.policy.QueueNextEvent(event)
+	log.Debugf("Orchestrator handled event %s", event)
+}
+
+func (orc *Orchestrator) handleAction(action Action) {
+	log.Debugf("Orchestrator handling action %s", action)
+	var err error
+	orcSideOnly := false
+	orcSide, orcSideOk := action.(OrchestratorSideAction)
 	action.SetTriggeredTime(time.Now())
-	log.Debugf("action %s is executable on the orchestrator side: %t", action, ocSideOk)
-	if ocSideOk {
-		ocSideOnly = ocSide.OrchestratorSideOnly()
-		log.Debugf("action %s is executable on only the orchestrator side: %t", action, ocSideOnly)
-		err = ocSide.ExecuteOnOrchestrator()
+	log.Debugf("action %s is executable on the orchestrator side: %t", action, orcSideOk)
+	if orcSideOk {
+		orcSideOnly = orcSide.OrchestratorSideOnly()
+		log.Debugf("action %s is executable on only the orchestrator side: %t", action, orcSideOnly)
+		err = orcSide.ExecuteOnOrchestrator()
 		if err != nil {
 			log.Errorf("ignoring an error occurred while ExecuteOnOrchestrator: %s", err)
 		}
 	}
 
-	if !ocSideOnly {
-		// pass to the inspector handler.
-		entity := GetTransitionEntity(action.EntityID())
-		if entity == nil {
-			err = fmt.Errorf("could find entity %s for %s", action.EntityID(), action)
-			log.Errorf("ignoring an error: %s", err)
-		} else {
-			log.Debugf("Main[%s]->Handler: sending an action %s", entity.ID, action)
-			entity.ActionFromMain <- action
-			log.Debugf("Main[%s]->Handler: sent an action %s", entity.ID, action)
-		}
+	if !orcSideOnly {
+		orc.endpointActionCh <- action
 	}
 
 	// make sequence for tracing
-	if this.collectTrace {
-		this.actionSequence = append(this.actionSequence, action)
+	if orc.collectTrace {
+		orc.actionSequence = append(orc.actionSequence, action)
 	}
+	log.Debugf("Orchestrator handled action %s", action)
 }
 
-func (this *Orchestrator) doDefaultAction(event Event) {
-	action, err := event.DefaultAction()
-	if err != nil {
-		log.Errorf("ignoring an error: %s", err)
-		return
-	}
-	this.handleAction(action)
+func (orc *Orchestrator) Start() {
+	orc.endpointEventCh = endpoint.StartAll(orc.endpointActionCh, orc.cfg)
+	orc.policyActionCh = orc.policy.GetNextActionChan()
+	go orc.routine()
 }
 
-func (this *Orchestrator) Start() {
-	readyEntityCh := make(chan *TransitionEntity)
-	StartInspectorHandlers(readyEntityCh, this.cfg)
-	policyNextActionChan := this.policy.GetNextActionChan()
-	running := true
-	log.Debugf("Main[running=%t]<-ExplorePolicy: receiving an action", running)
+func (orc *Orchestrator) routine() {
+	defer close(orc.stoppedCh)
+
 	for {
+		// NOTE: if NumGoroutine() increases rapidly, something is going wrong.
+		log.Debugf("runtime.NumGoroutine()=%d", runtime.NumGoroutine())
 		select {
-		case readyEntity := <-readyEntityCh:
-			log.Debugf("Main[%s, running=%t]<-Handler: receiving an event", readyEntity.ID, running)
-			event := <-readyEntity.EventToMain
-			log.Debugf("Main[%s, running=%t]<-Handler: receiving an event %s", readyEntity.ID, running, event)
-			// NOTE: running can be false here. Policy should consider that.
-			log.Debugf("Main[%s, running=%t]->ExplorePolicy: sending an event", readyEntity.ID, running)
-			this.policy.QueueNextEvent(event)
-			log.Debugf("Main[%s, running=%t]->ExplorePolicy: sent an event", readyEntity.ID, running)
-		case nextAction := <-policyNextActionChan:
-			log.Debugf("Main[running=%t]<-ExplorePolicy: received an action %s", running, nextAction)
-			this.handleAction(nextAction)
-			log.Debugf("Main[running=%t]<-ExplorePolicy: receiving an action", running)
-		case <-this.endCh:
-			running = false
-			newTrace := &SingleTrace{
-				this.actionSequence,
+		case event, ok := <-orc.endpointEventCh:
+			if ok {
+				// handleEvent() basically does: `policy.QueueNextEvent(event)`
+				orc.handleEvent(event)
+			} else {
+				orc.endpointEventCh = nil
 			}
-			this.newTraceCh <- newTrace
-			// Do not really return from the function here, because the function must continue with running=false.
-			// FIXME: when should we really return from the function after setting running=false?
-		} // select
-	} // for
-	// NOTREACHED
+		case action, ok := <-orc.policyActionCh:
+			if ok {
+				// handleAction() basically does: `endpointActionCh <- action`
+				orc.handleAction(action)
+			} else {
+				orc.policyActionCh = nil
+			}
+		case <-orc.stopCh:
+			return
+		}
+		// connection lost to endpoints
+		if orc.endpointEventCh == nil {
+			close(orc.endpointActionCh)
+		}
+	}
 }
 
-func (this *Orchestrator) Shutdown() *SingleTrace {
-	this.endCh <- true
-	log.Debug("Receiving action trace")
-	newTrace := <-this.newTraceCh
-	log.Debugf("Received action trace (%d actions)", len(newTrace.ActionSequence))
+// Stops the orchestrator routine.
+// Returns action trace if configured to do so.
+func (orc *Orchestrator) Shutdown() *SingleTrace {
+	log.Debugf("Shutting down orchestrator")
+	close(orc.stopCh)
+	<-orc.stoppedCh
+	newTrace := &SingleTrace{
+		ActionSequence: orc.actionSequence,
+	}
+	log.Debugf("Action trace has %d actions", len(newTrace.ActionSequence))
+	endpoint.ShutdownAll()
+	log.Debugf("Shut down orchestrator")
 	return newTrace
 }

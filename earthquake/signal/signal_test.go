@@ -24,14 +24,14 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/proto"
-	. "github.com/osrg/earthquake/earthquake/util/log"
-	pb "github.com/osrg/earthquake/earthquake/util/pb"
+	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/earthquake/earthquake/util/pb"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMain(m *testing.M) {
 	flag.Parse()
-	InitLog("", true)
+	logutil.InitLog("", true)
 	RegisterKnownSignals()
 	os.Exit(m.Run())
 }

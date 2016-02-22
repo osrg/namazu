@@ -16,8 +16,9 @@
 package main
 
 import (
-	"github.com/osrg/earthquake/earthquake-container/cli"
 	"os"
+
+	"github.com/osrg/earthquake/earthquake-container/cli"
 )
 
 func main() {

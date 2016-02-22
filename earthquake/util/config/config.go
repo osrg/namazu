@@ -13,19 +13,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package config provides the configuration registry (based on spf13/viper)
+//
+// For further information, please look at the source of New().
 package config
 
 import (
-	"github.com/kr/pretty"
-	"github.com/spf13/viper"
 	"strings"
 	"time"
+
+	"github.com/kr/pretty"
+	"github.com/spf13/viper"
 )
 
 type Config struct {
 	*viper.Viper
 }
 
+// The source of this function contains the name of the parameters and the default values.
 func New() Config {
 	cfg := Config{viper.New()}
 
@@ -64,13 +69,15 @@ func New() Config {
 	// "earthquake-container" ignores these values.
 	// Used for PB inspector handler (used by Java and C inspector)
 	// if non-positive, PB inspector handler is disabled
+	// if zero, randomly assigned.
 	// e.g. 10000
-	cfg.SetDefault("pbPort", 0)
+	cfg.SetDefault("pbPort", -1)
 
 	// Used for REST inspector handler
 	// if non-positive, REST inspector handler is disabled
+	// if zero, randomly assigned.
 	// e.g. 10080
-	cfg.SetDefault("restPort", 0)
+	cfg.SetDefault("restPort", -1)
 
 	///// EXPLORATION POLICY
 	// "earthquake-container" also uses these params
@@ -79,6 +86,7 @@ func New() Config {
 
 	///// CONTAINER
 	// used only in "earthquake-container"
+	// FIXME: https://github.com/spf13/viper/issues/71
 	cfg.SetDefault("container", map[string]interface{}{
 		"enableEthernetInspector": false,
 		"enableProcInspector":     true,

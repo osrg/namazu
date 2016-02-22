@@ -15,3 +15,7 @@ __pycache__/
 # IntelliJ
 .idea
 *.iml
+
+# Go cover
+.coverprofile
+

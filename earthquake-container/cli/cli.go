@@ -17,28 +17,15 @@ package cli
 
 import (
 	"fmt"
-	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake-container/cli/run"
-	eqcli "github.com/osrg/earthquake/earthquake/cli"
 	"os"
+
+	"github.com/osrg/earthquake/earthquake-container/cli/run"
+	coreutil "github.com/osrg/earthquake/earthquake/util/core"
 )
 
-func recoverer(debug bool) {
-	if r := recover(); r != nil {
-		log.Criticalf("PANIC: %s", r)
-		if debug {
-			panic(r)
-		} else {
-			log.Info("Hint: For debug info, please set \"EQ_DEBUG\" to 1.")
-			os.Exit(1)
-		}
-	}
-}
-
 func CLIMain(args []string) int {
-	debug := os.Getenv("EQ_DEBUG") != ""
-	eqcli.CLIInit(debug)
-	defer recoverer(debug)
+	coreutil.Init()
+	defer coreutil.Recoverer()
 	if len(args) < 2 {
 		fmt.Printf("Usage: %s [OPTIONS] COMMAND [arg...]\n", args[0])
 		fmt.Printf("\n")

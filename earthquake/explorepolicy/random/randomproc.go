@@ -17,12 +17,13 @@ package random
 
 import (
 	"fmt"
+	"runtime"
+	"time"
+
 	"github.com/AkihiroSuda/go-linuxsched"
 	log "github.com/cihub/seelog"
 	"github.com/leesper/go_rng"
 	"github.com/osrg/earthquake/earthquake/signal"
-	"runtime"
-	"time"
 )
 
 var (

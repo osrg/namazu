@@ -16,12 +16,13 @@
 package dumb
 
 import (
+	"time"
+
 	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/historystorage"
 	"github.com/osrg/earthquake/earthquake/signal"
 	"github.com/osrg/earthquake/earthquake/util/config"
 	queue "github.com/osrg/earthquake/earthquake/util/queue"
-	"time"
 )
 
 type Dumb struct {

@@ -17,38 +17,31 @@ package transceiver
 
 import (
 	"fmt"
-	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/inspectorhandler"
-	. "github.com/osrg/earthquake/earthquake/signal"
 	"sync"
+
+	log "github.com/cihub/seelog"
+	localep "github.com/osrg/earthquake/earthquake/endpoint/local"
+	. "github.com/osrg/earthquake/earthquake/signal"
 )
 
 type LocalTransceiver struct {
-	EntityID string
-	m        map[string]chan Action // key: event id
-	mMutex   sync.Mutex
+	m      map[string]chan Action // key: event id
+	mMutex sync.Mutex
 }
 
-func NewLocalTransceiver(entityID string) (Transceiver, error) {
-	t := LocalTransceiver{
-		EntityID: entityID,
-		m:        make(map[string]chan Action),
-		mMutex:   sync.Mutex{},
-	}
-	return &t, nil
+var SingletonLocalTransceiver = LocalTransceiver{
+	m:      make(map[string]chan Action),
+	mMutex: sync.Mutex{},
 }
 
 func (this *LocalTransceiver) SendEvent(event Event) (chan Action, error) {
-	if event.EntityID() != this.EntityID {
-		return nil, fmt.Errorf("bad entity id for event %s (want %s)", event, this.EntityID)
-	}
 	ch := make(chan Action)
 	this.mMutex.Lock()
-	// put ch to m BEFORE calling SendEvent(), otherwise race may occur
+	// put ch to m BEFORE sending, otherwise race may occur
 	this.m[event.ID()] = ch
 	this.mMutex.Unlock()
 	go func() {
-		inspectorhandler.GlobalLocalInspectorHandler.EventChan <- event
+		localep.SingletonLocalEndpoint.InspectorEventCh <- event
 	}()
 	return ch, nil
 }
@@ -65,6 +58,8 @@ func (this *LocalTransceiver) onAction(action Action) error {
 		return fmt.Errorf("No channel found for action %s (event id=%s)", action, event.ID())
 	}
 	delete(this.m, event.ID())
+	// Earthquake doesn't guarantee any determinism,
+	// but can we make this more deterministic?
 	go func() {
 		actionChan <- action
 	}()
@@ -76,7 +71,7 @@ func (this *LocalTransceiver) routine() {
 		log.Error(err)
 	}
 	for {
-		action := <-inspectorhandler.GlobalLocalInspectorHandler.ActionChan
+		action := <-localep.SingletonLocalEndpoint.InspectorActionCh
 		err := this.onAction(action)
 		if err != nil {
 			onActionError(err)
@@ -86,5 +81,6 @@ func (this *LocalTransceiver) routine() {
 }
 
 func (this *LocalTransceiver) Start() {
+	// FIXME: should fail if already started
 	go this.routine()
 }
