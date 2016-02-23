@@ -13,16 +13,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package endpoint provides listeners for several RPC protocols
 package endpoint
 
 import (
-	"sync"
-
 	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/endpoint/local"
+	"github.com/osrg/earthquake/earthquake/endpoint/pb"
 	"github.com/osrg/earthquake/earthquake/endpoint/rest"
 	"github.com/osrg/earthquake/earthquake/signal"
 	"github.com/osrg/earthquake/earthquake/util/config"
+	"sync"
 )
 
 type endpointType int
@@ -30,24 +31,31 @@ type endpointType int
 const (
 	endpointTypeLocal endpointType = iota
 	endpointTypeREST
+	endpointTypePB
 )
 
 var (
-	muxEventCh            = make(chan signal.Event)
-	muxActionCh           chan signal.Action
+	muxEventCh  = make(chan signal.Event)
+	muxActionCh chan signal.Action
+
 	entityEndpointTypes   = make(map[string]endpointType)
 	entityEndpointTypesMu = sync.RWMutex{}
-	localEventCh          chan signal.Event
-	localActionCh         = make(chan signal.Action)
-	restEventCh           chan signal.Event
-	restActionCh          = make(chan signal.Action)
+
+	localEventCh  chan signal.Event
+	localActionCh = make(chan signal.Action)
+	restEventCh   chan signal.Event
+	restActionCh  = make(chan signal.Action)
+	pbEventCh     chan signal.Event
+	pbActionCh    = make(chan signal.Action)
 
 	stopActionRCh        chan struct{}
 	stopLocalEventRCh    chan struct{}
 	stopRESTEventRCh     chan struct{}
+	stopPBEventRCh       chan struct{}
 	stoppedActionRCh     chan struct{}
 	stoppedLocalEventRCh chan struct{}
 	stoppedRESTEventRCh  chan struct{}
+	stoppedPBEventRCh    chan struct{}
 )
 
 // Starts all the endpoint handlers for multiplexed action channel actionCh.
@@ -59,14 +67,12 @@ func StartAll(actionCh chan signal.Action, cfg config.Config) chan signal.Event 
 	stopActionRCh = make(chan struct{})
 	stopLocalEventRCh = make(chan struct{})
 	stopRESTEventRCh = make(chan struct{})
+	stopPBEventRCh = make(chan struct{})
+
 	stoppedActionRCh = make(chan struct{})
 	stoppedLocalEventRCh = make(chan struct{})
 	stoppedRESTEventRCh = make(chan struct{})
-
-	if cfg.IsSet("pbPort") {
-		pbPort := cfg.GetInt("pbPort")
-		log.Warnf("ignoring pbPort (PB endpoint is disabled temporarily due to implementation issues in v0.2.0): %d", pbPort)
-	}
+	stoppedPBEventRCh = make(chan struct{})
 
 	if cfg.IsSet("restPort") {
 		restPort := cfg.GetInt("restPort")
@@ -79,9 +85,21 @@ func StartAll(actionCh chan signal.Action, cfg config.Config) chan signal.Event 
 		}
 	}
 
+	if cfg.IsSet("pbPort") {
+		pbPort := cfg.GetInt("pbPort")
+		if pbPort >= 0 {
+			// zero is also legal (auto-assign)
+			log.Infof("PB port: %d", pbPort)
+			restEventCh = pb.SingletonPBEndpoint.Start(pbPort, restActionCh)
+		} else {
+			log.Warnf("ignoring pbPort: %d", pbPort)
+		}
+	}
+
 	go actionRoutine()
 	go localEventRoutine()
 	go restEventRoutine()
+	go pbEventRoutine()
 	return muxEventCh
 }
 
@@ -101,23 +119,26 @@ func registerEntityEndpointType(entityID string, typ endpointType) {
 
 // Dispatch where action should be sent (localActionCh, restActionCh, pbActionCh..)
 func dispatchAction(action signal.Action) {
+	log.Debugf("EP handling action %s", action)
 	entityID := action.EntityID()
-
 	entityEndpointTypesMu.RLock()
-	cur, ok := entityEndpointTypes[entityID]
+	typ, ok := entityEndpointTypes[entityID]
 	entityEndpointTypesMu.RUnlock()
 	if ok {
-		switch cur {
+		switch typ {
 		case endpointTypeLocal:
 			localActionCh <- action
 		case endpointTypeREST:
 			restActionCh <- action
+		case endpointTypePB:
+			pbActionCh <- action
 		default:
-			log.Errorf("Unknown endpoint type, cur=%s", entityID)
+			panic(log.Criticalf("Unknown endpoint type, cur=%s", entityID))
 		}
 	} else {
 		log.Errorf("Unknown Entity ID:%s", entityID)
 	}
+	log.Debugf("EP handled action %s", action)
 }
 
 // Action sender (Orchestrator->Inspector)
@@ -127,14 +148,20 @@ func actionRoutine() {
 		select {
 		case action, ok := <-muxActionCh:
 			if ok {
-				log.Debugf("EP handling action %s", action)
 				dispatchAction(action)
-				log.Debugf("EP handled action %s", action)
 			}
 		case <-stopActionRCh:
 			return
 		}
 	}
+}
+
+// only xxxEventRoutine() calls this
+func onEvent(event signal.Event, typ endpointType) {
+	log.Debugf("EP handling event %s", event)
+	muxEventCh <- event
+	registerEntityEndpointType(event.EntityID(), typ)
+	log.Debugf("EP handled event %s", event)
 }
 
 // Local Event receiver (Inspector->Orchestrator)
@@ -144,10 +171,7 @@ func localEventRoutine() {
 		select {
 		case event, ok := <-localEventCh:
 			if ok {
-				log.Debugf("EP handling LOCAL event %s", event)
-				muxEventCh <- event
-				registerEntityEndpointType(event.EntityID(), endpointTypeLocal)
-				log.Debugf("EP handled LOCAL event %s", event)
+				onEvent(event, endpointTypeLocal)
 			}
 		case <-stopLocalEventRCh:
 			return
@@ -162,12 +186,24 @@ func restEventRoutine() {
 		select {
 		case event, ok := <-restEventCh:
 			if ok {
-				log.Debugf("EP handling REST event %s", event)
-				muxEventCh <- event
-				registerEntityEndpointType(event.EntityID(), endpointTypeREST)
-				log.Debugf("EP handled REST event %s", event)
+				onEvent(event, endpointTypeREST)
 			}
 		case <-stopRESTEventRCh:
+			return
+		}
+	}
+}
+
+// PB Event receiver (Inspector->Orchestrator)
+func pbEventRoutine() {
+	defer close(stoppedPBEventRCh)
+	for {
+		select {
+		case event, ok := <-pbEventCh:
+			if ok {
+				onEvent(event, endpointTypePB)
+			}
+		case <-stopPBEventRCh:
 			return
 		}
 	}
@@ -178,9 +214,11 @@ func ShutdownAll() {
 	close(stopActionRCh)
 	close(stopLocalEventRCh)
 	close(stopRESTEventRCh)
+	close(stopPBEventRCh)
 	<-stoppedActionRCh
 	<-stoppedLocalEventRCh
 	<-stoppedRESTEventRCh
+	<-stoppedPBEventRCh
 	local.SingletonLocalEndpoint.Shutdown()
 	// TODO: how to shutdown REST endpoint?
 	log.Debugf("Shut down done")
