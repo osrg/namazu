@@ -16,6 +16,7 @@
 package proc
 
 import (
+	"github.com/stretchr/testify/assert"
 	"sort"
 	"testing"
 )
@@ -28,30 +29,22 @@ func TestProcUtil(t *testing.T) {
 
 func testProcUtil(t *testing.T, pid int) {
 	lwps, err := LWPs(pid)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	sort.Ints(lwps)
 	t.Logf("LWPs(%d) = %#v", pid, lwps)
 
 	children, err := Children(pid)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	sort.Ints(children)
 	t.Logf("Children(%d) = %#v", pid, children)
 
 	descendants, err := Descendants(pid)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	sort.Ints(descendants)
 	t.Logf("Descendants(%d) = %#v", pid, descendants)
 
 	descendantLWPs, err := DescendantLWPs(pid)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	sort.Ints(descendantLWPs)
 	t.Logf("DescendantLWPs(%d) = %#v", pid, descendantLWPs)
 }

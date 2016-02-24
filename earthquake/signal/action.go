@@ -30,7 +30,7 @@ type BasicAction struct {
 
 // implements Action
 func (this *BasicAction) Equals(o Action) bool {
-	return this.Equals(o)
+	return this.EqualsSignal(o)
 }
 
 // implements Action

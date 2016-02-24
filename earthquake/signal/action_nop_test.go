@@ -16,28 +16,18 @@
 package signal
 
 import (
-	"fmt"
-
-	"github.com/satori/go.uuid"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-// implements Action, PBAction
-type EventAcceptanceAction struct {
-	BasicPBAction
-}
-
-func NewEventAcceptanceAction(event Event) (Action, error) {
-	action := &EventAcceptanceAction{}
-	action.InitSignal()
-	if !event.Deferred() {
-		return action,
-			fmt.Errorf("cannot instantiate EventAcceptAction for a non-deferred event %#v", event)
-	}
-	action.SetID(uuid.NewV4().String())
-	action.SetEntityID(event.EntityID())
-	action.SetType("action")
-	action.SetClass("EventAcceptanceAction")
-	action.Set("event_uuid", event.ID())
-	action.CauseEvent = event
-	return action, nil
+func TestNewNopAction(t *testing.T) {
+	event, err := NewNopEvent("foo", map[string]interface{}{})
+	assert.NoError(t, err)
+	action, err := NewNopAction("foo", event)
+	assert.NoError(t, err)
+	testGOBAction(t, action, event)
+	orcSide, ok := action.(OrchestratorSideAction)
+	assert.True(t, ok)
+	assert.True(t, orcSide.OrchestratorSideOnly())
+	assert.NoError(t, orcSide.ExecuteOnOrchestrator())
 }

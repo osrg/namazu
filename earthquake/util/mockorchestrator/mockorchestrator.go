@@ -17,8 +17,8 @@ package mockorchestrator
 
 import (
 	"fmt"
-	"time"
 	"github.com/osrg/earthquake/earthquake/signal"
+	"time"
 )
 
 // dummy orchestrator (without explorepolicy)

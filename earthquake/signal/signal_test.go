@@ -19,14 +19,11 @@ import (
 	"bytes"
 	"encoding/gob"
 	"flag"
+	"fmt"
+	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
-	"time"
-
-	"github.com/golang/protobuf/proto"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/osrg/earthquake/earthquake/util/pb"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestMain(m *testing.M) {
@@ -36,212 +33,85 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestNewLogEventFromJSONString(t *testing.T) {
-	s := `
-{
-    "type": "event",
-    "class": "LogEvent",
-    "entity": "_earthquake_syslog_inspector",
-    "uuid": "1f13eaa6-4b92-45f0-a4de-1236081ec142",
-    "deferred": false,
-    "option": {
-        "src": "zksrv1",
-        "message": "foo bar"
-    }
-}`
-	signal, err := NewSignalFromJSONString(s, time.Now())
-	if err != nil {
-		t.Fatal(err)
-	}
-	event := signal.(Event)
-	t.Logf("event: %#v", event)
+func testDeferredEventCommon(t *testing.T, event Event,
+	f func(Event) (Action, error)) Action {
+	t.Logf("event: %s", event)
+	assert.True(t, event.Deferred())
+	action, err := f(event)
+	assert.NoError(t, err)
+	t.Logf("action: %s", action)
+	assert.Equal(t, event.EntityID(), action.EntityID())
 
-	logEvent, ok := event.(*LogEvent)
-	if !ok {
-		t.Fatal("Cannot convert to LogEvent")
-	}
+	// compare action vs actionEvent
+	actionEvent := action.Event()
+	assert.Equal(t, event.EntityID(), actionEvent.EntityID())
+	assert.Equal(t, event.ID(), actionEvent.ID())
+	assert.True(t, actionEvent.Equals(event),
+		fmt.Sprintf("\n %s \n vs \n %s", action, actionEvent))
 
-	assert.Equal(t, logEvent.EntityID(), "_earthquake_syslog_inspector")
-	assert.Equal(t, logEvent.Deferred(), false)
-	assert.Equal(t, logEvent.ID(), "1f13eaa6-4b92-45f0-a4de-1236081ec142")
-	assert.Equal(t, logEvent.JSONMap()["option"], map[string]interface{}{
-		"src":     "zksrv1",
-		"message": "foo bar",
-	})
+	// compare action vs action2
+	action2, err := f(event)
+	assert.NoError(t, err)
+	assert.True(t, action.Equals(action2),
+		fmt.Sprintf("\n %s \n vs \n %s", action, action2))
+	return action
 }
 
-func TestNewPacketEventFromJSONString(t *testing.T) {
-	s := `
-{
-    "type": "event",
-    "class": "PacketEvent",
-    "entity": "_earthquake_ether_inspector",
-    "uuid": "1f13eaa6-4b92-45f0-a4de-1236081dc649",
-    "deferred": true,
-    "option": {
-        "src": "zksrv1",
-        "dst": "zksrv3",
-        "message": {
-            "ZkQuorumPacket": {
-                "AckQP": {
-                    "zxid_low": 0,
-                    "zxid_high": 1
-                }
-            }
-        }
-    }
-}`
-	signal, err := NewSignalFromJSONString(s, time.Now())
-	if err != nil {
-		t.Fatal(err)
-	}
-	event := signal.(Event)
-	t.Logf("event: %#v", event)
+func testDeferredEventDefaultAction(t *testing.T, event Event) Action {
+	return testDeferredEventCommon(t, event,
+		func(e Event) (Action, error) {
+			return e.DefaultAction()
+		})
 
-	packetEvent, ok := event.(*PacketEvent)
-	if !ok {
-		t.Fatal("Cannot convert to PacketEvent")
-	}
+}
 
-	assert.Equal(t, packetEvent.EntityID(), "_earthquake_ether_inspector")
-	assert.Equal(t, packetEvent.Deferred(), true)
-	assert.Equal(t, packetEvent.ID(), "1f13eaa6-4b92-45f0-a4de-1236081dc649")
-	opt1 := packetEvent.JSONMap()["option"].(map[string]interface{})
-	opt2 := map[string]interface{}{
-		"src": "zksrv1",
-		"dst": "zksrv3",
-		"message": map[string]interface{}{
-			"ZkQuorumPacket": map[string]interface{}{
-				"AckQP": map[string]interface{}{
-					"zxid_low":  0,
-					"zxid_high": 1,
-				},
-			},
-		},
-	}
-	assert.Equal(t, opt1["src"], opt2["src"])
-	// TODO: compare much more
+func testDeferredEventDefaultFaultAction(t *testing.T, event Event) Action {
+	return testDeferredEventCommon(t, event,
+		func(e Event) (Action, error) {
+			return e.DefaultFaultAction()
+		})
+}
 
+func testNonDeferredEventDefaultAction(t *testing.T, event Event) Action {
+	assert.False(t, event.Deferred())
 	action, err := event.DefaultAction()
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Logf("default action: %#v", action)
-	actionEvent := action.Event()
-	assert.Equal(t, event.ID(), actionEvent.ID())
+	assert.NoError(t, err)
+	assert.NotNil(t, action, "default action cannot be nil, although default action can")
+	assert.IsType(t, &NopAction{}, action)
+	return action
+}
 
+func testNonDeferredEventDefaultFaultAction(t *testing.T, event Event) Action {
+	assert.False(t, event.Deferred())
+	action, err := event.DefaultFaultAction()
+	assert.NoError(t, err)
+	assert.Nil(t, action)
+	return nil
+}
+
+func testGOBAction(t *testing.T, action Action, eventExpected Event) Event {
 	// try encode
 	gobEncodeBuf := bytes.Buffer{}
 	gobEncoder := gob.NewEncoder(&gobEncodeBuf)
-	if err = gobEncoder.Encode(&action); err != nil {
-		t.Fatal(err)
-	}
+	err := gobEncoder.Encode(&action)
+	assert.NoError(t, err)
 	gobEncoded := gobEncodeBuf.Bytes()
 
 	// try decode
 	gobDecoder := gob.NewDecoder(bytes.NewBuffer(gobEncoded))
 	var gobDecodedAction Action
-	if err = gobDecoder.Decode(&gobDecodedAction); err != nil {
-		t.Fatal(err)
-	}
+	err = gobDecoder.Decode(&gobDecodedAction)
+	assert.NoError(t, err)
 
 	t.Logf("enc/decoded action: %#v", gobDecodedAction)
 	assert.Equal(t, action.ID(), gobDecodedAction.ID())
 
-	gobDecodedActionEvent := gobDecodedAction.Event()
-	t.Logf("enc/decoded event: %#v", gobDecodedActionEvent)
-	assert.Equal(t, event.ID(), gobDecodedActionEvent.ID())
-}
-
-func TestNewJavaFunctionEventFromPB(t *testing.T) {
-	pbType := pb.InspectorMsgReq_EVENT
-	pbFuncType := pb.InspectorMsgReq_Event_FUNC_CALL
-	pbReq := pb.InspectorMsgReq{
-		Type:     &pbType,
-		EntityId: proto.String("dummy"),
-		Event: &pb.InspectorMsgReq_Event{
-			Type: &pbFuncType,
-			FuncCall: &pb.InspectorMsgReq_Event_FuncCall{
-				Name: proto.String("sayHello"),
-			},
-		},
+	if eventExpected != nil {
+		gobDecodedActionEvent := gobDecodedAction.Event()
+		t.Logf("enc/decoded event: %#v", gobDecodedActionEvent)
+		assert.Equal(t, eventExpected.ID(), gobDecodedActionEvent.ID())
+		return gobDecodedActionEvent
+	} else {
+		return nil
 	}
-
-	event, err := NewJavaFunctionEventFromPB(pbReq, time.Now())
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	t.Logf("event: %#v", event)
-
-	javaFunctionEvent, ok := event.(*JavaFunctionEvent)
-	if !ok {
-		t.Fatal("Cannot convert to JavaFunctionEvent")
-	}
-
-	assert.Equal(t, event.EntityID(), "dummy")
-	assert.Equal(t, event.Deferred(), true)
-	assert.Equal(t, javaFunctionEvent.FunctionName, "sayHello")
-	t.Logf("event JSON map: %#v", event.JSONMap())
-
-	action, err := event.DefaultAction()
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Logf("default action: %#v", action)
-	actionEvent := action.Event()
-	assert.Equal(t, event.ID(), actionEvent.ID())
-	pbAction, pbActionOk := action.(PBAction)
-	if !pbActionOk {
-		t.Fatalf("non-PBAction action: %#v", action)
-	}
-	pbRspMsg := pbAction.PBResponseMessage()
-	if pbRspMsg == nil {
-		t.Fatalf("pbRspMsg should not be nil, action=%#v", action)
-	}
-	t.Logf("pbRspMsg: %s", pbRspMsg)
-}
-
-func TestNewEventAcceptanceActionFromJSONString(t *testing.T) {
-	s := `
-{
-    "type": "action",
-    "class": "EventAcceptanceAction",
-    "entity": "foobar",
-    "uuid": "1f13eaa6-4b92-45f0-a4de-1236081e2442",
-    "event_uuid": "1f13eaa6-4b92-45f0-a4de-1236081e2445"
-}`
-	signal, err := NewSignalFromJSONString(s, time.Now())
-	if err != nil {
-		t.Fatal(err)
-	}
-	action := signal.(Action)
-	t.Logf("action: %#v", action)
-
-	acceptAction, ok := action.(*EventAcceptanceAction)
-	if !ok {
-		t.Fatal("Cannot convert to EventAcceptanceAction")
-	}
-
-	event := action.Event()
-	assert.Equal(t, event.ID(), "1f13eaa6-4b92-45f0-a4de-1236081e2445")
-	assert.Nil(t, acceptAction.PBResponseMessage())
-}
-
-func TestNewBadEventAcceptanceActionFromJSONString(t *testing.T) {
-	// bad EventAcceptanceAction, lacks event_uuid
-	s := `
-{
-    "type": "action",
-    "class": "EventAcceptanceAction",
-    "entity": "foobar",
-    "uuid": "1f13eaa6-4b92-45f0-a4de-1236081e2442"
-}`
-	signal, err := NewSignalFromJSONString(s, time.Now())
-	if err != nil {
-		t.Fatal(err)
-	}
-	action := signal.(Action)
-	t.Logf("action: %#v", action)
-	assert.Nil(t, action.Event())
 }

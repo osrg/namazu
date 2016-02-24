@@ -128,9 +128,7 @@ func testEndpointWithPacketEvent(t *testing.T, n, entities int) {
 			event := testutil.NewPacketEvent(t, entityID, i)
 			actionCh, err := trans.SendEvent(event)
 			t.Logf("Test %d: Sent %s", i, event)
-			if err != nil {
-				t.Fatal(err)
-			}
+			assert.NoError(t, err)
 			wg.Done()
 			go func(i int) {
 				t.Logf("Test %d: Receiving", i)
@@ -169,9 +167,7 @@ func testEndpointShouldNotBlockWithPacketEvent(t *testing.T, n, entities int) {
 		event := testutil.NewPacketEvent(t, entityID, i)
 		actionCh, err := trans.SendEvent(event)
 		t.Logf("Test %d: Sent %s", i, event)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 		actionChs[i] = actionCh
 	}
 

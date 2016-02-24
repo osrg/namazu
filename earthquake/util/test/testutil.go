@@ -17,6 +17,7 @@ package test
 
 import (
 	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -24,9 +25,7 @@ import (
 func NewNopEvent(t *testing.T, entityID string, value int) signal.Event {
 	m := map[string]interface{}{"value": value}
 	event, err := signal.NewNopEvent(entityID, m)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	return event
 }
 
@@ -34,8 +33,6 @@ func NewNopEvent(t *testing.T, entityID string, value int) signal.Event {
 func NewPacketEvent(t *testing.T, entityID string, value int) signal.Event {
 	m := map[string]interface{}{"value": value}
 	event, err := signal.NewPacketEvent(entityID, entityID, entityID, m)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	return event
 }

@@ -13,19 +13,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package core
+package signal
 
 import (
-	"testing"
-
-	"github.com/osrg/earthquake/earthquake/explorepolicy"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-func TestInit(t *testing.T) {
-	Init()
-	policy, err := explorepolicy.CreatePolicy("random")
+func TestNewShellAction(t *testing.T) {
+	action, err := NewShellAction("true", map[string]interface{}{
+		"dummy": "dummy comment string",
+	})
 	assert.NoError(t, err)
-	assert.NotNil(t, policy)
-	t.Logf("Confirmed random policy is registered: %s", policy)
+	testGOBAction(t, action, nil)
+	orcSide, ok := action.(OrchestratorSideAction)
+	assert.True(t, ok)
+	assert.True(t, orcSide.OrchestratorSideOnly())
+	assert.NoError(t, orcSide.ExecuteOnOrchestrator())
+}
+
+func TestNewBadShellAction(t *testing.T) {
+	action, err := NewShellAction("false", map[string]interface{}{
+		"dummy": "dummy comment string",
+	})
+	assert.NoError(t, err)
+	orcSide, ok := action.(OrchestratorSideAction)
+	assert.True(t, ok)
+	assert.Error(t, orcSide.ExecuteOnOrchestrator())
 }

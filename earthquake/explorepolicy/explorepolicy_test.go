@@ -34,14 +34,10 @@ func TestMain(m *testing.M) {
 
 func TestPoliciesAreRegistered(t *testing.T) {
 	d, err := CreatePolicy("dumb")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.IsType(t, &dumb.Dumb{}, d)
 	r, err := CreatePolicy("random")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.IsType(t, &random.Random{}, r)
 	x, err := CreatePolicy("thisshouldnotexist")
 	assert.Error(t, err)

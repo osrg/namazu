@@ -16,28 +16,23 @@
 package signal
 
 import (
-	"fmt"
-
-	"github.com/satori/go.uuid"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-// implements Action, PBAction
-type EventAcceptanceAction struct {
-	BasicPBAction
-}
-
-func NewEventAcceptanceAction(event Event) (Action, error) {
-	action := &EventAcceptanceAction{}
-	action.InitSignal()
-	if !event.Deferred() {
-		return action,
-			fmt.Errorf("cannot instantiate EventAcceptAction for a non-deferred event %#v", event)
+func TestNewProcSetEvent(t *testing.T) {
+	// PIDS need to be string, due to JSON nature
+	procs := []string{
+		"0", "24", "42",
 	}
-	action.SetID(uuid.NewV4().String())
-	action.SetEntityID(event.EntityID())
-	action.SetType("action")
-	action.SetClass("EventAcceptanceAction")
-	action.Set("event_uuid", event.ID())
-	action.CauseEvent = event
-	return action, nil
+	event, err := NewProcSetEvent("foo",
+		procs,
+		map[string]interface{}{})
+	assert.NoError(t, err)
+	assert.Equal(t, "foo", event.EntityID())
+	action := testNonDeferredEventDefaultAction(t, event)
+	testNonDeferredEventDefaultFaultAction(t, event)
+	// not ProcSetSchedAction, as this is an non-deferred event
+	assert.IsType(t, &NopAction{}, action)
+	testGOBAction(t, action, event)
 }

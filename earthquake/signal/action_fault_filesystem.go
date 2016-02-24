@@ -44,8 +44,3 @@ func NewFilesystemFaultAction(event Event) (Action, error) {
 	action.CauseEvent = event
 	return action, nil
 }
-
-// implements Action
-func (this *FilesystemFaultAction) Equals(o Action) bool {
-	return this.Event().Equals(o.Event())
-}

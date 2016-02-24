@@ -113,9 +113,7 @@ func testRESTEndpointWithPacketEvent(t *testing.T, n, entities int) {
 			t.Logf("Test %d: Sending", i)
 			actionCh, err := transceivers[i%entities].SendEvent(event)
 			t.Logf("Test %d: Sent %s", i, event)
-			if err != nil {
-				t.Fatal(err)
-			}
+			assert.NoError(t, err)
 			wg.Done()
 			go func(i int) {
 				t.Logf("Test %d: Receiving", i)
@@ -146,10 +144,8 @@ func testRESTEndpointShouldNotBlockWithPacketEvent(t *testing.T, n, entities int
 		event := testutil.NewPacketEvent(t, entityID, i)
 		t.Logf("Test %d: Sending", i)
 		actionCh, err := transceivers[i%entities].SendEvent(event)
+		assert.NoError(t, err)
 		t.Logf("Test %d: Sent %s", i, event)
-		if err != nil {
-			t.Fatal(err)
-		}
 		actionChs[i] = actionCh
 	}
 	for i := 0; i < n; i++ {

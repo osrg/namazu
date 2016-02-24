@@ -17,13 +17,12 @@ package historystorage
 
 import (
 	"fmt"
-	"time"
-
 	"github.com/osrg/earthquake/earthquake/historystorage/mongodb"
 	"github.com/osrg/earthquake/earthquake/historystorage/naive"
 	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/trace"
 	"github.com/osrg/earthquake/earthquake/util/config"
+	. "github.com/osrg/earthquake/earthquake/util/trace"
+	"time"
 )
 
 const (

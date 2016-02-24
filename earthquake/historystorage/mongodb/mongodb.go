@@ -16,12 +16,11 @@
 package mongodb
 
 import (
-	"time"
-
 	naive "github.com/osrg/earthquake/earthquake/historystorage/naive"
 	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/trace"
+	. "github.com/osrg/earthquake/earthquake/util/trace"
 	mgo "gopkg.in/mgo.v2"
+	"time"
 )
 
 const (

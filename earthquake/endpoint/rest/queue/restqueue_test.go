@@ -35,18 +35,14 @@ func TestMain(m *testing.M) {
 
 func makeDummyAction(t *testing.T, entityID string, value int) Action {
 	action, err := NewNopAction(entityID, nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	m := map[string]interface{}{"value": value}
 	action.(*NopAction).SetOption(m)
 	return action
 }
 
 func getOptionValueOfAction(t *testing.T, action Action) int {
-	if action == nil {
-		t.Fatal("action is nil")
-	}
+	assert.NotNil(t, action)
 	actionOpt := action.JSONMap()["option"].(map[string]interface{})
 	value := actionOpt["value"].(int)
 	return value
@@ -74,9 +70,7 @@ func dequeueAndVerifyActions(t *testing.T, queue *ActionQueue, n int) {
 func TestRESTQueue(t *testing.T) {
 	entityID := "baz"
 	queue, err := RegisterNewQueue(entityID)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.Equal(t, queue, GetQueue(entityID))
 	assert.Equal(t, queue.EntityID, entityID)
 
@@ -84,17 +78,13 @@ func TestRESTQueue(t *testing.T) {
 	go enqueueActions(t, queue, n)
 	dequeueAndVerifyActions(t, queue, n)
 	err = UnregisterQueue(entityID)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 }
 
 func TestRESTQueueRace(t *testing.T) {
 	entityID := "racy"
 	queue, err := RegisterNewQueue(entityID)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	loserDone := make(chan bool)
 	winnerDone := make(chan bool)
 	loser := func() {
@@ -131,7 +121,5 @@ func TestRESTQueueRace(t *testing.T) {
 	<-winnerDone
 	assert.Zero(t, queue.Count())
 	err = UnregisterQueue(entityID)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 }

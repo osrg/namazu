@@ -28,9 +28,10 @@ import (
 )
 
 func init() {
+	gob.Register(FilesystemOp(""))
 	gob.Register(map[string]interface{}{})
 	gob.Register(linuxsched.SchedAttr{})
-	gob.Register(map[int]linuxsched.SchedAttr{})
+	gob.Register(map[string]linuxsched.SchedAttr{})
 	gob.Register(time.Time{})
 	gob.Register(BasicSignal{})
 	gob.Register(&BasicEvent{}) // NOTE: use a pointer!
@@ -173,13 +174,15 @@ func (this *BasicSignal) LoadJSONMap(m map[string]interface{}) error {
 func (this *BasicSignal) EqualsSignal(o Signal) bool {
 	copied := BasicSignal{}
 	copied.InitSignal()
+	// from this, copy attributes that matters
 	for k, v := range this.M {
 		copied.Set(k, v)
 	}
-	// copy attributes that can be ignored
-	copied.SetID(this.ID())
-	copied.SetArrivedTime(this.ArrivedTime())
-	return reflect.DeepEqual(this, copied)
+	// from o, copy attributes that can be ignored
+	copied.SetID(o.ID())
+	copied.SetArrivedTime(o.ArrivedTime())
+	result := reflect.DeepEqual(o.JSONMap(), copied.JSONMap())
+	return result
 }
 
 // implements Signal

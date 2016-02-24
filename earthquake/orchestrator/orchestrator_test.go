@@ -42,13 +42,9 @@ func TestMain(m *testing.M) {
 
 func newDumbOrchestrator(t *testing.T, collectTrace bool) *Orchestrator {
 	cfg, err := config.NewFromString("{\"explorePolicy\":\"dumb\"}", "json")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	policy, err := explorepolicy.CreatePolicy(cfg.GetString("explorePolicy"))
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	policy.LoadConfig(cfg)
 	oc := NewOrchestrator(cfg, policy, collectTrace)
 	// FIXME: NewOrchestrator() should return err

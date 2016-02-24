@@ -50,21 +50,15 @@ foo:
 {"foo": {"bar": 44}}
 `
 	tomlCfg, err := NewFromString(tomlString, "toml")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.Equal(t, 42, tomlCfg.GetInt("foo.bar"))
 
 	yamlCfg, err := NewFromString(yamlString, "yaml")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.Equal(t, 43, yamlCfg.GetInt("foo.bar"))
 
 	jsonCfg, err := NewFromString(jsonString, "json")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.Equal(t, 44, jsonCfg.GetInt("foo.bar"))
 }
 
@@ -75,34 +69,24 @@ func TestNewConfigFromFile(t *testing.T) {
   bar = 42
 `
 	tmpFile, err := ioutil.TempFile("", "config_test")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	fileName := tmpFile.Name()
 	t.Logf("using file %s", tmpFile.Name())
 	defer func() {
 		t.Logf("removing file %s", fileName)
 		err = os.Remove(fileName)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 	}()
 	err = ioutil.WriteFile(fileName, []byte(tomlString), 0644)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	_, err = NewFromFile(fileName)
 	t.Logf("error is expected here (due to lack of suffix): %s", err)
 	assert.Error(t, err)
 	t.Logf("Renaming to %s", fileName+".toml")
 	err = os.Rename(fileName, fileName+".toml")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	fileName = fileName + ".toml"
 	cfg, err := NewFromFile(fileName)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.Equal(t, 42, cfg.GetInt("foo.bar"))
 }
