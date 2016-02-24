@@ -83,6 +83,10 @@ func TestRESTQueue(t *testing.T) {
 	n := 16
 	go enqueueActions(t, queue, n)
 	dequeueAndVerifyActions(t, queue, n)
+	err = UnregisterQueue(entityID)
+	if err != nil {
+		t.Fatal(err)
+	}
 }
 
 func TestRESTQueueRace(t *testing.T) {
@@ -126,4 +130,8 @@ func TestRESTQueueRace(t *testing.T) {
 	<-loserDone
 	<-winnerDone
 	assert.Zero(t, queue.Count())
+	err = UnregisterQueue(entityID)
+	if err != nil {
+		t.Fatal(err)
+	}
 }

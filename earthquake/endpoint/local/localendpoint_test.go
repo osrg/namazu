@@ -24,8 +24,8 @@ import (
 
 	"github.com/osrg/earthquake/earthquake/signal"
 	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/earthquake/earthquake/util/mockorchestrator"
 	testutil "github.com/osrg/earthquake/earthquake/util/test"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestMain(m *testing.M) {
@@ -35,60 +35,67 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func newPacketEvent(t *testing.T, entityID string, value int) signal.Event {
-	m := map[string]interface{}{"value": value}
-	event, err := signal.NewPacketEvent(entityID, entityID, entityID, m)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return event
-}
-
 func TestLocalEndpointWithPacketEvent_1_1(t *testing.T) {
-	testLocalEndpointWithPacketEvent(t, 1, 1)
+	testLocalEndpointWithPacketEvent(t, 1, 1, true)
 }
 
 func TestLocalEndpointWithPacketEvent_2_2(t *testing.T) {
-	testLocalEndpointWithPacketEvent(t, 2, 2)
+	testLocalEndpointWithPacketEvent(t, 2, 2, true)
 }
 
 func TestLocalEndpointWithPacketEvent_10_10(t *testing.T) {
-	testLocalEndpointWithPacketEvent(t, 10, 10)
+	testLocalEndpointWithPacketEvent(t, 10, 10, true)
 }
 
 func TestLocalEndpointWithPacketEvent_1000_10(t *testing.T) {
-	testLocalEndpointWithPacketEvent(t, 1000, 10)
+	testLocalEndpointWithPacketEvent(t, 1000, 10, true)
 }
 
-func testLocalEndpointWithPacketEvent(t *testing.T, n, entities int) {
-	assert.Zero(t, n%entities)
+func TestLocalEndpointShouldNotBlockWithPacketEvent_10_2(t *testing.T) {
+	testLocalEndpointWithPacketEvent(t, 10, 2, false)
+}
+
+func testLocalEndpointWithPacketEvent(t *testing.T, n, entities int, concurrent bool) {
 	ep := NewLocalEndpoint()
 	defer ep.Shutdown()
 	orcActionCh := make(chan signal.Action)
 	orcEventCh := ep.Start(orcActionCh)
-	mockOrc := testutil.NewMockOrchestrator(orcEventCh, orcActionCh)
+	mockOrc := mockorchestrator.NewMockOrchestrator(orcEventCh, orcActionCh)
 	mockOrc.Start()
 	defer mockOrc.Shutdown()
-	var wg sync.WaitGroup
-	wg.Add(2)
-	go func() {
-		defer wg.Done()
+
+	sender := func() {
 		for i := 0; i < n; i++ {
 			entityID := fmt.Sprintf("entity-%d", i%entities)
-			event := newPacketEvent(t, entityID, i)
+			event := testutil.NewPacketEvent(t, entityID, i)
 			t.Logf("Test %d: Sending %s", i, event)
 			ep.InspectorEventCh <- event
 			t.Logf("Test %d: Sent %s", i, event)
 		}
-	}()
-	go func() {
-		defer wg.Done()
+	}
+	receiver := func() {
 		for i := 0; i < n; i++ {
 			t.Logf("Test %d: Receiving", i)
 			action := <-ep.InspectorActionCh
 			event := action.Event()
 			t.Logf("Test %d: Received action %s (event: %s)", i, action, event)
 		}
-	}()
-	wg.Wait()
+	}
+
+	if concurrent {
+		var wg sync.WaitGroup
+		wg.Add(2)
+		go func() {
+			defer wg.Done()
+			sender()
+		}()
+		go func() {
+			defer wg.Done()
+			receiver()
+		}()
+		wg.Wait()
+	} else {
+		sender()
+		receiver()
+	}
 }

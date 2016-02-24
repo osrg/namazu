@@ -22,12 +22,12 @@ import (
 	"os"
 	"sync"
 	"testing"
-
 	"time"
 
 	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
 	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/earthquake/earthquake/util/mockorchestrator"
 	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 	testutil "github.com/osrg/earthquake/earthquake/util/test"
 	"github.com/stretchr/testify/assert"
@@ -50,7 +50,7 @@ func TestMain(m *testing.M) {
 	// Instantiate the orchestrator
 	// channels are defined in restendpoint.go globally
 	orchestratorActionCh = make(chan signal.Action)
-	mockOrc := testutil.NewMockOrchestrator(orchestratorEventCh, orchestratorActionCh)
+	mockOrc := mockorchestrator.NewMockOrchestrator(orchestratorEventCh, orchestratorActionCh)
 	mockOrc.Start()
 	defer mockOrc.Shutdown()
 
@@ -100,27 +100,16 @@ func TestRESTEndpointWithPacketEvent_256_16(t *testing.T) {
 	testRESTEndpointWithPacketEvent(t, 256, 16)
 }
 
-func newPacketEvent(t *testing.T, entityID string, value int) signal.Event {
-	m := map[string]interface{}{"value": value}
-	event, err := signal.NewPacketEvent(entityID, entityID, entityID, m)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return event
-}
-
 // testing solely restendpoint.go is difficult.
 // so we test resttransceiver together here.
 func testRESTEndpointWithPacketEvent(t *testing.T, n, entities int) {
 	assert.True(t, entities <= maxEntities)
-	assert.Zero(t, n%entities)
-
 	var wg sync.WaitGroup
 	wg.Add(2 * n)
 	go func() {
 		for i := 0; i < n; i++ {
 			entityID := fmt.Sprintf("entity-%d", i%entities)
-			event := newPacketEvent(t, entityID, i)
+			event := testutil.NewPacketEvent(t, entityID, i)
 			t.Logf("Test %d: Sending", i)
 			actionCh, err := transceivers[i%entities].SendEvent(event)
 			t.Logf("Test %d: Sent %s", i, event)
@@ -142,5 +131,33 @@ func testRESTEndpointWithPacketEvent(t *testing.T, n, entities int) {
 		}
 	}()
 	wg.Wait()
+	// TODO: clean up transceivers
+}
+
+func TestRESTEndpointShouldNotBlockWithPacketEvent_10_2(t *testing.T) {
+	testRESTEndpointShouldNotBlockWithPacketEvent(t, 10, 2)
+}
+
+func testRESTEndpointShouldNotBlockWithPacketEvent(t *testing.T, n, entities int) {
+	assert.True(t, entities <= maxEntities)
+	actionChs := make(map[int]chan signal.Action)
+	for i := 0; i < n; i++ {
+		entityID := fmt.Sprintf("entity-%d", i%entities)
+		event := testutil.NewPacketEvent(t, entityID, i)
+		t.Logf("Test %d: Sending", i)
+		actionCh, err := transceivers[i%entities].SendEvent(event)
+		t.Logf("Test %d: Sent %s", i, event)
+		if err != nil {
+			t.Fatal(err)
+		}
+		actionChs[i] = actionCh
+	}
+	for i := 0; i < n; i++ {
+		actionCh := actionChs[i]
+		t.Logf("Test %d: Receiving", i)
+		action := <-actionCh
+		restoredEvent := action.Event()
+		t.Logf("Test %d: Received action %s (event: %s)", i, action, restoredEvent)
+	}
 	// TODO: clean up transceivers
 }

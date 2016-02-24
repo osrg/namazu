@@ -18,20 +18,20 @@ package endpoint
 import (
 	"flag"
 	"fmt"
-	"os"
-	"sync"
-	"testing"
-
-	"time"
-
+	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/endpoint/rest"
 	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
 	"github.com/osrg/earthquake/earthquake/util/config"
 	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/earthquake/earthquake/util/mockorchestrator"
 	restutil "github.com/osrg/earthquake/earthquake/util/rest"
 	testutil "github.com/osrg/earthquake/earthquake/util/test"
 	"github.com/stretchr/testify/assert"
+	"os"
+	"sync"
+	"testing"
+	"time"
 )
 
 var (
@@ -55,7 +55,7 @@ func TestMain(m *testing.M) {
 	}
 	actionCh := make(chan signal.Action)
 	eventCh := StartAll(actionCh, cfg)
-	mockOrc := testutil.NewMockOrchestrator(eventCh, actionCh)
+	mockOrc := mockorchestrator.NewMockOrchestrator(eventCh, actionCh)
 	mockOrc.Start()
 	defer mockOrc.Shutdown()
 
@@ -86,6 +86,7 @@ func TestMain(m *testing.M) {
 	// otherwise the test can hang due to an error from restendpoint.go:
 	// "Ignored action for unknown entity %s. You sent the action before registration done?"
 	// FIXME: there should be some notification
+	log.Debugf("FIXME: sleeping for 10 seconds, but we should not sleep here..")
 	time.Sleep(10 * time.Second)
 	os.Exit(m.Run())
 }
@@ -106,18 +107,8 @@ func TestEndpointWithPacketEvent_256_4(t *testing.T) {
 	testEndpointWithPacketEvent(t, 256, 4)
 }
 
-func newPacketEvent(t *testing.T, entityID string, value int) signal.Event {
-	m := map[string]interface{}{"value": value}
-	event, err := signal.NewPacketEvent(entityID, entityID, entityID, m)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return event
-}
-
 func testEndpointWithPacketEvent(t *testing.T, n, entities int) {
 	assert.True(t, entities <= maxRESTEntities)
-
 	var wg sync.WaitGroup
 	wg.Add(2 * n)
 	go func() {
@@ -134,7 +125,7 @@ func testEndpointWithPacketEvent(t *testing.T, n, entities int) {
 				entityID = fmt.Sprintf("restentity-%d", entityNum)
 				trans = restTransceivers[entityNum]
 			}
-			event := newPacketEvent(t, entityID, i)
+			event := testutil.NewPacketEvent(t, entityID, i)
 			actionCh, err := trans.SendEvent(event)
 			t.Logf("Test %d: Sent %s", i, event)
 			if err != nil {
@@ -153,4 +144,42 @@ func testEndpointWithPacketEvent(t *testing.T, n, entities int) {
 	}()
 	wg.Wait()
 	// TODO: clean up transceivers
+}
+
+func TestEndpointShouldNotBlockWithPacketEvent_10_2(t *testing.T) {
+	testEndpointShouldNotBlockWithPacketEvent(t, 10, 2)
+}
+
+func testEndpointShouldNotBlockWithPacketEvent(t *testing.T, n, entities int) {
+	assert.True(t, entities <= maxRESTEntities)
+	actionChs := make(map[int]chan signal.Action)
+	for i := 0; i < n; i++ {
+		var entityID string
+		var trans transceiver.Transceiver
+		entityNum := i % entities
+		if entityNum%2 == 0 {
+			t.Logf("Test %d: Sending (using local trans)", i)
+			entityID = fmt.Sprintf("localentity-%d", entityNum)
+			trans = localTransceiver
+		} else {
+			t.Logf("Test %d: Sending (using REST trans)", i)
+			entityID = fmt.Sprintf("restentity-%d", entityNum)
+			trans = restTransceivers[entityNum]
+		}
+		event := testutil.NewPacketEvent(t, entityID, i)
+		actionCh, err := trans.SendEvent(event)
+		t.Logf("Test %d: Sent %s", i, event)
+		if err != nil {
+			t.Fatal(err)
+		}
+		actionChs[i] = actionCh
+	}
+
+	for i := 0; i < n; i++ {
+		actionCh := actionChs[i]
+		t.Logf("Test %d: Receiving", i)
+		action := <-actionCh
+		restoredEvent := action.Event()
+		t.Logf("Test %d: Received action %s (event: %s)", i, action, restoredEvent)
+	}
 }

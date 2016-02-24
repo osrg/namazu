@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package dumb provides the policy which does not control non-deternimism
 package dumb
 
 import (
@@ -96,6 +97,7 @@ func (d *Dumb) dequeueEventRoutine() {
 		if err != nil {
 			panic(log.Critical(err))
 		}
+		log.Debugf("DUMB: Determined action %s for event %s", action, event)
 		d.nextActionChan <- action
 	}
 }
