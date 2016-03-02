@@ -38,9 +38,22 @@ type HookSwitchInspector struct {
 	trans             transceiver.Transceiver
 	zmqChannels       *zmq.Channels
 	tcpWatcher        *tcpwatcher.TCPWatcher
+	// only for testing
+	stopCh chan struct{}
 }
 
-func (this *HookSwitchInspector) Start() error {
+func NewHookSwitchInspector(orchestratorURL, entityID, hookswitchZMQAddr string, enableTCPWatcher bool) (*HookSwitchInspector, error) {
+	insp := HookSwitchInspector{
+		OrchestratorURL:   orchestratorURL,
+		EntityID:          entityID,
+		HookSwitchZMQAddr: hookswitchZMQAddr,
+		EnableTCPWatcher:  enableTCPWatcher,
+		stopCh:            make(chan struct{}),
+	}
+	return &insp, nil
+}
+
+func (this *HookSwitchInspector) Serve() error {
 	log.Debugf("Initializing Ethernet Inspector %#v", this)
 	var err error
 
@@ -86,9 +99,15 @@ func (this *HookSwitchInspector) Start() error {
 			}()
 		case err := <-this.zmqChannels.Errors():
 			return err
+		case <-this.stopCh:
+			log.Info("Shutting down..")
+			return nil
 		}
 	}
-	// NOTREACHED
+}
+
+func (this *HookSwitchInspector) Shutdown() {
+	this.stopCh <- struct{}{}
 }
 
 func (this *HookSwitchInspector) decodeZMQMessageBytes(msgBytes [][]byte) (*hookswitch.HookSwitchMeta, []byte, error) {

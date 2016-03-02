@@ -122,7 +122,7 @@ func runEtherInspector(args []string) int {
 		}
 	}
 
-	if err := etherInspector.Start(); err != nil {
+	if err := etherInspector.Serve(); err != nil {
 		panic(log.Critical(err))
 	}
 

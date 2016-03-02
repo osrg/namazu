@@ -102,7 +102,7 @@ func runProcInspector(args []string) int {
 		WatchInterval:   _procFlags.WatchInterval,
 	}
 
-	if err := procInspector.Start(); err != nil {
+	if err := procInspector.Serve(); err != nil {
 		panic(log.Critical(err))
 	}
 

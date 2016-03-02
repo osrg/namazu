@@ -27,6 +27,7 @@ import (
 )
 
 type PBEndpoint struct {
+	// FIXME: entity id string cannot be shared between diferrent net.Conns (i.e. not retrieable)
 	actionChs           map[string]chan Action
 	actionChsMu         *sync.RWMutex
 	orchestratorEventCh chan Event
@@ -45,7 +46,7 @@ func recvPBMsgViaChan(conn net.Conn, eventReqRecv chan *InspectorMsgReq) {
 				log.Debugf("received EOF from %s", conn.RemoteAddr())
 				return
 			} else {
-				log.Errorf("failed to recieve request %s", conn.RemoteAddr())
+				log.Errorf("failed to recieve request %s: %s", conn.RemoteAddr(), rerr)
 				return // TODO: error handling
 			}
 		}
@@ -102,11 +103,13 @@ func (ep *PBEndpoint) connRoutine(conn net.Conn) {
 	go sendPBMsgViaChan(conn, msgRspSendCh)
 
 	for {
+		log.Debugf("EP[%s]: receiving", conn.RemoteAddr())
 		pbReqMsg := <-msgReqRecvCh
 		entityID := *pbReqMsg.EntityId
 		if *pbReqMsg.Type != InspectorMsgReq_EVENT {
 			panic(log.Criticalf("EP[%s,%s]: invalid message type: %d", conn.RemoteAddr(), entityID, *pbReqMsg.Type))
 		}
+		log.Debugf("EP[%s,%s]: received %s", conn.RemoteAddr(), entityID, pbReqMsg)
 		if *pbReqMsg.Event.Type == InspectorMsgReq_Event_EXIT {
 			continue
 		}

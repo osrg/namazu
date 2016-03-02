@@ -17,11 +17,38 @@ package proc
 
 import (
 	"flag"
+	"github.com/osrg/earthquake/earthquake/endpoint/local"
+	"github.com/osrg/earthquake/earthquake/signal"
+	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/earthquake/earthquake/util/mockorchestrator"
+	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
+	"time"
 )
 
 func TestMain(m *testing.M) {
 	flag.Parse()
+	logutil.InitLog("", true)
+	signal.RegisterKnownSignals()
+	orcActionCh := make(chan signal.Action)
+	orcEventCh := local.SingletonLocalEndpoint.Start(orcActionCh)
+	defer local.SingletonLocalEndpoint.Shutdown()
+	mockOrc := mockorchestrator.NewMockOrchestrator(orcEventCh, orcActionCh)
+	mockOrc.Start()
+	defer mockOrc.Shutdown()
 	os.Exit(m.Run())
+}
+
+func TestProcInspector(t *testing.T) {
+	pid := os.Getpid()
+	insp, err := NewProcInspector("local://", "dummy", pid, 200*time.Millisecond)
+	assert.NoError(t, err)
+	go func() {
+		insp.Serve()
+	}()
+	defer insp.Shutdown()
+	// dummy test at the moment
+	// TODO: check whether actions are really generated
+	time.Sleep(1 * time.Second)
 }

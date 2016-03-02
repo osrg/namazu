@@ -16,7 +16,7 @@
 package mockorchestrator
 
 import (
-	"fmt"
+	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/signal"
 	"time"
 )
@@ -55,20 +55,24 @@ func orchestratorSideOnlyAction(action signal.Action) bool {
 }
 
 func (orc *MockOrchestrator) handleEvent(event signal.Event) {
+	log.Debugf("MO handling event %s", event)
 	action, err := event.DefaultAction()
 	if err != nil {
 		panic(err)
 	}
 	action.SetTriggeredTime(time.Now())
 	if orchestratorSideOnlyAction(action) {
-		panic(fmt.Errorf("MockOrchestrator does not support OrchestratorSideOnly()"))
+		log.Warnf("MockOrchestrator does not support OrchestratorSideOnly()")
 	}
 	// MockOrchestrator should not block, as in explorepolicy.QueueNextEvent().
 	// so we use goroutine here.
 	// Note that action ordering will be non deterministic due to this goroutine..
 	go func() {
+		log.Debugf("MO sending action %s", action)
 		orc.actionCh <- action
+		log.Debugf("MO sent action %s", action)
 	}()
+	log.Debugf("MO handled event %s", event)
 }
 
 func (orc *MockOrchestrator) routine() {

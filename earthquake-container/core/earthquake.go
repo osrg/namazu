@@ -35,7 +35,7 @@ func StartOrchestrator(cfg config.Config) error {
 	return nil
 }
 
-func StartEthernetInspector(c *docker.Container, queueNum int) error {
+func ServeEthernetInspector(c *docker.Container, queueNum int) error {
 	err := container.EnterDockerNetNs(c)
 	if err != nil {
 		return err
@@ -47,17 +47,19 @@ func StartEthernetInspector(c *docker.Container, queueNum int) error {
 		EnableTCPWatcher: true,
 	}
 	defer container.LeaveNetNs()
-	insp.Start()
+	insp.Serve()
+	// NOTREACHED
 	return nil
 }
 
-func StartProcInspector(c *docker.Container, watchInterval time.Duration) error {
+func ServeProcInspector(c *docker.Container, watchInterval time.Duration) error {
 	insp := &proc.ProcInspector{
 		OrchestratorURL: ocutil.LocalOrchestratorURL,
 		EntityID:        "_earthquake_container_proc_inspector",
 		RootPID:         c.State.Pid,
 		WatchInterval:   watchInterval,
 	}
-	insp.Start()
+	insp.Serve()
+	// NOTREACHED
 	return nil
 }

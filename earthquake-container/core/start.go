@@ -44,7 +44,7 @@ func StartEarthquakeRoutines(c *docker.Container, cfg config.Config) error {
 		}
 		log.Debugf("Starting Ethernet Inspector")
 		go func() {
-			ierr := StartEthernetInspector(c, nfqNum)
+			ierr := ServeEthernetInspector(c, nfqNum)
 			if ierr != nil {
 				panic(log.Critical(ierr))
 			}
@@ -58,7 +58,7 @@ func StartEarthquakeRoutines(c *docker.Container, cfg config.Config) error {
 		}
 		log.Debugf("Starting Process Inspector")
 		go func() {
-			ierr := StartProcInspector(c, watchInterval)
+			ierr := ServeProcInspector(c, watchInterval)
 			if ierr != nil {
 				panic(log.Critical(ierr))
 			}

@@ -36,7 +36,7 @@ type NFQInspector struct {
 	tcpWatcher       *tcpwatcher.TCPWatcher
 }
 
-func (this *NFQInspector) Start() error {
+func (this *NFQInspector) Serve() error {
 	log.Debugf("Initializing Ethernet Inspector %#v", this)
 	var err error
 
@@ -65,6 +65,7 @@ func (this *NFQInspector) Start() error {
 			continue
 		}
 		go func() {
+			// can we use queue so as to improve determinism?
 			if err := this.onPacket(nfp, ip, tcp); err != nil {
 				log.Error(err)
 			}

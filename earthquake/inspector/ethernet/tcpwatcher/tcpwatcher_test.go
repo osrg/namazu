@@ -13,15 +13,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package tcpwatcher_test
+package tcpwatcher
 
 import (
-	"flag"
-	"os"
+	"github.com/google/gopacket/layers"
+	"github.com/stretchr/testify/assert"
+	"net"
 	"testing"
 )
 
-func TestMain(m *testing.M) {
-	flag.Parse()
-	os.Exit(m.Run())
+func TestTCPWatcher(t *testing.T) {
+	w := New()
+	ip0 := &layers.IPv4{
+		SrcIP: net.IP{1, 2, 3, 4},
+		DstIP: net.IP{5, 6, 7, 8},
+	}
+	tcp0 := &layers.TCP{
+		SrcPort: layers.TCPPort(4242),
+		DstPort: layers.TCPPort(42),
+		Seq:     4242,
+		Ack:     4242,
+	}
+	tcp1 := &layers.TCP{
+		SrcPort: layers.TCPPort(4242),
+		DstPort: layers.TCPPort(42),
+		Seq:     4242,
+		Ack:     4243,
+	}
+	tcp2 := &layers.TCP{
+		SrcPort: layers.TCPPort(4242),
+		DstPort: layers.TCPPort(42),
+		Seq:     4242,
+		Ack:     4243,
+		RST:     true,
+	}
+
+	assert.False(t, w.IsTCPRetrans(ip0, tcp0))
+	assert.True(t, w.IsTCPRetrans(ip0, tcp0))
+	assert.False(t, w.IsTCPRetrans(ip0, tcp1))
+	assert.False(t, w.IsTCPRetrans(ip0, tcp2))
+	assert.False(t, w.IsTCPRetrans(ip0, nil))
+	assert.False(t, w.IsTCPRetrans(nil, nil))
 }

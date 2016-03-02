@@ -16,12 +16,21 @@
 package hookswitch
 
 import (
-	"flag"
-	"os"
+	"encoding/json"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-func TestMain(m *testing.M) {
-	flag.Parse()
-	os.Exit(m.Run())
+func TestHookSwitchMetaMarshalJSON(t *testing.T) {
+	meta := HookSwitchMeta{
+		ID: 42,
+		Op: Accept,
+	}
+	m, err := json.Marshal(meta)
+	assert.NoError(t, err)
+	t.Logf("%v ==> %s", meta, m)
+	meta1 := HookSwitchMeta{}
+	err = json.Unmarshal([]byte(string(m)), &meta1)
+	assert.NoError(t, err)
+	t.Logf("%s ==> %v", m, meta1)
 }
