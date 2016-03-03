@@ -22,7 +22,7 @@ INFO "Installing protoc to $GOBIN"
 go get github.com/golang/protobuf/proto
 go get github.com/golang/protobuf/protoc-gen-go
 INFO "Generating PB files"
-protoc --go_out=earthquake/util/pb -Iinspector inspector/inspector_message.proto
+protoc --go_out=earthquake/util/pb -Imisc/inspector misc/inspector/inspector_message.proto
 
 ########## Go ##########
 INFO "Fetching Earthquake deps"
@@ -46,15 +46,15 @@ done
 ########## Python ##########
 #INFO "Checking whether pyearthquake deps are installed"
 #INFO "Running \`autopep8 -r --diff\` for pyearthquake"
-#autopep8 -r --diff pyearthquake
+#autopep8 -r --diff misc/pyearthquake
 #INFO "Testing pyearthquake"
 
 ########## Java ##########
 INFO "Building Java Inspector (bin/earthquake-inspector.jar)"
-( cd inspector/java/base; mvn package > /dev/null ) && cp -f inspector/java/base/target/earthquake-inspector.jar bin
+( cd misc/inspector/java/base; mvn package > /dev/null ) && cp -f misc/inspector/java/base/target/earthquake-inspector.jar bin
 
 INFO "Building Java Analyzer (bin/earthquake-analyzer.jar)"
-( cd analyzer/java/base; mvn package > /dev/null ) && cp -f analyzer/java/base/target/earthquake-analyzer.jar bin
+( cd misc/analyzer/java/base; mvn package > /dev/null ) && cp -f misc/analyzer/java/base/target/earthquake-analyzer.jar bin
 
 ########## C ##########
 #INFO "Building C Inspector" #FIXME: still broken?

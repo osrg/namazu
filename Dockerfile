@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ## (Optional) Install pyearthquake nfqhook deps
     libnetfilter-queue1 python-prctl
 
-## Install Go 1.5
-RUN curl https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz | tar Cxz /usr/local && mkdir /gopath
+## Install Go 1.6
+RUN curl https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar Cxz /usr/local && mkdir /gopath
 ENV PATH /usr/local/go/bin:$PATH
 ENV GOPATH /gopath
 
@@ -50,5 +50,5 @@ RUN ./build
 ENV LOG file
 
 ## Start init (does NOT enable DinD/OVS/Ryu by default)
-ADD docker/eq-init.py /eq-init.py
+ADD misc/docker/eq-init.py /eq-init.py
 CMD ["/eq-init.py"]
