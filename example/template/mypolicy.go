@@ -38,7 +38,7 @@ func (p *MyPolicy) SetHistoryStorage(storage historystorage.HistoryStorage) erro
 }
 
 // implements ExplorePolicy interface
-func (p *MyPolicy) GetNextActionChan() chan signal.Action {
+func (p *MyPolicy) ActionChan() chan signal.Action {
 	return p.nextActionChan
 }
 

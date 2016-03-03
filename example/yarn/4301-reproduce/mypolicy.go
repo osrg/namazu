@@ -69,7 +69,7 @@ func (p *MyPolicy) signalHandler() {
 	}
 }
 
-func (p *MyPolicy) GetNextActionChan() chan Action {
+func (p *MyPolicy) ActionChan() chan Action {
 	return p.nextActionChan
 }
 

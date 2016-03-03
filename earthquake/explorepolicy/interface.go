@@ -33,7 +33,7 @@ type ExplorePolicy interface {
 	SetHistoryStorage(storage historystorage.HistoryStorage) error
 
 	// dequeue action
-	GetNextActionChan() chan signal.Action
+	ActionChan() chan signal.Action
 
 	// queue event
 	QueueEvent(signal.Event)

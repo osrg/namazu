@@ -106,7 +106,7 @@ func (orc *Orchestrator) handleAction(action Action) {
 
 func (orc *Orchestrator) Start() {
 	orc.endpointEventCh = endpoint.StartAll(orc.endpointActionCh, orc.cfg)
-	orc.policyActionCh = orc.policy.GetNextActionChan()
+	orc.policyActionCh = orc.policy.ActionChan()
 	go orc.eventRoutine()
 	go orc.actionRoutine()
 }

@@ -77,7 +77,7 @@ func (d *Dumb) SetHistoryStorage(storage historystorage.HistoryStorage) error {
 	return nil
 }
 
-func (d *Dumb) GetNextActionChan() chan signal.Action {
+func (d *Dumb) ActionChan() chan signal.Action {
 	return d.nextActionChan
 }
 
