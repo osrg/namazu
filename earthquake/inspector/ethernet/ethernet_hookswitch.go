@@ -93,7 +93,7 @@ func (this *HookSwitchInspector) Serve() error {
 				continue
 			}
 			go func() {
-				if err := this.onHookSwitchMessage(*meta, eth, ip, tcp); err != nil {
+				if err := this.onHookSwitchMessage(*meta, ethBytes, eth, ip, tcp); err != nil {
 					log.Error(err)
 				}
 			}()
@@ -123,10 +123,13 @@ func (this *HookSwitchInspector) decodeZMQMessageBytes(msgBytes [][]byte) (*hook
 }
 
 func (this *HookSwitchInspector) onHookSwitchMessage(meta hookswitch.HookSwitchMeta,
+	bytes []byte,
 	eth *layers.Ethernet, ip *layers.IPv4, tcp *layers.TCP) error {
 	srcEntityID, dstEntityID := makeEntityIDs(eth, ip, tcp)
 	event, err := signal.NewPacketEvent(this.EntityID,
-		srcEntityID, dstEntityID, map[string]interface{}{})
+		srcEntityID, dstEntityID, map[string]interface{}{
+			"bytes": bytes,
+		})
 	if err != nil {
 		return err
 	}
