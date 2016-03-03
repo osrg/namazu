@@ -25,9 +25,7 @@ import (
 func TestInit(t *testing.T) {
 	Init()
 	policy, err := explorepolicy.CreatePolicy("random")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.NotNil(t, policy)
 	t.Logf("Confirmed random policy is registered: %s", policy)
 }

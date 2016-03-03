@@ -33,9 +33,21 @@ type ProcInspector struct {
 	RootPID         int
 	WatchInterval   time.Duration
 	trans           transceiver.Transceiver
+	// only for testing
+	stopCh chan struct{}
 }
 
-func (this *ProcInspector) Start() error {
+func NewProcInspector(orchestratorURL, entityID string, rootPID int, watchInterval time.Duration) (*ProcInspector, error) {
+	return &ProcInspector{
+		OrchestratorURL: orchestratorURL,
+		EntityID:        entityID,
+		RootPID:         rootPID,
+		WatchInterval:   watchInterval,
+		stopCh:          make(chan struct{}),
+	}, nil
+}
+
+func (this *ProcInspector) Serve() error {
 	log.Debugf("Initializing Process Inspector %#v", this)
 	var err error
 
@@ -46,19 +58,27 @@ func (this *ProcInspector) Start() error {
 	this.trans.Start()
 
 	for {
-		<-time.After(this.WatchInterval)
-		procs, err := procutil.DescendantLWPs(this.RootPID)
-		if err != nil {
-			// this happens frequently, but does not matter.
-			// e.g. "open /proc/11193/task/11193/children: no such file or directory"
-			log.Warn(err)
-			continue
-		}
-		if err = this.onWatch(procs); err != nil {
-			log.Error(err)
+		select {
+		case <-time.After(this.WatchInterval):
+			procs, err := procutil.DescendantLWPs(this.RootPID)
+			if err != nil {
+				// this happens frequently, but does not matter.
+				// e.g. "open /proc/11193/task/11193/children: no such file or directory"
+				log.Warn(err)
+				continue
+			}
+			if err = this.onWatch(procs); err != nil {
+				log.Error(err)
+			}
+		case <-this.stopCh:
+			log.Info("Shutting down..")
+			return nil
 		}
 	}
-	// NOTREACHED
+}
+
+func (this *ProcInspector) Shutdown() {
+	this.stopCh <- struct{}{}
 }
 
 func (this *ProcInspector) onWatch(procs []int) error {

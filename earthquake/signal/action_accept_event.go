@@ -41,8 +41,3 @@ func NewEventAcceptanceAction(event Event) (Action, error) {
 	action.CauseEvent = event
 	return action, nil
 }
-
-// implements Action
-func (this *EventAcceptanceAction) Equals(o Action) bool {
-	return this.Event().Equals(o.Event())
-}

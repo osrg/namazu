@@ -30,8 +30,8 @@ import (
 	"github.com/osrg/earthquake/earthquake/endpoint"
 	. "github.com/osrg/earthquake/earthquake/explorepolicy"
 	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/trace"
 	. "github.com/osrg/earthquake/earthquake/util/config"
+	. "github.com/osrg/earthquake/earthquake/util/trace"
 )
 
 type Orchestrator struct {
@@ -46,8 +46,10 @@ type Orchestrator struct {
 	endpointActionCh chan Action
 	policyActionCh   chan Action
 	// orchestrator control channels
-	stopCh    chan struct{}
-	stoppedCh chan struct{}
+	stopEventRCh     chan struct{}
+	stoppedEventRCh  chan struct{}
+	stopActionRCh    chan struct{}
+	stoppedActionRCh chan struct{}
 }
 
 func NewOrchestrator(cfg Config, policy ExplorePolicy, collectTrace bool) *Orchestrator {
@@ -60,9 +62,11 @@ func NewOrchestrator(cfg Config, policy ExplorePolicy, collectTrace bool) *Orche
 		endpointEventCh:  nil,
 		endpointActionCh: make(chan Action),
 		// policy makes this
-		policyActionCh: nil,
-		stopCh:         make(chan struct{}),
-		stoppedCh:      make(chan struct{}),
+		policyActionCh:   nil,
+		stopEventRCh:     make(chan struct{}),
+		stoppedEventRCh:  make(chan struct{}),
+		stopActionRCh:    make(chan struct{}),
+		stoppedActionRCh: make(chan struct{}),
 	}
 	return &orc
 }
@@ -103,11 +107,12 @@ func (orc *Orchestrator) handleAction(action Action) {
 func (orc *Orchestrator) Start() {
 	orc.endpointEventCh = endpoint.StartAll(orc.endpointActionCh, orc.cfg)
 	orc.policyActionCh = orc.policy.GetNextActionChan()
-	go orc.routine()
+	go orc.eventRoutine()
+	go orc.actionRoutine()
 }
 
-func (orc *Orchestrator) routine() {
-	defer close(orc.stoppedCh)
+func (orc *Orchestrator) eventRoutine() {
+	defer close(orc.stoppedEventRCh)
 
 	for {
 		// NOTE: if NumGoroutine() increases rapidly, something is going wrong.
@@ -120,14 +125,7 @@ func (orc *Orchestrator) routine() {
 			} else {
 				orc.endpointEventCh = nil
 			}
-		case action, ok := <-orc.policyActionCh:
-			if ok {
-				// handleAction() basically does: `endpointActionCh <- action`
-				orc.handleAction(action)
-			} else {
-				orc.policyActionCh = nil
-			}
-		case <-orc.stopCh:
+		case <-orc.stopEventRCh:
 			return
 		}
 		// connection lost to endpoints
@@ -137,12 +135,32 @@ func (orc *Orchestrator) routine() {
 	}
 }
 
+func (orc *Orchestrator) actionRoutine() {
+	defer close(orc.stoppedActionRCh)
+
+	for {
+		select {
+		case action, ok := <-orc.policyActionCh:
+			if ok {
+				// handleAction() basically does: `endpointActionCh <- action`
+				orc.handleAction(action)
+			} else {
+				orc.policyActionCh = nil
+			}
+		case <-orc.stopActionRCh:
+			return
+		}
+	}
+}
+
 // Stops the orchestrator routine.
 // Returns action trace if configured to do so.
 func (orc *Orchestrator) Shutdown() *SingleTrace {
 	log.Debugf("Shutting down orchestrator")
-	close(orc.stopCh)
-	<-orc.stoppedCh
+	close(orc.stopEventRCh)
+	<-orc.stoppedEventRCh
+	close(orc.stopActionRCh)
+	<-orc.stoppedActionRCh
 	newTrace := &SingleTrace{
 		ActionSequence: orc.actionSequence,
 	}

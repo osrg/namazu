@@ -44,8 +44,3 @@ func NewPacketFaultAction(event Event) (Action, error) {
 	action.CauseEvent = event
 	return action, nil
 }
-
-// implements Action
-func (this *PacketFaultAction) Equals(o Action) bool {
-	return this.Event().Equals(o.Event())
-}

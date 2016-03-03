@@ -16,5 +16,6 @@
 package ethernet
 
 type EthernetInspector interface {
-	Start() error
+	// start the inspector and blocks. does not return.
+	Serve() error
 }

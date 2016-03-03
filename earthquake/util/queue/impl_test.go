@@ -32,14 +32,10 @@ func TestTimeBoundedQueueWithoutDurations(t *testing.T) {
 	t.Logf("%s: Created queue: %#v", time.Now(), queue)
 	for i := 0; i < 3; i++ {
 		item, err := NewBasicTBQueueItem(42+i, time.Duration(0), time.Duration(0))
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 		t.Logf("%s: Enqueuing item: %#v", time.Now(), item)
 		err = queue.Enqueue(item)
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 		t.Logf("%s: Enqueued item: %#v", time.Now(), item)
 	}
 
@@ -57,12 +53,9 @@ func TestTimeBoundedQueueWithFixedDuration(t *testing.T) {
 	deqCh := queue.GetDequeueChan()
 	for i := 0; i < 3; i++ {
 		item, err := NewBasicTBQueueItem(42+i, time.Duration(10*time.Millisecond), time.Duration(10*time.Millisecond))
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err = queue.Enqueue(item); err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
+		err = queue.Enqueue(item)
+		assert.NoError(t, err)
 	}
 	for i := 0; i < 3; i++ {
 		var deq TimeBoundedQueueItem
@@ -87,12 +80,9 @@ func TestTimeBoundedQueueWithSeveralDurationsConcurrent(t *testing.T) {
 		go func(k int, v []time.Duration) {
 			t.Logf("%s: Enqueue %d, %s", time.Now(), k, v)
 			item, err := NewBasicTBQueueItem(k, v[0], v[1])
-			if err != nil {
-				t.Fatal(err)
-			}
-			if err = queue.Enqueue(item); err != nil {
-				t.Fatal(err)
-			}
+			assert.NoError(t, err)
+			err = queue.Enqueue(item)
+			assert.NoError(t, err)
 		}(k, v)
 	}
 
@@ -110,8 +100,8 @@ func TestTimeBoundedQueueWithSeveralDurationsConcurrent(t *testing.T) {
 				took,
 				deq.Value(), deq.MinDuration(), deq.MaxDuration(), deq.EnqueuedTime())
 			value := deq.Value().(int)
-			assert.Equal(t, durations[value][0], deq.MinDuration())
-			assert.Equal(t, durations[value][1], deq.MaxDuration())
+			assert.Equal(t, deq.MinDuration(), durations[value][0])
+			assert.Equal(t, deq.MaxDuration(), durations[value][1])
 			assert.True(t, took > deq.MinDuration())
 			// can be delayed due to gorotuine scheduling, up to delta
 			assert.True(t, took < deq.MaxDuration()+delta)

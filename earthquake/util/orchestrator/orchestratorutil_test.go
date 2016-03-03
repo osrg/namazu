@@ -36,9 +36,7 @@ func TestMain(m *testing.M) {
 func TestNewAutopilotOrchestrator(t *testing.T) {
 	cfg := config.New()
 	oc, err := NewAutopilotOrchestrator(cfg)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	assert.NotNil(t, oc)
 }
 
@@ -47,9 +45,7 @@ func TestNewBadAutopilotOrchestrator(t *testing.T) {
 explorePolicy = "this_bad_policy_should_not_exist"
 	`
 	cfg, err := config.NewFromString(tomlString, "toml")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	_, err = NewAutopilotOrchestrator(cfg)
 	t.Logf("error is expected here: %s", err)
 	assert.Error(t, err)

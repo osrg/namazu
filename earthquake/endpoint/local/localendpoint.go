@@ -31,14 +31,14 @@ type LocalEndpoint struct {
 	// only LocalTransceiver can access this
 	InspectorActionCh chan Action
 
-	stop1Ch    chan struct{}
-	stopped1Ch chan struct{}
-	stop2Ch    chan struct{}
-	stopped2Ch chan struct{}
+	stopEventRCh     chan struct{}
+	stoppedEventRCh  chan struct{}
+	stopActionRCh    chan struct{}
+	stoppedActionRCh chan struct{}
 }
 
-func (ep *LocalEndpoint) routine1() {
-	defer close(ep.stopped1Ch)
+func (ep *LocalEndpoint) eventRoutine() {
+	defer close(ep.stoppedEventRCh)
 	// transceiver should do multiplexing
 	for {
 		select {
@@ -50,7 +50,7 @@ func (ep *LocalEndpoint) routine1() {
 			} else {
 				ep.InspectorEventCh = nil
 			}
-		case <-ep.stop1Ch:
+		case <-ep.stopEventRCh:
 			return
 		}
 		// connection lost
@@ -64,8 +64,8 @@ func (ep *LocalEndpoint) routine1() {
 	}
 }
 
-func (ep *LocalEndpoint) routine2() {
-	defer close(ep.stopped2Ch)
+func (ep *LocalEndpoint) actionRoutine() {
+	defer close(ep.stoppedActionRCh)
 	// transceiver should do multiplexing
 	for {
 		select {
@@ -77,7 +77,7 @@ func (ep *LocalEndpoint) routine2() {
 			} else {
 				ep.orchestratorActionCh = nil
 			}
-		case <-ep.stop2Ch:
+		case <-ep.stopActionRCh:
 			return
 		}
 		// connection lost
@@ -93,21 +93,21 @@ func (ep *LocalEndpoint) routine2() {
 
 func (ep *LocalEndpoint) Start(orchestratorActionCh chan Action) chan Event {
 	ep.orchestratorActionCh = orchestratorActionCh
-	ep.stop1Ch = make(chan struct{})
-	ep.stopped1Ch = make(chan struct{})
-	ep.stop2Ch = make(chan struct{})
-	ep.stopped2Ch = make(chan struct{})
-	go ep.routine1()
-	go ep.routine2()
+	ep.stopEventRCh = make(chan struct{})
+	ep.stoppedEventRCh = make(chan struct{})
+	ep.stopActionRCh = make(chan struct{})
+	ep.stoppedActionRCh = make(chan struct{})
+	go ep.eventRoutine()
+	go ep.actionRoutine()
 	return ep.orchestratorEventCh
 }
 
 func (ep *LocalEndpoint) Shutdown() {
 	log.Debugf("Shutting down")
-	close(ep.stop1Ch)
-	close(ep.stop2Ch)
-	<-ep.stopped1Ch
-	<-ep.stopped2Ch
+	close(ep.stopEventRCh)
+	close(ep.stopActionRCh)
+	<-ep.stoppedEventRCh
+	<-ep.stoppedActionRCh
 	log.Debugf("Shut down done")
 }
 

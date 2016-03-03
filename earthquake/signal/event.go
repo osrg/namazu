@@ -26,7 +26,7 @@ type BasicEvent struct {
 
 // implements Event
 func (this *BasicEvent) Equals(o Event) bool {
-	return this.Equals(o)
+	return this.EqualsSignal(o)
 }
 
 // implements Event

@@ -65,9 +65,6 @@ func (this *ShellAction) ExecuteOnOrchestrator() error {
 	// NOTE: this blocks
 	log.Debugf("Starting command %s %s (%#v)", command.Path, command.Args, this.Option)
 	err := command.Run()
-	log.Debugf("Finished command %s %s (%#v)", command.Path, command.Args, this.Option)
-	if err != nil {
-		log.Errorf("Ignoring an error while executing %s %s: %s", command.Path, command.Args, err)
-	}
-	return nil
+	log.Debugf("Finished command %s %s (%#v), status: %s", command.Path, command.Args, this.Option, err)
+	return err
 }

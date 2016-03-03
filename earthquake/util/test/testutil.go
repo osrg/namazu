@@ -16,81 +16,23 @@
 package test
 
 import (
-	"time"
-
-	log "github.com/cihub/seelog"
-	. "github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 // used only for testing
-type MockOrchestrator struct {
-	// communication channels
-	eventCh  chan Event
-	actionCh chan Action
-	// orchestrator control channels
-	stopCh    chan struct{}
-	stoppedCh chan struct{}
+func NewNopEvent(t *testing.T, entityID string, value int) signal.Event {
+	m := map[string]interface{}{"value": value}
+	event, err := signal.NewNopEvent(entityID, m)
+	assert.NoError(t, err)
+	return event
 }
 
 // used only for testing
-func NewMockOrchestrator(eventCh chan Event, actionCh chan Action) *MockOrchestrator {
-	orc := MockOrchestrator{
-		// endpoint makes this
-		eventCh:   eventCh,
-		actionCh:  actionCh,
-		stopCh:    make(chan struct{}),
-		stoppedCh: make(chan struct{}),
-	}
-	return &orc
-}
-
-func orchestratorSideOnlyAction(action Action) bool {
-	orcSideOnly := false
-	orcSide, orcSideOk := action.(OrchestratorSideAction)
-	action.SetTriggeredTime(time.Now())
-	if orcSideOk {
-		orcSideOnly = orcSide.OrchestratorSideOnly()
-	}
-	return orcSideOnly
-}
-
-func (orc *MockOrchestrator) handleEvent(event Event) {
-	action, err := event.DefaultAction()
-	if err != nil {
-		panic(log.Critical(err))
-	}
-	action.SetTriggeredTime(time.Now())
-	if orchestratorSideOnlyAction(action) {
-		panic(log.Critical("MockOrchestrator does not support OrchestratorSideOnly()"))
-	}
-	orc.actionCh <- action
-}
-
-func (orc *MockOrchestrator) routine() {
-	defer close(orc.stoppedCh)
-	for {
-		select {
-		case event, ok := <-orc.eventCh:
-			if ok {
-				orc.handleEvent(event)
-			} else {
-				orc.eventCh = nil
-			}
-		case <-orc.stopCh:
-			return
-		}
-		// connection lost to endpoints
-		if orc.eventCh == nil {
-			close(orc.actionCh)
-		}
-	}
-}
-
-func (orc *MockOrchestrator) Start() {
-	go orc.routine()
-}
-
-func (orc *MockOrchestrator) Shutdown() {
-	close(orc.stopCh)
-	<-orc.stoppedCh
+func NewPacketEvent(t *testing.T, entityID string, value int) signal.Event {
+	m := map[string]interface{}{"value": value}
+	event, err := signal.NewPacketEvent(entityID, entityID, entityID, m)
+	assert.NoError(t, err)
+	return event
 }

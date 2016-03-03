@@ -154,6 +154,18 @@ func RegisterNewQueue(entityID string) (*ActionQueue, error) {
 	return &queue, nil
 }
 
+// intended for testing (`go test -count XXX` needs this)
+func UnregisterQueue(entityID string) error {
+	queuesLock.Lock()
+	defer queuesLock.Unlock()
+	_, oldOk := queues[entityID]
+	if !oldOk {
+		return fmt.Errorf("entity does not exists %s", entityID)
+	}
+	delete(queues, entityID)
+	return nil
+}
+
 func GetQueue(entityID string) *ActionQueue {
 	queuesLock.RLock()
 	defer queuesLock.RUnlock()

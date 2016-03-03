@@ -17,6 +17,7 @@ package signal
 
 import "github.com/satori/go.uuid"
 
+// Note: DefaultAction() is NopAction, not ProcSetSchedAction
 // implements Event
 type ProcSetEvent struct {
 	BasicEvent
@@ -38,9 +39,4 @@ func NewProcSetEvent(entityID string, procs []string, m map[string]interface{}) 
 	}
 	event.SetOption(opt)
 	return event, nil
-}
-
-// implements Event
-func (this *ProcSetEvent) DefaultFaultAction() (Action, error) {
-	return nil, nil
 }

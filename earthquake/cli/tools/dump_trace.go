@@ -25,7 +25,7 @@ import (
 
 	"github.com/mitchellh/cli"
 	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/trace"
+	. "github.com/osrg/earthquake/earthquake/util/trace"
 )
 
 type dumpTraceFlags struct {

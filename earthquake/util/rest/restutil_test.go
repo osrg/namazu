@@ -50,9 +50,7 @@ func TestWriteJSON(t *testing.T) {
 		},
 	}
 	err := WriteJSON(w, m)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	body := w.Body.String()
 	t.Logf("body: \"%s\"", body)
 	assert.Contains(t, body, "baz")

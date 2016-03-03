@@ -26,25 +26,19 @@ import (
 
 func testInitLogWithDebug(t *testing.T, debug bool) {
 	tmpFile, err := ioutil.TempFile("", "logutil_test")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	t.Logf("using %s as the log file", tmpFile.Name())
 	defer func() {
 		t.Logf("removing %s as the log file", tmpFile.Name())
 		err = os.Remove(tmpFile.Name())
-		if err != nil {
-			t.Fatal(err)
-		}
+		assert.NoError(t, err)
 	}()
 	InitLog(tmpFile.Name(), debug)
 	seelog.Infof("hello world 1")
 	seelog.Debugf("hello world 2")
 	seelog.Flush()
 	contentBytes, err := ioutil.ReadAll(tmpFile)
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	content := string(contentBytes[:])
 	t.Logf("log file (%s) content: \"%s\"", tmpFile.Name(), content)
 	assert.Contains(t, content, "hello world 1")

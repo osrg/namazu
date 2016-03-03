@@ -28,6 +28,7 @@ import (
 	"github.com/osrg/earthquake/earthquake/signal"
 	"github.com/osrg/earthquake/earthquake/util/config"
 	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	testutil "github.com/osrg/earthquake/earthquake/util/test"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -41,36 +42,14 @@ func TestMain(m *testing.M) {
 
 func newDumbOrchestrator(t *testing.T, collectTrace bool) *Orchestrator {
 	cfg, err := config.NewFromString("{\"explorePolicy\":\"dumb\"}", "json")
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	policy, err := explorepolicy.CreatePolicy(cfg.GetString("explorePolicy"))
-	if err != nil {
-		t.Fatal(err)
-	}
+	assert.NoError(t, err)
 	policy.LoadConfig(cfg)
 	oc := NewOrchestrator(cfg, policy, collectTrace)
 	// FIXME: NewOrchestrator() should return err
 	assert.NotNil(t, oc)
 	return oc
-}
-
-func newNopEvent(t *testing.T, entityID string, value int) signal.Event {
-	m := map[string]interface{}{"value": value}
-	event, err := signal.NewNopEvent(entityID, m)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return event
-}
-
-func newPacketEvent(t *testing.T, entityID string, value int) signal.Event {
-	m := map[string]interface{}{"value": value}
-	event, err := signal.NewPacketEvent(entityID, entityID, entityID, m)
-	if err != nil {
-		t.Fatal(err)
-	}
-	return event
 }
 
 func TestOrchestratorWithNopEvent_1_1_1sec(t *testing.T) {
@@ -90,67 +69,83 @@ func TestOrchestratorWithNopEvent_1000_10_10sec(t *testing.T) {
 }
 
 func testOrchestratorWithNopEvent(t *testing.T, n, entities int, livenessWait time.Duration) {
-	assert.Zero(t, n%entities)
 	oc := newDumbOrchestrator(t, true)
 	oc.Start()
 	ep := localep.SingletonLocalEndpoint
 	for i := 0; i < n; i++ {
 		entityID := fmt.Sprintf("entity-%d", i%entities)
-		event := newNopEvent(t, entityID, i)
+		event := testutil.NewNopEvent(t, entityID, i)
 		t.Logf("Test %d: Sending %s", i, event)
 		ep.InspectorEventCh <- event
 		t.Logf("Test %d: Sent %s", i, event)
 		// NOTE: we cannot get NopAction in ih.ActionChan,
 		// as NopAction implements OrchestratorSideOnly().
 	}
+	t.Logf("Sleeping (livenessWait) %s", livenessWait)
 	time.Sleep(livenessWait)
 	trace := oc.Shutdown()
 	assert.Equal(t, n, len(trace.ActionSequence))
 }
 
 func TestOrchestratorWithPacketEvent_1_1(t *testing.T) {
-	testOrchestratorWithPacketEvent(t, 1, 1)
+	testOrchestratorWithPacketEvent(t, 1, 1, true)
 }
 
 func TestOrchestratorWithPacketEvent_2_2(t *testing.T) {
-	testOrchestratorWithPacketEvent(t, 2, 2)
+	testOrchestratorWithPacketEvent(t, 2, 2, true)
 }
 
 func TestOrchestratorWithPacketEvent_10_10(t *testing.T) {
-	testOrchestratorWithPacketEvent(t, 10, 10)
+	testOrchestratorWithPacketEvent(t, 10, 10, true)
 }
 
 func TestOrchestratorWithPacketEvent_1000_10(t *testing.T) {
-	testOrchestratorWithPacketEvent(t, 1000, 10)
+	testOrchestratorWithPacketEvent(t, 1000, 10, true)
 }
 
-func testOrchestratorWithPacketEvent(t *testing.T, n, entities int) {
-	assert.Zero(t, n%entities)
+func TestOrchestratorShouldNotBlockWithPacketEvent_10_2(t *testing.T) {
+	testOrchestratorWithPacketEvent(t, 10, 2, false)
+}
+
+func testOrchestratorWithPacketEvent(t *testing.T, n, entities int, concurrent bool) {
 	oc := newDumbOrchestrator(t, true)
 	oc.Start()
 	ep := localep.SingletonLocalEndpoint
-	var wg sync.WaitGroup
-	wg.Add(2)
-	go func() {
-		defer wg.Done()
+
+	sender := func() {
 		for i := 0; i < n; i++ {
 			entityID := fmt.Sprintf("entity-%d", i%entities)
-			event := newPacketEvent(t, entityID, i)
+			event := testutil.NewPacketEvent(t, entityID, i)
 			t.Logf("Test %d: Sending %s", i, event)
 			ep.InspectorEventCh <- event
 			t.Logf("Test %d: Sent %s", i, event)
 		}
-	}()
-	go func() {
-		defer wg.Done()
+	}
+	receiver := func() {
 		for i := 0; i < n; i++ {
 			t.Logf("Test %d: Receiving", i)
 			action := <-ep.InspectorActionCh
 			event := action.Event()
 			t.Logf("Test %d: Received action %s (event: %s)", i, action, event)
 		}
-	}()
-	wg.Wait()
+	}
+
+	if concurrent {
+		var wg sync.WaitGroup
+		wg.Add(2)
+		go func() {
+			defer wg.Done()
+			sender()
+		}()
+		go func() {
+			defer wg.Done()
+			receiver()
+		}()
+		wg.Wait()
+	} else {
+		sender()
+		receiver()
+	}
 
 	trace := oc.Shutdown()
 
