@@ -17,33 +17,36 @@ package run
 
 import (
 	"fmt"
-
+	// FIXME: we should not rely on internal docker packages..
+	"github.com/docker/docker/opts"
 	flag "github.com/docker/docker/pkg/mflag"
 	docker "github.com/fsouza/go-dockerclient"
 )
 
 func parseRun(cmd *flag.FlagSet, args []string) (*docker.CreateContainerOptions, error) {
 	var (
-		flStdin  = cmd.Bool([]string{"i", "-interactive"}, false, "Keep STDIN open even if not attached")
-		flTty    = cmd.Bool([]string{"t", "-tty"}, false, "Allocate a pseudo-TTY")
-		flDetach = cmd.Bool([]string{"d", "-detach"}, false, "[NOT SUPPORTED] Run container in background and print container ID")
-		flName   = cmd.String([]string{"-name"}, "", "Assign a name to the container")
+		flStdin   = cmd.Bool([]string{"i", "-interactive"}, false, "Keep STDIN open even if not attached")
+		flTty     = cmd.Bool([]string{"t", "-tty"}, false, "Allocate a pseudo-TTY")
+		flDetach  = cmd.Bool([]string{"d", "-detach"}, false, "[NOT SUPPORTED] Run container in background and print container ID")
+		flName    = cmd.String([]string{"-name"}, "", "Assign a name to the container")
+		flVolumes = opts.NewListOpts(nil)
 		// the caller should handle "-rm" with cmd.IsSet()
 		_ = cmd.Bool([]string{"-rm"}, false, "Automatically remove the container when it exits")
 		// the caller should handle "-eq-config"
 		_ = cmd.String([]string{"-eq-config"}, "", "Earthquake configuration file")
 	)
+	cmd.Var(&flVolumes, []string{"v", "-volume"}, "Bind mount a volume")
 	if err := cmd.Parse(args); err != nil {
 		return nil, err
 	}
 	if !*flStdin {
-		return nil, fmt.Errorf("-interactive is expected.")
+		return nil, fmt.Errorf("--interactive is expected.")
 	}
 	if !*flTty {
-		return nil, fmt.Errorf("-tty is expected.")
+		return nil, fmt.Errorf("--tty is expected.")
 	}
 	if *flDetach {
-		return nil, fmt.Errorf("Currently, -detach is not supported.")
+		return nil, fmt.Errorf("Currently, --detach is not supported.")
 	}
 
 	parsedArgs := cmd.Args()
@@ -65,7 +68,9 @@ func parseRun(cmd *flag.FlagSet, args []string) (*docker.CreateContainerOptions,
 			AttachStderr: true,
 			Tty:          *flTty,
 		},
-		HostConfig: &docker.HostConfig{},
+		HostConfig: &docker.HostConfig{
+			Binds: flVolumes.GetAllOrEmpty(),
+		},
 	}
 	return &dockerOpt, nil
 }
