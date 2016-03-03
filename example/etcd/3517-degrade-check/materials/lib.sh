@@ -130,6 +130,7 @@ function KILL_DOCKER() {
     docker stop etcd1 etcd2 etcd3
     for f in $(seq 1 3); do
 	   INFO "Killing Docker container etcd${f} (log:${EQ_WORKING_DIR}/etcd${f})"
+	   mkdir ${EQ_WORKING_DIR}/etcd${f}
 	   docker cp etcd${f}:/log ${EQ_WORKING_DIR}/etcd${f}
 	   docker rm -f etcd${f}
     done

@@ -26,7 +26,7 @@ import (
 // we can't use explorepolicy.ExplorePolicy directly due to import cycle..
 type TestableExplorePolicy interface {
 	GetNextActionChan() chan signal.Action
-	QueueNextEvent(signal.Event)
+	QueueEvent(signal.Event)
 }
 
 func XTestPolicyWithPacketEvent(t *testing.T, policy TestableExplorePolicy,
@@ -36,7 +36,7 @@ func XTestPolicyWithPacketEvent(t *testing.T, policy TestableExplorePolicy,
 			entityID := fmt.Sprintf("entity-%d", i%entities)
 			event := testutil.NewPacketEvent(t, entityID, i)
 			t.Logf("Test %d: Sending %s", i, event)
-			policy.QueueNextEvent(event)
+			policy.QueueEvent(event)
 			t.Logf("Test %d: Sent %s", i, event)
 		}
 	}

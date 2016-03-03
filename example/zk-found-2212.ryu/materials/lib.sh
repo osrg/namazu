@@ -146,6 +146,7 @@ function KILL_DOCKER() {
     for f in $(seq 1 3); do
 	INFO "Killing Docker container zk${f} (log:${EQ_WORKING_DIR}/zk${f})"
 	docker exec zk${f} /zk/bin/zkServer.sh stop
+	mkdir ${EQ_WORKING_DIR}/zk${f}
         docker cp zk${f}:/zk/jacoco.exec ${EQ_WORKING_DIR}/zk${f}
 	docker cp zk${f}:/zk/logs ${EQ_WORKING_DIR}/zk${f}
 	docker rm -f zk${f}

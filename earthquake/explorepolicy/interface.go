@@ -36,5 +36,5 @@ type ExplorePolicy interface {
 	GetNextActionChan() chan signal.Action
 
 	// queue event
-	QueueNextEvent(signal.Event)
+	QueueEvent(signal.Event)
 }

@@ -2,7 +2,7 @@
 set -x
 set -e
 cd $(dirname $0)
-rm -rf bin inspector/java/base/target analyzer/java/base/target
+rm -rf bin misc/inspector/java/base/target misc/analyzer/java/base/target
 echo "Please clean GOPATH($GOPATH) manually"
 
 

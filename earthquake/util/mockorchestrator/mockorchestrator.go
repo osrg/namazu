@@ -64,7 +64,7 @@ func (orc *MockOrchestrator) handleEvent(event signal.Event) {
 	if orchestratorSideOnlyAction(action) {
 		log.Warnf("MockOrchestrator does not support OrchestratorSideOnly()")
 	}
-	// MockOrchestrator should not block, as in explorepolicy.QueueNextEvent().
+	// MockOrchestrator should not block, as in explorepolicy.QueueEvent().
 	// so we use goroutine here.
 	// Note that action ordering will be non deterministic due to this goroutine..
 	go func() {

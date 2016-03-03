@@ -43,7 +43,7 @@ func (p *MyPolicy) GetNextActionChan() chan signal.Action {
 }
 
 // implements ExplorePolicy interface
-func (p *MyPolicy) QueueNextEvent(event signal.Event) {
+func (p *MyPolicy) QueueEvent(event signal.Event) {
 	// Possible events:
 	//  - JavaFunctionEvent
 	//  - PacketEvent

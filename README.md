@@ -105,7 +105,7 @@ func (p *MyPolicy) GetNextActionChan() chan Action {
 	return p.actionCh
 }
 
-func (p *MyPolicy) QueueNextEvent(event Event) {
+func (p *MyPolicy) QueueEvent(event Event) {
 	// Possible events:
 	//  - JavaFunctionEvent (byteman)
 	//  - PacketEvent (Netfilter, Openflow)
