@@ -172,7 +172,7 @@ func (r *Random) SetHistoryStorage(storage historystorage.HistoryStorage) error 
 	return nil
 }
 
-func (r *Random) GetNextActionChan() chan signal.Action {
+func (r *Random) ActionChan() chan signal.Action {
 	return r.nextActionChan
 }
 

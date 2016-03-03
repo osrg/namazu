@@ -112,7 +112,7 @@ func (this *HookSwitchInspector) Shutdown() {
 
 func (this *HookSwitchInspector) decodeZMQMessageBytes(msgBytes [][]byte) (*hookswitch.HookSwitchMeta, []byte, error) {
 	if len(msgBytes) != 2 {
-		return nil, nil, fmt.Errorf("strange number of parts: %d", len(msgBytes))
+		return nil, nil, fmt.Errorf("strange number of parts: %d, msgBytes=%v", len(msgBytes), msgBytes)
 	}
 	meta := new(hookswitch.HookSwitchMeta)
 	eth := msgBytes[1]

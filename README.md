@@ -101,7 +101,7 @@ type MyPolicy struct {
 	actionCh chan Action
 }
 
-func (p *MyPolicy) GetNextActionChan() chan Action {
+func (p *MyPolicy) ActionChan() chan Action {
 	return p.actionCh
 }
 
