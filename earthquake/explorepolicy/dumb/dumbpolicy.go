@@ -81,7 +81,7 @@ func (d *Dumb) GetNextActionChan() chan signal.Action {
 	return d.nextActionChan
 }
 
-func (d *Dumb) QueueNextEvent(event signal.Event) {
+func (d *Dumb) QueueEvent(event signal.Event) {
 	item, err := queue.NewBasicTBQueueItem(event, d.Interval, d.Interval)
 	if err != nil {
 		panic(log.Critical(err))

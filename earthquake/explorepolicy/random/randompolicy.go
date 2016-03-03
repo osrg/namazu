@@ -228,7 +228,7 @@ func (r *Random) dequeueEventRoutine() {
 	}
 }
 
-func (r *Random) QueueNextEvent(event signal.Event) {
+func (r *Random) QueueEvent(event signal.Event) {
 	minInterval := r.MinInterval
 	maxInterval := r.MaxInterval
 	_, prioritized := r.PrioritizedEntities[event.EntityID()]

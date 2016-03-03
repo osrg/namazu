@@ -80,7 +80,7 @@ func formatSignalPair(event Event, action Action) string {
 	return fmt.Sprintf("%s for %s", aMap["class"], eStr)
 }
 
-func (p *MyPolicy) QueueNextEvent(event Event) {
+func (p *MyPolicy) QueueEvent(event Event) {
 	action, err := event.DefaultAction()
 	if err != nil {
 		panic(log.Critical(err))

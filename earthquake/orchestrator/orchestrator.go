@@ -73,7 +73,7 @@ func NewOrchestrator(cfg Config, policy ExplorePolicy, collectTrace bool) *Orche
 
 func (orc *Orchestrator) handleEvent(event Event) {
 	log.Debugf("Orchestrator handling event %s", event)
-	orc.policy.QueueNextEvent(event)
+	orc.policy.QueueEvent(event)
 	log.Debugf("Orchestrator handled event %s", event)
 }
 
@@ -120,7 +120,7 @@ func (orc *Orchestrator) eventRoutine() {
 		select {
 		case event, ok := <-orc.endpointEventCh:
 			if ok {
-				// handleEvent() basically does: `policy.QueueNextEvent(event)`
+				// handleEvent() basically does: `policy.QueueEvent(event)`
 				orc.handleEvent(event)
 			} else {
 				orc.endpointEventCh = nil
