@@ -84,11 +84,23 @@ func (this *NFQInspector) decodeNFPacket(nfp netfilter.NFPacket) (ip *layers.IPv
 	return
 }
 
+func packetBytes(nfp netfilter.NFPacket) []byte {
+	dummyEth := []byte("\xff\xff\xff\xff\xff\xff" +
+		"\x00\x00\x00\x00\x00\x00" +
+		"\x08\x00")
+	payload := nfp.Packet.Data()
+	return append(dummyEth[:], payload[:]...)
+}
+
 func (this *NFQInspector) onPacket(nfp netfilter.NFPacket,
 	ip *layers.IPv4, tcp *layers.TCP) error {
 	srcEntityID, dstEntityID := makeEntityIDs(nil, ip, tcp)
+	bytes := packetBytes(nfp)
 	event, err := signal.NewPacketEvent(this.EntityID,
-		srcEntityID, dstEntityID, map[string]interface{}{})
+		srcEntityID, dstEntityID,
+		map[string]interface{}{
+			"bytes": bytes,
+		})
 	if err != nil {
 		return err
 	}
