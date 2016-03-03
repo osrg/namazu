@@ -68,10 +68,8 @@ func TestHookSwitchInspector_10(t *testing.T) {
 func testHookSwitchInspector(t *testing.T, n int) {
 	context, err := zmq.NewContext()
 	assert.NoError(t, err)
-	defer context.Close()
 	socket, err := context.Socket(zmq.Pair)
 	assert.NoError(t, err)
-	defer socket.Close()
 	zmqAddr := tempZMQAddr(t)
 	insp, err := NewHookSwitchInspector(
 		"local://",
@@ -84,10 +82,8 @@ func testHookSwitchInspector(t *testing.T, n int) {
 	go func() {
 		insp.Serve()
 	}()
-	defer insp.Shutdown()
 
 	chans := socket.Channels()
-	defer chans.Close()
 	for i := 0; i < n; i++ {
 		req := hookSwitchRequest(t, i)
 		chans.Out() <- req
@@ -99,4 +95,8 @@ func testHookSwitchInspector(t *testing.T, n int) {
 			t.Fatal(err)
 		}
 	}
+	insp.Shutdown()
+	chans.Close()
+	socket.Close()
+	context.Close()
 }
