@@ -18,14 +18,13 @@ package random
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
-
 	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/historystorage"
 	"github.com/osrg/earthquake/earthquake/signal"
 	"github.com/osrg/earthquake/earthquake/util/config"
 	queue "github.com/osrg/earthquake/earthquake/util/queue"
+	"math/rand"
+	"time"
 )
 
 type Random struct {
@@ -56,22 +55,26 @@ type Random struct {
 
 	// parameter "faultActionProbability”
 	FaultActionProbability float64
+
+	// parameter "procResetSchedProbability”
+	ProcResetSchedProbability float64
 }
 
 func New() *Random {
 	nextActionChan := make(chan signal.Action)
 	q := queue.NewBasicTBQueue()
 	r := &Random{
-		nextActionChan:           nextActionChan,
-		queue:                    q,
-		queueDeqCh:               q.GetDequeueChan(),
-		shelActionRoutineRunning: false,
-		MinInterval:              time.Duration(0),
-		MaxInterval:              time.Duration(0),
-		PrioritizedEntities:      make(map[string]bool, 0),
-		ShellActionInterval:      time.Duration(0),
-		ShellActionCommand:       "",
-		FaultActionProbability:   0.0,
+		nextActionChan:            nextActionChan,
+		queue:                     q,
+		queueDeqCh:                q.GetDequeueChan(),
+		shelActionRoutineRunning:  false,
+		MinInterval:               time.Duration(0),
+		MaxInterval:               time.Duration(0),
+		PrioritizedEntities:       make(map[string]bool, 0),
+		ShellActionInterval:       time.Duration(0),
+		ShellActionCommand:        "",
+		FaultActionProbability:    0.0,
+		ProcResetSchedProbability: 0.1,
 	}
 	go r.dequeueEventRoutine()
 	return r
@@ -97,10 +100,17 @@ func (this *Random) Name() string {
 //  - shellActionCommand(string): command string for injecting ShellAction (default: empty string "")
 //    NOTE: the command execution blocks.
 //
-//  - faultActionProbability(float64): probability (0.0-1.0) of PacketFaultAction/FilesystemFaultAction.
+//  - faultActionProbability(float64): probability (0.0-1.0) of PacketFaultAction/FilesystemFaultAction (default: 0.0)
+//
+//  - procResetSchedProbability(float64): probability (0.0-1.0) for resetting ProcSetSchedAction (default: 0.1)
 //
 // should support dynamic reloading
 func (r *Random) LoadConfig(cfg config.Config) error {
+	policyName := cfg.GetString("explorePolicy")
+	if policyName != r.Name() {
+		log.Warnf("Policy name mismatch: \"%s\" != \"%s\"", policyName, r.Name())
+	}
+
 	epp := "explorepolicyparam."
 	paramMinInterval := epp + "minInterval"
 	if cfg.IsSet(paramMinInterval) {
@@ -164,6 +174,15 @@ func (r *Random) LoadConfig(cfg config.Config) error {
 	}
 	if r.FaultActionProbability < 0.0 || r.FaultActionProbability > 1.0 {
 		return fmt.Errorf("bad faultActionProbability %f", r.FaultActionProbability)
+	}
+
+	paramProcResetSchedProbability := epp + "procResetSchedProbability"
+	if cfg.IsSet(paramProcResetSchedProbability) {
+		r.ProcResetSchedProbability = cfg.GetFloat64(paramProcResetSchedProbability)
+		log.Infof("Set procResetSchedProbability=%f", r.ProcResetSchedProbability)
+	}
+	if r.ProcResetSchedProbability < 0.0 || r.ProcResetSchedProbability > 1.0 {
+		return fmt.Errorf("bad procResetSchedProbability %f", r.ProcResetSchedProbability)
 	}
 	return nil
 }
