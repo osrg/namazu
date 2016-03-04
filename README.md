@@ -44,7 +44,7 @@ JUnit tests are interesting to try.
     earthquake-container$ for f in $(seq 1 1000);do mvn test; done
 
 
-You can also specify a config file (`-eq-config` option for `earthquake-container`.)
+You can also specify a config file (`--eq-config` option for `earthquake-container`.)
 A typical configuration file (`config.toml`) is as follows:
 
 ```toml
@@ -59,6 +59,9 @@ explorePolicy = "random"
   # Default: 0 and 0
   minInterval = "80ms"
   maxInterval = "3000ms"
+  # procResetSchedProbability is a probability for resetting process scheduling attributes (for Process inspector)
+  # Default: 0.1 (10%)
+  procResetSchedProbability = 0.1
 
 [container]
   # Default: false
@@ -68,13 +71,14 @@ explorePolicy = "random"
   # Default: "1s"
   procWatchInterval = "1s"
 ```
+For other parameters, please refer to [`config.go`](earthquake/util/config/config.go) and [`randompolicy.go`](earthquake/explorepolicy/random/randompolicy.go).
 
 If you don't want to use containers, you can also use Earthquake with an arbitrary process tree.
 
     $ go get github.com/osrg/earthquake/earthquake
     $ sudo earthquake inspectors proc -root-pid $TARGET_PID -watch-interval 1s -autopilot config.toml
 
-For full-stack (fully-distributed) Earthquake environment, please refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md).)
+For full-stack (fully-distributed) Earthquake environment, please refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md).
 
 [The slides for the presentation at FOSDEM](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42) might be also helpful.
 
