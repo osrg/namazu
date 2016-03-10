@@ -89,7 +89,7 @@ If you don't want to use containers, you can also use Earthquake (process inspec
 For Ethernet inspector,
 
     $ iptables -A OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
-    $ sudo earthquake inspectors proc -nfq-number 42 -autopilot config.toml
+    $ sudo earthquake inspectors ethernet -nfq-number 42 -autopilot config.toml
 	$ sudo -u johndoe $TARGET_PROGRAM
 	$ iptables -D OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
 
