@@ -18,59 +18,44 @@ package random
 import (
 	"github.com/AkihiroSuda/go-linuxsched"
 	log "github.com/cihub/seelog"
-	"github.com/leesper/go_rng"
 	"github.com/osrg/earthquake/earthquake/signal"
 	"math/rand"
-	"runtime"
-	"time"
 )
 
-var (
-	drng = rng.NewDirichletGenerator(time.Now().UnixNano())
-)
-
-type dirichlet struct {
+type extreme struct {
 	r *Random
 }
 
 // implements procPolicyIntf
-func (d *dirichlet) Action(event *signal.ProcSetEvent) (signal.Action, error) {
+func (e *extreme) Action(event *signal.ProcSetEvent) (signal.Action, error) {
 	procs, err := parseProcSetEvent(event)
 	if err != nil {
 		return nil, err
 	}
-	attrs := d.dirichletSchedDeadline(procs, time.Millisecond, 1.0)
+	attrs := e.extremeSched(procs, e.r.PPPExtreme.Prioritized)
 	for pidStr, attr := range attrs {
 		log.Debugf("For PID=%s, setting Attr=%v", pidStr, attr)
 	}
 	return signal.NewProcSetSchedAction(event, attrs)
 }
 
-// Returns map of linuxsched.SchedAttr{Policy: linuxsched.Deadline} for procs.
-// The runtime value is base * r * eff * numCPU, where r is dirichlet-distributed random numbers.
-// (we should improve this strategy.)
-//
+// Returns map of linuxsched.SchedAttr{} for procs
 // due to JSON nature, we use string for PID representation.
-func (d *dirichlet) dirichletSchedDeadline(procs []string, base time.Duration, eff float64) map[string]linuxsched.SchedAttr {
+func (e *extreme) extremeSched(procs []string, nprio int) map[string]linuxsched.SchedAttr {
+	prios := make(map[int]bool)
+	for i := 0; i < nprio; i++ {
+		prios[int(rand.Int31n(int32(len(procs))))] = true
+	}
 	attrs := make(map[string]linuxsched.SchedAttr, len(procs))
-	ratios := drng.FlatDirichlet(len(procs))
 	for i, pidStr := range procs {
-		if rand.Intn(999) < int(d.r.PPPDirichlet.ResetProbability*1000.0) {
+		if prios[i] {
 			attrs[pidStr] = linuxsched.SchedAttr{
-				Policy: linuxsched.Normal,
+				Policy:   linuxsched.FIFO,
+				Priority: uint32(rand.Int31n(100)),
 			}
 		} else {
-			// FIXME: we should obtain actual available NumCPU for the PID rather than runtime.NumCPU()
-			numCPU := runtime.NumCPU()
-			runtime := time.Duration(int(float64(base) * ratios[i] * eff * float64(numCPU)))
-			deadline := base
-			period := deadline
 			attrs[pidStr] = linuxsched.SchedAttr{
-				Policy:   linuxsched.Deadline,
-				Flags:    linuxsched.ResetOnFork,
-				Runtime:  runtime,
-				Deadline: deadline,
-				Period:   period,
+				Policy: linuxsched.Idle,
 			}
 		}
 	}

@@ -61,22 +61,24 @@ type Random struct {
 
 	procPolicy procPolicyIntf
 
-	// parameter "procParam" (for "extreme" procPolicy)
-	ProcParamExtreme procParamExtreme
+	// parameter "procPolicyParam" (for "extreme" procPolicy)
+	PPPExtreme pppExtreme
 
-	// parameter "procParam" (for "dirichlet" procPolicy)
-	ProcParamDirichlet procParamDirichlet
+	// parameter "procPolicyParam" (for "dirichlet" procPolicy)
+	PPPDirichlet pppDirichlet
 }
 
 type procPolicyIntf interface {
 	Action(event *signal.ProcSetEvent) (signal.Action, error)
 }
 
-type procParamExtreme struct {
+type pppExtreme struct {
+	// parameter "procPolicyParam.prioritized”
+	Prioritized int
 }
 
-type procParamDirichlet struct {
-	// parameter "procParam.resetProbability”
+type pppDirichlet struct {
+	// parameter "procPolicyParam.resetProbability”
 	ResetProbability float64
 }
 
@@ -94,8 +96,11 @@ func New() *Random {
 		ShellActionInterval:      time.Duration(0),
 		ShellActionCommand:       "",
 		FaultActionProbability:   0.0,
-		ProcPolicy:               "dirichlet",
-		ProcParamDirichlet: procParamDirichlet{
+		ProcPolicy:               "extreme",
+		PPPExtreme: pppExtreme{
+			Prioritized: 3,
+		},
+		PPPDirichlet: pppDirichlet{
 			ResetProbability: 0.1,
 		},
 	}
@@ -127,12 +132,10 @@ func (this *Random) Name() string {
 //
 //  - procPolicy(string): "extreme", "dirichlet", ..
 //
-//  - procParam(map[string]interface{}) for "extreme":
+//  - procPolicyParam(map[string]interface{}) for "extreme":
+//  -- prioritized:  prioritized processes count
 //
-//  -- N/A
-//
-//  - procParam(map[string]interface{}) for "dirichlet":
-//
+//  - procPolicyParam(map[string]interface{}) for "dirichlet":
 //  -- resetProbability(float64): probability (0.0-1.0) for resetting ProcSetSchedAction (default: 0.1)
 //
 // should support dynamic reloading
@@ -215,18 +218,27 @@ func (r *Random) loadProcConfig(cfg config.Config) error {
 	if paramProcPolicy != "" {
 		r.ProcPolicy = paramProcPolicy
 	}
-	paramPrefix := "explorepolicyparam.procParam."
+	paramPrefix := "explorepolicyparam.procPolicyParam."
 	switch r.ProcPolicy {
+	case "extreme":
+		log.Infof("Set procPolicy=extreme")
+		// should we move the pppExtreme struct to extreme.go?
+		paramPrio := paramPrefix + "prioritized"
+		if cfg.IsSet(paramPrio) {
+			r.PPPExtreme.Prioritized = cfg.GetInt(paramPrio)
+			log.Infof("Set procPolicyParam.prioritized=%d", r.PPPExtreme.Prioritized)
+		}
+		r.procPolicy = &extreme{r: r}
 	case "dirichlet":
 		log.Infof("Set procPolicy=dirichlet")
-		// should we move the procParamDirichlet struct to dirichlet.go?
+		// should we move the pppDirichlet struct to dirichlet.go?
 		paramResetProbability := paramPrefix + "resetProbability"
 		if cfg.IsSet(paramResetProbability) {
-			r.ProcParamDirichlet.ResetProbability = cfg.GetFloat64(paramResetProbability)
-			log.Infof("Set procParam.resetProbability=%f", r.ProcParamDirichlet.ResetProbability)
+			r.PPPDirichlet.ResetProbability = cfg.GetFloat64(paramResetProbability)
+			log.Infof("Set procPolicyParam.resetProbability=%f", r.PPPDirichlet.ResetProbability)
 		}
-		if r.ProcParamDirichlet.ResetProbability < 0.0 || r.ProcParamDirichlet.ResetProbability > 1.0 {
-			return fmt.Errorf("bad procParam.resetProbability %f", r.ProcParamDirichlet.ResetProbability)
+		if r.PPPDirichlet.ResetProbability < 0.0 || r.PPPDirichlet.ResetProbability > 1.0 {
+			return fmt.Errorf("bad procPolicyParam.resetProbability %f", r.PPPDirichlet.ResetProbability)
 		}
 		r.procPolicy = &dirichlet{r: r}
 	default:
