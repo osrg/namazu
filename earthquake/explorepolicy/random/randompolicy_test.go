@@ -71,7 +71,7 @@ explorePolicy = "random"
 	assert.Zero(t, policy.ShellActionInterval)
 	assert.Empty(t, policy.ShellActionCommand)
 	assert.True(t, policy.FaultActionProbability < 0.01)
-	assert.True(t, policy.ProcResetSchedProbability > 0.09)
+	assert.True(t, policy.ProcParamDirichlet.ResetProbability > 0.09)
 
 	badPolicyNameAllowedForExtensibility := `
 explorePolicy = "randomBADBAD"
@@ -82,8 +82,11 @@ explorePolicy = "randomBADBAD"
   shellActionInterval = "10s"
   shellActionCommand = "echo hello world"
   faultActionProbability = 0.1
-  procResetSchedProbability = 0.0
   thisParameterDoesNotExistButShouldNotMatter = 42
+  procPolicy = "dirichlet"
+
+[explorePolicyParam.procParam]
+  resetProbability = 0.0
 `
 	policy, err = newPolicyFromConfigString(badPolicyNameAllowedForExtensibility, "toml")
 	assert.NoError(t, err)
@@ -94,7 +97,8 @@ explorePolicy = "randomBADBAD"
 	assert.Equal(t, policy.ShellActionInterval, 10*time.Second)
 	assert.Equal(t, policy.ShellActionCommand, "echo hello world")
 	assert.True(t, policy.FaultActionProbability > 0.09)
-	assert.True(t, policy.ProcResetSchedProbability < 0.01)
+	assert.Equal(t, policy.ProcPolicy, "dirichlet")
+	assert.True(t, policy.ProcParamDirichlet.ResetProbability < 0.01)
 }
 
 func TestRandomPolicyWithPacketEvent_10_2(t *testing.T) {
@@ -113,15 +117,18 @@ func TestRandomPolicyShouldNotBlockWithPacketEvent_10_10(t *testing.T) {
 	tester.XTestPolicyWithPacketEvent(t, newPolicy(t), 10, 10, false)
 }
 
-func TestRandomPolicyWithProcEvent_100(t *testing.T) {
-	testRandomPolicyWithProcEvent(t, 100)
+func TestRandomPolicyDirichlet_100(t *testing.T) {
+	testRandomPolicyDirichlet(t, 100)
 }
 
-func testRandomPolicyWithProcEvent(t *testing.T, n int) {
+func testRandomPolicyDirichlet(t *testing.T, n int) {
 	cfg := `
 explorePolicy = "random"
 [explorePolicyParam]
-  procResetSchedProbability = 0.5
+  procPolicy = "dirichlet"
+
+[explorePolicyParam.procParam]
+  resetProbability = 0.5
 `
 	policy, err := newPolicyFromConfigString(cfg, "toml")
 	assert.NoError(t, err)

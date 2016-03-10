@@ -59,7 +59,10 @@ explorePolicy = "random"
   # Default: 0 and 0
   minInterval = "80ms"
   maxInterval = "3000ms"
-  # procResetSchedProbability is a probability for resetting process scheduling attributes (for Process inspector)
+  procPolicy = "dirichlet"
+
+[explorePolicyParam.procParam]
+  # resetProbability is a probability for resetting process scheduling attributes (for Process inspector. procPolicy="dirichlet")
   # Default: 0.1 (10%)
   procResetSchedProbability = 0.1
 

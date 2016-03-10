@@ -30,12 +30,17 @@ var (
 	drng = rng.NewDirichletGenerator(time.Now().UnixNano())
 )
 
-func (r *Random) makeActionForProcSetEvent(event *signal.ProcSetEvent) (signal.Action, error) {
-	procs, err := r.parseProcSetEvent(event)
+type dirichlet struct {
+	r *Random
+}
+
+// implements procPolicyIntf
+func (d *dirichlet) Action(event *signal.ProcSetEvent) (signal.Action, error) {
+	procs, err := d.parseProcSetEvent(event)
 	if err != nil {
 		return nil, err
 	}
-	attrs := r.dirichletSchedDeadline(procs, time.Millisecond, 1.0)
+	attrs := d.dirichletSchedDeadline(procs, time.Millisecond, 1.0)
 	for pidStr, attr := range attrs {
 		log.Debugf("For PID=%s, setting Attr=%v", pidStr, attr)
 	}
@@ -45,7 +50,7 @@ func (r *Random) makeActionForProcSetEvent(event *signal.ProcSetEvent) (signal.A
 // parses *ProcSetEvent and returns array of PIDs.
 //
 // due to JSON nature, we use string for PID representation.
-func (r *Random) parseProcSetEvent(event *signal.ProcSetEvent) ([]string, error) {
+func (d *dirichlet) parseProcSetEvent(event *signal.ProcSetEvent) ([]string, error) {
 	option := event.Option()
 	procs, ok := option["procs"].([]string)
 	if !ok {
@@ -61,11 +66,11 @@ func (r *Random) parseProcSetEvent(event *signal.ProcSetEvent) ([]string, error)
 // (we should improve this strategy.)
 //
 // due to JSON nature, we use string for PID representation.
-func (r *Random) dirichletSchedDeadline(procs []string, base time.Duration, eff float64) map[string]linuxsched.SchedAttr {
+func (d *dirichlet) dirichletSchedDeadline(procs []string, base time.Duration, eff float64) map[string]linuxsched.SchedAttr {
 	attrs := make(map[string]linuxsched.SchedAttr, len(procs))
 	ratios := drng.FlatDirichlet(len(procs))
 	for i, pidStr := range procs {
-		if rand.Intn(999) < int(r.ProcResetSchedProbability*1000.0) {
+		if rand.Intn(999) < int(d.r.ProcParamDirichlet.ResetProbability*1000.0) {
 			attrs[pidStr] = linuxsched.SchedAttr{
 				Policy: linuxsched.Normal,
 			}
