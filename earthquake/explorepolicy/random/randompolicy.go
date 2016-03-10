@@ -56,25 +56,53 @@ type Random struct {
 	// parameter "faultActionProbability”
 	FaultActionProbability float64
 
-	// parameter "procResetSchedProbability”
-	ProcResetSchedProbability float64
+	// parameter "procPolicy"
+	ProcPolicy string
+
+	procPolicy procPolicyIntf
+
+	// parameter "procPolicyParam" (for "extreme" procPolicy)
+	PPPExtreme pppExtreme
+
+	// parameter "procPolicyParam" (for "dirichlet" procPolicy)
+	PPPDirichlet pppDirichlet
+}
+
+type procPolicyIntf interface {
+	Action(event *signal.ProcSetEvent) (signal.Action, error)
+}
+
+type pppExtreme struct {
+	// parameter "procPolicyParam.prioritized”
+	Prioritized int
+}
+
+type pppDirichlet struct {
+	// parameter "procPolicyParam.resetProbability”
+	ResetProbability float64
 }
 
 func New() *Random {
 	nextActionChan := make(chan signal.Action)
 	q := queue.NewBasicTBQueue()
 	r := &Random{
-		nextActionChan:            nextActionChan,
-		queue:                     q,
-		queueDeqCh:                q.GetDequeueChan(),
-		shelActionRoutineRunning:  false,
-		MinInterval:               time.Duration(0),
-		MaxInterval:               time.Duration(0),
-		PrioritizedEntities:       make(map[string]bool, 0),
-		ShellActionInterval:       time.Duration(0),
-		ShellActionCommand:        "",
-		FaultActionProbability:    0.0,
-		ProcResetSchedProbability: 0.1,
+		nextActionChan:           nextActionChan,
+		queue:                    q,
+		queueDeqCh:               q.GetDequeueChan(),
+		shelActionRoutineRunning: false,
+		MinInterval:              time.Duration(0),
+		MaxInterval:              time.Duration(0),
+		PrioritizedEntities:      make(map[string]bool, 0),
+		ShellActionInterval:      time.Duration(0),
+		ShellActionCommand:       "",
+		FaultActionProbability:   0.0,
+		ProcPolicy:               "extreme",
+		PPPExtreme: pppExtreme{
+			Prioritized: 3,
+		},
+		PPPDirichlet: pppDirichlet{
+			ResetProbability: 0.1,
+		},
 	}
 	go r.dequeueEventRoutine()
 	return r
@@ -102,7 +130,13 @@ func (this *Random) Name() string {
 //
 //  - faultActionProbability(float64): probability (0.0-1.0) of PacketFaultAction/FilesystemFaultAction (default: 0.0)
 //
-//  - procResetSchedProbability(float64): probability (0.0-1.0) for resetting ProcSetSchedAction (default: 0.1)
+//  - procPolicy(string): "extreme", "dirichlet", ..
+//
+//  - procPolicyParam(map[string]interface{}) for "extreme":
+//  -- prioritized:  prioritized processes count
+//
+//  - procPolicyParam(map[string]interface{}) for "dirichlet":
+//  -- resetProbability(float64): probability (0.0-1.0) for resetting ProcSetSchedAction (default: 0.1)
 //
 // should support dynamic reloading
 func (r *Random) LoadConfig(cfg config.Config) error {
@@ -176,13 +210,39 @@ func (r *Random) LoadConfig(cfg config.Config) error {
 		return fmt.Errorf("bad faultActionProbability %f", r.FaultActionProbability)
 	}
 
-	paramProcResetSchedProbability := epp + "procResetSchedProbability"
-	if cfg.IsSet(paramProcResetSchedProbability) {
-		r.ProcResetSchedProbability = cfg.GetFloat64(paramProcResetSchedProbability)
-		log.Infof("Set procResetSchedProbability=%f", r.ProcResetSchedProbability)
+	return r.loadProcConfig(cfg)
+}
+
+func (r *Random) loadProcConfig(cfg config.Config) error {
+	paramProcPolicy := cfg.GetString("explorepolicyparam.procPolicy")
+	if paramProcPolicy != "" {
+		r.ProcPolicy = paramProcPolicy
 	}
-	if r.ProcResetSchedProbability < 0.0 || r.ProcResetSchedProbability > 1.0 {
-		return fmt.Errorf("bad procResetSchedProbability %f", r.ProcResetSchedProbability)
+	paramPrefix := "explorepolicyparam.procPolicyParam."
+	switch r.ProcPolicy {
+	case "extreme":
+		log.Infof("Set procPolicy=extreme")
+		// should we move the pppExtreme struct to extreme.go?
+		paramPrio := paramPrefix + "prioritized"
+		if cfg.IsSet(paramPrio) {
+			r.PPPExtreme.Prioritized = cfg.GetInt(paramPrio)
+			log.Infof("Set procPolicyParam.prioritized=%d", r.PPPExtreme.Prioritized)
+		}
+		r.procPolicy = &extreme{r: r}
+	case "dirichlet":
+		log.Infof("Set procPolicy=dirichlet")
+		// should we move the pppDirichlet struct to dirichlet.go?
+		paramResetProbability := paramPrefix + "resetProbability"
+		if cfg.IsSet(paramResetProbability) {
+			r.PPPDirichlet.ResetProbability = cfg.GetFloat64(paramResetProbability)
+			log.Infof("Set procPolicyParam.resetProbability=%f", r.PPPDirichlet.ResetProbability)
+		}
+		if r.PPPDirichlet.ResetProbability < 0.0 || r.PPPDirichlet.ResetProbability > 1.0 {
+			return fmt.Errorf("bad procPolicyParam.resetProbability %f", r.PPPDirichlet.ResetProbability)
+		}
+		r.procPolicy = &dirichlet{r: r}
+	default:
+		return fmt.Errorf("bad procPolicy %s", r.ProcPolicy)
 	}
 	return nil
 }
@@ -218,7 +278,7 @@ func (r *Random) shellFaultInjectionRoutine() {
 func (r *Random) makeActionForEvent(event signal.Event) (signal.Action, error) {
 	switch event.(type) {
 	case *signal.ProcSetEvent:
-		return r.makeActionForProcSetEvent(event.(*signal.ProcSetEvent))
+		return r.procPolicy.Action(event.(*signal.ProcSetEvent))
 	}
 	defaultAction, defaultActionErr := event.DefaultAction()
 	faultAction, faultActionErr := event.DefaultFaultAction()

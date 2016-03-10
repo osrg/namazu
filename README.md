@@ -59,9 +59,17 @@ explorePolicy = "random"
   # Default: 0 and 0
   minInterval = "80ms"
   maxInterval = "3000ms"
-  # procResetSchedProbability is a probability for resetting process scheduling attributes (for Process inspector)
-  # Default: 0.1 (10%)
-  procResetSchedProbability = 0.1
+  # for Process inspector, you can specify how to schedule processes
+  # "extreme": pick up some processes and execute them with SCHED_FF scheduler. others are executed with SCHED_IDLE scheduler.
+  # "dirichlet": execute processes with SCHED_DEADLINE scheduler. Dirichlet-distribution is used for deciding runtime values.
+  # Default: "extreme"
+  procPolicy = "extreme"
+
+[explorePolicyParam.procPolicyParam]
+  # prioritized is a number of processes that are highly prioritized.
+  # effective only when procPolicy is "extreme".
+  # Default: 3
+  prioritized = 10
 
 [container]
   # Default: false
@@ -73,10 +81,24 @@ explorePolicy = "random"
 ```
 For other parameters, please refer to [`config.go`](earthquake/util/config/config.go) and [`randompolicy.go`](earthquake/explorepolicy/random/randompolicy.go).
 
-If you don't want to use containers, you can also use Earthquake with an arbitrary process tree.
+If you don't want to use containers, you can also use Earthquake (process inspector) with an arbitrary process tree.
 
     $ go get github.com/osrg/earthquake/earthquake
     $ sudo earthquake inspectors proc -root-pid $TARGET_PID -watch-interval 1s -autopilot config.toml
+
+For Ethernet inspector,
+
+    $ iptables -A OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
+    $ sudo earthquake inspectors proc -nfq-number 42 -autopilot config.toml
+	$ sudo -u johndoe $TARGET_PROGRAM
+	$ iptables -D OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
+
+For Filesystem inspector,
+
+    $ mkdir /tmp/{eqfs-orig,eqfs}
+    $ sudo earthquake inspectors fs -original-dir /tmp/eqfs-orig -mount-point /tmp/eqfs -autopilot config.toml
+	$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_EQFS
+	$ sudo fusermount -u /tmp/eqfs
 
 For full-stack (fully-distributed) Earthquake environment, please refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md).
 
@@ -84,6 +106,7 @@ For full-stack (fully-distributed) Earthquake environment, please refer to [doc/
 
 ## Talks
 
+ * [ApacheCon Core North America](http://events.linuxfoundation.org/events/apachecon-north-america/program/schedule) (May 11-13, 2016, Vancouver)
  * [FOSDEM](https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/) (January 30-31, 2016, Brussels)
  * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii)
 
@@ -148,5 +171,5 @@ func main(){
 Please refer to [example/template](example/template) for further information.
 
 ## Known Limitation
-After running Earthquake (process inspector) many times, `sched_setattr(2)` can fail with `EBUSY`.
+After running Earthquake (process inspector with `exploreParam.procPolicyParam="dirichlet"`) many times, `sched_setattr(2)` can fail with `EBUSY`.
 This seems to be a bug of kernel; We're looking into this.
