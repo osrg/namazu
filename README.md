@@ -60,16 +60,11 @@ explorePolicy = "random"
   minInterval = "80ms"
   maxInterval = "3000ms"
   # for Process inspector, you can specify how to schedule processes
-  # "extreme": pick up some processes and execute them with SCHED_FF scheduler. others are executed with SCHED_IDLE scheduler.
+  # "mild": execute processes with randomly prioritized SCHED_NORMAL/SCHED_BATCH scheduler.
+  # "extreme": pick up some processes and execute them with SCHED_RR scheduler. others are executed with SCHED_BATCH scheduler.
   # "dirichlet": execute processes with SCHED_DEADLINE scheduler. Dirichlet-distribution is used for deciding runtime values.
-  # Default: "extreme"
+  # Default: "mild"
   procPolicy = "extreme"
-
-[explorePolicyParam.procPolicyParam]
-  # prioritized is a number of processes that are highly prioritized.
-  # effective only when procPolicy is "extreme".
-  # Default: 3
-  prioritized = 10
 
 [container]
   # Default: false
