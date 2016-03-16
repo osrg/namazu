@@ -22,17 +22,17 @@ import (
 	"math/rand"
 )
 
-type extreme struct {
+type mild struct {
 	r *Random
 }
 
 // implements procPolicyIntf
-func (e *extreme) Action(event *signal.ProcSetEvent) (signal.Action, error) {
+func (e *mild) Action(event *signal.ProcSetEvent) (signal.Action, error) {
 	procs, err := parseProcSetEvent(event)
 	if err != nil {
 		return nil, err
 	}
-	attrs := e.extremeSched(procs, e.r.PPPExtreme.Prioritized)
+	attrs := e.mildSched(procs, e.r.PPPMild.UseBatch)
 	for pidStr, attr := range attrs {
 		log.Debugf("For PID=%s, setting Attr=%v", pidStr, attr)
 	}
@@ -41,22 +41,16 @@ func (e *extreme) Action(event *signal.ProcSetEvent) (signal.Action, error) {
 
 // Returns map of linuxsched.SchedAttr{} for procs
 // due to JSON nature, we use string for PID representation.
-func (e *extreme) extremeSched(procs []string, nprio int) map[string]linuxsched.SchedAttr {
-	prios := make(map[int]bool)
-	for i := 0; i < nprio; i++ {
-		prios[int(rand.Int31n(int32(len(procs))))] = true
-	}
+func (e *mild) mildSched(procs []string, useBatch bool) map[string]linuxsched.SchedAttr {
 	attrs := make(map[string]linuxsched.SchedAttr, len(procs))
-	for i, pidStr := range procs {
-		if prios[i] {
-			attrs[pidStr] = linuxsched.SchedAttr{
-				Policy:   linuxsched.RR,
-				Priority: uint32(rand.Int31n(10)),
-			}
-		} else {
-			attrs[pidStr] = linuxsched.SchedAttr{
-				Policy: linuxsched.Batch,
-			}
+	for _, pidStr := range procs {
+		policy := linuxsched.Normal
+		if useBatch {
+			policy = linuxsched.Batch
+		}
+		attrs[pidStr] = linuxsched.SchedAttr{
+			Policy: policy,
+			Nice:   int32(-20 + rand.Int31n(40)),
 		}
 	}
 	return attrs

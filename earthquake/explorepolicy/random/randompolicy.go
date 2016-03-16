@@ -61,6 +61,9 @@ type Random struct {
 
 	procPolicy procPolicyIntf
 
+	// parameter "procPolicyParam" (for "mild" procPolicy)
+	PPPMild pppMild
+
 	// parameter "procPolicyParam" (for "extreme" procPolicy)
 	PPPExtreme pppExtreme
 
@@ -70,6 +73,11 @@ type Random struct {
 
 type procPolicyIntf interface {
 	Action(event *signal.ProcSetEvent) (signal.Action, error)
+}
+
+type pppMild struct {
+	// parameter "procPolicyParam.useBatch”
+	UseBatch bool
 }
 
 type pppExtreme struct {
@@ -96,7 +104,10 @@ func New() *Random {
 		ShellActionInterval:      time.Duration(0),
 		ShellActionCommand:       "",
 		FaultActionProbability:   0.0,
-		ProcPolicy:               "extreme",
+		ProcPolicy:               "mild",
+		PPPMild: pppMild{
+			UseBatch: true,
+		},
 		PPPExtreme: pppExtreme{
 			Prioritized: 3,
 		},
@@ -130,10 +141,13 @@ func (this *Random) Name() string {
 //
 //  - faultActionProbability(float64): probability (0.0-1.0) of PacketFaultAction/FilesystemFaultAction (default: 0.0)
 //
-//  - procPolicy(string): "extreme", "dirichlet", ..
+//  - procPolicy(string): "mild", "extreme", "dirichlet", ..
+//
+//  - procPolicyParam(map[string]interface{}) for "mild":
+//  -- useBatch(bool): use SCHED_BATCH
 //
 //  - procPolicyParam(map[string]interface{}) for "extreme":
-//  -- prioritized:  prioritized processes count
+//  -- prioritized(int): prioritized processes count
 //
 //  - procPolicyParam(map[string]interface{}) for "dirichlet":
 //  -- resetProbability(float64): probability (0.0-1.0) for resetting ProcSetSchedAction (default: 0.1)
@@ -220,6 +234,14 @@ func (r *Random) loadProcConfig(cfg config.Config) error {
 	}
 	paramPrefix := "explorepolicyparam.procPolicyParam."
 	switch r.ProcPolicy {
+	case "mild":
+		log.Infof("Set procPolicy=mild")
+		paramUseBatch := paramPrefix + "useBatch"
+		if cfg.IsSet(paramUseBatch) {
+			r.PPPMild.UseBatch = cfg.GetBool(paramUseBatch)
+			log.Infof("Set procPolicyParam.useBatch=%s", r.PPPMild.UseBatch)
+		}
+		r.procPolicy = &mild{r: r}
 	case "extreme":
 		log.Infof("Set procPolicy=extreme")
 		// should we move the pppExtreme struct to extreme.go?
