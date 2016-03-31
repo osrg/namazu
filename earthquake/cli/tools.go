@@ -27,11 +27,11 @@ type toolsCmd struct {
 }
 
 func (cmd toolsCmd) Help() string {
-	return "tools help (todo)"
+	return "Please run `earthquake --help run` instead"
 }
 
 func (cmd toolsCmd) Run(args []string) int {
-	c := mcli.NewCLI("earthquake search tools", coreutil.EarthquakeVersion)
+	c := mcli.NewCLI("earthquake tools", coreutil.EarthquakeVersion)
 	c.Args = args
 	c.Commands = map[string]mcli.CommandFactory{
 		"visualize":  tools.VisualizeCommandFactory,
@@ -48,7 +48,7 @@ func (cmd toolsCmd) Run(args []string) int {
 }
 
 func (cmd toolsCmd) Synopsis() string {
-	return "Call miscellaneous tools"
+	return "Call miscellaneous tools related to `run` command"
 }
 
 func toolsCommandFactory() (mcli.Command, error) {

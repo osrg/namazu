@@ -247,7 +247,21 @@ type runCmd struct {
 }
 
 func (cmd runCmd) Help() string {
-	return "run help (todo)"
+	s := `
+The run command starts the orchestrator and run an experiment with the workspace.
+Before running this command, you have to initialize the workspace using the init command.
+
+Typical usage:
+     $ earthquake init --force config.toml materials /tmp/x
+     $ for f in $(seq 1 100);do earthquake run /tmp/x; done
+     $ earthquake tools summary /tmp/x
+
+You have to prepare config.toml and the materials directory before running the init command.
+Please also refer to the examples included in the github repository: https://github.com/osrg/earthquake/tree/master/example
+
+NOTE: "earthquake run" is different from "earthquake-container run".
+`
+	return s
 }
 
 func (cmd runCmd) Run(args []string) int {
@@ -255,7 +269,7 @@ func (cmd runCmd) Run(args []string) int {
 }
 
 func (cmd runCmd) Synopsis() string {
-	return "Run an experiment"
+	return "Run an experiment with the initialized workspace"
 }
 
 func runCommandFactory() (mcli.Command, error) {

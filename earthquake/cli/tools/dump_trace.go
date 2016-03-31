@@ -96,7 +96,22 @@ func doDumpTrace(trace *SingleTrace) {
 	}
 }
 
-func dumpTrace(args []string) int {
+type dumpTraceCmd struct {
+}
+
+func DumpTraceCommandFactory() (cli.Command, error) {
+	return dumpTraceCmd{}, nil
+}
+
+func (cmd dumpTraceCmd) Synopsis() string {
+	return "dumpTrace subcommand"
+}
+
+func (cmd dumpTraceCmd) Help() string {
+	return "Please run `earthquake --help tools` instead"
+}
+
+func (cmd dumpTraceCmd) Run(args []string) int {
 	dumpTraceFlagset.Parse(args)
 
 	if _dumpTraceFlags.TracePath == "" {
@@ -117,23 +132,4 @@ func dumpTrace(args []string) int {
 
 	doDumpTrace(&trace)
 	return 0
-}
-
-type dumpTraceCmd struct {
-}
-
-func (cmd dumpTraceCmd) Help() string {
-	return "dumpTrace help (todo)"
-}
-
-func (cmd dumpTraceCmd) Run(args []string) int {
-	return dumpTrace(args)
-}
-
-func (cmd dumpTraceCmd) Synopsis() string {
-	return "dumpTrace subcommand"
-}
-
-func DumpTraceCommandFactory() (cli.Command, error) {
-	return dumpTraceCmd{}, nil
 }

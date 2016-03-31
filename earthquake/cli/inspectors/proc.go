@@ -45,23 +45,19 @@ func init() {
 type procCmd struct {
 }
 
-func (cmd procCmd) Help() string {
-	return "Process Inspector"
+func ProcCommandFactory() (cli.Command, error) {
+	return procCmd{}, nil
 }
 
-func (cmd procCmd) Run(args []string) int {
-	return runProcInspector(args)
+func (cmd procCmd) Help() string {
+	return "Please run `earthquake --help inspectors` instead"
 }
 
 func (cmd procCmd) Synopsis() string {
 	return "Start process inspector"
 }
 
-func ProcCommandFactory() (cli.Command, error) {
-	return procCmd{}, nil
-}
-
-func runProcInspector(args []string) int {
+func (cmd procCmd) Run(args []string) int {
 	if err := procFlagset.Parse(args); err != nil {
 		log.Critical(err)
 		return 1

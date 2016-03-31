@@ -244,7 +244,7 @@ type initCmd struct {
 }
 
 func (cmd initCmd) Help() string {
-	return "init help (todo)"
+	return "Please run `earthquake --help run` instead"
 }
 
 func (cmd initCmd) Run(args []string) int {
@@ -252,7 +252,7 @@ func (cmd initCmd) Run(args []string) int {
 }
 
 func (cmd initCmd) Synopsis() string {
-	return "Initialize storage directory"
+	return "Initialize the workspace for \"run\" command"
 }
 
 func initCommandFactory() (cli.Command, error) {

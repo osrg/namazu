@@ -46,23 +46,19 @@ func init() {
 type fsCmd struct {
 }
 
-func (cmd fsCmd) Help() string {
-	return "Filesystem Inspector (uses FUSE)"
+func FsCommandFactory() (cli.Command, error) {
+	return fsCmd{}, nil
 }
 
-func (cmd fsCmd) Run(args []string) int {
-	return runFsInspector(args)
+func (cmd fsCmd) Help() string {
+	return "Please run `earthquake --help inspectors` instead"
 }
 
 func (cmd fsCmd) Synopsis() string {
 	return "Start filesystem inspector"
 }
 
-func FsCommandFactory() (cli.Command, error) {
-	return fsCmd{}, nil
-}
-
-func runFsInspector(args []string) int {
+func (cmd fsCmd) Run(args []string) int {
 	if err := fsFlagset.Parse(args); err != nil {
 		log.Critical(err)
 		return 1

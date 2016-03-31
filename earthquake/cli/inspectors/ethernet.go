@@ -46,23 +46,19 @@ func init() {
 type etherCmd struct {
 }
 
-func (cmd etherCmd) Help() string {
-	return "Ethernet Inspector"
+func EtherCommandFactory() (cli.Command, error) {
+	return etherCmd{}, nil
 }
 
-func (cmd etherCmd) Run(args []string) int {
-	return runEtherInspector(args)
+func (cmd etherCmd) Help() string {
+	return "Please run `earthquake --help inspectors` instead"
 }
 
 func (cmd etherCmd) Synopsis() string {
 	return "Start Ethernet inspector"
 }
 
-func EtherCommandFactory() (cli.Command, error) {
-	return etherCmd{}, nil
-}
-
-func runEtherInspector(args []string) int {
+func (cmd etherCmd) Run(args []string) int {
 	if err := etherFlagset.Parse(args); err != nil {
 		log.Critical(err)
 		return 1
@@ -88,6 +84,7 @@ func runEtherInspector(args []string) int {
 
 	var etherInspector inspector.EthernetInspector
 	if useHookSwitch {
+		log.Infof("Using hookswitch %s", _etherFlags.HookSwitchZMQAddr)
 		etherInspector = &inspector.HookSwitchInspector{
 			OrchestratorURL:   _etherFlags.OrchestratorURL,
 			EntityID:          _etherFlags.EntityID,
@@ -95,6 +92,7 @@ func runEtherInspector(args []string) int {
 			EnableTCPWatcher:  true,
 		}
 	} else {
+		log.Infof("Using NFQ %s", _etherFlags.HookSwitchZMQAddr)
 		etherInspector = &inspector.NFQInspector{
 			OrchestratorURL:  _etherFlags.OrchestratorURL,
 			EntityID:         _etherFlags.EntityID,

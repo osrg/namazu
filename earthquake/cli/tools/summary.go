@@ -89,7 +89,22 @@ func listUpOverAverage(historyStoragePath string) {
 	}
 }
 
-func summary(args []string) int {
+type summaryCmd struct {
+}
+
+func SummaryCommandFactory() (cli.Command, error) {
+	return summaryCmd{}, nil
+}
+
+func (cmd summaryCmd) Synopsis() string {
+	return "summary subcommand"
+}
+
+func (cmd summaryCmd) Help() string {
+	return "Please run `earthquake --help tools` instead"
+}
+
+func (cmd summaryCmd) Run(args []string) int {
 	summaryFlagset.Parse(args)
 
 	if summaryFlagset.NArg() != 1 {
@@ -103,23 +118,4 @@ func summary(args []string) int {
 		doSummary(args[len(args)-1])
 	}
 	return 0
-}
-
-type summaryCmd struct {
-}
-
-func (cmd summaryCmd) Help() string {
-	return "summary help (todo)"
-}
-
-func (cmd summaryCmd) Run(args []string) int {
-	return summary(args)
-}
-
-func (cmd summaryCmd) Synopsis() string {
-	return "summary subcommand"
-}
-
-func SummaryCommandFactory() (cli.Command, error) {
-	return summaryCmd{}, nil
 }

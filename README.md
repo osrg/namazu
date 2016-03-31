@@ -5,12 +5,13 @@
 [![GoDoc](https://godoc.org/github.com/osrg/earthquake/earthquake?status.svg)](https://godoc.org/github.com/osrg/earthquake/earthquake)
 [![Build Status](https://travis-ci.org/osrg/earthquake.svg?branch=master)](https://travis-ci.org/osrg/earthquake)
 [![Coverage Status](https://coveralls.io/repos/github/osrg/earthquake/badge.svg?branch=master)](https://coveralls.io/github/osrg/earthquake?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/osrg/earthquake)](https://goreportcard.com/report/github.com/osrg/earthquake)
 
 Earthquake is a programmable fuzzy scheduler for testing real implementations of distributed system (such as ZooKeeper).
 
 Blog: [http://osrg.github.io/earthquake/](http://osrg.github.io/earthquake/)
 
-Earthquakes permutes C/Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
+Earthquakes permutes Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
 Earthquake can also control non-determinism of the thread interleaving (by calling `sched_setattr(2)` with randomized parameters).
 So Earthquake can be also used for testing standalone multi-threaded software.
 
@@ -27,13 +28,13 @@ Basically, Earthquake permutes events in a random order, but you can write your 
   * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): ([repro code](example/yarn/4301-reproduce))
   * Reproduced flaky tests YARN-{[1978](https://issues.apache.org/jira/browse/YARN-1978), [4168](https://issues.apache.org/jira/browse/YARN-4168), [4543](https://issues.apache.org/jira/browse/YARN-4543), [4548](https://issues.apache.org/jira/browse/YARN-4548), [4556](https://issues.apache.org/jira/browse/YARN-4556)} ([repro instruction](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42))
 
-## Quick Start
-The following instruction shows how you can start *Earthquake Container*, the simplified CLI for Earthquake.
+## Quick Start (Container mode)
+The following instruction shows how you can start *Earthquake Container*, the simplified, Docker-like CLI for Earthquake.
 
 
     $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
     $ go get github.com/osrg/earthquake/earthquake-container
-    $ sudo earthquake-container run -it --rm ubuntu bash
+    $ sudo earthquake-container run -it --rm -v /foo:/foo ubuntu bash
 
 
 In *Earthquake Container*, you can run arbitrary command that might be *flaky*.
@@ -59,6 +60,11 @@ explorePolicy = "random"
   # Default: 0 and 0
   minInterval = "80ms"
   maxInterval = "3000ms"
+
+  # for Ethernet/Filesystem inspectors, you can specify fault-injection probability (0.0-1.0).
+  # Default: 0.0
+  faultActionProbability = 0.0
+
   # for Process inspector, you can specify how to schedule processes
   # "mild": execute processes with randomly prioritized SCHED_NORMAL/SCHED_BATCH scheduler.
   # "extreme": pick up some processes and execute them with SCHED_RR scheduler. others are executed with SCHED_BATCH scheduler.
@@ -76,31 +82,125 @@ explorePolicy = "random"
 ```
 For other parameters, please refer to [`config.go`](earthquake/util/config/config.go) and [`randompolicy.go`](earthquake/explorepolicy/random/randompolicy.go).
 
-If you don't want to use containers, you can also use Earthquake (process inspector) with an arbitrary process tree.
 
+## Quick Start (Non-container mode)
+If you don't want to use containers, please use the `earthquake` command directly.
+
+    $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
     $ go get github.com/osrg/earthquake/earthquake
-    $ sudo earthquake inspectors proc -root-pid $TARGET_PID -watch-interval 1s -autopilot config.toml
 
-For Ethernet inspector,
+### Process inspector
 
-    $ iptables -A OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
-    $ sudo earthquake inspectors ethernet -nfq-number 42 -autopilot config.toml
-	$ sudo -u johndoe $TARGET_PROGRAM
-	$ iptables -D OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
+    $ sudo earthquake inspectors proc -root-pid $TARGET_PID -watch-interval 1s
 
-For Filesystem inspector,
+By default, all the processes and the threads under `$TARGET_PID` are randomly scheduled.
+
+You can also specify a config file by running with `-autopilot config.toml`.
+
+You can also set `-orchestrator-url` and `-entity-id` for distributed execution.
+
+Note that the process inspector may be not effective for reproducing short-running flaky tests, but it's still effective for long-running tests: [issue #125](https://github.com/osrg/earthquake/issues/125).
+
+
+The guide for reproducing flaky Hadoop tests (please use `earthquake` instead of `microearthquake`): [FOSDEM slide 42](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42).
+
+
+### Filesystem inspector (FUSE)
 
     $ mkdir /tmp/{eqfs-orig,eqfs}
-    $ sudo earthquake inspectors fs -original-dir /tmp/eqfs-orig -mount-point /tmp/eqfs -autopilot config.toml
+    $ sudo earthquake inspectors fs -original-dir /tmp/eqfs-orig -mount-point /tmp/eqfs
 	$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_EQFS
 	$ sudo fusermount -u /tmp/eqfs
 
-For full-stack (fully-distributed) Earthquake environment, please refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md).
+By default, all the `read`, `mkdir`, and `rmdir` accesses to the files under `/tmp/eqfs` are randomly scheduled.
+`/tmp/eqfs-orig` is just used as the backing storage.
 
-[The slides for the presentation at FOSDEM](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42) might be also helpful.
+You can also inject faullts (currently just injects `-EIO`) by setting `explorePolicyParam.faultActionProbability` in the config file.
+
+### Ethernet inspector (Linux netfilter_queue)
+
+    $ iptables -A OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
+    $ sudo earthquake inspectors ethernet -nfq-number 42
+	$ sudo -u johndoe $TARGET_PROGRAM
+	$ iptables -D OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
+
+By default, all the packets for `johndoe` are randomly scheduled (with some optimization for TCP retransmission).
+
+You can also inject faults (currently just drop packets) by setting `explorePolicyParam.faultActionProbability` in the config file.
+
+### Ethernet inspector (Openflow 1.3)
+
+You have to install [ryu](https://github.com/osrg/ryu) and [hookswitch](https://github.com/osrg/hookswitch) for this feature.
+
+    $ sudo pip install ryu hookswitch
+    $ sudo hookswitch-of13 ipc:///tmp/hookswitch-socket --tcp-ports=4242,4243,4244
+	$ sudo earthquake inspectors ethernet -hookswitch ipc:///tmp/hookswitch-socket
+
+Please also refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md) for this feature.
+
+### Java inspector (AspectJ, byteman)
+
+To be documented
+
+### Distributed execution
+
+Basically please follow these examples: [example/zk-found-2212.ryu](example/zk-found-2212.ryu), [example/zk-found-2212.nfqhook](example/zk-found-2212.nfqhook)
+
+#### Step 1
+Prepare `config.toml` for distributed execution.
+Example:
+```toml
+# executed in `earthquake init`
+init = "init.sh"
+
+# executed in `earthquake run`
+run = "run.sh"
+
+# executed in `earthquake run` as the test oracle
+validate = "validate.sh"
+
+# executed in `earthquake run` as the clean-up script
+clean = "clean.sh"
+
+# REST port for the communication.
+# You can also set pbPort for ProtocolBuffers (Java inspector)
+restPort = 10080
+
+# of course you can also set explorePolicy here as well
+```
+
+#### Step 2
+Create `materials` directory, and put `*.sh` into it.
+
+#### Step 3
+Run `earthquake init --force config.toml materials /tmp/x`.
+
+This command executes `init.sh` for initializing the workspace `/tmp/x`.
+`init.sh` can access the `materials` directory as `${EQ_MATERIALS_DIR}`.
+
+#### Step 4
+Run `for f in $(seq 1 100);do earthquake run /tmp/x; done`.
+
+This command starts the orchestrator, and executes `run.sh`, `validate.sh`, and `clean.sh` for testing the system (100 times).
+
+`run.sh` should invoke multiple Earthquake inspectors: `earthquake inspectors <proc|fs|ethernet> -entity-id _some_unique_string -orchestrator-url http://127.0.0.1:10080`
+
+`*.sh` can access the `/tmp/x/{00000000, 00000001, 00000002, ..., 00000063}` directory as `${EQ_WORKING_DIR}`, which is intended for putting test results and some relevant information. (Note: 0x63==99)
+
+`validate.sh` should exit with zero for successful executions, and with non-zero status for failed executions.
+
+`clean.sh` is an optional clean-up script for each of the execution.
+
+#### Step 5
+Run `earthquake summary /tmp/x` for summarizing the result.
+
+If you have [JaCoCo](http://eclemma.org/jacoco/) coverage data, you can run `java -jar bin/earthquake-analyzer.jar --classes-path /somewhere/classes /tmp/x` for counting execution patterns as in [FOSDEM slide 18](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/18).
+
+![doc/img/exec-pattern.png](doc/img/exec-pattern.png)
 
 ## Talks
 
+ * [CoreOS Fest](http://sched.co/6Szb) (May 9-10, 2016, Berlin)
  * [ApacheCon Core North America](http://events.linuxfoundation.org/events/apachecon-north-america/program/schedule) (May 11-13, 2016, Vancouver)
  * [FOSDEM](https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/) (January 30-31, 2016, Brussels)
  * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii)
@@ -116,7 +216,8 @@ Released under [Apache License 2.0](LICENSE).
 
 ---------------------------------------
 
-## API Overview
+## API for your own exploration policy
+
 ```go
 // implements earthquake/explorepolicy/ExplorePolicy interface
 type MyPolicy struct {
