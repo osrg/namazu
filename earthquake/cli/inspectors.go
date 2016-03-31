@@ -34,8 +34,8 @@ func (cmd inspectorsCmd) Help() string {
 	- ethernet: Ethernet inspector
 
 	NOTE: this binary does NOT include following inspectors:
-	- Java Inspector:     (included in earthquake/inspector/java)
-	- C Inspector:        (included in earthquake/inspector/c)
+	- Java Inspector:     (included in misc/inspector/java)
+	- C Inspector:        (included in misc/inspector/c) NOT MAINTAINED
 	`
 }
 
