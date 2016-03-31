@@ -22,6 +22,16 @@ import (
 	coreutil "github.com/osrg/earthquake/earthquake/util/core"
 )
 
+func help() string {
+	s := `
+Basically the inspectors command is enough for getting started.
+If you want to run a specific test scenario repeatedly, the init command and the run command are useful.
+
+For further information, please visit the web site: https://github.com/osrg/earthquake
+`
+	return s
+}
+
 func CLIMain(args []string) int {
 	coreutil.Init()
 	defer coreutil.Recoverer()
@@ -32,6 +42,11 @@ func CLIMain(args []string) int {
 		"run":        runCommandFactory,
 		"tools":      toolsCommandFactory,
 		"inspectors": inspectorsCommandFactory,
+	}
+	c.HelpFunc = func(commands map[string]mcli.CommandFactory) string {
+		s := (mcli.BasicHelpFunc(args[0]))(commands)
+		s += help()
+		return s
 	}
 	exitStatus, err := c.Run()
 	if err != nil {

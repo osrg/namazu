@@ -20,15 +20,12 @@ import (
 
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
+
 	inspector "github.com/osrg/earthquake/earthquake/inspector/ethernet"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
 )
 
 type etherFlags struct {
-	AutopilotConfig   string
-	OrchestratorURL   string
-	EntityID          string
+	commonFlags
 	HookSwitchZMQAddr string
 	NFQNumber         int
 }
@@ -39,38 +36,29 @@ var (
 )
 
 func init() {
-	etherFlagset.StringVar(&_etherFlags.OrchestratorURL, "orchestrator-url",
-		ocutil.LocalOrchestratorURL, "orchestrator rest url")
-	etherFlagset.StringVar(&_etherFlags.EntityID, "entity-id",
-		"_earthquake_ethernet_inspector", "Entity ID")
+	initCommon(etherFlagset, &_etherFlags.commonFlags, "_earthquake_ethernet_inspector")
 	etherFlagset.StringVar(&_etherFlags.HookSwitchZMQAddr, "hookswitch",
 		"ipc:///tmp/earthquake-container-hookswitch-zmq", "HookSwitch ZeroMQ addr")
 	etherFlagset.IntVar(&_etherFlags.NFQNumber, "nfq-number",
 		-1, "netfilter_queue number")
-	etherFlagset.StringVar(&_etherFlags.AutopilotConfig, "autopilot", "",
-		"start autopilot-mode orchestrator, if non-empty config path is set")
 }
 
 type etherCmd struct {
-}
-
-func (cmd etherCmd) Help() string {
-	return "Ethernet Inspector"
-}
-
-func (cmd etherCmd) Run(args []string) int {
-	return runEtherInspector(args)
-}
-
-func (cmd etherCmd) Synopsis() string {
-	return "Start Ethernet inspector"
 }
 
 func EtherCommandFactory() (cli.Command, error) {
 	return etherCmd{}, nil
 }
 
-func runEtherInspector(args []string) int {
+func (cmd etherCmd) Help() string {
+	return "Please run `earthquake --help inspectors` instead"
+}
+
+func (cmd etherCmd) Synopsis() string {
+	return "Start Ethernet inspector"
+}
+
+func (cmd etherCmd) Run(args []string) int {
 	if err := etherFlagset.Parse(args); err != nil {
 		log.Critical(err)
 		return 1
@@ -87,26 +75,16 @@ func runEtherInspector(args []string) int {
 		return 1
 	}
 
-	if _etherFlags.AutopilotConfig != "" && _etherFlags.OrchestratorURL != ocutil.LocalOrchestratorURL {
-		log.Critical("non-default orchestrator url set for autopilot orchestration mode")
+	autopilot, err := conditionalStartAutopilotOrchestrator(_fsFlags.commonFlags)
+	if err != nil {
+		log.Critical(err)
 		return 1
 	}
-
-	if _etherFlags.AutopilotConfig != "" {
-		cfg, err := config.NewFromFile(_etherFlags.AutopilotConfig)
-		if err != nil {
-			panic(log.Critical(err))
-		}
-		autopilotOrchestrator, err := ocutil.NewAutopilotOrchestrator(cfg)
-		if err != nil {
-			panic(log.Critical(err))
-		}
-		log.Info("Starting autopilot-mode orchestrator")
-		go autopilotOrchestrator.Start()
-	}
+	log.Infof("Autopilot-mode: %t", autopilot)
 
 	var etherInspector inspector.EthernetInspector
 	if useHookSwitch {
+		log.Infof("Using hookswitch %s", _etherFlags.HookSwitchZMQAddr)
 		etherInspector = &inspector.HookSwitchInspector{
 			OrchestratorURL:   _etherFlags.OrchestratorURL,
 			EntityID:          _etherFlags.EntityID,
@@ -114,6 +92,7 @@ func runEtherInspector(args []string) int {
 			EnableTCPWatcher:  true,
 		}
 	} else {
+		log.Infof("Using NFQ %s", _etherFlags.HookSwitchZMQAddr)
 		etherInspector = &inspector.NFQInspector{
 			OrchestratorURL:  _etherFlags.OrchestratorURL,
 			EntityID:         _etherFlags.EntityID,

@@ -54,11 +54,34 @@ func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnE
 	return
 }
 
+func help() string {
+	// FIXME: why not use the strings in runflag.go?
+	s := `Usage: earthquake-container run [OPTIONS] IMAGE COMMAND
+
+Run a command in a new Earthquake Container
+
+Docker-compatible options:
+  -d, --detach                    [NOT SUPPORTED] Run container in background and print container ID
+  -i, --interactive               Keep STDIN open even if not attached
+  --name                          Assign a name to the container
+  --rm                            Automatically remove the container when it exits
+  -t, --tty                       Allocate a pseudo-TTY
+  -v, --volume=[]                 Bind mount a volume
+
+Earthquake-specific options:
+  -eq-config                      Earthquake configuration file
+
+NOTE: Unlike docker, COMMAND is mandatory at the moment.
+`
+	return s
+}
+
 func Run(args []string) int {
 	dockerOpt, removeOnExit, eqCfg, err := prepare(args)
 	if err != nil {
 		// do not panic here
 		fmt.Fprintf(os.Stderr, "%s\n", err)
+		fmt.Fprintf(os.Stderr, "\n%s\n", help())
 		return 1
 	}
 

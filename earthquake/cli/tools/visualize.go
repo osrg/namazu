@@ -171,7 +171,22 @@ func gnuplot(historyStoragePath string, poReduction bool) error {
 	return nil
 }
 
-func visualize(args []string) int {
+type visualizeCmd struct {
+}
+
+func VisualizeCommandFactory() (cli.Command, error) {
+	return visualizeCmd{}, nil
+}
+
+func (cmd visualizeCmd) Synopsis() string {
+	return "visualize subcommand"
+}
+
+func (cmd visualizeCmd) Help() string {
+	return "Please run `earthquake --help tools` instead"
+}
+
+func (cmd visualizeCmd) Run(args []string) int {
 	visualizeFlagset.Parse(args)
 
 	switch _visualizeFlags.Mode {
@@ -188,23 +203,4 @@ func visualize(args []string) int {
 		return 1
 	}
 	return 0
-}
-
-type visualizeCmd struct {
-}
-
-func (cmd visualizeCmd) Help() string {
-	return "visualize help (todo)"
-}
-
-func (cmd visualizeCmd) Run(args []string) int {
-	return visualize(args)
-}
-
-func (cmd visualizeCmd) Synopsis() string {
-	return "visualize subcommand"
-}
-
-func VisualizeCommandFactory() (cli.Command, error) {
-	return visualizeCmd{}, nil
 }

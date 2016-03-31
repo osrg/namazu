@@ -20,19 +20,16 @@ import (
 
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
-	inspector "github.com/osrg/earthquake/earthquake/inspector/fs"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
 	"github.com/osrg/hookfs/hookfs"
+
+	inspector "github.com/osrg/earthquake/earthquake/inspector/fs"
+	logutil "github.com/osrg/earthquake/earthquake/util/log"
 )
 
 type fsFlags struct {
-	AutopilotConfig string
-	OrchestratorURL string
-	EntityID        string
-	OriginalDir     string
-	Mountpoint      string
+	commonFlags
+	OriginalDir string
+	Mountpoint  string
 }
 
 var (
@@ -41,34 +38,27 @@ var (
 )
 
 func init() {
-	fsFlagset.StringVar(&_fsFlags.OrchestratorURL, "orchestrator-url", ocutil.LocalOrchestratorURL, "orchestrator rest url")
-	fsFlagset.StringVar(&_fsFlags.EntityID, "entity-id", "_earthquake_fs_inspector", "Entity ID")
+	initCommon(fsFlagset, &_fsFlags.commonFlags, "_earthquake_fs_inspector")
 	fsFlagset.StringVar(&_fsFlags.OriginalDir, "original-dir", "", "FUSE Original Directory")
 	fsFlagset.StringVar(&_fsFlags.Mountpoint, "mount-point", "", "FUSE Mount Point")
-	fsFlagset.StringVar(&_fsFlags.AutopilotConfig, "autopilot", "",
-		"start autopilot-mode orchestrator, if non-empty config path is set")
 }
 
 type fsCmd struct {
-}
-
-func (cmd fsCmd) Help() string {
-	return "Filesystem Inspector (uses FUSE)"
-}
-
-func (cmd fsCmd) Run(args []string) int {
-	return runFsInspector(args)
-}
-
-func (cmd fsCmd) Synopsis() string {
-	return "Start filesystem inspector"
 }
 
 func FsCommandFactory() (cli.Command, error) {
 	return fsCmd{}, nil
 }
 
-func runFsInspector(args []string) int {
+func (cmd fsCmd) Help() string {
+	return "Please run `earthquake --help inspectors` instead"
+}
+
+func (cmd fsCmd) Synopsis() string {
+	return "Start filesystem inspector"
+}
+
+func (cmd fsCmd) Run(args []string) int {
 	if err := fsFlagset.Parse(args); err != nil {
 		log.Critical(err)
 		return 1
@@ -84,29 +74,18 @@ func runFsInspector(args []string) int {
 		return 1
 	}
 
-	if _fsFlags.AutopilotConfig != "" && _fsFlags.OrchestratorURL != ocutil.LocalOrchestratorURL {
-		log.Critical("non-default orchestrator url set for autopilot orchestration mode")
+	autopilot, err := conditionalStartAutopilotOrchestrator(_fsFlags.commonFlags)
+	if err != nil {
+		log.Critical(err)
 		return 1
 	}
+	log.Infof("Autopilot-mode: %t", autopilot)
 
 	if logutil.Debug {
 		// log level: 0..2
 		hookfs.SetLogLevel(1)
 	} else {
 		hookfs.SetLogLevel(0)
-	}
-
-	if _fsFlags.AutopilotConfig != "" {
-		cfg, err := config.NewFromFile(_fsFlags.AutopilotConfig)
-		if err != nil {
-			panic(log.Critical(err))
-		}
-		autopilotOrchestrator, err := ocutil.NewAutopilotOrchestrator(cfg)
-		if err != nil {
-			panic(log.Critical(err))
-		}
-		log.Info("Starting autopilot-mode orchestrator")
-		go autopilotOrchestrator.Start()
 	}
 
 	hook := &inspector.FilesystemInspector{
