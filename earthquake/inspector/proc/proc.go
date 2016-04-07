@@ -22,6 +22,8 @@ import (
 
 	"github.com/AkihiroSuda/go-linuxsched"
 	log "github.com/cihub/seelog"
+	"github.com/mitchellh/mapstructure"
+
 	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
 	procutil "github.com/osrg/earthquake/earthquake/util/proc"
@@ -100,18 +102,46 @@ func (this *ProcInspector) onWatch(procs []int) error {
 	switch action.(type) {
 	case *signal.ProcSetSchedAction:
 		return this.onAction(action.(*signal.ProcSetSchedAction))
+	case *signal.NopAction:
+		log.Debugf("nop action %s. ignoring.", action)
+		return nil
 	default:
 		return fmt.Errorf("unknown action %s. ignoring.", action)
 	}
 }
 
-func (this *ProcInspector) onAction(action *signal.ProcSetSchedAction) error {
-	// FIXME: this may not work with REST endpoint.
-	// we need to convert interface{} to linuxsched.SchedAttr here
-
+// FIXME: due to JSON nature, we need complex type conversion, but it should be much simpler. this is the worst code ever
+func parseAttrs(action *signal.ProcSetSchedAction) (map[string]linuxsched.SchedAttr, error) {
+	// for local
 	attrs, ok := action.Option()["attrs"].(map[string]linuxsched.SchedAttr)
+	if ok {
+		return attrs, nil
+	}
+	// for REST
+	xattrs, ok := action.Option()["attrs"].(map[string]interface{})
 	if !ok {
-		return fmt.Errorf("no attrs? this should be an implementation error. action=%#v", action)
+		return nil, fmt.Errorf("no attrs? this should be an implementation error. action=%#v", action)
+	}
+	attrs = make(map[string]linuxsched.SchedAttr)
+	for pidStr, xattr := range xattrs {
+		mattr, ok := xattr.(map[string]interface{})
+		if !ok {
+			return nil, fmt.Errorf("bad attr? this should be an implementation error. xattr=%#v, action=%#v", xattr, action)
+		}
+		attr := linuxsched.SchedAttr{}
+		err := mapstructure.Decode(mattr, &attr)
+		if err != nil {
+			return nil, err
+		}
+		attrs[pidStr] = attr
+	}
+	return attrs, nil
+}
+
+func (this *ProcInspector) onAction(action *signal.ProcSetSchedAction) error {
+	attrs, err := parseAttrs(action)
+	if err != nil {
+		return err
 	}
 
 	for pidStr, attr := range attrs {

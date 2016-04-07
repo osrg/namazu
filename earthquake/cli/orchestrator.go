@@ -17,6 +17,8 @@ package cli
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
 
 	log "github.com/cihub/seelog"
 	mcli "github.com/mitchellh/cli"
@@ -64,12 +66,14 @@ func (cmd orchestratorCmd) Run(args []string) int {
 		log.Criticalf("%s", err)
 		return 1
 	}
-	log.Infof("Starting Orchestrator")
 	orchestrator.Start()
-	for {
-	}
+	log.Infof("Started Orchestrator")
 
-	// TODO: support orchestrator.Shutdown() and get the trace
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	<-c
+
+	orchestrator.Shutdown()
 	return 0
 }
 
