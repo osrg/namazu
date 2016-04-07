@@ -3,7 +3,7 @@ language: go
 sudo: required
 
 go:
-  - tip
+  - 1.6
 
 services:
   - docker
