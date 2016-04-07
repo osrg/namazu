@@ -23,13 +23,26 @@ import (
 // parses *ProcSetEvent and returns array of PIDs.
 //
 // due to JSON nature, we use string for PID representation.
+// FIXME: worst code ever
 func parseProcSetEvent(event *signal.ProcSetEvent) ([]string, error) {
 	option := event.Option()
+	var procs []string
+	// for local
 	procs, ok := option["procs"].([]string)
+	if ok {
+		return procs, nil
+	}
+	// for rest
+	xprocs, ok := option["procs"].([]interface{})
 	if !ok {
-		// FIXME: this may not work with REST endpoint.
-		// we need to convert []interface{} to []string here..?
 		return nil, fmt.Errorf("no procs? this should be an implementation error. event=%#v", event)
+	}
+	for _, xproc := range xprocs {
+		proc, ok := xproc.(string)
+		if !ok {
+			return nil, fmt.Errorf("non-string proc? this should be an implementation error. xproc=%#v, event=%#v", xproc, event)
+		}
+		procs = append(procs, proc)
 	}
 	return procs, nil
 }
