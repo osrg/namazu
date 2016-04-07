@@ -97,7 +97,7 @@ By default, all the processes and the threads under `$TARGET_PID` are randomly s
 
 You can also specify a config file by running with `-autopilot config.toml`.
 
-You can also set `-orchestrator-url` and `-entity-id` for distributed execution.
+You can also set `-orchestrator-url` (e.g. `http://127.0.0.1:10080/api/v3`) and `-entity-id` for distributed execution.
 
 Note that the process inspector may be not effective for reproducing short-running flaky tests, but it's still effective for long-running tests: [issue #125](https://github.com/osrg/earthquake/issues/125).
 
@@ -183,7 +183,7 @@ Run `for f in $(seq 1 100);do earthquake run /tmp/x; done`.
 
 This command starts the orchestrator, and executes `run.sh`, `validate.sh`, and `clean.sh` for testing the system (100 times).
 
-`run.sh` should invoke multiple Earthquake inspectors: `earthquake inspectors <proc|fs|ethernet> -entity-id _some_unique_string -orchestrator-url http://127.0.0.1:10080`
+`run.sh` should invoke multiple Earthquake inspectors: `earthquake inspectors <proc|fs|ethernet> -entity-id _some_unique_string -orchestrator-url http://127.0.0.1:10080/api/v3`
 
 `*.sh` can access the `/tmp/x/{00000000, 00000001, 00000002, ..., 00000063}` directory as `${EQ_WORKING_DIR}`, which is intended for putting test results and some relevant information. (Note: 0x63==99)
 

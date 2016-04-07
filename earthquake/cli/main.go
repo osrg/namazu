@@ -38,10 +38,11 @@ func CLIMain(args []string) int {
 	c := mcli.NewCLI(args[0], coreutil.EarthquakeVersion)
 	c.Args = args[1:]
 	c.Commands = map[string]mcli.CommandFactory{
-		"init":       initCommandFactory,
-		"run":        runCommandFactory,
-		"tools":      toolsCommandFactory,
-		"inspectors": inspectorsCommandFactory,
+		"init":         initCommandFactory,
+		"run":          runCommandFactory,
+		"orchestrator": orchestratorCommandFactory,
+		"inspectors":   inspectorsCommandFactory,
+		"tools":        toolsCommandFactory,
 	}
 	c.HelpFunc = func(commands map[string]mcli.CommandFactory) string {
 		s := (mcli.BasicHelpFunc(args[0]))(commands)
