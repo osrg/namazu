@@ -75,9 +75,9 @@ explorePolicy = "random"
 [container]
   # Default: false
   enableEthernetInspector = true
+  ethernetNFQNumber = 42
   # Default: true
   enableProcInspector = true
-  # Default: "1s"
   procWatchInterval = "1s"
 ```
 For other parameters, please refer to [`config.go`](earthquake/util/config/config.go) and [`randompolicy.go`](earthquake/explorepolicy/random/randompolicy.go).
