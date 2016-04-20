@@ -18,7 +18,6 @@ package endpoint
 import (
 	"flag"
 	"fmt"
-	log "github.com/cihub/seelog"
 	"github.com/osrg/earthquake/earthquake/endpoint/rest"
 	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
@@ -31,7 +30,6 @@ import (
 	"os"
 	"sync"
 	"testing"
-	"time"
 )
 
 var (
@@ -82,12 +80,6 @@ func TestMain(m *testing.M) {
 		}
 		restTransceivers[i].Start()
 	}
-	// we need to wait here.
-	// otherwise the test can hang due to an error from restendpoint.go:
-	// "Ignored action for unknown entity %s. You sent the action before registration done?"
-	// FIXME: there should be some notification
-	log.Debugf("FIXME: sleeping for 10 seconds, but we should not sleep here..")
-	time.Sleep(10 * time.Second)
 	os.Exit(m.Run())
 }
 

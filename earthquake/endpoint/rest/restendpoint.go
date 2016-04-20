@@ -50,8 +50,10 @@ func queueFromHttpRequest(r *http.Request) (*ActionQueue, error) {
 	entityID := vars["entity_id"]
 	queue := GetQueue(entityID)
 	if queue == nil {
+		// Note that another routine can register the entity
 		queue, err = RegisterNewQueue(entityID)
-		if err != nil {
+		// "already registered" err is not an issue here
+		if err != nil && queue == nil {
 			return nil, err
 		}
 	}
@@ -79,6 +81,14 @@ func eventsOnPost(w http.ResponseWriter, r *http.Request) {
 		restutil.WriteError(w, err)
 		return
 	}
+	// register entity if it is not registered yet.
+	// FIXME: rename the function
+	_, err = queueFromHttpRequest(r)
+	if err != nil {
+		restutil.WriteError(w, err)
+		return
+	}
+
 	// send event to orchestrator main
 	go func() {
 		orchestratorEventCh <- event
@@ -140,7 +150,8 @@ func actionPropagatorRoutine() {
 		queue := GetQueue(action.EntityID())
 		if queue == nil {
 			log.Errorf("Ignored action for unknown entity %s."+
-				"You sent the action before registration done?", action.EntityID())
+				"Orchestrator sent an action before registration is done?", action.EntityID())
+			log.Errorf("Action: %#v", action)
 			continue
 		}
 		queue.Put(action)

@@ -139,7 +139,7 @@ func RegisterNewQueue(entityID string) (*ActionQueue, error) {
 	defer queuesLock.Unlock()
 	old, oldOk := queues[entityID]
 	if oldOk {
-		return nil, fmt.Errorf("entity exists %s(%#v)", entityID, old)
+		return old, fmt.Errorf("entity exists %s(%#v)", entityID, old)
 	}
 	queue := ActionQueue{
 		EntityID:         entityID,
