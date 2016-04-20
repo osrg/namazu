@@ -18,9 +18,11 @@ package explorepolicy
 import (
 	dumb "github.com/osrg/earthquake/earthquake/explorepolicy/dumb"
 	random "github.com/osrg/earthquake/earthquake/explorepolicy/random"
+	replayable "github.com/osrg/earthquake/earthquake/explorepolicy/replayable"
 )
 
 func RegisterKnownExplorePolicies() {
 	RegisterPolicy(dumb.Name, func() ExplorePolicy { return dumb.New() })
 	RegisterPolicy(random.Name, func() ExplorePolicy { return random.New() })
+	RegisterPolicy(replayable.Name, func() ExplorePolicy { return replayable.New() })
 }

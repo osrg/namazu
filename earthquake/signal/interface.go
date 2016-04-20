@@ -21,6 +21,15 @@ type Event interface {
 	// json name: "deferred"
 	Deferred() bool
 
+	// explore policy can use this hash string as a hint for semi-deterministic replaying.
+	// The hint should not contain time-dependent or random things for better determinism.
+	// Note that we will not support fully deterministic replaying.
+	//
+	// The hint can contain any character.
+	//
+	// json name: "replay_hint"
+	ReplayHint() string
+
 	// default positive action. can be NopAction, but cannot be nil.
 	// (NopAction is used for history storage)
 	DefaultAction() (Action, error)
