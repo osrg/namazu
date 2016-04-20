@@ -22,7 +22,6 @@ import (
 	"os"
 	"sync"
 	"testing"
-	"time"
 
 	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
 	"github.com/osrg/earthquake/earthquake/signal"
@@ -76,11 +75,6 @@ func TestMain(m *testing.M) {
 		transceivers[i].Start()
 	}
 
-	// we need to wait here.
-	// otherwise the test can hang due to an error from restendpoint.go:
-	// "Ignored action for unknown entity %s. You sent the action before registration done?"
-	// FIXME: there should be some notification
-	time.Sleep(10 * time.Second)
 	os.Exit(m.Run())
 }
 
