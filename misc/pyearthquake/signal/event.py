@@ -12,7 +12,7 @@ class PacketEvent(EventBase):
     deferred = True
 
     @classmethod
-    def from_message(cls, src_entity, dst_entity, message):
+    def from_message(cls, src_entity, dst_entity, message, replay_hint=""):
         inst = cls()
         # we do not set inst.entity here
         inst.option = {
@@ -20,6 +20,7 @@ class PacketEvent(EventBase):
             'dst_entity': dst_entity,
             'message': message
         }
+        inst.replay_hint = replay_hint
         return inst
 
 

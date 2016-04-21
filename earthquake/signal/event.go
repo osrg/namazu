@@ -44,6 +44,20 @@ func (this *BasicEvent) SetDeferred(deferred bool) {
 }
 
 // implements Event
+func (this *BasicEvent) ReplayHint() string {
+	hint, ok := this.Get("replay_hint").(string)
+	if !ok {
+		return ""
+	}
+	return hint
+}
+
+func (this *BasicEvent) SetReplayHint(hint string) {
+	// use BasicSignal.Set() so as to serialize in JSON
+	this.Set("replay_hint", hint)
+}
+
+// implements Event
 func (this *BasicEvent) DefaultAction() (Action, error) {
 	if this.Deferred() {
 		return NewEventAcceptanceAction(this)

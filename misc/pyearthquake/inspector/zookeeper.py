@@ -109,7 +109,9 @@ class ZkEtherInspector(EtherInspectorBase):
         src_entity, dst_entity = self.map_zktraffic_message_to_entity_ids(
             zt_msg)
         d = self.map_zktraffic_message_to_dict(zt_msg)
-        event = PacketEvent.from_message(src_entity, dst_entity, d)
+        ## replay_hint is an optional string that helps replaying
+        replay_hint = str(hash(frozenset(d.items())))
+        event = PacketEvent.from_message(src_entity, dst_entity, d, replay_hint)
 
         if isinstance(zt_msg, FLE.Message):
             LOG.debug(colorama.Back.CYAN + colorama.Fore.BLACK +

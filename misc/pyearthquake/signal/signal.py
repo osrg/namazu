@@ -101,7 +101,8 @@ class EventBase(SignalBase):
     """
     type_name = 'event'
     deferred = False
-    var_names = SignalBase.var_names + ['deferred']
+    replay_hint = ''
+    var_names = SignalBase.var_names + ['deferred', 'replay_hint']
     # orchestrator sets recv_timestamp
     recv_timestamp = -1
 
