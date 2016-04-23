@@ -68,7 +68,7 @@ func (cmd procCmd) Run(args []string) int {
 		return 1
 	}
 
-	autopilot, err := conditionalStartAutopilotOrchestrator(_fsFlags.commonFlags)
+	autopilot, err := conditionalStartAutopilotOrchestrator(_procFlags.commonFlags)
 	if err != nil {
 		log.Critical(err)
 		return 1
