@@ -28,13 +28,17 @@ Basically, Earthquake permutes events in a random order, but you can write your 
   * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): ([repro code](example/yarn/4301-reproduce))
   * Reproduced flaky tests YARN-{[1978](https://issues.apache.org/jira/browse/YARN-1978), [4168](https://issues.apache.org/jira/browse/YARN-4168), [4543](https://issues.apache.org/jira/browse/YARN-4543), [4548](https://issues.apache.org/jira/browse/YARN-4548), [4556](https://issues.apache.org/jira/browse/YARN-4556)} ([repro instruction](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42))
 
+## Installation
+The installation process is very simple:
+
+    $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
+    $ go get github.com/osrg/earthquake/earthquake
+
+
 ## Quick Start (Container mode)
 The following instruction shows how you can start *Earthquake Container*, the simplified, Docker-like CLI for Earthquake.
 
-
-    $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
-    $ go get github.com/osrg/earthquake/earthquake-container
-    $ sudo earthquake-container run -it --rm -v /foo:/foo ubuntu bash
+    $ sudo earthquake container run -it --rm -v /foo:/foo ubuntu bash
 
 
 In *Earthquake Container*, you can run arbitrary command that might be *flaky*.
@@ -45,7 +49,7 @@ JUnit tests are interesting to try.
     earthquake-container$ for f in $(seq 1 1000);do mvn test; done
 
 
-You can also specify a config file (`--eq-config` option for `earthquake-container`.)
+You can also specify a config file (`--eq-config` option for `earthquake container`.)
 A typical configuration file (`config.toml`) is as follows:
 
 ```toml
@@ -84,10 +88,6 @@ For other parameters, please refer to [`config.go`](earthquake/util/config/confi
 
 
 ## Quick Start (Non-container mode)
-If you don't want to use containers, please use the `earthquake` command directly.
-
-    $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
-    $ go get github.com/osrg/earthquake/earthquake
 
 ### Process inspector
 
@@ -114,6 +114,7 @@ The guide for reproducing flaky Hadoop tests (please use `earthquake` instead of
 
 By default, all the `read`, `mkdir`, and `rmdir` accesses to the files under `/tmp/eqfs` are randomly scheduled.
 `/tmp/eqfs-orig` is just used as the backing storage.
+(Note that you have to set `explorePolicyParam.minInterval` and `explorePolicyParam.maxInterval` in the config file.)
 
 You can also inject faullts (currently just injects `-EIO`) by setting `explorePolicyParam.faultActionProbability` in the config file.
 

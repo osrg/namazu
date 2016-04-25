@@ -22,8 +22,8 @@ import (
 	log "github.com/cihub/seelog"
 	flag "github.com/docker/docker/pkg/mflag"
 	docker "github.com/fsouza/go-dockerclient"
-	"github.com/osrg/earthquake/earthquake-container/container"
-	"github.com/osrg/earthquake/earthquake-container/core"
+	"github.com/osrg/earthquake/earthquake/container"
+	"github.com/osrg/earthquake/earthquake/container/ns"
 	"github.com/osrg/earthquake/earthquake/util/config"
 )
 
@@ -56,7 +56,7 @@ func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnE
 
 func help() string {
 	// FIXME: why not use the strings in runflag.go?
-	s := `Usage: earthquake-container run [OPTIONS] IMAGE COMMAND
+	s := `Usage: earthquake container run [OPTIONS] IMAGE COMMAND
 
 Run a command in a new Earthquake Container
 
@@ -85,13 +85,13 @@ func Run(args []string) int {
 		return 1
 	}
 
-	client, err := container.NewDockerClient()
+	client, err := ns.NewDockerClient()
 	if err != nil {
 		panic(log.Critical(err))
 	}
 
 	containerExitStatusChan := make(chan error)
-	c, err := container.Boot(client, dockerOpt, containerExitStatusChan)
+	c, err := ns.Boot(client, dockerOpt, containerExitStatusChan)
 	if err == docker.ErrNoSuchImage {
 		log.Critical(err)
 		// TODO: pull the image automatically
@@ -101,10 +101,10 @@ func Run(args []string) int {
 		panic(log.Critical(err))
 	}
 	if removeOnExit {
-		defer container.Remove(client, c)
+		defer ns.Remove(client, c)
 	}
 
-	err = core.StartEarthquakeRoutines(c, eqCfg)
+	err = container.StartEarthquakeRoutines(c, eqCfg)
 	if err != nil {
 		panic(log.Critical(err))
 	}

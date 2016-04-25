@@ -13,22 +13,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// +build !static
+
 package container
 
 import (
-	"os"
-	"strings"
-
-	log "github.com/cihub/seelog"
 	docker "github.com/fsouza/go-dockerclient"
+
+	"github.com/osrg/earthquake/earthquake/container/ns"
+	"github.com/osrg/earthquake/earthquake/inspector/ethernet"
+	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
 )
 
-func NewDockerClient() (*docker.Client, error) {
-	host := os.Getenv("DOCKER_HOST")
-	hostIsLocal := host == "" || strings.HasPrefix(host, "unix://")
-	if !hostIsLocal {
-		log.Warnf("Detected DOCKER_HOST %s. This should not be remote.",
-			host)
+func ServeEthernetInspector(c *docker.Container, queueNum int) error {
+	err := ns.EnterDockerNetNs(c)
+	if err != nil {
+		return err
 	}
-	return docker.NewClientFromEnv()
+	insp := &ethernet.NFQInspector{
+		OrchestratorURL:  ocutil.LocalOrchestratorURL,
+		EntityID:         "_earthquake_container_ethernet_inspector",
+		NFQNumber:        uint16(queueNum),
+		EnableTCPWatcher: true,
+	}
+	defer ns.LeaveNetNs()
+	insp.Serve()
+	// NOTREACHED
+	return nil
 }

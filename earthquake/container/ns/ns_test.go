@@ -13,33 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// +build static
-
-package inspectors
+package ns
 
 import (
-	log "github.com/cihub/seelog"
-	"github.com/mitchellh/cli"
-
-	coreutil "github.com/osrg/earthquake/earthquake/util/core"
+	"flag"
+	"os"
+	"testing"
 )
 
-type etherCmd struct {
-}
-
-func EtherCommandFactory() (cli.Command, error) {
-	return etherCmd{}, nil
-}
-
-func (cmd etherCmd) Help() string {
-	return "Please run `earthquake --help inspectors` instead"
-}
-
-func (cmd etherCmd) Synopsis() string {
-	return "Start Ethernet inspector"
-}
-
-func (cmd etherCmd) Run(args []string) int {
-	log.Critical(coreutil.EthernetInspectorNotBuiltErr)
-	return 1
+func TestMain(m *testing.M) {
+	flag.Parse()
+	os.Exit(m.Run())
 }

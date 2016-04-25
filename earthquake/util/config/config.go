@@ -36,37 +36,37 @@ func New() Config {
 
 	///// INIT and RUN
 	// Used for "init" command.
-	// "earthquake-container" ignores this.
+	// "container" command ignores this.
 	// e.g. "init.sh"
 	cfg.SetDefault("init", "")
 
 	// Used for "run" command.
-	// "earthquake-container" ignores this.
+	// "container" command ignores this.
 	// e.g. "run.sh"
 	cfg.SetDefault("run", "")
 
 	// Used for "run" command.
-	// "earthquake-container" ignores this.
+	// "container" command ignores this.
 	// e.g. "clean.sh"
 	cfg.SetDefault("clean", "")
 
 	// Used for "run" command.
-	// "earthquake-container" ignores this.
+	// "container" command ignores this.
 	// e.g. "validate.sh"
 	cfg.SetDefault("validate", "")
 
 	// Used for something deprecated?
 	// if true, skip clean.sh when validate.sh failed.
-	// "earthquake-container" ignores this.
+	// "container" command ignores this.
 	cfg.SetDefault("notCleanIfValidationFail", false)
 
 	///// STORAGE
-	// "earthquake-container" ignores this.
+	// "container" command ignores this.
 	// Used for "run" command
 	cfg.SetDefault("storageType", "naive")
 
 	///// INSPECTOR HANDLER ENDPOINT
-	// "earthquake-container" ignores these values.
+	// "container" command ignores these values.
 	// Used for PB inspector handler (used by Java and C inspector)
 	// if non-positive, PB inspector handler is disabled
 	// if zero, randomly assigned.
@@ -80,12 +80,12 @@ func New() Config {
 	cfg.SetDefault("restPort", -1)
 
 	///// EXPLORATION POLICY
-	// "earthquake-container" also uses these params
+	// "container" command also uses these params
 	cfg.SetDefault("explorePolicy", "random")
 	cfg.SetDefault("explorePolicyParam", map[string]interface{}{})
 
 	///// CONTAINER
-	// used only in "earthquake-container"
+	// used only in "container" command
 	// FIXME: https://github.com/spf13/viper/issues/71
 	cfg.SetDefault("container", map[string]interface{}{
 		"enableEthernetInspector": false,
