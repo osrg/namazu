@@ -259,17 +259,18 @@ Typical usage:
 You have to prepare config.toml and the materials directory before running the init command.
 Please also refer to the examples included in the github repository: https://github.com/osrg/earthquake/tree/master/example
 
-NOTE: "earthquake run" is different from "earthquake-container run".
+NOTE: "earthquake run" is different from "earthquake container run".
 `
 	return s
 }
 
 func (cmd runCmd) Run(args []string) int {
+	log.Warn("`earthquake run` is different from `earthquake container run` (Docker-like CLI).")
 	return run(args)
 }
 
 func (cmd runCmd) Synopsis() string {
-	return "Run an experiment with the initialized workspace"
+	return "[Expert] Run an experiment with the initialized workspace"
 }
 
 func runCommandFactory() (mcli.Command, error) {

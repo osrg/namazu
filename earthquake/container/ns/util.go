@@ -13,14 +13,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package ns
 
 import (
 	"os"
+	"strings"
 
-	"github.com/osrg/earthquake/earthquake-container/cli"
+	log "github.com/cihub/seelog"
+	docker "github.com/fsouza/go-dockerclient"
 )
 
-func main() {
-	os.Exit(cli.CLIMain(os.Args))
+func NewDockerClient() (*docker.Client, error) {
+	host := os.Getenv("DOCKER_HOST")
+	hostIsLocal := host == "" || strings.HasPrefix(host, "unix://")
+	if !hostIsLocal {
+		log.Warnf("Detected DOCKER_HOST %s. This should not be remote.",
+			host)
+	}
+	return docker.NewClientFromEnv()
 }

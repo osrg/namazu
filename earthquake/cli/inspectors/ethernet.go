@@ -40,7 +40,7 @@ var (
 func init() {
 	initCommon(etherFlagset, &_etherFlags.commonFlags, "_earthquake_ethernet_inspector")
 	etherFlagset.StringVar(&_etherFlags.HookSwitchZMQAddr, "hookswitch",
-		"ipc:///tmp/earthquake-container-hookswitch-zmq", "HookSwitch ZeroMQ addr")
+		"ipc:///tmp/earthquake-hookswitch-zmq", "HookSwitch ZeroMQ addr")
 	etherFlagset.IntVar(&_etherFlags.NFQNumber, "nfq-number",
 		-1, "netfilter_queue number")
 }

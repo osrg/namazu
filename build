@@ -33,10 +33,6 @@ INFO "Building earthquake.static"
 go build --ldflags '-extldflags "-static"' -tags static -o bin/earthquake.static github.com/osrg/earthquake/earthquake
 file bin/earthquake.static | grep "statically linked" > /dev/null
 
-INFO "Building earthquake-container"
-go get -t github.com/osrg/earthquake/earthquake-container
-go build -o bin/earthquake-container github.com/osrg/earthquake/earthquake-container
-
 EXAMPLES="example/template/mypolicy.go example/yarn/4301-reproduce/mypolicy.go"
 for f in $EXAMPLES; do
     INFO "Building ${f}"

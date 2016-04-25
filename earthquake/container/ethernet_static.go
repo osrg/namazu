@@ -13,33 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cli
+// +build static
+
+package container
 
 import (
-	"fmt"
-	"os"
+	docker "github.com/fsouza/go-dockerclient"
 
-	"github.com/osrg/earthquake/earthquake-container/cli/run"
 	coreutil "github.com/osrg/earthquake/earthquake/util/core"
 )
 
-func CLIMain(args []string) int {
-	coreutil.Init()
-	defer coreutil.Recoverer()
-	if len(args) < 2 {
-		fmt.Printf("Usage: %s [OPTIONS] COMMAND [arg...]\n", args[0])
-		fmt.Printf("\n")
-		fmt.Printf("Docker Container + Earthquake Testing Framework\n")
-		fmt.Printf("\n")
-		fmt.Printf("Commands:\n")
-		fmt.Printf("\trun\tRun a command in a new container\n")
-		fmt.Printf("\n")
-		return 0
-	}
-	switch args[1] {
-	case "run":
-		return run.Run(args[1:])
-	}
-	fmt.Fprintf(os.Stderr, "'%s' is not a earthquake-container command.\n", args[1])
-	return 1
+func ServeEthernetInspector(c *docker.Container, queueNum int) error {
+	return coreutil.EthernetInspectorNotBuiltErr
 }

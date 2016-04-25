@@ -43,6 +43,7 @@ func CLIMain(args []string) int {
 		"orchestrator": orchestratorCommandFactory,
 		"inspectors":   inspectorsCommandFactory,
 		"tools":        toolsCommandFactory,
+		"container":    containerCommandFactory,
 	}
 	c.HelpFunc = func(commands map[string]mcli.CommandFactory) string {
 		s := (mcli.BasicHelpFunc(args[0]))(commands)

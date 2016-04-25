@@ -13,44 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package core
+package container
 
 import (
 	"time"
 
 	docker "github.com/fsouza/go-dockerclient"
-	"github.com/osrg/earthquake/earthquake-container/container"
-	"github.com/osrg/earthquake/earthquake/inspector/ethernet"
 	"github.com/osrg/earthquake/earthquake/inspector/proc"
-	"github.com/osrg/earthquake/earthquake/util/config"
 	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
 )
-
-func StartOrchestrator(cfg config.Config) error {
-	autopilotOrchestrator, err := ocutil.NewAutopilotOrchestrator(cfg)
-	if err != nil {
-		return err
-	}
-	autopilotOrchestrator.Start()
-	return nil
-}
-
-func ServeEthernetInspector(c *docker.Container, queueNum int) error {
-	err := container.EnterDockerNetNs(c)
-	if err != nil {
-		return err
-	}
-	insp := &ethernet.NFQInspector{
-		OrchestratorURL:  ocutil.LocalOrchestratorURL,
-		EntityID:         "_earthquake_container_ethernet_inspector",
-		NFQNumber:        uint16(queueNum),
-		EnableTCPWatcher: true,
-	}
-	defer container.LeaveNetNs()
-	insp.Serve()
-	// NOTREACHED
-	return nil
-}
 
 func ServeProcInspector(c *docker.Container, watchInterval time.Duration) error {
 	insp := &proc.ProcInspector{

@@ -27,7 +27,7 @@ type toolsCmd struct {
 }
 
 func (cmd toolsCmd) Help() string {
-	return "Please run `earthquake --help run` instead"
+	return "Not documented yet."
 }
 
 func (cmd toolsCmd) Run(args []string) int {
@@ -48,7 +48,7 @@ func (cmd toolsCmd) Run(args []string) int {
 }
 
 func (cmd toolsCmd) Synopsis() string {
-	return "Call miscellaneous tools related to `run` command"
+	return "[Expert] Call miscellaneous tools related to `run` command"
 }
 
 func toolsCommandFactory() (mcli.Command, error) {

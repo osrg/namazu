@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package core
+package container
 
 import (
 	"fmt"
@@ -22,15 +22,15 @@ import (
 
 	log "github.com/cihub/seelog"
 	docker "github.com/fsouza/go-dockerclient"
-	"github.com/osrg/earthquake/earthquake-container/container"
+	"github.com/osrg/earthquake/earthquake/container/ns"
 )
 
 func SetupNFQUEUE(c *docker.Container, queueNum int, hookInput bool, disableBypass bool) error {
-	err := container.EnterDockerNetNs(c)
+	err := ns.EnterDockerNetNs(c)
 	if err != nil {
 		return err
 	}
-	defer container.LeaveNetNs()
+	defer ns.LeaveNetNs()
 
 	chain := "OUTPUT"
 	if hookInput {

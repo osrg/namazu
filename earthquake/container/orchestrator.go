@@ -13,33 +13,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// +build static
-
-package inspectors
+package container
 
 import (
-	log "github.com/cihub/seelog"
-	"github.com/mitchellh/cli"
-
-	coreutil "github.com/osrg/earthquake/earthquake/util/core"
+	"github.com/osrg/earthquake/earthquake/util/config"
+	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
 )
 
-type etherCmd struct {
-}
-
-func EtherCommandFactory() (cli.Command, error) {
-	return etherCmd{}, nil
-}
-
-func (cmd etherCmd) Help() string {
-	return "Please run `earthquake --help inspectors` instead"
-}
-
-func (cmd etherCmd) Synopsis() string {
-	return "Start Ethernet inspector"
-}
-
-func (cmd etherCmd) Run(args []string) int {
-	log.Critical(coreutil.EthernetInspectorNotBuiltErr)
-	return 1
+func StartOrchestrator(cfg config.Config) error {
+	autopilotOrchestrator, err := ocutil.NewAutopilotOrchestrator(cfg)
+	if err != nil {
+		return err
+	}
+	autopilotOrchestrator.Start()
+	return nil
 }

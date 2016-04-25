@@ -17,6 +17,7 @@
 package core
 
 import (
+	"errors"
 	"os"
 
 	log "github.com/cihub/seelog"
@@ -54,3 +55,8 @@ func Recoverer() {
 		}
 	}
 }
+
+var EthernetInspectorNotBuiltErr = errors.New(
+	"Ethernet inspector is disabled in this statically linked binary. " +
+		"Please build a dynamically linked binary instead: " +
+		"`go get github.com/osrg/earthquake/earthquake`")
