@@ -44,7 +44,7 @@ You can specify the configuration file for the embedded orchestrator by setting 
 Process inspector (proc)
     Inspects running Linux process information, and set scheduling attributes.
 
-    Typical usage: namazu inspectors proc -root-pid 42 -watch-interval 1s
+    Typical usage: namazu inspectors proc -pid 42 -watch-interval 1s
 
     Event signals: ProcSetEvent
     Action signals: ProcSetSchedAction

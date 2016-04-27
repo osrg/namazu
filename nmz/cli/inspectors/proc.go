@@ -38,7 +38,7 @@ var (
 
 func init() {
 	initCommon(procFlagset, &_procFlags.commonFlags, "_namazu_proc_inspector")
-	procFlagset.IntVar(&_procFlags.RootPID, "root-pid", -1, "PID for the target process tree")
+	procFlagset.IntVar(&_procFlags.RootPID, "pid", -1, "PID for the target process tree")
 	procFlagset.DurationVar(&_procFlags.WatchInterval, "watch-interval", 1*time.Second, "Watching interval")
 }
 
@@ -64,7 +64,7 @@ func (cmd procCmd) Run(args []string) int {
 	}
 
 	if _procFlags.RootPID <= 0 {
-		log.Critical("root-pid is not set (or set to non-positive value)")
+		log.Critical("pid is not set (or set to non-positive value)")
 		return 1
 	}
 

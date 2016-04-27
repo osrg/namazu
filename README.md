@@ -91,7 +91,7 @@ For other parameters, please refer to [`config.go`](nmz/util/config/config.go) a
 
 ### Process inspector
 
-    $ sudo nmz inspectors proc -root-pid $TARGET_PID -watch-interval 1s
+    $ sudo nmz inspectors proc -pid $TARGET_PID -watch-interval 1s
 
 By default, all the processes and the threads under `$TARGET_PID` are randomly scheduled.
 
