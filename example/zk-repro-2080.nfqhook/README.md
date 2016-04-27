@@ -20,7 +20,7 @@ Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for ho
 
 	$ sudo sh -c 'echo 0 > /proc/sys/net/ipv4/tcp_autocorking' # recommended if you are using Linux 3.14 or later
 	$ sudo useradd -m nfqhooked # this user is needed for internal sandboxing
-	$ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/earthquake init --force config.toml materials /tmp/zk-2080
+	$ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/nmz init --force config.toml materials /tmp/zk-2080
 
 Disabling `tcp_autocorking` is recommended for future zktraffic-based inspection support.
 
@@ -28,7 +28,7 @@ Currently zktraffic does not work well with ZOOKEEPER-2080 scenario, because som
 
 ### Run Experiments
 
-	$ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/earthquake run /tmp/zk-2080
+	$ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/nmz run /tmp/zk-2080
 
 If the bug could not be reproduced, you might have to modify the `interval` parameter in `config.toml`. (about 30 msecs to 80 msecs)
 
@@ -38,7 +38,7 @@ Unlike [ZOOKEEPER-2212](../zk-found-2212.ryu/README.md), you cannot use the Nama
 Instead, you can estimate the cause of the bug using Namazu branch analyzer for Java.
 
 	
-	$ java -jar ../../bin/earthquake-analyzer.jar /tmp/zk-2080/ --classes-path /tmp/zk-2080/materials/zookeeper/build/classes
+	$ java -jar ../../bin/nmz-analyzer.jar /tmp/zk-2080/ --classes-path /tmp/zk-2080/materials/zookeeper/build/classes
 	[DEBUG] net.osrg.namazu.ExperimentAnalyzer - Scanning /tmp/zk-2080/00000000: experiment successful=false
 	[DEBUG] net.osrg.namazu.ExperimentAnalyzer - Scanning /tmp/zk-2080/00000001: experiment successful=true
 	..

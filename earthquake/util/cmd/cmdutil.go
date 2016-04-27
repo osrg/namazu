@@ -55,7 +55,7 @@ func (this *CmdFactory) CreateCmd(scriptPath string) *exec.Cmd {
 	// this line is needed to extend current envs
 	cmd.Env = os.Environ()
 
-	// workinDir can be empty for `earthquake init`
+	// workinDir can be empty for `nmz init`
 	if this.workingDir != "" {
 		cmd.Env = append(cmd.Env, "EQ_WORKING_DIR="+this.workingDir)
 	}

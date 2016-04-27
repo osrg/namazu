@@ -1,5 +1,5 @@
 +++
-date = "2015-08-20"
+date = "2016-04-27"
 tags = ["document"]
 title = "_index"
 
@@ -8,7 +8,7 @@ title = "_index"
 
 # What is this?
 
-In short, the goal of Earthquake project is providing a foundation of debugger for distributed systems.
+In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.
 
 Developing and maintaining distributed systems is difficult. 
 The difficulty comes from many factors, 
@@ -32,7 +32,7 @@ but we believe that one of the most important reasons is lacking of a good debug
  * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): To Be Documented
  * Reproduced flaky tests YARN-{[1978](https://issues.apache.org/jira/browse/YARN-1978), [4168](https://issues.apache.org/jira/browse/YARN-4168), [4543](https://issues.apache.org/jira/browse/YARN-4543), [4548](https://issues.apache.org/jira/browse/YARN-4548), [4556](https://issues.apache.org/jira/browse/YARN-4556)}
 
-The repro codes are located on [earthquake/example](https://github.com/osrg/namazu/tree/master/example).
+The repro codes are located on [namazu/example](https://github.com/osrg/namazu/tree/master/example).
 
 # How to use?
 Please refer to [README file](https://github.com/osrg/namazu/blob/master/README.md).

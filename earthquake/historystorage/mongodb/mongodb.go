@@ -25,8 +25,8 @@ import (
 
 const (
 	// TODO: make them configurable
-	dialTo        = "mongodb://localhost/earthquake"
-	dbName        = "earthquake"
+	dialTo        = "mongodb://localhost/namazu"
+	dbName        = "namazu"
 	actionColName = "action"
 	eventColName  = "event"
 	traceColName  = "trace"

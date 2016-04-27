@@ -1,10 +1,10 @@
-baseurl = "http://osrg.github.io/earthquake/"
+baseurl = "http://osrg.github.io/namazu/"
 languageCode = "en-us"
 title = "Namazu"
 ## NOTE: the theme has been significantly modified for Namazu.
 theme = "bootie-docs-custom"
 copyright = "Copyright© 2015 Nippon Telegraph and Telephone Corporation"
 [params]
-  description = "A programmable fuzzy scheduler for testing distributed systems"
+  description = "A programmable fuzzy scheduler for testing distributed systems (formerly named Earthquake)"
   mainMenu = ["about", "gettingStarted", "categories/blog"]
   repositoryUrl = "https://github.com/osrg/namazu/"

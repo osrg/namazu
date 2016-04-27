@@ -3,12 +3,12 @@
 ## Try Filesystem Inspector
 On Terminal 1,
     
-    $ earthquake init --force config.toml materials /tmp/template
-    $ EQ_DEBUG=1 earthquake run /tmp/template
+    $ nmz init --force config.toml materials /tmp/template
+    $ EQ_DEBUG=1 nmz run /tmp/template
 
 On Terminal 2,
 
-    $ EQ_DEBUG=1 ~/bin/earthquake inspectors fs -original-dir ~/tmp -mount-point ~/mnt
+    $ EQ_DEBUG=1 ~/bin/nmz inspectors fs -original-dir ~/tmp -mount-point ~/mnt
 
 On Terminal 3,
 
@@ -21,7 +21,7 @@ On Terminal 3,
     $ emacs mypolicy.go
     $ go build -o mypolicy mypolicy.go
 
-`mypolicy` provides CLI, same as `earthquake`.
+`mypolicy` provides CLI, same as `nmz`.
 
     $ ./mypolicy init --force config_mypolicy.go materials /tmp/mypolicy
     $ ./mypolicy run /tmp/mypolicy

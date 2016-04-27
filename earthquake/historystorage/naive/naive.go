@@ -32,7 +32,7 @@ import (
 )
 
 // functions that provides basic functionalities of native history storage
-// these are mainly called in a process of "earthquake run"
+// these are mainly called in a process of "nmz run"
 
 func (n *Naive) updateSearchModeInfo() {
 	infoFile, err := os.OpenFile(n.dir+"/"+searchModeInfoPath, os.O_WRONLY, 0666)

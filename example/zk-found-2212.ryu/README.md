@@ -33,7 +33,7 @@ because `ovsbr0` is expected to be configured as `192.168.42.254/24` in the expe
 NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper-2212](https://registry.hub.docker.com/u/osrg/earthquake-zookeeper-2212/) container (based on Namazu v0.1).
 
     $ sudo pip install pip install git+https://github.com/twitter/zktraffic@68d9f85d8508e01f5d2f6657666c04e444e6423c  #(Jul 18, 2015)
-    $ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/earthquake init --force config.toml materials /tmp/zk-2212
+    $ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/nmz init --force config.toml materials /tmp/zk-2212
     [INFO] Checking whether Docker is installed
     [INFO] Checking whether pipework is installed
     [INFO] Checking whether ryu is installed
@@ -47,8 +47,8 @@ NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper
 
 ### Run Experiments
     
-    $ sudo ../../bin/earthquake run /tmp/zk-2212
-    [INFO] Checking PYTHONPATH(=/home/suda/WORK/earthquake/example/zk-found-2212.ryu/../../misc)
+    $ sudo ../../bin/nmz run /tmp/zk-2212
+    [INFO] Checking PYTHONPATH(=/home/suda/WORK/namazu/example/zk-found-2212.ryu/../../misc)
     [INFO] Starting Namazu Ethernet Switch
     [INFO] Switch PID: 28893
     [INFO] Starting Namazu Ethernet Inspector
@@ -79,7 +79,7 @@ You may have to run the experiments for 3 or 5 times.
 
 You can check which experiment reproduced the bug as follows:
 
-    $ sudo ../../bin/earthquake tools summary /tmp/zk-2212
+    $ sudo ../../bin/nmz tools summary /tmp/zk-2212
     Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected traces: 3
     00000002 caused failure
 

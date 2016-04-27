@@ -25,7 +25,7 @@ import (
 )
 
 // CreateStorage(): used for initializing a directory for naive history storage
-// called in a process of "earthquake init"
+// called in a process of "namazu init"
 func (n *Naive) CreateStorage() {
 	var infoBuf bytes.Buffer
 	enc := gob.NewEncoder(&infoBuf)

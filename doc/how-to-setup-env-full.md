@@ -8,7 +8,7 @@ All you have to do is make Docker installed on your host and run the pre-built D
     $ sudo modprobe openvswitch
     $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu 
     INIT: Running with privileged mode. Enabling DinD, OVS, and Ryu
-    INIT: Namazu is installed on /earthquake. Please refer to /earthquake/README.md
+    INIT: Namazu is installed on /namazu. Please refer to /namazu/README.md
     INIT: Starting command: ['wrapdocker', '/init.dind-ovs-ryu.sh']
     * /etc/openvswitch/conf.db does not exist
     * Creating empty database /etc/openvswitch/conf.db
@@ -17,7 +17,7 @@ All you have to do is make Docker installed on your host and run the pre-built D
     * Starting ovs-vswitchd
     * Enabling remote OVSDB managers
     Assigned 192.168.42.254 to ovsbr0
-    root@907529be8b21:/earthquake# 
+    root@907529be8b21:/namazu# 
 
-Then, you can do the things what you want in `/earthquake` directory.
+Then, you can do the things what you want in `/namazu` directory.
 You might want to try several [examples](../example).

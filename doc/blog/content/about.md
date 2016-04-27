@@ -1,8 +1,8 @@
 +++
 categories = ["general"]
-date = "2015-12-14"
+date = "2016-04-27"
 tags = ["document"]
-title = "About Earthquake"
+title = "About Namazu"
 
 +++
 

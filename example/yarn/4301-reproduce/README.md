@@ -11,7 +11,7 @@ commit `96677be`([hadoop-docker-nightly:20151027](https://github.com/AkihiroSuda
 
 ## How to Reproduce the Bug with Namazu
 
-Unlike other experiments, we don't use `earthquake run` in this experiment, because we are not so much interested in non-determinism.
+Unlike other experiments, we don't use `nmz run` in this experiment, because we are not so much interested in non-determinism.
 
     $ go build -o mypolicy mypolicy.go
     $ mkdir -m 777 /tmp/eqfs-orig /tmp/eqfs-mnt

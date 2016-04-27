@@ -11,7 +11,7 @@
   <url>http://github.com/osrg/namazu</url>
 
   <build>
-    <finalName>namazu-inspector</finalName>
+    <finalName>nmz-inspector</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -53,7 +53,7 @@
     <sourceDirectory>src</sourceDirectory>
   </build>
 
-  <!-- NOTE: these all deps are copied into the namazu-inspector.jar
+  <!-- NOTE: these all deps are copied into the nmz-inspector.jar
        so that you do not have to concern the class path -->
   <dependencies>
     <!-- required for byteman-based injection. see also Agent-Class above. -->
