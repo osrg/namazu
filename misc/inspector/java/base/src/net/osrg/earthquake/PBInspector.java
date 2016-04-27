@@ -141,26 +141,26 @@ public class PBInspector implements Inspector {
             System.exit(1);
         }
 
-        String _Disabled = System.getenv("EQ_DISABLE");
+        String _Disabled = System.getenv("NMZ_DISABLE");
         if (_Disabled != null) {
             LOGGER.info("inspection is disabled");
             Disabled = true;
             return;
         }
 
-        String _Dryrun = System.getenv("EQ_DRYRUN");
+        String _Dryrun = System.getenv("NMZ_DRYRUN");
         if (_Dryrun != null) {
             LOGGER.info("inspection in dryrun");
             Dryrun = true;
         }
 
-        String _NoInitiation = System.getenv("EQ_NO_INITIATION");
+        String _NoInitiation = System.getenv("NMZ_NO_INITIATION");
         if (_NoInitiation != null) {
             LOGGER.info("no initiation, connection per thread model");
             NoInitiation = true;
         }
 
-        String _Direct = System.getenv("EQ_MODE_DIRECT");
+        String _Direct = System.getenv("NMZ_MODE_DIRECT");
         if (_Direct != null) {
             LOGGER.info("run in direct mode");
             Direct = true;
@@ -168,14 +168,14 @@ public class PBInspector implements Inspector {
             LOGGER.info("run in non direct mode");
         }
 
-        EntityID = System.getenv("EQ_ENV_ENTITY_ID");
+        EntityID = System.getenv("NMZ_ENV_ENTITY_ID");
         if (EntityID == null) {
-            LOGGER.severe("entity id required but not given (EQ_ENV_ENTITY_ID");
+            LOGGER.severe("entity id required but not given (NMZ_ENV_ENTITY_ID");
             System.exit(1);
         }
         LOGGER.info("Entity ID: " + EntityID);
 
-        String _GATCPPort = System.getenv("EQ_GA_TCP_PORT");
+        String _GATCPPort = System.getenv("NMZ_GA_TCP_PORT");
         if (_GATCPPort != null) {
             GATCPPort = Integer.parseInt(_GATCPPort);
             LOGGER.info("given TCP port of guest agent: " + GATCPPort);

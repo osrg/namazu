@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## CONFIG
-# EQ_DISABLE=1 # set to disable namazu
+# NMZ_DISABLE=1 # set to disable namazu
 ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-35e45512b5602eddbde9bb4ca0ef118d2fed7464} #(Sep 11, 2015)
 # ZK_SKIP_JACOCO_PATCH=1 # set to skip applying ZOOKEEPER-2266-v2.patch (required only if already applied)
 ZK_TEST_COMMAND=${ZK_TEST_COMMAND:-ant -Dtestcase=ReconfigRecoveryTest -Dtest.method=testCurrentObserverIsParticipantInNewConfig -Dtest.output=true test-core-java}
@@ -59,7 +59,7 @@ function CHECK_PREREQUISITES() {
 }
 
 function FETCH_ZK() {
-    ( cd ${EQ_MATERIALS_DIR};
+    ( cd ${NMZ_MATERIALS_DIR};
       INFO "Fetching ZooKeeper"
       if [ -z ${ZK_SOURCE_DIR} ]; then
 	  git clone https://github.com/apache/zookeeper.git
@@ -77,11 +77,11 @@ function FETCH_ZK() {
 }
 
 function BUILD_ZK() {
-    ( cd ${EQ_MATERIALS_DIR}/zookeeper;
+    ( cd ${NMZ_MATERIALS_DIR}/zookeeper;
       INFO "Building ZooKeeper"
-      cp -f ${EQ_MATERIALS_DIR}/log4j.properties conf
+      cp -f ${NMZ_MATERIALS_DIR}/log4j.properties conf
       if [ -z ${ZK_SKIP_JACOCO_PATCH} ]; then
-	  patch -p0 < ${EQ_MATERIALS_DIR}/ZOOKEEPER-2266-v2.patch
+	  patch -p0 < ${NMZ_MATERIALS_DIR}/ZOOKEEPER-2266-v2.patch
       fi
       ant
       ant test-init
@@ -91,7 +91,7 @@ function BUILD_ZK() {
 
 
 ## FUNCS (BOOT)
-export EQ_ETHER_ZMQ_ADDR="ipc://${EQ_WORKING_DIR}/ether_inspector"
+export NMZ_ETHER_ZMQ_ADDR="ipc://${NMZ_WORKING_DIR}/ether_inspector"
 
 function INSTALL_IPTABLES_RULE() {
     INFO "Installing iptables rule for user=${NFQ_USER}, nfqueue=${NFQ_NUMBER}"
@@ -100,29 +100,29 @@ function INSTALL_IPTABLES_RULE() {
 
 function START_NFQHOOK() {
     INFO "Starting NFQ HookSwitch"
-    hookswitch-nfq --nfq-number ${NFQ_NUMBER} --debug ${EQ_ETHER_ZMQ_ADDR} > ${EQ_WORKING_DIR}/nfqhook.log 2>&1 &
+    hookswitch-nfq --nfq-number ${NFQ_NUMBER} --debug ${NMZ_ETHER_ZMQ_ADDR} > ${NMZ_WORKING_DIR}/nfqhook.log 2>&1 &
     pid=$!
     INFO "NFQ HookSwitch PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/nfqhook.pid
+    echo ${pid} > ${NMZ_WORKING_DIR}/nfqhook.pid
 }
 
 function START_INSPECTOR() {
     INFO "Starting Namazu Ethernet Inspector"
-    python ${EQ_MATERIALS_DIR}/zk_inspector.py > ${EQ_WORKING_DIR}/inspector.log 2>&1 &
+    python ${NMZ_MATERIALS_DIR}/zk_inspector.py > ${NMZ_WORKING_DIR}/inspector.log 2>&1 &
     pid=$!
     INFO "Inspector PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/inspector.pid
+    echo ${pid} > ${NMZ_WORKING_DIR}/inspector.pid
 }
 
 function START_ZK_TEST() {
     INFO "Starting ZooKeeper testing (${ZK_TEST_COMMAND})"
-    rm -rf ${EQ_MATERIALS_DIR}/zookeeper/build/test/jacoco # this is important to avoid unexpected merging
-    (cd ${EQ_MATERIALS_DIR}/zookeeper; sudo -E -u ${NFQ_USER} sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${EQ_WORKING_DIR}/zk-test.log)
+    rm -rf ${NMZ_MATERIALS_DIR}/zookeeper/build/test/jacoco # this is important to avoid unexpected merging
+    (cd ${NMZ_MATERIALS_DIR}/zookeeper; sudo -E -u ${NFQ_USER} sh -c "${ZK_TEST_COMMAND}" 2>&1 | tee ${NMZ_WORKING_DIR}/zk-test.log)
 }
 
 function COLLECT_COVERAGE() {
-    ( cd ${EQ_MATERIALS_DIR}/zookeeper; ant jacoco-report || INFO "no jacoco support.. (see ZOOKEEPER-2266)" )
-    cp -r ${EQ_MATERIALS_DIR}/zookeeper/build/test/jacoco ${EQ_WORKING_DIR} || true
+    ( cd ${NMZ_MATERIALS_DIR}/zookeeper; ant jacoco-report || INFO "no jacoco support.. (see ZOOKEEPER-2266)" )
+    cp -r ${NMZ_MATERIALS_DIR}/zookeeper/build/test/jacoco ${NMZ_WORKING_DIR} || true
 }
 
 ## FUNCS (SHUTDOWN)
@@ -132,19 +132,19 @@ function UNINSTALL_IPTABLES_RULE() {
 }
 
 function KILL_NFQHOOK() {
-    pid=$(cat ${EQ_WORKING_DIR}/nfqhook.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/nfqhook.pid)
     INFO "Killing NFQHook, PID: ${pid}"
     kill -9 ${pid}
 }
 
 function KILL_INSPECTOR() {
-    pid=$(cat ${EQ_WORKING_DIR}/inspector.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/inspector.pid)
     INFO "Killing Inspector, PID: ${pid}"
     kill -9 ${pid}
 }
 
 function KILL_SYSLOG_INSPECTOR() {
-    pid=$(cat ${EQ_WORKING_DIR}/syslog_inspector.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/syslog_inspector.pid)
     INFO "Killing Syslog Inspector, PID: ${pid}"
     kill -9 ${pid}
 }

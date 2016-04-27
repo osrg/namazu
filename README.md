@@ -177,7 +177,7 @@ Create `materials` directory, and put `*.sh` into it.
 Run `nmz init --force config.toml materials /tmp/x`.
 
 This command executes `init.sh` for initializing the workspace `/tmp/x`.
-`init.sh` can access the `materials` directory as `${EQ_MATERIALS_DIR}`.
+`init.sh` can access the `materials` directory as `${NMZ_MATERIALS_DIR}`.
 
 #### Step 4
 Run `for f in $(seq 1 100);do nmz run /tmp/x; done`.
@@ -186,7 +186,7 @@ This command starts the orchestrator, and executes `run.sh`, `validate.sh`, and 
 
 `run.sh` should invoke multiple Namazu inspectors: `nmz inspectors <proc|fs|ethernet> -entity-id _some_unique_string -orchestrator-url http://127.0.0.1:10080/api/v3`
 
-`*.sh` can access the `/tmp/x/{00000000, 00000001, 00000002, ..., 00000063}` directory as `${EQ_WORKING_DIR}`, which is intended for putting test results and some relevant information. (Note: 0x63==99)
+`*.sh` can access the `/tmp/x/{00000000, 00000001, 00000002, ..., 00000063}` directory as `${NMZ_WORKING_DIR}`, which is intended for putting test results and some relevant information. (Note: 0x63==99)
 
 `validate.sh` should exit with zero for successful executions, and with non-zero status for failed executions.
 

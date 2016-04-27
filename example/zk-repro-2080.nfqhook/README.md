@@ -52,6 +52,6 @@ Instead, you can estimate the cause of the bug using Namazu branch analyzer for 
 
 ### Environment Variables
 
-* `EQ_DISABLE`(default: (unset)): disable the substantial part of Namazu if set
+* `NMZ_DISABLE`(default: (unset)): disable the substantial part of Namazu if set
 * `ZK_GIT_COMMIT`(default:(see `materials/lib.sh`)) : use another ZooKeeper version
 * `ZK_SOURCE_DIR`(default: (unset)) : use another ZooKeeper source directory if set

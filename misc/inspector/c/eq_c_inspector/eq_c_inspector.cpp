@@ -196,10 +196,10 @@ static void InsertWrappedFunctions(ofstream &os)
 static void InsertHeader(string path) {
   string header_double_check =
     "/* below code is inserted by namazu inspector */\n"
-    "#ifdef __EQ_INSPECTION_INSERTED__\n"
+    "#ifdef __NMZ_INSPECTION_INSERTED__\n"
     "#error \"more than two inspection\"\n"
     "#else\n"
-    "#define __EQ_INSPECTION_INSERTED__\n"
+    "#define __NMZ_INSPECTION_INSERTED__\n"
     "#endif\n"
     "/* inserted code end */\n";
 

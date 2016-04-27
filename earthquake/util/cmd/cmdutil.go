@@ -28,7 +28,7 @@ type CmdFactory struct {
 	materialsDir string
 }
 
-// set EQ_WORKING_DIR
+// set NMZ_WORKING_DIR
 func (this *CmdFactory) SetWorkingDir(s string) {
 	this.workingDir = s
 }
@@ -37,7 +37,7 @@ func (this *CmdFactory) GetWorkingDir() string {
 	return this.workingDir
 }
 
-// set EQ_MATERIALS_DIR
+// set NMZ_MATERIALS_DIR
 func (this *CmdFactory) SetMaterialsDir(s string) {
 	this.materialsDir = s
 }
@@ -57,11 +57,11 @@ func (this *CmdFactory) CreateCmd(scriptPath string) *exec.Cmd {
 
 	// workinDir can be empty for `nmz init`
 	if this.workingDir != "" {
-		cmd.Env = append(cmd.Env, "EQ_WORKING_DIR="+this.workingDir)
+		cmd.Env = append(cmd.Env, "NMZ_WORKING_DIR="+this.workingDir)
 	}
 
 	if this.materialsDir != "" {
-		cmd.Env = append(cmd.Env, "EQ_MATERIALS_DIR="+this.materialsDir)
+		cmd.Env = append(cmd.Env, "NMZ_MATERIALS_DIR="+this.materialsDir)
 	} else {
 		log.Warnf("MaterialsDir is empty")
 	}

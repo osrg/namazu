@@ -5,7 +5,7 @@ clean = "clean.sh"
 restPort = 10080
 
 # The replayable policy enables "semi-deterministic" replaying.
-# You have to specify a "seed" string as EQ_REPLAY_SEED (environmental variable).
+# You have to specify a "seed" string as NMZ_REPLAY_SEED (environmental variable).
 # The replayable policy determines delays as `hash(seed, hint) % maxInterval`.
 # The "hint" is determined by pynmz zookeeper inspector.
 explorePolicy = "replayable"

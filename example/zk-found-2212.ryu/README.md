@@ -148,7 +148,7 @@ Experimental feature: You can also store the result in MongoDB by setting `stora
 
 ### Environment Variables
 
- * `EQ_DISABLE`(default:(unset)): disable the substantial part of Namazu if set. When Namazu is disabled, we could not reproduced the bug in 3 days.
+ * `NMZ_DISABLE`(default:(unset)): disable the substantial part of Namazu if set. When Namazu is disabled, we could not reproduced the bug in 3 days.
  * `ZK_GIT_COMMIT`(default:98a3ca..): use another ZooKeeper version
  * `ZK_START_WAIT_SECS`(default:10): should be increased if there is false-positive
  * `PAUSE_ON_FAILURE`(default:0): pause on a possible failure for interactive verification if set to 1

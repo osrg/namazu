@@ -4,11 +4,11 @@
 On Terminal 1,
     
     $ nmz init --force config.toml materials /tmp/template
-    $ EQ_DEBUG=1 nmz run /tmp/template
+    $ NMZ_DEBUG=1 nmz run /tmp/template
 
 On Terminal 2,
 
-    $ EQ_DEBUG=1 ~/bin/nmz inspectors fs -original-dir ~/tmp -mount-point ~/mnt
+    $ NMZ_DEBUG=1 ~/bin/nmz inspectors fs -original-dir ~/tmp -mount-point ~/mnt
 
 On Terminal 3,
 

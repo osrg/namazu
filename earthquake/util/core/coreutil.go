@@ -28,9 +28,9 @@ import (
 
 const NamazuVersion = "0.2.0-SNAPSHOT"
 
-// Returns true if EQ_DEBUG is set
+// Returns true if NMZ_DEBUG is set
 func DebugMode() bool {
-	return os.Getenv("EQ_DEBUG") != ""
+	return os.Getenv("NMZ_DEBUG") != ""
 }
 
 // Initializes the Namazu system
@@ -42,7 +42,7 @@ func Init() {
 }
 
 // Prints information on panic
-// Also prints the stack trace if it is in the debug mode (EQ_DEBUG)
+// Also prints the stack trace if it is in the debug mode (NMZ_DEBUG)
 func Recoverer() {
 	debug := DebugMode()
 	if r := recover(); r != nil {
@@ -50,7 +50,7 @@ func Recoverer() {
 		if debug {
 			panic(r)
 		} else {
-			log.Info("Hint: For debug info, please set \"EQ_DEBUG\" to 1.")
+			log.Info("Hint: For debug info, please set \"NMZ_DEBUG\" to 1.")
 			os.Exit(1)
 		}
 	}

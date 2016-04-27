@@ -27,5 +27,5 @@ func TestCmdFactory(t *testing.T) {
 	f.SetWorkingDir("/tmp/dummy1")
 	f.SetMaterialsDir("/tmp/dummy2")
 	cmd := f.CreateCmd("echo 42")
-	assert.Contains(t, cmd.Env, "EQ_WORKING_DIR=/tmp/dummy1")
+	assert.Contains(t, cmd.Env, "NMZ_WORKING_DIR=/tmp/dummy1")
 }

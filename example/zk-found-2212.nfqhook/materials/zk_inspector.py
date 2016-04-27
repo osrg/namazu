@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 
-ZMQ_ADDR = os.getenv('EQ_ETHER_ZMQ_ADDR')
+ZMQ_ADDR = os.getenv('NMZ_ETHER_ZMQ_ADDR')
 
 import pynmz
 from pynmz.inspector.zookeeper import ZkEtherInspector

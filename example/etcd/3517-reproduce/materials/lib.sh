@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## CONFIG
-# EQ_DISABLE=1 # set to disable namazu
+# NMZ_DISABLE=1 # set to disable namazu
 ETCD_GIT_COMMIT=${ETCD_GIT_COMMIT:-c645ac23c0093e2b0a93fa5f07a947344d7ef779}
 DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME:-etcd_testbed}
 
@@ -47,7 +47,7 @@ function CHECK_PREREQUISITES() {
 }
 
 function FETCH_ETCD() {
-    ( cd ${EQ_MATERIALS_DIR}/etcd_testbed;
+    ( cd ${NMZ_MATERIALS_DIR}/etcd_testbed;
       INFO "Fetching etcd"
       git clone https://github.com/coreos/etcd.git
       INFO "Checking out etcd@${ETCD_GIT_COMMIT}"
@@ -58,15 +58,15 @@ function FETCH_ETCD() {
 }
 
 function BUILD_DOCKER_IMAGE() {
-    ( cd ${EQ_MATERIALS_DIR}/etcd_testbed;
-      docker_build_log=${EQ_MATERIALS_DIR}/docker-build.log
+    ( cd ${NMZ_MATERIALS_DIR}/etcd_testbed;
+      docker_build_log=${NMZ_MATERIALS_DIR}/docker-build.log
       INFO "Building Docker Image ${DOCKER_IMAGE_NAME} (${docker_build_log})";
       docker build -t ${DOCKER_IMAGE_NAME} . > ${docker_build_log} )
 }
 
 
 ## FUNCS (BOOT)
-export EQ_ETHER_ZMQ_ADDR="ipc://${EQ_WORKING_DIR}/ether_inspector"
+export NMZ_ETHER_ZMQ_ADDR="ipc://${NMZ_WORKING_DIR}/ether_inspector"
 
 function CHECK_PYTHONPATH() {
     INFO "Checking PYTHONPATH(=${PYTHONPATH})"
@@ -76,18 +76,18 @@ function CHECK_PYTHONPATH() {
 
 function START_SWITCH() {
     INFO "Starting HookSwitch"
-    hookswitch-of13 ${EQ_ETHER_ZMQ_ADDR} --debug --tcp-ports=4001,7001 > ${EQ_WORKING_DIR}/switch.log 2>&1 &
+    hookswitch-of13 ${NMZ_ETHER_ZMQ_ADDR} --debug --tcp-ports=4001,7001 > ${NMZ_WORKING_DIR}/switch.log 2>&1 &
     pid=$!
     INFO "Switch PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/switch.pid
+    echo ${pid} > ${NMZ_WORKING_DIR}/switch.pid
 }
 
 function START_INSPECTOR() {
     INFO "Starting Namazu Ethernet Inspector"
-    python ${EQ_MATERIALS_DIR}/etcd_inspector.py > ${EQ_WORKING_DIR}/inspector.log 2>&1 &
+    python ${NMZ_MATERIALS_DIR}/etcd_inspector.py > ${NMZ_WORKING_DIR}/inspector.log 2>&1 &
     pid=$!
     INFO "Inspector PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/inspector.pid
+    echo ${pid} > ${NMZ_WORKING_DIR}/inspector.pid
 }
 
 function START_DOCKER() {
@@ -115,13 +115,13 @@ function START_ETCD() {
 
 ## FUNCS (SHUTDOWN)
 function KILL_SWITCH() {
-    pid=$(cat ${EQ_WORKING_DIR}/switch.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/switch.pid)
     INFO "Killing Switch, PID: ${pid}"
     kill -9 ${pid}
 }
 
 function KILL_INSPECTOR() {
-    pid=$(cat ${EQ_WORKING_DIR}/inspector.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/inspector.pid)
     INFO "Killing Inspector, PID: ${pid}"
     kill -9 ${pid}
 }
@@ -129,9 +129,9 @@ function KILL_INSPECTOR() {
 function KILL_DOCKER() {
     docker stop etcd1 etcd2 etcd3
     for f in $(seq 1 3); do
-	   INFO "Killing Docker container etcd${f} (log:${EQ_WORKING_DIR}/etcd${f})"
-	   mkdir ${EQ_WORKING_DIR}/etcd${f}
-	   docker cp etcd${f}:/log ${EQ_WORKING_DIR}/etcd${f}
+	   INFO "Killing Docker container etcd${f} (log:${NMZ_WORKING_DIR}/etcd${f})"
+	   mkdir ${NMZ_WORKING_DIR}/etcd${f}
+	   docker cp etcd${f}:/log ${NMZ_WORKING_DIR}/etcd${f}
 	   docker rm -f etcd${f}
     done
 }

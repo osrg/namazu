@@ -34,7 +34,7 @@ import java.util.Map;
 
 
 public class Experiment {
-    public final static String DEFAULT_EQ_RESULT_JSON_PATH = "result.json";
+    public final static String DEFAULT_NMZ_RESULT_JSON_PATH = "result.json";
     public final static String DEFAULT_JACOCO_PATH_REGEX = "jacoco.exec";
     static final Logger LOG = LogManager.getLogger(Experiment.class);
     /**
@@ -59,7 +59,7 @@ public class Experiment {
     private ExperimentPattern pattern;
 
     public Experiment(File dir) throws IOException {
-        this(dir, DEFAULT_EQ_RESULT_JSON_PATH, DEFAULT_JACOCO_PATH_REGEX);
+        this(dir, DEFAULT_NMZ_RESULT_JSON_PATH, DEFAULT_JACOCO_PATH_REGEX);
     }
 
     public Experiment(File dir, String eqResultJsonPath, String jacocoPathRegex) throws IOException {

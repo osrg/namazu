@@ -3,6 +3,6 @@ The jar file includes the contents of byteman so that you don't have to concern 
 
 
 ```
-export EQ_ENV_PROCESS_ID=foobar
+export NMZ_ENV_PROCESS_ID=foobar
 java -javaagent:nmz-inspector.jar=script:foobar.btm FooBar
 ```

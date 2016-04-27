@@ -2,7 +2,7 @@
 """
 Init script for Namazu Docker Image (osrg/namazu)
 Supported Env vars:
- - EQ_DOCKER_PRIVILEGED
+ - NMZ_DOCKER_PRIVILEGED
 """
 
 import os
@@ -14,10 +14,10 @@ def log(s):
     print 'INIT: %s' % s
 
 def is_privileged_mode():
-    has_env = os.getenv('EQ_DOCKER_PRIVILEGED')
+    has_env = os.getenv('NMZ_DOCKER_PRIVILEGED')
     has_cap = prctl.cap_permitted.sys_admin
     if has_env and not has_cap:
-        raise RuntimeError('EQ_DOCKER_PRIVILEGED is set, but SYS_ADMIN cap is missing')
+        raise RuntimeError('NMZ_DOCKER_PRIVILEGED is set, but SYS_ADMIN cap is missing')
     return has_env
 
 def run_daemons(l):
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         log('Running with privileged mode. Enabling DinD, OVS, and Ryu')
         com = ['wrapdocker', '/init.dind-ovs-ryu.sh']
     else:
-        log('Running without privileged mode. Please set EQ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector')
+        log('Running without privileged mode. Please set NMZ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector')
 
     log('Namazu is installed on /namazu. Please refer to /namazu/README.md')
     run_command_and_exit(com + get_remaining_args())

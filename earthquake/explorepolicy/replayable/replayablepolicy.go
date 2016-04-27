@@ -57,7 +57,7 @@ func (r *Replayable) Name() string {
 
 // parameters:
 //  - maxInterval(duration): max interval (default: 10 msecs)
-//  - seed(string): seed for replaying (default: empty). can be overriden by EQ_REPLAY_SEED.
+//  - seed(string): seed for replaying (default: empty). can be overriden by NMZ_REPLAY_SEED.
 //
 // should support dynamic reloading
 func (r *Replayable) LoadConfig(cfg config.Config) error {
@@ -80,7 +80,7 @@ func (r *Replayable) LoadConfig(cfg config.Config) error {
 		log.Infof("Using default seed=%s", r.Seed)
 	}
 
-	envSeed := "EQ_REPLAY_SEED"
+	envSeed := "NMZ_REPLAY_SEED"
 	if v := os.Getenv(envSeed); v != "" {
 		r.Seed = v
 		log.Infof("Overriding seed=%s (%s)", r.Seed, envSeed)

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## CONFIG
-# EQ_DISABLE=1 # set to disable namazu
+# NMZ_DISABLE=1 # set to disable namazu
 ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-98a3cabfa279833b81908d72f1c10ee9f598a045} #(Tue Jun 2 19:17:09 2015 +0000)
 DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME:-zk_testbed}
 
@@ -49,7 +49,7 @@ function CHECK_PREREQUISITES() {
 }
 
 function FETCH_ZK() {
-    ( cd ${EQ_MATERIALS_DIR}/zk_testbed;
+    ( cd ${NMZ_MATERIALS_DIR}/zk_testbed;
       INFO "Fetching ZooKeeper"
       git clone https://github.com/apache/zookeeper.git
       INFO "Checking out ZooKeeper@${ZK_GIT_COMMIT}"
@@ -59,15 +59,15 @@ function FETCH_ZK() {
 }
 
 function BUILD_DOCKER_IMAGE() {
-    ( cd ${EQ_MATERIALS_DIR}/zk_testbed;
-      docker_build_log=${EQ_MATERIALS_DIR}/docker-build.log
+    ( cd ${NMZ_MATERIALS_DIR}/zk_testbed;
+      docker_build_log=${NMZ_MATERIALS_DIR}/docker-build.log
       INFO "Building Docker Image ${DOCKER_IMAGE_NAME} (${docker_build_log})"
       docker build -t ${DOCKER_IMAGE_NAME} . > ${docker_build_log} )
 }
 
 
 ## FUNCS (BOOT)
-export EQ_ETHER_ZMQ_ADDR="ipc://${EQ_WORKING_DIR}/ether_inspector"
+export NMZ_ETHER_ZMQ_ADDR="ipc://${NMZ_WORKING_DIR}/ether_inspector"
 
 function CHECK_PYTHONPATH() {
     INFO "Checking PYTHONPATH(=${PYTHONPATH})"
@@ -77,18 +77,18 @@ function CHECK_PYTHONPATH() {
 
 function START_SWITCH() {
     INFO "Starting HookSwitch"
-    hookswitch-of13 ${EQ_ETHER_ZMQ_ADDR} --debug --tcp-ports=2888,3888 > ${EQ_WORKING_DIR}/switch.log 2>&1 &
+    hookswitch-of13 ${NMZ_ETHER_ZMQ_ADDR} --debug --tcp-ports=2888,3888 > ${NMZ_WORKING_DIR}/switch.log 2>&1 &
     pid=$!
     INFO "Switch PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/switch.pid
+    echo ${pid} > ${NMZ_WORKING_DIR}/switch.pid
 }
 
 function START_INSPECTOR() {
     INFO "Starting Namazu Ethernet Inspector"
-    python ${EQ_MATERIALS_DIR}/zk_inspector.py > ${EQ_WORKING_DIR}/inspector.log 2>&1 &
+    python ${NMZ_MATERIALS_DIR}/zk_inspector.py > ${NMZ_WORKING_DIR}/inspector.log 2>&1 &
     pid=$!
     INFO "Inspector PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/inspector.pid
+    echo ${pid} > ${NMZ_WORKING_DIR}/inspector.pid
 }
 
 function START_DOCKER() {
@@ -117,10 +117,10 @@ function START_ZOOKEEPER() {
 function CHECK_FLE_STATES() {
     INFO "Checking FLE states"
     result=0
-    (python ${EQ_MATERIALS_DIR}/check-fle-states.py > ${EQ_WORKING_DIR}/check-fle-states.log) || result=$?
-    echo ${result} > ${EQ_WORKING_DIR}/check-fle-states.result
+    (python ${NMZ_MATERIALS_DIR}/check-fle-states.py > ${NMZ_WORKING_DIR}/check-fle-states.log) || result=$?
+    echo ${result} > ${NMZ_WORKING_DIR}/check-fle-states.result
     if [ ${result} != 0 ]; then
-	IMPORTANT "Failure: ${result} (${EQ_WORKING_DIR}/check-fle-states.log)"
+	IMPORTANT "Failure: ${result} (${NMZ_WORKING_DIR}/check-fle-states.log)"
 	if [ ${PAUSE_ON_FAILURE} != 0 ]; then
 	    IMPORTANT "Pausing.. please check whether this is a false-positive or not"
 	    PAUSE
@@ -131,24 +131,24 @@ function CHECK_FLE_STATES() {
 
 ## FUNCS (SHUTDOWN)
 function KILL_SWITCH() {
-    pid=$(cat ${EQ_WORKING_DIR}/switch.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/switch.pid)
     INFO "Killing Switch, PID: ${pid}"
     kill -9 ${pid}
 }
 
 function KILL_INSPECTOR() {
-    pid=$(cat ${EQ_WORKING_DIR}/inspector.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/inspector.pid)
     INFO "Killing Inspector, PID: ${pid}"
     kill -9 ${pid}
 }
 
 function KILL_DOCKER() {
     for f in $(seq 1 3); do
-	INFO "Killing Docker container zk${f} (log:${EQ_WORKING_DIR}/zk${f})"
+	INFO "Killing Docker container zk${f} (log:${NMZ_WORKING_DIR}/zk${f})"
 	docker exec zk${f} /zk/bin/zkServer.sh stop
-	mkdir ${EQ_WORKING_DIR}/zk${f}
-        docker cp zk${f}:/zk/jacoco.exec ${EQ_WORKING_DIR}/zk${f}
-	docker cp zk${f}:/zk/logs ${EQ_WORKING_DIR}/zk${f}
+	mkdir ${NMZ_WORKING_DIR}/zk${f}
+        docker cp zk${f}:/zk/jacoco.exec ${NMZ_WORKING_DIR}/zk${f}
+	docker cp zk${f}:/zk/logs ${NMZ_WORKING_DIR}/zk${f}
 	docker rm -f zk${f}
     done
 }

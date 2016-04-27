@@ -6,7 +6,7 @@ All you have to do is make Docker installed on your host and run the pre-built D
 
     
     $ sudo modprobe openvswitch
-    $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu 
+    $ docker run --rm --tty --interactive --privileged -e NMZ_DOCKER_PRIVILEGED=1 osrg/namazu 
     INIT: Running with privileged mode. Enabling DinD, OVS, and Ryu
     INIT: Namazu is installed on /namazu. Please refer to /namazu/README.md
     INIT: Starting command: ['wrapdocker', '/init.dind-ovs-ryu.sh']
