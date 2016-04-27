@@ -26,7 +26,7 @@ func TestNewLogEventFromJSONString(t *testing.T) {
 {
     "type": "event",
     "class": "LogEvent",
-    "entity": "_earthquake_syslog_inspector",
+    "entity": "_namazu_syslog_inspector",
     "uuid": "1f13eaa6-4b92-45f0-a4de-1236081ec142",
     "deferred": false,
     "option": {
@@ -44,7 +44,7 @@ func TestNewLogEventFromJSONString(t *testing.T) {
 		t.Fatal("Cannot convert to LogEvent")
 	}
 
-	assert.Equal(t, logEvent.EntityID(), "_earthquake_syslog_inspector")
+	assert.Equal(t, logEvent.EntityID(), "_namazu_syslog_inspector")
 	assert.Equal(t, logEvent.ID(), "1f13eaa6-4b92-45f0-a4de-1236081ec142")
 	assert.Equal(t, logEvent.JSONMap()["option"], map[string]interface{}{
 		"src":     "zksrv1",

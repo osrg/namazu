@@ -17,7 +17,7 @@ class SyslogInspectorBase(object):
 
     def __init__(
         self, udp_port=10514, orchestrator_rest_url=DEFAULT_ORCHESTRATOR_URL,
-                 entity_id='_earthquake_syslog_inspector'):
+                 entity_id='_namazu_syslog_inspector'):
         LOG.info('Syslog UDP port: %d', udp_port)
         LOG.info('Orchestrator REST URL: %s', orchestrator_rest_url)
         self.orchestrator_rest_url = orchestrator_rest_url
