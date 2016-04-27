@@ -20,9 +20,9 @@ import (
 	"syscall"
 
 	log "github.com/cihub/seelog"
+	"github.com/osrg/hookfs/hookfs"
 	"github.com/osrg/namazu/nmz/inspector/transceiver"
 	. "github.com/osrg/namazu/nmz/signal"
-	"github.com/osrg/hookfs/hookfs"
 )
 
 // implements hookfs.HookContext
