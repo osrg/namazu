@@ -39,8 +39,8 @@ Instead, you can estimate the cause of the bug using Earthquake branch analyzer 
 
 	
 	$ java -jar ../../bin/earthquake-analyzer.jar /tmp/zk-2080/ --classes-path /tmp/zk-2080/materials/zookeeper/build/classes
-	[DEBUG] net.osrg.earthquake.ExperimentAnalyzer - Scanning /tmp/zk-2080/00000000: experiment successful=false
-	[DEBUG] net.osrg.earthquake.ExperimentAnalyzer - Scanning /tmp/zk-2080/00000001: experiment successful=true
+	[DEBUG] net.osrg.namazu.ExperimentAnalyzer - Scanning /tmp/zk-2080/00000000: experiment successful=false
+	[DEBUG] net.osrg.namazu.ExperimentAnalyzer - Scanning /tmp/zk-2080/00000001: experiment successful=true
 	..
 	Suspicious: org.apache.zookeeper.server.quorum.QuorumCnxManager::connectAll
 		- at line 511: branch on success=0, on failure=4

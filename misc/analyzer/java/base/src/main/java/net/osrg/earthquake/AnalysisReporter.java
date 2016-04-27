@@ -12,7 +12,7 @@
 // implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package net.osrg.earthquake;
+package net.osrg.namazu;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

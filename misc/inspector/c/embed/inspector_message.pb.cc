@@ -287,7 +287,7 @@ void protobuf_AddDesc_inspector_5fmessage_2eproto() {
     "sp\022,\n\003res\030\001 \002(\0162\037.equtils.InspectorMsgRs"
     "p.Result\022\016\n\006msg_id\030\002 \001(\005\022\021\n\tga_msg_id\030\003 "
     "\001(\005\"%\n\006Result\022\007\n\003ACK\020\001\022\t\n\005ERROR\020\002\022\007\n\003END"
-    "\020\003B\025\n\023net.osrg.earthquake", 1265);
+    "\020\003B\025\n\023net.osrg.namazu", 1265);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "inspector_message.proto", &protobuf_RegisterTypes);
   InspectorMsgReq_Event_FuncCall::default_instance_ = new InspectorMsgReq_Event_FuncCall();

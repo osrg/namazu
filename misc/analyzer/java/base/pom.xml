@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <name>Earthquake Analyzer (Java)</name>
-    <url>http://github.com/osrg/earthquake</url>
+    <url>http://github.com/osrg.namazu</url>
 
     <build>
         <finalName>earthquake-analyzer</finalName>
@@ -19,8 +19,8 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>net.osrg.earthquake.Main</mainClass>
-                            <packageName>net.osrg.earthquake</packageName>
+                            <mainClass>net.osrg.namazu.Main</mainClass>
+                            <packageName>net.osrg.namazu</packageName>
                             <addClasspath>true</addClasspath>
                             <addExtensions>true</addExtensions>
                             <classpathPrefix>lib</classpathPrefix>

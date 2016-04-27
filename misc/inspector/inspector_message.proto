@@ -15,7 +15,7 @@
 
 package pb;
 
-option java_package = "net.osrg.earthquake";
+option java_package = "net.osrg.namazu";
 
 message InspectorMsgReq_Event_FuncCall {
   required string name = 1;
