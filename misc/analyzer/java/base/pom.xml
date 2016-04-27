@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.osrg</groupId>
-    <artifactId>earthquake</artifactId>
+    <artifactId>namazu</artifactId>
     <version>0.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -11,7 +11,7 @@
     <url>http://github.com/osrg.namazu</url>
 
     <build>
-        <finalName>earthquake-analyzer</finalName>
+        <finalName>namazu-analyzer</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -337,10 +337,10 @@ __attribute__((constructor)) void init_namazu_inspection(void)
 {
   int tcp_port = EQ_GA_TCP_PORT_DEFAULT, ret;
 
-  openlog("earthquake inspection", LOG_NDELAY | LOG_PID, 0);
+  openlog("namazu inspection", LOG_NDELAY | LOG_PID, 0);
 
   if (getenv(EQ_DISABLE)) {
-    eqi_info("earthquake inspection is disabled, do nothing\n");
+    eqi_info("namazu inspection is disabled, do nothing\n");
     running = false;
     return;
   }

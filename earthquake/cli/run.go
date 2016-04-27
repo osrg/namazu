@@ -87,7 +87,7 @@ func (this *runner) initStorage() error {
 
 // depends on initStorage()
 func (this *runner) initGlobalLogger() error {
-	logutil.InitLog(path.Join(this.workingDirPath, "earthquake.log"), logutil.Debug)
+	logutil.InitLog(path.Join(this.workingDirPath, "namazu.log"), logutil.Debug)
 	return nil
 }
 
@@ -252,20 +252,20 @@ The run command starts the orchestrator and run an experiment with the workspace
 Before running this command, you have to initialize the workspace using the init command.
 
 Typical usage:
-     $ earthquake init --force config.toml materials /tmp/x
-     $ for f in $(seq 1 100);do earthquake run /tmp/x; done
-     $ earthquake tools summary /tmp/x
+     $ namazu init --force config.toml materials /tmp/x
+     $ for f in $(seq 1 100);do namazu run /tmp/x; done
+     $ namazu tools summary /tmp/x
 
 You have to prepare config.toml and the materials directory before running the init command.
 Please also refer to the examples included in the github repository: https://github.com/osrg/namazu/tree/master/example
 
-NOTE: "earthquake run" is different from "earthquake container run".
+NOTE: "namazu run" is different from "namazu container run".
 `
 	return s
 }
 
 func (cmd runCmd) Run(args []string) int {
-	log.Warn("`earthquake run` is different from `earthquake container run` (Docker-like CLI).")
+	log.Warn("`namazu run` is different from `namazu container run` (Docker-like CLI).")
 	return run(args)
 }
 

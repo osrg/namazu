@@ -35,8 +35,8 @@ type orchestratorCmd struct {
 func (cmd orchestratorCmd) Help() string {
 	s := fmt.Sprintf(`
 The orchestrator command just starts the orchestrator.
-Basically you should use "earthquake init" and "earthquake orchestrator",
-but "earthquake orchestrator" is sometimes useful for interactive operation.
+Basically you should use "namazu init" and "namazu orchestrator",
+but "namazu orchestrator" is sometimes useful for interactive operation.
 
 If no config was specified, %d is used as a default REST port.
 `, defaultRESTPort)

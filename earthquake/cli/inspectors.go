@@ -33,7 +33,7 @@ The inspectors command starts an Namazu inspector.
 
 If -orchestrator-url is set, the inspector connects the external orchestrator.
 For how to start the external orchestrator, please refer to the help of the run command.
-(earthquake --help run)
+(namazu --help run)
 
 Note that you have to set -entity-id to an unique value if you connect multiple inspectors to the external orchestrator.
 
@@ -44,7 +44,7 @@ You can specify the configuration file for the embedded orchestrator by setting 
 Process inspector (proc)
     Inspects running Linux process information, and set scheduling attributes.
 
-    Typical usage: earthquake inspectors proc -root-pid 42 -watch-interval 1s
+    Typical usage: namazu inspectors proc -root-pid 42 -watch-interval 1s
 
     Event signals: ProcSetEvent
     Action signals: ProcSetSchedAction
@@ -54,7 +54,7 @@ Filesystem inspector (fs)
     Inspects file access information, and inject delays and faults.
     Implemented in FUSE.
 
-    Typical usage: earthquake inspectors fs -original-dir /tmp/eqfs-orig -mount-point /tmp/eqfs
+    Typical usage: namazu inspectors fs -original-dir /tmp/eqfs-orig -mount-point /tmp/eqfs
 
     Event signals: FilesystemEvent
     Action signals: EventAcceptanceAction, FilesystemFaultAction
@@ -65,7 +65,7 @@ Ethernet inspector (ethernet)
     Implemented in Linux netfilter / Openflow.
     For Openflow implementation, you have to install hookswitch: https://github.com/osrg/hookswitch
 
-    Typical usage: earthquake inspectors ethernet -nfq-number 42
+    Typical usage: namazu inspectors ethernet -nfq-number 42
 
     Event signals: PacketEvent
     Action signals: EventAcceptanceAction, PacketFaultAction
@@ -81,7 +81,7 @@ You can also implement your own inspector in an arbitrary language.
 }
 
 func (cmd inspectorsCmd) Run(args []string) int {
-	c := mcli.NewCLI("earthquake inspectors", coreutil.NamazuVersion)
+	c := mcli.NewCLI("namazu inspectors", coreutil.NamazuVersion)
 	c.Args = args
 	c.Commands = map[string]mcli.CommandFactory{
 		"proc":     inspectors.ProcCommandFactory,
@@ -89,7 +89,7 @@ func (cmd inspectorsCmd) Run(args []string) int {
 		"ethernet": inspectors.EtherCommandFactory,
 	}
 	c.HelpFunc = func(commands map[string]mcli.CommandFactory) string {
-		s := (mcli.BasicHelpFunc("earthquake inspectors"))(commands)
+		s := (mcli.BasicHelpFunc("namazu inspectors"))(commands)
 		s += cmd.Help()
 		return s
 	}

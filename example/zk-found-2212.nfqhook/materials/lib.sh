@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## CONFIG
-# EQ_DISABLE=1 # set to disable earthquake
+# EQ_DISABLE=1 # set to disable namazu
 ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-98a3cabfa279833b81908d72f1c10ee9f598a045} #(Tue Jun 2 19:17:09 2015 +0000)
 ZK_START_WAIT_SECS=${ZK_START_WAIT_SECS:-10}
 PAUSE_ON_FAILURE=${PAUSE_ON_FAILURE:-0}

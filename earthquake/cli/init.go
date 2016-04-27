@@ -173,7 +173,7 @@ func _init(args []string) int {
 	}
 
 	if len(fi) != 0 {
-		fmt.Printf("directory for earthquake storagePath (%s) must be empty\n", storagePath)
+		fmt.Printf("directory for namazu storagePath (%s) must be empty\n", storagePath)
 		return 1
 	}
 

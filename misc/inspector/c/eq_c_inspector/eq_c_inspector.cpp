@@ -42,7 +42,7 @@ using namespace std;
 
 using namespace llvm;
 
-static cl::OptionCategory EqInspectorCategory("earthquake c inspector category");
+static cl::OptionCategory EqInspectorCategory("namazu c inspector category");
 static cl::opt<bool>
 Verbose("verbose", cl::desc("Be verbose"), cl::cat(EqInspectorCategory));
 static cl::opt<string>
@@ -195,7 +195,7 @@ static void InsertWrappedFunctions(ofstream &os)
 
 static void InsertHeader(string path) {
   string header_double_check =
-    "/* below code is inserted by earthquake inspector */\n"
+    "/* below code is inserted by namazu inspector */\n"
     "#ifdef __EQ_INSPECTION_INSERTED__\n"
     "#error \"more than two inspection\"\n"
     "#else\n"
@@ -204,12 +204,12 @@ static void InsertHeader(string path) {
     "/* inserted code end */\n";
 
   string header_event_funcs =
-    "/* below code is inserted by earthquake inspector */\n"
+    "/* below code is inserted by namazu inspector */\n"
     "extern void eq_event_func_call(const char *);\n"
     "/* inserted code end */\n";
 
   string footer_make_dep =
-    "/* below code is inserted by earthquake inspector */\n"
+    "/* below code is inserted by namazu inspector */\n"
     "\n"
     "/* below eq_dep and __eq_nop() are stuff just for making dependency*/\n"
     "extern int eq_dep;\n"

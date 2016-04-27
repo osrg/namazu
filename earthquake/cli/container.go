@@ -32,7 +32,7 @@ func (cmd containerCmd) Help() string {
 
 func (cmd containerCmd) Run(args []string) int {
 	if len(args) < 1 {
-		fmt.Printf("Usage: earthquake container run [OPTIONS] COMMAND [arg...]\n")
+		fmt.Printf("Usage: namazu container run [OPTIONS] COMMAND [arg...]\n")
 		fmt.Printf("\n")
 		fmt.Printf("Docker Container + Namazu Testing Framework\n")
 		fmt.Printf("\n")
@@ -45,7 +45,7 @@ func (cmd containerCmd) Run(args []string) int {
 	case "run":
 		return crun.Run(args)
 	}
-	fmt.Fprintf(os.Stderr, "'%s' is not a earthquake-container command.\n", args[0])
+	fmt.Fprintf(os.Stderr, "'%s' is not a namazu-container command.\n", args[0])
 	return 1
 }
 

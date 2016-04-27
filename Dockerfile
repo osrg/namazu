@@ -1,5 +1,5 @@
 ## Dockerfile for Namazu
-## Available at Docker Hub: osrg/earthquake
+## Available at Docker Hub: osrg/namazu
 FROM osrg/dind-ovs-ryu
 MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 
@@ -37,11 +37,11 @@ RUN chmod +x /usr/local/bin/pipework
 ## (Optional) Create a user for nfqueue sandbox
 RUN useradd -m nfqhooked
 
-## Copy Namazu to /earthquake
-ADD . /earthquake
-WORKDIR /earthquake
+## Copy Namazu to /namazu
+ADD . /namazu
+WORKDIR /namazu
 RUN ( git submodule init && git submodule update )
-ENV PYTHONPATH /earthquake:$PYTHONPATH
+ENV PYTHONPATH /namazu:$PYTHONPATH
 
 ## Build Namazu
 RUN ./build

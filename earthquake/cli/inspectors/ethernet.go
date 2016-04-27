@@ -40,7 +40,7 @@ var (
 func init() {
 	initCommon(etherFlagset, &_etherFlags.commonFlags, "_namazu_ethernet_inspector")
 	etherFlagset.StringVar(&_etherFlags.HookSwitchZMQAddr, "hookswitch",
-		"ipc:///tmp/earthquake-hookswitch-zmq", "HookSwitch ZeroMQ addr")
+		"ipc:///tmp/namazu-hookswitch-zmq", "HookSwitch ZeroMQ addr")
 	etherFlagset.IntVar(&_etherFlags.NFQNumber, "nfq-number",
 		-1, "netfilter_queue number")
 }
@@ -53,7 +53,7 @@ func EtherCommandFactory() (cli.Command, error) {
 }
 
 func (cmd etherCmd) Help() string {
-	return "Please run `earthquake --help inspectors` instead"
+	return "Please run `namazu --help inspectors` instead"
 }
 
 func (cmd etherCmd) Synopsis() string {

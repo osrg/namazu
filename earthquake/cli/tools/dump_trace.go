@@ -108,7 +108,7 @@ func (cmd dumpTraceCmd) Synopsis() string {
 }
 
 func (cmd dumpTraceCmd) Help() string {
-	return "Please run `earthquake --help tools` instead"
+	return "Please run `namazu --help tools` instead"
 }
 
 func (cmd dumpTraceCmd) Run(args []string) int {

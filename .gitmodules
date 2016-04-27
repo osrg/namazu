@@ -1,8 +1,8 @@
 [submodule "inspector/c/llvm/clang.git"]
 	path = inspector/c/llvm/clang.git
 	url = https://github.com/osrg/clang.git
-	branch = earthquake
+	branch = namazu
 [submodule "inspector/c/llvm/llvm.git"]
 	path = inspector/c/llvm/llvm.git
 	url = https://github.com/osrg/llvm.git
-	branch = earthquake
+	branch = namazu

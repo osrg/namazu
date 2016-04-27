@@ -51,7 +51,7 @@ func FsCommandFactory() (cli.Command, error) {
 }
 
 func (cmd fsCmd) Help() string {
-	return "Please run `earthquake --help inspectors` instead"
+	return "Please run `namazu --help inspectors` instead"
 }
 
 func (cmd fsCmd) Synopsis() string {

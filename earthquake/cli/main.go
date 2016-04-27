@@ -27,7 +27,7 @@ func help() string {
 Basically the inspectors command is enough for getting started.
 If you want to run a specific test scenario repeatedly, the init command and the run command are useful.
 
-For further information, please visit the web site: https://github.com/osrg/earthquake
+For further information, please visit the web site: https://github.com/osrg/namazu
 `
 	return s
 }

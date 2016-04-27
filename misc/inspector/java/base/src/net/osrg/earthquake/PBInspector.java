@@ -133,7 +133,7 @@ public class PBInspector implements Inspector {
         });
 
         try {
-            FileHandler logFileHandler = new FileHandler("/tmp/earthquake-inspection-java.log");
+            FileHandler logFileHandler = new FileHandler("/tmp/namazu-inspection-java.log");
             logFileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(logFileHandler);
         } catch (IOException e) {

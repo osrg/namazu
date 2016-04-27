@@ -61,7 +61,7 @@ func (p *MyPolicy) QueueEvent(event signal.Event) {
 		panic(err)
 	}
 	// send in a goroutine so as to make the function non-blocking.
-	// (Note that earthquake/util/queue/TimeBoundedQueue provides
+	// (Note that namazu/util/queue/TimeBoundedQueue provides
 	// better semantics and determinism, this is just an example.)
 	go func() {
 		fmt.Printf("Action ready: %s\n", action)

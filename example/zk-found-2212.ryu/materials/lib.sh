@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## CONFIG
-# EQ_DISABLE=1 # set to disable earthquake
+# EQ_DISABLE=1 # set to disable namazu
 ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-98a3cabfa279833b81908d72f1c10ee9f598a045} #(Tue Jun 2 19:17:09 2015 +0000)
 DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME:-zk_testbed}
 

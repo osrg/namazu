@@ -50,7 +50,7 @@ func ProcCommandFactory() (cli.Command, error) {
 }
 
 func (cmd procCmd) Help() string {
-	return "Please run `earthquake --help inspectors` instead"
+	return "Please run `namazu --help inspectors` instead"
 }
 
 func (cmd procCmd) Synopsis() string {

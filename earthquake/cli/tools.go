@@ -31,7 +31,7 @@ func (cmd toolsCmd) Help() string {
 }
 
 func (cmd toolsCmd) Run(args []string) int {
-	c := mcli.NewCLI("earthquake tools", coreutil.NamazuVersion)
+	c := mcli.NewCLI("namazu tools", coreutil.NamazuVersion)
 	c.Args = args
 	c.Commands = map[string]mcli.CommandFactory{
 		"visualize":  tools.VisualizeCommandFactory,

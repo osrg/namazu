@@ -56,7 +56,7 @@ func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnE
 
 func help() string {
 	// FIXME: why not use the strings in runflag.go?
-	s := `Usage: earthquake container run [OPTIONS] IMAGE COMMAND
+	s := `Usage: namazu container run [OPTIONS] IMAGE COMMAND
 
 Run a command in a new Namazu Container
 

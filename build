@@ -22,16 +22,16 @@ INFO "Installing protoc to $GOBIN"
 go get github.com/golang/protobuf/proto
 go get github.com/golang/protobuf/protoc-gen-go
 INFO "Generating PB files"
-protoc --go_out=earthquake/util/pb -Imisc/inspector misc/inspector/inspector_message.proto
+protoc --go_out=namazu/util/pb -Imisc/inspector misc/inspector/inspector_message.proto
 
 ########## Go ##########
-INFO "Building earthquake"
+INFO "Building namazu"
 go get -t github.com/osrg/namazu/nmz
-go build -o bin/earthquake github.com/osrg/namazu/nmz
+go build -o bin/namazu github.com/osrg/namazu/nmz
 
-INFO "Building earthquake.static"
-go build --ldflags '-extldflags "-static"' -tags static -o bin/earthquake.static github.com/osrg/namazu/nmz
-file bin/earthquake.static | grep "statically linked" > /dev/null
+INFO "Building namazu.static"
+go build --ldflags '-extldflags "-static"' -tags static -o bin/namazu.static github.com/osrg/namazu/nmz
+file bin/namazu.static | grep "statically linked" > /dev/null
 
 EXAMPLES="example/template/mypolicy.go example/yarn/4301-reproduce/mypolicy.go"
 for f in $EXAMPLES; do
@@ -49,11 +49,11 @@ done
 #INFO "Testing pynmz"
 
 ########## Java ##########
-INFO "Building Java Inspector (bin/earthquake-inspector.jar)"
-( cd misc/inspector/java/base; mvn package > /dev/null ) && cp -f misc/inspector/java/base/target/earthquake-inspector.jar bin
+INFO "Building Java Inspector (bin/namazu-inspector.jar)"
+( cd misc/inspector/java/base; mvn package > /dev/null ) && cp -f misc/inspector/java/base/target/namazu-inspector.jar bin
 
-INFO "Building Java Analyzer (bin/earthquake-analyzer.jar)"
-( cd misc/analyzer/java/base; mvn package > /dev/null ) && cp -f misc/analyzer/java/base/target/earthquake-analyzer.jar bin
+INFO "Building Java Analyzer (bin/namazu-analyzer.jar)"
+( cd misc/analyzer/java/base; mvn package > /dev/null ) && cp -f misc/analyzer/java/base/target/namazu-analyzer.jar bin
 
 ########## C ##########
 #INFO "Building C Inspector" #FIXME: still broken?

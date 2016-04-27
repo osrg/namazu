@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## CONFIG
-# EQ_DISABLE=1 # set to disable earthquake
+# EQ_DISABLE=1 # set to disable namazu
 ETCD_GIT_COMMIT=${ETCD_GIT_COMMIT:-master}
 DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME:-etcd_testbed}
 

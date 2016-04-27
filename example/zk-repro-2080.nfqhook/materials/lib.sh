@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## CONFIG
-# EQ_DISABLE=1 # set to disable earthquake
+# EQ_DISABLE=1 # set to disable namazu
 ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-35e45512b5602eddbde9bb4ca0ef118d2fed7464} #(Sep 11, 2015)
 # ZK_SKIP_JACOCO_PATCH=1 # set to skip applying ZOOKEEPER-2266-v2.patch (required only if already applied)
 ZK_TEST_COMMAND=${ZK_TEST_COMMAND:-ant -Dtestcase=ReconfigRecoveryTest -Dtest.method=testCurrentObserverIsParticipantInNewConfig -Dtest.output=true test-core-java}
