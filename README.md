@@ -49,7 +49,7 @@ JUnit tests are interesting to try.
     nmzc$ for f in $(seq 1 1000);do mvn test; done
 
 
-You can also specify a config file (`--eq-config` option for `nmz container`.)
+You can also specify a config file (`--nmz-autopilot` option for `nmz container`.)
 A typical configuration file (`config.toml`) is as follows:
 
 ```toml

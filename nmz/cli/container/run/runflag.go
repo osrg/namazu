@@ -32,8 +32,8 @@ func parseRun(cmd *flag.FlagSet, args []string) (*docker.CreateContainerOptions,
 		flVolumes = opts.NewListOpts(nil)
 		// the caller should handle "-rm" with cmd.IsSet()
 		_ = cmd.Bool([]string{"-rm"}, false, "Automatically remove the container when it exits")
-		// the caller should handle "-eq-config"
-		_ = cmd.String([]string{"-eq-config"}, "", "Namazu configuration file")
+		// the caller should handle "-nmz-autopilot"
+		_ = cmd.String([]string{"-nmz-autopilot"}, "", "Namazu configuration file")
 	)
 	cmd.Var(&flVolumes, []string{"v", "-volume"}, "Bind mount a volume")
 	if err := cmd.Parse(args); err != nil {

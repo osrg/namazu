@@ -27,7 +27,7 @@ import (
 	"github.com/osrg/namazu/nmz/util/config"
 )
 
-func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnExit bool, eqCfg config.Config, err error) {
+func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnExit bool, nmzCfg config.Config, err error) {
 	if len(args) < 3 {
 		// FIXME
 		err = fmt.Errorf("bad argument: %s", args)
@@ -40,15 +40,15 @@ func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnE
 	}
 	removeOnExit = flagSet.IsSet("-rm")
 
-	eqCfgPath := flagSet.Lookup("-eq-config").Value.String()
-	eqCfg, err = newConfig(eqCfgPath)
+	nmzCfgPath := flagSet.Lookup("-nmz-autopilot").Value.String()
+	nmzCfg, err = newConfig(nmzCfgPath)
 	if err != nil {
 		err = fmt.Errorf("bad config: %s", err)
 		return
 	}
-	log.Debugf("Namazu Config=%s", eqCfg)
+	log.Debugf("Namazu Config=%s", nmzCfg)
 
-	if err = checkPrerequisite(eqCfg); err != nil {
+	if err = checkPrerequisite(nmzCfg); err != nil {
 		err = fmt.Errorf("prerequisite error: %s", err)
 	}
 	return
@@ -69,7 +69,7 @@ Docker-compatible options:
   -v, --volume=[]                 Bind mount a volume
 
 Namazu-specific options:
-  -eq-config                      Namazu configuration file
+  -nmz-autopilot                      Namazu configuration file
 
 NOTE: Unlike docker, COMMAND is mandatory at the moment.
 `
@@ -77,7 +77,7 @@ NOTE: Unlike docker, COMMAND is mandatory at the moment.
 }
 
 func Run(args []string) int {
-	dockerOpt, removeOnExit, eqCfg, err := prepare(args)
+	dockerOpt, removeOnExit, nmzCfg, err := prepare(args)
 	if err != nil {
 		// do not panic here
 		fmt.Fprintf(os.Stderr, "%s\n", err)
@@ -104,7 +104,7 @@ func Run(args []string) int {
 		defer ns.Remove(client, c)
 	}
 
-	err = container.StartNamazuRoutines(c, eqCfg)
+	err = container.StartNamazuRoutines(c, nmzCfg)
 	if err != nil {
 		panic(log.Critical(err))
 	}
