@@ -37,7 +37,7 @@ var (
 )
 
 func init() {
-	initCommon(procFlagset, &_procFlags.commonFlags, "_earthquake_proc_inspector")
+	initCommon(procFlagset, &_procFlags.commonFlags, "_namazu_proc_inspector")
 	procFlagset.IntVar(&_procFlags.RootPID, "root-pid", -1, "PID for the target process tree")
 	procFlagset.DurationVar(&_procFlags.WatchInterval, "watch-interval", 1*time.Second, "Watching interval")
 }

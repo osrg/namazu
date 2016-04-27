@@ -35,7 +35,7 @@ func TestNewNopEventFromJSONString(t *testing.T) {
 {
     "type": "event",
     "class": "NopEvent",
-    "entity": "_earthquake_syslog_inspector",
+    "entity": "_namazu_syslog_inspector",
     "uuid": "1f13eaa6-4b92-45f0-a4de-1236081ec142",
     "deferred": false,
     "option": {
@@ -51,7 +51,7 @@ func TestNewNopEventFromJSONString(t *testing.T) {
 		t.Fatal("Cannot convert to NopEvent")
 	}
 
-	assert.Equal(t, nopEvent.EntityID(), "_earthquake_syslog_inspector")
+	assert.Equal(t, nopEvent.EntityID(), "_namazu_syslog_inspector")
 	assert.Equal(t, nopEvent.ID(), "1f13eaa6-4b92-45f0-a4de-1236081ec142")
 	testNonDeferredEventDefaultAction(t, nopEvent)
 	testNonDeferredEventDefaultFaultAction(t, nopEvent)

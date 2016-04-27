@@ -26,7 +26,7 @@ import (
 func ServeProcInspector(c *docker.Container, watchInterval time.Duration) error {
 	insp := &proc.ProcInspector{
 		OrchestratorURL: ocutil.LocalOrchestratorURL,
-		EntityID:        "_earthquake_container_proc_inspector",
+		EntityID:        "_namazu_container_proc_inspector",
 		RootPID:         c.State.Pid,
 		WatchInterval:   watchInterval,
 	}

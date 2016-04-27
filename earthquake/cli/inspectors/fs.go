@@ -38,7 +38,7 @@ var (
 )
 
 func init() {
-	initCommon(fsFlagset, &_fsFlags.commonFlags, "_earthquake_fs_inspector")
+	initCommon(fsFlagset, &_fsFlags.commonFlags, "_namazu_fs_inspector")
 	fsFlagset.StringVar(&_fsFlags.OriginalDir, "original-dir", "", "FUSE Original Directory")
 	fsFlagset.StringVar(&_fsFlags.Mountpoint, "mount-point", "", "FUSE Mount Point")
 }

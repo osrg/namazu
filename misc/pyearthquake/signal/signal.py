@@ -14,7 +14,7 @@ class SignalBase(object):
     type_name = '_meta'
 
     # these are included in json
-    entity = '_earthquake_invalid_entity_id'
+    entity = '_namazu_invalid_entity_id'
     uuid = '00000000-0000-0000-0000-000000000000'
     option = {}
 

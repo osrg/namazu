@@ -23,8 +23,8 @@ import (
 )
 
 func makeEntityIDs(eth *layers.Ethernet, ip *layers.IPv4, tcp *layers.TCP) (string, string) {
-	srcEntityID := "_earthquake_unknown_entity"
-	dstEntityID := "_earthquake_unknown_entity"
+	srcEntityID := "_namazu_unknown_entity"
+	dstEntityID := "_namazu_unknown_entity"
 	if ip != nil && tcp != nil {
 		srcEntityID = fmt.Sprintf("entity-%s:%d", ip.SrcIP, tcp.SrcPort)
 		dstEntityID = fmt.Sprintf("entity-%s:%d", ip.DstIP, tcp.DstPort)

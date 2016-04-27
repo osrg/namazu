@@ -16,7 +16,7 @@
 // eq_dep: why this variable is required?
 // eq_dep is accessed by inserted code of target software. The access
 // is required because if it isn't done, the constructor
-// (init_earthquake_inspection()) isn't called.
+// (init_namazu_inspection()) isn't called.
 
 extern "C" {
 

@@ -27,7 +27,7 @@ class EtherInspectorBase(object):
 
     def __init__(
         self, zmq_addr, orchestrator_rest_url=DEFAULT_ORCHESTRATOR_URL,
-                 entity_id='_earthquake_ether_inspector'):
+                 entity_id='_namazu_ether_inspector'):
         if ENABLE_TCP_WATCHER:
             LOG.info('Using TCPWatcher')
             self.tcp_watcher = TCPWatcher()

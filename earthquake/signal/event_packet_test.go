@@ -38,7 +38,7 @@ func TestNewPacketEventFromJSONString(t *testing.T) {
 {
     "type": "event",
     "class": "PacketEvent",
-    "entity": "_earthquake_ether_inspector",
+    "entity": "_namazu_ether_inspector",
     "uuid": "1f13eaa6-4b92-45f0-a4de-1236081dc649",
     "deferred": true,
     "option": {
@@ -64,7 +64,7 @@ func TestNewPacketEventFromJSONString(t *testing.T) {
 		t.Fatal("Cannot convert to PacketEvent")
 	}
 
-	assert.Equal(t, "_earthquake_ether_inspector", packetEvent.EntityID())
+	assert.Equal(t, "_namazu_ether_inspector", packetEvent.EntityID())
 	assert.Equal(t, "1f13eaa6-4b92-45f0-a4de-1236081dc649", packetEvent.ID())
 	opt1 := packetEvent.JSONMap()["option"].(map[string]interface{})
 	opt2 := map[string]interface{}{

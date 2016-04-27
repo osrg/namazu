@@ -23,7 +23,7 @@ LOG = _LOG.getChild(__name__)
 class ZkEtherInspector(EtherInspectorBase):
 
     def __init__(self, zmq_addr, orchestrator_rest_url=DEFAULT_ORCHESTRATOR_URL,
-                 entity_id='_earthquake_ether_inspector',
+                 entity_id='_namazu_ether_inspector',
                  ignore_pings=True, dump_bad_packet=False):
         super(ZkEtherInspector, self).__init__(zmq_addr, orchestrator_rest_url, entity_id)
         self.ignore_pings = ignore_pings

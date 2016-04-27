@@ -80,7 +80,7 @@ type BasicSignal struct {
 func (this *BasicSignal) InitSignal() {
 	this.M = make(map[string]interface{})
 	this.SetID("00000000-0000-0000-0000-000000000000")
-	this.SetEntityID("_earthquake_invalid_entity_id")
+	this.SetEntityID("_namazu_invalid_entity_id")
 	this.SetType("_invalid_type")
 	this.SetClass("_invalid_class")
 	this.SetOption(map[string]interface{}{})

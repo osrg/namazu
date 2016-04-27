@@ -40,7 +40,7 @@ func NewShellAction(command string, comments map[string]interface{}) (Action, er
 	action.InitSignal()
 	action.SetID(uuid.NewV4().String())
 	// dummy entity id
-	action.SetEntityID("_earthquake_shell_action_entity")
+	action.SetEntityID("_namazu_shell_action_entity")
 	action.SetType("action")
 	action.SetClass("ShellAction")
 	action.SetOption(map[string]interface{}{

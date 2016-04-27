@@ -32,7 +32,7 @@ func ServeEthernetInspector(c *docker.Container, queueNum int) error {
 	}
 	insp := &ethernet.NFQInspector{
 		OrchestratorURL:  ocutil.LocalOrchestratorURL,
-		EntityID:         "_earthquake_container_ethernet_inspector",
+		EntityID:         "_namazu_container_ethernet_inspector",
 		NFQNumber:        uint16(queueNum),
 		EnableTCPWatcher: true,
 	}

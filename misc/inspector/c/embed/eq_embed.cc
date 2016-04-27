@@ -333,7 +333,7 @@ static void initiation(void)
   eqi_info("initiation succeed\n");
 }
 
-__attribute__((constructor)) void init_earthquake_inspection(void)
+__attribute__((constructor)) void init_namazu_inspection(void)
 {
   int tcp_port = EQ_GA_TCP_PORT_DEFAULT, ret;
 
@@ -381,7 +381,7 @@ __attribute__((constructor)) void init_earthquake_inspection(void)
   eqi_info("constructor ends\n");
 }
 
-__attribute__((destructor)) void exit_earthquake_inspection(void)
+__attribute__((destructor)) void exit_namazu_inspection(void)
 {
   eqi_info("destructor called, process %s is exiting\n", _env_processId);
 

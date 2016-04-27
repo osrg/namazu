@@ -50,7 +50,7 @@ func TestNewFilesystemEventFromJSONString(t *testing.T) {
 {
     "type": "event",
     "class": "FilesystemEvent",
-    "entity": "_earthquake_fs_inspector",
+    "entity": "_namazu_fs_inspector",
     "uuid": "1f13eaa6-4b92-45f0-a4de-1236081dc649",
     "deferred": true,
     "option": {
@@ -68,7 +68,7 @@ func TestNewFilesystemEventFromJSONString(t *testing.T) {
 		t.Fatal("Cannot convert to FilesystemEvent")
 	}
 
-	assert.Equal(t, "_earthquake_fs_inspector", fsEvent.EntityID())
+	assert.Equal(t, "_namazu_fs_inspector", fsEvent.EntityID())
 	assert.Equal(t, "1f13eaa6-4b92-45f0-a4de-1236081dc649", fsEvent.ID())
 	opt1 := fsEvent.JSONMap()["option"].(map[string]interface{})
 	opt2 := map[string]interface{}{
