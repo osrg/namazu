@@ -52,7 +52,7 @@ done
 INFO "Building Java Inspector (bin/nmz-inspector.jar)"
 ( cd misc/inspector/java/base; mvn package > /dev/null ) && cp -f misc/inspector/java/base/target/nmz-inspector.jar bin
 
-INFO "Building Java Analyzer (bin/nmz-.jar)"
+INFO "Building Java Analyzer (bin/nmz-analyzer.jar)"
 ( cd misc/analyzer/java/base; mvn package > /dev/null ) && cp -f misc/analyzer/java/base/target/nmz-analyzer.jar bin
 
 ########## C ##########

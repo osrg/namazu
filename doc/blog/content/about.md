@@ -6,7 +6,7 @@ title = "About Namazu"
 
 +++
 
-In short, the goal of earthquake project is providing a foundation of debugger for distributed systems.
+In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.
 
 Developing and maintaining distributed systems is difficult. 
 The difficulty comes from many factors, 
@@ -21,12 +21,12 @@ They showed the existence of the bugs by building implementation level distribut
 The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
 In addition, they can work with actual implementation (not formal model [\[2\]][2]) directly.
 
-earthquake is a programmable fuzz testing framework inspired by such DMCKs.
+Namazu is a programmable fuzz testing framework inspired by such DMCKs.
 Its design does not depend on programming languages and opearting systems.
 You can write your own state space search policy for your system.
 We hope it will make your life a little bit easier.
 
-![Overview](/earthquake/images/overview.png)
+![Overview](/namazu/images/overview.png)
 
 [1]: https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa "Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14."
 [2]: http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf "Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014."
