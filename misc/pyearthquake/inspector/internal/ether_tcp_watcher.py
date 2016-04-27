@@ -1,6 +1,6 @@
 import ryu.lib.packet.packet
 
-from pyearthquake import LOG as _LOG
+from pynmz import LOG as _LOG
 LOG = _LOG.getChild(__name__)
 
 

@@ -71,7 +71,7 @@ export EQ_ETHER_ZMQ_ADDR="ipc://${EQ_WORKING_DIR}/ether_inspector"
 function CHECK_PYTHONPATH() {
     INFO "Checking PYTHONPATH(=${PYTHONPATH})"
     ## used for etcd_inspector
-    python -c "import pyearthquake"
+    python -c "import pynmz"
 }    
 
 function START_SWITCH() {

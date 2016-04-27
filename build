@@ -43,10 +43,10 @@ for f in $EXAMPLES; do
 done
 
 ########## Python ##########
-#INFO "Checking whether pyearthquake deps are installed"
-#INFO "Running \`autopep8 -r --diff\` for pyearthquake"
-#autopep8 -r --diff misc/pyearthquake
-#INFO "Testing pyearthquake"
+#INFO "Checking whether pynmz deps are installed"
+#INFO "Running \`autopep8 -r --diff\` for pynmz"
+#autopep8 -r --diff misc/pynmz
+#INFO "Testing pynmz"
 
 ########## Java ##########
 INFO "Building Java Inspector (bin/earthquake-inspector.jar)"

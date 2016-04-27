@@ -22,7 +22,7 @@ public class JSONEQHelper extends Helper
 {
     public JSONEQHelper(Rule rule) {
 	super (rule);
-	throw new UnsupportedOperationException("JSONEQHelper has been eliminated. Use PBEQHelper instead. pyearthquake will be supported as a plugin of earthquake. -- July 8, 2015.");
+	throw new UnsupportedOperationException("JSONEQHelper has been eliminated. Use PBEQHelper instead. pynmz will be supported as a plugin of earthquake. -- July 8, 2015.");
     }
 }
 

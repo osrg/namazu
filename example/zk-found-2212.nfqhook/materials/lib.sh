@@ -64,7 +64,7 @@ function CHECK_PREREQUISITES() {
 
     INFO "Checking PYTHONPATH"
     ## used for zk_inspector
-    python -c "import pyearthquake"
+    python -c "import pynmz"
     
 }
 

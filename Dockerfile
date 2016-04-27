@@ -14,9 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     mongodb \
     ## (Optional) Install FUSE inspector deps
     fuse \
-    ## (Optional) Install pyearthquake deps
+    ## (Optional) Install pynmz deps
     python-flask python-scapy python-zmq \
-    ## (Optional) Install pyearthquake nfqhook deps
+    ## (Optional) Install pynmz nfqhook deps
     libnetfilter-queue1 python-prctl
 
 ## Install Go 1.6
@@ -24,7 +24,7 @@ RUN curl https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar Cx
 ENV PATH /usr/local/go/bin:$PATH
 ENV GOPATH /gopath
 
-## (Optional) Install pyearthquake deps
+## (Optional) Install pynmz deps
 RUN pip install hexdump
 
 ## (Optional) Install hookswitch

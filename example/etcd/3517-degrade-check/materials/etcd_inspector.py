@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 import os
-from pyearthquake.signal.event import PacketEvent
+from pynmz.signal.event import PacketEvent
 import base64
 
 from scapy.all import *
 
 ZMQ_ADDR = os.getenv('EQ_ETHER_ZMQ_ADDR')
 
-import pyearthquake
-from pyearthquake.inspector.ether import EtherInspectorBase
+import pynmz
+from pynmz.inspector.ether import EtherInspectorBase
 
-LOG = pyearthquake.LOG.getChild(__name__)
+LOG = pynmz.LOG.getChild(__name__)
 
 class EtcdPacket(Packet):
     name = 'EtcdPacket'

@@ -75,7 +75,7 @@ NOTE: this binary does NOT include the following inspectors:
     Java Inspector:     (included in misc/inspector/java)
     C Inspector:        (included in misc/inspector/c, NOT MAINTAINED)
 
-NOTE: Python implementation for Ethernet inspector is also available in misc/pyearthquake.
+NOTE: Python implementation for Ethernet inspector is also available in misc/pynmz.
 You can also implement your own inspector in an arbitrary language.
 `
 }
