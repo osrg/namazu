@@ -33,7 +33,7 @@ The inspectors command starts an Namazu inspector.
 
 If -orchestrator-url is set, the inspector connects the external orchestrator.
 For how to start the external orchestrator, please refer to the help of the run command.
-(namazu --help run)
+(nmz --help run)
 
 Note that you have to set -entity-id to an unique value if you connect multiple inspectors to the external orchestrator.
 

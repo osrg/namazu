@@ -53,7 +53,7 @@ func EtherCommandFactory() (cli.Command, error) {
 }
 
 func (cmd etherCmd) Help() string {
-	return "Please run `namazu --help inspectors` instead"
+	return "Please run `nmz --help inspectors` instead"
 }
 
 func (cmd etherCmd) Synopsis() string {

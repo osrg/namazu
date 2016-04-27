@@ -183,7 +183,7 @@ func (cmd visualizeCmd) Synopsis() string {
 }
 
 func (cmd visualizeCmd) Help() string {
-	return "Please run `namazu --help tools` instead"
+	return "Please run `nmz --help tools` instead"
 }
 
 func (cmd visualizeCmd) Run(args []string) int {

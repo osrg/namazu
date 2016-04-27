@@ -101,7 +101,7 @@ func (cmd summaryCmd) Synopsis() string {
 }
 
 func (cmd summaryCmd) Help() string {
-	return "Please run `namazu --help tools` instead"
+	return "Please run `nmz --help tools` instead"
 }
 
 func (cmd summaryCmd) Run(args []string) int {
