@@ -30,7 +30,7 @@ Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for ho
 The pre-built Docker image (`osrg/namazu`) is strongly recommended, 
 because `ovsbr0` is expected to be configured as `192.168.42.254/24` in the experiments.
 
-NOTE: If git master version is corrupted, you can use [osrg/namazu-zookeeper-2212](https://registry.hub.docker.com/u/osrg/namazu-zookeeper-2212/) container (based on Earthquake v0.1).
+NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper-2212](https://registry.hub.docker.com/u/osrg/earthquake-zookeeper-2212/) container (based on Earthquake v0.1).
 
     $ sudo pip install pip install git+https://github.com/twitter/zktraffic@68d9f85d8508e01f5d2f6657666c04e444e6423c  #(Jul 18, 2015)
     $ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/earthquake init --force config.toml materials /tmp/zk-2212
