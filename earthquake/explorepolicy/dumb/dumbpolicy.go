@@ -20,10 +20,10 @@ import (
 	"time"
 
 	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/historystorage"
-	"github.com/osrg/earthquake/earthquake/signal"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	queue "github.com/osrg/earthquake/earthquake/util/queue"
+	"github.com/osrg/namazu/nmz/historystorage"
+	"github.com/osrg/namazu/nmz/signal"
+	"github.com/osrg/namazu/nmz/util/config"
+	queue "github.com/osrg/namazu/nmz/util/queue"
 )
 
 type Dumb struct {

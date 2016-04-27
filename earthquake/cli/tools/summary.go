@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/mitchellh/cli"
-	"github.com/osrg/earthquake/earthquake/historystorage"
+	"github.com/osrg/namazu/nmz/historystorage"
 )
 
 type summaryFlags struct {

@@ -21,7 +21,7 @@ import (
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 
-	coreutil "github.com/osrg/earthquake/earthquake/util/core"
+	coreutil "github.com/osrg/namazu/nmz/util/core"
 )
 
 type etherCmd struct {

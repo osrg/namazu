@@ -17,10 +17,10 @@ package proc
 
 import (
 	"flag"
-	"github.com/osrg/earthquake/earthquake/endpoint/local"
-	"github.com/osrg/earthquake/earthquake/signal"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/osrg/earthquake/earthquake/util/mockorchestrator"
+	"github.com/osrg/namazu/nmz/endpoint/local"
+	"github.com/osrg/namazu/nmz/signal"
+	logutil "github.com/osrg/namazu/nmz/util/log"
+	"github.com/osrg/namazu/nmz/util/mockorchestrator"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"

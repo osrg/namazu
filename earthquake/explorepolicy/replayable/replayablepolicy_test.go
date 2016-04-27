@@ -25,10 +25,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/osrg/earthquake/earthquake/signal"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	testutil "github.com/osrg/earthquake/earthquake/util/test"
+	"github.com/osrg/namazu/nmz/signal"
+	"github.com/osrg/namazu/nmz/util/config"
+	logutil "github.com/osrg/namazu/nmz/util/log"
+	testutil "github.com/osrg/namazu/nmz/util/test"
 )
 
 func TestMain(m *testing.M) {

@@ -22,8 +22,8 @@ import (
 	"github.com/mitchellh/cli"
 	"github.com/osrg/hookfs/hookfs"
 
-	inspector "github.com/osrg/earthquake/earthquake/inspector/fs"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	inspector "github.com/osrg/namazu/nmz/inspector/fs"
+	logutil "github.com/osrg/namazu/nmz/util/log"
 )
 
 type fsFlags struct {

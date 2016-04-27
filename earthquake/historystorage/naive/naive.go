@@ -26,9 +26,9 @@ import (
 	"time"
 
 	log "github.com/cihub/seelog"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	signalutil "github.com/osrg/earthquake/earthquake/util/signal"
-	. "github.com/osrg/earthquake/earthquake/util/trace"
+	. "github.com/osrg/namazu/nmz/signal"
+	signalutil "github.com/osrg/namazu/nmz/util/signal"
+	. "github.com/osrg/namazu/nmz/util/trace"
 )
 
 // functions that provides basic functionalities of native history storage

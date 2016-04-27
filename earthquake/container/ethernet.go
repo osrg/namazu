@@ -20,9 +20,9 @@ package container
 import (
 	docker "github.com/fsouza/go-dockerclient"
 
-	"github.com/osrg/earthquake/earthquake/container/ns"
-	"github.com/osrg/earthquake/earthquake/inspector/ethernet"
-	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
+	"github.com/osrg/namazu/nmz/container/ns"
+	"github.com/osrg/namazu/nmz/inspector/ethernet"
+	ocutil "github.com/osrg/namazu/nmz/util/orchestrator"
 )
 
 func ServeEthernetInspector(c *docker.Container, queueNum int) error {

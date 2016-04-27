@@ -27,9 +27,9 @@ import (
 
 	log "github.com/cihub/seelog"
 	"github.com/gorilla/mux"
-	. "github.com/osrg/earthquake/earthquake/endpoint/rest/queue"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	restutil "github.com/osrg/earthquake/earthquake/util/rest"
+	. "github.com/osrg/namazu/nmz/endpoint/rest/queue"
+	. "github.com/osrg/namazu/nmz/signal"
+	restutil "github.com/osrg/namazu/nmz/util/rest"
 )
 
 func newEventFromHttpRequest(r *http.Request) (Event, error) {

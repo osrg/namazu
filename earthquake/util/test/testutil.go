@@ -16,7 +16,7 @@
 package test
 
 import (
-	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/namazu/nmz/signal"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

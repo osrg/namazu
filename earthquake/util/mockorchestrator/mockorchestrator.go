@@ -17,7 +17,7 @@ package mockorchestrator
 
 import (
 	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/namazu/nmz/signal"
 	"time"
 )
 

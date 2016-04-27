@@ -25,12 +25,12 @@ import (
 
 	log "github.com/cihub/seelog"
 	mcli "github.com/mitchellh/cli"
-	"github.com/osrg/earthquake/earthquake/explorepolicy"
-	"github.com/osrg/earthquake/earthquake/historystorage"
-	"github.com/osrg/earthquake/earthquake/orchestrator"
-	"github.com/osrg/earthquake/earthquake/util/cmd"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/namazu/nmz/explorepolicy"
+	"github.com/osrg/namazu/nmz/historystorage"
+	"github.com/osrg/namazu/nmz/orchestrator"
+	"github.com/osrg/namazu/nmz/util/cmd"
+	"github.com/osrg/namazu/nmz/util/config"
+	logutil "github.com/osrg/namazu/nmz/util/log"
 )
 
 func setRlimit() error {

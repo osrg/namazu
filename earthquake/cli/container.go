@@ -20,7 +20,7 @@ import (
 	"os"
 
 	mcli "github.com/mitchellh/cli"
-	crun "github.com/osrg/earthquake/earthquake/cli/container/run"
+	crun "github.com/osrg/namazu/nmz/cli/container/run"
 )
 
 type containerCmd struct {

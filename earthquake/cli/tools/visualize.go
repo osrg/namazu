@@ -21,9 +21,9 @@ import (
 	"sort"
 
 	"github.com/mitchellh/cli"
-	"github.com/osrg/earthquake/earthquake/historystorage"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/trace"
+	"github.com/osrg/namazu/nmz/historystorage"
+	. "github.com/osrg/namazu/nmz/signal"
+	. "github.com/osrg/namazu/nmz/util/trace"
 )
 
 type visualizeFlags struct {

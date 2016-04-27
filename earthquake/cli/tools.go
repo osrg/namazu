@@ -19,8 +19,8 @@ import (
 	"fmt"
 
 	mcli "github.com/mitchellh/cli"
-	"github.com/osrg/earthquake/earthquake/cli/tools"
-	coreutil "github.com/osrg/earthquake/earthquake/util/core"
+	"github.com/osrg/namazu/nmz/cli/tools"
+	coreutil "github.com/osrg/namazu/nmz/util/core"
 )
 
 type toolsCmd struct {

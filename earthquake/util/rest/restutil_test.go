@@ -22,7 +22,7 @@ import (
 	"os"
 	"testing"
 
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	logutil "github.com/osrg/namazu/nmz/util/log"
 	"github.com/stretchr/testify/assert"
 )
 

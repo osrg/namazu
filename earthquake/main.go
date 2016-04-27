@@ -18,7 +18,7 @@ package main
 import (
 	"os"
 
-	cli "github.com/osrg/earthquake/earthquake/cli"
+	cli "github.com/osrg/namazu/nmz/cli"
 )
 
 func main() {

@@ -21,8 +21,8 @@ import (
 	"testing"
 	"time"
 
-	. "github.com/osrg/earthquake/earthquake/signal"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	. "github.com/osrg/namazu/nmz/signal"
+	logutil "github.com/osrg/namazu/nmz/util/log"
 	"github.com/stretchr/testify/assert"
 )
 

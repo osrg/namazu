@@ -20,7 +20,7 @@ package container
 import (
 	docker "github.com/fsouza/go-dockerclient"
 
-	coreutil "github.com/osrg/earthquake/earthquake/util/core"
+	coreutil "github.com/osrg/namazu/nmz/util/core"
 )
 
 func ServeEthernetInspector(c *docker.Container, queueNum int) error {

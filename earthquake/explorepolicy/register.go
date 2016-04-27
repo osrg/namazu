@@ -16,9 +16,9 @@
 package explorepolicy
 
 import (
-	dumb "github.com/osrg/earthquake/earthquake/explorepolicy/dumb"
-	random "github.com/osrg/earthquake/earthquake/explorepolicy/random"
-	replayable "github.com/osrg/earthquake/earthquake/explorepolicy/replayable"
+	dumb "github.com/osrg/namazu/nmz/explorepolicy/dumb"
+	random "github.com/osrg/namazu/nmz/explorepolicy/random"
+	replayable "github.com/osrg/namazu/nmz/explorepolicy/replayable"
 )
 
 func RegisterKnownExplorePolicies() {

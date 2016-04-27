@@ -24,9 +24,9 @@ import (
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/mapstructure"
 
-	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
-	"github.com/osrg/earthquake/earthquake/signal"
-	procutil "github.com/osrg/earthquake/earthquake/util/proc"
+	"github.com/osrg/namazu/nmz/inspector/transceiver"
+	"github.com/osrg/namazu/nmz/signal"
+	procutil "github.com/osrg/namazu/nmz/util/proc"
 )
 
 type ProcInspector struct {

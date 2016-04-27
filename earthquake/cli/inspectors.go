@@ -19,8 +19,8 @@ import (
 	"fmt"
 
 	mcli "github.com/mitchellh/cli"
-	"github.com/osrg/earthquake/earthquake/cli/inspectors"
-	coreutil "github.com/osrg/earthquake/earthquake/util/core"
+	"github.com/osrg/namazu/nmz/cli/inspectors"
+	coreutil "github.com/osrg/namazu/nmz/util/core"
 )
 
 type inspectorsCmd struct {

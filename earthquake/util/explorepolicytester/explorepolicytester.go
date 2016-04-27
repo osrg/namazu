@@ -17,8 +17,8 @@ package explorepolicytester
 
 import (
 	"fmt"
-	"github.com/osrg/earthquake/earthquake/signal"
-	testutil "github.com/osrg/earthquake/earthquake/util/test"
+	"github.com/osrg/namazu/nmz/signal"
+	testutil "github.com/osrg/namazu/nmz/util/test"
 	"sync"
 	"testing"
 )

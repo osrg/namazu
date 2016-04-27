@@ -19,7 +19,7 @@ import (
 	"fmt"
 
 	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/util/cmd"
+	"github.com/osrg/namazu/nmz/util/cmd"
 	"github.com/satori/go.uuid"
 )
 

@@ -18,7 +18,7 @@ package run
 import (
 	"fmt"
 
-	"github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/namazu/nmz/util/config"
 	cap "github.com/syndtr/gocapability/capability"
 )
 

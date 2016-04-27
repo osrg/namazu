@@ -18,7 +18,7 @@ package random
 import (
 	"github.com/AkihiroSuda/go-linuxsched"
 	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/namazu/nmz/signal"
 	"math/rand"
 )
 

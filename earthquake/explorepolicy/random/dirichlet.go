@@ -19,7 +19,7 @@ import (
 	"github.com/AkihiroSuda/go-linuxsched"
 	log "github.com/cihub/seelog"
 	"github.com/leesper/go_rng"
-	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/namazu/nmz/signal"
 	"math/rand"
 	"runtime"
 	"time"

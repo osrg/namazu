@@ -22,10 +22,10 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/osrg/earthquake/earthquake/signal"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/osrg/earthquake/earthquake/util/mockorchestrator"
-	testutil "github.com/osrg/earthquake/earthquake/util/test"
+	"github.com/osrg/namazu/nmz/signal"
+	logutil "github.com/osrg/namazu/nmz/util/log"
+	"github.com/osrg/namazu/nmz/util/mockorchestrator"
+	testutil "github.com/osrg/namazu/nmz/util/test"
 )
 
 func TestMain(m *testing.M) {

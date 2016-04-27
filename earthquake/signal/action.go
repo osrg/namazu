@@ -18,7 +18,7 @@ package signal
 import (
 	"time"
 
-	pb "github.com/osrg/earthquake/earthquake/util/pb"
+	pb "github.com/osrg/namazu/nmz/util/pb"
 )
 
 type BasicAction struct {

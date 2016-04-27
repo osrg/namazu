@@ -20,7 +20,7 @@ import (
 
 	log "github.com/cihub/seelog"
 	docker "github.com/fsouza/go-dockerclient"
-	"github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/namazu/nmz/util/config"
 )
 
 func StartEarthquakeRoutines(c *docker.Container, cfg config.Config) error {

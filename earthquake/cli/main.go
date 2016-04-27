@@ -19,7 +19,7 @@ import (
 	"fmt"
 
 	mcli "github.com/mitchellh/cli"
-	coreutil "github.com/osrg/earthquake/earthquake/util/core"
+	coreutil "github.com/osrg/namazu/nmz/util/core"
 )
 
 func help() string {

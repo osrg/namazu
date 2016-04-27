@@ -23,12 +23,12 @@ import (
 	"testing"
 	"time"
 
-	localep "github.com/osrg/earthquake/earthquake/endpoint/local"
-	"github.com/osrg/earthquake/earthquake/explorepolicy"
-	"github.com/osrg/earthquake/earthquake/signal"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	testutil "github.com/osrg/earthquake/earthquake/util/test"
+	localep "github.com/osrg/namazu/nmz/endpoint/local"
+	"github.com/osrg/namazu/nmz/explorepolicy"
+	"github.com/osrg/namazu/nmz/signal"
+	"github.com/osrg/namazu/nmz/util/config"
+	logutil "github.com/osrg/namazu/nmz/util/log"
+	testutil "github.com/osrg/namazu/nmz/util/test"
 	"github.com/stretchr/testify/assert"
 )
 

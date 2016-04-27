@@ -18,11 +18,11 @@ package endpoint
 
 import (
 	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/endpoint/local"
-	"github.com/osrg/earthquake/earthquake/endpoint/pb"
-	"github.com/osrg/earthquake/earthquake/endpoint/rest"
-	"github.com/osrg/earthquake/earthquake/signal"
-	"github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/namazu/nmz/endpoint/local"
+	"github.com/osrg/namazu/nmz/endpoint/pb"
+	"github.com/osrg/namazu/nmz/endpoint/rest"
+	"github.com/osrg/namazu/nmz/signal"
+	"github.com/osrg/namazu/nmz/util/config"
 	"sync"
 )
 

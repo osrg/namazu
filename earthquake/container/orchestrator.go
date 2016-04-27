@@ -16,8 +16,8 @@
 package container
 
 import (
-	"github.com/osrg/earthquake/earthquake/util/config"
-	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
+	"github.com/osrg/namazu/nmz/util/config"
+	ocutil "github.com/osrg/namazu/nmz/util/orchestrator"
 )
 
 func StartOrchestrator(cfg config.Config) error {

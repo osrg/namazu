@@ -20,9 +20,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/osrg/earthquake/earthquake/explorepolicy"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/namazu/nmz/explorepolicy"
+	"github.com/osrg/namazu/nmz/util/config"
+	logutil "github.com/osrg/namazu/nmz/util/log"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -17,11 +17,11 @@ package historystorage
 
 import (
 	"fmt"
-	"github.com/osrg/earthquake/earthquake/historystorage/mongodb"
-	"github.com/osrg/earthquake/earthquake/historystorage/naive"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	. "github.com/osrg/earthquake/earthquake/util/trace"
+	"github.com/osrg/namazu/nmz/historystorage/mongodb"
+	"github.com/osrg/namazu/nmz/historystorage/naive"
+	. "github.com/osrg/namazu/nmz/signal"
+	"github.com/osrg/namazu/nmz/util/config"
+	. "github.com/osrg/namazu/nmz/util/trace"
 	"time"
 )
 

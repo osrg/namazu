@@ -17,9 +17,9 @@
 package orchestrator
 
 import (
-	"github.com/osrg/earthquake/earthquake/explorepolicy"
-	"github.com/osrg/earthquake/earthquake/orchestrator"
-	"github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/namazu/nmz/explorepolicy"
+	"github.com/osrg/namazu/nmz/orchestrator"
+	"github.com/osrg/namazu/nmz/util/config"
 )
 
 // URL used for in-binary local orchestrator

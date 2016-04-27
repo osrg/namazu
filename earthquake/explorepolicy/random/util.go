@@ -17,7 +17,7 @@ package random
 
 import (
 	"fmt"
-	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/namazu/nmz/signal"
 )
 
 // parses *ProcSetEvent and returns array of PIDs.

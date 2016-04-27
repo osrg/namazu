@@ -20,8 +20,8 @@ import (
 	"sync"
 
 	log "github.com/cihub/seelog"
-	localep "github.com/osrg/earthquake/earthquake/endpoint/local"
-	. "github.com/osrg/earthquake/earthquake/signal"
+	localep "github.com/osrg/namazu/nmz/endpoint/local"
+	. "github.com/osrg/namazu/nmz/signal"
 )
 
 type LocalTransceiver struct {

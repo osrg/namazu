@@ -21,9 +21,9 @@ import (
 	netfilter "github.com/AkihiroSuda/go-netfilter-queue"
 	log "github.com/cihub/seelog"
 	"github.com/google/gopacket/layers"
-	"github.com/osrg/earthquake/earthquake/inspector/ethernet/tcpwatcher"
-	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
-	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/namazu/nmz/inspector/ethernet/tcpwatcher"
+	"github.com/osrg/namazu/nmz/inspector/transceiver"
+	"github.com/osrg/namazu/nmz/signal"
 )
 
 // TODO: support user-written MapPacketToEventFunc

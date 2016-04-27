@@ -27,11 +27,11 @@ import (
 	"time"
 
 	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/endpoint"
-	. "github.com/osrg/earthquake/earthquake/explorepolicy"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/config"
-	. "github.com/osrg/earthquake/earthquake/util/trace"
+	"github.com/osrg/namazu/nmz/endpoint"
+	. "github.com/osrg/namazu/nmz/explorepolicy"
+	. "github.com/osrg/namazu/nmz/signal"
+	. "github.com/osrg/namazu/nmz/util/config"
+	. "github.com/osrg/namazu/nmz/util/trace"
 )
 
 type Orchestrator struct {

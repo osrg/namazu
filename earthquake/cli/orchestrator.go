@@ -22,8 +22,8 @@ import (
 
 	log "github.com/cihub/seelog"
 	mcli "github.com/mitchellh/cli"
-	"github.com/osrg/earthquake/earthquake/util/config"
-	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
+	"github.com/osrg/namazu/nmz/util/config"
+	ocutil "github.com/osrg/namazu/nmz/util/orchestrator"
 )
 
 // defaultRESTPort is used only if no config is specified.

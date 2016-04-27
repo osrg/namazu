@@ -19,8 +19,8 @@ import (
 	"time"
 
 	docker "github.com/fsouza/go-dockerclient"
-	"github.com/osrg/earthquake/earthquake/inspector/proc"
-	ocutil "github.com/osrg/earthquake/earthquake/util/orchestrator"
+	"github.com/osrg/namazu/nmz/inspector/proc"
+	ocutil "github.com/osrg/namazu/nmz/util/orchestrator"
 )
 
 func ServeProcInspector(c *docker.Container, watchInterval time.Duration) error {

@@ -26,11 +26,11 @@ protoc --go_out=earthquake/util/pb -Imisc/inspector misc/inspector/inspector_mes
 
 ########## Go ##########
 INFO "Building earthquake"
-go get -t github.com/osrg/earthquake/earthquake
-go build -o bin/earthquake github.com/osrg/earthquake/earthquake
+go get -t github.com/osrg/namazu/nmz
+go build -o bin/earthquake github.com/osrg/namazu/nmz
 
 INFO "Building earthquake.static"
-go build --ldflags '-extldflags "-static"' -tags static -o bin/earthquake.static github.com/osrg/earthquake/earthquake
+go build --ldflags '-extldflags "-static"' -tags static -o bin/earthquake.static github.com/osrg/namazu/nmz
 file bin/earthquake.static | grep "statically linked" > /dev/null
 
 EXAMPLES="example/template/mypolicy.go example/yarn/4301-reproduce/mypolicy.go"

@@ -17,9 +17,9 @@ package dumb
 
 import (
 	"flag"
-	"github.com/osrg/earthquake/earthquake/signal"
-	tester "github.com/osrg/earthquake/earthquake/util/explorepolicytester"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/namazu/nmz/signal"
+	tester "github.com/osrg/namazu/nmz/util/explorepolicytester"
+	logutil "github.com/osrg/namazu/nmz/util/log"
 	"os"
 	"testing"
 )

@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/proto"
-	pb "github.com/osrg/earthquake/earthquake/util/pb"
+	pb "github.com/osrg/namazu/nmz/util/pb"
 	"github.com/satori/go.uuid"
 )
 

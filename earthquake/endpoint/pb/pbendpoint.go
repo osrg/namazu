@@ -18,8 +18,8 @@ package pb
 import (
 	"fmt"
 	log "github.com/cihub/seelog"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/pb"
+	. "github.com/osrg/namazu/nmz/signal"
+	. "github.com/osrg/namazu/nmz/util/pb"
 	"io"
 	"net"
 	"sync"

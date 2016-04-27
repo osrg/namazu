@@ -18,7 +18,7 @@ package core
 import (
 	"testing"
 
-	"github.com/osrg/earthquake/earthquake/explorepolicy"
+	"github.com/osrg/namazu/nmz/explorepolicy"
 	"github.com/stretchr/testify/assert"
 )
 

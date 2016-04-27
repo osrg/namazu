@@ -22,7 +22,7 @@ import (
 
 	log "github.com/cihub/seelog"
 	docker "github.com/fsouza/go-dockerclient"
-	"github.com/osrg/earthquake/earthquake/container/ns"
+	"github.com/osrg/namazu/nmz/container/ns"
 )
 
 func SetupNFQUEUE(c *docker.Container, queueNum int, hookInput bool, disableBypass bool) error {

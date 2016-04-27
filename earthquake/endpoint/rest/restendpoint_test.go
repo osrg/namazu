@@ -23,12 +23,12 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
-	"github.com/osrg/earthquake/earthquake/signal"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
-	"github.com/osrg/earthquake/earthquake/util/mockorchestrator"
-	restutil "github.com/osrg/earthquake/earthquake/util/rest"
-	testutil "github.com/osrg/earthquake/earthquake/util/test"
+	"github.com/osrg/namazu/nmz/inspector/transceiver"
+	"github.com/osrg/namazu/nmz/signal"
+	logutil "github.com/osrg/namazu/nmz/util/log"
+	"github.com/osrg/namazu/nmz/util/mockorchestrator"
+	restutil "github.com/osrg/namazu/nmz/util/rest"
+	testutil "github.com/osrg/namazu/nmz/util/test"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -22,9 +22,9 @@ import (
 	log "github.com/cihub/seelog"
 	flag "github.com/docker/docker/pkg/mflag"
 	docker "github.com/fsouza/go-dockerclient"
-	"github.com/osrg/earthquake/earthquake/container"
-	"github.com/osrg/earthquake/earthquake/container/ns"
-	"github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/namazu/nmz/container"
+	"github.com/osrg/namazu/nmz/container/ns"
+	"github.com/osrg/namazu/nmz/util/config"
 )
 
 func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnExit bool, eqCfg config.Config, err error) {

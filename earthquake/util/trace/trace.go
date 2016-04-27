@@ -18,8 +18,8 @@ package trace
 import (
 	"encoding/gob"
 
-	"github.com/osrg/earthquake/earthquake/signal"
-	signalutil "github.com/osrg/earthquake/earthquake/util/signal"
+	"github.com/osrg/namazu/nmz/signal"
+	signalutil "github.com/osrg/namazu/nmz/util/signal"
 )
 
 type SingleTrace struct {

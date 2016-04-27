@@ -16,9 +16,9 @@
 package mongodb
 
 import (
-	naive "github.com/osrg/earthquake/earthquake/historystorage/naive"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	. "github.com/osrg/earthquake/earthquake/util/trace"
+	naive "github.com/osrg/namazu/nmz/historystorage/naive"
+	. "github.com/osrg/namazu/nmz/signal"
+	. "github.com/osrg/namazu/nmz/util/trace"
 	mgo "gopkg.in/mgo.v2"
 	"time"
 )

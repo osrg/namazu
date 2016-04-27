@@ -22,10 +22,10 @@ import (
 
 	log "github.com/cihub/seelog"
 	"github.com/google/gopacket/layers"
-	"github.com/osrg/earthquake/earthquake/inspector/ethernet/hookswitch"
-	"github.com/osrg/earthquake/earthquake/inspector/ethernet/tcpwatcher"
-	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
-	"github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/namazu/nmz/inspector/ethernet/hookswitch"
+	"github.com/osrg/namazu/nmz/inspector/ethernet/tcpwatcher"
+	"github.com/osrg/namazu/nmz/inspector/transceiver"
+	"github.com/osrg/namazu/nmz/signal"
 	zmq "github.com/vaughan0/go-zmq"
 )
 

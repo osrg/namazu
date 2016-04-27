@@ -20,8 +20,8 @@ import (
 	"syscall"
 
 	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/inspector/transceiver"
-	. "github.com/osrg/earthquake/earthquake/signal"
+	"github.com/osrg/namazu/nmz/inspector/transceiver"
+	. "github.com/osrg/namazu/nmz/signal"
 	"github.com/osrg/hookfs/hookfs"
 )
 

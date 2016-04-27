@@ -21,9 +21,9 @@ import (
 	"os"
 
 	log "github.com/cihub/seelog"
-	"github.com/osrg/earthquake/earthquake/explorepolicy"
-	"github.com/osrg/earthquake/earthquake/signal"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/namazu/nmz/explorepolicy"
+	"github.com/osrg/namazu/nmz/signal"
+	logutil "github.com/osrg/namazu/nmz/util/log"
 )
 
 const EarthquakeVersion = "0.2.0-SNAPSHOT"
@@ -59,4 +59,4 @@ func Recoverer() {
 var EthernetInspectorNotBuiltErr = errors.New(
 	"Ethernet inspector is disabled in this statically linked binary. " +
 		"Please build a dynamically linked binary instead: " +
-		"`go get github.com/osrg/earthquake/earthquake`")
+		"`go get github.com/osrg/namazu/nmz`")

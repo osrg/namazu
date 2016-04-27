@@ -17,9 +17,9 @@ package explorepolicy
 
 import (
 	"flag"
-	"github.com/osrg/earthquake/earthquake/explorepolicy/dumb"
-	"github.com/osrg/earthquake/earthquake/explorepolicy/random"
-	logutil "github.com/osrg/earthquake/earthquake/util/log"
+	"github.com/osrg/namazu/nmz/explorepolicy/dumb"
+	"github.com/osrg/namazu/nmz/explorepolicy/random"
+	logutil "github.com/osrg/namazu/nmz/util/log"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"

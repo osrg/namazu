@@ -2,7 +2,7 @@
 
 [![Release](http://github-release-version.herokuapp.com/github/osrg/earthquake/release.svg?style=flat)](https://github.com/osrg/earthquake/releases/latest)
 [![Join the chat at https://gitter.im/osrg/earthquake](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![GoDoc](https://godoc.org/github.com/osrg/earthquake/earthquake?status.svg)](https://godoc.org/github.com/osrg/earthquake/earthquake)
+[![GoDoc](https://godoc.org/github.com/osrg/namazu/nmz?status.svg)](https://godoc.org/github.com/osrg/namazu/nmz)
 [![Build Status](https://travis-ci.org/osrg/earthquake.svg?branch=master)](https://travis-ci.org/osrg/earthquake)
 [![Coverage Status](https://coveralls.io/repos/github/osrg/earthquake/badge.svg?branch=master)](https://coveralls.io/github/osrg/earthquake?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/osrg/earthquake)](https://goreportcard.com/report/github.com/osrg/earthquake)
@@ -32,7 +32,7 @@ Basically, Earthquake permutes events in a random order, but you can write your 
 The installation process is very simple:
 
     $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
-    $ go get github.com/osrg/earthquake/earthquake
+    $ go get github.com/osrg/namazu/nmz
 
 
 ## Quick Start (Container mode)

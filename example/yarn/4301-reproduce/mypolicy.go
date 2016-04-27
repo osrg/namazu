@@ -23,11 +23,11 @@ import (
 	"time"
 
 	log "github.com/cihub/seelog"
-	. "github.com/osrg/earthquake/earthquake/cli"
-	. "github.com/osrg/earthquake/earthquake/explorepolicy"
-	. "github.com/osrg/earthquake/earthquake/historystorage"
-	. "github.com/osrg/earthquake/earthquake/signal"
-	config "github.com/osrg/earthquake/earthquake/util/config"
+	. "github.com/osrg/namazu/nmz/cli"
+	. "github.com/osrg/namazu/nmz/explorepolicy"
+	. "github.com/osrg/namazu/nmz/historystorage"
+	. "github.com/osrg/namazu/nmz/signal"
+	config "github.com/osrg/namazu/nmz/util/config"
 )
 
 const MyPolicyName = "mypolicy-yarn-4301"

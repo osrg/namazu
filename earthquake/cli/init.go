@@ -26,9 +26,9 @@ import (
 	"strings"
 
 	"github.com/mitchellh/cli"
-	"github.com/osrg/earthquake/earthquake/historystorage"
-	"github.com/osrg/earthquake/earthquake/util/cmd"
-	"github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/namazu/nmz/historystorage"
+	"github.com/osrg/namazu/nmz/util/cmd"
+	"github.com/osrg/namazu/nmz/util/config"
 )
 
 const (

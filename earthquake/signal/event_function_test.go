@@ -17,7 +17,7 @@ package signal
 
 import (
 	"github.com/golang/protobuf/proto"
-	"github.com/osrg/earthquake/earthquake/util/pb"
+	"github.com/osrg/namazu/nmz/util/pb"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"

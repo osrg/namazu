@@ -17,7 +17,7 @@ package signal
 
 import (
 	log "github.com/cihub/seelog"
-	pb "github.com/osrg/earthquake/earthquake/util/pb"
+	pb "github.com/osrg/namazu/nmz/util/pb"
 )
 
 type BasicEvent struct {

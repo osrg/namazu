@@ -16,7 +16,7 @@
 // can we remove this?
 package signal
 
-import . "github.com/osrg/earthquake/earthquake/signal"
+import . "github.com/osrg/namazu/nmz/signal"
 
 // can we remove this?
 func AreActionsSliceEqual(a, b []Action) bool {

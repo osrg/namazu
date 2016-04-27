@@ -22,7 +22,7 @@ import (
 	log "github.com/cihub/seelog"
 	"github.com/mitchellh/cli"
 
-	inspector "github.com/osrg/earthquake/earthquake/inspector/proc"
+	inspector "github.com/osrg/namazu/nmz/inspector/proc"
 )
 
 type procFlags struct {
