@@ -35,7 +35,7 @@ For further information, please visit the web site: https://github.com/osrg/eart
 func CLIMain(args []string) int {
 	coreutil.Init()
 	defer coreutil.Recoverer()
-	c := mcli.NewCLI(args[0], coreutil.EarthquakeVersion)
+	c := mcli.NewCLI(args[0], coreutil.NamazuVersion)
 	c.Args = args[1:]
 	c.Commands = map[string]mcli.CommandFactory{
 		"init":         initCommandFactory,

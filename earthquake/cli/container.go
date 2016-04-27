@@ -34,7 +34,7 @@ func (cmd containerCmd) Run(args []string) int {
 	if len(args) < 1 {
 		fmt.Printf("Usage: earthquake container run [OPTIONS] COMMAND [arg...]\n")
 		fmt.Printf("\n")
-		fmt.Printf("Docker Container + Earthquake Testing Framework\n")
+		fmt.Printf("Docker Container + Namazu Testing Framework\n")
 		fmt.Printf("\n")
 		fmt.Printf("Commands:\n")
 		fmt.Printf("\trun\tRun a command in a new container\n")

@@ -1,10 +1,10 @@
-## Dockerfile for Earthquake
+## Dockerfile for Namazu
 ## Available at Docker Hub: osrg/earthquake
 FROM osrg/dind-ovs-ryu
 MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ## Install Earthquake deps
+    ## Install Namazu deps
     protobuf-compiler pkg-config libzmq3-dev libnetfilter-queue-dev \
     ## (Optional) Install Java inspector deps
     default-jdk maven \
@@ -37,13 +37,13 @@ RUN chmod +x /usr/local/bin/pipework
 ## (Optional) Create a user for nfqueue sandbox
 RUN useradd -m nfqhooked
 
-## Copy Earthquake to /earthquake
+## Copy Namazu to /earthquake
 ADD . /earthquake
 WORKDIR /earthquake
 RUN ( git submodule init && git submodule update )
 ENV PYTHONPATH /earthquake:$PYTHONPATH
 
-## Build Earthquake
+## Build Namazu
 RUN ./build
 
 ## Silence dind logs

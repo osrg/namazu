@@ -1,4 +1,4 @@
-# Earthquake Archtecture
+# Namazu Archtecture
 
 # Overview
 

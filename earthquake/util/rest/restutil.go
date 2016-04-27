@@ -23,7 +23,7 @@ import (
 	log "github.com/cihub/seelog"
 )
 
-// Earthquake REST API Root string
+// Namazu REST API Root string
 const APIRoot = "/api/v3"
 
 // Write err to both of stdout and w

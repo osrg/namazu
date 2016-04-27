@@ -100,7 +100,7 @@ func (p *MyPolicy) QueueEvent(event Event) {
 }
 
 func main() {
-	log.Info("Earthquake for reproducing YARN 4301")
+	log.Info("Namazu for reproducing YARN 4301")
 	RegisterPolicy(MyPolicyName, NewMyPolicy)
 	os.Exit(CLIMain(os.Args))
 }

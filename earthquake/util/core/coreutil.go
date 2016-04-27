@@ -26,14 +26,14 @@ import (
 	logutil "github.com/osrg/namazu/nmz/util/log"
 )
 
-const EarthquakeVersion = "0.2.0-SNAPSHOT"
+const NamazuVersion = "0.2.0-SNAPSHOT"
 
 // Returns true if EQ_DEBUG is set
 func DebugMode() bool {
 	return os.Getenv("EQ_DEBUG") != ""
 }
 
-// Initializes the Earthquake system
+// Initializes the Namazu system
 func Init() {
 	debug := DebugMode()
 	logutil.InitLog("", debug)

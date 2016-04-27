@@ -63,7 +63,7 @@ func queueFromHttpRequest(r *http.Request) (*ActionQueue, error) {
 // @app.route('/', methods=['GET'])
 func rootOnGet(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	fmt.Fprintf(w, "Hello Earthquake! -- RESTInspectorHandler(pid=%d)\n", os.Getpid())
+	fmt.Fprintf(w, "Hello Namazu! -- RESTInspectorHandler(pid=%d)\n", os.Getpid())
 	w.(http.Flusher).Flush()
 }
 

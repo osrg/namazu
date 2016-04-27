@@ -1,4 +1,4 @@
-# How to setup the environment for Earthquake (Full stack)
+# How to setup the environment for Namazu (Full stack)
 
 All you have to do is make Docker installed on your host and run the pre-built Docker image [osrg/namazu](https://registry.hub.docker.com/u/osrg/namazu/).
 
@@ -8,7 +8,7 @@ All you have to do is make Docker installed on your host and run the pre-built D
     $ sudo modprobe openvswitch
     $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu 
     INIT: Running with privileged mode. Enabling DinD, OVS, and Ryu
-    INIT: Earthquake is installed on /earthquake. Please refer to /earthquake/README.md
+    INIT: Namazu is installed on /earthquake. Please refer to /earthquake/README.md
     INIT: Starting command: ['wrapdocker', '/init.dind-ovs-ryu.sh']
     * /etc/openvswitch/conf.db does not exist
     * Creating empty database /etc/openvswitch/conf.db

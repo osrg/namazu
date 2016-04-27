@@ -46,7 +46,7 @@ func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnE
 		err = fmt.Errorf("bad config: %s", err)
 		return
 	}
-	log.Debugf("Earthquake Config=%s", eqCfg)
+	log.Debugf("Namazu Config=%s", eqCfg)
 
 	if err = checkPrerequisite(eqCfg); err != nil {
 		err = fmt.Errorf("prerequisite error: %s", err)
@@ -58,7 +58,7 @@ func help() string {
 	// FIXME: why not use the strings in runflag.go?
 	s := `Usage: earthquake container run [OPTIONS] IMAGE COMMAND
 
-Run a command in a new Earthquake Container
+Run a command in a new Namazu Container
 
 Docker-compatible options:
   -d, --detach                    [NOT SUPPORTED] Run container in background and print container ID
@@ -68,8 +68,8 @@ Docker-compatible options:
   -t, --tty                       Allocate a pseudo-TTY
   -v, --volume=[]                 Bind mount a volume
 
-Earthquake-specific options:
-  -eq-config                      Earthquake configuration file
+Namazu-specific options:
+  -eq-config                      Namazu configuration file
 
 NOTE: Unlike docker, COMMAND is mandatory at the moment.
 `
@@ -104,7 +104,7 @@ func Run(args []string) int {
 		defer ns.Remove(client, c)
 	}
 
-	err = container.StartEarthquakeRoutines(c, eqCfg)
+	err = container.StartNamazuRoutines(c, eqCfg)
 	if err != nil {
 		panic(log.Critical(err))
 	}

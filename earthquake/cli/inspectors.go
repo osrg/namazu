@@ -29,7 +29,7 @@ type inspectorsCmd struct {
 func (cmd inspectorsCmd) Help() string {
 	// FIXME: much more helpful help string
 	return `
-The inspectors command starts an Earthquake inspector.
+The inspectors command starts an Namazu inspector.
 
 If -orchestrator-url is set, the inspector connects the external orchestrator.
 For how to start the external orchestrator, please refer to the help of the run command.
@@ -81,7 +81,7 @@ You can also implement your own inspector in an arbitrary language.
 }
 
 func (cmd inspectorsCmd) Run(args []string) int {
-	c := mcli.NewCLI("earthquake inspectors", coreutil.EarthquakeVersion)
+	c := mcli.NewCLI("earthquake inspectors", coreutil.NamazuVersion)
 	c.Args = args
 	c.Commands = map[string]mcli.CommandFactory{
 		"proc":     inspectors.ProcCommandFactory,

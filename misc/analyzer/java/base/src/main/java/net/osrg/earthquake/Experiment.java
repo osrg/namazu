@@ -38,7 +38,7 @@ public class Experiment {
     public final static String DEFAULT_JACOCO_PATH_REGEX = "jacoco.exec";
     static final Logger LOG = LogManager.getLogger(Experiment.class);
     /**
-     * Earthquake experiment dir (e.g. "0000002a")
+     * Namazu experiment dir (e.g. "0000002a")
      */
     private File dir;
     /**
@@ -46,7 +46,7 @@ public class Experiment {
      */
     private boolean successful;
     /**
-     * Earthquake result.json
+     * Namazu result.json
      */
     private Map<String, Object> resultJsonMap;
     /**

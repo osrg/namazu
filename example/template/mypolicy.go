@@ -71,7 +71,7 @@ func (p *MyPolicy) QueueEvent(event signal.Event) {
 }
 
 func main() {
-	fmt.Println("Hello Earthquake + mypolicy")
+	fmt.Println("Hello Namazu + mypolicy")
 
 	explorepolicy.RegisterPolicy("mypolicy", NewMyPolicy)
 

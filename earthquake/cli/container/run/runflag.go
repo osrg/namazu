@@ -33,7 +33,7 @@ func parseRun(cmd *flag.FlagSet, args []string) (*docker.CreateContainerOptions,
 		// the caller should handle "-rm" with cmd.IsSet()
 		_ = cmd.Bool([]string{"-rm"}, false, "Automatically remove the container when it exits")
 		// the caller should handle "-eq-config"
-		_ = cmd.String([]string{"-eq-config"}, "", "Earthquake configuration file")
+		_ = cmd.String([]string{"-eq-config"}, "", "Namazu configuration file")
 	)
 	cmd.Var(&flVolumes, []string{"v", "-volume"}, "Bind mount a volume")
 	if err := cmd.Parse(args); err != nil {

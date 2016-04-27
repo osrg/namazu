@@ -23,7 +23,7 @@ import (
 	"github.com/osrg/namazu/nmz/util/config"
 )
 
-func StartEarthquakeRoutines(c *docker.Container, cfg config.Config) error {
+func StartNamazuRoutines(c *docker.Container, cfg config.Config) error {
 	log.Debugf("Starting Orchestrator")
 	go func() {
 		oerr := StartOrchestrator(cfg)

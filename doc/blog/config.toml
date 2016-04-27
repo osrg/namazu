@@ -1,7 +1,7 @@
 baseurl = "http://osrg.github.io/earthquake/"
 languageCode = "en-us"
-title = "Earthquake"
-## NOTE: the theme has been significantly modified for Earthquake.
+title = "Namazu"
+## NOTE: the theme has been significantly modified for Namazu.
 theme = "bootie-docs-custom"
 copyright = "Copyright© 2015 Nippon Telegraph and Telephone Corporation"
 [params]

@@ -147,7 +147,7 @@ func (this *RESTTransceiver) onAction(action Action) error {
 		return fmt.Errorf("No channel found for action %s (event id=%s)", action, event.ID())
 	}
 	delete(this.m, event.ID())
-	// Earthquake doesn't guarantee any determinism,
+	// Namazu doesn't guarantee any determinism,
 	// but can we make this more deterministic?
 	go func() {
 		actionChan <- action

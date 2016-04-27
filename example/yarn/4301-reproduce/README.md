@@ -4,12 +4,12 @@ The YARN disk health checker verifies a disk by executing `mkdir` and `rmdir` pe
 
 If these operations does not return in a moderate timeout, the disk should be marked bad, and thus `NodeHealthyStatus` should flip to false.
 
-We found this bug using Earthquake, though the bug is *not* non-deterministic.
+We found this bug using Namazu, though the bug is *not* non-deterministic.
 
 ## YARN Version
 commit `96677be`([hadoop-docker-nightly:20151027](https://github.com/AkihiroSuda/hadoop-docker-nightly/tree/20151027))
 
-## How to Reproduce the Bug with Earthquake
+## How to Reproduce the Bug with Namazu
 
 Unlike other experiments, we don't use `earthquake run` in this experiment, because we are not so much interested in non-determinism.
 
@@ -17,7 +17,7 @@ Unlike other experiments, we don't use `earthquake run` in this experiment, beca
     $ mkdir -m 777 /tmp/eqfs-orig /tmp/eqfs-mnt
     $ sudo ./mypolicy inspectors fs -autopilot config.toml -mount-point /tmp/eqfs-mnt -original-dir /tmp/eqfs-orig
 
-After started Earthquake, you can start the YARN testbed. The YARN uses `/eqfs/nm-local-dir` as the `yarn.nodemanager.local-dirs` property.
+After started Namazu, you can start the YARN testbed. The YARN uses `/eqfs/nm-local-dir` as the `yarn.nodemanager.local-dirs` property.
 
     $ docker build -t yarn_testbed yarn_testbed
     $ docker run -i -t --rm -p 8042:8042 -v /tmp/eqfs-mnt:/eqfs yarn_testbed
@@ -31,7 +31,7 @@ Then let's inject the fault to YARN, by sending `SIGUSR1` to the `mypolicy` proc
 
     $ sudo killall -SIGUSR1 mypolicy
 
-After sending `SIGUSR1`, Earthquake injects very long sleep (10 minutes) to each of filesystem operations in `/eqfs/nm-local-dir`.
+After sending `SIGUSR1`, Namazu injects very long sleep (10 minutes) to each of filesystem operations in `/eqfs/nm-local-dir`.
 
 Unfortunately, YARN cannot detect such a disk failure.
 The value of `NodeHealthyStatus` keeps `true`, though `LastNodeHealthTime` gets stuck.

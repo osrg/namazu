@@ -30,7 +30,7 @@ type commonFlags struct {
 }
 
 func initCommon(f *flag.FlagSet, _f *commonFlags, defaultEntityID string) {
-	d := fmt.Sprintf("External Earthquake Orchestrator REST endpoint URL (\"%s\" denotes the internal autopilot orchestrator). e.g. http://localhost:10080/api/v3", ocutil.LocalOrchestratorURL)
+	d := fmt.Sprintf("External Namazu Orchestrator REST endpoint URL (\"%s\" denotes the internal autopilot orchestrator). e.g. http://localhost:10080/api/v3", ocutil.LocalOrchestratorURL)
 	f.StringVar(&_f.OrchestratorURL, "orchestrator-url", ocutil.LocalOrchestratorURL, d)
 
 	d = "Entity ID (must be unique in the system)"

@@ -4,17 +4,17 @@ The JUnit test `ReconfigRecoveryTest.testCurrentObserverIsParticipantInNewConfig
 
 The cause of the bug had been unknown for almost 2 years (since 2013).
 
-Using Earthquake, we reproduced the bug and analyzed its cause.
+Using Namazu, we reproduced the bug and analyzed its cause.
 
 The bug has been caused by race conditions in `QuorumCnxManager`, which manages sockets for leader election.
 
 To fix the bug gracefully, drastic changes to `QuorumCnxManager` (suggested since 2010: [ZOOKEEPER-901](https://issues.apache.org/jira/browse/ZOOKEEPER-901)) might be needed. 
 
-## How to Reproduce the Bug with Earthquake
+## How to Reproduce the Bug with Namazu
 
 The bug can be easily reproduced by injecting several tens of millisecs sleeps to FLE packets.
 
-### Start Earthquake
+### Start Namazu
 Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for how to setup the environment.
 
 
@@ -33,9 +33,9 @@ Currently zktraffic does not work well with ZOOKEEPER-2080 scenario, because som
 If the bug could not be reproduced, you might have to modify the `interval` parameter in `config.toml`. (about 30 msecs to 80 msecs)
 
 ## Analyze
-Unlike [ZOOKEEPER-2212](../zk-found-2212.ryu/README.md), you cannot use the Earthquake event history for analysis.
+Unlike [ZOOKEEPER-2212](../zk-found-2212.ryu/README.md), you cannot use the Namazu event history for analysis.
 
-Instead, you can estimate the cause of the bug using Earthquake branch analyzer for Java.
+Instead, you can estimate the cause of the bug using Namazu branch analyzer for Java.
 
 	
 	$ java -jar ../../bin/earthquake-analyzer.jar /tmp/zk-2080/ --classes-path /tmp/zk-2080/materials/zookeeper/build/classes
@@ -52,6 +52,6 @@ Instead, you can estimate the cause of the bug using Earthquake branch analyzer 
 
 ### Environment Variables
 
-* `EQ_DISABLE`(default: (unset)): disable the substantial part of Earthquake if set
+* `EQ_DISABLE`(default: (unset)): disable the substantial part of Namazu if set
 * `ZK_GIT_COMMIT`(default:(see `materials/lib.sh`)) : use another ZooKeeper version
 * `ZK_SOURCE_DIR`(default: (unset)) : use another ZooKeeper source directory if set

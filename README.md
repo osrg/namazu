@@ -1,4 +1,4 @@
-# Earthquake: Programmable Fuzzy Scheduler for Testing Distributed Systems
+# Namazu: Programmable Fuzzy Scheduler for Testing Distributed Systems
 
 [![Release](http://github-release-version.herokuapp.com/github/osrg/namazu/release.svg?style=flat)](https://github.com/osrg/namazu/releases/latest)
 [![Join the chat at https://gitter.im/osrg/namazu](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/osrg/namazu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -7,15 +7,15 @@
 [![Coverage Status](https://coveralls.io/repos/github/osrg/namazu/badge.svg?branch=master)](https://coveralls.io/github/osrg/namazu?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/osrg/namazu)](https://goreportcard.com/report/github.com/osrg/namazu)
 
-Earthquake is a programmable fuzzy scheduler for testing real implementations of distributed system (such as ZooKeeper).
+Namazu is a programmable fuzzy scheduler for testing real implementations of distributed system (such as ZooKeeper).
 
 Blog: [http://osrg.github.io/earthquake/](http://osrg.github.io/earthquake/)
 
-Earthquakes permutes Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
-Earthquake can also control non-determinism of the thread interleaving (by calling `sched_setattr(2)` with randomized parameters).
-So Earthquake can be also used for testing standalone multi-threaded software.
+Namazus permutes Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
+Namazu can also control non-determinism of the thread interleaving (by calling `sched_setattr(2)` with randomized parameters).
+So Namazu can be also used for testing standalone multi-threaded software.
 
-Basically, Earthquake permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Golang) for finding deep bugs efficiently.
+Basically, Namazu permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Golang) for finding deep bugs efficiently.
 
 ## Found/Reproduced Bugs
  * ZooKeeper:
@@ -36,12 +36,12 @@ The installation process is very simple:
 
 
 ## Quick Start (Container mode)
-The following instruction shows how you can start *Earthquake Container*, the simplified, Docker-like CLI for Earthquake.
+The following instruction shows how you can start *Namazu Container*, the simplified, Docker-like CLI for Namazu.
 
     $ sudo earthquake container run -it --rm -v /foo:/foo ubuntu bash
 
 
-In *Earthquake Container*, you can run arbitrary command that might be *flaky*.
+In *Namazu Container*, you can run arbitrary command that might be *flaky*.
 JUnit tests are interesting to try.
 
     earthquake-container$ git clone something
@@ -184,7 +184,7 @@ Run `for f in $(seq 1 100);do earthquake run /tmp/x; done`.
 
 This command starts the orchestrator, and executes `run.sh`, `validate.sh`, and `clean.sh` for testing the system (100 times).
 
-`run.sh` should invoke multiple Earthquake inspectors: `earthquake inspectors <proc|fs|ethernet> -entity-id _some_unique_string -orchestrator-url http://127.0.0.1:10080/api/v3`
+`run.sh` should invoke multiple Namazu inspectors: `earthquake inspectors <proc|fs|ethernet> -entity-id _some_unique_string -orchestrator-url http://127.0.0.1:10080/api/v3`
 
 `*.sh` can access the `/tmp/x/{00000000, 00000001, 00000002, ..., 00000063}` directory as `${EQ_WORKING_DIR}`, which is intended for putting test results and some relevant information. (Note: 0x63==99)
 
@@ -207,7 +207,7 @@ If you have [JaCoCo](http://eclemma.org/jacoco/) coverage data, you can run `jav
  * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii)
 
 ## How to Contribute
-We welcome your contribution to Earthquake.
+We welcome your contribution to Namazu.
 Please feel free to send your pull requests on github!
 
 ## Copyright
@@ -268,5 +268,5 @@ func main(){
 Please refer to [example/template](example/template) for further information.
 
 ## Known Limitation
-After running Earthquake (process inspector with `exploreParam.procPolicyParam="dirichlet"`) many times, `sched_setattr(2)` can fail with `EBUSY`.
+After running Namazu (process inspector with `exploreParam.procPolicyParam="dirichlet"`) many times, `sched_setattr(2)` can fail with `EBUSY`.
 This seems to be a bug of kernel; We're looking into this.

@@ -83,7 +83,7 @@ function START_SWITCH() {
 }
 
 function START_INSPECTOR() {
-    INFO "Starting Earthquake Ethernet Inspector"
+    INFO "Starting Namazu Ethernet Inspector"
     python ${EQ_MATERIALS_DIR}/etcd_inspector.py > ${EQ_WORKING_DIR}/inspector.log 2>&1 &
     pid=$!
     INFO "Inspector PID: ${pid}"

@@ -26,7 +26,7 @@ public class Main {
     @Option(name = "-c", aliases = "--classes-path", metaVar = "classesPath", required = true, usage = "Java classes path")
     private String classesPath = null; // TODO: support multiple paths
 
-    @Argument(index = 0, metaVar = "storagePath", required = true, usage = "Earthquake storage directory path")
+    @Argument(index = 0, metaVar = "storagePath", required = true, usage = "Namazu storage directory path")
     private String storagePath = null;
 
     public static void main(String args[]) {
