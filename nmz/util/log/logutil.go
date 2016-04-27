@@ -40,7 +40,7 @@ func InitLog(path string, debug bool) {
         <!-- ${extra} -->
     </outputs>
     <formats>
-        <format id="main" format="[EQ-%LEV] %Date(15:04:05.00): %Msg (at %File:%Line) %n"/>
+        <format id="main" format="[NMZ-%LEV] %Date(15:04:05.00): %Msg (at %File:%Line) %n"/>
     </formats>
 </seelog>`
 

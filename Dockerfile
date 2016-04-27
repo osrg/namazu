@@ -50,5 +50,5 @@ RUN ./build
 ENV LOG file
 
 ## Start init (does NOT enable DinD/OVS/Ryu by default)
-ADD misc/docker/eq-init.py /eq-init.py
-CMD ["/eq-init.py"]
+ADD misc/docker/nmz-init.py /nmz-init.py
+CMD ["/nmz-init.py"]

@@ -109,7 +109,7 @@ The guide for reproducing flaky Hadoop tests (please use `nmz` instead of `micro
 
     $ mkdir /tmp/{nmzfs-orig,nmzfs}
     $ sudo nmz inspectors fs -original-dir /tmp/nmzfs-orig -mount-point /tmp/nmzfs
-	$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_EQFS
+	$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_NMZFS
 	$ sudo fusermount -u /tmp/nmzfs
 
 By default, all the `read`, `mkdir`, and `rmdir` accesses to the files under `/tmp/nmzfs` are randomly scheduled.
