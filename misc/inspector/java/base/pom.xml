@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>Earthquake Inspector (Java)</name>
-  <url>http://github.com/osrg/earthquake</url>
+  <url>http://github.com/osrg/namazu</url>
 
   <build>
     <finalName>earthquake-inspector</finalName>

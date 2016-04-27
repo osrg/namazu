@@ -32,19 +32,19 @@ but we believe that one of the most important reasons is lacking of a good debug
  * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): To Be Documented
  * Reproduced flaky tests YARN-{[1978](https://issues.apache.org/jira/browse/YARN-1978), [4168](https://issues.apache.org/jira/browse/YARN-4168), [4543](https://issues.apache.org/jira/browse/YARN-4543), [4548](https://issues.apache.org/jira/browse/YARN-4548), [4556](https://issues.apache.org/jira/browse/YARN-4556)}
 
-The repro codes are located on [earthquake/example](https://github.com/osrg/earthquake/tree/master/example).
+The repro codes are located on [earthquake/example](https://github.com/osrg/namazu/tree/master/example).
 
 # How to use?
-Please refer to [README file](https://github.com/osrg/earthquake/blob/master/README.md).
+Please refer to [README file](https://github.com/osrg/namazu/blob/master/README.md).
 
 [This article]({{< relref "post/zookeeper-2212.md" >}}) is also a good start point.
 
 [The slides for the presentation at FOSDEM](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42) might be also helpful.
 
 # Contact
-The project is managed on [github](https://github.com/osrg/earthquake).
-[Pull requests](https://github.com/osrg/earthquake/pulls) and [issues](https://github.com/osrg/earthquake/issues) are welcome.
-We are using [gitter](https://gitter.im/osrg/earthquake) for discussion.
+The project is managed on [github](https://github.com/osrg/namazu).
+[Pull requests](https://github.com/osrg/namazu/pulls) and [issues](https://github.com/osrg/namazu/issues) are welcome.
+We are using [gitter](https://gitter.im/osrg/namazu) for discussion.
 Feel free to join.
 
-[![Join the chat at https://gitter.im/osrg/earthquake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/osrg/namazu](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osrg/namazu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)

@@ -27,7 +27,7 @@ script:
   - go vet ./...
   - go fmt ./...
   # Test the entire Dockerfile
-  - docker build -t osrg/earthquake .
+  - docker build -t osrg/namazu .
 
 notifications:
   webhooks:

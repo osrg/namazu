@@ -1,6 +1,6 @@
 #!/usr/bin/python
 """
-Init script for Earthquake Docker Image (osrg/earthquake)
+Init script for Earthquake Docker Image (osrg/namazu)
 Supported Env vars:
  - EQ_DOCKER_PRIVILEGED
 """

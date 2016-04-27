@@ -7,4 +7,4 @@ copyright = "Copyright© 2015 Nippon Telegraph and Telephone Corporation"
 [params]
   description = "A programmable fuzzy scheduler for testing distributed systems"
   mainMenu = ["about", "gettingStarted", "categories/blog"]
-  repositoryUrl = "https://github.com/osrg/earthquake/"
+  repositoryUrl = "https://github.com/osrg/namazu/"

@@ -25,12 +25,12 @@ Without Earthquake, we could not reproduce the bug in 5,000 experiments. (took a
 ## How to Reproduce the Bug with Earthquake
     
 ### Set up Earthquake (v0.1.1)
-Please see [doc/how-to-setup-env.md](https://github.com/osrg/earthquake/blob/v0.1.1/doc/how-to-setup-env.md) for how to setup the environment.
+Please see [doc/how-to-setup-env.md](https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md) for how to setup the environment.
 
-The use of pre-built Docker image `osrg/earthquake:v0.1.1` is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.
+The use of pre-built Docker image `osrg/namazu:v0.1.1` is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.
 
     $ sudo modprobe openvswitch # tested with Ubuntu 15.04 host (Linux kernel 3.19)
-    $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.1
+    $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu:v0.1.1
 
 
 Then, build ZooKeeper "Docker-in-Docker" containers, and initialize Earthquake as follows.
@@ -67,7 +67,7 @@ Figure:
     |  |                       Earthquake                      |  |
     |  +-------------------------------------------------------+  |	
     |                                                             |
-    |                  Docker  (osrg/earthquake)                  |
+    |                  Docker  (osrg/namazu)                  |
     +-------------------------------------------------------------+
 
 
@@ -111,60 +111,60 @@ You can check which experiment reproduced the bug as follows:
     Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected traces: 3
     00000002 caused failure
 
-### [Experiment #0](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000): *not* reproduced the bug
+### [Experiment #0](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000): *not* reproduced the bug
 zk2 was successfully promoted to an observer to a participant, because it received `UpToDate` before `Notification(config.version=100000000)`
 
-* [32](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json): zk1->zk2: `UpToDate`
-* [36](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json): zk1<-zk2: `FollowerInfo`
-* [37](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json): zk1<-zk2: `Notification(config.version=100000000)`
-* [39](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json): zk1->zk2: `Notification(config.version=100000000)`
+* [32](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json): zk1->zk2: `UpToDate`
+* [36](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json): zk1<-zk2: `FollowerInfo`
+* [37](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json): zk1<-zk2: `Notification(config.version=100000000)`
+* [39](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json): zk1->zk2: `Notification(config.version=100000000)`
 
 
 zk3 was successfully promoted to an observer to a participant, because it received `UpToDate` before `Notification(config.version=100000000)`
 
-* [20](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json): zk1->zk3: `UpToDate`
-* [21](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json): zk1<-zk3: `Notification(config.version=100000000)`
-* [23](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json): zk1->zk3: `Notification(config.version=100000000)`
-* [25](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json): zk1<-zk3: `FollowerInfo`
+* [20](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json): zk1->zk3: `UpToDate`
+* [21](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json): zk1<-zk3: `Notification(config.version=100000000)`
+* [23](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json): zk1->zk3: `Notification(config.version=100000000)`
+* [25](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json): zk1<-zk3: `FollowerInfo`
 
-### [Experiment #1](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001): *not* reproduced the bug
+### [Experiment #1](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001): *not* reproduced the bug
 zk2 was already a participant when it received `UpToDate`
 
-* [19](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json): zk1<-zk2: `FollowerInfo`
-* [31](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json): zk1->zk2: `UpToDate`
+* [19](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json): zk1<-zk2: `FollowerInfo`
+* [31](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json): zk1->zk2: `UpToDate`
 
 zk3 was successfully promoted to an observer to a participant, because it received `UpToDate` before `Notification(config.version=100000000)`
 
-* [26](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json): zk1->zk3: `UpToDate`
-* [29](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json): zk1<-zk3: `FollowerInfo`
-* [34](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json): zk1->zk3: `Notification(config.version=100000000)`
-* [37](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json): zk1<-zk3: `Notification(config.version=100000000)`
+* [26](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json): zk1->zk3: `UpToDate`
+* [29](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json): zk1<-zk3: `FollowerInfo`
+* [34](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json): zk1->zk3: `Notification(config.version=100000000)`
+* [37](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json): zk1<-zk3: `Notification(config.version=100000000)`
 
-### [Experiment #2](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002): *reproduced* the bug (zk2, zk3)
+### [Experiment #2](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002): *reproduced* the bug (zk2, zk3)
 zk2 was not able to be promoted (please see above for the reason)
 
-* [12](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json): zk1->zk2: `Notification(config.version=100000000)`
-* [19](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json): zk1->zk2: `UpToDate`
+* [12](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json): zk1->zk2: `Notification(config.version=100000000)`
+* [19](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json): zk1->zk2: `UpToDate`
 * No `FollowerInfo` (zk1<-zk2)
 
 zk3 was not able to be promoted (please see above for the reason)
 
-* [10](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json): zk1->zk3: `Notification(config.version=100000000)`
-* [24](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json): zk1->zk3: `UpToDate`
+* [10](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json): zk1->zk3: `Notification(config.version=100000000)`
+* [24](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json): zk1->zk3: `UpToDate`
 * No `FollowerInfo` (zk1<-zk3)
 
-### [Experiment #3](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003): *reproduced* the bug (zk3)
+### [Experiment #3](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003): *reproduced* the bug (zk3)
 zk2 was successfully promoted to an observer to a participant, because it received `UpToDate` before `Notification(config.version=100000000)`
 
-* [24](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json): zk1->zk2: `UpToDate`
-* [25](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json): zk1<-zk2: `Notification(config.version=100000000)`
-* [27](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json): zk1->zk2: `Notification(config.version=100000000)`
-* [29](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json): zk1<-zk2: `FollowerInfo`
+* [24](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json): zk1->zk2: `UpToDate`
+* [25](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json): zk1<-zk2: `Notification(config.version=100000000)`
+* [27](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json): zk1->zk2: `Notification(config.version=100000000)`
+* [29](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json): zk1<-zk2: `FollowerInfo`
 
 zk3 was not able to be promoted (please see above for the reason)
 
-* [7](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json): zk1->zk3: `Notification(config.version=100000000)`
-* [20](https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json): zk1->zk3: `UpToDate`
+* [7](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json): zk1->zk3: `Notification(config.version=100000000)`
+* [20](https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json): zk1->zk3: `UpToDate`
 * No `FollowerInfo` (zk1<-zk3)
 
 ## Conclusion

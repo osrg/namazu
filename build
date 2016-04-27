@@ -13,9 +13,9 @@ cd $(dirname $0)
 export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
 mkdir -p $GOPATH/src/github.com/osrg
-rm -f $GOPATH/src/github.com/osrg/earthquake
-INFO "Linking $(pwd) to $GOPATH/src/github.com/osrg/earthquake"
-ln -sf $(pwd) $GOPATH/src/github.com/osrg/earthquake
+rm -f $GOPATH/src/github.com/osrg/namazu
+INFO "Linking $(pwd) to $GOPATH/src/github.com/osrg/namazu"
+ln -sf $(pwd) $GOPATH/src/github.com/osrg/namazu
 
 ########## ProtocolBuffers ##########
 INFO "Installing protoc to $GOBIN"

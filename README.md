@@ -1,11 +1,11 @@
 # Earthquake: Programmable Fuzzy Scheduler for Testing Distributed Systems
 
-[![Release](http://github-release-version.herokuapp.com/github/osrg/earthquake/release.svg?style=flat)](https://github.com/osrg/earthquake/releases/latest)
-[![Join the chat at https://gitter.im/osrg/earthquake](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Release](http://github-release-version.herokuapp.com/github/osrg/namazu/release.svg?style=flat)](https://github.com/osrg/namazu/releases/latest)
+[![Join the chat at https://gitter.im/osrg/namazu](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/osrg/namazu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![GoDoc](https://godoc.org/github.com/osrg/namazu/nmz?status.svg)](https://godoc.org/github.com/osrg/namazu/nmz)
-[![Build Status](https://travis-ci.org/osrg/earthquake.svg?branch=master)](https://travis-ci.org/osrg/earthquake)
-[![Coverage Status](https://coveralls.io/repos/github/osrg/earthquake/badge.svg?branch=master)](https://coveralls.io/github/osrg/earthquake?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/osrg/earthquake)](https://goreportcard.com/report/github.com/osrg/earthquake)
+[![Build Status](https://travis-ci.org/osrg/namazu.svg?branch=master)](https://travis-ci.org/osrg/namazu)
+[![Coverage Status](https://coveralls.io/repos/github/osrg/namazu/badge.svg?branch=master)](https://coveralls.io/github/osrg/namazu?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/osrg/namazu)](https://goreportcard.com/report/github.com/osrg/namazu)
 
 Earthquake is a programmable fuzzy scheduler for testing real implementations of distributed system (such as ZooKeeper).
 
@@ -99,7 +99,7 @@ You can also specify a config file by running with `-autopilot config.toml`.
 
 You can also set `-orchestrator-url` (e.g. `http://127.0.0.1:10080/api/v3`) and `-entity-id` for distributed execution.
 
-Note that the process inspector may be not effective for reproducing short-running flaky tests, but it's still effective for long-running tests: [issue #125](https://github.com/osrg/earthquake/issues/125).
+Note that the process inspector may be not effective for reproducing short-running flaky tests, but it's still effective for long-running tests: [issue #125](https://github.com/osrg/namazu/issues/125).
 
 
 The guide for reproducing flaky Hadoop tests (please use `earthquake` instead of `microearthquake`): [FOSDEM slide 42](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42).

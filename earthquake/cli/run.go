@@ -257,7 +257,7 @@ Typical usage:
      $ earthquake tools summary /tmp/x
 
 You have to prepare config.toml and the materials directory before running the init command.
-Please also refer to the examples included in the github repository: https://github.com/osrg/earthquake/tree/master/example
+Please also refer to the examples included in the github repository: https://github.com/osrg/namazu/tree/master/example
 
 NOTE: "earthquake run" is different from "earthquake container run".
 `

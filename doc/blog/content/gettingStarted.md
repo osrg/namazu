@@ -5,4 +5,4 @@ tags = ["document"]
 title = "Getting Started"
 
 +++
-Please refer to [README.md](https://github.com/osrg/earthquake/blob/master/README.md).
+Please refer to [README.md](https://github.com/osrg/namazu/blob/master/README.md).
