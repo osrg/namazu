@@ -107,13 +107,13 @@ The guide for reproducing flaky Hadoop tests (please use `nmz` instead of `micro
 
 ### Filesystem inspector (FUSE)
 
-    $ mkdir /tmp/{eqfs-orig,eqfs}
-    $ sudo nmz inspectors fs -original-dir /tmp/eqfs-orig -mount-point /tmp/eqfs
+    $ mkdir /tmp/{nmzfs-orig,nmzfs}
+    $ sudo nmz inspectors fs -original-dir /tmp/nmzfs-orig -mount-point /tmp/nmzfs
 	$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_EQFS
-	$ sudo fusermount -u /tmp/eqfs
+	$ sudo fusermount -u /tmp/nmzfs
 
-By default, all the `read`, `mkdir`, and `rmdir` accesses to the files under `/tmp/eqfs` are randomly scheduled.
-`/tmp/eqfs-orig` is just used as the backing storage.
+By default, all the `read`, `mkdir`, and `rmdir` accesses to the files under `/tmp/nmzfs` are randomly scheduled.
+`/tmp/nmzfs-orig` is just used as the backing storage.
 (Note that you have to set `explorePolicyParam.minInterval` and `explorePolicyParam.maxInterval` in the config file.)
 
 You can also inject faullts (currently just injects `-EIO`) by setting `explorePolicyParam.faultActionProbability` in the config file.

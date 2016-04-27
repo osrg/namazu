@@ -5,8 +5,8 @@ function INFO(){
     echo -e "\e[104m\e[97m[INFO]\e[49m\e[39m $@"
 }
 
-INFO "Checking wheter /eqfs is mounted"
-ls /eqfs > /dev/null
+INFO "Checking wheter /nmzfs is mounted"
+ls /nmzfs > /dev/null
 
 INFO "Starting SSH"
 service ssh start

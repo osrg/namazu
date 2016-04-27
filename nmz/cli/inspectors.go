@@ -54,7 +54,7 @@ Filesystem inspector (fs)
     Inspects file access information, and inject delays and faults.
     Implemented in FUSE.
 
-    Typical usage: namazu inspectors fs -original-dir /tmp/eqfs-orig -mount-point /tmp/eqfs
+    Typical usage: namazu inspectors fs -original-dir /tmp/nmzfs-orig -mount-point /tmp/nmzfs
 
     Event signals: FilesystemEvent
     Action signals: EventAcceptanceAction, FilesystemFaultAction

@@ -2,7 +2,7 @@
   <property>
     <name>yarn.nodemanager.local-dirs</name>
     <!-- default: ${hadoop.tmp.dir}/nm-local-dir -->
-    <value>/eqfs/nm-local-dir</value>
+    <value>/nmzfs/nm-local-dir</value>
   </property>
   <property>
     <name>yarn.nodemanager.disk-health-checker.interval-ms</name>
