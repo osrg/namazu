@@ -26,7 +26,7 @@ Its design does not depend on programming languages and opearting systems.
 You can write your own state space search policy for your system.
 We hope it will make your life a little bit easier.
 
-![Overview](/namazu/images/overview.png)
+![Overview](/namazu/images/namazu.png)
 
 [1]: https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa "Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14."
 [2]: http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf "Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014."

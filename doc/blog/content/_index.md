@@ -16,7 +16,7 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 [Read more..]({{< relref "about.md" >}})..
 
-{{< slideshare key="MzuiqJw0xFIpo8" slide="10" >}}
+![Overview](/namazu/images/namazu.png)
 
 # Found/Reproduced Bugs
 * ZooKeeper:

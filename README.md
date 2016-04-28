@@ -7,15 +7,19 @@
 [![Coverage Status](https://coveralls.io/repos/github/osrg/namazu/badge.svg?branch=master)](https://coveralls.io/github/osrg/namazu?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/osrg/namazu)](https://goreportcard.com/report/github.com/osrg/namazu)
 
-Namazu (formerly named Earthquake) is a programmable fuzzy scheduler for testing real implementations of distributed system (such as ZooKeeper).
+Namazu (formerly named Earthquake) is a programmable fuzzy scheduler for testing real implementations of distributed system such as ZooKeeper.
 
-Blog: [http://osrg.github.io/namazu/](http://osrg.github.io/namazu/)
+![doc/img/namazu.png](doc/img/namazu.png)
 
 Namazu permutes Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
 Namazu can also control non-determinism of the thread interleaving (by calling `sched_setattr(2)` with randomized parameters).
 So Namazu can be also used for testing standalone multi-threaded software.
 
 Basically, Namazu permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Golang) for finding deep bugs efficiently.
+
+Blog: [http://osrg.github.io/namazu/](http://osrg.github.io/namazu/)
+
+Twitter: [@NamazuFuzzTest](https://twitter.com/NamazuFuzzTest)
 
 ## Found/Reproduced Bugs
  * ZooKeeper:
