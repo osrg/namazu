@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Found Bug on Earthquake</title>
-    <link>http://osrg.github.io/earthquake/tags/found-bug/</link>
-    <description>Recent content in Found Bug on Earthquake</description>
+    <title>Found Bug on Namazu</title>
+    <link>http://osrg.github.io/namazu/tags/found-bug/</link>
+    <description>Recent content in Found Bug on Namazu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
     <lastBuildDate>Thu, 20 Aug 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://osrg.github.io/earthquake/tags/found-bug/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://osrg.github.io/namazu/tags/found-bug/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ZOOKEEPER-2212: distributed race condition</title>
-      <link>http://osrg.github.io/earthquake/post/zookeeper-2212/</link>
+      <link>http://osrg.github.io/namazu/post/zookeeper-2212/</link>
       <pubDate>Thu, 20 Aug 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://osrg.github.io/earthquake/post/zookeeper-2212/</guid>
+      <guid>http://osrg.github.io/namazu/post/zookeeper-2212/</guid>
       <description>
 
 &lt;h2 id=&#34;introduction:6404b3763f3a9572f2be258882d8c375&#34;&gt;Introduction&lt;/h2&gt;
@@ -38,12 +38,12 @@
 
 &lt;h3 id=&#34;set-up-earthquake-v0-1-1:6404b3763f3a9572f2be258882d8c375&#34;&gt;Set up Earthquake (v0.1.1)&lt;/h3&gt;
 
-&lt;p&gt;Please see &lt;a href=&#34;https://github.com/osrg/earthquake/blob/v0.1.1/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt; for how to setup the environment.&lt;/p&gt;
+&lt;p&gt;Please see &lt;a href=&#34;https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt; for how to setup the environment.&lt;/p&gt;
 
-&lt;p&gt;The use of pre-built Docker image &lt;code&gt;osrg/earthquake:v0.1.1&lt;/code&gt; is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.&lt;/p&gt;
+&lt;p&gt;The use of pre-built Docker image &lt;code&gt;osrg/namazu:v0.1.1&lt;/code&gt; is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo modprobe openvswitch # tested with Ubuntu 15.04 host (Linux kernel 3.19)
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.1
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu:v0.1.1
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Then, build ZooKeeper &amp;ldquo;Docker-in-Docker&amp;rdquo; containers, and initialize Earthquake as follows.&lt;/p&gt;
@@ -79,7 +79,7 @@ ok
 |  |                       Earthquake                      |  |
 |  +-------------------------------------------------------+  | 
 |                                                             |
-|                  Docker  (osrg/earthquake)                  |
+|                  Docker  (osrg/namazu)                  |
 +-------------------------------------------------------------+
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -123,78 +123,78 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 00000002 caused failure
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;experiment-0-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-0-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
 
 &lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json&#34;&gt;32&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json&#34;&gt;36&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json&#34;&gt;39&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json&#34;&gt;32&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json&#34;&gt;36&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json&#34;&gt;39&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;zk3 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json&#34;&gt;21&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json&#34;&gt;23&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json&#34;&gt;21&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json&#34;&gt;23&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-1-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-1-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
 
 &lt;p&gt;zk2 was already a participant when it received &lt;code&gt;UpToDate&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json&#34;&gt;31&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json&#34;&gt;31&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;zk3 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json&#34;&gt;26&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json&#34;&gt;34&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json&#34;&gt;26&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json&#34;&gt;34&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-2-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-2-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
 
 &lt;p&gt;zk2 was not able to be promoted (please see above for the reason)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json&#34;&gt;12&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json&#34;&gt;12&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk2)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;zk3 was not able to be promoted (please see above for the reason)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json&#34;&gt;10&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json&#34;&gt;10&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-3-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-3-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
 
 &lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json&#34;&gt;27&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json&#34;&gt;27&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;zk3 was not able to be promoted (please see above for the reason)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json&#34;&gt;7&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json&#34;&gt;7&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
 &lt;/ul&gt;
 

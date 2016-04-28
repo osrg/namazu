@@ -1,26 +1,154 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Earthquake</title>
-    <link>http://osrg.github.io/earthquake/</link>
-    <description>Recent content on Earthquake</description>
+    <title>Namazu</title>
+    <link>http://osrg.github.io/namazu/</link>
+    <description>Recent content on Namazu</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
-    <lastBuildDate>Fri, 05 Feb 2016 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://osrg.github.io/earthquake/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://osrg.github.io/namazu/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About Namazu</title>
+      <link>http://osrg.github.io/namazu/about/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/namazu/about/</guid>
+      <description>
+
+&lt;p&gt;In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
+
+&lt;p&gt;Developing and maintaining distributed systems is difficult.
+The difficulty comes from many factors,
+but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
+
+&lt;p&gt;What are the distributed systems specific bugs?
+The bugs caused by hardware faults, non determinism of message ordering, and mix of them
+(non distributed systems does not need to handle them).
+Some researchers point out that real world systems (e.g. Hadoop) have such bugs,
+which can cause terrible failures like data loss &lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;[1]&lt;/a&gt; &lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;[3]&lt;/a&gt;.
+They showed the existence of the bugs by building implementation level distributed system model checkers (DMCK).
+The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
+In addition, they can work with actual implementation (not formal model &lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;[2]&lt;/a&gt;) directly.&lt;/p&gt;
+
+&lt;p&gt;Namazu is a programmable fuzz testing framework inspired by such DMCKs.
+Its design does not depend on programming languages and opearting systems.
+You can write your own state space search policy for your system.
+We hope it will make your life a little bit easier.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;references:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;References&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &amp;lsquo;14.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &amp;lsquo;09.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Subprojects</title>
+      <link>http://osrg.github.io/namazu/subprojects/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/namazu/subprojects/</guid>
+      <description>
+
+&lt;p&gt;These subprojects were originally developed for Namazu, but we believe they can be also used for other purposes.&lt;/p&gt;
+
+&lt;h3 id=&#34;hookswitch-a-usermode-packet-injection-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookSwitch: A Usermode Packet Injection Library&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://badge.fury.io/py/hookswitch&#34;&gt;&lt;img src=&#34;https://badge.fury.io/py/hookswitch.svg&#34; alt=&#34;PyPI version&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookswitch&#34;&gt;https://github.com/osrg/hookswitch&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;hookfs-a-usermode-hookable-filesystem-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookFS: A Usermode Hookable Filesystem Library&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookfs&#34;&gt;https://github.com/osrg/hookfs&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>_index</title>
+      <link>http://osrg.github.io/namazu/_index/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/namazu/_index/</guid>
+      <description>
+
+&lt;h1 id=&#34;what-is-this:3976528693a0108357f4928017600865&#34;&gt;What is this?&lt;/h1&gt;
+
+&lt;p&gt;In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
+
+&lt;p&gt;Developing and maintaining distributed systems is difficult.
+The difficulty comes from many factors,
+but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/namazu/namazu/about/&#34;&gt;Read more..&lt;/a&gt;..&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;found-reproduced-bugs:3976528693a0108357f4928017600865&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;ZooKeeper:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2080/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Found an etcd command line client (etcdctl) bug &lt;a href=&#34;https://github.com/coreos/etcd/issues/3517&#34;&gt;#3517&lt;/a&gt; (timing specification), fixed in &lt;a href=&#34;https://github.com/coreos/etcd/pull/3530&#34;&gt;#3530&lt;/a&gt;. The fix also resulted a hint of &lt;a href=&#34;https://github.com/coreos/etcd/issues/3611&#34;&gt;#3611&lt;/a&gt;: To Be Documented&lt;/li&gt;
+&lt;li&gt;Reproduced flaky tests {&lt;a href=&#34;https://github.com/coreos/etcd/pull/4006&#34;&gt;#4006&lt;/a&gt;, &lt;a href=&#34;https://github.com/coreos/etcd/issues/4039&#34;&gt;#4039&lt;/a&gt;}&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;YARN:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4301&#34;&gt;YARN-4301&lt;/a&gt; (fault tolerance): To Be Documented&lt;/li&gt;
+&lt;li&gt;Reproduced flaky tests YARN-{&lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-1978&#34;&gt;1978&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4168&#34;&gt;4168&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4543&#34;&gt;4543&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4548&#34;&gt;4548&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4556&#34;&gt;4556&lt;/a&gt;}&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The repro codes are located on &lt;a href=&#34;https://github.com/osrg/namazu/tree/master/example&#34;&gt;namazu/example&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
+
+&lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README file&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;This article&lt;/a&gt; is also a good start point.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42&#34;&gt;The slides for the presentation at FOSDEM&lt;/a&gt; might be also helpful.&lt;/p&gt;
+
+&lt;h1 id=&#34;contact:3976528693a0108357f4928017600865&#34;&gt;Contact&lt;/h1&gt;
+
+&lt;p&gt;The project is managed on &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;github&lt;/a&gt;.
+&lt;a href=&#34;https://github.com/osrg/namazu/pulls&#34;&gt;Pull requests&lt;/a&gt; and &lt;a href=&#34;https://github.com/osrg/namazu/issues&#34;&gt;issues&lt;/a&gt; are welcome.
+We are using &lt;a href=&#34;https://gitter.im/osrg/namazu&#34;&gt;gitter&lt;/a&gt; for discussion.
+Feel free to join.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gitter.im/osrg/namazu?utm_source=badge&amp;amp;utm_medium=badge&amp;amp;utm_campaign=pr-badge&amp;amp;utm_content=badge&#34;&gt;&lt;img src=&#34;https://badges.gitter.im/Join%20Chat.svg&#34; alt=&#34;Join the chat at https://gitter.im/osrg/namazu&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>FOSDEM: Thank you for attending our presentation!</title>
-      <link>http://osrg.github.io/earthquake/post/fosdem2016/</link>
+      <link>http://osrg.github.io/namazu/post/fosdem2016/</link>
       <pubDate>Fri, 05 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://osrg.github.io/earthquake/post/fosdem2016/</guid>
+      <guid>http://osrg.github.io/namazu/post/fosdem2016/</guid>
       <description>&lt;p&gt;On January 30, Brussels, we had a very good time at &lt;a href=&#34;https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/&#34;&gt;FOSDEM 2016&lt;/a&gt;!&lt;/p&gt;
 
 &lt;p&gt;Thank you all for attending our presentation and discussing with us!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/fosdem2016_01.jpg&#34; alt=&#34;fosdem2016_01.jpg&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/fosdem2016_01.jpg&#34; alt=&#34;fosdem2016_01.jpg&#34; /&gt;&lt;/p&gt;
 
 
 &lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/MzuiqJw0xFIpo8?startSlide=1&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
@@ -45,88 +173,26 @@
     
     <item>
       <title>Getting Started</title>
-      <link>http://osrg.github.io/earthquake/gettingStarted/</link>
+      <link>http://osrg.github.io/namazu/gettingStarted/</link>
       <pubDate>Tue, 15 Dec 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://osrg.github.io/earthquake/gettingStarted/</guid>
-      <description>&lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/README.md&#34;&gt;README.md&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>About Earthquake</title>
-      <link>http://osrg.github.io/earthquake/about/</link>
-      <pubDate>Mon, 14 Dec 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://osrg.github.io/earthquake/about/</guid>
-      <description>
-
-&lt;p&gt;In short, the goal of earthquake project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
-
-&lt;p&gt;Developing and maintaining distributed systems is difficult.
-The difficulty comes from many factors,
-but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
-
-&lt;p&gt;What are the distributed systems specific bugs?
-The bugs caused by hardware faults, non determinism of message ordering, and mix of them
-(non distributed systems does not need to handle them).
-Some researchers point out that real world systems (e.g. Hadoop) have such bugs,
-which can cause terrible failures like data loss &lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;[1]&lt;/a&gt; &lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;[3]&lt;/a&gt;.
-They showed the existence of the bugs by building implementation level distributed system model checkers (DMCK).
-The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
-In addition, they can work with actual implementation (not formal model &lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;[2]&lt;/a&gt;) directly.&lt;/p&gt;
-
-&lt;p&gt;earthquake is a programmable fuzz testing framework inspired by such DMCKs.
-Its design does not depend on programming languages and opearting systems.
-You can write your own state space search policy for your system.
-We hope it will make your life a little bit easier.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/earthquake/earthquake/images/overview.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;references:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;References&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &amp;lsquo;14.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf&#34; title=&#34;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&#34;&gt;Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf&#34; title=&#34;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &#39;09.&#34;&gt;Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &amp;lsquo;09.&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Subprojects</title>
-      <link>http://osrg.github.io/earthquake/subprojects/</link>
-      <pubDate>Mon, 05 Oct 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://osrg.github.io/earthquake/subprojects/</guid>
-      <description>
-
-&lt;p&gt;These subprojects were originally developed for Earthquake, but we believe they can be also used for other purposes.&lt;/p&gt;
-
-&lt;h3 id=&#34;hookswitch-a-usermode-packet-injection-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookSwitch: A Usermode Packet Injection Library&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://badge.fury.io/py/hookswitch&#34;&gt;&lt;img src=&#34;https://badge.fury.io/py/hookswitch.svg&#34; alt=&#34;PyPI version&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookswitch&#34;&gt;https://github.com/osrg/hookswitch&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;hookfs-a-usermode-hookable-filesystem-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookFS: A Usermode Hookable Filesystem Library&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookfs&#34;&gt;https://github.com/osrg/hookfs&lt;/a&gt;&lt;/p&gt;
+      <guid>http://osrg.github.io/namazu/gettingStarted/</guid>
+      <description>&lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README.md&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>ZOOKEEPER-2080: flaky JUnit test</title>
-      <link>http://osrg.github.io/earthquake/post/zookeeper-2080/</link>
+      <link>http://osrg.github.io/namazu/post/zookeeper-2080/</link>
       <pubDate>Fri, 02 Oct 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://osrg.github.io/earthquake/post/zookeeper-2080/</guid>
+      <guid>http://osrg.github.io/namazu/post/zookeeper-2080/</guid>
       <description>
 
 &lt;h2 id=&#34;introduction:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://zookeeper.apache.org/&#34;&gt;Apache Zookeeper&lt;/a&gt; is a highly available coordination service that is used by many distributed systems.
-(See also &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;our previous post about ZOOKEEPER-2212&lt;/a&gt;)&lt;/p&gt;
+(See also &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;our previous post about ZOOKEEPER-2212&lt;/a&gt;)&lt;/p&gt;
 
 &lt;p&gt;ZooKeeper is comparatively matured, and well-tested with many JUnit scenarios.
 However, due to its high non-determinism, some test scenarios are still flaky, plus it is very hard to identify the cause of such flaky bugs.&lt;/p&gt;
@@ -149,14 +215,14 @@ We continue to look on the progress of ZOOKEEPER-901 and several related tickets
 &lt;p&gt;The bug can be easily reproduced by injecting several tens of millisecs sleeps to FLE (Fast Leader Election protocol) packets.
 We did not have to permute packets explicitly.&lt;/p&gt;
 
-&lt;p&gt;NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as &lt;a href=&#34;https://github.com/osrg/hookswitch/&#34;&gt;osrg/hookswitch&lt;/a&gt;. HookSwitch can also hook OpenFlow packets, as &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;we used in ZOOKEEPER-2212&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as &lt;a href=&#34;https://github.com/osrg/hookswitch/&#34;&gt;osrg/hookswitch&lt;/a&gt;. HookSwitch can also hook OpenFlow packets, as &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;we used in ZOOKEEPER-2212&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id=&#34;set-up-earthquake-v0-1-2:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Set up Earthquake (v0.1.2)&lt;/h3&gt;
 
-&lt;p&gt;For more information about setting up Earthquake, please refer to &lt;a href=&#34;https://github.com/osrg/earthquake/blob/v0.1.2/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For more information about setting up Earthquake, please refer to &lt;a href=&#34;https://github.com/osrg.namazu/blob/v0.1.2/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo sh -c &#39;echo 0 &amp;gt; /proc/sys/net/ipv4/tcp_autocorking&#39; #recommended if Linux &amp;gt;= 3.14
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.2
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg.namazu:v0.1.2
 docker$ export PYTHONPATH=/earthquake #BUG(Dockerfile): should be predefined in &amp;gt; v0.1.2
 docker$ apt-get install ant-optional #BUG(Dockerfile): should be preinstalled in &amp;gt; v0.1.2
 docker$ cd /earthquake/example/zk-repro-2080.nfqhook
@@ -188,13 +254,13 @@ validation failed: exit status 1
 
 &lt;h3 id=&#34;analyze:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Analyze&lt;/h3&gt;
 
-&lt;p&gt;Unlike we experienced in &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.&lt;/p&gt;
+&lt;p&gt;Unlike we experienced in &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.&lt;/p&gt;
 
 &lt;p&gt;Instead, we compared branch patterns of Java codes using our new Earthquake Analyzer.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;docker$ java -jar ../../bin/earthquake-analyzer.jar /tmp-zk-2080/ --classes-path /tmp-zk-2080/materials/zookeeper/build/classes
-[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
-[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
+[DEBUG] net.osrg.namazu.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
+[DEBUG] net.osrg.namazu.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
 ..
 Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::getVote line 805-805
 Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 919-919
@@ -254,10 +320,10 @@ Although the suspicious set can contain some misleading information, it is enoug
     
     <item>
       <title>ZOOKEEPER-2212: distributed race condition</title>
-      <link>http://osrg.github.io/earthquake/post/zookeeper-2212/</link>
+      <link>http://osrg.github.io/namazu/post/zookeeper-2212/</link>
       <pubDate>Thu, 20 Aug 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://osrg.github.io/earthquake/post/zookeeper-2212/</guid>
+      <guid>http://osrg.github.io/namazu/post/zookeeper-2212/</guid>
       <description>
 
 &lt;h2 id=&#34;introduction:6404b3763f3a9572f2be258882d8c375&#34;&gt;Introduction&lt;/h2&gt;
@@ -280,12 +346,12 @@ Although the suspicious set can contain some misleading information, it is enoug
 
 &lt;h3 id=&#34;set-up-earthquake-v0-1-1:6404b3763f3a9572f2be258882d8c375&#34;&gt;Set up Earthquake (v0.1.1)&lt;/h3&gt;
 
-&lt;p&gt;Please see &lt;a href=&#34;https://github.com/osrg/earthquake/blob/v0.1.1/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt; for how to setup the environment.&lt;/p&gt;
+&lt;p&gt;Please see &lt;a href=&#34;https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt; for how to setup the environment.&lt;/p&gt;
 
-&lt;p&gt;The use of pre-built Docker image &lt;code&gt;osrg/earthquake:v0.1.1&lt;/code&gt; is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.&lt;/p&gt;
+&lt;p&gt;The use of pre-built Docker image &lt;code&gt;osrg/namazu:v0.1.1&lt;/code&gt; is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo modprobe openvswitch # tested with Ubuntu 15.04 host (Linux kernel 3.19)
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.1
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu:v0.1.1
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Then, build ZooKeeper &amp;ldquo;Docker-in-Docker&amp;rdquo; containers, and initialize Earthquake as follows.&lt;/p&gt;
@@ -321,7 +387,7 @@ ok
 |  |                       Earthquake                      |  |
 |  +-------------------------------------------------------+  | 
 |                                                             |
-|                  Docker  (osrg/earthquake)                  |
+|                  Docker  (osrg/namazu)                  |
 +-------------------------------------------------------------+
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -365,78 +431,78 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 00000002 caused failure
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;experiment-0-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-0-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
 
 &lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json&#34;&gt;32&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json&#34;&gt;36&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json&#34;&gt;39&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json&#34;&gt;32&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json&#34;&gt;36&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json&#34;&gt;39&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;zk3 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json&#34;&gt;21&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json&#34;&gt;23&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json&#34;&gt;21&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json&#34;&gt;23&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-1-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-1-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
 
 &lt;p&gt;zk2 was already a participant when it received &lt;code&gt;UpToDate&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json&#34;&gt;31&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json&#34;&gt;31&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;zk3 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json&#34;&gt;26&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json&#34;&gt;34&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json&#34;&gt;26&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json&#34;&gt;34&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-2-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-2-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
 
 &lt;p&gt;zk2 was not able to be promoted (please see above for the reason)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json&#34;&gt;12&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json&#34;&gt;12&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json&#34;&gt;19&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk2)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;zk3 was not able to be promoted (please see above for the reason)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json&#34;&gt;10&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json&#34;&gt;10&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-3-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-3-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
 
 &lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json&#34;&gt;27&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json&#34;&gt;24&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json&#34;&gt;27&lt;/a&gt;: zk1-&amp;gt;zk2: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json&#34;&gt;29&lt;/a&gt;: zk1&amp;lt;-zk2: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;zk3 was not able to be promoted (please see above for the reason)&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json&#34;&gt;7&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json&#34;&gt;7&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json&#34;&gt;20&lt;/a&gt;: zk1-&amp;gt;zk3: &lt;code&gt;UpToDate&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -455,80 +521,11 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
     </item>
     
     <item>
-      <title>_index</title>
-      <link>http://osrg.github.io/earthquake/_index/</link>
-      <pubDate>Thu, 20 Aug 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://osrg.github.io/earthquake/_index/</guid>
-      <description>
-
-&lt;h1 id=&#34;what-is-this:3976528693a0108357f4928017600865&#34;&gt;What is this?&lt;/h1&gt;
-
-&lt;p&gt;In short, the goal of Earthquake project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
-
-&lt;p&gt;Developing and maintaining distributed systems is difficult.
-The difficulty comes from many factors,
-but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/about/&#34;&gt;Read more..&lt;/a&gt;..&lt;/p&gt;
-
-
-&lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/MzuiqJw0xFIpo8?startSlide=10&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
-
-
-
-&lt;h1 id=&#34;found-reproduced-bugs:3976528693a0108357f4928017600865&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;ZooKeeper:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2080/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Found an etcd command line client (etcdctl) bug &lt;a href=&#34;https://github.com/coreos/etcd/issues/3517&#34;&gt;#3517&lt;/a&gt; (timing specification), fixed in &lt;a href=&#34;https://github.com/coreos/etcd/pull/3530&#34;&gt;#3530&lt;/a&gt;. The fix also resulted a hint of &lt;a href=&#34;https://github.com/coreos/etcd/issues/3611&#34;&gt;#3611&lt;/a&gt;: To Be Documented&lt;/li&gt;
-&lt;li&gt;Reproduced flaky tests {&lt;a href=&#34;https://github.com/coreos/etcd/pull/4006&#34;&gt;#4006&lt;/a&gt;, &lt;a href=&#34;https://github.com/coreos/etcd/issues/4039&#34;&gt;#4039&lt;/a&gt;}&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;YARN:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4301&#34;&gt;YARN-4301&lt;/a&gt; (fault tolerance): To Be Documented&lt;/li&gt;
-&lt;li&gt;Reproduced flaky tests YARN-{&lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-1978&#34;&gt;1978&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4168&#34;&gt;4168&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4543&#34;&gt;4543&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4548&#34;&gt;4548&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4556&#34;&gt;4556&lt;/a&gt;}&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The repro codes are located on &lt;a href=&#34;https://github.com/osrg/earthquake/tree/master/example&#34;&gt;earthquake/example&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
-
-&lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/earthquake/blob/master/README.md&#34;&gt;README file&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/earthquake/earthquake/post/zookeeper-2212/&#34;&gt;This article&lt;/a&gt; is also a good start point.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42&#34;&gt;The slides for the presentation at FOSDEM&lt;/a&gt; might be also helpful.&lt;/p&gt;
-
-&lt;h1 id=&#34;contact:3976528693a0108357f4928017600865&#34;&gt;Contact&lt;/h1&gt;
-
-&lt;p&gt;The project is managed on &lt;a href=&#34;https://github.com/osrg/earthquake&#34;&gt;github&lt;/a&gt;.
-&lt;a href=&#34;https://github.com/osrg/earthquake/pulls&#34;&gt;Pull requests&lt;/a&gt; and &lt;a href=&#34;https://github.com/osrg/earthquake/issues&#34;&gt;issues&lt;/a&gt; are welcome.
-We are using &lt;a href=&#34;https://gitter.im/osrg/earthquake&#34;&gt;gitter&lt;/a&gt; for discussion.
-Feel free to join.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://gitter.im/osrg/earthquake?utm_source=badge&amp;amp;utm_medium=badge&amp;amp;utm_campaign=pr-badge&amp;amp;utm_content=badge&#34;&gt;&lt;img src=&#34;https://badges.gitter.im/Join%20Chat.svg&#34; alt=&#34;Join the chat at https://gitter.im/osrg/earthquake&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Hello, world!</title>
-      <link>http://osrg.github.io/earthquake/post/first/</link>
+      <link>http://osrg.github.io/namazu/post/first/</link>
       <pubDate>Fri, 24 Jul 2015 00:00:00 +0000</pubDate>
       
-      <guid>http://osrg.github.io/earthquake/post/first/</guid>
+      <guid>http://osrg.github.io/namazu/post/first/</guid>
       <description>&lt;p&gt;Hello, world! In this blog, we&amp;rsquo;d like to share our ideas and
 experiences related to testing and debugging distributed systems.&lt;/p&gt;
 

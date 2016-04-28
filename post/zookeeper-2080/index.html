@@ -5,15 +5,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Earthquake">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Namazu">
 		
-		<title>ZOOKEEPER-2080: flaky JUnit test - Earthquake</title>
+		<title>ZOOKEEPER-2080: flaky JUnit test - Namazu</title>
 		
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/highlight.js.min.css">
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootstrap.min.css">
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootstrap-theme.css">
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/theme.css">
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootie-docs.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/theme.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/bootie-docs.css">
 	</head>
 
 <body role="document">
@@ -28,22 +28,22 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="http://osrg.github.io/earthquake//">Earthquake</a>
+				<a class="navbar-brand" href="http://osrg.github.io/namazu//">Namazu</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li ><a href="http://osrg.github.io/earthquake//">Home</a></li>
+					<li ><a href="http://osrg.github.io/namazu//">Home</a></li>
 			
 				
 				
 					
-					<li ><a href="http://osrg.github.io/earthquake//about">About</a></li>
+					<li ><a href="http://osrg.github.io/namazu//about">About</a></li>
 				
 					
-					<li ><a href="http://osrg.github.io/earthquake//gettingStarted">GettingStarted</a></li>
+					<li ><a href="http://osrg.github.io/namazu//gettingStarted">GettingStarted</a></li>
 				
 					
-					<li ><a href="http://osrg.github.io/earthquake//categories/blog">Blog</a></li>
+					<li ><a href="http://osrg.github.io/namazu//categories/blog">Blog</a></li>
 				
 			
 				
@@ -51,9 +51,9 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://osrg.github.io/earthquake//categories/blog">Blog</a></li>
+							<li><a href="http://osrg.github.io/namazu//categories/blog">Blog</a></li>
 						
-							<li><a href="http://osrg.github.io/earthquake//categories/general">General</a></li>
+							<li><a href="http://osrg.github.io/namazu//categories/general">General</a></li>
 						
 						</ul>
 					</li>
@@ -63,13 +63,13 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tags<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://osrg.github.io/earthquake//tags/document">Document</a></li>
+							<li><a href="http://osrg.github.io/namazu//tags/document">Document</a></li>
 						
-							<li><a href="http://osrg.github.io/earthquake//tags/found-bug">Found-Bug</a></li>
+							<li><a href="http://osrg.github.io/namazu//tags/found-bug">Found-Bug</a></li>
 						
-							<li><a href="http://osrg.github.io/earthquake//tags/reproduced-bug">Reproduced-Bug</a></li>
+							<li><a href="http://osrg.github.io/namazu//tags/reproduced-bug">Reproduced-Bug</a></li>
 						
-							<li><a href="http://osrg.github.io/earthquake//tags/zookeeper">Zookeeper</a></li>
+							<li><a href="http://osrg.github.io/namazu//tags/zookeeper">Zookeeper</a></li>
 						
 						</ul>
 					</li>
@@ -97,7 +97,7 @@
 <h2 id="introduction:76efb5c48a34481fa50b4c096fa9081f">Introduction</h2>
 
 <p><a href="https://zookeeper.apache.org/">Apache Zookeeper</a> is a highly available coordination service that is used by many distributed systems.
-(See also <a href="/earthquake/post/zookeeper-2212/">our previous post about ZOOKEEPER-2212</a>)</p>
+(See also <a href="/namazu/post/zookeeper-2212/">our previous post about ZOOKEEPER-2212</a>)</p>
 
 <p>ZooKeeper is comparatively matured, and well-tested with many JUnit scenarios.
 However, due to its high non-determinism, some test scenarios are still flaky, plus it is very hard to identify the cause of such flaky bugs.</p>
@@ -120,14 +120,14 @@ We continue to look on the progress of ZOOKEEPER-901 and several related tickets
 <p>The bug can be easily reproduced by injecting several tens of millisecs sleeps to FLE (Fast Leader Election protocol) packets.
 We did not have to permute packets explicitly.</p>
 
-<p>NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as <a href="https://github.com/osrg/hookswitch/">osrg/hookswitch</a>. HookSwitch can also hook OpenFlow packets, as <a href="/earthquake/post/zookeeper-2212/">we used in ZOOKEEPER-2212</a>.</p>
+<p>NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as <a href="https://github.com/osrg/hookswitch/">osrg/hookswitch</a>. HookSwitch can also hook OpenFlow packets, as <a href="/namazu/post/zookeeper-2212/">we used in ZOOKEEPER-2212</a>.</p>
 
 <h3 id="set-up-earthquake-v0-1-2:76efb5c48a34481fa50b4c096fa9081f">Set up Earthquake (v0.1.2)</h3>
 
-<p>For more information about setting up Earthquake, please refer to <a href="https://github.com/osrg/earthquake/blob/v0.1.2/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a>.</p>
+<p>For more information about setting up Earthquake, please refer to <a href="https://github.com/osrg.namazu/blob/v0.1.2/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a>.</p>
 
 <pre><code>$ sudo sh -c 'echo 0 &gt; /proc/sys/net/ipv4/tcp_autocorking' #recommended if Linux &gt;= 3.14
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.2
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg.namazu:v0.1.2
 docker$ export PYTHONPATH=/earthquake #BUG(Dockerfile): should be predefined in &gt; v0.1.2
 docker$ apt-get install ant-optional #BUG(Dockerfile): should be preinstalled in &gt; v0.1.2
 docker$ cd /earthquake/example/zk-repro-2080.nfqhook
@@ -159,13 +159,13 @@ validation failed: exit status 1
 
 <h3 id="analyze:76efb5c48a34481fa50b4c096fa9081f">Analyze</h3>
 
-<p>Unlike we experienced in <a href="/earthquake/post/zookeeper-2212/">ZOOKEEPER-2212</a>, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.</p>
+<p>Unlike we experienced in <a href="/namazu/post/zookeeper-2212/">ZOOKEEPER-2212</a>, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.</p>
 
 <p>Instead, we compared branch patterns of Java codes using our new Earthquake Analyzer.</p>
 
 <pre><code>docker$ java -jar ../../bin/earthquake-analyzer.jar /tmp-zk-2080/ --classes-path /tmp-zk-2080/materials/zookeeper/build/classes
-[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
-[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
+[DEBUG] net.osrg.namazu.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
+[DEBUG] net.osrg.namazu.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
 ..
 Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::getVote line 805-805
 Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 919-919
@@ -243,22 +243,22 @@ Although the suspicious set can contain some misleading information, it is enoug
         
 <div class="col-sm-3 col-sm-offset-0 doc-sidebar">
   <div class="sidebar-module">
-    <h4><a href="http://osrg.github.io/earthquake//post">Recent Posts</a></h4>
+    <h4><a href="http://osrg.github.io/namazu//post">Recent Posts</a></h4>
     <ul>
       
-      <li><a href="/earthquake/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
+      <li><a href="/namazu/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
       
-      <li><a href="/earthquake/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
+      <li><a href="/namazu/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
       
-      <li><a href="/earthquake/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
+      <li><a href="/namazu/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
       
-      <li><a href="/earthquake/post/first/">Hello, world!(2015-07-24)</a></li>
+      <li><a href="/namazu/post/first/">Hello, world!(2015-07-24)</a></li>
       
     </ul>
   </div>
   <div class="sidebar-module">
     <div id="twitter-timeline-container">
-      <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/EarthquakeDMCK" data-widget-id="608816516100837376" width="180">Tweets by @EarthquakeDMCK</a>
+      <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/NamazuFuzzTest" data-widget-id="608816516100837376" width="180">Tweets by @NamazuFuzzTest</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
   </div>  
@@ -279,19 +279,19 @@ Although the suspicious set can contain some misleading information, it is enoug
 </div> 
 
 <footer class="doc-footer">
-	<p class="doc-footer-em">Browse <strong><a href="https://github.com/osrg/earthquake/">Repository</a></strong></p>
+	<p class="doc-footer-em">Browse <strong><a href="https://github.com/osrg/namazu/">Repository</a></strong></p>
 	<p>Copyright© 2015 Nippon Telegraph and Telephone Corporation</p>
 	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
 </footer>
 
 
 
-<script src="http://osrg.github.io/earthquake//js/jquery-1.11.2.min.js"></script>
-<script src="http://osrg.github.io/earthquake//js/bootstrap.min.js"></script>
+<script src="http://osrg.github.io/namazu//js/jquery-1.11.2.min.js"></script>
+<script src="http://osrg.github.io/namazu//js/bootstrap.min.js"></script>
 
-<script src="http://osrg.github.io/earthquake//js/highlight.min.js"></script>
+<script src="http://osrg.github.io/namazu//js/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<script src="http://osrg.github.io/earthquake//js/ie10-viewport-bug-workaround.js"></script>
+<script src="http://osrg.github.io/namazu//js/ie10-viewport-bug-workaround.js"></script>
 
 </body>
 </html>

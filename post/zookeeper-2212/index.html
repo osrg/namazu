@@ -5,15 +5,15 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Earthquake">
+		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Namazu">
 		
-		<title>ZOOKEEPER-2212: distributed race condition - Earthquake</title>
+		<title>ZOOKEEPER-2212: distributed race condition - Namazu</title>
 		
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/highlight.js.min.css">
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootstrap.min.css">
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootstrap-theme.css">
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/theme.css">
-		<link rel="stylesheet" href="http://osrg.github.io/earthquake//css/bootie-docs.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/highlight.js.min.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/bootstrap-theme.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/theme.css">
+		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/bootie-docs.css">
 	</head>
 
 <body role="document">
@@ -28,22 +28,22 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="http://osrg.github.io/earthquake//">Earthquake</a>
+				<a class="navbar-brand" href="http://osrg.github.io/namazu//">Namazu</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li ><a href="http://osrg.github.io/earthquake//">Home</a></li>
+					<li ><a href="http://osrg.github.io/namazu//">Home</a></li>
 			
 				
 				
 					
-					<li ><a href="http://osrg.github.io/earthquake//about">About</a></li>
+					<li ><a href="http://osrg.github.io/namazu//about">About</a></li>
 				
 					
-					<li ><a href="http://osrg.github.io/earthquake//gettingStarted">GettingStarted</a></li>
+					<li ><a href="http://osrg.github.io/namazu//gettingStarted">GettingStarted</a></li>
 				
 					
-					<li ><a href="http://osrg.github.io/earthquake//categories/blog">Blog</a></li>
+					<li ><a href="http://osrg.github.io/namazu//categories/blog">Blog</a></li>
 				
 			
 				
@@ -51,9 +51,9 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://osrg.github.io/earthquake//categories/blog">Blog</a></li>
+							<li><a href="http://osrg.github.io/namazu//categories/blog">Blog</a></li>
 						
-							<li><a href="http://osrg.github.io/earthquake//categories/general">General</a></li>
+							<li><a href="http://osrg.github.io/namazu//categories/general">General</a></li>
 						
 						</ul>
 					</li>
@@ -63,13 +63,13 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tags<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 						
-							<li><a href="http://osrg.github.io/earthquake//tags/document">Document</a></li>
+							<li><a href="http://osrg.github.io/namazu//tags/document">Document</a></li>
 						
-							<li><a href="http://osrg.github.io/earthquake//tags/found-bug">Found-Bug</a></li>
+							<li><a href="http://osrg.github.io/namazu//tags/found-bug">Found-Bug</a></li>
 						
-							<li><a href="http://osrg.github.io/earthquake//tags/reproduced-bug">Reproduced-Bug</a></li>
+							<li><a href="http://osrg.github.io/namazu//tags/reproduced-bug">Reproduced-Bug</a></li>
 						
-							<li><a href="http://osrg.github.io/earthquake//tags/zookeeper">Zookeeper</a></li>
+							<li><a href="http://osrg.github.io/namazu//tags/zookeeper">Zookeeper</a></li>
 						
 						</ul>
 					</li>
@@ -114,12 +114,12 @@
 
 <h3 id="set-up-earthquake-v0-1-1:6404b3763f3a9572f2be258882d8c375">Set up Earthquake (v0.1.1)</h3>
 
-<p>Please see <a href="https://github.com/osrg/earthquake/blob/v0.1.1/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a> for how to setup the environment.</p>
+<p>Please see <a href="https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a> for how to setup the environment.</p>
 
-<p>The use of pre-built Docker image <code>osrg/earthquake:v0.1.1</code> is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.</p>
+<p>The use of pre-built Docker image <code>osrg/namazu:v0.1.1</code> is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.</p>
 
 <pre><code>$ sudo modprobe openvswitch # tested with Ubuntu 15.04 host (Linux kernel 3.19)
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.1
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu:v0.1.1
 </code></pre>
 
 <p>Then, build ZooKeeper &ldquo;Docker-in-Docker&rdquo; containers, and initialize Earthquake as follows.</p>
@@ -155,7 +155,7 @@ ok
 |  |                       Earthquake                      |  |
 |  +-------------------------------------------------------+  | 
 |                                                             |
-|                  Docker  (osrg/earthquake)                  |
+|                  Docker  (osrg/namazu)                  |
 +-------------------------------------------------------------+
 </code></pre>
 
@@ -199,78 +199,78 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 00000002 caused failure
 </code></pre>
 
-<h3 id="experiment-0-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375"><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000">Experiment #0</a>: <em>not</em> reproduced the bug</h3>
+<h3 id="experiment-0-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375"><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000">Experiment #0</a>: <em>not</em> reproduced the bug</h3>
 
 <p>zk2 was successfully promoted to an observer to a participant, because it received <code>UpToDate</code> before <code>Notification(config.version=100000000)</code></p>
 
 <ul>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json">32</a>: zk1-&gt;zk2: <code>UpToDate</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json">36</a>: zk1&lt;-zk2: <code>FollowerInfo</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json">37</a>: zk1&lt;-zk2: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json">39</a>: zk1-&gt;zk2: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/32.event.json">32</a>: zk1-&gt;zk2: <code>UpToDate</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/36.event.json">36</a>: zk1&lt;-zk2: <code>FollowerInfo</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/37.event.json">37</a>: zk1&lt;-zk2: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/39.event.json">39</a>: zk1-&gt;zk2: <code>Notification(config.version=100000000)</code></li>
 </ul>
 
 <p>zk3 was successfully promoted to an observer to a participant, because it received <code>UpToDate</code> before <code>Notification(config.version=100000000)</code></p>
 
 <ul>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json">20</a>: zk1-&gt;zk3: <code>UpToDate</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json">21</a>: zk1&lt;-zk3: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json">23</a>: zk1-&gt;zk3: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json">25</a>: zk1&lt;-zk3: <code>FollowerInfo</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/20.event.json">20</a>: zk1-&gt;zk3: <code>UpToDate</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/21.event.json">21</a>: zk1&lt;-zk3: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/23.event.json">23</a>: zk1-&gt;zk3: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json">25</a>: zk1&lt;-zk3: <code>FollowerInfo</code></li>
 </ul>
 
-<h3 id="experiment-1-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375"><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001">Experiment #1</a>: <em>not</em> reproduced the bug</h3>
+<h3 id="experiment-1-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375"><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001">Experiment #1</a>: <em>not</em> reproduced the bug</h3>
 
 <p>zk2 was already a participant when it received <code>UpToDate</code></p>
 
 <ul>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json">19</a>: zk1&lt;-zk2: <code>FollowerInfo</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json">31</a>: zk1-&gt;zk2: <code>UpToDate</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/19.event.json">19</a>: zk1&lt;-zk2: <code>FollowerInfo</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/31.event.json">31</a>: zk1-&gt;zk2: <code>UpToDate</code></li>
 </ul>
 
 <p>zk3 was successfully promoted to an observer to a participant, because it received <code>UpToDate</code> before <code>Notification(config.version=100000000)</code></p>
 
 <ul>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json">26</a>: zk1-&gt;zk3: <code>UpToDate</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json">29</a>: zk1&lt;-zk3: <code>FollowerInfo</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json">34</a>: zk1-&gt;zk3: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json">37</a>: zk1&lt;-zk3: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/26.event.json">26</a>: zk1-&gt;zk3: <code>UpToDate</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/29.event.json">29</a>: zk1&lt;-zk3: <code>FollowerInfo</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/34.event.json">34</a>: zk1-&gt;zk3: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json">37</a>: zk1&lt;-zk3: <code>Notification(config.version=100000000)</code></li>
 </ul>
 
-<h3 id="experiment-2-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375"><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002">Experiment #2</a>: <em>reproduced</em> the bug (zk2, zk3)</h3>
+<h3 id="experiment-2-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375"><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002">Experiment #2</a>: <em>reproduced</em> the bug (zk2, zk3)</h3>
 
 <p>zk2 was not able to be promoted (please see above for the reason)</p>
 
 <ul>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json">12</a>: zk1-&gt;zk2: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json">19</a>: zk1-&gt;zk2: <code>UpToDate</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/12.event.json">12</a>: zk1-&gt;zk2: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/19.event.json">19</a>: zk1-&gt;zk2: <code>UpToDate</code></li>
 <li>No <code>FollowerInfo</code> (zk1&lt;-zk2)</li>
 </ul>
 
 <p>zk3 was not able to be promoted (please see above for the reason)</p>
 
 <ul>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json">10</a>: zk1-&gt;zk3: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json">24</a>: zk1-&gt;zk3: <code>UpToDate</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/10.event.json">10</a>: zk1-&gt;zk3: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002/actions/24.event.json">24</a>: zk1-&gt;zk3: <code>UpToDate</code></li>
 <li>No <code>FollowerInfo</code> (zk1&lt;-zk3)</li>
 </ul>
 
-<h3 id="experiment-3-https-github-com-osrg-earthquake-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375"><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003">Experiment #3</a>: <em>reproduced</em> the bug (zk3)</h3>
+<h3 id="experiment-3-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375"><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003">Experiment #3</a>: <em>reproduced</em> the bug (zk3)</h3>
 
 <p>zk2 was successfully promoted to an observer to a participant, because it received <code>UpToDate</code> before <code>Notification(config.version=100000000)</code></p>
 
 <ul>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json">24</a>: zk1-&gt;zk2: <code>UpToDate</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json">25</a>: zk1&lt;-zk2: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json">27</a>: zk1-&gt;zk2: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json">29</a>: zk1&lt;-zk2: <code>FollowerInfo</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/24.event.json">24</a>: zk1-&gt;zk2: <code>UpToDate</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/25.event.json">25</a>: zk1&lt;-zk2: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/27.event.json">27</a>: zk1-&gt;zk2: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/29.event.json">29</a>: zk1&lt;-zk2: <code>FollowerInfo</code></li>
 </ul>
 
 <p>zk3 was not able to be promoted (please see above for the reason)</p>
 
 <ul>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json">7</a>: zk1-&gt;zk3: <code>Notification(config.version=100000000)</code></li>
-<li><a href="https://github.com/osrg/earthquake/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json">20</a>: zk1-&gt;zk3: <code>UpToDate</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/7.event.json">7</a>: zk1-&gt;zk3: <code>Notification(config.version=100000000)</code></li>
+<li><a href="https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003/actions/20.event.json">20</a>: zk1-&gt;zk3: <code>UpToDate</code></li>
 <li>No <code>FollowerInfo</code> (zk1&lt;-zk3)</li>
 </ul>
 
@@ -308,22 +308,22 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
         
 <div class="col-sm-3 col-sm-offset-0 doc-sidebar">
   <div class="sidebar-module">
-    <h4><a href="http://osrg.github.io/earthquake//post">Recent Posts</a></h4>
+    <h4><a href="http://osrg.github.io/namazu//post">Recent Posts</a></h4>
     <ul>
       
-      <li><a href="/earthquake/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
+      <li><a href="/namazu/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
       
-      <li><a href="/earthquake/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
+      <li><a href="/namazu/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
       
-      <li><a href="/earthquake/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
+      <li><a href="/namazu/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
       
-      <li><a href="/earthquake/post/first/">Hello, world!(2015-07-24)</a></li>
+      <li><a href="/namazu/post/first/">Hello, world!(2015-07-24)</a></li>
       
     </ul>
   </div>
   <div class="sidebar-module">
     <div id="twitter-timeline-container">
-      <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/EarthquakeDMCK" data-widget-id="608816516100837376" width="180">Tweets by @EarthquakeDMCK</a>
+      <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/NamazuFuzzTest" data-widget-id="608816516100837376" width="180">Tweets by @NamazuFuzzTest</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
   </div>  
@@ -344,19 +344,19 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 </div> 
 
 <footer class="doc-footer">
-	<p class="doc-footer-em">Browse <strong><a href="https://github.com/osrg/earthquake/">Repository</a></strong></p>
+	<p class="doc-footer-em">Browse <strong><a href="https://github.com/osrg/namazu/">Repository</a></strong></p>
 	<p>Copyright© 2015 Nippon Telegraph and Telephone Corporation</p>
 	<p>Powered by <strong><a href="https://github.com/key-amb/hugo-theme-bootie-docs">Bootie Docs</a></strong> - theme for <a href="http://gohugo.io/">Hugo</a> by <a href="https://github.com/key-amb/">key-amb</a>.</p>
 </footer>
 
 
 
-<script src="http://osrg.github.io/earthquake//js/jquery-1.11.2.min.js"></script>
-<script src="http://osrg.github.io/earthquake//js/bootstrap.min.js"></script>
+<script src="http://osrg.github.io/namazu//js/jquery-1.11.2.min.js"></script>
+<script src="http://osrg.github.io/namazu//js/bootstrap.min.js"></script>
 
-<script src="http://osrg.github.io/earthquake//js/highlight.min.js"></script>
+<script src="http://osrg.github.io/namazu//js/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-<script src="http://osrg.github.io/earthquake//js/ie10-viewport-bug-workaround.js"></script>
+<script src="http://osrg.github.io/namazu//js/ie10-viewport-bug-workaround.js"></script>
 
 </body>
 </html>
