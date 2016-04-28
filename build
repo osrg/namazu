@@ -13,25 +13,25 @@ cd $(dirname $0)
 export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
 mkdir -p $GOPATH/src/github.com/osrg
-rm -f $GOPATH/src/github.com/osrg/earthquake
-INFO "Linking $(pwd) to $GOPATH/src/github.com/osrg/earthquake"
-ln -sf $(pwd) $GOPATH/src/github.com/osrg/earthquake
+rm -f $GOPATH/src/github.com/osrg/namazu
+INFO "Linking $(pwd) to $GOPATH/src/github.com/osrg/namazu"
+ln -sf $(pwd) $GOPATH/src/github.com/osrg/namazu
 
 ########## ProtocolBuffers ##########
 INFO "Installing protoc to $GOBIN"
 go get github.com/golang/protobuf/proto
 go get github.com/golang/protobuf/protoc-gen-go
 INFO "Generating PB files"
-protoc --go_out=earthquake/util/pb -Imisc/inspector misc/inspector/inspector_message.proto
+protoc --go_out=nmz/util/pb -Imisc/inspector misc/inspector/inspector_message.proto
 
 ########## Go ##########
-INFO "Building earthquake"
-go get -t github.com/osrg/earthquake/earthquake
-go build -o bin/earthquake github.com/osrg/earthquake/earthquake
+INFO "Building nmz"
+go get -t github.com/osrg/namazu/nmz
+go build -o bin/nmz github.com/osrg/namazu/nmz
 
-INFO "Building earthquake.static"
-go build --ldflags '-extldflags "-static"' -tags static -o bin/earthquake.static github.com/osrg/earthquake/earthquake
-file bin/earthquake.static | grep "statically linked" > /dev/null
+INFO "Building nmz.static"
+go build --ldflags '-extldflags "-static"' -tags static -o bin/nmz.static github.com/osrg/namazu/nmz
+file bin/nmz.static | grep "statically linked" > /dev/null
 
 EXAMPLES="example/template/mypolicy.go example/yarn/4301-reproduce/mypolicy.go"
 for f in $EXAMPLES; do
@@ -43,17 +43,17 @@ for f in $EXAMPLES; do
 done
 
 ########## Python ##########
-#INFO "Checking whether pyearthquake deps are installed"
-#INFO "Running \`autopep8 -r --diff\` for pyearthquake"
-#autopep8 -r --diff misc/pyearthquake
-#INFO "Testing pyearthquake"
+#INFO "Checking whether pynmz deps are installed"
+#INFO "Running \`autopep8 -r --diff\` for pynmz"
+#autopep8 -r --diff misc/pynmz
+#INFO "Testing pynmz"
 
 ########## Java ##########
-INFO "Building Java Inspector (bin/earthquake-inspector.jar)"
-( cd misc/inspector/java/base; mvn package > /dev/null ) && cp -f misc/inspector/java/base/target/earthquake-inspector.jar bin
+INFO "Building Java Inspector (bin/nmz-inspector.jar)"
+( cd misc/inspector/java/base; mvn package > /dev/null ) && cp -f misc/inspector/java/base/target/nmz-inspector.jar bin
 
-INFO "Building Java Analyzer (bin/earthquake-analyzer.jar)"
-( cd misc/analyzer/java/base; mvn package > /dev/null ) && cp -f misc/analyzer/java/base/target/earthquake-analyzer.jar bin
+INFO "Building Java Analyzer (bin/nmz-analyzer.jar)"
+( cd misc/analyzer/java/base; mvn package > /dev/null ) && cp -f misc/analyzer/java/base/target/nmz-analyzer.jar bin
 
 ########## C ##########
 #INFO "Building C Inspector" #FIXME: still broken?

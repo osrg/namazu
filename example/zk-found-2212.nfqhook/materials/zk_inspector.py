@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 import os
 
-ZMQ_ADDR = os.getenv('EQ_ETHER_ZMQ_ADDR')
+ZMQ_ADDR = os.getenv('NMZ_ETHER_ZMQ_ADDR')
 
-import pyearthquake
-from pyearthquake.inspector.zookeeper import ZkEtherInspector
+import pynmz
+from pynmz.inspector.zookeeper import ZkEtherInspector
 
-LOG = pyearthquake.LOG.getChild(__name__)
+LOG = pynmz.LOG.getChild(__name__)
 
 
 class Zk2212Inspector(ZkEtherInspector):

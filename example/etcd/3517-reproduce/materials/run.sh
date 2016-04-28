@@ -1,8 +1,8 @@
 #!/bin/bash
-. ${EQ_MATERIALS_DIR}/lib.sh
+. ${NMZ_MATERIALS_DIR}/lib.sh
 
 ########## Boot ##########
-if [ -z $EQ_DISABLE ]; then
+if [ -z $NMZ_DISABLE ]; then
     CHECK_PYTHONPATH
     START_SWITCH
     START_INSPECTOR
@@ -15,6 +15,6 @@ START_ETCD
 SLEEP ${ETCD_START_WAIT_SECS} # the user should increase this, if could not reproduce the bug
 
 export ETCDCTL_PEERS="http://192.168.42.1:4001,http://192.168.42.2:4001,http://192.168.42.3:4001"
-$EQ_MATERIALS_DIR/etcd_testbed/etcd/bin/etcdctl --no-sync --timeout 10s set /k1 v1
+$NMZ_MATERIALS_DIR/etcd_testbed/etcd/bin/etcdctl --no-sync --timeout 10s set /k1 v1
 
 exit 0

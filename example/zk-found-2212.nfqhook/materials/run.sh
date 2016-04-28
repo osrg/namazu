@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e # exit on an error
-. ${EQ_MATERIALS_DIR}/lib.sh
+. ${NMZ_MATERIALS_DIR}/lib.sh
 
 ########## Boot ##########
 CHECK_PREREQUISITES # already checked in init, but check again
 INIT_ZOOKEEPER
-if [ -z ${EQ_DISABLE} ]; then
+if [ -z ${NMZ_DISABLE} ]; then
     INSTALL_IPTABLES_RULE
     START_NFQHOOK
     START_INSPECTOR
@@ -22,7 +22,7 @@ CHECK_FLE_STATES # see also validate.sh
 #PAUSE
 ########## Shutdown ##########
 KILL_ZOOKEEPER
-if [ -z ${EQ_DISABLE} ]; then
+if [ -z ${NMZ_DISABLE} ]; then
     UNINSTALL_IPTABLES_RULE
     KILL_NFQHOOK
     KILL_INSPECTOR

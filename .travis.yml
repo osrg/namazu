@@ -18,16 +18,16 @@ before_install:
   - go get golang.org/x/tools/cmd/cover github.com/axw/gocov/gocov github.com/mattn/goveralls github.com/modocache/gover
 
 script:
-  # Test the `earthquake` Go package and get the coverage data
+  # Test the `nmz` Go package and get the coverage data
   # https://gist.github.com/rjeczalik/6f01430e8554bf59b88e
-  - go list -f '{{if len .TestGoFiles}}"go test -race -cover -coverprofile={{.Dir}}/.coverprofile {{.ImportPath}}"{{end}}' ./earthquake/... | xargs -L 1 sh -c
+  - go list -f '{{if len .TestGoFiles}}"go test -race -cover -coverprofile={{.Dir}}/.coverprofile {{.ImportPath}}"{{end}}' ./nmz/... | xargs -L 1 sh -c
   - gover
   - goveralls -coverprofile=gover.coverprofile -service=travis-ci
   # Test some trivial things
   - go vet ./...
   - go fmt ./...
   # Test the entire Dockerfile
-  - docker build -t osrg/earthquake .
+  - docker build -t osrg/namazu .
 
 notifications:
   webhooks:

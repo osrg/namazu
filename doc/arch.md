@@ -1,4 +1,4 @@
-# Earthquake Archtecture
+# Namazu Archtecture
 
 # Overview
 
@@ -62,7 +62,7 @@ Actions:
  * `ProcSetSchedAction`: set scheduling attribute (`sched_setattr(2)`)
 
 
-### pyearthquake plug-ins (was available in v0.1, but removed since v0.2.0)
+### pynmz plug-ins (was available in v0.1, but removed since v0.2.0)
 
  * Orchestrator Plug-in: manages Explorer and so on.
   * `BasicOrchestrator`: a basic orchestrator

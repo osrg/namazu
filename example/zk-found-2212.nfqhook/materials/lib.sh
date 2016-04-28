@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## CONFIG
-# EQ_DISABLE=1 # set to disable earthquake
+# NMZ_DISABLE=1 # set to disable namazu
 ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-98a3cabfa279833b81908d72f1c10ee9f598a045} #(Tue Jun 2 19:17:09 2015 +0000)
 ZK_START_WAIT_SECS=${ZK_START_WAIT_SECS:-10}
 PAUSE_ON_FAILURE=${PAUSE_ON_FAILURE:-0}
@@ -64,12 +64,12 @@ function CHECK_PREREQUISITES() {
 
     INFO "Checking PYTHONPATH"
     ## used for zk_inspector
-    python -c "import pyearthquake"
+    python -c "import pynmz"
     
 }
 
 function FETCH_ZK() {
-    ( cd ${EQ_MATERIALS_DIR};
+    ( cd ${NMZ_MATERIALS_DIR};
       INFO "Fetching ZooKeeper"
       if [ -z ${ZK_SOURCE_DIR} ]; then
 	  git clone https://github.com/apache/zookeeper.git
@@ -88,9 +88,9 @@ function FETCH_ZK() {
 
 function FETCH_JACOCO() {
     INFO "Fetching JaCoCo"
-    mkdir ${EQ_MATERIALS_DIR}/jacoco
+    mkdir ${NMZ_MATERIALS_DIR}/jacoco
     (
-	cd ${EQ_MATERIALS_DIR}/jacoco
+	cd ${NMZ_MATERIALS_DIR}/jacoco
 	curl -L -O http://search.maven.org/remotecontent?filepath=org/jacoco/jacoco/0.7.5.201505241946/jacoco-0.7.5.201505241946.zip
 	unzip -q jacoco-0.7.5.201505241946.zip
     )
@@ -98,14 +98,14 @@ function FETCH_JACOCO() {
 
 function BUILD_ZK() {
     (
-	cd ${EQ_MATERIALS_DIR}/zookeeper
+	cd ${NMZ_MATERIALS_DIR}/zookeeper
 	INFO "Building ZooKeeper"
 	ant
     )
 }
 
 ## FUNCS (BOOT)
-export EQ_ETHER_ZMQ_ADDR="ipc://${EQ_WORKING_DIR}/ether_inspector"
+export NMZ_ETHER_ZMQ_ADDR="ipc://${NMZ_WORKING_DIR}/ether_inspector"
 
 function INSTALL_IPTABLES_RULE() {
     INFO "Installing iptables rule for user=${NFQ_USER}, nfqueue=${NFQ_NUMBER}"
@@ -114,39 +114,39 @@ function INSTALL_IPTABLES_RULE() {
 
 function START_NFQHOOK() {
     INFO "Starting NFQ HookSwitch"
-    hookswitch-nfq --nfq-number ${NFQ_NUMBER} --debug ${EQ_ETHER_ZMQ_ADDR} > ${EQ_WORKING_DIR}/nfqhook.log 2>&1 &
+    hookswitch-nfq --nfq-number ${NFQ_NUMBER} --debug ${NMZ_ETHER_ZMQ_ADDR} > ${NMZ_WORKING_DIR}/nfqhook.log 2>&1 &
     pid=$!
     INFO "NFQ HookSwitch PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/nfqhook.pid
+    echo ${pid} > ${NMZ_WORKING_DIR}/nfqhook.pid
 }
 
 function START_INSPECTOR() {
-    INFO "Starting Earthquake Ethernet Inspector"
-    python ${EQ_MATERIALS_DIR}/zk_inspector.py > ${EQ_WORKING_DIR}/inspector.log 2>&1 &
+    INFO "Starting Namazu Ethernet Inspector"
+    python ${NMZ_MATERIALS_DIR}/zk_inspector.py > ${NMZ_WORKING_DIR}/inspector.log 2>&1 &
     pid=$!
     INFO "Inspector PID: ${pid}"
-    echo ${pid} > ${EQ_WORKING_DIR}/inspector.pid
+    echo ${pid} > ${NMZ_WORKING_DIR}/inspector.pid
 }
 
 function INIT_ZOOKEEPER() {
     for myid in $(seq 1 3); do
-	w=${EQ_WORKING_DIR}/zk${myid}
+	w=${NMZ_WORKING_DIR}/zk${myid}
 	INFO "Initializing ZooKeeper(myid=${myid} at ${w})"
 	mkdir -p ${w}
-	(echo "<% myzkdir=\"${w}\"; myid=${myid} %>" && cat ${EQ_MATERIALS_DIR}/zoo.cfg.erb) | erb > ${w}/zoo.cfg
-	(echo "<% myzkdir=\"${w}\" %>" && cat ${EQ_MATERIALS_DIR}/log4j.properties.erb) | erb > ${w}/log4j.properties
+	(echo "<% myzkdir=\"${w}\"; myid=${myid} %>" && cat ${NMZ_MATERIALS_DIR}/zoo.cfg.erb) | erb > ${w}/zoo.cfg
+	(echo "<% myzkdir=\"${w}\" %>" && cat ${NMZ_MATERIALS_DIR}/log4j.properties.erb) | erb > ${w}/log4j.properties
 	chown -R ${NFQ_USER} ${w}
-	sudo -E -u ${NFQ_USER} ${EQ_MATERIALS_DIR}/zookeeper/bin/zkServer-initialize.sh --configfile=${w}/zoo.cfg --myid=${myid}
+	sudo -E -u ${NFQ_USER} ${NMZ_MATERIALS_DIR}/zookeeper/bin/zkServer-initialize.sh --configfile=${w}/zoo.cfg --myid=${myid}
     done
 }
 
 function START_ZOOKEEPER() {
     for myid in $(seq 1 3); do
-	w=${EQ_WORKING_DIR}/zk${myid}
+	w=${NMZ_WORKING_DIR}/zk${myid}
 	INFO "Starting ZooKeeper(myid=${myid} at ${w})"
-	jvmflags=-javaagent:${EQ_MATERIALS_DIR}/jacoco/lib/jacocoagent.jar=destfile=${w}/jacoco.exec
+	jvmflags=-javaagent:${NMZ_MATERIALS_DIR}/jacoco/lib/jacocoagent.jar=destfile=${w}/jacoco.exec
 	# this & is important
-	ZOO_LOG_DIR=${w} JVMFLAGS=${jvmflags} sudo -E -u ${NFQ_USER} ${EQ_MATERIALS_DIR}/zookeeper/bin/zkServer.sh --config ${w} start > /dev/null &
+	ZOO_LOG_DIR=${w} JVMFLAGS=${jvmflags} sudo -E -u ${NFQ_USER} ${NMZ_MATERIALS_DIR}/zookeeper/bin/zkServer.sh --config ${w} start > /dev/null &
     done
 }
 
@@ -155,10 +155,10 @@ function START_ZOOKEEPER() {
 function CHECK_FLE_STATES() {
     INFO "Checking FLE states"
     result=0
-    (python ${EQ_MATERIALS_DIR}/check-fle-states.py > ${EQ_WORKING_DIR}/check-fle-states.log) || result=$?
-    echo ${result} > ${EQ_WORKING_DIR}/check-fle-states.result
+    (python ${NMZ_MATERIALS_DIR}/check-fle-states.py > ${NMZ_WORKING_DIR}/check-fle-states.log) || result=$?
+    echo ${result} > ${NMZ_WORKING_DIR}/check-fle-states.result
     if [ ${result} != 0 ]; then
-	IMPORTANT "Failure: ${result} (${EQ_WORKING_DIR}/check-fle-states.log)"
+	IMPORTANT "Failure: ${result} (${NMZ_WORKING_DIR}/check-fle-states.log)"
 	if [ ${PAUSE_ON_FAILURE} != 0 ]; then
 	    IMPORTANT "Pausing.. please check whether this is a false-positive or not"
 	    PAUSE
@@ -170,9 +170,9 @@ function CHECK_FLE_STATES() {
 ## FUNCS (SHUTDOWN)
 function KILL_ZOOKEEPER() {
     for myid in $(seq 1 3); do
-	w=${EQ_WORKING_DIR}/zk${myid}
+	w=${NMZ_WORKING_DIR}/zk${myid}
 	INFO "Stopping ZooKeeper(myid=${myid} at ${w})"	
-	ZOO_LOG_DIR=${w} sudo -E -u ${NFQ_USER} ${EQ_MATERIALS_DIR}/zookeeper/bin/zkServer.sh --config ${w} stop
+	ZOO_LOG_DIR=${w} sudo -E -u ${NFQ_USER} ${NMZ_MATERIALS_DIR}/zookeeper/bin/zkServer.sh --config ${w} stop
     done
 }
 
@@ -182,13 +182,13 @@ function UNINSTALL_IPTABLES_RULE() {
 }
 
 function KILL_NFQHOOK() {
-    pid=$(cat ${EQ_WORKING_DIR}/nfqhook.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/nfqhook.pid)
     INFO "Killing NFQHook, PID: ${pid}"
     kill -9 ${pid}
 }
 
 function KILL_INSPECTOR() {
-    pid=$(cat ${EQ_WORKING_DIR}/inspector.pid)
+    pid=$(cat ${NMZ_WORKING_DIR}/inspector.pid)
     INFO "Killing Inspector, PID: ${pid}"
     kill -9 ${pid}
 }

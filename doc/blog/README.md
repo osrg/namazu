@@ -1,1 +1,1 @@
-Blog contents for http://osrg.github.io/earthquake/
+Blog contents for http://osrg.github.io/namazu/

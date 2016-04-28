@@ -22,18 +22,18 @@ NOTE: We reported the bug ([ZOOKEEPER-2212](https://issues.apache.org/jira/brows
  * Cause: The observer have already received a Notification Packet(n.config.version=4294967296), invoked QuorumPeer.processReconfig() [(Link)](https://github.com/apache/zookeeper/blob/98a3cabfa279833b81908d72f1c10ee9f598a045/src/java/main/org/apache/zookeeper/server/quorum/FastLeaderElection.java#L291-304)
    
 
-## How to Reproduce the Bug with Earthquake
+## How to Reproduce the Bug with Namazu
     
-### Start Earthquake
+### Start Namazu
 Please see [../../doc/how-to-setup-env.md](../../doc/how-to-setup-env.md) for how to setup the environment.
 
-The pre-built Docker image (`osrg/earthquake`) is strongly recommended, 
+The pre-built Docker image (`osrg/namazu`) is strongly recommended, 
 because `ovsbr0` is expected to be configured as `192.168.42.254/24` in the experiments.
 
-NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper-2212](https://registry.hub.docker.com/u/osrg/earthquake-zookeeper-2212/) container (based on Earthquake v0.1).
+NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper-2212](https://registry.hub.docker.com/u/osrg/earthquake-zookeeper-2212/) container (based on Namazu v0.1).
 
     $ sudo pip install pip install git+https://github.com/twitter/zktraffic@68d9f85d8508e01f5d2f6657666c04e444e6423c  #(Jul 18, 2015)
-    $ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/earthquake init --force config.toml materials /tmp/zk-2212
+    $ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/nmz init --force config.toml materials /tmp/zk-2212
     [INFO] Checking whether Docker is installed
     [INFO] Checking whether pipework is installed
     [INFO] Checking whether ryu is installed
@@ -47,11 +47,11 @@ NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper
 
 ### Run Experiments
     
-    $ sudo ../../bin/earthquake run /tmp/zk-2212
-    [INFO] Checking PYTHONPATH(=/home/suda/WORK/earthquake/example/zk-found-2212.ryu/../../misc)
-    [INFO] Starting Earthquake Ethernet Switch
+    $ sudo ../../bin/nmz run /tmp/zk-2212
+    [INFO] Checking PYTHONPATH(=/home/suda/WORK/namazu/example/zk-found-2212.ryu/../../misc)
+    [INFO] Starting Namazu Ethernet Switch
     [INFO] Switch PID: 28893
-    [INFO] Starting Earthquake Ethernet Inspector
+    [INFO] Starting Namazu Ethernet Inspector
     [INFO] Inspector PID: 28894
     [INFO] Starting Docker container zk1 from zk_testbed
     [INFO] Starting Docker container zk2 from zk_testbed
@@ -79,7 +79,7 @@ You may have to run the experiments for 3 or 5 times.
 
 You can check which experiment reproduced the bug as follows:
 
-    $ sudo ../../bin/earthquake tools summary /tmp/zk-2212
+    $ sudo ../../bin/nmz tools summary /tmp/zk-2212
     Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected traces: 3
     00000002 caused failure
 
@@ -148,7 +148,7 @@ Experimental feature: You can also store the result in MongoDB by setting `stora
 
 ### Environment Variables
 
- * `EQ_DISABLE`(default:(unset)): disable the substantial part of Earthquake if set. When Earthquake is disabled, we could not reproduced the bug in 3 days.
+ * `NMZ_DISABLE`(default:(unset)): disable the substantial part of Namazu if set. When Namazu is disabled, we could not reproduced the bug in 3 days.
  * `ZK_GIT_COMMIT`(default:98a3ca..): use another ZooKeeper version
  * `ZK_START_WAIT_SECS`(default:10): should be increased if there is false-positive
  * `PAUSE_ON_FAILURE`(default:0): pause on a possible failure for interactive verification if set to 1

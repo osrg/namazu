@@ -56,13 +56,13 @@ static inline void atomic_inc(atomic_t *v)
   __sync_fetch_and_add(&v->val, 1);
 }
 
-#define EQ_GA_TCP_PORT_ENV_NAME "EQ_GA_TCP_PORT"
-#define EQ_GA_TCP_PORT_DEFAULT 10000
+#define NMZ_GA_TCP_PORT_ENV_NAME "NMZ_GA_TCP_PORT"
+#define NMZ_GA_TCP_PORT_DEFAULT 10000
 
-#define EQ_DISABLE "EQ_DISABLE"
+#define NMZ_DISABLE "NMZ_DISABLE"
 
-#define EQ_MODE_DIRECT "EQ_MODE_DIRECT"
-#define EQ_ENV_PROCESS_ID "EQ_ENV_PROCESS_ID"
+#define NMZ_MODE_DIRECT "NMZ_MODE_DIRECT"
+#define NMZ_ENV_PROCESS_ID "NMZ_ENV_PROCESS_ID"
 
 static char *_env_processId;
 
@@ -333,31 +333,31 @@ static void initiation(void)
   eqi_info("initiation succeed\n");
 }
 
-__attribute__((constructor)) void init_earthquake_inspection(void)
+__attribute__((constructor)) void init_namazu_inspection(void)
 {
-  int tcp_port = EQ_GA_TCP_PORT_DEFAULT, ret;
+  int tcp_port = NMZ_GA_TCP_PORT_DEFAULT, ret;
 
-  openlog("earthquake inspection", LOG_NDELAY | LOG_PID, 0);
+  openlog("namazu inspection", LOG_NDELAY | LOG_PID, 0);
 
-  if (getenv(EQ_DISABLE)) {
-    eqi_info("earthquake inspection is disabled, do nothing\n");
+  if (getenv(NMZ_DISABLE)) {
+    eqi_info("namazu inspection is disabled, do nothing\n");
     running = false;
     return;
   }
 
-  _env_processId = getenv(EQ_ENV_PROCESS_ID);
+  _env_processId = getenv(NMZ_ENV_PROCESS_ID);
   if (!_env_processId) {
-    eqi_err("Process ID is required, set environmental variable %s\n", EQ_ENV_PROCESS_ID);
+    eqi_err("Process ID is required, set environmental variable %s\n", NMZ_ENV_PROCESS_ID);
     exit(1);
   }
 
-  char *env_tcp_port = getenv(EQ_GA_TCP_PORT_ENV_NAME);
+  char *env_tcp_port = getenv(NMZ_GA_TCP_PORT_ENV_NAME);
   if (env_tcp_port) {
     tcp_port = atoi(env_tcp_port);
     eqi_debug("specified TCP port of guest agent: %d\n", tcp_port);
   }
 
-  char *env_mode_direct = getenv(EQ_MODE_DIRECT);
+  char *env_mode_direct = getenv(NMZ_MODE_DIRECT);
   if (env_mode_direct) {
     direct_mode = true;
     eqi_debug("direct mode\n");
@@ -381,7 +381,7 @@ __attribute__((constructor)) void init_earthquake_inspection(void)
   eqi_info("constructor ends\n");
 }
 
-__attribute__((destructor)) void exit_earthquake_inspection(void)
+__attribute__((destructor)) void exit_namazu_inspection(void)
 {
   eqi_info("destructor called, process %s is exiting\n", _env_processId);
 

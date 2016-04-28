@@ -13,8 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef EQ_EMBED_UTILS_H
-#define EQ_EMBED_UTILS_H
+#ifndef NMZ_EMBED_UTILS_H
+#define NMZ_EMBED_UTILS_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,4 +57,4 @@ ssize_t xwrite(int fd, const void *buf, size_t count);
 
 }      /* extern "C" */
 
-#endif	/* EQ_EMBED_UTILS_H */
+#endif	/* NMZ_EMBED_UTILS_H */

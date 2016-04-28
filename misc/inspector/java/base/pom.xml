@@ -3,15 +3,15 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.osrg</groupId>
-  <artifactId>earthquake</artifactId>
+  <artifactId>namazu</artifactId>
   <version>0.2.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Earthquake Inspector (Java)</name>
-  <url>http://github.com/osrg/earthquake</url>
+  <name>Namazu Inspector (Java)</name>
+  <url>http://github.com/osrg/namazu</url>
 
   <build>
-    <finalName>earthquake-inspector</finalName>
+    <finalName>nmz-inspector</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -53,7 +53,7 @@
     <sourceDirectory>src</sourceDirectory>
   </build>
 
-  <!-- NOTE: these all deps are copied into the earthquake-inspector.jar
+  <!-- NOTE: these all deps are copied into the nmz-inspector.jar
        so that you do not have to concern the class path -->
   <dependencies>
     <!-- required for byteman-based injection. see also Agent-Class above. -->
@@ -62,7 +62,7 @@
       <artifactId>byteman</artifactId>
       <version>2.2.1</version>
     </dependency>
-    <!-- required by earthquake itself -->
+    <!-- required by namazu itself -->
     <dependency>
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>

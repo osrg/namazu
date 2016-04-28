@@ -15,7 +15,7 @@ function SLEEP(){
 }
 
 function PAUSE(){
-    TMP=$(mktemp /tmp/earthquake-wait.XXXXX)
+    TMP=$(mktemp /tmp/namazu-wait.XXXXX)
     IMPORTANT "PAUSING. remove ${TMP} to continue"
     while [ -e $TMP ]; do
       sleep 1

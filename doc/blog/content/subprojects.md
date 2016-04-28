@@ -1,12 +1,12 @@
 +++
 categories = ["general"]
-date = "2015-10-05"
+date = "2016-04-27"
 tags = ["document"]
 title = "Subprojects"
 
 +++
 
-These subprojects were originally developed for Earthquake, but we believe they can be also used for other purposes.
+These subprojects were originally developed for Namazu, but we believe they can be also used for other purposes.
 
 ### HookSwitch: A Usermode Packet Injection Library
 

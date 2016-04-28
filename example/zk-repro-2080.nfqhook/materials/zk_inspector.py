@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 import os
 
-ZMQ_ADDR = os.getenv('EQ_ETHER_ZMQ_ADDR')
+ZMQ_ADDR = os.getenv('NMZ_ETHER_ZMQ_ADDR')
 
 from hexdump import hexdump
-import pyearthquake
-from pyearthquake.inspector.ether import EtherInspectorBase
-from pyearthquake.signal.event import PacketEvent
+import pynmz
+from pynmz.inspector.ether import EtherInspectorBase
+from pynmz.signal.event import PacketEvent
 
-LOG = pyearthquake.LOG.getChild(__name__)
+LOG = pynmz.LOG.getChild(__name__)
 
 class Zk2080Inspector(EtherInspectorBase):
     # @Override

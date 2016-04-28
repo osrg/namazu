@@ -1,26 +1,30 @@
-# Earthquake: Programmable Fuzzy Scheduler for Testing Distributed Systems
+# Namazu: Programmable Fuzzy Scheduler for Testing Distributed Systems
 
-[![Release](http://github-release-version.herokuapp.com/github/osrg/earthquake/release.svg?style=flat)](https://github.com/osrg/earthquake/releases/latest)
-[![Join the chat at https://gitter.im/osrg/earthquake](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![GoDoc](https://godoc.org/github.com/osrg/earthquake/earthquake?status.svg)](https://godoc.org/github.com/osrg/earthquake/earthquake)
-[![Build Status](https://travis-ci.org/osrg/earthquake.svg?branch=master)](https://travis-ci.org/osrg/earthquake)
-[![Coverage Status](https://coveralls.io/repos/github/osrg/earthquake/badge.svg?branch=master)](https://coveralls.io/github/osrg/earthquake?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/osrg/earthquake)](https://goreportcard.com/report/github.com/osrg/earthquake)
+[![Release](http://github-release-version.herokuapp.com/github/osrg/namazu/release.svg?style=flat)](https://github.com/osrg/namazu/releases/latest)
+[![Join the chat at https://gitter.im/osrg/namazu](https://img.shields.io/badge/GITTER-join%20chat-green.svg)](https://gitter.im/osrg/namazu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![GoDoc](https://godoc.org/github.com/osrg/namazu/nmz?status.svg)](https://godoc.org/github.com/osrg/namazu/nmz)
+[![Build Status](https://travis-ci.org/osrg/namazu.svg?branch=master)](https://travis-ci.org/osrg/namazu)
+[![Coverage Status](https://coveralls.io/repos/github/osrg/namazu/badge.svg?branch=master)](https://coveralls.io/github/osrg/namazu?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/osrg/namazu)](https://goreportcard.com/report/github.com/osrg/namazu)
 
-Earthquake is a programmable fuzzy scheduler for testing real implementations of distributed system (such as ZooKeeper).
+Namazu (formerly named Earthquake) is a programmable fuzzy scheduler for testing real implementations of distributed system such as ZooKeeper.
 
-Blog: [http://osrg.github.io/earthquake/](http://osrg.github.io/earthquake/)
+![doc/img/namazu.png](doc/img/namazu.png)
 
-Earthquakes permutes Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
-Earthquake can also control non-determinism of the thread interleaving (by calling `sched_setattr(2)` with randomized parameters).
-So Earthquake can be also used for testing standalone multi-threaded software.
+Namazu permutes Java function calls, Ethernet packets, Filesystem events, and injected faults in various orders so as to find implementation-level bugs of the distributed system.
+Namazu can also control non-determinism of the thread interleaving (by calling `sched_setattr(2)` with randomized parameters).
+So Namazu can be also used for testing standalone multi-threaded software.
 
-Basically, Earthquake permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Golang) for finding deep bugs efficiently.
+Basically, Namazu permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Golang) for finding deep bugs efficiently.
+
+Blog: [http://osrg.github.io/namazu/](http://osrg.github.io/namazu/)
+
+Twitter: [@NamazuFuzzTest](https://twitter.com/NamazuFuzzTest)
 
 ## Found/Reproduced Bugs
  * ZooKeeper:
-  * Found [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212) (race): [blog article](http://osrg.github.io/earthquake/post/zookeeper-2212/) ([repro code](example/zk-found-2212.ryu))
-  * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080) (race): [blog article](http://osrg.github.io/earthquake/post/zookeeper-2080/) ([repro code](example/zk-repro-2080.nfqhook))
+  * Found [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212) (race): [blog article](http://osrg.github.io/namazu/post/zookeeper-2212/) ([repro code](example/zk-found-2212.ryu))
+  * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080) (race): [blog article](http://osrg.github.io/namazu/post/zookeeper-2080/) ([repro code](example/zk-repro-2080.nfqhook))
  * etcd:
   * Found an etcd command line client (etcdctl) bug [#3517](https://github.com/coreos/etcd/issues/3517) (timing specification), fixed in [#3530](https://github.com/coreos/etcd/pull/3530): ([repro code](example/etcd/3517-reproduce)). The fix also resulted a hint of [#3611](https://github.com/coreos/etcd/pull/3611).
   * Reproduced flaky tests {[#4006](https://github.com/coreos/etcd/pull/4006), [#4039](https://github.com/coreos/etcd/issues/4039)} ([repro instruction](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42))
@@ -32,24 +36,24 @@ Basically, Earthquake permutes events in a random order, but you can write your 
 The installation process is very simple:
 
     $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
-    $ go get github.com/osrg/earthquake/earthquake
+    $ go get github.com/osrg/namazu/nmz
 
 
 ## Quick Start (Container mode)
-The following instruction shows how you can start *Earthquake Container*, the simplified, Docker-like CLI for Earthquake.
+The following instruction shows how you can start *Namazu Container*, the simplified, Docker-like CLI for Namazu.
 
-    $ sudo earthquake container run -it --rm -v /foo:/foo ubuntu bash
+    $ sudo nmz container run -it --rm -v /foo:/foo ubuntu bash
 
 
-In *Earthquake Container*, you can run arbitrary command that might be *flaky*.
+In *Namazu Container*, you can run arbitrary command that might be *flaky*.
 JUnit tests are interesting to try.
 
-    earthquake-container$ git clone something
-    earthquake-container$ cd something
-    earthquake-container$ for f in $(seq 1 1000);do mvn test; done
+    nmzc$ git clone something
+    nmzc$ cd something
+    nmzc$ for f in $(seq 1 1000);do mvn test; done
 
 
-You can also specify a config file (`--eq-config` option for `earthquake container`.)
+You can also specify a config file (`--nmz-autopilot` option for `nmz container`.)
 A typical configuration file (`config.toml`) is as follows:
 
 ```toml
@@ -84,14 +88,14 @@ explorePolicy = "random"
   enableProcInspector = true
   procWatchInterval = "1s"
 ```
-For other parameters, please refer to [`config.go`](earthquake/util/config/config.go) and [`randompolicy.go`](earthquake/explorepolicy/random/randompolicy.go).
+For other parameters, please refer to [`config.go`](nmz/util/config/config.go) and [`randompolicy.go`](nmz/explorepolicy/random/randompolicy.go).
 
 
 ## Quick Start (Non-container mode)
 
 ### Process inspector
 
-    $ sudo earthquake inspectors proc -root-pid $TARGET_PID -watch-interval 1s
+    $ sudo nmz inspectors proc -pid $TARGET_PID -watch-interval 1s
 
 By default, all the processes and the threads under `$TARGET_PID` are randomly scheduled.
 
@@ -99,21 +103,21 @@ You can also specify a config file by running with `-autopilot config.toml`.
 
 You can also set `-orchestrator-url` (e.g. `http://127.0.0.1:10080/api/v3`) and `-entity-id` for distributed execution.
 
-Note that the process inspector may be not effective for reproducing short-running flaky tests, but it's still effective for long-running tests: [issue #125](https://github.com/osrg/earthquake/issues/125).
+Note that the process inspector may be not effective for reproducing short-running flaky tests, but it's still effective for long-running tests: [issue #125](https://github.com/osrg/namazu/issues/125).
 
 
-The guide for reproducing flaky Hadoop tests (please use `earthquake` instead of `microearthquake`): [FOSDEM slide 42](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42).
+The guide for reproducing flaky Hadoop tests (please use `nmz` instead of `microearthquake`): [FOSDEM slide 42](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42).
 
 
 ### Filesystem inspector (FUSE)
 
-    $ mkdir /tmp/{eqfs-orig,eqfs}
-    $ sudo earthquake inspectors fs -original-dir /tmp/eqfs-orig -mount-point /tmp/eqfs
-	$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_EQFS
-	$ sudo fusermount -u /tmp/eqfs
+    $ mkdir /tmp/{nmzfs-orig,nmzfs}
+    $ sudo nmz inspectors fs -original-dir /tmp/nmzfs-orig -mount-point /tmp/nmzfs
+	$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_NMZFS
+	$ sudo fusermount -u /tmp/nmzfs
 
-By default, all the `read`, `mkdir`, and `rmdir` accesses to the files under `/tmp/eqfs` are randomly scheduled.
-`/tmp/eqfs-orig` is just used as the backing storage.
+By default, all the `read`, `mkdir`, and `rmdir` accesses to the files under `/tmp/nmzfs` are randomly scheduled.
+`/tmp/nmzfs-orig` is just used as the backing storage.
 (Note that you have to set `explorePolicyParam.minInterval` and `explorePolicyParam.maxInterval` in the config file.)
 
 You can also inject faullts (currently just injects `-EIO`) by setting `explorePolicyParam.faultActionProbability` in the config file.
@@ -121,7 +125,7 @@ You can also inject faullts (currently just injects `-EIO`) by setting `exploreP
 ### Ethernet inspector (Linux netfilter_queue)
 
     $ iptables -A OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
-    $ sudo earthquake inspectors ethernet -nfq-number 42
+    $ sudo nmz inspectors ethernet -nfq-number 42
 	$ sudo -u johndoe $TARGET_PROGRAM
 	$ iptables -D OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
 
@@ -135,7 +139,7 @@ You have to install [ryu](https://github.com/osrg/ryu) and [hookswitch](https://
 
     $ sudo pip install ryu hookswitch
     $ sudo hookswitch-of13 ipc:///tmp/hookswitch-socket --tcp-ports=4242,4243,4244
-	$ sudo earthquake inspectors ethernet -hookswitch ipc:///tmp/hookswitch-socket
+	$ sudo nmz inspectors ethernet -hookswitch ipc:///tmp/hookswitch-socket
 
 Please also refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md) for this feature.
 
@@ -151,16 +155,16 @@ Basically please follow these examples: [example/zk-found-2212.ryu](example/zk-f
 Prepare `config.toml` for distributed execution.
 Example:
 ```toml
-# executed in `earthquake init`
+# executed in `nmz init`
 init = "init.sh"
 
-# executed in `earthquake run`
+# executed in `nmz run`
 run = "run.sh"
 
-# executed in `earthquake run` as the test oracle
+# executed in `nmz run` as the test oracle
 validate = "validate.sh"
 
-# executed in `earthquake run` as the clean-up script
+# executed in `nmz run` as the clean-up script
 clean = "clean.sh"
 
 # REST port for the communication.
@@ -174,28 +178,28 @@ restPort = 10080
 Create `materials` directory, and put `*.sh` into it.
 
 #### Step 3
-Run `earthquake init --force config.toml materials /tmp/x`.
+Run `nmz init --force config.toml materials /tmp/x`.
 
 This command executes `init.sh` for initializing the workspace `/tmp/x`.
-`init.sh` can access the `materials` directory as `${EQ_MATERIALS_DIR}`.
+`init.sh` can access the `materials` directory as `${NMZ_MATERIALS_DIR}`.
 
 #### Step 4
-Run `for f in $(seq 1 100);do earthquake run /tmp/x; done`.
+Run `for f in $(seq 1 100);do nmz run /tmp/x; done`.
 
 This command starts the orchestrator, and executes `run.sh`, `validate.sh`, and `clean.sh` for testing the system (100 times).
 
-`run.sh` should invoke multiple Earthquake inspectors: `earthquake inspectors <proc|fs|ethernet> -entity-id _some_unique_string -orchestrator-url http://127.0.0.1:10080/api/v3`
+`run.sh` should invoke multiple Namazu inspectors: `nmz inspectors <proc|fs|ethernet> -entity-id _some_unique_string -orchestrator-url http://127.0.0.1:10080/api/v3`
 
-`*.sh` can access the `/tmp/x/{00000000, 00000001, 00000002, ..., 00000063}` directory as `${EQ_WORKING_DIR}`, which is intended for putting test results and some relevant information. (Note: 0x63==99)
+`*.sh` can access the `/tmp/x/{00000000, 00000001, 00000002, ..., 00000063}` directory as `${NMZ_WORKING_DIR}`, which is intended for putting test results and some relevant information. (Note: 0x63==99)
 
 `validate.sh` should exit with zero for successful executions, and with non-zero status for failed executions.
 
 `clean.sh` is an optional clean-up script for each of the execution.
 
 #### Step 5
-Run `earthquake summary /tmp/x` for summarizing the result.
+Run `nmz summary /tmp/x` for summarizing the result.
 
-If you have [JaCoCo](http://eclemma.org/jacoco/) coverage data, you can run `java -jar bin/earthquake-analyzer.jar --classes-path /somewhere/classes /tmp/x` for counting execution patterns as in [FOSDEM slide 18](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/18).
+If you have [JaCoCo](http://eclemma.org/jacoco/) coverage data, you can run `java -jar bin/nmz-analyzer.jar --classes-path /somewhere/classes /tmp/x` for counting execution patterns as in [FOSDEM slide 18](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/18).
 
 ![doc/img/exec-pattern.png](doc/img/exec-pattern.png)
 
@@ -207,7 +211,7 @@ If you have [JaCoCo](http://eclemma.org/jacoco/) coverage data, you can run `jav
  * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii)
 
 ## How to Contribute
-We welcome your contribution to Earthquake.
+We welcome your contribution to Namazu.
 Please feel free to send your pull requests on github!
 
 ## Copyright
@@ -220,7 +224,7 @@ Released under [Apache License 2.0](LICENSE).
 ## API for your own exploration policy
 
 ```go
-// implements earthquake/explorepolicy/ExplorePolicy interface
+// implements nmz/explorepolicy/ExplorePolicy interface
 type MyPolicy struct {
 	actionCh chan Action
 }
@@ -247,7 +251,7 @@ func (p *MyPolicy) QueueEvent(event Event) {
 		panic(err)
 	}
 	// send in a goroutine so as to make the function non-blocking.
-	// (Note that earthquake/util/queue/TimeBoundedQueue provides
+	// (Note that nmz/util/queue/TimeBoundedQueue provides
 	// better semantics and determinism, this is just an example.)
 	go func() {
 		fmt.Printf("Action ready: %s\n", action)
@@ -268,5 +272,5 @@ func main(){
 Please refer to [example/template](example/template) for further information.
 
 ## Known Limitation
-After running Earthquake (process inspector with `exploreParam.procPolicyParam="dirichlet"`) many times, `sched_setattr(2)` can fail with `EBUSY`.
+After running Namazu (process inspector with `exploreParam.procPolicyParam="dirichlet"`) many times, `sched_setattr(2)` can fail with `EBUSY`.
 This seems to be a bug of kernel; We're looking into this.

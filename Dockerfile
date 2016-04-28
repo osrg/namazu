@@ -1,10 +1,10 @@
-## Dockerfile for Earthquake
-## Available at Docker Hub: osrg/earthquake
+## Dockerfile for Namazu
+## Available at Docker Hub: osrg/namazu
 FROM osrg/dind-ovs-ryu
 MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ## Install Earthquake deps
+    ## Install Namazu deps
     protobuf-compiler pkg-config libzmq3-dev libnetfilter-queue-dev \
     ## (Optional) Install Java inspector deps
     default-jdk maven \
@@ -14,9 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     mongodb \
     ## (Optional) Install FUSE inspector deps
     fuse \
-    ## (Optional) Install pyearthquake deps
+    ## (Optional) Install pynmz deps
     python-flask python-scapy python-zmq \
-    ## (Optional) Install pyearthquake nfqhook deps
+    ## (Optional) Install pynmz nfqhook deps
     libnetfilter-queue1 python-prctl
 
 ## Install Go 1.6
@@ -24,7 +24,7 @@ RUN curl https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar Cx
 ENV PATH /usr/local/go/bin:$PATH
 ENV GOPATH /gopath
 
-## (Optional) Install pyearthquake deps
+## (Optional) Install pynmz deps
 RUN pip install hexdump
 
 ## (Optional) Install hookswitch
@@ -37,18 +37,18 @@ RUN chmod +x /usr/local/bin/pipework
 ## (Optional) Create a user for nfqueue sandbox
 RUN useradd -m nfqhooked
 
-## Copy Earthquake to /earthquake
-ADD . /earthquake
-WORKDIR /earthquake
+## Copy Namazu to /namazu
+ADD . /namazu
+WORKDIR /namazu
 RUN ( git submodule init && git submodule update )
-ENV PYTHONPATH /earthquake:$PYTHONPATH
+ENV PYTHONPATH /namazu:$PYTHONPATH
 
-## Build Earthquake
+## Build Namazu
 RUN ./build
 
 ## Silence dind logs
 ENV LOG file
 
 ## Start init (does NOT enable DinD/OVS/Ryu by default)
-ADD misc/docker/eq-init.py /eq-init.py
-CMD ["/eq-init.py"]
+ADD misc/docker/nmz-init.py /nmz-init.py
+CMD ["/nmz-init.py"]

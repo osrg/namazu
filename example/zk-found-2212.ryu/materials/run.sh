@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e # exit on an error
-. ${EQ_MATERIALS_DIR}/lib.sh
+. ${NMZ_MATERIALS_DIR}/lib.sh
 
 ########## Boot ##########
-if [ -z $EQ_DISABLE ]; then
+if [ -z $NMZ_DISABLE ]; then
     CHECK_PYTHONPATH
     START_SWITCH
     START_INSPECTOR
@@ -21,7 +21,7 @@ CHECK_FLE_STATES # see also validate.sh
 
 ########## Shutdown ##########
 KILL_DOCKER
-if [ -z $EQ_DISABLE ]; then
+if [ -z $NMZ_DISABLE ]; then
     KILL_SWITCH
     KILL_INSPECTOR
 fi

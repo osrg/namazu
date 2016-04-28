@@ -10,7 +10,7 @@ On January 30, Brussels, we had a very good time at [FOSDEM 2016](https://fosdem
 
 Thank you all for attending our presentation and discussing with us!
 
-![fosdem2016_01.jpg](/earthquake/images/fosdem2016_01.jpg)
+![fosdem2016_01.jpg](/namazu/images/fosdem2016_01.jpg)
 
 {{< slideshare key="MzuiqJw0xFIpo8" slide="1" >}}
 

@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/osrg/earthquake/earthquake/cli"
-	"github.com/osrg/earthquake/earthquake/explorepolicy"
-	"github.com/osrg/earthquake/earthquake/historystorage"
-	"github.com/osrg/earthquake/earthquake/signal"
-	"github.com/osrg/earthquake/earthquake/util/config"
+	"github.com/osrg/namazu/nmz/cli"
+	"github.com/osrg/namazu/nmz/explorepolicy"
+	"github.com/osrg/namazu/nmz/historystorage"
+	"github.com/osrg/namazu/nmz/signal"
+	"github.com/osrg/namazu/nmz/util/config"
 )
 
 // implements ExplorePolicy interface
@@ -61,7 +61,7 @@ func (p *MyPolicy) QueueEvent(event signal.Event) {
 		panic(err)
 	}
 	// send in a goroutine so as to make the function non-blocking.
-	// (Note that earthquake/util/queue/TimeBoundedQueue provides
+	// (Note that namazu/util/queue/TimeBoundedQueue provides
 	// better semantics and determinism, this is just an example.)
 	go func() {
 		fmt.Printf("Action ready: %s\n", action)
@@ -71,7 +71,7 @@ func (p *MyPolicy) QueueEvent(event signal.Event) {
 }
 
 func main() {
-	fmt.Println("Hello Earthquake + mypolicy")
+	fmt.Println("Hello Namazu + mypolicy")
 
 	explorepolicy.RegisterPolicy("mypolicy", NewMyPolicy)
 

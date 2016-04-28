@@ -1,5 +1,5 @@
 +++
-date = "2015-08-20"
+date = "2016-04-27"
 tags = ["document"]
 title = "_index"
 
@@ -8,7 +8,7 @@ title = "_index"
 
 # What is this?
 
-In short, the goal of Earthquake project is providing a foundation of debugger for distributed systems.
+In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.
 
 Developing and maintaining distributed systems is difficult. 
 The difficulty comes from many factors, 
@@ -16,7 +16,7 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 [Read more..]({{< relref "about.md" >}})..
 
-{{< slideshare key="MzuiqJw0xFIpo8" slide="10" >}}
+![Overview](/namazu/images/namazu.png)
 
 # Found/Reproduced Bugs
 * ZooKeeper:
@@ -32,19 +32,19 @@ but we believe that one of the most important reasons is lacking of a good debug
  * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): To Be Documented
  * Reproduced flaky tests YARN-{[1978](https://issues.apache.org/jira/browse/YARN-1978), [4168](https://issues.apache.org/jira/browse/YARN-4168), [4543](https://issues.apache.org/jira/browse/YARN-4543), [4548](https://issues.apache.org/jira/browse/YARN-4548), [4556](https://issues.apache.org/jira/browse/YARN-4556)}
 
-The repro codes are located on [earthquake/example](https://github.com/osrg/earthquake/tree/master/example).
+The repro codes are located on [namazu/example](https://github.com/osrg/namazu/tree/master/example).
 
 # How to use?
-Please refer to [README file](https://github.com/osrg/earthquake/blob/master/README.md).
+Please refer to [README file](https://github.com/osrg/namazu/blob/master/README.md).
 
 [This article]({{< relref "post/zookeeper-2212.md" >}}) is also a good start point.
 
 [The slides for the presentation at FOSDEM](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42) might be also helpful.
 
 # Contact
-The project is managed on [github](https://github.com/osrg/earthquake).
-[Pull requests](https://github.com/osrg/earthquake/pulls) and [issues](https://github.com/osrg/earthquake/issues) are welcome.
-We are using [gitter](https://gitter.im/osrg/earthquake) for discussion.
+The project is managed on [github](https://github.com/osrg/namazu).
+[Pull requests](https://github.com/osrg/namazu/pulls) and [issues](https://github.com/osrg/namazu/issues) are welcome.
+We are using [gitter](https://gitter.im/osrg/namazu) for discussion.
 Feel free to join.
 
-[![Join the chat at https://gitter.im/osrg/earthquake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osrg/earthquake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/osrg/namazu](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osrg/namazu?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)

@@ -1,12 +1,12 @@
 #!/bin/bash
 #set -e # exit on an error
-. ${EQ_MATERIALS_DIR}/lib.sh
+. ${NMZ_MATERIALS_DIR}/lib.sh
 
 # CLEAN_VETHS # old pipework needs CLEAN_VETHS
 
 ########## Shutdown ##########
 KILL_DOCKER
-if [ -z $EQ_DISABLE ]; then
+if [ -z $NMZ_DISABLE ]; then
     KILL_SWITCH
     KILL_INSPECTOR
 fi
