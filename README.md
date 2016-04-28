@@ -5,6 +5,7 @@
 [![GoDoc](https://godoc.org/github.com/osrg/namazu/nmz?status.svg)](https://godoc.org/github.com/osrg/namazu/nmz)
 [![Build Status](https://travis-ci.org/osrg/namazu.svg?branch=master)](https://travis-ci.org/osrg/namazu)
 [![Coverage Status](https://coveralls.io/repos/github/osrg/namazu/badge.svg?branch=master)](https://coveralls.io/github/osrg/namazu?branch=master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/osrg/namazu)](https://goreportcard.com/report/github.com/osrg/namazu)
 
 Namazu (formerly named Earthquake) is a programmable fuzzy scheduler for testing real implementations of distributed system such as ZooKeeper.
 
