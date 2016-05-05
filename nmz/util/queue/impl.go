@@ -21,7 +21,7 @@ import (
 	"time"
 
 	log "github.com/cihub/seelog"
-	lane "github.com/oleiade/lane"
+	"github.com/eapache/channels"
 )
 
 // implements TimeBoundedQueueItem
@@ -64,19 +64,19 @@ func (this *BasicTBQueueItem) MaxDuration() time.Duration {
 // implements TimeBoundedQueue
 type BasicTBQueue struct {
 	dequeueChan        chan TimeBoundedQueueItem
-	fixedDurationQueue *lane.Queue
+	fixedDurationQueue *channels.InfiniteChannel
 }
 
 func NewBasicTBQueue() TimeBoundedQueue {
 	q := &BasicTBQueue{
 		dequeueChan:        make(chan TimeBoundedQueueItem),
-		fixedDurationQueue: lane.NewQueue(),
+		fixedDurationQueue: channels.NewInfiniteChannel(),
 	}
 
 	// TODO: gracefully shutdown this routine
 	go func() {
 		for {
-			x := q.fixedDurationQueue.Dequeue()
+			x := <-q.fixedDurationQueue.Out()
 			item, ok := x.(TimeBoundedQueueItem)
 			if ok {
 				if item.MinDuration() != item.MaxDuration() {
@@ -116,7 +116,7 @@ func (this *BasicTBQueue) Enqueue(item_ TimeBoundedQueueItem) error {
 	item.enqueuedTime = time.Now()
 	if item.minDuration == item.maxDuration {
 		// we need this to ensure enqueuing order
-		this.fixedDurationQueue.Enqueue(item)
+		this.fixedDurationQueue.In() <- item
 	} else {
 		go func() {
 			duration := determineDuration(item.minDuration, item.maxDuration)
