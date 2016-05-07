@@ -17,6 +17,8 @@ So Namazu can be also used for testing standalone multi-threaded software.
 
 Basically, Namazu permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Golang) for finding deep bugs efficiently.
 
+[Namazu (鯰) means a catfish in Japanese](https://en.wiktionary.org/wiki/%E9%AF%B0).
+
 Blog: [http://osrg.github.io/namazu/](http://osrg.github.io/namazu/)
 
 Twitter: [@NamazuFuzzTest](https://twitter.com/NamazuFuzzTest)
