@@ -207,10 +207,10 @@ If you have [JaCoCo](http://eclemma.org/jacoco/) coverage data, you can run `jav
 
 ## Talks
 
- * [CoreOS Fest](http://sched.co/6Szb) (May 9-10, 2016, Berlin)
- * [ApacheCon Core North America](http://events.linuxfoundation.org/events/apachecon-north-america/program/schedule) (May 11-13, 2016, Vancouver)
- * [FOSDEM](https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/) (January 30-31, 2016, Brussels)
- * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii)
+ * [ApacheCon Core North America](http://sched.co/6OJU) (May 11-13, 2016, Vancouver) [[slide](http://www.slideshare.net/AkihiroSuda/flaky-tests-and-bugs-in-apache-software-eg-hadoop)]
+ * [CoreOS Fest](http://sched.co/6Szb) (May 9-10, 2016, Berlin) [[slide](http://www.slideshare.net/mitakeh/namazu-a-debugger-for-distributed-systems-specific-bugs/1)]
+ * [FOSDEM](https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/) (January 30-31, 2016, Brussels) [[slide](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497)]
+ * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii) [[poster](http://acmsocc.github.io/2015/posters/socc15posters-final18.pdf)]
 
 ## How to Contribute
 We welcome your contribution to Namazu.
