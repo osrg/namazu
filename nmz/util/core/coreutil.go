@@ -26,7 +26,7 @@ import (
 	logutil "github.com/osrg/namazu/nmz/util/log"
 )
 
-const NamazuVersion = "0.2.0-SNAPSHOT"
+const NamazuVersion = "0.2.0"
 
 // Returns true if NMZ_DEBUG is set
 func DebugMode() bool {
