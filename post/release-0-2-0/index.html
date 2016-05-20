@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Namazu">
 		
-		<title>About Namazu - Namazu</title>
+		<title>Release Namazu v0.2.0 - Namazu</title>
 		
 		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/highlight.js.min.css">
 		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/bootstrap.min.css">
@@ -87,42 +87,109 @@
 		<main role="main">
 			<article>
 				<a id="title"></a>
-				<h1 class="doc-entry-title">About Namazu</h1>
+				<h1 class="doc-entry-title">Release Namazu v0.2.0</h1>
 				<div class="doc-entry-meta">
-					<span><time datetime="2016-04-27">April 27, 2016</time></span>
+					<span><time datetime="2016-05-20">May 20, 2016</time></span>
 				</div>
 				<section>
 					
 
-<p>In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.</p>
+<p>Note: we recently renamed <em>Earthquake</em> to <em>Namazu</em>.</p>
 
-<p>Developing and maintaining distributed systems is difficult.
-The difficulty comes from many factors,
-but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.</p>
-
-<p>What are the distributed systems specific bugs?
-The bugs caused by hardware faults, non determinism of message ordering, and mix of them
-(non distributed systems does not need to handle them).
-Some researchers point out that real world systems (e.g. Hadoop) have such bugs,
-which can cause terrible failures like data loss <a href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" title="Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14.">[1]</a> <a href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" title="Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI '09.">[3]</a>.
-They showed the existence of the bugs by building implementation level distributed system model checkers (DMCK).
-The DMCKs have a capability of searching complex state space of protocols and injeting faults at critical timings.
-In addition, they can work with actual implementation (not formal model <a href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" title="Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.">[2]</a>) directly.</p>
-
-<p>Namazu is a programmable fuzz testing framework inspired by such DMCKs.
-Its design does not depend on programming languages and opearting systems.
-You can write your own state space search policy for your system.
-We hope it will make your life a little bit easier.</p>
+<p>We are glad to annouce the release of <a href="https://github.com/osrg/namazu">Namazu</a> v0.2.0.</p>
 
 <p><img src="/namazu/images/namazu.png" alt="Overview" /></p>
 
-<h2 id="references:6083a88ee3411b0d17ce02d738f69d47">References</h2>
+<p>Namazu v0.2.0 includes many new features: Process inspector, Filesystem inspector, Container CLI, Semi-deterministic replaying API&hellip;</p>
 
-<ol>
-<li><a href="https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa" title="Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI '14.">Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &lsquo;14.</a></li>
-<li><a href="http://research.microsoft.com/en-us/um/people/lamport/tla/formal-methods-amazon.pdf" title="Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.">Chris Newcombe, et al. Use of Formal Methods at Amazon Web Services. Amazon.com Technical Report, 2014.</a></li>
-<li><a href="https://www.usenix.org/legacy/event/nsdi09/tech/full_papers/yang/yang.pdf" title="Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI '09.">Junfeng Yang, et al. MODIST: Transparent Model Checking of Unmodified Distributed Systems. In Proc. of NSDI &lsquo;09.</a></li>
-</ol>
+<p>These new features made Namazu much more powerful and simple.
+Now, no configuration is needed to get started with Namazu.</p>
+
+<p>You can download the Namazu v0.2.0 binary release from <a href="https://github.com/osrg/namazu/releases/tag/v0.2.0">github</a>.</p>
+
+<p>Or you can also build Namazu manually:</p>
+
+<pre><code>$ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
+$ go get github.com/osrg/namazu/nmz
+</code></pre>
+
+<h2 id="new-features:7da5e3e0fa4066d05403654157265844">New features</h2>
+
+<h3 id="process-inspector:7da5e3e0fa4066d05403654157265844">Process inspector</h3>
+
+<p>The process inspector sets random scheduling priority to threads under a specific Linux process:</p>
+
+<pre><code>$ sudo nmz inspectors proc -pid $TARGET_PID -watch-interval 1s
+</code></pre>
+
+<p>The process inspector is sometimes useful when you want to reproduce flaky xUnit tests.</p>
+
+<p>The experimental result for Hadoop tests is available in the slide we presented at ApacheCon:
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/esat324HuI0vud?startSlide=41" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+</p>
+
+<h3 id="filesystem-inspector:7da5e3e0fa4066d05403654157265844">Filesystem inspector</h3>
+
+<p>The filesystem inspector provides randomized scheduling and fault injection for filesystem using FUSE:</p>
+
+<pre><code>$ mkdir /tmp/{nmzfs-orig,nmzfs}
+$ sudo nmz inspectors fs -original-dir /tmp/nmzfs-orig -mount-point /tmp/nmzfs -autopilot config.toml
+$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_NMZFS
+$ sudo fusermount -u /tmp/nmzfs
+</code></pre>
+
+<p>Using filesystem inspector, we successfully found <a href="https://issues.apache.org/jira/browse/YARN-4301">YARN-4301</a>.</p>
+
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/esat324HuI0vud?startSlide=55" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+
+
+<h3 id="container-cli:7da5e3e0fa4066d05403654157265844">Container CLI</h3>
+
+<p>We introduced <em>Namazu Container</em>, a new human-friendly, Docker-like CLI:</p>
+
+<pre><code>$ sudo nmz container run -it --rm -v /foo:/foo ubuntu bash
+</code></pre>
+
+<p>In <em>Namazu Container</em>, you can run arbitrary command that might be <em>flaky</em>.
+JUnit tests are interesting to try.</p>
+
+<pre><code>nmzc$ git clone something
+nmzc$ cd something
+nmzc$ for f in $(seq 1 1000);do mvn test; done
+</code></pre>
+
+<p>By default, only process inspector is enabled in <em>Namazu Container</em>.
+Please refer to <a href="https://github.com/osrg/namazu/blob/master/README.md">README file</a> for configuration.</p>
+
+<h3 id="semi-deterministic-replaying-api:7da5e3e0fa4066d05403654157265844">Semi-deterministic replaying API</h3>
+
+<p>Semi-deterministic replayer is an experimental feature:
+it determines a delay for an event using a seed value and the hash of the event, rather than just using a random value.</p>
+
+<p>It does not guarantee full determinism, but we believe it is sometimes enough for debugging.</p>
+
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/key/esat324HuI0vud?startSlide=58" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+
+
+<h3 id="miscellaneous-improvements:7da5e3e0fa4066d05403654157265844">Miscellaneous improvements</h3>
+
+<ul>
+<li>Renamed Earthquake to Namazu, and introduced a logo image</li>
+<li>Support static build</li>
+<li>Unit tests for Namazu itself</li>
+</ul>
+
+<h2 id="talks:7da5e3e0fa4066d05403654157265844">Talks</h2>
+
+<p>Recently, we made presentations at two events: <a href="http://sched.co/6Szb">CoreOS Fest</a> (May 10) and <a href="http://sched.co/6OJU">ApacheCon Core NA</a> (May 12).</p>
+
+<p>Please refer to the <a href="/namazu/post/coreosfest2016-and-apachecon2016/">article</a> in our blog.</p>
 
 				</section>
 			</article>

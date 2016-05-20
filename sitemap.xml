@@ -13,17 +13,22 @@
   </url>
   
   <url>
+    <loc>http://osrg.github.io/namazu/post/release-0-2-0/</loc>
+    <lastmod>2016-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://osrg.github.io/namazu/_index/</loc>
+    <lastmod>2016-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://osrg.github.io/namazu/about/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://osrg.github.io/namazu/subprojects/</loc>
-    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://osrg.github.io/namazu/_index/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   

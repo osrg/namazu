@@ -47,6 +47,157 @@
     </item>
     
     <item>
+      <title>Release Namazu v0.2.0</title>
+      <link>http://osrg.github.io/namazu/post/release-0-2-0/</link>
+      <pubDate>Fri, 20 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/namazu/post/release-0-2-0/</guid>
+      <description>
+
+&lt;p&gt;Note: we recently renamed &lt;em&gt;Earthquake&lt;/em&gt; to &lt;em&gt;Namazu&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;We are glad to annouce the release of &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;Namazu&lt;/a&gt; v0.2.0.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Namazu v0.2.0 includes many new features: Process inspector, Filesystem inspector, Container CLI, Semi-deterministic replaying API&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;These new features made Namazu much more powerful and simple.
+Now, no configuration is needed to get started with Namazu.&lt;/p&gt;
+
+&lt;p&gt;You can download the Namazu v0.2.0 binary release from &lt;a href=&#34;https://github.com/osrg/namazu/releases/tag/v0.2.0&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Or you can also build Namazu manually:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
+$ go get github.com/osrg/namazu/nmz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;new-features:7da5e3e0fa4066d05403654157265844&#34;&gt;New features&lt;/h2&gt;
+
+&lt;h3 id=&#34;process-inspector:7da5e3e0fa4066d05403654157265844&#34;&gt;Process inspector&lt;/h3&gt;
+
+&lt;p&gt;The process inspector sets random scheduling priority to threads under a specific Linux process:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo nmz inspectors proc -pid $TARGET_PID -watch-interval 1s
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The process inspector is sometimes useful when you want to reproduce flaky xUnit tests.&lt;/p&gt;
+
+&lt;p&gt;The experimental result for Hadoop tests is available in the slide we presented at ApacheCon:
+
+&lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/esat324HuI0vud?startSlide=41&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
+
+&lt;/p&gt;
+
+&lt;h3 id=&#34;filesystem-inspector:7da5e3e0fa4066d05403654157265844&#34;&gt;Filesystem inspector&lt;/h3&gt;
+
+&lt;p&gt;The filesystem inspector provides randomized scheduling and fault injection for filesystem using FUSE:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir /tmp/{nmzfs-orig,nmzfs}
+$ sudo nmz inspectors fs -original-dir /tmp/nmzfs-orig -mount-point /tmp/nmzfs -autopilot config.toml
+$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_NMZFS
+$ sudo fusermount -u /tmp/nmzfs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Using filesystem inspector, we successfully found &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4301&#34;&gt;YARN-4301&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/esat324HuI0vud?startSlide=55&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
+
+
+
+&lt;h3 id=&#34;container-cli:7da5e3e0fa4066d05403654157265844&#34;&gt;Container CLI&lt;/h3&gt;
+
+&lt;p&gt;We introduced &lt;em&gt;Namazu Container&lt;/em&gt;, a new human-friendly, Docker-like CLI:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo nmz container run -it --rm -v /foo:/foo ubuntu bash
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In &lt;em&gt;Namazu Container&lt;/em&gt;, you can run arbitrary command that might be &lt;em&gt;flaky&lt;/em&gt;.
+JUnit tests are interesting to try.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;nmzc$ git clone something
+nmzc$ cd something
+nmzc$ for f in $(seq 1 1000);do mvn test; done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default, only process inspector is enabled in &lt;em&gt;Namazu Container&lt;/em&gt;.
+Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README file&lt;/a&gt; for configuration.&lt;/p&gt;
+
+&lt;h3 id=&#34;semi-deterministic-replaying-api:7da5e3e0fa4066d05403654157265844&#34;&gt;Semi-deterministic replaying API&lt;/h3&gt;
+
+&lt;p&gt;Semi-deterministic replayer is an experimental feature:
+it determines a delay for an event using a seed value and the hash of the event, rather than just using a random value.&lt;/p&gt;
+
+&lt;p&gt;It does not guarantee full determinism, but we believe it is sometimes enough for debugging.&lt;/p&gt;
+
+
+&lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/esat324HuI0vud?startSlide=58&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
+
+
+
+&lt;h3 id=&#34;miscellaneous-improvements:7da5e3e0fa4066d05403654157265844&#34;&gt;Miscellaneous improvements&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Renamed Earthquake to Namazu, and introduced a logo image&lt;/li&gt;
+&lt;li&gt;Support static build&lt;/li&gt;
+&lt;li&gt;Unit tests for Namazu itself&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;talks:7da5e3e0fa4066d05403654157265844&#34;&gt;Talks&lt;/h2&gt;
+
+&lt;p&gt;Recently, we made presentations at two events: &lt;a href=&#34;http://sched.co/6Szb&#34;&gt;CoreOS Fest&lt;/a&gt; (May 10) and &lt;a href=&#34;http://sched.co/6OJU&#34;&gt;ApacheCon Core NA&lt;/a&gt; (May 12).&lt;/p&gt;
+
+&lt;p&gt;Please refer to the &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/coreosfest2016-and-apachecon2016/&#34;&gt;article&lt;/a&gt; in our blog.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>_index</title>
+      <link>http://osrg.github.io/namazu/_index/</link>
+      <pubDate>Fri, 20 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/namazu/_index/</guid>
+      <description>
+
+&lt;h1 id=&#34;what-is-this:3976528693a0108357f4928017600865&#34;&gt;What is this?&lt;/h1&gt;
+
+&lt;p&gt;In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
+
+&lt;p&gt;Developing and maintaining distributed systems is difficult.
+The difficulty comes from many factors,
+but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/namazu/namazu/about/&#34;&gt;Read more..&lt;/a&gt;..&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;found-reproduced-bugs:3976528693a0108357f4928017600865&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
+
+&lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README file&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
+
+&lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README file&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/master/example/zk-found-2212.ryu&#34;&gt;This article&lt;/a&gt; is also a good start point.&lt;/p&gt;
+
+&lt;p&gt;The slides for recent talks might be also helpful:
+&lt;a href=&#34;http://www.slideshare.net/AkihiroSuda/flaky-tests-and-bugs-in-apache-software-eg-hadoop&#34;&gt;ApacheCon&lt;/a&gt;, &lt;a href=&#34;http://www.slideshare.net/mitakeh/namazu-a-debugger-for-distributed-systems-specific-bugs/1&#34;&gt;CoreOS Fest&lt;/a&gt;, and &lt;a href=&#34;http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42&#34;&gt;FOSDEM&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;contact:3976528693a0108357f4928017600865&#34;&gt;Contact&lt;/h1&gt;
+
+&lt;p&gt;The project is managed on &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;github&lt;/a&gt;.
+&lt;a href=&#34;https://github.com/osrg/namazu/pulls&#34;&gt;Pull requests&lt;/a&gt; and &lt;a href=&#34;https://github.com/osrg/namazu/issues&#34;&gt;issues&lt;/a&gt; are welcome.
+We are using &lt;a href=&#34;https://gitter.im/osrg/namazu&#34;&gt;gitter&lt;/a&gt; for discussion.
+Feel free to join.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gitter.im/osrg/namazu?utm_source=badge&amp;amp;utm_medium=badge&amp;amp;utm_campaign=pr-badge&amp;amp;utm_content=badge&#34;&gt;&lt;img src=&#34;https://badges.gitter.im/Join%20Chat.svg&#34; alt=&#34;Join the chat at https://gitter.im/osrg/namazu&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>About Namazu</title>
       <link>http://osrg.github.io/namazu/about/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
@@ -105,72 +256,6 @@ We hope it will make your life a little bit easier.&lt;/p&gt;
 &lt;h3 id=&#34;hookfs-a-usermode-hookable-filesystem-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookFS: A Usermode Hookable Filesystem Library&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookfs&#34;&gt;https://github.com/osrg/hookfs&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>_index</title>
-      <link>http://osrg.github.io/namazu/_index/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://osrg.github.io/namazu/_index/</guid>
-      <description>
-
-&lt;h1 id=&#34;what-is-this:3976528693a0108357f4928017600865&#34;&gt;What is this?&lt;/h1&gt;
-
-&lt;p&gt;In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
-
-&lt;p&gt;Developing and maintaining distributed systems is difficult.
-The difficulty comes from many factors,
-but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/namazu/namazu/about/&#34;&gt;Read more..&lt;/a&gt;..&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
-
-&lt;h1 id=&#34;found-reproduced-bugs:3976528693a0108357f4928017600865&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;ZooKeeper:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Reproduced &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; (race): &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2080/&#34;&gt;(blog article)&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Etcd:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Found an etcd command line client (etcdctl) bug &lt;a href=&#34;https://github.com/coreos/etcd/issues/3517&#34;&gt;#3517&lt;/a&gt; (timing specification), fixed in &lt;a href=&#34;https://github.com/coreos/etcd/pull/3530&#34;&gt;#3530&lt;/a&gt;. The fix also resulted a hint of &lt;a href=&#34;https://github.com/coreos/etcd/issues/3611&#34;&gt;#3611&lt;/a&gt;: To Be Documented&lt;/li&gt;
-&lt;li&gt;Reproduced flaky tests {&lt;a href=&#34;https://github.com/coreos/etcd/pull/4006&#34;&gt;#4006&lt;/a&gt;, &lt;a href=&#34;https://github.com/coreos/etcd/issues/4039&#34;&gt;#4039&lt;/a&gt;}&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;YARN:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Found &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4301&#34;&gt;YARN-4301&lt;/a&gt; (fault tolerance): To Be Documented&lt;/li&gt;
-&lt;li&gt;Reproduced flaky tests YARN-{&lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-1978&#34;&gt;1978&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4168&#34;&gt;4168&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4543&#34;&gt;4543&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4548&#34;&gt;4548&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/YARN-4556&#34;&gt;4556&lt;/a&gt;}&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The repro codes are located on &lt;a href=&#34;https://github.com/osrg/namazu/tree/master/example&#34;&gt;namazu/example&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
-
-&lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README file&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;This article&lt;/a&gt; is also a good start point.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42&#34;&gt;The slides for the presentation at FOSDEM&lt;/a&gt; might be also helpful.&lt;/p&gt;
-
-&lt;h1 id=&#34;contact:3976528693a0108357f4928017600865&#34;&gt;Contact&lt;/h1&gt;
-
-&lt;p&gt;The project is managed on &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;github&lt;/a&gt;.
-&lt;a href=&#34;https://github.com/osrg/namazu/pulls&#34;&gt;Pull requests&lt;/a&gt; and &lt;a href=&#34;https://github.com/osrg/namazu/issues&#34;&gt;issues&lt;/a&gt; are welcome.
-We are using &lt;a href=&#34;https://gitter.im/osrg/namazu&#34;&gt;gitter&lt;/a&gt; for discussion.
-Feel free to join.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://gitter.im/osrg/namazu?utm_source=badge&amp;amp;utm_medium=badge&amp;amp;utm_campaign=pr-badge&amp;amp;utm_content=badge&#34;&gt;&lt;img src=&#34;https://badges.gitter.im/Join%20Chat.svg&#34; alt=&#34;Join the chat at https://gitter.im/osrg/namazu&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

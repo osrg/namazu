@@ -113,38 +113,16 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 <h1 id="found-reproduced-bugs:3976528693a0108357f4928017600865">Found/Reproduced Bugs</h1>
 
-<ul>
-<li><p>ZooKeeper:</p>
-
-<ul>
-<li>Found <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2212">ZOOKEEPER-2212</a> (race): <a href="/namazu/post/zookeeper-2212/">(blog article)</a></li>
-<li>Reproduced <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2080">ZOOKEEPER-2080</a> (race): <a href="/namazu/post/zookeeper-2080/">(blog article)</a></li>
-</ul></li>
-
-<li><p>Etcd:</p>
-
-<ul>
-<li>Found an etcd command line client (etcdctl) bug <a href="https://github.com/coreos/etcd/issues/3517">#3517</a> (timing specification), fixed in <a href="https://github.com/coreos/etcd/pull/3530">#3530</a>. The fix also resulted a hint of <a href="https://github.com/coreos/etcd/issues/3611">#3611</a>: To Be Documented</li>
-<li>Reproduced flaky tests {<a href="https://github.com/coreos/etcd/pull/4006">#4006</a>, <a href="https://github.com/coreos/etcd/issues/4039">#4039</a>}</li>
-</ul></li>
-
-<li><p>YARN:</p>
-
-<ul>
-<li>Found <a href="https://issues.apache.org/jira/browse/YARN-4301">YARN-4301</a> (fault tolerance): To Be Documented</li>
-<li>Reproduced flaky tests YARN-{<a href="https://issues.apache.org/jira/browse/YARN-1978">1978</a>, <a href="https://issues.apache.org/jira/browse/YARN-4168">4168</a>, <a href="https://issues.apache.org/jira/browse/YARN-4543">4543</a>, <a href="https://issues.apache.org/jira/browse/YARN-4548">4548</a>, <a href="https://issues.apache.org/jira/browse/YARN-4556">4556</a>}</li>
-</ul></li>
-</ul>
-
-<p>The repro codes are located on <a href="https://github.com/osrg/namazu/tree/master/example">namazu/example</a>.</p>
+<p>Please refer to <a href="https://github.com/osrg/namazu/blob/master/README.md">README file</a>.</p>
 
 <h1 id="how-to-use:3976528693a0108357f4928017600865">How to use?</h1>
 
 <p>Please refer to <a href="https://github.com/osrg/namazu/blob/master/README.md">README file</a>.</p>
 
-<p><a href="/namazu/post/zookeeper-2212/">This article</a> is also a good start point.</p>
+<p><a href="https://github.com/osrg/namazu/tree/master/example/zk-found-2212.ryu">This article</a> is also a good start point.</p>
 
-<p><a href="http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42">The slides for the presentation at FOSDEM</a> might be also helpful.</p>
+<p>The slides for recent talks might be also helpful:
+<a href="http://www.slideshare.net/AkihiroSuda/flaky-tests-and-bugs-in-apache-software-eg-hadoop">ApacheCon</a>, <a href="http://www.slideshare.net/mitakeh/namazu-a-debugger-for-distributed-systems-specific-bugs/1">CoreOS Fest</a>, and <a href="http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42">FOSDEM</a>.</p>
 
 <h1 id="contact:3976528693a0108357f4928017600865">Contact</h1>
 
@@ -165,6 +143,8 @@ Feel free to join.</p>
     <h4><a href="http://osrg.github.io/namazu//post">Recent Posts</a></h4>
     <ul>
       
+      <li><a href="/namazu/post/release-0-2-0/">Release Namazu v0.2.0(2016-05-20)</a></li>
+      
       <li><a href="/namazu/post/coreosfest2016-and-apachecon2016/">CoreOS Fest &amp; ApacheCon: Thank you for attending our presentations!(2016-05-20)</a></li>
       
       <li><a href="/namazu/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
@@ -172,8 +152,6 @@ Feel free to join.</p>
       <li><a href="/namazu/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
       
       <li><a href="/namazu/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
-      
-      <li><a href="/namazu/post/first/">Hello, world!(2015-07-24)</a></li>
       
     </ul>
   </div>
