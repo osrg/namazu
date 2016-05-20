@@ -17,31 +17,59 @@ So Namazu can be also used for testing standalone multi-threaded software.
 
 Basically, Namazu permutes events in a random order, but you can write your [own state exploration policy](doc/arch.md) (in Golang) for finding deep bugs efficiently.
 
-[Namazu (鯰) means a catfish in Japanese](https://en.wiktionary.org/wiki/%E9%AF%B0).
+[Namazu (鯰) means a catfish :fish: in Japanese](https://en.wiktionary.org/wiki/%E9%AF%B0).
 
 Blog: [http://osrg.github.io/namazu/](http://osrg.github.io/namazu/)
 
 Twitter: [@NamazuFuzzTest](https://twitter.com/NamazuFuzzTest)
 
-## Found/Reproduced Bugs
- * ZooKeeper:
-  * Found [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212) (race): [blog article](http://osrg.github.io/namazu/post/zookeeper-2212/) ([repro code](example/zk-found-2212.ryu))
-  * Reproduced [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080) (race): [blog article](http://osrg.github.io/namazu/post/zookeeper-2080/) ([repro code](example/zk-repro-2080.nfqhook))
- * etcd:
-  * Found an etcd command line client (etcdctl) bug [#3517](https://github.com/coreos/etcd/issues/3517) (timing specification), fixed in [#3530](https://github.com/coreos/etcd/pull/3530): ([repro code](example/etcd/3517-reproduce)). The fix also resulted a hint of [#3611](https://github.com/coreos/etcd/pull/3611).
-  * Reproduced flaky tests {[#4006](https://github.com/coreos/etcd/pull/4006), [#4039](https://github.com/coreos/etcd/issues/4039)} ([repro instruction](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42))
- * YARN:
-  * Found [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301) (fault tolerance): ([repro code](example/yarn/4301-reproduce))
-  * Reproduced flaky tests YARN-{[1978](https://issues.apache.org/jira/browse/YARN-1978), [4168](https://issues.apache.org/jira/browse/YARN-4168), [4543](https://issues.apache.org/jira/browse/YARN-4543), [4548](https://issues.apache.org/jira/browse/YARN-4548), [4556](https://issues.apache.org/jira/browse/YARN-4556)} ([repro instruction](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42))
+## Found and Reproduced Bugs
 
-## Installation
+:new:=Found, :repeat:=Reproduced
+
+### Flaky integration tests
+
+Issue|Reproducibility<br>(traditional)|Reproducibility<br>(Namazu)|Note
+---|---|---|---
+:new: [ZOOKEEPER-2212](https://issues.apache.org/jira/browse/ZOOKEEPER-2212)<br>(race)|0%|21.8%|In traditional testing, we could not reproduce the issue in 5,000 runs (60 hours). We newly found the issue and improved its reproducibility using Namazu Ethernet inspector. Note that the reproducibility improvement depends on its configuration(see also [#137](https://github.com/osrg/namazu/pull/137)).<br>[Blog article](http://osrg.github.io/namazu/post/zookeeper-2212/) and repro code ([Ryu SDN version](example/zk-found-2212.ryu) and [Netfilter version](example/zk-found-2212.nfqhook)) are available.
+
+### Flaky xUnit tests (picked out, please see also [#125](https://github.com/osrg/namazu/issues/125))
+
+Issue|Reproducibility<br>(traditional)|Reproducibility<br>(Namazu)|Note
+---|---|---|---
+:repeat: [YARN-4548](https://issues.apache.org/jira/browse/YARN-4548)|11%|82%|Used Namazu process inspector.
+:repeat: [YARN-4556](https://issues.apache.org/jira/browse/YARN-4548)|2%|44%|Used Namazu process inspector.
+:repeat: [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080)|14%|62%|Used Namazu Ethernet inspector. [Blog article](http://osrg.github.io/namazu/post/zookeeper-2080/) and [repro code](example/zk-repro-2080.nfqhook) are available.
+:repeat: [ZOOKEEPER-2137](https://issues.apache.org/jira/browse/ZOOKEEPER-2137)|2%|16%|Used Namazu process inspector.
+
+We also improved reproducibility of some flaky etcd tests (to be documented).
+
+### Others
+
+Issue|Note
+---|---
+:new: [YARN-4301](https://issues.apache.org/jira/browse/YARN-4301)<br>(fault tolerance)|Used Namazu filesystem inspector and Namazu API. [Repro code](example/yarn/4301-reproduce) is available.
+:new: etcd command line client (etcdctl) [#3517](https://github.com/coreos/etcd/issues/3517)<br>(timing specification)|Used Namazu Ethernet inspector. [Repro code](example/etcd/3517-reproduce) is available.<br>The issue has been fixed in [#3530](https://github.com/coreos/etcd/pull/3530) and it also resulted a hint of [#3611](https://github.com/coreos/etcd/pull/3611).
+
+## Talks
+
+ * [ApacheCon Core North America](http://sched.co/6OJU) (May 11-13, 2016, Vancouver) [[slide](http://www.slideshare.net/AkihiroSuda/flaky-tests-and-bugs-in-apache-software-eg-hadoop)]
+ * [CoreOS Fest](http://sched.co/6Szb) (May 9-10, 2016, Berlin) [[slide](http://www.slideshare.net/mitakeh/namazu-a-debugger-for-distributed-systems-specific-bugs/1)]
+ * [FOSDEM](https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/) (January 30-31, 2016, Brussels) [[slide](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497)]
+ * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii) [[poster](http://acmsocc.github.io/2015/posters/socc15posters-final18.pdf)]
+
+## Getting Started
+### Installation
 The installation process is very simple:
 
     $ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
     $ go get github.com/osrg/namazu/nmz
 
+Currently, Namazu is tested with [Go 1.6](https://golang.org/dl/).
 
-## Quick Start (Container mode)
+You can also download the latest binary from [here](https://github.com/osrg/namazu/releases).
+
+### Container Mode
 The following instruction shows how you can start *Namazu Container*, the simplified, Docker-like CLI for Namazu.
 
     $ sudo nmz container run -it --rm -v /foo:/foo ubuntu bash
@@ -93,9 +121,9 @@ explorePolicy = "random"
 For other parameters, please refer to [`config.go`](nmz/util/config/config.go) and [`randompolicy.go`](nmz/explorepolicy/random/randompolicy.go).
 
 
-## Quick Start (Non-container mode)
+### Non-container Mode
 
-### Process inspector
+#### Process inspector
 
     $ sudo nmz inspectors proc -pid $TARGET_PID -watch-interval 1s
 
@@ -111,10 +139,10 @@ Note that the process inspector may be not effective for reproducing short-runni
 The guide for reproducing flaky Hadoop tests (please use `nmz` instead of `microearthquake`): [FOSDEM slide 42](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42).
 
 
-### Filesystem inspector (FUSE)
+#### Filesystem inspector (FUSE)
 
     $ mkdir /tmp/{nmzfs-orig,nmzfs}
-    $ sudo nmz inspectors fs -original-dir /tmp/nmzfs-orig -mount-point /tmp/nmzfs
+    $ sudo nmz inspectors fs -original-dir /tmp/nmzfs-orig -mount-point /tmp/nmzfs -autopilot config.toml
 	$ $TARGET_PROGRAM_WHICH_ACCESSES_TMP_NMZFS
 	$ sudo fusermount -u /tmp/nmzfs
 
@@ -124,7 +152,7 @@ By default, all the `read`, `mkdir`, and `rmdir` accesses to the files under `/t
 
 You can also inject faullts (currently just injects `-EIO`) by setting `explorePolicyParam.faultActionProbability` in the config file.
 
-### Ethernet inspector (Linux netfilter_queue)
+#### Ethernet inspector (Linux netfilter_queue)
 
     $ iptables -A OUTPUT -p tcp -m owner --uid-owner $(id -u johndoe) -j NFQUEUE --queue-num 42
     $ sudo nmz inspectors ethernet -nfq-number 42
@@ -135,7 +163,7 @@ By default, all the packets for `johndoe` are randomly scheduled (with some opti
 
 You can also inject faults (currently just drop packets) by setting `explorePolicyParam.faultActionProbability` in the config file.
 
-### Ethernet inspector (Openflow 1.3)
+#### Ethernet inspector (Openflow 1.3)
 
 You have to install [ryu](https://github.com/osrg/ryu) and [hookswitch](https://github.com/osrg/hookswitch) for this feature.
 
@@ -145,10 +173,29 @@ You have to install [ryu](https://github.com/osrg/ryu) and [hookswitch](https://
 
 Please also refer to [doc/how-to-setup-env-full.md](doc/how-to-setup-env-full.md) for this feature.
 
-### Java inspector (AspectJ, byteman)
+#### Java inspector (AspectJ, byteman)
 
 To be documented
 
+## How to Contribute
+We welcome your contribution to Namazu.
+Please feel free to send your pull requests on github!
+
+    $ git clone https://github.com/osrg/namazu.git
+    $ cd namazu
+    $ git checkout -b your-branch
+	$ ./build
+	$ your-editor foo.go
+	$ ./clean && ./build && go test -race ./...
+	$ git commit -a -s
+
+## Copyright
+Copyright (C) 2015 [Nippon Telegraph and Telephone Corporation](http://www.ntt.co.jp/index_e.html).
+
+Released under [Apache License 2.0](LICENSE).
+
+---------------------------------------
+## Advanced Guide
 ### Distributed execution
 
 Basically please follow these examples: [example/zk-found-2212.ryu](example/zk-found-2212.ryu), [example/zk-found-2212.nfqhook](example/zk-found-2212.nfqhook)
@@ -205,25 +252,7 @@ If you have [JaCoCo](http://eclemma.org/jacoco/) coverage data, you can run `jav
 
 ![doc/img/exec-pattern.png](doc/img/exec-pattern.png)
 
-## Talks
-
- * [ApacheCon Core North America](http://sched.co/6OJU) (May 11-13, 2016, Vancouver) [[slide](http://www.slideshare.net/AkihiroSuda/flaky-tests-and-bugs-in-apache-software-eg-hadoop)]
- * [CoreOS Fest](http://sched.co/6Szb) (May 9-10, 2016, Berlin) [[slide](http://www.slideshare.net/mitakeh/namazu-a-debugger-for-distributed-systems-specific-bugs/1)]
- * [FOSDEM](https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/) (January 30-31, 2016, Brussels) [[slide](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497)]
- * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii) [[poster](http://acmsocc.github.io/2015/posters/socc15posters-final18.pdf)]
-
-## How to Contribute
-We welcome your contribution to Namazu.
-Please feel free to send your pull requests on github!
-
-## Copyright
-Copyright (C) 2015 [Nippon Telegraph and Telephone Corporation](http://www.ntt.co.jp/index_e.html).
-
-Released under [Apache License 2.0](LICENSE).
-
----------------------------------------
-
-## API for your own exploration policy
+### API for your own exploration policy
 
 ```go
 // implements nmz/explorepolicy/ExplorePolicy interface
@@ -273,6 +302,15 @@ func main(){
 ```
 Please refer to [example/template](example/template) for further information.
 
-## Known Limitation
+### Semi-deterministic replay
+If an event structure has `replay_hint` hash string (that does not contain time-dependent/random things),
+you can semi-deterministically replay a scenario using `time.Duration(hash(seed,replay_hint) % maxInterval)`.
+No record is required for replaying.
+
+We have a PoC for ZOOKEEPER-2212. Please refer to [#137](https://github.com/osrg/namazu/pull/137).
+
+We also implemented a similar thing for Go: [go-replay](https://github.com/AkihiroSuda/go-replay).
+
+### Known Limitation
 After running Namazu (process inspector with `exploreParam.procPolicyParam="dirichlet"`) many times, `sched_setattr(2)` can fail with `EBUSY`.
 This seems to be a bug of kernel; We're looking into this.
