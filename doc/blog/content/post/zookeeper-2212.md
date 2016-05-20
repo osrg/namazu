@@ -27,10 +27,10 @@ Without Earthquake, we could not reproduce the bug in 5,000 experiments. (took a
 ### Set up Earthquake (v0.1.1)
 Please see [doc/how-to-setup-env.md](https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md) for how to setup the environment.
 
-The use of pre-built Docker image `osrg/namazu:v0.1.1` is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.
+The use of pre-built Docker image `osrg/earthquake:v0.1.1` is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.
 
     $ sudo modprobe openvswitch # tested with Ubuntu 15.04 host (Linux kernel 3.19)
-    $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu:v0.1.1
+    $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.1
 
 
 Then, build ZooKeeper "Docker-in-Docker" containers, and initialize Earthquake as follows.
@@ -67,7 +67,7 @@ Figure:
     |  |                       Earthquake                      |  |
     |  +-------------------------------------------------------+  |	
     |                                                             |
-    |                  Docker  (osrg/namazu)                  |
+    |                  Docker  (osrg/earthquake)                  |
     +-------------------------------------------------------------+
 
 
