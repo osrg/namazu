@@ -34,10 +34,10 @@ We did not have to permute packets explicitly.
 NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as [osrg/hookswitch](https://github.com/osrg/hookswitch/). HookSwitch can also hook OpenFlow packets, as [we used in ZOOKEEPER-2212]({{< relref "post/zookeeper-2212.md" >}}).
 
 ### Set up Earthquake (v0.1.2)
-For more information about setting up Earthquake, please refer to [doc/how-to-setup-env.md](https://github.com/osrg.namazu/blob/v0.1.2/doc/how-to-setup-env.md).
+For more information about setting up Earthquake, please refer to [doc/how-to-setup-env.md](https://github.com/osrg/namazu/blob/v0.1.2/doc/how-to-setup-env.md).
 
     $ sudo sh -c 'echo 0 > /proc/sys/net/ipv4/tcp_autocorking' #recommended if Linux >= 3.14
-    $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg.namazu:v0.1.2
+    $ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.2
     docker$ export PYTHONPATH=/earthquake #BUG(Dockerfile): should be predefined in > v0.1.2
     docker$ apt-get install ant-optional #BUG(Dockerfile): should be preinstalled in > v0.1.2
     docker$ cd /earthquake/example/zk-repro-2080.nfqhook
@@ -73,8 +73,8 @@ Instead, we compared branch patterns of Java codes using our new Earthquake Anal
 
 
     docker$ java -jar ../../bin/earthquake-analyzer.jar /tmp-zk-2080/ --classes-path /tmp-zk-2080/materials/zookeeper/build/classes
-    [DEBUG] net.osrg.namazu.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
-    [DEBUG] net.osrg.namazu.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
+    [DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
+    [DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
     ..
     Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::getVote line 805-805
     Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 919-919
