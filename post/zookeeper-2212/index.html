@@ -116,10 +116,10 @@
 
 <p>Please see <a href="https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a> for how to setup the environment.</p>
 
-<p>The use of pre-built Docker image <code>osrg/namazu:v0.1.1</code> is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.</p>
+<p>The use of pre-built Docker image <code>osrg/earthquake:v0.1.1</code> is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.</p>
 
 <pre><code>$ sudo modprobe openvswitch # tested with Ubuntu 15.04 host (Linux kernel 3.19)
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu:v0.1.1
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.1
 </code></pre>
 
 <p>Then, build ZooKeeper &ldquo;Docker-in-Docker&rdquo; containers, and initialize Earthquake as follows.</p>
@@ -155,7 +155,7 @@ ok
 |  |                       Earthquake                      |  |
 |  +-------------------------------------------------------+  | 
 |                                                             |
-|                  Docker  (osrg/namazu)                  |
+|                  Docker  (osrg/earthquake)                  |
 +-------------------------------------------------------------+
 </code></pre>
 
@@ -310,6 +310,8 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
   <div class="sidebar-module">
     <h4><a href="http://osrg.github.io/namazu//post">Recent Posts</a></h4>
     <ul>
+      
+      <li><a href="/namazu/post/coreosfest2016-and-apachecon2016/">CoreOS Fest &amp; ApacheCon: Thank you for attending our presentations!(2016-05-20)</a></li>
       
       <li><a href="/namazu/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
       

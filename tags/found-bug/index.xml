@@ -40,10 +40,10 @@
 
 &lt;p&gt;Please see &lt;a href=&#34;https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt; for how to setup the environment.&lt;/p&gt;
 
-&lt;p&gt;The use of pre-built Docker image &lt;code&gt;osrg/namazu:v0.1.1&lt;/code&gt; is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.&lt;/p&gt;
+&lt;p&gt;The use of pre-built Docker image &lt;code&gt;osrg/earthquake:v0.1.1&lt;/code&gt; is strongly recommended, which saves you the labor for setting up Open vSwitch and ryu.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ sudo modprobe openvswitch # tested with Ubuntu 15.04 host (Linux kernel 3.19)
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/namazu:v0.1.1
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.1
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Then, build ZooKeeper &amp;ldquo;Docker-in-Docker&amp;rdquo; containers, and initialize Earthquake as follows.&lt;/p&gt;
@@ -79,7 +79,7 @@ ok
 |  |                       Earthquake                      |  |
 |  +-------------------------------------------------------+  | 
 |                                                             |
-|                  Docker  (osrg/namazu)                  |
+|                  Docker  (osrg/earthquake)                  |
 +-------------------------------------------------------------+
 &lt;/code&gt;&lt;/pre&gt;
 

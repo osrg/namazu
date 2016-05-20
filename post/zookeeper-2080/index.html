@@ -124,10 +124,10 @@ We did not have to permute packets explicitly.</p>
 
 <h3 id="set-up-earthquake-v0-1-2:76efb5c48a34481fa50b4c096fa9081f">Set up Earthquake (v0.1.2)</h3>
 
-<p>For more information about setting up Earthquake, please refer to <a href="https://github.com/osrg.namazu/blob/v0.1.2/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a>.</p>
+<p>For more information about setting up Earthquake, please refer to <a href="https://github.com/osrg/namazu/blob/v0.1.2/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a>.</p>
 
 <pre><code>$ sudo sh -c 'echo 0 &gt; /proc/sys/net/ipv4/tcp_autocorking' #recommended if Linux &gt;= 3.14
-$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg.namazu:v0.1.2
+$ docker run --rm --tty --interactive --privileged -e EQ_DOCKER_PRIVILEGED=1 osrg/earthquake:v0.1.2
 docker$ export PYTHONPATH=/earthquake #BUG(Dockerfile): should be predefined in &gt; v0.1.2
 docker$ apt-get install ant-optional #BUG(Dockerfile): should be preinstalled in &gt; v0.1.2
 docker$ cd /earthquake/example/zk-repro-2080.nfqhook
@@ -164,8 +164,8 @@ validation failed: exit status 1
 <p>Instead, we compared branch patterns of Java codes using our new Earthquake Analyzer.</p>
 
 <pre><code>docker$ java -jar ../../bin/earthquake-analyzer.jar /tmp-zk-2080/ --classes-path /tmp-zk-2080/materials/zookeeper/build/classes
-[DEBUG] net.osrg.namazu.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
-[DEBUG] net.osrg.namazu.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
+[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000000: experiment successful=true
+[DEBUG] net.osrg.earthquake.Analyzer - Scanning /tmp-zk-2080/00000001: experiment successful=false
 ..
 Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::getVote line 805-805
 Suspicious: org.apache.zookeeper.server.quorum.FastLeaderElection::lookForLeader line 919-919
@@ -245,6 +245,8 @@ Although the suspicious set can contain some misleading information, it is enoug
   <div class="sidebar-module">
     <h4><a href="http://osrg.github.io/namazu//post">Recent Posts</a></h4>
     <ul>
+      
+      <li><a href="/namazu/post/coreosfest2016-and-apachecon2016/">CoreOS Fest &amp; ApacheCon: Thank you for attending our presentations!(2016-05-20)</a></li>
       
       <li><a href="/namazu/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
       
