@@ -49,7 +49,7 @@ func NewProcInspector(orchestratorURL, entityID string, rootPID int, watchInterv
 	}, nil
 }
 
-func (this *ProcInspector) Serve() error {
+func (this *ProcInspector) Serve(endCh <-chan struct{}) error {
 	log.Debugf("Initializing Process Inspector %#v", this)
 	var err error
 
@@ -74,6 +74,9 @@ func (this *ProcInspector) Serve() error {
 			}
 		case <-this.stopCh:
 			log.Info("Shutting down..")
+			return nil
+		case <-endCh:
+			log.Infof("Shutting down (via end channel)..")
 			return nil
 		}
 	}
