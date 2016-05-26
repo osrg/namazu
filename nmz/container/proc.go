@@ -30,7 +30,7 @@ func ServeProcInspector(c *docker.Container, watchInterval time.Duration) error 
 		RootPID:         c.State.Pid,
 		WatchInterval:   watchInterval,
 	}
-	insp.Serve()
+	insp.Serve(nil)
 	// NOTREACHED
 	return nil
 }

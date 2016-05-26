@@ -17,6 +17,8 @@ package inspectors
 
 import (
 	"flag"
+	"os/exec"
+	"strings"
 	"time"
 
 	log "github.com/cihub/seelog"
@@ -29,6 +31,7 @@ type procFlags struct {
 	commonFlags
 	RootPID       int
 	WatchInterval time.Duration
+	Cmd           string
 }
 
 var (
@@ -40,6 +43,7 @@ func init() {
 	initCommon(procFlagset, &_procFlags.commonFlags, "_namazu_proc_inspector")
 	procFlagset.IntVar(&_procFlags.RootPID, "pid", -1, "PID for the target process tree")
 	procFlagset.DurationVar(&_procFlags.WatchInterval, "watch-interval", 1*time.Second, "Watching interval")
+	procFlagset.StringVar(&_procFlags.Cmd, "cmd", "", "Command for target process")
 }
 
 type procCmd struct {
@@ -63,8 +67,34 @@ func (cmd procCmd) Run(args []string) int {
 		return 1
 	}
 
-	if _procFlags.RootPID <= 0 {
-		log.Critical("pid is not set (or set to non-positive value)")
+	pid := _procFlags.RootPID
+	endCh := make(chan struct{})
+
+	if pid <= 0 {
+		if _procFlags.Cmd != "" {
+			args := strings.Split(_procFlags.Cmd, " ")
+			cmd := exec.Command(args[0], args[1:]...)
+			err := cmd.Start()
+			if err != nil {
+				log.Critical("failed to cmd.Start: %s", err)
+				return 1
+			}
+
+			pid = cmd.Process.Pid
+
+			go func() {
+				err := cmd.Wait()
+				if err != nil {
+					log.Critical("failed to cmd.Wait: %s", err)
+				}
+				endCh <- struct{}{}
+			}()
+		} else {
+			log.Critical("pid and command line are not set (or set to non-positive value)")
+			return 1
+		}
+	} else if _procFlags.Cmd != "" {
+		log.Critical("you cannot set both pid and command line")
 		return 1
 	}
 
@@ -78,11 +108,11 @@ func (cmd procCmd) Run(args []string) int {
 	procInspector := &inspector.ProcInspector{
 		OrchestratorURL: _procFlags.OrchestratorURL,
 		EntityID:        _procFlags.EntityID,
-		RootPID:         _procFlags.RootPID,
+		RootPID:         pid,
 		WatchInterval:   _procFlags.WatchInterval,
 	}
 
-	if err := procInspector.Serve(); err != nil {
+	if err := procInspector.Serve(endCh); err != nil {
 		panic(log.Critical(err))
 	}
 

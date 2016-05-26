@@ -45,7 +45,7 @@ func TestProcInspector(t *testing.T) {
 	insp, err := NewProcInspector("local://", "dummy", pid, 200*time.Millisecond)
 	assert.NoError(t, err)
 	go func() {
-		insp.Serve()
+		insp.Serve(nil)
 	}()
 	defer insp.Shutdown()
 	// dummy test at the moment
