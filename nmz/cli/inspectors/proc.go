@@ -89,10 +89,16 @@ func (cmd procCmd) Run(args []string) int {
 					return 1
 				}
 				cmd.Stdout = f
+
+				if _procFlags.Stderr == "" {
+					cmd.Stderr = f
+				}
 			}
 
 			if _procFlags.Stderr == "" {
-				cmd.Stderr = os.Stderr
+				if cmd.Stderr == nil {
+					cmd.Stderr = os.Stderr
+				}
 			} else {
 				f, err := os.OpenFile(_procFlags.Stderr, os.O_WRONLY|os.O_CREATE, 0622)
 				if err != nil {
