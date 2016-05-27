@@ -17,6 +17,7 @@ package inspectors
 
 import (
 	"flag"
+	"os"
 	"os/exec"
 	"strings"
 	"time"
@@ -32,6 +33,8 @@ type procFlags struct {
 	RootPID       int
 	WatchInterval time.Duration
 	Cmd           string
+	Stdout        string
+	Stderr        string
 }
 
 var (
@@ -44,6 +47,8 @@ func init() {
 	procFlagset.IntVar(&_procFlags.RootPID, "pid", -1, "PID for the target process tree")
 	procFlagset.DurationVar(&_procFlags.WatchInterval, "watch-interval", 1*time.Second, "Watching interval")
 	procFlagset.StringVar(&_procFlags.Cmd, "cmd", "", "Command for target process")
+	procFlagset.StringVar(&_procFlags.Stdout, "stdout", "", "Stdout for target process (used if -cmd option is given)")
+	procFlagset.StringVar(&_procFlags.Stderr, "stderr", "", "Stderr for target process (used if -cmd option is given)")
 }
 
 type procCmd struct {
@@ -74,6 +79,29 @@ func (cmd procCmd) Run(args []string) int {
 		if _procFlags.Cmd != "" {
 			args := strings.Split(_procFlags.Cmd, " ")
 			cmd := exec.Command(args[0], args[1:]...)
+
+			if _procFlags.Stdout == "" {
+				cmd.Stdout = os.Stdout
+			} else {
+				f, err := os.OpenFile(_procFlags.Stdout, os.O_WRONLY|os.O_CREATE, 0622)
+				if err != nil {
+					log.Critical("failed to open a file %s for stdout: %s", _procFlags.Stdout, err)
+					return 1
+				}
+				cmd.Stdout = f
+			}
+
+			if _procFlags.Stderr == "" {
+				cmd.Stderr = os.Stderr
+			} else {
+				f, err := os.OpenFile(_procFlags.Stderr, os.O_WRONLY|os.O_CREATE, 0622)
+				if err != nil {
+					log.Critical("failed to open a file %s for stderr: %s", _procFlags.Stderr, err)
+					return 1
+				}
+				cmd.Stderr = f
+			}
+
 			err := cmd.Start()
 			if err != nil {
 				log.Critical("failed to cmd.Start: %s", err)
