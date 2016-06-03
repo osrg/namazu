@@ -18,6 +18,7 @@ package proc
 import (
 	"fmt"
 	"strconv"
+	"syscall"
 	"time"
 
 	"github.com/AkihiroSuda/go-linuxsched"
@@ -155,9 +156,13 @@ func (this *ProcInspector) onAction(action *signal.ProcSetSchedAction) error {
 			continue
 		}
 		if warn := linuxsched.SetAttr(pid, attr); warn != nil {
-			// this happens frequently, but does not matter.
-			// so use log.Debugf rather than log.Warnf
-			log.Debugf("could not apply %#v to %d: %s", attr, pid, warn)
+			if warn == syscall.EPERM {
+				log.Errorf("could not apply %#v to %d: %v", attr, pid, warn)
+			} else {
+				// this happens frequently, but does not matter.
+				// so use log.Debugf rather than log.Warnf
+				log.Debugf("could not apply %#v to %d: %v", attr, pid, warn)
+			}
 		}
 	}
 	return nil
