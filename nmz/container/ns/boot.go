@@ -24,7 +24,7 @@ import (
 	docker "github.com/fsouza/go-dockerclient"
 )
 
-func Boot(client *docker.Client, opt *docker.CreateContainerOptions,
+func Boot(client *docker.Client, opt *docker.CreateContainerOptions, detach bool,
 	exitCh chan error) (*docker.Container, error) {
 	log.Debugf("Creating container for image %s", opt.Config.Image)
 	container, err := client.CreateContainer(*opt)
@@ -34,7 +34,15 @@ func Boot(client *docker.Client, opt *docker.CreateContainerOptions,
 
 	log.Debugf("Starting container %s", container.ID)
 	go func() {
-		exitCh <- dockerpty.Start(client, container, opt.HostConfig)
+		if detach {
+			err = client.StartContainer(container.ID, opt.HostConfig)
+			if err == nil {
+				_, err = client.WaitContainer(container.ID)
+			}
+			exitCh <- err
+		} else {
+			exitCh <- dockerpty.Start(client, container, opt.HostConfig)
+		}
 	}()
 
 	trial := 0
