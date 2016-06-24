@@ -39,7 +39,7 @@ func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnE
 		return
 	}
 	removeOnExit = flagSet.IsSet("-rm")
-	detach = flagSet.IsSet("detach")
+	detach = flagSet.IsSet("d") || flag.IsSet("-detach")
 
 	nmzCfgPath := flagSet.Lookup("-nmz-autopilot").Value.String()
 	nmzCfg, err = newConfig(nmzCfgPath)
