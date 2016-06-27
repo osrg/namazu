@@ -62,7 +62,7 @@ func help() string {
 Run a command in a new Namazu Container
 
 Docker-compatible options:
-  -d, --detach                    Run container in background and print container ID
+  -d, --detach                    Run container in background and print container ID (nmz itself runs in foreground)
   -i, --interactive               Keep STDIN open even if not attached
   -p                              Publish a container's port(s) to the host
   --name                          Assign a name to the container
@@ -106,6 +106,11 @@ func Run(args []string) int {
 	}
 	if removeOnExit {
 		defer ns.Remove(client, c)
+	}
+
+	if detach {
+		fmt.Printf("%s\n", c.ID)
+		log.Info("Namazu container is running the container in background, but Namazu itself keeps running in foreground.")
 	}
 
 	err = container.StartNamazuRoutines(c, nmzCfg)

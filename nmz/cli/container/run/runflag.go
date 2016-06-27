@@ -39,7 +39,7 @@ func parseRun(cmd *flag.FlagSet, args []string) (*docker.CreateContainerOptions,
 		flStdin      = cmd.Bool([]string{"i", "-interactive"}, false, "Keep STDIN open even if not attached")
 		flTty        = cmd.Bool([]string{"t", "-tty"}, false, "Allocate a pseudo-TTY")
 		flPrivileged = cmd.Bool([]string{"-privileged"}, false, "Give extended privileges to this container")
-		flDetach     = cmd.Bool([]string{"d", "-detach"}, false, "Run container in background and print container ID")
+		flDetach     = cmd.Bool([]string{"d", "-detach"}, false, "Run container in background and print container ID (nmz itself runs in foreground)")
 		flAutoRemove = cmd.Bool([]string{"-rm"}, false, "Automatically remove the container when it exits")
 
 		flName    = cmd.String([]string{"-name"}, "", "Assign a name to the container")
