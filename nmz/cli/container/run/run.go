@@ -27,7 +27,7 @@ import (
 	"github.com/osrg/namazu/nmz/util/config"
 )
 
-func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnExit bool, nmzCfg config.Config, err error) {
+func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnExit bool, detach bool, nmzCfg config.Config, err error) {
 	if len(args) < 3 {
 		// FIXME
 		err = fmt.Errorf("bad argument: %s", args)
@@ -39,6 +39,7 @@ func prepare(args []string) (dockerOpt *docker.CreateContainerOptions, removeOnE
 		return
 	}
 	removeOnExit = flagSet.IsSet("-rm")
+	detach = flagSet.IsSet("d") || flag.IsSet("-detach")
 
 	nmzCfgPath := flagSet.Lookup("-nmz-autopilot").Value.String()
 	nmzCfg, err = newConfig(nmzCfgPath)
@@ -61,12 +62,15 @@ func help() string {
 Run a command in a new Namazu Container
 
 Docker-compatible options:
-  -d, --detach                    [NOT SUPPORTED] Run container in background and print container ID
+  -d, --detach                    Run container in background and print container ID
   -i, --interactive               Keep STDIN open even if not attached
+  -p                              Publish a container's port(s) to the host
   --name                          Assign a name to the container
   --rm                            Automatically remove the container when it exits
   -t, --tty                       Allocate a pseudo-TTY
   -v, --volume=[]                 Bind mount a volume
+  --volumes-from                  Mount volumes from the specified container(s)
+  --privileged                    Give extended privileges to this container
 
 Namazu-specific options:
   -nmz-autopilot                      Namazu configuration file
@@ -77,7 +81,7 @@ NOTE: Unlike docker, COMMAND is mandatory at the moment.
 }
 
 func Run(args []string) int {
-	dockerOpt, removeOnExit, nmzCfg, err := prepare(args)
+	dockerOpt, removeOnExit, detach, nmzCfg, err := prepare(args)
 	if err != nil {
 		// do not panic here
 		fmt.Fprintf(os.Stderr, "%s\n", err)
@@ -91,7 +95,7 @@ func Run(args []string) int {
 	}
 
 	containerExitStatusChan := make(chan error)
-	c, err := ns.Boot(client, dockerOpt, containerExitStatusChan)
+	c, err := ns.Boot(client, dockerOpt, detach, containerExitStatusChan)
 	if err == docker.ErrNoSuchImage {
 		log.Critical(err)
 		// TODO: pull the image automatically
