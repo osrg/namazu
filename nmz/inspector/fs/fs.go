@@ -166,3 +166,25 @@ func (this *FilesystemInspector) PostRmdir(realRetCode int32, ctx hookfs.HookCon
 	log.Debugf("PostRmdir %s", ctx)
 	return nil, false
 }
+
+// implements hookfs.HookOnFsync
+func (this *FilesystemInspector) PreFsync(path string, flags uint32) (error, bool, hookfs.HookContext) {
+	ctx := EQFSHookContext{Path: path}
+	log.Debugf("PreFsync %s", ctx)
+	err, hooked := this.commonHook(PreFsync, path, map[string]interface{}{})
+	if hooked {
+		return err, true, ctx
+	} else {
+		if err != nil {
+			log.Error(err)
+		}
+		return nil, false, ctx
+	}
+	// NOTREACHED
+}
+
+// implements hookfs.HookOnFsync
+func (this *FilesystemInspector) PostFsync(realRetCode int32, ctx hookfs.HookContext) (error, bool) {
+	log.Debugf("PostFsync %s", ctx)
+	return nil, false
+}

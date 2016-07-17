@@ -32,6 +32,7 @@ const (
 	PreWrite = "pre-write"
 	PreMkdir = "pre-mkdir"
 	PreRmdir = "pre-rmdir"
+	PreFsync = "pre-fsync"
 )
 
 func NewFilesystemEvent(entityID string, op FilesystemOp, path string, m map[string]interface{}) (Event, error) {
