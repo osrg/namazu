@@ -54,6 +54,7 @@ func TestFilesystemInspectorInterfaceImpl(t *testing.T) {
 	func(x hookfs.HookOnMkdir) {}(h)
 	func(x hookfs.HookOnRmdir) {}(h)
 	func(x hookfs.HookOnOpenDir) {}(h)
+	func(x hookfs.HookOnFsync) {}(h)
 }
 
 func newFUSEServer(t *testing.T, fs *hookfs.HookFs) *fuse.Server {
