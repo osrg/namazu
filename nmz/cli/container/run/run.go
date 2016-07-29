@@ -89,6 +89,11 @@ func Run(args []string) int {
 		return 1
 	}
 
+	dockerOpt, err = container.StartNamazuRoutinesPre(dockerOpt, nmzCfg)
+	if err != nil {
+		panic(log.Critical(err))
+	}
+
 	client, err := ns.NewDockerClient()
 	if err != nil {
 		panic(log.Critical(err))
@@ -113,7 +118,7 @@ func Run(args []string) int {
 		log.Info("Namazu container is running the container in background, but Namazu itself keeps running in foreground.")
 	}
 
-	err = container.StartNamazuRoutines(c, nmzCfg)
+	err = container.StartNamazuRoutinesPost(c, nmzCfg)
 	if err != nil {
 		panic(log.Critical(err))
 	}

@@ -17,13 +17,15 @@ package container
 
 import (
 	"fmt"
+	"io/ioutil"
+	"strings"
 
 	log "github.com/cihub/seelog"
 	docker "github.com/fsouza/go-dockerclient"
 	"github.com/osrg/namazu/nmz/util/config"
 )
 
-func StartNamazuRoutines(c *docker.Container, cfg config.Config) error {
+func StartNamazuRoutinesPre(dockerOpt *docker.CreateContainerOptions, cfg config.Config) (*docker.CreateContainerOptions, error) {
 	log.Debugf("Starting Orchestrator")
 	go func() {
 		oerr := StartOrchestrator(cfg)
@@ -32,6 +34,34 @@ func StartNamazuRoutines(c *docker.Container, cfg config.Config) error {
 		}
 	}()
 
+	var newBinds []string
+	for _, bind := range dockerOpt.HostConfig.Binds {
+		split := strings.Split(bind, ":")
+		if len(split) != 2 {
+			return dockerOpt, fmt.Errorf("bind is expected to be <foo>:<bar>, got %s", bind)
+		}
+		bindSrc, bindDst := split[0], split[1]
+		mountpoint, err := ioutil.TempDir("", "nmz-container-fs-inspector")
+		if err != nil {
+			return dockerOpt, err
+		}
+		if cfg.GetBool("container.enableFSInspector") {
+			log.Debugf("Starting Filesystem Inspector for %s (on %s)", bindSrc, mountpoint)
+			log.Warnf("Please run `fusermount -i %s` manually on exit", mountpoint)
+			go func() {
+				ierr := ServeFSInspector(bindSrc, mountpoint)
+				if ierr != nil {
+					panic(log.Critical(ierr))
+				}
+			}()
+		}
+		newBinds = append(newBinds, fmt.Sprintf("%s:%s", mountpoint, bindDst))
+	}
+	dockerOpt.HostConfig.Binds = newBinds
+	return dockerOpt, nil
+}
+
+func StartNamazuRoutinesPost(c *docker.Container, cfg config.Config) error {
 	if cfg.GetBool("container.enableEthernetInspector") {
 		nfqNum := cfg.GetInt("container.ethernetNFQNumber")
 		if nfqNum <= 0 {

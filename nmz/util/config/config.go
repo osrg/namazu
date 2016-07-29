@@ -90,6 +90,7 @@ func New() Config {
 	cfg.SetDefault("container", map[string]interface{}{
 		"enableEthernetInspector": false,
 		"enableProcInspector":     true,
+		"enableFSInspector":       true,
 		"ethernetNFQNumber":       42,
 		"procWatchInterval":       time.Second,
 	})
