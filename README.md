@@ -117,6 +117,8 @@ explorePolicy = "random"
   # Default: true
   enableProcInspector = true
   procWatchInterval = "1s"
+  # Default: true (for volumes (`-v /foo:/bar`))
+  enableFSInspector = true
 ```
 For other parameters, please refer to [`config.go`](nmz/util/config/config.go) and [`randompolicy.go`](nmz/explorepolicy/random/randompolicy.go).
 
