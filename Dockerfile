@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ## (Optional) Install pynmz nfqhook deps
     libnetfilter-queue1 python-prctl
 
-## Install Go 1.6
-RUN curl https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar Cxz /usr/local && mkdir /gopath
+## Install Go
+RUN curl https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz | tar Cxz /usr/local && mkdir /gopath
 ENV PATH /usr/local/go/bin:$PATH
 ENV GOPATH /gopath
 
