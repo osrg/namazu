@@ -55,14 +55,3 @@ func TestWriteJSON(t *testing.T) {
 	t.Logf("body: \"%s\"", body)
 	assert.Contains(t, body, "baz")
 }
-
-func TestWriteBadJSON(t *testing.T) {
-	w := httptest.NewRecorder()
-	m := map[int]interface{}{
-		42: "foo",
-	}
-	err := WriteJSON(w, m)
-	// err should be "json: unsupported type: map[int]interface {}"
-	t.Logf("error is expected here: %s", err)
-	assert.Error(t, err)
-}
