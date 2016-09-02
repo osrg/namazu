@@ -49,5 +49,6 @@ if __name__ == '__main__':
     else:
         log('Running without privileged mode. Please set NMZ_DOCKER_PRIVILEGED if you want to use Ethernet Inspector')
 
-    log('Namazu is installed on /namazu. Please refer to /namazu/README.md')
+    log('Namazu is installed on $GOPATH/src/github.com/osrg/namazu. Please refer to namazu/README.md')
     run_command_and_exit(com + get_remaining_args())
+
