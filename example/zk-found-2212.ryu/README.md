@@ -32,7 +32,8 @@ because `ovsbr0` is expected to be configured as `192.168.42.254/24` in the expe
 
 NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper-2212](https://registry.hub.docker.com/u/osrg/earthquake-zookeeper-2212/) container (based on Namazu v0.1).
 
-    $ sudo pip install pip install git+https://github.com/twitter/zktraffic@68d9f85d8508e01f5d2f6657666c04e444e6423c  #(Jul 18, 2015)
+    $ sudo pip install git+https://github.com/twitter/zktraffic@68d9f85d8508e01f5d2f6657666c04e444e6423c  #(Jul 18, 2015)
+    $ sudo pip install hookswitch
     $ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/nmz init --force config.toml materials /tmp/zk-2212
     [INFO] Checking whether Docker is installed
     [INFO] Checking whether pipework is installed
