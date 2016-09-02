@@ -183,13 +183,14 @@ To be documented
 We welcome your contribution to Namazu.
 Please feel free to send your pull requests on github!
 
-    $ git clone https://github.com/osrg/namazu.git
+    $ cd $GOPATH/src/github.com/osrg
+    $ git clone https://github.com/YOUR_GITHUB_ACCOUNT/namazu.git
     $ cd namazu
     $ git checkout -b your-branch
-	$ ./build
-	$ your-editor foo.go
-	$ ./clean && ./build && go test -race ./...
-	$ git commit -a -s
+    $ ./build
+    $ your-editor foo.go
+    $ ./clean && ./build && go test -race ./nmz/...
+    $ git commit -a -s
 
 ## Copyright
 Copyright (C) 2015 [Nippon Telegraph and Telephone Corporation](http://www.ntt.co.jp/index_e.html).

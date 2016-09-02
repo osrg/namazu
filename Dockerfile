@@ -37,11 +37,12 @@ RUN chmod +x /usr/local/bin/pipework
 ## (Optional) Create a user for nfqueue sandbox
 RUN useradd -m nfqhooked
 
-## Copy Namazu to /namazu
-ADD . /namazu
-WORKDIR /namazu
+## Copy Namazu to $GOPATH/src/github.com/osrg/namazu
+RUN mkdir -p $GOPATH/src/github.com/osrg
+ADD . $GOPATH/src/github.com/osrg/namazu
+WORKDIR $GOPATH/src/github.com/osrg/namazu
 RUN ( git submodule init && git submodule update )
-ENV PYTHONPATH /namazu:$PYTHONPATH
+ENV PYTHONPATH $GOPATH/src/github.com/osrg/namazu:$PYTHONPATH
 
 ## Build Namazu
 RUN ./build

@@ -9,13 +9,8 @@ function INFO(){
 ########## Set up ##########
 cd $(dirname $0)
 [ -z $GOPATH ] && (echo "GOPATH is not set"; exit 1)
-[[ $GOPATH = $(pwd)* ]] && (echo "GOPATH(${GOPATH}) should be *outside* of $(pwd). otherwise some tools like IntelliJ can get stuck."; exit 1)
 export GOBIN=$GOPATH/bin
 export PATH=$GOBIN:$PATH
-mkdir -p $GOPATH/src/github.com/osrg
-rm -f $GOPATH/src/github.com/osrg/namazu
-INFO "Linking $(pwd) to $GOPATH/src/github.com/osrg/namazu"
-ln -sf $(pwd) $GOPATH/src/github.com/osrg/namazu
 
 ########## ProtocolBuffers ##########
 INFO "Installing protoc to $GOBIN"
