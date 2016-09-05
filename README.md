@@ -23,6 +23,15 @@ Blog: [http://osrg.github.io/namazu/](http://osrg.github.io/namazu/)
 
 Twitter: [@NamazuFuzzTest](https://twitter.com/NamazuFuzzTest)
 
+## Looking for Namazu Swarm (Distributed Parallel CI)?
+
+[Namazu Swarm](https://github.com/osrg/namazu-swarm) executes multiple CI jobs in parallel across a Docker cluster.
+[Namazu Swarm](https://github.com/osrg/namazu-swarm) is developed as a part of Namazu, but it does not depends on Namazu (although you can combine them together).
+
+<img src="https://raw.githubusercontent.com/osrg/namazu-swarm/507f1ea51790ebc6d64740e8eb14e009d0353970/docs/img/nmzswarm.png" width="300" />
+
+Namazu Swarm is hosted at [osrg/namazu-swarm](https://github.com/osrg/namazu-swarm).
+
 ## Found and Reproduced Bugs
 
 :new:=Found, :repeat:=Reproduced
