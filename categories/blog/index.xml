@@ -20,7 +20,7 @@
 
 &lt;p&gt;We are glad to annouce the release of &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;Namazu&lt;/a&gt; v0.2.1.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/osrg/namazu/05e3fb5343e708990fd7132416678d339df59438/doc/img/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu-v0.2.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Namazu v0.2.1 is a maintanance release of &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/release-0-2-0/&#34;&gt;Namazu v0.2.0&lt;/a&gt;&lt;/p&gt;
 
@@ -104,7 +104,7 @@ $ go get github.com/osrg/namazu/nmz
 
 &lt;p&gt;We are glad to annouce the release of &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;Namazu&lt;/a&gt; v0.2.0.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/osrg/namazu/05e3fb5343e708990fd7132416678d339df59438/doc/img/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu-v0.2.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Namazu v0.2.0 includes many new features: Process inspector, Filesystem inspector, Container CLI, Semi-deterministic replaying API&amp;hellip;&lt;/p&gt;
 
