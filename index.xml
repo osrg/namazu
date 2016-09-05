@@ -7,8 +7,54 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Copyright© 2015 Nippon Telegraph and Telephone Corporation</copyright>
-    <lastBuildDate>Fri, 20 May 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 05 Sep 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://osrg.github.io/namazu/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Release Namazu v0.2.1, with Namazu Swarm v0.0.1!</title>
+      <link>http://osrg.github.io/namazu/post/release-0-2-1/</link>
+      <pubDate>Mon, 05 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://osrg.github.io/namazu/post/release-0-2-1/</guid>
+      <description>
+
+&lt;p&gt;We are glad to annouce the release of &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;Namazu&lt;/a&gt; v0.2.1.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/osrg/namazu/05e3fb5343e708990fd7132416678d339df59438/doc/img/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Namazu v0.2.1 is a maintanance release of &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/release-0-2-0/&#34;&gt;Namazu v0.2.0&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;You can download the Namazu v0.2.1 binary release from &lt;a href=&#34;https://github.com/osrg/namazu/releases/tag/v0.2.1&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Or you can also build Namazu manually:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
+$ go get github.com/osrg/namazu/nmz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;changes-from-v0-2-0&#34;&gt;Changes from v0.2.0&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;#167, #168, #169, #170: doc: miscellaneous improvements&lt;/li&gt;
+&lt;li&gt;#166: vendor go packages&lt;/li&gt;
+&lt;li&gt;#163: *: bump up Go to 1.7&lt;/li&gt;
+&lt;li&gt;#162: container: add support for inspectors/fs&lt;/li&gt;
+&lt;li&gt;#160: inspectors/fs: implement Fsync&lt;/li&gt;
+&lt;li&gt;#158, #159: inspectors/fs: improved CLI (thank you @v01dstar !)&lt;/li&gt;
+&lt;li&gt;#156: inspectors/proc: improved error handling&lt;/li&gt;
+&lt;li&gt;#154, #155: inspectors/proc: improved CLI&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;namazu-swarm-v0-0-1&#34;&gt;Namazu Swarm v0.0.1&lt;/h2&gt;
+
+&lt;p&gt;We also released the first version of &lt;a href=&#34;https://github.com/osrg/namazu-swarm&#34;&gt;Namazu Swarm&lt;/a&gt;, CI Job Parallelizer built on Docker and Kubernetes
+&lt;a href=&#34;https://github.com/osrg/namazu-swarm&#34;&gt;Namazu Swarm&lt;/a&gt; is developed as a part of Namazu, but it does not depends on Namazu (although you can combine them together).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/osrg/namazu-swarm/507f1ea51790ebc6d64740e8eb14e009d0353970/docs/img/nmzswarm.png&#34; alt=&#34;Namazu Swarm&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Namazu Swarm is hosted at &lt;a href=&#34;https://github.com/osrg/namazu-swarm&#34;&gt;osrg/namazu-swarm&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>CoreOS Fest &amp; ApacheCon: Thank you for attending our presentations!</title>
@@ -24,21 +70,21 @@
 
 &lt;p&gt;Thank you all for attending our presentations and discussing with us!&lt;/p&gt;
 
-&lt;h2 id=&#34;coreos-fest:fd223fb442ab2022bef3abd6448c1236&#34;&gt;CoreOS Fest&lt;/h2&gt;
+&lt;h2 id=&#34;coreos-fest&#34;&gt;CoreOS Fest&lt;/h2&gt;
 
 
 &lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/7gvBc1bJ0dfCDV?startSlide=1&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
 
 
 
-&lt;h2 id=&#34;apachecon:fd223fb442ab2022bef3abd6448c1236&#34;&gt;ApacheCon&lt;/h2&gt;
+&lt;h2 id=&#34;apachecon&#34;&gt;ApacheCon&lt;/h2&gt;
 
 
 &lt;iframe src=&#34;//www.slideshare.net/slideshow/embed_code/key/esat324HuI0vud?startSlide=1&#34; width=&#34;595&#34; height=&#34;485&#34; frameborder=&#34;0&#34; marginwidth=&#34;0&#34; marginheight=&#34;0&#34; scrolling=&#34;no&#34; style=&#34;border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;&#34; allowfullscreen&gt; &lt;/iframe&gt;
 
 
 
-&lt;h2 id=&#34;related-work:fd223fb442ab2022bef3abd6448c1236&#34;&gt;Related work&lt;/h2&gt;
+&lt;h2 id=&#34;related-work&#34;&gt;Related work&lt;/h2&gt;
 
 &lt;p&gt;At events, we found two projects related to our work: &lt;a href=&#34;http://sched.co/6T0X&#34;&gt;Runway&lt;/a&gt; (by Diego Ongaro, Salesforce, at CoreOS Fest) and &lt;a href=&#34;http://sched.co/6M0A&#34;&gt;dist_test&lt;/a&gt; (by Andrew Wang, Cloudera, at ApacheCon).&lt;/p&gt;
 
@@ -58,7 +104,7 @@
 
 &lt;p&gt;We are glad to annouce the release of &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;Namazu&lt;/a&gt; v0.2.0.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/osrg/namazu/05e3fb5343e708990fd7132416678d339df59438/doc/img/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Namazu v0.2.0 includes many new features: Process inspector, Filesystem inspector, Container CLI, Semi-deterministic replaying API&amp;hellip;&lt;/p&gt;
 
@@ -73,9 +119,9 @@ Now, no configuration is needed to get started with Namazu.&lt;/p&gt;
 $ go get github.com/osrg/namazu/nmz
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;new-features:7da5e3e0fa4066d05403654157265844&#34;&gt;New features&lt;/h2&gt;
+&lt;h2 id=&#34;new-features&#34;&gt;New features&lt;/h2&gt;
 
-&lt;h3 id=&#34;process-inspector:7da5e3e0fa4066d05403654157265844&#34;&gt;Process inspector&lt;/h3&gt;
+&lt;h3 id=&#34;process-inspector&#34;&gt;Process inspector&lt;/h3&gt;
 
 &lt;p&gt;The process inspector sets random scheduling priority to threads under a specific Linux process:&lt;/p&gt;
 
@@ -90,7 +136,7 @@ $ go get github.com/osrg/namazu/nmz
 
 &lt;/p&gt;
 
-&lt;h3 id=&#34;filesystem-inspector:7da5e3e0fa4066d05403654157265844&#34;&gt;Filesystem inspector&lt;/h3&gt;
+&lt;h3 id=&#34;filesystem-inspector&#34;&gt;Filesystem inspector&lt;/h3&gt;
 
 &lt;p&gt;The filesystem inspector provides randomized scheduling and fault injection for filesystem using FUSE:&lt;/p&gt;
 
@@ -107,7 +153,7 @@ $ sudo fusermount -u /tmp/nmzfs
 
 
 
-&lt;h3 id=&#34;container-cli:7da5e3e0fa4066d05403654157265844&#34;&gt;Container CLI&lt;/h3&gt;
+&lt;h3 id=&#34;container-cli&#34;&gt;Container CLI&lt;/h3&gt;
 
 &lt;p&gt;We introduced &lt;em&gt;Namazu Container&lt;/em&gt;, a new human-friendly, Docker-like CLI:&lt;/p&gt;
 
@@ -125,7 +171,7 @@ nmzc$ for f in $(seq 1 1000);do mvn test; done
 &lt;p&gt;By default, only process inspector is enabled in &lt;em&gt;Namazu Container&lt;/em&gt;.
 Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README file&lt;/a&gt; for configuration.&lt;/p&gt;
 
-&lt;h3 id=&#34;semi-deterministic-replaying-api:7da5e3e0fa4066d05403654157265844&#34;&gt;Semi-deterministic replaying API&lt;/h3&gt;
+&lt;h3 id=&#34;semi-deterministic-replaying-api&#34;&gt;Semi-deterministic replaying API&lt;/h3&gt;
 
 &lt;p&gt;Semi-deterministic replayer is an experimental feature:
 it determines a delay for an event using a seed value and the hash of the event, rather than just using a random value.&lt;/p&gt;
@@ -137,7 +183,7 @@ it determines a delay for an event using a seed value and the hash of the event,
 
 
 
-&lt;h3 id=&#34;miscellaneous-improvements:7da5e3e0fa4066d05403654157265844&#34;&gt;Miscellaneous improvements&lt;/h3&gt;
+&lt;h3 id=&#34;miscellaneous-improvements&#34;&gt;Miscellaneous improvements&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Renamed Earthquake to Namazu, and introduced a logo image&lt;/li&gt;
@@ -145,7 +191,7 @@ it determines a delay for an event using a seed value and the hash of the event,
 &lt;li&gt;Unit tests for Namazu itself&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;talks:7da5e3e0fa4066d05403654157265844&#34;&gt;Talks&lt;/h2&gt;
+&lt;h2 id=&#34;talks&#34;&gt;Talks&lt;/h2&gt;
 
 &lt;p&gt;Recently, we made presentations at two events: &lt;a href=&#34;http://sched.co/6Szb&#34;&gt;CoreOS Fest&lt;/a&gt; (May 10) and &lt;a href=&#34;http://sched.co/6OJU&#34;&gt;ApacheCon Core NA&lt;/a&gt; (May 12).&lt;/p&gt;
 
@@ -161,7 +207,7 @@ it determines a delay for an event using a seed value and the hash of the event,
       <guid>http://osrg.github.io/namazu/_index/</guid>
       <description>
 
-&lt;h1 id=&#34;what-is-this:3976528693a0108357f4928017600865&#34;&gt;What is this?&lt;/h1&gt;
+&lt;h1 id=&#34;what-is-this&#34;&gt;What is this?&lt;/h1&gt;
 
 &lt;p&gt;In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.&lt;/p&gt;
 
@@ -173,11 +219,11 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 &lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
 
-&lt;h1 id=&#34;found-reproduced-bugs:3976528693a0108357f4928017600865&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
+&lt;h1 id=&#34;found-reproduced-bugs&#34;&gt;Found/Reproduced Bugs&lt;/h1&gt;
 
 &lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README file&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;how-to-use:3976528693a0108357f4928017600865&#34;&gt;How to use?&lt;/h1&gt;
+&lt;h1 id=&#34;how-to-use&#34;&gt;How to use?&lt;/h1&gt;
 
 &lt;p&gt;Please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/master/README.md&#34;&gt;README file&lt;/a&gt;.&lt;/p&gt;
 
@@ -186,7 +232,7 @@ but we believe that one of the most important reasons is lacking of a good debug
 &lt;p&gt;The slides for recent talks might be also helpful:
 &lt;a href=&#34;http://www.slideshare.net/AkihiroSuda/flaky-tests-and-bugs-in-apache-software-eg-hadoop&#34;&gt;ApacheCon&lt;/a&gt;, &lt;a href=&#34;http://www.slideshare.net/mitakeh/namazu-a-debugger-for-distributed-systems-specific-bugs/1&#34;&gt;CoreOS Fest&lt;/a&gt;, and &lt;a href=&#34;http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42&#34;&gt;FOSDEM&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&#34;contact:3976528693a0108357f4928017600865&#34;&gt;Contact&lt;/h1&gt;
+&lt;h1 id=&#34;contact&#34;&gt;Contact&lt;/h1&gt;
 
 &lt;p&gt;The project is managed on &lt;a href=&#34;https://github.com/osrg/namazu&#34;&gt;github&lt;/a&gt;.
 &lt;a href=&#34;https://github.com/osrg/namazu/pulls&#34;&gt;Pull requests&lt;/a&gt; and &lt;a href=&#34;https://github.com/osrg/namazu/issues&#34;&gt;issues&lt;/a&gt; are welcome.
@@ -227,7 +273,7 @@ We hope it will make your life a little bit easier.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;references:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;References&lt;/h2&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &amp;lsquo;14.&lt;/a&gt;&lt;/li&gt;
@@ -247,13 +293,13 @@ We hope it will make your life a little bit easier.&lt;/p&gt;
 
 &lt;p&gt;These subprojects were originally developed for Namazu, but we believe they can be also used for other purposes.&lt;/p&gt;
 
-&lt;h3 id=&#34;hookswitch-a-usermode-packet-injection-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookSwitch: A Usermode Packet Injection Library&lt;/h3&gt;
+&lt;h3 id=&#34;hookswitch-a-usermode-packet-injection-library&#34;&gt;HookSwitch: A Usermode Packet Injection Library&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://badge.fury.io/py/hookswitch&#34;&gt;&lt;img src=&#34;https://badge.fury.io/py/hookswitch.svg&#34; alt=&#34;PyPI version&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookswitch&#34;&gt;https://github.com/osrg/hookswitch&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;hookfs-a-usermode-hookable-filesystem-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookFS: A Usermode Hookable Filesystem Library&lt;/h3&gt;
+&lt;h3 id=&#34;hookfs-a-usermode-hookable-filesystem-library&#34;&gt;HookFS: A Usermode Hookable Filesystem Library&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookfs&#34;&gt;https://github.com/osrg/hookfs&lt;/a&gt;&lt;/p&gt;
 </description>
@@ -310,7 +356,7 @@ We hope it will make your life a little bit easier.&lt;/p&gt;
       <guid>http://osrg.github.io/namazu/post/zookeeper-2080/</guid>
       <description>
 
-&lt;h2 id=&#34;introduction:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Introduction&lt;/h2&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://zookeeper.apache.org/&#34;&gt;Apache Zookeeper&lt;/a&gt; is a highly available coordination service that is used by many distributed systems.
 (See also &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;our previous post about ZOOKEEPER-2212&lt;/a&gt;)&lt;/p&gt;
@@ -320,7 +366,7 @@ However, due to its high non-determinism, some test scenarios are still flaky, p
 
 &lt;p&gt;Using Earthquake, we successfully reproduced the bug &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; and analyzed its cause.&lt;/p&gt;
 
-&lt;h2 id=&#34;the-bug:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;The Bug&lt;/h2&gt;
+&lt;h2 id=&#34;the-bug&#34;&gt;The Bug&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; reports that the JUnit test &lt;code&gt;ReconfigRecoveryTest.testCurrentObserverIsParticipantInNewConfig&lt;/code&gt; fails intermittently.&lt;/p&gt;
 
@@ -331,14 +377,14 @@ However, due to its high non-determinism, some test scenarios are still flaky, p
 &lt;p&gt;Unfortunately, to fix the bug gracefully, drastic changes to &lt;code&gt;QuorumCnxManager&lt;/code&gt; (suggested since 2010: &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-901&#34;&gt;ZOOKEEPER-901&lt;/a&gt;) might be needed.
 We continue to look on the progress of ZOOKEEPER-901 and several related tickets such as &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-900&#34;&gt;ZOOKEEPER-900&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2164&#34;&gt;2164&lt;/a&gt; and &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2246&#34;&gt;2246&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
+&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
 
 &lt;p&gt;The bug can be easily reproduced by injecting several tens of millisecs sleeps to FLE (Fast Leader Election protocol) packets.
 We did not have to permute packets explicitly.&lt;/p&gt;
 
 &lt;p&gt;NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as &lt;a href=&#34;https://github.com/osrg/hookswitch/&#34;&gt;osrg/hookswitch&lt;/a&gt;. HookSwitch can also hook OpenFlow packets, as &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;we used in ZOOKEEPER-2212&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&#34;set-up-earthquake-v0-1-2:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Set up Earthquake (v0.1.2)&lt;/h3&gt;
+&lt;h3 id=&#34;set-up-earthquake-v0-1-2&#34;&gt;Set up Earthquake (v0.1.2)&lt;/h3&gt;
 
 &lt;p&gt;For more information about setting up Earthquake, please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/v0.1.2/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt;.&lt;/p&gt;
 
@@ -350,7 +396,7 @@ docker$ cd /earthquake/example/zk-repro-2080.nfqhook
 docker$ ../../bin/earthquake init --force config.toml materials /tmp-zk-2080 #BUG(Dockerfile): in some envs, you may be unable to write in /tmp.
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;run-experiments:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Run Experiments&lt;/h3&gt;
+&lt;h3 id=&#34;run-experiments&#34;&gt;Run Experiments&lt;/h3&gt;
 
 &lt;p&gt;First, confirm that ZooKeeper works fine with&lt;em&gt;out&lt;/em&gt; Earthquake (by setting &lt;code&gt;EQ_DISABLE&lt;/code&gt;).&lt;/p&gt;
 
@@ -373,7 +419,7 @@ validation failed: exit status 1
 
 &lt;p&gt;If the bug could not be reproduced, you might have to modify the &lt;code&gt;sleep&lt;/code&gt; parameter in &lt;code&gt;config.toml&lt;/code&gt;. (about 30 msecs to 80 msecs)&lt;/p&gt;
 
-&lt;h3 id=&#34;analyze:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Analyze&lt;/h3&gt;
+&lt;h3 id=&#34;analyze&#34;&gt;Analyze&lt;/h3&gt;
 
 &lt;p&gt;Unlike we experienced in &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.&lt;/p&gt;
 
@@ -426,7 +472,7 @@ Although the suspicious set can contain some misleading information, it is enoug
 
 &lt;p&gt;To fix the bug gracefully, using non-blocking TCP sockets (suggested in &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-901&#34;&gt;ZOOKEEPER-901&lt;/a&gt;) might be needed.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;We reproduced the flaky JUnit test bug &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; and analyzed its cause using Earthquake.&lt;/p&gt;
 
@@ -447,7 +493,7 @@ Although the suspicious set can contain some misleading information, it is enoug
       <guid>http://osrg.github.io/namazu/post/zookeeper-2212/</guid>
       <description>
 
-&lt;h2 id=&#34;introduction:6404b3763f3a9572f2be258882d8c375&#34;&gt;Introduction&lt;/h2&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://zookeeper.apache.org/&#34;&gt;Apache Zookeeper&lt;/a&gt; is a highly available coordination service that is used by distributed systems such as &lt;a href=&#34;https://hadoop.apache.org/&#34;&gt;Hadoop(via YARN)&lt;/a&gt;, &lt;a href=&#34;http://spark.apache.org/&#34;&gt;Spark&lt;/a&gt;,  &lt;a href=&#34;http://mesos.apache.org/&#34;&gt;Mesos&lt;/a&gt;, &lt;a href=&#34;http://kafka.apache.org/&#34;&gt;Kafka&lt;/a&gt;, &lt;a href=&#34;http://hbase.apache.org/&#34;&gt;HBase&lt;/a&gt;, and many others.&lt;/p&gt;
 
@@ -455,7 +501,7 @@ Although the suspicious set can contain some misleading information, it is enoug
 
 &lt;p&gt;We reported the bug to ZooKeeper community (&lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;), and the bug is fixed in &lt;a href=&#34;https://github.com/apache/zookeeper/commit/ec056d3c3a18b862d0cd83296b7d4319652b0b1c&#34;&gt;commit ec056d (Jun 15, 2015)&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;The Bug&lt;/h2&gt;
+&lt;h2 id=&#34;the-bug&#34;&gt;The Bug&lt;/h2&gt;
 
 &lt;p&gt;We found a race-condition situation where an &amp;ldquo;observer&amp;rdquo; server keeps being an observer and cannot become a &amp;ldquo;participant&amp;rdquo;. &lt;a href=&#34;http://zookeeper.apache.org/doc/trunk/zookeeperReconfig.html#sc_reconfig_general&#34;&gt;(Document)&lt;/a&gt;&lt;/p&gt;
 
@@ -463,9 +509,9 @@ Although the suspicious set can contain some misleading information, it is enoug
 
 &lt;p&gt;Without Earthquake, we could not reproduce the bug in 5,000 experiments. (took about 60 hours)&lt;/p&gt;
 
-&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake:6404b3763f3a9572f2be258882d8c375&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
+&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
 
-&lt;h3 id=&#34;set-up-earthquake-v0-1-1:6404b3763f3a9572f2be258882d8c375&#34;&gt;Set up Earthquake (v0.1.1)&lt;/h3&gt;
+&lt;h3 id=&#34;set-up-earthquake-v0-1-1&#34;&gt;Set up Earthquake (v0.1.1)&lt;/h3&gt;
 
 &lt;p&gt;Please see &lt;a href=&#34;https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt; for how to setup the environment.&lt;/p&gt;
 
@@ -512,7 +558,7 @@ ok
 +-------------------------------------------------------------+
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;run-experiments:6404b3763f3a9572f2be258882d8c375&#34;&gt;Run Experiments&lt;/h3&gt;
+&lt;h3 id=&#34;run-experiments&#34;&gt;Run Experiments&lt;/h3&gt;
 
 &lt;p&gt;After you have set up the environment, you can run experiments as follows.&lt;/p&gt;
 
@@ -552,7 +598,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 00000002 caused failure
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;experiment-0-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-0-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
 
 &lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
@@ -572,7 +618,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 &lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-1-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-1-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
 
 &lt;p&gt;zk2 was already a participant when it received &lt;code&gt;UpToDate&lt;/code&gt;&lt;/p&gt;
 
@@ -590,7 +636,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 &lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-2-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-2-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
 
 &lt;p&gt;zk2 was not able to be promoted (please see above for the reason)&lt;/p&gt;
 
@@ -608,7 +654,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-3-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-3-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
 
 &lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
@@ -627,7 +673,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;conclusion:6404b3763f3a9572f2be258882d8c375&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;We found a distributed race condition bug of ZooKeeper, and identified its cause using Earthquake.&lt;/p&gt;
 

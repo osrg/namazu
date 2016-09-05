@@ -40,7 +40,7 @@ We hope it will make your life a little bit easier.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://osrg.github.io/namazu/namazu/images/namazu.png&#34; alt=&#34;Overview&#34; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&#34;references:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;References&lt;/h2&gt;
+&lt;h2 id=&#34;references&#34;&gt;References&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.usenix.org/conference/osdi14/technical-sessions/presentation/leesatapornwongsa&#34; title=&#34;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &#39;14.&#34;&gt;Tanakorn Leesatapornwongsa, et al. SAMC: Semantic-Aware Model Checking for Fast Discovery of Deep Bugs in Cloud Systems. In Proc. of OSDI &amp;lsquo;14.&lt;/a&gt;&lt;/li&gt;
@@ -60,13 +60,13 @@ We hope it will make your life a little bit easier.&lt;/p&gt;
 
 &lt;p&gt;These subprojects were originally developed for Namazu, but we believe they can be also used for other purposes.&lt;/p&gt;
 
-&lt;h3 id=&#34;hookswitch-a-usermode-packet-injection-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookSwitch: A Usermode Packet Injection Library&lt;/h3&gt;
+&lt;h3 id=&#34;hookswitch-a-usermode-packet-injection-library&#34;&gt;HookSwitch: A Usermode Packet Injection Library&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://badge.fury.io/py/hookswitch&#34;&gt;&lt;img src=&#34;https://badge.fury.io/py/hookswitch.svg&#34; alt=&#34;PyPI version&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookswitch&#34;&gt;https://github.com/osrg/hookswitch&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;hookfs-a-usermode-hookable-filesystem-library:c91eef9bf2ac1e96ec09a8a3562b6e3d&#34;&gt;HookFS: A Usermode Hookable Filesystem Library&lt;/h3&gt;
+&lt;h3 id=&#34;hookfs-a-usermode-hookable-filesystem-library&#34;&gt;HookFS: A Usermode Hookable Filesystem Library&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/osrg/hookfs&#34;&gt;https://github.com/osrg/hookfs&lt;/a&gt;&lt;/p&gt;
 </description>

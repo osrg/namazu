@@ -1,15 +1,13 @@
-
 <!DOCTYPE html>
 
 
 <html lang="en">
 	<head>
-	<meta name="generator" content="Hugo 0.16" />
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="alternate" href="/index.xml" type="application/rss+xml" title="Namazu">
 		
-		<title>Namazu</title>
+		<title>Release Namazu v0.2.1, with Namazu Swarm v0.0.1! - Namazu</title>
 		
 		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/highlight.js.min.css">
 		<link rel="stylesheet" href="http://osrg.github.io/namazu//css/bootstrap.min.css">
@@ -34,7 +32,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="http://osrg.github.io/namazu//">Home</a></li>
+					<li ><a href="http://osrg.github.io/namazu//">Home</a></li>
 			
 				
 				
@@ -85,60 +83,73 @@
 
 
 <div class="row">
-  
-  <div class="jumbotron">
-    <h1>Namazu</h1>
-    <p>A programmable fuzzy scheduler for testing distributed systems (formerly named Earthquake)</p>
-    <a href="https://github.com/osrg/namazu/"><strong>https://github.com/osrg/namazu/</strong></a>
-  </div> 
-</div> 
+	<div class="col-sm-9 doc-main">
+		<main role="main">
+			<article>
+				<a id="title"></a>
+				<h1 class="doc-entry-title">Release Namazu v0.2.1, with Namazu Swarm v0.0.1!</h1>
+				<div class="doc-entry-meta">
+					<span><time datetime="2016-09-05">September 05, 2016</time></span>
+				</div>
+				<section>
+					
 
-<div class="row">
-  <div class="col-sm-9 doc-main">
-    <main role="main">
-      
-      <div class="row doc-main">
-	
+<p>We are glad to annouce the release of <a href="https://github.com/osrg/namazu">Namazu</a> v0.2.1.</p>
 
-<h1 id="what-is-this">What is this?</h1>
+<p><img src="https://raw.githubusercontent.com/osrg/namazu/05e3fb5343e708990fd7132416678d339df59438/doc/img/namazu.png" alt="Overview" /></p>
 
-<p>In short, the goal of Namazu project is providing a foundation of debugger for distributed systems.</p>
+<p>Namazu v0.2.1 is a maintanance release of <a href="/namazu/post/release-0-2-0/">Namazu v0.2.0</a></p>
 
-<p>Developing and maintaining distributed systems is difficult.
-The difficulty comes from many factors,
-but we believe that one of the most important reasons is lacking of a good debugger for distributed systems specific bugs.</p>
+<p>You can download the Namazu v0.2.1 binary release from <a href="https://github.com/osrg/namazu/releases/tag/v0.2.1">github</a>.</p>
 
-<p><a href="/namazu/about/">Read more..</a>..</p>
+<p>Or you can also build Namazu manually:</p>
 
-<p><img src="/namazu/images/namazu.png" alt="Overview" /></p>
+<pre><code>$ sudo apt-get install libzmq3-dev libnetfilter-queue-dev
+$ go get github.com/osrg/namazu/nmz
+</code></pre>
 
-<h1 id="found-reproduced-bugs">Found/Reproduced Bugs</h1>
+<h2 id="changes-from-v0-2-0">Changes from v0.2.0</h2>
 
-<p>Please refer to <a href="https://github.com/osrg/namazu/blob/master/README.md">README file</a>.</p>
+<ul>
+<li>#167, #168, #169, #170: doc: miscellaneous improvements</li>
+<li>#166: vendor go packages</li>
+<li>#163: *: bump up Go to 1.7</li>
+<li>#162: container: add support for inspectors/fs</li>
+<li>#160: inspectors/fs: implement Fsync</li>
+<li>#158, #159: inspectors/fs: improved CLI (thank you @v01dstar !)</li>
+<li>#156: inspectors/proc: improved error handling</li>
+<li>#154, #155: inspectors/proc: improved CLI</li>
+</ul>
 
-<h1 id="how-to-use">How to use?</h1>
+<h2 id="namazu-swarm-v0-0-1">Namazu Swarm v0.0.1</h2>
 
-<p>Please refer to <a href="https://github.com/osrg/namazu/blob/master/README.md">README file</a>.</p>
+<p>We also released the first version of <a href="https://github.com/osrg/namazu-swarm">Namazu Swarm</a>, CI Job Parallelizer built on Docker and Kubernetes
+<a href="https://github.com/osrg/namazu-swarm">Namazu Swarm</a> is developed as a part of Namazu, but it does not depends on Namazu (although you can combine them together).</p>
 
-<p><a href="https://github.com/osrg/namazu/tree/master/example/zk-found-2212.ryu">This article</a> is also a good start point.</p>
+<p><img src="https://raw.githubusercontent.com/osrg/namazu-swarm/507f1ea51790ebc6d64740e8eb14e009d0353970/docs/img/nmzswarm.png" alt="Namazu Swarm" /></p>
 
-<p>The slides for recent talks might be also helpful:
-<a href="http://www.slideshare.net/AkihiroSuda/flaky-tests-and-bugs-in-apache-software-eg-hadoop">ApacheCon</a>, <a href="http://www.slideshare.net/mitakeh/namazu-a-debugger-for-distributed-systems-specific-bugs/1">CoreOS Fest</a>, and <a href="http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497/42">FOSDEM</a>.</p>
+<p>Namazu Swarm is hosted at <a href="https://github.com/osrg/namazu-swarm">osrg/namazu-swarm</a>.</p>
 
-<h1 id="contact">Contact</h1>
+				</section>
+			</article>
+		</main>
 
-<p>The project is managed on <a href="https://github.com/osrg/namazu">github</a>.
-<a href="https://github.com/osrg/namazu/pulls">Pull requests</a> and <a href="https://github.com/osrg/namazu/issues">issues</a> are welcome.
-We are using <a href="https://gitter.im/osrg/namazu">gitter</a> for discussion.
-Feel free to join.</p>
-
-<p><a href="https://gitter.im/osrg/namazu?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Join the chat at https://gitter.im/osrg/namazu" /></a></p>
-
-      </div>
-      
-    </main>
-  </div> 
-  
+		<div id="disqus_thread"></div>
+		<script type="text/javascript">
+		   
+		  var disqus_shortname = 'osrg-earthquake';
+		  
+		   
+		  (function() {
+		  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+		  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		  })();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+		
+	</div> 
+        
 <div class="col-sm-3 col-sm-offset-0 doc-sidebar">
   <div class="sidebar-module">
     <h4><a href="http://osrg.github.io/namazu//post">Recent Posts</a></h4>
@@ -163,7 +174,8 @@ Feel free to join.</p>
     </div>
   </div>  
 </div>
- 
+
+
 </div> 
 
 

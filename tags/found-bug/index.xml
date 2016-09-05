@@ -18,7 +18,7 @@
       <guid>http://osrg.github.io/namazu/post/zookeeper-2212/</guid>
       <description>
 
-&lt;h2 id=&#34;introduction:6404b3763f3a9572f2be258882d8c375&#34;&gt;Introduction&lt;/h2&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://zookeeper.apache.org/&#34;&gt;Apache Zookeeper&lt;/a&gt; is a highly available coordination service that is used by distributed systems such as &lt;a href=&#34;https://hadoop.apache.org/&#34;&gt;Hadoop(via YARN)&lt;/a&gt;, &lt;a href=&#34;http://spark.apache.org/&#34;&gt;Spark&lt;/a&gt;,  &lt;a href=&#34;http://mesos.apache.org/&#34;&gt;Mesos&lt;/a&gt;, &lt;a href=&#34;http://kafka.apache.org/&#34;&gt;Kafka&lt;/a&gt;, &lt;a href=&#34;http://hbase.apache.org/&#34;&gt;HBase&lt;/a&gt;, and many others.&lt;/p&gt;
 
@@ -26,7 +26,7 @@
 
 &lt;p&gt;We reported the bug to ZooKeeper community (&lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2212&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;), and the bug is fixed in &lt;a href=&#34;https://github.com/apache/zookeeper/commit/ec056d3c3a18b862d0cd83296b7d4319652b0b1c&#34;&gt;commit ec056d (Jun 15, 2015)&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;The Bug&lt;/h2&gt;
+&lt;h2 id=&#34;the-bug&#34;&gt;The Bug&lt;/h2&gt;
 
 &lt;p&gt;We found a race-condition situation where an &amp;ldquo;observer&amp;rdquo; server keeps being an observer and cannot become a &amp;ldquo;participant&amp;rdquo;. &lt;a href=&#34;http://zookeeper.apache.org/doc/trunk/zookeeperReconfig.html#sc_reconfig_general&#34;&gt;(Document)&lt;/a&gt;&lt;/p&gt;
 
@@ -34,9 +34,9 @@
 
 &lt;p&gt;Without Earthquake, we could not reproduce the bug in 5,000 experiments. (took about 60 hours)&lt;/p&gt;
 
-&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake:6404b3763f3a9572f2be258882d8c375&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
+&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
 
-&lt;h3 id=&#34;set-up-earthquake-v0-1-1:6404b3763f3a9572f2be258882d8c375&#34;&gt;Set up Earthquake (v0.1.1)&lt;/h3&gt;
+&lt;h3 id=&#34;set-up-earthquake-v0-1-1&#34;&gt;Set up Earthquake (v0.1.1)&lt;/h3&gt;
 
 &lt;p&gt;Please see &lt;a href=&#34;https://github.com/osrg/namazu/blob/v0.1.1/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt; for how to setup the environment.&lt;/p&gt;
 
@@ -83,7 +83,7 @@ ok
 +-------------------------------------------------------------+
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;run-experiments:6404b3763f3a9572f2be258882d8c375&#34;&gt;Run Experiments&lt;/h3&gt;
+&lt;h3 id=&#34;run-experiments&#34;&gt;Run Experiments&lt;/h3&gt;
 
 &lt;p&gt;After you have set up the environment, you can run experiments as follows.&lt;/p&gt;
 
@@ -123,7 +123,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 00000002 caused failure
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;experiment-0-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-0-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000000-not-reproduced-the-bug&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000&#34;&gt;Experiment #0&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
 
 &lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
@@ -143,7 +143,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 &lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000000/actions/25.event.json&#34;&gt;25&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;FollowerInfo&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-1-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-1-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000001-not-reproduced-the-bug&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001&#34;&gt;Experiment #1&lt;/a&gt;: &lt;em&gt;not&lt;/em&gt; reproduced the bug&lt;/h3&gt;
 
 &lt;p&gt;zk2 was already a participant when it received &lt;code&gt;UpToDate&lt;/code&gt;&lt;/p&gt;
 
@@ -161,7 +161,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 &lt;li&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000001/actions/37.event.json&#34;&gt;37&lt;/a&gt;: zk1&amp;lt;-zk3: &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-2-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-2-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000002-reproduced-the-bug-zk2-zk3&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000002&#34;&gt;Experiment #2&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk2, zk3)&lt;/h3&gt;
 
 &lt;p&gt;zk2 was not able to be promoted (please see above for the reason)&lt;/p&gt;
 
@@ -179,7 +179,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&#34;experiment-3-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3:6404b3763f3a9572f2be258882d8c375&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
+&lt;h3 id=&#34;experiment-3-https-github-com-osrg-namazu-tree-v0-1-1-example-zk-found-2212-ryu-example-result-20150805-00000003-reproduced-the-bug-zk3&#34;&gt;&lt;a href=&#34;https://github.com/osrg/namazu/tree/v0.1.1/example/zk-found-2212.ryu/example-result.20150805/00000003&#34;&gt;Experiment #3&lt;/a&gt;: &lt;em&gt;reproduced&lt;/em&gt; the bug (zk3)&lt;/h3&gt;
 
 &lt;p&gt;zk2 was successfully promoted to an observer to a participant, because it received &lt;code&gt;UpToDate&lt;/code&gt; before &lt;code&gt;Notification(config.version=100000000)&lt;/code&gt;&lt;/p&gt;
 
@@ -198,7 +198,7 @@ Fri Jul 24 19:46:15 JST 2015 ...orage/naive/naive.go(142): a number of collected
 &lt;li&gt;No &lt;code&gt;FollowerInfo&lt;/code&gt; (zk1&amp;lt;-zk3)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&#34;conclusion:6404b3763f3a9572f2be258882d8c375&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;We found a distributed race condition bug of ZooKeeper, and identified its cause using Earthquake.&lt;/p&gt;
 

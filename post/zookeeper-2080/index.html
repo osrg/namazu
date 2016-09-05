@@ -94,7 +94,7 @@
 				<section>
 					
 
-<h2 id="introduction:76efb5c48a34481fa50b4c096fa9081f">Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 
 <p><a href="https://zookeeper.apache.org/">Apache Zookeeper</a> is a highly available coordination service that is used by many distributed systems.
 (See also <a href="/namazu/post/zookeeper-2212/">our previous post about ZOOKEEPER-2212</a>)</p>
@@ -104,7 +104,7 @@ However, due to its high non-determinism, some test scenarios are still flaky, p
 
 <p>Using Earthquake, we successfully reproduced the bug <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2080">ZOOKEEPER-2080</a> and analyzed its cause.</p>
 
-<h2 id="the-bug:76efb5c48a34481fa50b4c096fa9081f">The Bug</h2>
+<h2 id="the-bug">The Bug</h2>
 
 <p><a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2080">ZOOKEEPER-2080</a> reports that the JUnit test <code>ReconfigRecoveryTest.testCurrentObserverIsParticipantInNewConfig</code> fails intermittently.</p>
 
@@ -115,14 +115,14 @@ However, due to its high non-determinism, some test scenarios are still flaky, p
 <p>Unfortunately, to fix the bug gracefully, drastic changes to <code>QuorumCnxManager</code> (suggested since 2010: <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-901">ZOOKEEPER-901</a>) might be needed.
 We continue to look on the progress of ZOOKEEPER-901 and several related tickets such as <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-900">ZOOKEEPER-900</a>, <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2164">2164</a> and <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2246">2246</a>.</p>
 
-<h2 id="how-to-reproduce-the-bug-with-earthquake:76efb5c48a34481fa50b4c096fa9081f">How to Reproduce the Bug with Earthquake</h2>
+<h2 id="how-to-reproduce-the-bug-with-earthquake">How to Reproduce the Bug with Earthquake</h2>
 
 <p>The bug can be easily reproduced by injecting several tens of millisecs sleeps to FLE (Fast Leader Election protocol) packets.
 We did not have to permute packets explicitly.</p>
 
 <p>NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as <a href="https://github.com/osrg/hookswitch/">osrg/hookswitch</a>. HookSwitch can also hook OpenFlow packets, as <a href="/namazu/post/zookeeper-2212/">we used in ZOOKEEPER-2212</a>.</p>
 
-<h3 id="set-up-earthquake-v0-1-2:76efb5c48a34481fa50b4c096fa9081f">Set up Earthquake (v0.1.2)</h3>
+<h3 id="set-up-earthquake-v0-1-2">Set up Earthquake (v0.1.2)</h3>
 
 <p>For more information about setting up Earthquake, please refer to <a href="https://github.com/osrg/namazu/blob/v0.1.2/doc/how-to-setup-env.md">doc/how-to-setup-env.md</a>.</p>
 
@@ -134,7 +134,7 @@ docker$ cd /earthquake/example/zk-repro-2080.nfqhook
 docker$ ../../bin/earthquake init --force config.toml materials /tmp-zk-2080 #BUG(Dockerfile): in some envs, you may be unable to write in /tmp.
 </code></pre>
 
-<h3 id="run-experiments:76efb5c48a34481fa50b4c096fa9081f">Run Experiments</h3>
+<h3 id="run-experiments">Run Experiments</h3>
 
 <p>First, confirm that ZooKeeper works fine with<em>out</em> Earthquake (by setting <code>EQ_DISABLE</code>).</p>
 
@@ -157,7 +157,7 @@ validation failed: exit status 1
 
 <p>If the bug could not be reproduced, you might have to modify the <code>sleep</code> parameter in <code>config.toml</code>. (about 30 msecs to 80 msecs)</p>
 
-<h3 id="analyze:76efb5c48a34481fa50b4c096fa9081f">Analyze</h3>
+<h3 id="analyze">Analyze</h3>
 
 <p>Unlike we experienced in <a href="/namazu/post/zookeeper-2212/">ZOOKEEPER-2212</a>, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.</p>
 
@@ -210,7 +210,7 @@ Although the suspicious set can contain some misleading information, it is enoug
 
 <p>To fix the bug gracefully, using non-blocking TCP sockets (suggested in <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-901">ZOOKEEPER-901</a>) might be needed.</p>
 
-<h2 id="conclusion:76efb5c48a34481fa50b4c096fa9081f">Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 <p>We reproduced the flaky JUnit test bug <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-2080">ZOOKEEPER-2080</a> and analyzed its cause using Earthquake.</p>
 
@@ -246,6 +246,8 @@ Although the suspicious set can contain some misleading information, it is enoug
     <h4><a href="http://osrg.github.io/namazu//post">Recent Posts</a></h4>
     <ul>
       
+      <li><a href="/namazu/post/release-0-2-1/">Release Namazu v0.2.1, with Namazu Swarm v0.0.1!(2016-09-05)</a></li>
+      
       <li><a href="/namazu/post/release-0-2-0/">Release Namazu v0.2.0(2016-05-20)</a></li>
       
       <li><a href="/namazu/post/coreosfest2016-and-apachecon2016/">CoreOS Fest &amp; ApacheCon: Thank you for attending our presentations!(2016-05-20)</a></li>
@@ -253,8 +255,6 @@ Although the suspicious set can contain some misleading information, it is enoug
       <li><a href="/namazu/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
       
       <li><a href="/namazu/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
-      
-      <li><a href="/namazu/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
       
     </ul>
   </div>

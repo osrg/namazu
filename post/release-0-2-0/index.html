@@ -98,7 +98,7 @@
 
 <p>We are glad to annouce the release of <a href="https://github.com/osrg/namazu">Namazu</a> v0.2.0.</p>
 
-<p><img src="/namazu/images/namazu.png" alt="Overview" /></p>
+<p><img src="https://raw.githubusercontent.com/osrg/namazu/05e3fb5343e708990fd7132416678d339df59438/doc/img/namazu.png" alt="Overview" /></p>
 
 <p>Namazu v0.2.0 includes many new features: Process inspector, Filesystem inspector, Container CLI, Semi-deterministic replaying API&hellip;</p>
 
@@ -113,9 +113,9 @@ Now, no configuration is needed to get started with Namazu.</p>
 $ go get github.com/osrg/namazu/nmz
 </code></pre>
 
-<h2 id="new-features:7da5e3e0fa4066d05403654157265844">New features</h2>
+<h2 id="new-features">New features</h2>
 
-<h3 id="process-inspector:7da5e3e0fa4066d05403654157265844">Process inspector</h3>
+<h3 id="process-inspector">Process inspector</h3>
 
 <p>The process inspector sets random scheduling priority to threads under a specific Linux process:</p>
 
@@ -130,7 +130,7 @@ $ go get github.com/osrg/namazu/nmz
 
 </p>
 
-<h3 id="filesystem-inspector:7da5e3e0fa4066d05403654157265844">Filesystem inspector</h3>
+<h3 id="filesystem-inspector">Filesystem inspector</h3>
 
 <p>The filesystem inspector provides randomized scheduling and fault injection for filesystem using FUSE:</p>
 
@@ -147,7 +147,7 @@ $ sudo fusermount -u /tmp/nmzfs
 
 
 
-<h3 id="container-cli:7da5e3e0fa4066d05403654157265844">Container CLI</h3>
+<h3 id="container-cli">Container CLI</h3>
 
 <p>We introduced <em>Namazu Container</em>, a new human-friendly, Docker-like CLI:</p>
 
@@ -165,7 +165,7 @@ nmzc$ for f in $(seq 1 1000);do mvn test; done
 <p>By default, only process inspector is enabled in <em>Namazu Container</em>.
 Please refer to <a href="https://github.com/osrg/namazu/blob/master/README.md">README file</a> for configuration.</p>
 
-<h3 id="semi-deterministic-replaying-api:7da5e3e0fa4066d05403654157265844">Semi-deterministic replaying API</h3>
+<h3 id="semi-deterministic-replaying-api">Semi-deterministic replaying API</h3>
 
 <p>Semi-deterministic replayer is an experimental feature:
 it determines a delay for an event using a seed value and the hash of the event, rather than just using a random value.</p>
@@ -177,7 +177,7 @@ it determines a delay for an event using a seed value and the hash of the event,
 
 
 
-<h3 id="miscellaneous-improvements:7da5e3e0fa4066d05403654157265844">Miscellaneous improvements</h3>
+<h3 id="miscellaneous-improvements">Miscellaneous improvements</h3>
 
 <ul>
 <li>Renamed Earthquake to Namazu, and introduced a logo image</li>
@@ -185,7 +185,7 @@ it determines a delay for an event using a seed value and the hash of the event,
 <li>Unit tests for Namazu itself</li>
 </ul>
 
-<h2 id="talks:7da5e3e0fa4066d05403654157265844">Talks</h2>
+<h2 id="talks">Talks</h2>
 
 <p>Recently, we made presentations at two events: <a href="http://sched.co/6Szb">CoreOS Fest</a> (May 10) and <a href="http://sched.co/6OJU">ApacheCon Core NA</a> (May 12).</p>
 
@@ -216,6 +216,8 @@ it determines a delay for an event using a seed value and the hash of the event,
     <h4><a href="http://osrg.github.io/namazu//post">Recent Posts</a></h4>
     <ul>
       
+      <li><a href="/namazu/post/release-0-2-1/">Release Namazu v0.2.1, with Namazu Swarm v0.0.1!(2016-09-05)</a></li>
+      
       <li><a href="/namazu/post/release-0-2-0/">Release Namazu v0.2.0(2016-05-20)</a></li>
       
       <li><a href="/namazu/post/coreosfest2016-and-apachecon2016/">CoreOS Fest &amp; ApacheCon: Thank you for attending our presentations!(2016-05-20)</a></li>
@@ -223,8 +225,6 @@ it determines a delay for an event using a seed value and the hash of the event,
       <li><a href="/namazu/post/fosdem2016/">FOSDEM: Thank you for attending our presentation!(2016-02-05)</a></li>
       
       <li><a href="/namazu/post/zookeeper-2080/">ZOOKEEPER-2080: flaky JUnit test(2015-10-02)</a></li>
-      
-      <li><a href="/namazu/post/zookeeper-2212/">ZOOKEEPER-2212: distributed race condition(2015-08-20)</a></li>
       
     </ul>
   </div>

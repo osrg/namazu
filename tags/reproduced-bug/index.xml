@@ -18,7 +18,7 @@
       <guid>http://osrg.github.io/namazu/post/zookeeper-2080/</guid>
       <description>
 
-&lt;h2 id=&#34;introduction:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Introduction&lt;/h2&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://zookeeper.apache.org/&#34;&gt;Apache Zookeeper&lt;/a&gt; is a highly available coordination service that is used by many distributed systems.
 (See also &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;our previous post about ZOOKEEPER-2212&lt;/a&gt;)&lt;/p&gt;
@@ -28,7 +28,7 @@ However, due to its high non-determinism, some test scenarios are still flaky, p
 
 &lt;p&gt;Using Earthquake, we successfully reproduced the bug &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; and analyzed its cause.&lt;/p&gt;
 
-&lt;h2 id=&#34;the-bug:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;The Bug&lt;/h2&gt;
+&lt;h2 id=&#34;the-bug&#34;&gt;The Bug&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; reports that the JUnit test &lt;code&gt;ReconfigRecoveryTest.testCurrentObserverIsParticipantInNewConfig&lt;/code&gt; fails intermittently.&lt;/p&gt;
 
@@ -39,14 +39,14 @@ However, due to its high non-determinism, some test scenarios are still flaky, p
 &lt;p&gt;Unfortunately, to fix the bug gracefully, drastic changes to &lt;code&gt;QuorumCnxManager&lt;/code&gt; (suggested since 2010: &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-901&#34;&gt;ZOOKEEPER-901&lt;/a&gt;) might be needed.
 We continue to look on the progress of ZOOKEEPER-901 and several related tickets such as &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-900&#34;&gt;ZOOKEEPER-900&lt;/a&gt;, &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2164&#34;&gt;2164&lt;/a&gt; and &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2246&#34;&gt;2246&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
+&lt;h2 id=&#34;how-to-reproduce-the-bug-with-earthquake&#34;&gt;How to Reproduce the Bug with Earthquake&lt;/h2&gt;
 
 &lt;p&gt;The bug can be easily reproduced by injecting several tens of millisecs sleeps to FLE (Fast Leader Election protocol) packets.
 We did not have to permute packets explicitly.&lt;/p&gt;
 
 &lt;p&gt;NOTE: In this test case, Earthquake uses Linux Netfilter queue (NFQ) to hook loopback traffic of the pseudo-distributed cluster. Our NFQ library is available as &lt;a href=&#34;https://github.com/osrg/hookswitch/&#34;&gt;osrg/hookswitch&lt;/a&gt;. HookSwitch can also hook OpenFlow packets, as &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;we used in ZOOKEEPER-2212&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h3 id=&#34;set-up-earthquake-v0-1-2:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Set up Earthquake (v0.1.2)&lt;/h3&gt;
+&lt;h3 id=&#34;set-up-earthquake-v0-1-2&#34;&gt;Set up Earthquake (v0.1.2)&lt;/h3&gt;
 
 &lt;p&gt;For more information about setting up Earthquake, please refer to &lt;a href=&#34;https://github.com/osrg/namazu/blob/v0.1.2/doc/how-to-setup-env.md&#34;&gt;doc/how-to-setup-env.md&lt;/a&gt;.&lt;/p&gt;
 
@@ -58,7 +58,7 @@ docker$ cd /earthquake/example/zk-repro-2080.nfqhook
 docker$ ../../bin/earthquake init --force config.toml materials /tmp-zk-2080 #BUG(Dockerfile): in some envs, you may be unable to write in /tmp.
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;run-experiments:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Run Experiments&lt;/h3&gt;
+&lt;h3 id=&#34;run-experiments&#34;&gt;Run Experiments&lt;/h3&gt;
 
 &lt;p&gt;First, confirm that ZooKeeper works fine with&lt;em&gt;out&lt;/em&gt; Earthquake (by setting &lt;code&gt;EQ_DISABLE&lt;/code&gt;).&lt;/p&gt;
 
@@ -81,7 +81,7 @@ validation failed: exit status 1
 
 &lt;p&gt;If the bug could not be reproduced, you might have to modify the &lt;code&gt;sleep&lt;/code&gt; parameter in &lt;code&gt;config.toml&lt;/code&gt;. (about 30 msecs to 80 msecs)&lt;/p&gt;
 
-&lt;h3 id=&#34;analyze:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Analyze&lt;/h3&gt;
+&lt;h3 id=&#34;analyze&#34;&gt;Analyze&lt;/h3&gt;
 
 &lt;p&gt;Unlike we experienced in &lt;a href=&#34;http://osrg.github.io/namazu/namazu/post/zookeeper-2212/&#34;&gt;ZOOKEEPER-2212&lt;/a&gt;, neither Earthquake event history nor ZooKeeper logs were effective for analyzing cause of the bug.&lt;/p&gt;
 
@@ -134,7 +134,7 @@ Although the suspicious set can contain some misleading information, it is enoug
 
 &lt;p&gt;To fix the bug gracefully, using non-blocking TCP sockets (suggested in &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-901&#34;&gt;ZOOKEEPER-901&lt;/a&gt;) might be needed.&lt;/p&gt;
 
-&lt;h2 id=&#34;conclusion:76efb5c48a34481fa50b4c096fa9081f&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
 
 &lt;p&gt;We reproduced the flaky JUnit test bug &lt;a href=&#34;https://issues.apache.org/jira/browse/ZOOKEEPER-2080&#34;&gt;ZOOKEEPER-2080&lt;/a&gt; and analyzed its cause using Earthquake.&lt;/p&gt;
 
