@@ -38,9 +38,13 @@ Issue|Reproducibility<br>(traditional)|Reproducibility<br>(Namazu)|Note
 Issue|Reproducibility<br>(traditional)|Reproducibility<br>(Namazu)|Note
 ---|---|---|---
 :repeat: [YARN-4548](https://issues.apache.org/jira/browse/YARN-4548)|11%|82%|Used Namazu process inspector.
-:repeat: [YARN-4556](https://issues.apache.org/jira/browse/YARN-4548)|2%|44%|Used Namazu process inspector.
 :repeat: [ZOOKEEPER-2080](https://issues.apache.org/jira/browse/ZOOKEEPER-2080)|14%|62%|Used Namazu Ethernet inspector. [Blog article](http://osrg.github.io/namazu/post/zookeeper-2080/) and [repro code](example/zk-repro-2080.nfqhook) are available.
+:repeat: [YARN-4556](https://issues.apache.org/jira/browse/YARN-4548)|2%|44%|Used Namazu process inspector.
+:repeat: [YARN-5043](https://issues.apache.org/jira/browse/YARN-5043)|12%|30%|Used Namazu process inspector.
 :repeat: [ZOOKEEPER-2137](https://issues.apache.org/jira/browse/ZOOKEEPER-2137)|2%|16%|Used Namazu process inspector.
+:repeat: [YARN-4168](https://issues.apache.org/jira/browse/YARN-4168)|1%|8%|Used Namazu process inspector.
+:repeat: [YARN-1978](https://issues.apache.org/jira/browse/YARN-1978)|0%|4%|Used Namazu process inspector.
+:repeat: etcd [#5022](https://github.com/coreos/etcd/issues/5022)|0%|3%|Used Namazu process inspector.
 
 We also improved reproducibility of some flaky etcd tests (to be documented).
 
