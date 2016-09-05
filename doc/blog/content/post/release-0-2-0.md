@@ -9,7 +9,7 @@ Note: we recently renamed _Earthquake_ to _Namazu_.
 
 We are glad to annouce the release of [Namazu](https://github.com/osrg/namazu) v0.2.0.
 
-![Overview](/namazu/images/namazu.png)
+![Overview](/namazu/images/namazu-v0.2.png)
 
 Namazu v0.2.0 includes many new features: Process inspector, Filesystem inspector, Container CLI, Semi-deterministic replaying API...
 
