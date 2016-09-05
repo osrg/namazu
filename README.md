@@ -321,3 +321,39 @@ We also implemented a similar thing for Go: [go-replay](https://github.com/Akihi
 ### Known Limitation
 After running Namazu (process inspector with `exploreParam.procPolicyParam="dirichlet"`) many times, `sched_setattr(2)` can fail with `EBUSY`.
 This seems to be a bug of kernel; We're looking into this.
+
+### FAQs
+
+#### Q. The example test always fails (or always succeeds). What does it mean?
+
+A. Probably it is due to a misconfiguration. Please check the logs.
+
+e.g. [example/zk-found-2212.nfqhook](example/zk-found-2212.nfqhook):
+
+    $ nmz init --force config.toml materials /tmp/zk-2212
+    $ nmz run /tmp/zk-2212
+    Validation failed: ...
+    $ ls -l /tmp/zk-2212/00000000/
+    total 296
+    drwxr-xr-x 2 root      root   4096 Sep  5 05:30 actions/
+    -rw-r--r-- 1 root      root   1098 Sep  5 05:30 check-fle-states.log
+    -rw-r--r-- 1 root      root      2 Sep  5 05:30 check-fle-states.result
+    srwxr-xr-x 1 root      root      0 Sep  5 05:29 ether_inspector=
+    -rw-r--r-- 1 root      root  33369 Sep  5 05:30 history
+    -rw-r--r-- 1 root      root  97856 Sep  5 05:30 inspector.log
+    -rw-r--r-- 1 root      root      6 Sep  5 05:29 inspector.pid
+    -rw-r--r-- 1 root      root 126836 Sep  5 05:30 nfqhook.log
+    -rw-r--r-- 1 root      root      6 Sep  5 05:29 nfqhook.pid
+    -rw-r--r-- 1 root      root   1302 Sep  5 05:30 nmz.log
+    -rw-r--r-- 1 root      root     71 Sep  5 05:30 result.json
+    drwxr-xr-x 3 nfqhooked root   4096 Sep  5 05:30 zk1/
+    drwxr-xr-x 3 nfqhooked root   4096 Sep  5 05:30 zk2/
+    drwxr-xr-x 3 nfqhooked root   4096 Sep  5 05:30 zk3/
+
+If an error is recorded in `inspector.log` or `nfqhook.log`, probably the ZooKeeper packet inspector (written in python, [misc/pynmz](misc/pynmz)) is not working due to some dependency issue. Please install required packages accordingly.
+
+You may also need to adjust some parameter in `/tmp/zk-2212/config.toml`, such as `explorePolicyParam.maxInterval` and `explorePolicyParam.minInterval` for higher reproducibility.
+
+
+---------------------------------------
+If you have any questions, please do not hesitate to contact us via [GitHub issues](https://github.com/osrg/namazu/issues) or via [Gitter](https://gitter.im/osrg/namazu).
