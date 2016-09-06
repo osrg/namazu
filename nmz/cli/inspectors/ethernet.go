@@ -77,7 +77,7 @@ func (cmd etherCmd) Run(args []string) int {
 		return 1
 	}
 
-	autopilot, err := conditionalStartAutopilotOrchestrator(_fsFlags.commonFlags)
+	autopilot, err := conditionalStartAutopilotOrchestrator(_etherFlags.commonFlags)
 	if err != nil {
 		log.Critical(err)
 		return 1
