@@ -70,6 +70,9 @@ func (this *ProcInspector) Serve(endCh <-chan struct{}) error {
 				log.Warn(err)
 				continue
 			}
+			if len(procs) == 0 {
+				continue
+			}
 			if err = this.onWatch(procs); err != nil {
 				log.Error(err)
 			}
