@@ -16,6 +16,7 @@
 package random
 
 import (
+	"fmt"
 	"github.com/AkihiroSuda/go-linuxsched"
 	log "github.com/cihub/seelog"
 	"github.com/leesper/go_rng"
@@ -38,6 +39,9 @@ func (d *dirichlet) Action(event *signal.ProcSetEvent) (signal.Action, error) {
 	procs, err := parseProcSetEvent(event)
 	if err != nil {
 		return nil, err
+	}
+	if len(procs) == 0 {
+		return nil, fmt.Errorf("event %v has no process", event)
 	}
 	attrs := d.dirichletSchedDeadline(procs, time.Millisecond, 1.0)
 	for pidStr, attr := range attrs {
