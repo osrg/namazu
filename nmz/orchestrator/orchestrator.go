@@ -32,12 +32,15 @@ import (
 	. "github.com/osrg/namazu/nmz/signal"
 	. "github.com/osrg/namazu/nmz/util/config"
 	. "github.com/osrg/namazu/nmz/util/trace"
+
+	"github.com/osrg/namazu/nmz/explorepolicy/dumb"
 )
 
 type Orchestrator struct {
 	// arguments
 	cfg          Config
 	policy       ExplorePolicy
+	dumbPolicy   ExplorePolicy // dumb policy is always required for enabling/disabling orchestration
 	collectTrace bool
 	// action sequence (can be so large)
 	actionSequence []Action
@@ -45,17 +48,21 @@ type Orchestrator struct {
 	endpointEventCh  chan Event
 	endpointActionCh chan Action
 	policyActionCh   chan Action
+	controlCh            chan Control
 	// orchestrator control channels
 	stopEventRCh     chan struct{}
 	stoppedEventRCh  chan struct{}
 	stopActionRCh    chan struct{}
 	stoppedActionRCh chan struct{}
+
+	enabled bool
 }
 
 func NewOrchestrator(cfg Config, policy ExplorePolicy, collectTrace bool) *Orchestrator {
 	orc := Orchestrator{
 		cfg:            cfg,
 		policy:         policy,
+		dumbPolicy:     dumb.New(),
 		collectTrace:   collectTrace,
 		actionSequence: make([]Action, 0),
 		// endpoint makes this
@@ -67,14 +74,22 @@ func NewOrchestrator(cfg Config, policy ExplorePolicy, collectTrace bool) *Orche
 		stoppedEventRCh:  make(chan struct{}),
 		stopActionRCh:    make(chan struct{}),
 		stoppedActionRCh: make(chan struct{}),
+
+		enabled: true,
 	}
 	return &orc
 }
 
 func (orc *Orchestrator) handleEvent(event Event) {
-	log.Debugf("Orchestrator handling event %s", event)
-	orc.policy.QueueEvent(event)
-	log.Debugf("Orchestrator handled event %s", event)
+	if orc.enabled {
+		log.Debugf("Orchestrator handling event %s", event)
+		orc.policy.QueueEvent(event)
+		log.Debugf("Orchestrator handled event %s", event)
+	} else {
+		log.Debugf("Orchestrator is disabled for now, ignoring %s", event)
+		orc.dumbPolicy.QueueEvent(event)
+		log.Debugf("ignored event %s", event)
+	}
 }
 
 func (orc *Orchestrator) handleAction(action Action) {
@@ -105,10 +120,11 @@ func (orc *Orchestrator) handleAction(action Action) {
 }
 
 func (orc *Orchestrator) Start() {
-	orc.endpointEventCh = endpoint.StartAll(orc.endpointActionCh, orc.cfg)
+	orc.endpointEventCh, orc.controlCh = endpoint.StartAll(orc.endpointActionCh, orc.cfg)
 	orc.policyActionCh = orc.policy.ActionChan()
 	go orc.eventRoutine()
 	go orc.actionRoutine()
+	go orc.controlRoutine()
 }
 
 func (orc *Orchestrator) eventRoutine() {
@@ -149,6 +165,28 @@ func (orc *Orchestrator) actionRoutine() {
 			}
 		case <-orc.stopActionRCh:
 			return
+		}
+	}
+}
+
+func (orc *Orchestrator) controlRoutine() {
+	for {
+		select {
+		case control := <-orc.controlCh:
+			switch control.Op {
+			case ControlEnableOrchestrator:
+				if orc.enabled {
+					log.Warnf("orchestrator is already enabled")
+				}
+				orc.enabled = true
+			case ControlDisableOrchestrator:
+				if !orc.enabled {
+					log.Warnf("orchestrator is already disabled")
+				}
+				orc.enabled = false
+			default:
+				log.Errorf("unkonown opcode of control: %d", control.Op)
+			}
 		}
 	}
 }

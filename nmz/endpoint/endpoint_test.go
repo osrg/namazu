@@ -52,7 +52,7 @@ func TestMain(m *testing.M) {
 		panic(err)
 	}
 	actionCh := make(chan signal.Action)
-	eventCh := StartAll(actionCh, cfg)
+	eventCh, _ := StartAll(actionCh, cfg)
 	mockOrc := mockorchestrator.NewMockOrchestrator(eventCh, actionCh)
 	mockOrc.Start()
 	defer mockOrc.Shutdown()

@@ -60,7 +60,7 @@ var (
 
 // Starts all the endpoint handlers for multiplexed action channel actionCh.
 // It returns an multiplexed event channel
-func StartAll(actionCh chan signal.Action, cfg config.Config) chan signal.Event {
+func StartAll(actionCh chan signal.Action, cfg config.Config) (chan signal.Event, chan signal.Control) {
 	muxActionCh = actionCh
 	localEventCh = local.SingletonLocalEndpoint.Start(localActionCh)
 
@@ -74,12 +74,14 @@ func StartAll(actionCh chan signal.Action, cfg config.Config) chan signal.Event 
 	stoppedRESTEventRCh = make(chan struct{})
 	stoppedPBEventRCh = make(chan struct{})
 
+	var controlCh chan signal.Control
+
 	if cfg.IsSet("restPort") {
 		restPort := cfg.GetInt("restPort")
 		if restPort >= 0 {
 			// zero is also legal (auto-assign)
 			log.Infof("REST port: %d", restPort)
-			restEventCh = rest.SingletonRESTEndpoint.Start(restPort, restActionCh)
+			restEventCh, controlCh = rest.SingletonRESTEndpoint.Start(restPort, restActionCh)
 		} else {
 			log.Warnf("ignoring restPort: %d", restPort)
 		}
@@ -100,7 +102,7 @@ func StartAll(actionCh chan signal.Action, cfg config.Config) chan signal.Event 
 	go localEventRoutine()
 	go restEventRoutine()
 	go pbEventRoutine()
-	return muxEventCh
+	return muxEventCh, controlCh
 }
 
 func registerEntityEndpointType(entityID string, typ endpointType) {
