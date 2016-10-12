@@ -94,7 +94,7 @@ func (cmd etherCmd) Run(args []string) int {
 			EnableTCPWatcher:  true,
 		}
 	} else {
-		log.Infof("Using NFQ %s", _etherFlags.HookSwitchZMQAddr)
+		log.Infof("Using NFQ %d", _etherFlags.NFQNumber)
 		etherInspector = &inspector.NFQInspector{
 			OrchestratorURL:  _etherFlags.OrchestratorURL,
 			EntityID:         _etherFlags.EntityID,
