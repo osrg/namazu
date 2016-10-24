@@ -60,6 +60,15 @@ type Action interface {
 	Event() Event
 }
 
+const (
+	ControlEnableOrchestrator = iota
+	ControlDisableOrchestrator
+)
+
+type Control struct {
+	Op int
+}
+
 type OrchestratorSideAction interface {
 	// if true, the action will not be propagated to inspectors.
 	//

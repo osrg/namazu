@@ -144,6 +144,21 @@ func actionsOnDelete(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+const (
+	opDisableOrchestration = "disableOrchestration"
+	opEnableOrchestration  = "enableOrchestration"
+)
+
+func controlEnableOrchestration(w http.ResponseWriter, r *http.Request) {
+	log.Infof("enabling orchestration")
+	orchestratorControlCh <- Control{Op: ControlEnableOrchestrator}
+}
+
+func controlDisableOrchestration(w http.ResponseWriter, r *http.Request) {
+	log.Infof("disabling orchestration")
+	orchestratorControlCh <- Control{Op: ControlDisableOrchestrator}
+}
+
 func actionPropagatorRoutine() {
 	for {
 		action := <-orchestratorActionCh
@@ -168,6 +183,9 @@ var (
 	orchestratorActionCh chan Action
 	// set by Start(). Useful if config port is zero.
 	ActualPort int
+
+	// used for controlling orchestrator behavior e.g. temporarily disable orchestrator
+	orchestratorControlCh = make(chan Control)
 )
 
 func newRouter() http.Handler {
@@ -176,11 +194,15 @@ func newRouter() http.Handler {
 	router.HandleFunc(path.Join(restutil.APIRoot, "/events/{entity_id}/{event_uuid}"), eventsOnPost).Methods("POST")
 	router.HandleFunc(path.Join(restutil.APIRoot, "/actions/{entity_id}"), actionsOnGet).Methods("GET")
 	router.HandleFunc(path.Join(restutil.APIRoot, "/actions/{entity_id}/{action_uuid}"), actionsOnDelete).Methods("DELETE")
+
+	router.HandleFunc(path.Join(restutil.APIRoot, "/control"), controlEnableOrchestration).Queries("op", "enableOrchestration").Methods("POST")
+	router.HandleFunc(path.Join(restutil.APIRoot, "/control"), controlDisableOrchestration).Queries("op", "disableOrchestration").Methods("POST")
+
 	return router
 }
 
 // NOTE: no shutdown at the moment due to the net/http implementation issue
-func (ep *RESTEndpoint) Start(port int, actionCh chan Action) chan Event {
+func (ep *RESTEndpoint) Start(port int, actionCh chan Action) (chan Event, chan Control) {
 	orchestratorActionCh = actionCh
 	router := newRouter()
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
@@ -198,7 +220,7 @@ func (ep *RESTEndpoint) Start(port int, actionCh chan Action) chan Event {
 		}
 	}()
 	go actionPropagatorRoutine()
-	return orchestratorEventCh
+	return orchestratorEventCh, orchestratorControlCh
 }
 
 var SingletonRESTEndpoint = RESTEndpoint{}
