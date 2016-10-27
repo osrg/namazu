@@ -151,12 +151,12 @@ const (
 
 func controlEnableOrchestration(w http.ResponseWriter, r *http.Request) {
 	log.Infof("enabling orchestration")
-	orchestratorControlCh <- Control{Op: ControlEnableOrchestrator}
+	orchestratorControlCh <- Control{Op: ControlEnableOrchestration}
 }
 
 func controlDisableOrchestration(w http.ResponseWriter, r *http.Request) {
 	log.Infof("disabling orchestration")
-	orchestratorControlCh <- Control{Op: ControlDisableOrchestrator}
+	orchestratorControlCh <- Control{Op: ControlDisableOrchestration}
 }
 
 func actionPropagatorRoutine() {
