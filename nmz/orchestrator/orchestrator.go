@@ -45,10 +45,11 @@ type Orchestrator struct {
 	// action sequence (can be so large)
 	actionSequence []Action
 	// communication channels
-	endpointEventCh  chan Event
-	endpointActionCh chan Action
-	policyActionCh   chan Action
-	controlCh        chan Control
+	endpointEventCh    chan Event
+	endpointActionCh   chan Action
+	policyActionCh     chan Action
+	dumbPolicyActionCh chan Action
+	controlCh          chan Control
 	// orchestrator control channels
 	stopEventRCh     chan struct{}
 	stoppedEventRCh  chan struct{}
@@ -122,6 +123,7 @@ func (orc *Orchestrator) handleAction(action Action) {
 func (orc *Orchestrator) Start() {
 	orc.endpointEventCh, orc.controlCh = endpoint.StartAll(orc.endpointActionCh, orc.cfg)
 	orc.policyActionCh = orc.policy.ActionChan()
+	orc.dumbPolicyActionCh = orc.dumbPolicy.ActionChan()
 	go orc.eventRoutine()
 	go orc.actionRoutine()
 	go orc.controlRoutine()
@@ -162,6 +164,12 @@ func (orc *Orchestrator) actionRoutine() {
 				orc.handleAction(action)
 			} else {
 				orc.policyActionCh = nil
+			}
+		case action, ok := <-orc.dumbPolicyActionCh:
+			if ok {
+				orc.handleAction(action)
+			} else {
+				orc.dumbPolicyActionCh = nil
 			}
 		case <-orc.stopActionRCh:
 			return
