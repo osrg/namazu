@@ -124,6 +124,7 @@ func (orc *Orchestrator) Start() {
 	orc.endpointEventCh, orc.controlCh = endpoint.StartAll(orc.endpointActionCh, orc.cfg)
 	orc.policyActionCh = orc.policy.ActionChan()
 	orc.dumbPolicyActionCh = orc.dumbPolicy.ActionChan()
+	orc.enabled = !orc.cfg.GetBool("skipInitOrchestrator")
 	go orc.eventRoutine()
 	go orc.actionRoutine()
 	go orc.controlRoutine()
