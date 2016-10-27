@@ -94,6 +94,10 @@ func New() Config {
 		"ethernetNFQNumber":       42,
 		"procWatchInterval":       time.Second,
 	})
+
+	// if skipInitOrchestrator is true, orchestrator is disabled at its initialization time
+	cfg.SetDefault("skipInitOrchestrator", false)
+
 	return cfg
 }
 
