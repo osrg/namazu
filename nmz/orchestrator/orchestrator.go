@@ -48,7 +48,7 @@ type Orchestrator struct {
 	endpointEventCh  chan Event
 	endpointActionCh chan Action
 	policyActionCh   chan Action
-	controlCh            chan Control
+	controlCh        chan Control
 	// orchestrator control channels
 	stopEventRCh     chan struct{}
 	stoppedEventRCh  chan struct{}
@@ -174,16 +174,18 @@ func (orc *Orchestrator) controlRoutine() {
 		select {
 		case control := <-orc.controlCh:
 			switch control.Op {
-			case ControlEnableOrchestrator:
+			case ControlEnableOrchestration:
 				if orc.enabled {
 					log.Warnf("orchestrator is already enabled")
 				}
 				orc.enabled = true
-			case ControlDisableOrchestrator:
+				log.Infof("enabled orchestration")
+			case ControlDisableOrchestration:
 				if !orc.enabled {
 					log.Warnf("orchestrator is already disabled")
 				}
 				orc.enabled = false
+				log.Infof("disabled orchestration")
 			default:
 				log.Errorf("unkonown opcode of control: %d", control.Op)
 			}

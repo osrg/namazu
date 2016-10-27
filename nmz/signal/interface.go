@@ -61,8 +61,8 @@ type Action interface {
 }
 
 const (
-	ControlEnableOrchestrator = iota
-	ControlDisableOrchestrator
+	ControlEnableOrchestration = iota
+	ControlDisableOrchestration
 )
 
 type Control struct {
