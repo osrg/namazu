@@ -16,7 +16,7 @@ but we believe that one of the most important reasons is lacking of a good debug
 
 [Read more..]({{< relref "about.md" >}})..
 
-![Overview](/namazu/images/namazu.png)
+![Overview](/namazu/images/namazu-v0.2.png)
 
 # Found/Reproduced Bugs
 Please refer to [README file](https://github.com/osrg/namazu/blob/master/README.md).
