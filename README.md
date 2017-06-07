@@ -71,6 +71,10 @@ Issue|Note
  * [FOSDEM](https://fosdem.org/2016/schedule/event/nondeterminism_in_hadoop/) (January 30-31, 2016, Brussels) [[slide](http://www.slideshare.net/AkihiroSuda/tackling-nondeterminism-in-hadoop-testing-and-debugging-distributed-systems-with-earthquake-57866497)]
  * The poster session of [ACM Symposium on Cloud Computing (SoCC)](http://acmsocc.github.io/2015/) (August 27-29, 2015, Hawaii) [[poster](http://acmsocc.github.io/2015/posters/socc15posters-final18.pdf)]
 
+### Talks about [Namazu Swarm](https://github.com/osrg/namazu-swarm)
+
+ * [Open Source Summit Japan](http://sched.co/AOmo) (May 31-June 2, 2017, Tokyo) [[slide](http://events.linuxfoundation.jp/sites/events/files/slides/Parallelizing%20CI%20Using%20Docker%20Swarm-mode.pdf)]
+
 ## Getting Started
 ### Installation
 The installation process is very simple:
