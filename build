@@ -16,8 +16,8 @@ export PATH=$GOBIN:$PATH
 INFO "Installing protoc to $GOBIN"
 go get github.com/golang/protobuf/proto
 go get github.com/golang/protobuf/protoc-gen-go
-INFO "Generating PB files"
-protoc --go_out=nmz/util/pb -Imisc/inspector misc/inspector/inspector_message.proto
+INFO "Generating PB files (FIXME: skipped...)"
+# protoc --go_out=nmz/util/pb -Imisc/inspector misc/inspector/inspector_message.proto
 
 ########## Go ##########
 INFO "Building nmz"

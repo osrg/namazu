@@ -19,6 +19,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <errno.h>
 #include <math.h>
 #include <unistd.h>
 #include <netinet/in.h>
@@ -27,41 +29,51 @@
 #include <linux/netfilter.h>
 #include <libnetfilter_queue/libnetfilter_queue.h>
 
-extern uint go_callback(int id, unsigned char* data, int len, u_int32_t idx);
+typedef struct {
+    uint verdict;
+    uint length;
+    unsigned char *data;
+} verdictContainer;
+
+extern void go_callback(int id, unsigned char* data, int len, u_int32_t idx, verdictContainer *vc);
 
 static int nf_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg, struct nfq_data *nfa, void *cb_func){
     uint32_t id = -1;
     struct nfqnl_msg_packet_hdr *ph = NULL;
     unsigned char *buffer = NULL;
     int ret = 0;
-    int verdict = 0;
     u_int32_t idx;
+    verdictContainer vc;
 
     ph = nfq_get_msg_packet_hdr(nfa);
     id = ntohl(ph->packet_id);
 
     ret = nfq_get_payload(nfa, &buffer);
     idx = (uint32_t)((uintptr_t)cb_func);
-    verdict = go_callback(id, buffer, ret, idx);
 
-    return nfq_set_verdict(qh, id, verdict, 0, NULL);
+    go_callback(id, buffer, ret, idx, &vc);
+
+    return nfq_set_verdict(qh, id, vc.verdict, vc.length, vc.data);
 }
 
 static inline struct nfq_q_handle* CreateQueue(struct nfq_handle *h, u_int16_t queue, u_int32_t idx)
 {
-  return nfq_create_queue(h, queue, &nf_callback, (void*)((uintptr_t)idx));
+    return nfq_create_queue(h, queue, &nf_callback, (void*)((uintptr_t)idx));
 }
 
-static inline void Run(struct nfq_handle *h, int fd)
+static inline int Run(struct nfq_handle *h, int fd)
 {
     char buf[4096] __attribute__ ((aligned));
     int rv;
 
+    int opt = 1;
+    setsockopt(fd, SOL_NETLINK, NETLINK_NO_ENOBUFS, &opt, sizeof(int));
+
     while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
         nfq_handle_packet(h, buf, rv);
     }
+
+    return errno;
 }
 
 #endif
-
-

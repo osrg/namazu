@@ -48,7 +48,7 @@ NOTE: If git master version is corrupted, you can use [osrg/earthquake-zookeeper
 
 ### Run Experiments
     
-    $ sudo ../../bin/nmz run /tmp/zk-2212
+    $ sudo PYTHONPATH=$(pwd)/../../misc ../../bin/nmz run /tmp/zk-2212
     [INFO] Checking PYTHONPATH(=/home/suda/WORK/namazu/example/zk-found-2212.ryu/../../misc)
     [INFO] Starting Namazu Ethernet Switch
     [INFO] Switch PID: 28893

@@ -1,9 +1,36 @@
 ## Dockerfile for Namazu
 ## Available at Docker Hub: osrg/namazu
-FROM osrg/dind-ovs-ryu
+
+FROM billyteves/ubuntu-dind:16.04 AS dind-ovs-ryu
+MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
+
+# Install OVS
+RUN apt-get update && apt-get install -y openvswitch-switch
+
+# Install Python packages
+RUN bash -c 'apt-get install -y python-{colorama,dev,eventlet,lxml,msgpack,netaddr,networkx,oslo.config,paramiko,pip,routes,six,webob}'
+
+# Install Ryu
+RUN pip install ryu
+
+# Install pipework
+RUN apt-get install -y arping
+RUN wget --no-check-certificate --quiet https://raw.githubusercontent.com/jpetazzo/pipework/master/pipework -O /usr/local/bin/pipework
+RUN chmod +x /usr/local/bin/pipework
+
+# Install misc useful stuffs
+RUN apt-get install -y less lv netcat telnet bash-completion vim byobu
+
+# Install init
+ADD ./misc/dind-ovs-ryu/init.dind-ovs-ryu.sh /init.dind-ovs-ryu.sh
+RUN chmod +x /init.dind-ovs-ryu.sh
+CMD ["wrapdocker", "/init.dind-ovs-ryu.sh"]
+
+FROM dind-ovs-ryu
 MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
     ## Install Namazu deps
     protobuf-compiler pkg-config libzmq3-dev libnetfilter-queue-dev \
     ## (Optional) Install Java inspector deps
@@ -20,12 +47,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libnetfilter-queue1 python-prctl
 
 ## Install Go
-RUN curl https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz | tar Cxz /usr/local && mkdir /gopath
+RUN curl https://storage.googleapis.com/golang/go1.10.linux-amd64.tar.gz | tar Cxz /usr/local && mkdir /gopath
 ENV PATH /usr/local/go/bin:$PATH
 ENV GOPATH /gopath
 
 ## (Optional) Install pynmz deps
-RUN pip install hexdump
+RUN pip install hexdump requests
 
 ## (Optional) Install hookswitch
 RUN pip install hookswitch==0.0.2
