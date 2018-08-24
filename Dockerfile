@@ -52,7 +52,7 @@ ENV PATH /usr/local/go/bin:$PATH
 ENV GOPATH /gopath
 
 ## (Optional) Install pynmz deps
-RUN pip install hexdump
+RUN pip install hexdump requests
 
 ## (Optional) Install hookswitch
 RUN pip install hookswitch==0.0.2
