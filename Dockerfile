@@ -30,6 +30,7 @@ FROM dind-ovs-ryu
 MAINTAINER Akihiro Suda <suda.akihiro@lab.ntt.co.jp>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
     ## Install Namazu deps
     protobuf-compiler pkg-config libzmq3-dev libnetfilter-queue-dev \
     ## (Optional) Install Java inspector deps
