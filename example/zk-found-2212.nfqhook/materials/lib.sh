@@ -2,7 +2,9 @@
 
 ## CONFIG
 # NMZ_DISABLE=1 # set to disable namazu
-ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-98a3cabfa279833b81908d72f1c10ee9f598a045} #(Tue Jun 2 19:17:09 2015 +0000)
+## ZooKeeper maintainers seems switched git repo and the previous 98a3c is now available as 02d15 on the master
+# ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-98a3cabfa279833b81908d72f1c10ee9f598a045} #(Tue Jun 2 19:17:09 2015 +0000)
+ZK_GIT_COMMIT=${ZK_GIT_COMMIT:-02d1505e4df8c8669b89b74be37aa3a1025422ab} #(Tue Jun 2 19:17:09 2015 +0000)
 ZK_START_WAIT_SECS=${ZK_START_WAIT_SECS:-10}
 PAUSE_ON_FAILURE=${PAUSE_ON_FAILURE:-0}
 NFQ_USER=${NFQ_USER:-nfqhooked}
